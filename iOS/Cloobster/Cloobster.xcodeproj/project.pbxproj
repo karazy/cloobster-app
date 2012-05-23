@@ -44,6 +44,10 @@
 		B6140060156CDC33009C93CD /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B614005D156CDC33009C93CD /* zxing-all-in-one.cpp */; };
 		B6140062156CDC9A009C93CD /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = B6140061156CDC9A009C93CD /* 57.png */; };
 		B6140064156CDCA1009C93CD /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = B6140063156CDCA1009C93CD /* 114.png */; };
+		B6140066156CE1D0009C93CD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6140065156CE1D0009C93CD /* Default@2x.png */; };
+		B6140068156CE1DB009C93CD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B6140067156CE1DB009C93CD /* Default.png */; };
+		B614006A156CE1F4009C93CD /* 72.png in Resources */ = {isa = PBXBuildFile; fileRef = B6140069156CE1F4009C93CD /* 72.png */; };
+		B614006C156CE1F8009C93CD /* 144.png in Resources */ = {isa = PBXBuildFile; fileRef = B614006B156CE1F8009C93CD /* 144.png */; };
 		B614FFFD156CDA08009C93CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B614FFFC156CDA08009C93CD /* Foundation.framework */; };
 		B614FFFF156CDA08009C93CD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B614FFFE156CDA08009C93CD /* UIKit.framework */; };
 /* End PBXBuildFile section */
@@ -92,6 +96,10 @@
 		B614005E156CDC33009C93CD /* zxing-all-in-one.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "zxing-all-in-one.h"; path = "Plugins/zxing-all-in-one.h"; sourceTree = "<group>"; };
 		B6140061156CDC9A009C93CD /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
 		B6140063156CDCA1009C93CD /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114.png; sourceTree = "<group>"; };
+		B6140065156CE1D0009C93CD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		B6140067156CE1DB009C93CD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		B6140069156CE1F4009C93CD /* 72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72.png; sourceTree = "<group>"; };
+		B614006B156CE1F8009C93CD /* 144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 144.png; sourceTree = "<group>"; };
 		B614FFF8156CDA08009C93CD /* Cloobster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloobster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B614FFFC156CDA08009C93CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B614FFFE156CDA08009C93CD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -248,6 +256,10 @@
 		B614FFEA156CDA08009C93CD = {
 			isa = PBXGroup;
 			children = (
+				B614006B156CE1F8009C93CD /* 144.png */,
+				B6140069156CE1F4009C93CD /* 72.png */,
+				B6140067156CE1DB009C93CD /* Default.png */,
+				B6140065156CE1D0009C93CD /* Default@2x.png */,
 				B6140063156CDCA1009C93CD /* 114.png */,
 				B6140061156CDC9A009C93CD /* 57.png */,
 				B614005A156CDB4F009C93CD /* AssetsLibrary.framework */,
@@ -361,6 +373,10 @@
 				B6140055156CDA6C009C93CD /* www in Resources */,
 				B6140062156CDC9A009C93CD /* 57.png in Resources */,
 				B6140064156CDCA1009C93CD /* 114.png in Resources */,
+				B6140066156CE1D0009C93CD /* Default@2x.png in Resources */,
+				B6140068156CE1DB009C93CD /* Default.png in Resources */,
+				B614006A156CE1F4009C93CD /* 72.png in Resources */,
+				B614006C156CE1F8009C93CD /* 144.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
