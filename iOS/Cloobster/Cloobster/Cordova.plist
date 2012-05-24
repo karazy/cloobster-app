@@ -19,13 +19,10 @@
 	<key>AllowInlineMediaPlayback</key>
 	<false/>
 	<key>OpenAllWhitelistURLsInWebView</key>
-	<false/>
+	<true/>
 	<key>ExternalHosts</key>
 	<array>
-		<string>karazy-cloobster.appspot.com</string>
-		<string>eatsense-test.appspot.com</string>
-		<string>localhost:8888</string>
-		<string>karazy-eatsense.appspot.com</string>
+		<string>*</string>
 	</array>
 	<key>Plugins</key>
 	<dict>
