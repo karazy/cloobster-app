@@ -5,7 +5,7 @@
 
 	<target name="copySenchaApp" depends="">
 		<echo message="Delete old files" />
-		<delete dir="eatSense/www"></delete>
+		<delete dir="Cloobster/www"></delete>
 		<echo message="Copy App" />
 		<copy todir="Cloobster/www" overwrite="true">
 			<fileset dir="${appDir}">
@@ -25,7 +25,7 @@
 		</move>
 	</target>
 
-	<target name="replaceConfigTest" depends="renameFiles">
+	<target name="replaceConfigLocal" depends="renameFiles">
 		<echo message="Setting config values" />
 		<replaceregexp file="${config}" match="(serviceUrl :) .*" replace="\1 'http://192.168.1.103:8888'," byline="true">
 		</replaceregexp>
@@ -36,6 +36,14 @@
 	<target name="replaceConfigProduction" depends="renameFiles">
 		<echo message="Setting config values" />
 		<replaceregexp file="${config}" match="(serviceUrl :) .*" replace="\1 'https://karazy-cloobster.appspot.com'," byline="true">
+		</replaceregexp>
+		<replaceregexp file="${config}" match="(disableCaching :) .*" replace="\1 true," byline="true">
+		</replaceregexp>
+	</target>
+
+	<target name="replaceConfigTest" depends="renameFiles">
+		<echo message="Setting config values" />
+		<replaceregexp file="${config}" match="(serviceUrl :) .*" replace="\1 'http://eatsense-test.appspot.com'," byline="true">
 		</replaceregexp>
 		<replaceregexp file="${config}" match="(disableCaching :) .*" replace="\1 true," byline="true">
 		</replaceregexp>
