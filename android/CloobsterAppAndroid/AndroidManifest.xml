@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.karazy.cloobster"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0" android:installLocation="auto">
 
     <supports-screens
         android:anyDensity="true"
@@ -32,7 +32,7 @@
     <uses-sdk android:minSdkVersion="8" />
 
     <application
-        android:icon="@drawable/icon96"
+        android:icon="@drawable/icon"
         android:label="@string/eatsense_app_name" >
         <activity
             android:name=".CloobsterApp"

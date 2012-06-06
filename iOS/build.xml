@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CloobsterAppiOS" default="replaceConfigTest" basedir=".">
-	<property name="appDir" value="../../eatsense_code/EatSenseRestWS/src/main/app/prod/ios" />
+	<property name="appDir" value="../../cloobster_app/app/prod/ios" />
 	<property name="config" value="Cloobster/www/lib/karazy-config.js" />
 
 	<target name="copySenchaApp" depends="">

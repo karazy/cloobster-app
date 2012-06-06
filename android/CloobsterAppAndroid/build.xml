@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="EatSenseAndroidApp" default="replaceConfigLocal" basedir=".">
-	<property name="appDir" value="../../../eatsense/EatSenseRestWS/src/main/app/prod/android" />
+<project name="CloobsterAndroidApp" default="replaceConfigLocal" basedir=".">
+	<property name="appDir" value="../../../cloobster_app/app/prod/android" />
 	<property name="config" value="assets/www/lib/karazy-config.js" />
 	
 	<target name="copySenchaApp" depends="">
