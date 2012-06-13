@@ -46,6 +46,8 @@ Karazy.translations = (function() {
 		"saveNicknameToggle" : "Spitzname speichern?",
 		"checkInCanceled" : "Sitzung wurde durch das Restaurant beendet.",
 		"nickname" : "Spitzname",
+		"restoreStateLoading" : "Aktiver CheckIn wird geladen ...",
+		"restoreStateFailed" : "CheckIn nicht mehr gültig.<br/>Bitte neu einchecken.",
 		// Menu
 		"menuTab" : "Auswählen",
 		"menuTitle" : "Heidi & Paul - Fresh Food",

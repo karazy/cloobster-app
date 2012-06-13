@@ -68,7 +68,7 @@ Ext.define('EatSense.controller.Request',{
 				me.getApplication().handleServerError({
 					'error': operation.error,
 					'forceLogout': {403: true}
-				});					
+				});
 			}
 		});
 

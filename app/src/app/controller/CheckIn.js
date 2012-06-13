@@ -493,7 +493,25 @@ Ext.define('EatSense.controller.CheckIn', {
 		});	
     //restore existing requests
     requestCtr.loadRequests();					
-	},	
+	},
+  /**
+  * Show a loading mask on the dashboard or remove it.
+  * @param messageKey
+  *   MessageKey used to get messager for loading message.
+  *   If this is not a string (e. g. boolean false), loading mask gets removed.
+  */
+  toggleDashboardMask: function(messageKey) {
+    var dashboard = this.getDashboard();
+
+    if(typeof messageKey == "string") {
+      dashboard.setMasked({
+        xtype: 'loadmask',
+        message: Karazy.i18n.translate(messageKey)
+      });
+    } else {
+      dashboard.setMasked(false);
+    }
+  },
 	/**
 	 * This method handle status changes. It checks if valid transsions are made.
 	 * E. g. You cannot switch from PAYMENT_REQUEST to ORDER_PLACED.
