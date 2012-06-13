@@ -17,10 +17,12 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 			minValue: 0,
 			maxValue: 5,
 			flex: 5,
-			cls: 'feedback-slider'
+			cls: 'feedback-slider',
+			value: 2
 		},
 		sliderValue: {
-			flex: 1
+			flex: 1,
+			html: ':-|'
 		},
 		dataMap: {
 			getQuestion: {
@@ -73,10 +75,21 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		console.log('updateSlider');
 		if(newItem) {			
 			newItem.on('change', function(me, slider, thumb, newVal, oldVal) {
-					var val = me.getValue()[0];
+					var val = me.getValue()[0],
+						html;
 					console.log('FeedbackQuestion.updateSlider -> setting new rating to ' + me.getValue());
 					this.getRecord().set('rating', val);
-					this.getSliderValue().setHtml('<h2>'+val+'</h2>');	
+					if(val == 0) {
+						html = 'X';
+					} else if(val > 0 && val < 3) {
+						html = ':-(';
+					} else if(val == 3) { 
+						html = ':-|';
+					} else {
+						html = ":-)";
+					}
+
+					this.getSliderValue().setHtml('<h2>'+html+'</h2>');	
 				},
 			this);
 
