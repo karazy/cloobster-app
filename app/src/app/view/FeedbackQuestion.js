@@ -8,14 +8,16 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 
 		/** An Ext.Label displaying question text. */
 		question: {
-			flex: 4
+			flex: 4,
+			cls: 'general-label'
 		},
 		/** An Ext.field.Slider used to rate.*/
 		slider: {
 			// increment: 1,
 			minValue: 0,
 			maxValue: 5,
-			flex: 5
+			flex: 5,
+			cls: 'feedback-slider'
 		},
 		sliderValue: {
 			flex: 1

@@ -113,6 +113,7 @@ Karazy.translations = (function() {
 		"vipGreetingMessage" : "Willkommen <span style='font-weight:bold;'>{0}</span> in deinem persönlichen VIP Bereich!",
 		//Feedback
 		"feedback" : "Feedback",
+		"feedbackLabel" : "Sag uns deine Meinung.",
 		"feedbackQuestion" : "Wie hat es dir gefallen?",
 		"feedbackComment" : "Kommentar",
 		"feedbackEmail" : "E-Mail",

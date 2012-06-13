@@ -8,7 +8,9 @@ Ext.define('EatSense.view.Feedback', {
 	config: {
 		title: Karazy.i18n.translate('feedback'),
 		layout: {
-			type: 'vbox'
+			type: 'vbox',
+			align: 'center',
+			pack: 'center'
 		},
 		scrollable: 'vertical',
 		cls: 'request-panel',
@@ -23,24 +25,33 @@ Ext.define('EatSense.view.Feedback', {
 			xtype: 'dataview',
 			itemId: 'questions',
 			useComponents: true,
-			flex: 4,
+			// flex: 4,
 			defaultType: 'feedbackquestion',
 			scrollable: false,
+			width: '95%'
 		},
 		{
 			xtype: 'textareafield',
 			itemId : 'comment',
-			label: Karazy.i18n.translate('feedbackComment'),
-			labelAlign: 'top',
-			flex: 2,
+			cls: 'general-textfield',
+			// label: Karazy.i18n.translate('feedbackComment'),
+			// labelCls: 'general-field-label-vertical',
+			// labelAlign: 'top',
+			margin: '7 0 5 0',
+			width: '95%',
+			// flex: 2,
 			placeHolder: Karazy.i18n.translate('feedbackComment')
 		},
 		{
 			xtype: 'emailfield',
 			itemId: 'email',
-			label: Karazy.i18n.translate('feedbackEmail'),
-			labelAlign: 'top',
-			flex: 1,
+			cls: 'general-textfield',
+			// label: Karazy.i18n.translate('feedbackEmail'),
+			// labelCls: 'general-field-label-vertical',
+			// labelAlign: 'top',
+			margin: '7 0 5 0',
+			width: '95%',
+			// flex: 1,
 			placeHolder: Karazy.i18n.translate('feedbackEmail')
 		},
 		{

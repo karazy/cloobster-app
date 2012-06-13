@@ -7388,6 +7388,11 @@ input[type="search"]::-webkit-search-cancel-button {
   border-bottom-left-radius: 0.3em;
 }
 
+.general-field-label-vertical {
+  border-top-left-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+}
+
 h8 {
   position: absolute;
   left: 5px;
@@ -7466,6 +7471,14 @@ h9 {
 
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
+}
+
+/*
+* Feedback
+*/
+
+.feedback-slider {
+  background: #917D64;
 }
 
 /*

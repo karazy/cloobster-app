@@ -44,14 +44,21 @@ Ext.define('EatSense.view.RequestsTab', {
 							text: Karazy.i18n.translate('callWaiterButton'),
 							action: 'waiter',
 							ui: 'action',
-							margin: '10 0 0 0'
+							margin: '10 0 20 0',
+							width: '80%'
+						},
+						{
+							xtype: 'label',
+							cls: 'general-label',
+							html: Karazy.i18n.translate('feedbackLabel')
 						},
 						{
 							xtype: 'button',
 							text: Karazy.i18n.translate('feedback'),
 							action: 'feedback',
 							ui: 'action',
-							margin: '10 0 0 0'
+							margin: '10 0 0 0',
+							width: '80%'
 						}
 					]
 				}
