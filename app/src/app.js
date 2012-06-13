@@ -8,10 +8,10 @@ Ext.Loader.setPath('EatSense', 'app');
 
 Ext.application({
 	name : 'EatSense',
-	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 'Android' ],
-	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Bill', 'PaymentMethod', 'Request', 'Newsletter'],
-	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter'], 
-	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request'],
+	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 'Android', 'Feedback' ],
+	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Bill', 'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback'],
+	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'Feedback'], 
+	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [
@@ -27,7 +27,8 @@ Ext.application({
 		'EatSense.override.OperationImprovement',
 		'EatSense.override.RadioOverride',
     'EatSense.override.CustomSpinner',
-		'EatSense.model.AppState'
+		'EatSense.model.AppState',
+    'EatSense.override.CustomJsonWriter'
 	],
 	launch : function() {
 		console.log('App -> launch');		

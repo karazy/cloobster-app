@@ -111,6 +111,13 @@ Karazy.translations = (function() {
 		"callWaiterCallHint" : "Gibt es ein Anliegen?",
 		"callWaiterCancelHint" :	"Wir wurden gerufen und <br/>kommen so schnell wie möglich!",
 		"vipGreetingMessage" : "Willkommen <span style='font-weight:bold;'>{0}</span> in deinem persönlichen VIP Bereich!",
+		//Feedback
+		"feedback" : "Feedback",
+		"feedbackQuestion" : "Wie hat es dir gefallen?",
+		"feedbackComment" : "Kommentar",
+		"feedbackEmail" : "E-Mail",
+		"feedbackCompleteTitle" : "Feedback abgeschickt",
+		"feedbackCompleteMessage" : "Vielen Dank für Deine Meinung!",
 		//general errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		
