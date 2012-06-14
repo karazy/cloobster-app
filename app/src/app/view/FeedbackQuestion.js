@@ -9,20 +9,22 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		/** An Ext.Label displaying question text. */
 		question: {
 			flex: 4,
-			cls: 'general-label'
+			cls: 'feedback-label'
 		},
 		/** An Ext.field.Slider used to rate.*/
 		slider: {
 			// increment: 1,
 			minValue: 0,
-			maxValue: 5,
+			maxValue: 4,
 			flex: 5,
 			cls: 'feedback-slider',
-			value: 2
+			value: 3
 		},
 		sliderValue: {
 			flex: 1,
-			html: ':-|'
+			height: 50,
+			width: 50,
+			src: 'res/images/feedback/smilie_happy.png'
 		},
 		dataMap: {
 			getQuestion: {
@@ -31,8 +33,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 	 	},
 	 	layout: {
 			type: 'hbox',
-			// pack: 'end',
-			// align: 'center'
+			align: 'center'
 		}
 	},
 
@@ -53,7 +54,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 	},
 
 	applySliderValue: function(config) {
-		return Ext.factory(config, Ext.Label, this.getSliderValue());
+		return Ext.factory(config, Ext.Img, this.getSliderValue());
 	},
 
 	updateSliderValue: function(newItem, oldItem) {
@@ -76,20 +77,11 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		if(newItem) {			
 			newItem.on('change', function(me, slider, thumb, newVal, oldVal) {
 					var val = me.getValue()[0],
-						html;
+						smilies = ['smilie_xsad.png', 'smilie_sad.png', 'smilie_neutral.png', 'smilie_happy.png', 'smilie_xhappy.png'];
 					console.log('FeedbackQuestion.updateSlider -> setting new rating to ' + me.getValue());
 					this.getRecord().set('rating', val);
-					if(val == 0) {
-						html = 'X';
-					} else if(val > 0 && val < 3) {
-						html = ':-(';
-					} else if(val == 3) { 
-						html = ':-|';
-					} else {
-						html = ":-)";
-					}
 
-					this.getSliderValue().setHtml('<h2>'+html+'</h2>');	
+					this.getSliderValue().setSrc('res/images/feedback/'+smilies[val]);					
 				},
 			this);
 
