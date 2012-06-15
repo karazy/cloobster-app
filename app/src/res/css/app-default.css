@@ -7372,6 +7372,11 @@ input[type="search"]::-webkit-search-cancel-button {
   background: #917D64;
 }
 
+.feedback-panel {
+  padding: 0.3em 0em;
+  background: #917D64; 
+}
+
 /*
 * Settings tab.
 */
