@@ -7,7 +7,10 @@ Ext.define('EatSense.controller.Feedback', {
 	requires: ['EatSense.model.Feedback'],
 	config: {
 		refs: {
+			//feedback button in request tab
 			showFeedbackButton: 'requeststab button[action=feedback]',
+			//feedback button in myorders tab
+			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
 			requestNavview: 'requeststab navigationview',
 			feedback: {
 				xtype: 'feedback',
@@ -33,16 +36,41 @@ Ext.define('EatSense.controller.Feedback', {
 	},
 
 	/**
-	* Display feedback form.
+	* Display feedback form from request tab.
 	* @param button
 	*	Button which fired tap event
 	*/
 	showFeedbackForm: function(button) {
 		var me = this,
 			feedback = this.getFeedback(),
-			questionsList = this.getQuestionsList(),
-			feedbackStore = Ext.StoreManager.lookup('feedbackStore'),
 			requestNavview = this.getRequestNavview();
+
+		this.loadFeedbackTemplate();
+
+		//show feedback form
+		requestNavview.push(feedback);
+	},
+
+	/**
+	* Display feedback form from myorders tab.
+	* @param button
+	*	Button which fired tap event
+	*/
+	showFeedbackLeaveForm: function(button) {
+		var me = this,
+			feedback = this.getFeedback(),
+			requestNavview = this.getRequestNavview();
+
+		this.loadFeedbackTemplate();
+
+		//show feedback form
+		requestNavview.push(feedback);
+	},
+
+	loadFeedbackTemplate: function() {
+		var me = this,
+			questionsList = this.getQuestionsList(),
+			feedbackStore = Ext.StoreManager.lookup('feedbackStore');
 
 		//Feedback does not exist, create it and load feedback form template
 		if(!this.getActiveFeedback()) {
@@ -77,9 +105,6 @@ Ext.define('EatSense.controller.Feedback', {
 			questionsList.setStore(me.getActiveFeedback().answers());
 			// questionsList.setStore(me.getFeedbackTemplate().questions());
 		}
-
-		//show feedback form
-		requestNavview.push(feedback);
 	},
 	/**
 	* Reads feedback from feedback form and sends it to server.
