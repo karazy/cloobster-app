@@ -7179,6 +7179,7 @@ input[type="search"]::-webkit-search-cancel-button {
   text-align: center;
   font-size: 1.5em;
   color: #FFFFFF;
+  background: #917D64; 
 }
 
 /* line 191, app-default.scss */
@@ -7363,6 +7364,12 @@ input[type="search"]::-webkit-search-cancel-button {
 .feedback-label {
   color: white; 
   font-size: 1em;
+  word-break: break-word;
+}
+
+
+.feedback-slider {
+  background: #917D64;
 }
 
 /*
@@ -7400,6 +7407,10 @@ input[type="search"]::-webkit-search-cancel-button {
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
+}
+
+.general-panel {
+  background: #917D64;  
 }
 
 h8 {
@@ -7482,13 +7493,6 @@ h9 {
   border-radius: 0.3em 0.3em 0 0;
 }
 
-/*
-* Feedback
-*/
-
-.feedback-slider {
-  background: #917D64;
-}
 
 /*
 * Overrides! Most of them should later be solved via mixins or custom classes.

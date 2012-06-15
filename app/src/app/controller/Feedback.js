@@ -12,6 +12,7 @@ Ext.define('EatSense.controller.Feedback', {
 			//feedback button in myorders tab
 			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
 			requestNavview: 'requeststab navigationview',
+			myordersNavview: 'myorderstab navigationview',
 			feedback: {
 				xtype: 'feedback',
 				selector: 'feedback',
@@ -26,13 +27,18 @@ Ext.define('EatSense.controller.Feedback', {
 			},
 			submitFeedBackButton: {
 				tap: 'submitFeedback'
+			},
+			showFeedbackLeaveButton: {
+				tap: 'showFeedbackLeaveForm'
 			}
 		},
 
 		/** Feedback object for this checkIn. */
 		activeFeedback: null,
 		/** The feedback form. */
-		feedbackTemplate: null
+		feedbackTemplate: null,
+
+		activeNavview: null
 	},
 
 	/**
@@ -49,6 +55,7 @@ Ext.define('EatSense.controller.Feedback', {
 
 		//show feedback form
 		requestNavview.push(feedback);
+		this.setActiveNavview(requestNavview);
 	},
 
 	/**
@@ -59,12 +66,13 @@ Ext.define('EatSense.controller.Feedback', {
 	showFeedbackLeaveForm: function(button) {
 		var me = this,
 			feedback = this.getFeedback(),
-			requestNavview = this.getRequestNavview();
+			myordersNavview = this.getMyordersNavview();
 
 		this.loadFeedbackTemplate();
 
 		//show feedback form
-		requestNavview.push(feedback);
+		myordersNavview.push(feedback);
+		this.setActiveNavview(myordersNavview);
 	},
 
 	loadFeedbackTemplate: function() {
@@ -87,7 +95,7 @@ Ext.define('EatSense.controller.Feedback', {
 
 						//copy all questions and add them to answers of active feedback
 						me.getFeedbackTemplate().questions().each(function(question) {
-							me.getActiveFeedback().answers().add(question.copy());
+							me.getActiveFeedback().answers().add(question.copy(question.get('id')));
 						});
 			    		//because only one active form exists, we can directly access it
 			    		// questionsList.setStore(me.getFeedbackTemplate().questions());			    	
@@ -133,22 +141,6 @@ Ext.define('EatSense.controller.Feedback', {
 			//Sencha Work arounds, prevents following fields from beeing send!
 			delete answer.data.feedback_id;
 			delete answer.data.feedbackform_id;
-
-			// currentAnswer = activeFeedback.answers().getById(answer.get('id'));
-			// //answer exist, just update it
-			// if(currentAnswer) {
-			// 	currentAnswer.set('rating', answer.get('rating'));
-			// 	//Sencha Work arounds
-			// 	delete currentAnswer.data.feedback_id;
-			// 	delete currentAnswer.data.feedbackform_id;
-			// } else {
-			// 	//assign new answer
-			// 	currentAnswer = answer;
-			// 	activeFeedback.answers().add(currentAnswer);
-			// 	//Sencha Work arounds
-			// 	delete currentAnswer.data.feedback_id;
-			// 	delete currentAnswer.data.feedbackform_id;
-			// }
 		});
 
 
@@ -166,8 +158,12 @@ Ext.define('EatSense.controller.Feedback', {
 			}
 		});
 
-		//3. back to VIP view
-		requestNavview.pop();
+		//3. back to previous view
+		this.getActiveNavview().pop();
+		this.setActiveNavview(null);
+
+		//hide the feedback button after payment request when feedback has been submitted
+		this.getShowFeedbackLeaveButton().setHidden(true);
 
 		Ext.Msg.show({
 			title : Karazy.i18n.translate('feedbackCompleteTitle'),
@@ -208,6 +204,8 @@ Ext.define('EatSense.controller.Feedback', {
 	clearFeedback: function() {
 		//override with new empty feedback object
 		this.setActiveFeedback(null);
+
+		this.getShowFeedbackLeaveButton().setHidden(false);
 	},
 	/**
 	* Save feedback Id for checkIn restore.
