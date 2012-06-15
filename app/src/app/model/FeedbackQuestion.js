@@ -13,7 +13,8 @@ Ext.define('EatSense.model.FeedbackQuestion', {
 				name: 'question'
 			},
 			{
-				name: 'rating'
+				name: 'rating',
+				type: 'number'
 			},
 			{	//ignore auto generated field from sencha
 				name: 'feedback_id',

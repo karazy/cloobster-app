@@ -34,7 +34,10 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 	 	layout: {
 			type: 'hbox',
 			align: 'center'
-		}
+		},
+
+		//holds filenames for the smilie graphics used for rating
+		smilies: ['smilie_xsad.png', 'smilie_sad.png', 'smilie_neutral.png', 'smilie_happy.png', 'smilie_xhappy.png']
 	},
 
 	applyQuestion: function(config) {
@@ -59,7 +62,9 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 
 	updateSliderValue: function(newItem, oldItem) {
 		if(newItem) {
-			this.add(newItem);
+			//set smilie based on rating
+			newItem.setSrc('res/images/feedback/'+this.getSmilies()[this.getRecord().get('rating')]);
+			this.add(newItem);			
 		}
 
 		if(oldItem) {
@@ -74,14 +79,19 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 
 	updateSlider: function(newItem, oldItem) {
 		console.log('updateSlider');
-		if(newItem) {			
+		if(newItem) {
+			// var smilies = ['smilie_xsad.png', 'smilie_sad.png', 'smilie_neutral.png', 'smilie_happy.png', 'smilie_xhappy.png'];
+
+			//set value of slider to value of record and corresponding smilie
+			newItem.setValue(this.getRecord().get('rating'));				
+
 			newItem.on('change', function(me, slider, thumb, newVal, oldVal) {
-					var val = me.getValue()[0],
-						smilies = ['smilie_xsad.png', 'smilie_sad.png', 'smilie_neutral.png', 'smilie_happy.png', 'smilie_xhappy.png'];
+					var val = me.getValue()[0];
+
 					console.log('FeedbackQuestion.updateSlider -> setting new rating to ' + me.getValue());
 					this.getRecord().set('rating', val);
 
-					this.getSliderValue().setSrc('res/images/feedback/'+smilies[val]);					
+					this.getSliderValue().setSrc('res/images/feedback/'+this.getSmilies()[val]);					
 				},
 			this);
 

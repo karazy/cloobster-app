@@ -115,8 +115,8 @@ Karazy.translations = (function() {
 		"feedback" : "Feedback",
 		"feedbackLabel" : "Sag uns deine Meinung.",
 		"feedbackQuestion" : "Wie hat es dir gefallen?",
-		"feedbackComment" : "Kommentar",
-		"feedbackEmail" : "E-Mail",
+		"feedbackComment" : "Kommentar (optional)",
+		"feedbackEmail" : "E-Mail (optional)",
 		"feedbackCompleteTitle" : "Feedback abgeschickt",
 		"feedbackCompleteMessage" : "Vielen Dank für Deine Meinung!",
 		//general errors

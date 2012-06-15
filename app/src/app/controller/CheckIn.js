@@ -436,7 +436,8 @@ Ext.define('EatSense.controller.CheckIn', {
         main = this.getMain(),
 		    orderCtr = this.getApplication().getController('Order'),
         messageCtr = this.getApplication().getController('Message'),
-        requestCtr = this.getApplication().getController('Request');
+        requestCtr = this.getApplication().getController('Request'),
+        feedbackCtr = this.getApplication().getController('Feedback');
 
         this.setActiveCheckIn(checkIn);
         //reload of application before hitting leave button
@@ -492,7 +493,12 @@ Ext.define('EatSense.controller.CheckIn', {
   	    }
 		});	
     //restore existing requests
-    requestCtr.loadRequests();					
+    requestCtr.loadRequests();	
+    //restore existing feedback
+    if(this.getAppState().get('feedbackId')) {
+      feedbackCtr.loadFeedback(this.getAppState().get('feedbackId'));
+    }
+    
 	},
   /**
   * Show a loading mask on the dashboard or remove it.
@@ -527,7 +533,8 @@ Ext.define('EatSense.controller.CheckIn', {
                 settingsCtr = this.getApplication().getController('Settings'),
                 androidCtr = this.getApplication().getController('Android'),
                 requestCtr = this.getApplication().getController('Request'),
-                menuStore = Ext.StoreManager.lookup('menuStore');
+                menuStore = Ext.StoreManager.lookup('menuStore'),
+                feedbackCtr = this.getApplication().getController('Feedback');
 		//TODO check status transitions, refactor     
 				
 		if(status == Karazy.constants.PAYMENT_REQUEST) {
@@ -545,11 +552,16 @@ Ext.define('EatSense.controller.CheckIn', {
             this.getRequestsTab().enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());
             menuCtr.backToMenu();
-		    	//remove menu to prevent problems on reload
+		      	//remove menu to prevent problems on reload
             menuStore.removeAll();
             orderCtr.refreshCartBadgeText(true);
             orderCtr.refreshMyOrdersBadgeText(true);
+            //clear checkInId
             this.getAppState().set('checkInId', null);
+            //clear feedbackId
+            this.getAppState().set('feedbackId', null);
+            feedbackCtr.clearFeedback();
+            
             this.resetDefaultAjaxHeaders();
             Karazy.channel.closeChannel();
 
