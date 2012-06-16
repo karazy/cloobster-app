@@ -29,6 +29,9 @@ Karazy.translations = (function() {
 		"currentDealsButton" : "Deals",
 		"newRestaurantsButton" : "Neue Restaurants",
 		"settingsButton" : "Einstellungen",
+		//Dashboard
+		"dashboardLabel1" : "<span style='font-weight: bold;'>präsentiert</span><br/>\"nie mehr Schlange stehen...\"",
+		"dashboardLabel2" : "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
 		// Checkin
 		"checkInTitle" : "Check-In",
 		"barcodePromptTitle" : "Barcode Abfrage",
@@ -50,7 +53,7 @@ Karazy.translations = (function() {
 		"restoreStateFailed" : "CheckIn nicht mehr gültig.<br/>Bitte neu einchecken.",
 		// Menu
 		"menuTab" : "Auswählen",
-		"menuTitle" : "Heidi & Paul - Fresh Food",
+		"menuTitle" : "Deine Karte",
 		"choicesPanelTitle" : "Du hast die Wahl ...",
 		"putIntoCartButton" : "Auf den Bestellzettel",
 		"choiceValErrMandatory" : "Bitte triff eine Wahl für {0}",
