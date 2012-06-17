@@ -19,6 +19,8 @@ Ext.define('EatSense.controller.Feedback', {
 				autoCreate: true
 			},
 			questionsList: 'feedback dataview',
+			emailField: 'feedback emailfield',
+			commentField: 'feedback textareafield',
 			submitFeedBackButton: 'feedback button[action=submit]'
 		},
 		control: {
@@ -30,6 +32,12 @@ Ext.define('EatSense.controller.Feedback', {
 			},
 			showFeedbackLeaveButton: {
 				tap: 'showFeedbackLeaveForm'
+			},
+			emailField: {
+				change: 'saveEmail'
+			},
+			commentField: {
+				change: 'saveComment'
 			}
 		},
 
@@ -109,10 +117,28 @@ Ext.define('EatSense.controller.Feedback', {
 	                }
 			    }
 			});
-		}	else {	//feedback exists, simply set the store
+		}	else {	
+			//feedback exists, simply set the store
 			questionsList.setStore(me.getActiveFeedback().answers());
-			// questionsList.setStore(me.getFeedbackTemplate().questions());
+			this.getEmailField().setValue(this.getActiveFeedback().get('email'));
+			this.getCommentField().setValue(this.getActiveFeedback().get('comment'));
 		}
+	},
+	/**
+	* Change handler vor email field. Saves the value in feedback object.
+	*/
+	saveEmail: function(field, newVal, oldVal) {
+		var activeFeedback = this.getActiveFeedback();
+
+		activeFeedback.set('email', field.getValue());
+	},
+	/**
+	* Change handler vor email field. Saves the value in feedback object.
+	*/
+	saveComment: function(field, newVal, oldVal) {
+		var activeFeedback = this.getActiveFeedback();
+
+		activeFeedback.set('comment', field.getValue());
 	},
 	/**
 	* Reads feedback from feedback form and sends it to server.
