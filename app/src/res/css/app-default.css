@@ -7529,9 +7529,17 @@ h9 {
   -webkit-box-shadow: none;
 }
 
+/** Override slider thickness for feedback form. */
 .x-container.x-slider:after {
   height: 0.4em;
   top: 0.9em;
+}
+
+/** Override slider thumb thickness for feedback form. */
+.x-thumb:before {
+  height: 1.4em;
+  width: 1.4em;
+  top: 0.4em;
 }
 
 /*
