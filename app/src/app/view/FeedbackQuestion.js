@@ -9,7 +9,8 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		/** An Ext.Label displaying question text. */
 		question: {
 			flex: 4,
-			cls: 'feedback-label'
+			cls: 'feedback-label',
+			margin: '-10 0 0 0'
 		},
 		/** An Ext.field.Slider used to rate.*/
 		slider: {
@@ -22,8 +23,8 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		},
 		sliderValue: {
 			flex: 1,
-			height: 50,
-			width: 50,
+			height: 35,
+			width: 35,
 			src: 'res/images/feedback/smilie_happy.png'
 		},
 		dataMap: {

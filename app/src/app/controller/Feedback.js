@@ -155,14 +155,26 @@ Ext.define('EatSense.controller.Feedback', {
 			questions = this.getQuestionsList(),
 			emailField = feedback.down('#email'),
 			commentField = feedback.down('#comment'),
-			currentAnswer;
+			currentAnswer,
+			errors;
 
 		console.log('submitting feedback');
 		//1. set comment and email
 		activeFeedback.set('comment', commentField.getValue());
 		activeFeedback.set('email', emailField.getValue());
-		//1.1 Get the answers
 
+		if(activeFeedback.get('email') != null && activeFeedback.get('email') != "") {
+			//if email provided check if valid
+			errors = activeFeedback.validate();
+			//we don't need to check a specific field because only email has a validation
+			if(!errors.isValid()) {
+	            Ext.Msg.alert(Karazy.i18n.translate('error'), Karazy.i18n.translate('newsletterInvalidEmail'));
+	            return;
+	        }
+		}
+
+
+		//1.1 Get the answers
 		questions.getStore().each(function(answer) {
 			//Sencha Work arounds, prevents following fields from beeing send!
 			delete answer.data.feedback_id;

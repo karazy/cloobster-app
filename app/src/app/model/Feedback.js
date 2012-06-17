@@ -22,6 +22,10 @@ Ext.define('EatSense.model.Feedback', {
 			name: 'formId'
 		}
 		],
+		validations: [
+		{
+			type: 'email', field: 'email'
+		}],
 		associations: [{
             type: 'hasMany',
             model: 'EatSense.model.FeedbackQuestion',

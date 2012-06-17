@@ -27,13 +27,13 @@ Ext.define('EatSense.view.Feedback', {
 			useComponents: true,
 			defaultType: 'feedbackquestion',
 			scrollable: false,
-			width: '95%'
+			width: '95%',
+			margin: '10 0 10 0'
 		},
 		{
 			xtype: 'textareafield',
 			itemId : 'comment',
 			cls: 'general-textfield',
-			margin: '7 0 5 0',
 			width: '95%',
 			placeHolder: Karazy.i18n.translate('feedbackComment')
 		},
@@ -41,7 +41,6 @@ Ext.define('EatSense.view.Feedback', {
 			xtype: 'emailfield',
 			itemId: 'email',
 			cls: 'general-textfield',
-			margin: '7 0 5 0',
 			width: '95%',
 			placeHolder: Karazy.i18n.translate('feedbackEmail')
 		},
