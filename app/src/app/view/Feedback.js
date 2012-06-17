@@ -52,6 +52,7 @@ Ext.define('EatSense.view.Feedback', {
 				pack: 'center'
 			},
 			docked: 'bottom',
+			margin: '5 0 0 0',
 			padding: '10 0 5 0',
 			items: [
 			{

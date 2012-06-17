@@ -7536,7 +7536,7 @@ h9 {
 }
 
 /** Override slider thumb thickness for feedback form. */
-.x-thumb:before {
+.x-slider .x-thumb:before {
   height: 1.4em;
   width: 1.4em;
   top: 0.4em;

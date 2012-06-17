@@ -23,9 +23,10 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		},
 		sliderValue: {
 			flex: 1,
-			height: 35,
-			width: 35,
-			src: 'res/images/feedback/smilie_happy.png'
+			height: 27,
+			width: 27,
+			src: 'res/images/feedback/smilie_happy.png',
+			margin: '-5 0 0 0'
 		},
 		dataMap: {
 			getQuestion: {
@@ -38,7 +39,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		},
 
 		//holds filenames for the smilie graphics used for rating
-		smilies: ['smilie_xsad.png', 'smilie_sad.png', 'smilie_neutral.png', 'smilie_happy.png', 'smilie_xhappy.png']
+		smilies: ['smilie_xsad_27px.png', 'smilie_sad_27px.png', 'smilie_neutral_27px.png', 'smilie_happy_27px.png', 'smilie_xhappy_27px.png']
 	},
 
 	applyQuestion: function(config) {
