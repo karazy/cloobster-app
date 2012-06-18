@@ -227,6 +227,8 @@ Ext.define('EatSense.controller.Feedback', {
 		EatSense.model.Feedback.load(id, {
 			success: function(record, operation) {
 				me.setActiveFeedback(record);
+				//when feedback exists hide button in orders view
+				me.getShowFeedbackLeaveButton().setHidden(true);
 			},
 			failure: function(record, operation) {
 				me.getApplication().handleServerError({
