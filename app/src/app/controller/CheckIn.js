@@ -243,16 +243,15 @@ Ext.define('EatSense.controller.CheckIn', {
 					   	    success: function(response) {
                     checkInDialog.showLoadScreen(false);
   					   	    console.log("CheckIn Controller -> checkIn success");
-  					   	    //currently disabled, will be enabled when linking to users actually makes sense
-                    //me.showCheckinWithOthers();					   	    
-  					   	     me.showLounge();
-  					   	     me.getAppState().set('checkInId', response.get('userId'));
-
                     //Set default headers so that always checkInId is send
                     Ext.Ajax.setDefaultHeaders({
                         'checkInId': response.get('userId'),
                         'pathId' : me.getActiveCheckIn().get('businessId')
                     });
+  					   	    //currently disabled, will be enabled when linking to users actually makes sense
+                    //me.showCheckinWithOthers();					   	    
+  					   	     me.showLounge();
+  					   	     me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					   	    //save nickname in settings
   							   if(nicknameToggle.getValue() == 1) {
@@ -367,10 +366,13 @@ Ext.define('EatSense.controller.CheckIn', {
 	showLounge: function() {
     	var menuCtr = this.getApplication().getController('Menu'),
           requestCtr = this.getApplication().getController('Request'),
-          androidCtr = this.getApplication().getController('Android');
+          androidCtr = this.getApplication().getController('Android'),
+          feedbackCtr = this.getApplication().getController('Feedback');
 
         menuCtr.showMenu();
         requestCtr.refreshAccountLabel();
+            //load feedback from server
+        feedbackCtr.loadFeedbackTemplate();
         androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());
 	},
   /**
@@ -494,6 +496,9 @@ Ext.define('EatSense.controller.CheckIn', {
 		});	
     //restore existing requests
     requestCtr.loadRequests();	
+    //load feedback from server
+    feedbackCtr.loadFeedbackTemplate();
+
     //restore existing feedback
     if(this.getAppState().get('feedbackId')) {
       feedbackCtr.loadFeedback(this.getAppState().get('feedbackId'));

@@ -49,6 +49,7 @@ Ext.define('EatSense.view.RequestsTab', {
 						},
 						{
 							xtype: 'label',
+							itemId: 'feedbackLabel',
 							cls: 'general-label',
 							html: Karazy.i18n.translate('feedbackLabel')
 						},

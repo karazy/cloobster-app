@@ -9,6 +9,7 @@ Ext.define('EatSense.controller.Feedback', {
 		refs: {
 			//feedback button in request tab
 			showFeedbackButton: 'requeststab button[action=feedback]',
+			feedbackLabel: 'requeststab #feedbackLabel',
 			//feedback button in myorders tab
 			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
 			requestNavview: 'requeststab navigationview',
@@ -59,7 +60,7 @@ Ext.define('EatSense.controller.Feedback', {
 			feedback = this.getFeedback(),
 			requestNavview = this.getRequestNavview();
 
-		this.loadFeedbackTemplate();
+		this.propateFeedbackForm();
 
 		//show feedback form
 		requestNavview.push(feedback);
@@ -76,16 +77,17 @@ Ext.define('EatSense.controller.Feedback', {
 			feedback = this.getFeedback(),
 			myordersNavview = this.getMyordersNavview();
 
-		this.loadFeedbackTemplate();
+		this.propateFeedbackForm();
 
 		//show feedback form
 		myordersNavview.push(feedback);
 		this.setActiveNavview(myordersNavview);
 	},
-
+	/**
+	* Load Feedback data from server.
+	*/
 	loadFeedbackTemplate: function() {
 		var me = this,
-			questionsList = this.getQuestionsList(),
 			feedbackStore = Ext.StoreManager.lookup('feedbackStore');
 
 		//Feedback does not exist, create it and load feedback form template
@@ -97,6 +99,8 @@ Ext.define('EatSense.controller.Feedback', {
 			    callback: function(records, operation, success) {
 			    	if(success) {
 			    		console.log('set question list');
+			    		me.enableFeedback();
+
 						me.setFeedbackTemplate(feedbackStore.getAt(0));
 
 						me.getActiveFeedback().set('formId', me.getFeedbackTemplate().getId());
@@ -104,22 +108,30 @@ Ext.define('EatSense.controller.Feedback', {
 						//copy all questions and add them to answers of active feedback
 						me.getFeedbackTemplate().questions().each(function(question) {
 							me.getActiveFeedback().answers().add(question.copy(question.get('id')));
-						});
-			    		//because only one active form exists, we can directly access it
-			    		// questionsList.setStore(me.getFeedbackTemplate().questions());			    	
-			    		questionsList.setStore(me.getActiveFeedback().answers());			    		
+						});		    		
 			    	}
 			    	else {
-	                    me.getApplication().handleServerError({
-	                    	'error': operation.error, 
-	                    	'forceLogout': {403:true}
-	                    });
+			    		//no feedback form exists, hide feedback buttons
+			    		if(operation.error.status == 404) {
+			    			me.disableFeedback();
+			    		} else {
+			    			me.getApplication().handleServerError({
+	                    		'error': operation.error, 
+	                    		'forceLogout': {403:true}
+	                    	});
+			    		}
 	                }
 			    }
 			});
-		}	else {	
+		}
+	},
+	/**
+	* Render feedback data to form.
+	*/
+	propateFeedbackForm: function() {
+		if(this.getActiveFeedback()) {
 			//feedback exists, simply set the store
-			questionsList.setStore(me.getActiveFeedback().answers());
+			this.getQuestionsList().setStore(this.getActiveFeedback().answers());
 			this.getEmailField().setValue(this.getActiveFeedback().get('email'));
 			this.getCommentField().setValue(this.getActiveFeedback().get('comment'));
 		}
@@ -215,6 +227,27 @@ Ext.define('EatSense.controller.Feedback', {
 			}					
 		}), Karazy.config.msgboxHideLongTimeout, this);
 
+	},
+	/**
+	* @private
+	* Enable feedback by displaying buttons.
+	*/
+	enableFeedback: function() {		
+		this.getShowFeedbackButton().setHidden(false);
+		this.getFeedbackLabel().setHidden(false);
+
+		if(!this.getActiveFeedback().get('id')) {
+			this.getShowFeedbackLeaveButton().setHidden(false);
+		}
+	},
+	/**
+	* @private
+	* Disable feedback funtionality by hiding the buttons.
+	*/
+	disableFeedback: function() {
+    	this.getShowFeedbackLeaveButton().setHidden(true);
+		this.getShowFeedbackButton().setHidden(true);
+		this.getFeedbackLabel().setHidden(true);
 	},
 	/**
 	* Loads an existing feedback form.
