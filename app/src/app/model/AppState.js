@@ -5,18 +5,26 @@
  */
 Ext.define('EatSense.model.AppState', {
 	extend : 'Ext.data.Model',
-	config : {
+	config : 
+		{
 		fields : [ {
 			name : 'id'
-		}, {
+		}, 
+		{
 			name : 'nickname',
 			type : 'string'
-		}, {
+		}, 
+		{
 			name : 'checkInId',
 			type : 'string'
-		}, {
+		}, 
+		{
 			name: 'newsletterRegistered',
 			type: 'boolean'
+		}, 
+		{
+			name: 'feedbackId',
+			type: 'number'
 		} ]
 	}
 });

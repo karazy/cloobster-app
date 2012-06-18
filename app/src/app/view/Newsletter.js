@@ -26,8 +26,7 @@ Ext.define('EatSense.view.Newsletter', {
 			name:'email',
 			labelWidth: '40%',
 			cls: 'general-textfield',
-			labelCls: 'general-field-label-horizontal',
-			margin: '5 0 5 0'
+			labelCls: 'general-field-label-horizontal'
 		}, {
 			xtype: 'button',
 			action: 'register',
