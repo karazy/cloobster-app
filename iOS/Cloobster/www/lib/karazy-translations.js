@@ -29,6 +29,9 @@ Karazy.translations = (function() {
 		"currentDealsButton" : "Deals",
 		"newRestaurantsButton" : "Neue Restaurants",
 		"settingsButton" : "Einstellungen",
+		//Dashboard
+		"dashboardLabel1" : "<span style='font-weight: bold;'>präsentiert</span><br/>\"nie mehr Schlange stehen...\"",
+		"dashboardLabel2" : "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
 		// Checkin
 		"checkInTitle" : "Check-In",
 		"barcodePromptTitle" : "Barcode Abfrage",
@@ -46,9 +49,11 @@ Karazy.translations = (function() {
 		"saveNicknameToggle" : "Spitzname speichern?",
 		"checkInCanceled" : "Sitzung wurde durch das Restaurant beendet.",
 		"nickname" : "Spitzname",
+		"restoreStateLoading" : "Aktiver CheckIn wird geladen ...",
+		"restoreStateFailed" : "CheckIn nicht mehr gültig.<br/>Bitte neu einchecken.",
 		// Menu
 		"menuTab" : "Auswählen",
-		"menuTitle" : "Heidi & Paul - Fresh Food",
+		"menuTitle" : "Deine Karte",
 		"choicesPanelTitle" : "Du hast die Wahl ...",
 		"putIntoCartButton" : "Auf den Bestellzettel",
 		"choiceValErrMandatory" : "Bitte triff eine Wahl für {0}",
@@ -109,6 +114,14 @@ Karazy.translations = (function() {
 		"callWaiterCallHint" : "Gibt es ein Anliegen?",
 		"callWaiterCancelHint" :	"Wir wurden gerufen und <br/>kommen so schnell wie möglich!",
 		"vipGreetingMessage" : "Willkommen <span style='font-weight:bold;'>{0}</span> in deinem persönlichen VIP Bereich!",
+		//Feedback
+		"feedback" : "Feedback",
+		"feedbackLabel" : "Sag uns deine Meinung.",
+		"feedbackQuestion" : "Wie hat es dir gefallen?",
+		"feedbackComment" : "Kommentar (optional)",
+		"feedbackEmail" : "E-Mail (optional)",
+		"feedbackCompleteTitle" : "Feedback abgeschickt",
+		"feedbackCompleteMessage" : "Vielen Dank für Deine Meinung!",
 		//general errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		

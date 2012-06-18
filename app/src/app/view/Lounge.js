@@ -16,7 +16,9 @@ Ext.define('EatSense.view.Lounge', {
         },
 		tabBarPosition: 'bottom',
 		tabBar : {
-			itemId : 'loungeTabBar'
+			itemId : 'loungeTabBar',
+			//true to hide tabbar for screenhots to keep our features secret
+			// hidden: true
 		},
 		activeItem : 0,
 		items : [ 
