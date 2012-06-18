@@ -25,7 +25,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 			flex: 1,
 			height: 27,
 			width: 27,
-			src: 'res/images/feedback/smilie_happy.png',
+			src: 'res/images/feedback/smilie_happy_27px.png',
 			margin: '-5 0 0 0'
 		},
 		dataMap: {
