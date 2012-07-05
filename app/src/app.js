@@ -22,6 +22,7 @@ Ext.application({
 		'Ext.Label',
 		'Ext.TitleBar',
     'Ext.Anim',
+    'Ext.MessageBox',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
 		'EatSense.override.OperationImprovement',
