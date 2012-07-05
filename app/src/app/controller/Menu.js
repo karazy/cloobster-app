@@ -290,7 +290,7 @@ Ext.define('EatSense.controller.Menu', {
 			}
 		
 			field = Ext.create(optionType, {
-				 			name : choice.get('id'),
+				 			name : "option_" + choice.get('id'),
 				 			labelWidth: '80%',
 							label : opt.get('name') + optionPriceLabel,
 							checked: opt.get('selected'),

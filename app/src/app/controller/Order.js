@@ -328,7 +328,7 @@
 		 
 		 //insert comment field after options have been added so it is positioned correctly
 		 choicesPanel.add({
-				xtype: 'textfield',
+				xtype: 'textareafield',
 				label: Karazy.i18n.translate('orderComment'),
 				labelAlign: 'top',
 				itemId: 'productComment',
