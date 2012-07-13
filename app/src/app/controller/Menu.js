@@ -411,10 +411,28 @@ Ext.define('EatSense.controller.Menu', {
 					cartButton.setBadgeText(activeCheckIn.orders().data.length);
 	    	    },
 	    	    failure: function(response, operation) {
-	    	    	me.getApplication().handleServerError({
-                        	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
-                        	'forceLogout': {403:true}
-                    }); 
+	    	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
+	    	    	if(response.status == 409) {
+	    	    		Karazy.util.toggleAlertActive(true);
+	    	    		Ext.Msg.alert(Karazy.i18n.translate('error'),
+	    	    			Karazy.i18n.translate('error.menu.needsrefresh'),
+	    	    			function() {
+								Karazy.util.toggleAlertActive(false);
+						});
+	    	    		//clear the menu store, don't send clear event
+	    	    		Ext.StoreManager.lookup('menuStore').removeAll();
+	    	    		Ext.StoreManager.lookup('productStore').removeAll();
+	    	    		//refresh menu
+	    	    		me.showMenu();
+
+	    	    	} else {
+		    	    	me.getApplication().handleServerError({
+	                        	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+	                        	'forceLogout': {403:true}
+	                    });	
+	    	    	}
+
+	    	    	
 	    	    }
 	    	});
 									
