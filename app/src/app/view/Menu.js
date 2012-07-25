@@ -7,7 +7,7 @@ Ext.define('EatSense.view.Menu', {
 		title: Karazy.i18n.translate('menuTab'),
 		iconMask : true,
 		itemId : 'menutab',
-		cls: 'menu-panel',
+		// cls: 'menu-panel',
 		items : [ {
 			docked : 'top',
 			xtype : 'titlebar',

@@ -11,7 +11,7 @@ Ext.define('EatSense.view.ProductOverview', {
 			xtype : 'list',
 			itemId : 'productlist',
 			ui: 'round',
-			type : 'fit',
+			layout : 'fit',
 			allowDeselect : true,
 			itemCls: 'productListItem',
 			itemTpl : new Ext.XTemplate(

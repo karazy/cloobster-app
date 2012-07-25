@@ -1,3 +1,10 @@
+/*$active-color: #FF8718; */
+/* $confirm-color: #F79621; */
+/*$toolbar-base-color: #F79621;*/
+/*$button-height: 3em;*/
+/* Round tab buttons top left and lower right. */
+/*$form-field-bg-color: #917D64;*/
+/*$toolbar-button-color: #F79621;*/
 /* line 3, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_reset.scss */
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3,
 h4, h5, h6, pre, code, form, fieldset, legend,
@@ -40,7 +47,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
 }
 
-
 /* line 37, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_reset.scss */
 q:before,
 q:after {
@@ -74,7 +80,6 @@ input, textarea, select {
 *:focus {
   outline: none;
 }
-
 
 /**
  * @class Global_CSS
@@ -212,7 +217,7 @@ input, textarea, select {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -243,26 +248,8 @@ input, textarea, select {
  * Makes the element text overflow to use ellipsis.
  */
 /* line 10, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_core.scss */
-
-/* ------- FONTS EMBEDD --------- */
-
-
-@font-face {
-    font-family: 'ComfortaaRegular';
-    src: url('fonts/comfortaa_regular-webfont.eot');
-    src: url('fonts/comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/comfortaa_regular-webfont.woff') format('woff'),
-         url('fonts/comfortaa_regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-/* ------ FONTS END ----------*/
-
-
 html, body {
-  font-family: ComfortaaRegular,"Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif;
+  font-family: "ComfortaaRegular";
   font-weight: normal;
   position: relative;
   -webkit-text-size-adjust: none;
@@ -425,7 +412,7 @@ input, textarea {
 
 /* line 154, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_core.scss */
 .x-panel-list {
-  background-color: #f9ffee;
+  background-color: white;
 }
 
 /* line 159, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_core.scss */
@@ -433,204 +420,204 @@ input, textarea {
   -webkit-user-select: auto;
   -webkit-touch-callout: inherit;
   line-height: 1.5;
-  color: #4c321a;
+  color: #333;
   font-size: .8em;
   padding: 1.2em;
 }
-/* line 33, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 33, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html body {
   line-height: 1.5;
-  font-family: ComfortaaRegular, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  color: #4c321a;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  color: #333333;
   font-size: 75%;
 }
-/* line 51, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 51, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h1, .x-html h2, .x-html h3, .x-html h4, .x-html h5, .x-html h6 {
   font-weight: normal;
-  color: #4c321a;
+  color: #222222;
 }
-/* line 52, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 52, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h1 img, .x-html h2 img, .x-html h3 img, .x-html h4 img, .x-html h5 img, .x-html h6 img {
   margin: 0;
 }
-/* line 53, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 53, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h1 {
   font-size: 3em;
   line-height: 1;
   margin-bottom: 0.50em;
 }
-/* line 54, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 54, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h2 {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-bottom: 0.75em;
 }
-/* line 55, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 55, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h3 {
   font-size: 1.5em;
   line-height: 1;
   margin-bottom: 1.00em;
 }
-/* line 56, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 56, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h4 {
   font-size: 1.2em;
   line-height: 1.25;
   margin-bottom: 1.25em;
 }
-/* line 57, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 57, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h5 {
   font-size: 1em;
   font-weight: bold;
   margin-bottom: 1.50em;
 }
-/* line 58, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 58, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html h6 {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 59, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 59, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html p {
   margin: 0 0 1.5em;
 }
-/* line 60, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 60, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html p .left {
   display: inline;
   float: left;
   margin: 1.5em 1.5em 1.5em 0;
   padding: 0;
 }
-/* line 61, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 61, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html p .right {
   display: inline;
   float: right;
   margin: 1.5em 0 1.5em 1.5em;
   padding: 0;
 }
-/* line 62, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 62, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html a {
   text-decoration: underline;
   color: #0066cc;
 }
-/* line 18, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 18, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 .x-html a:visited {
   color: #004c99;
 }
-/* line 21, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 21, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 .x-html a:focus {
   color: #0099ff;
 }
-/* line 24, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 24, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 .x-html a:hover {
   color: #0099ff;
 }
-/* line 27, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 27, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 .x-html a:active {
   color: #bf00ff;
 }
-/* line 63, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 63, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html blockquote {
   margin: 1.5em;
   color: #666666;
   font-style: italic;
 }
-/* line 64, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 64, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html strong, .x-html dfn {
   font-weight: bold;
 }
-/* line 65, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 65, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html em, .x-html dfn {
   font-style: italic;
 }
-/* line 66, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 66, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html sup, .x-html sub {
   line-height: 0;
 }
-/* line 67, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 67, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html abbr, .x-html acronym {
   border-bottom: 1px dotted #666666;
 }
-/* line 68, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 68, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html address {
   margin: 0 0 1.5em;
   font-style: italic;
 }
-/* line 69, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 69, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html del {
   color: #666666;
 }
-/* line 70, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 70, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html pre {
   margin: 1.5em 0;
   white-space: pre;
 }
-/* line 71, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 71, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html pre, .x-html code, .x-html tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
-/* line 72, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 72, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html li ul, .x-html li ol {
   margin: 0;
 }
-/* line 73, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 73, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html ul, .x-html ol {
   margin: 0 1.5em 1.5em 0;
   padding-left: 1.5em;
 }
-/* line 74, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 74, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html ul {
   list-style-type: disc;
 }
-/* line 75, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 75, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html ol {
   list-style-type: decimal;
 }
-/* line 76, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 76, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html dl {
   margin: 0 0 1.5em 0;
 }
-/* line 77, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 77, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html dl dt {
   font-weight: bold;
 }
-/* line 78, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 78, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html dd {
   margin-left: 1.5em;
 }
-/* line 79, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 79, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html table {
   margin-bottom: 1.4em;
   width: 100%;
 }
-/* line 80, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 80, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html th {
   font-weight: bold;
 }
-/* line 81, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 81, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html thead th {
   background: #c3d9ff;
 }
-/* line 82, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 82, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html th, .x-html td, .x-html caption {
   padding: 4px 10px 4px 5px;
 }
-/* line 85, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 85, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html table.striped tr:nth-child(even) td,
 .x-html table tr.even td {
   background: #e5ecf9;
 }
-/* line 86, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 86, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html tfoot {
   font-style: italic;
 }
-/* line 87, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 87, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html caption {
   background: #eeeeee;
 }
-/* line 88, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 88, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html .quiet {
   color: #666666;
 }
-/* line 89, ../../../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
+/* line 89, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html .loud {
   color: #111111;
 }
@@ -656,7 +643,7 @@ input, textarea {
 
 /* line 187, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_core.scss */
 .x-layout-card-item {
-  background: #eeeeee;
+  background: #917d64;
 }
 
 /* line 1, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_map.scss */
@@ -810,7 +797,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -976,7 +963,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -1142,7 +1129,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -1344,7 +1331,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -1556,7 +1543,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -1805,7 +1792,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -2000,7 +1987,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -2184,7 +2171,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -2403,7 +2390,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -2569,7 +2556,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -2814,7 +2801,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -3007,7 +2994,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -3207,7 +3194,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -3378,7 +3365,7 @@ input, textarea {
  * Colors the text of an element based on lightness of its background.
  *
  *     .my-element {
- *       @include color-by-background(#fff); // Colors text #594b3a.
+ *       @include color-by-background(#fff); // Colors text black.
  *     }
  *
  *     .my-element {
@@ -3424,7 +3411,7 @@ input, textarea {
 /* line 14, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_media.scss */
 .x-video-ghost {
   -webkit-background-size: 100% auto;
-  background: #594b3a url() center center no-repeat;
+  background: black url() center center no-repeat;
 }
 
 /* line 19, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_media.scss */
@@ -3447,14 +3434,14 @@ audio {
   -webkit-border-radius: 0.3em;
   border-radius: 0.3em;
   -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em;
-  background-color: #172200;
+  background-color: #492903;
   background-image: none;
 }
 /* line 21, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_panel.scss */
 .x-panel.x-floating.x-floating-light,
 .x-msgbox.x-floating.x-floating-light,
 .x-form.x-floating.x-floating-light {
-  background-color: #9fee00;
+  background-color: #f79621;
   background-image: none;
 }
 /* line 27, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_panel.scss */
@@ -3483,7 +3470,7 @@ audio {
   -webkit-mask: 0 0 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAPCAYAAABut3YUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPZJREFUeNpi/PX7LwOFwAyIG6HseiA+Ra5BjBQ6xg+IVwAxJ5T/HYgjgHgTOYYxUeCQUiBeh+QQBih7HVSOLiHDDMSTgTiTgLrpQJwLxH9p5RhOaLT4EakeFF3RQPyF2o6RhkaBGYkheRmIPYH4KbXSjC4QnyTDIch6danhGCcgPgwNGXKBNNQMb0ocEwXE24GYn4FyADJjI76Ej88x7UC8FIjZGKgHQDlxGtRsZmISMMjy+dBQoSXYBC0gv+NyDD80xzgx0AeAqg4fIH6NHk0qQHyMjg6B1WvHYDkNFjIgwS1ALMowMOAjEAeBHINe2Q0U+AUQYACQ10C2QNhRogAAAABJRU5ErkJggg==') no-repeat;
   -webkit-mask-size: 1.631em 0.7em;
   overflow: hidden;
-  background-color: #172200;
+  background-color: #492903;
   -webkit-transform-origin: 0% 0%;
 }
 /* line 50, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_panel.scss */
@@ -3512,7 +3499,7 @@ audio {
 
 /* line 74, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_panel.scss */
 .x-floating.x-panel-light:after {
-  background-color: #9fee00;
+  background-color: #f79621;
 }
 
 /* line 56, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
@@ -3535,7 +3522,7 @@ audio {
 .x-button, .x-toolbar .x-button {
   border: 1px solid #999999;
   border-top-color: #a6a6a6;
-  color: #594b3a;
+  color: black;
 }
 /* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button.x-button-back:before, .x-button.x-button-forward:before, .x-toolbar .x-button.x-button-back:before, .x-toolbar .x-button.x-button-forward:before {
@@ -3550,7 +3537,7 @@ audio {
 }
 /* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button .x-button-icon.x-icon-mask, .x-toolbar .x-button .x-button-icon.x-icon-mask {
-  background-color: #594b3a;
+  background-color: black;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d4d4d), color-stop(2%, #121212), color-stop(100%, #000000));
   background-image: -webkit-linear-gradient(#4d4d4d, #121212 2%, #000000);
   background-image: linear-gradient(#4d4d4d, #121212 2%, #000000);
@@ -3582,7 +3569,7 @@ audio {
 }
 
 /* line 88, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-button-round, .x-button.x-button-action-round, .x-button.x-button-confirm-round, .x-button.x-button-decline-round {
+.x-button-round, .x-button.x-button-action-round, .x-button.x-button-confirm-round, .x-button.x-button-decline-round, .x-button.x-button-orange-round {
   -webkit-border-radius: 0.9em;
   border-radius: 0.9em;
   padding: 0.1em 0.9em;
@@ -3658,18 +3645,18 @@ audio {
 }
 
 /* line 142, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-button-small, .x-button.x-button-action-small, .x-button.x-button-confirm-small, .x-button.x-button-decline-small, .x-toolbar .x-button-small, .x-toolbar .x-button.x-button-action-small, .x-toolbar .x-button.x-button-confirm-small, .x-toolbar .x-button.x-button-decline-small {
+.x-button-small, .x-button.x-button-action-small, .x-button.x-button-confirm-small, .x-button.x-button-decline-small, .x-button.x-button-orange-small, .x-toolbar .x-button-small, .x-toolbar .x-button.x-button-action-small, .x-toolbar .x-button.x-button-confirm-small, .x-toolbar .x-button.x-button-decline-small, .x-toolbar .x-button.x-button-orange-small {
   -webkit-border-radius: 0.3em;
   border-radius: 0.3em;
   padding: .2em .4em;
   min-height: 0;
 }
 /* line 147, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-button-small .x-badge, .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-decline-small .x-badge {
+.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button.x-button-orange-small .x-button-label, .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-button-small .x-badge, .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-decline-small .x-badge, .x-button.x-button-orange-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-orange-small .x-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button.x-button-orange-small .x-button-label, .x-toolbar .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button.x-button-orange-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-orange-small .x-badge {
   font-size: .6em;
 }
 /* line 151, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-button-small .x-button-icon, .x-button.x-button-action-small .x-button-icon, .x-button.x-button-confirm-small .x-button-icon, .x-button.x-button-decline-small .x-button-icon, .x-toolbar .x-button-small .x-button-icon, .x-toolbar .x-button.x-button-action-small .x-button-icon, .x-toolbar .x-button.x-button-confirm-small .x-button-icon, .x-toolbar .x-button.x-button-decline-small .x-button-icon {
+.x-button-small .x-button-icon, .x-button.x-button-action-small .x-button-icon, .x-button.x-button-confirm-small .x-button-icon, .x-button.x-button-decline-small .x-button-icon, .x-button.x-button-orange-small .x-button-icon, .x-toolbar .x-button-small .x-button-icon, .x-toolbar .x-button.x-button-action-small .x-button-icon, .x-toolbar .x-button.x-button-confirm-small .x-button-icon, .x-toolbar .x-button.x-button-decline-small .x-button-icon, .x-toolbar .x-button.x-button-orange-small .x-button-icon {
   width: .75em;
   height: .75em;
 }
@@ -3765,9 +3752,9 @@ audio {
 .x-toolbar .x-button.x-button-plain.x-button-pressing,
 .x-toolbar .x-button.x-button-plain.x-button-pressed {
   background: none;
-  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 24, color-stop(0%, rgba(255, 255, 255, 0.7)), color-stop(100%, rgba(255, 255, 255, 0)));
-  background-image: -webkit-radial-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 24px);
-  background-image: radial-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 24px);
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 24, color-stop(0%, rgba(255, 243, 229, 0.7)), color-stop(100%, rgba(255, 243, 229, 0)));
+  background-image: -webkit-radial-gradient(rgba(255, 243, 229, 0.7), rgba(255, 243, 229, 0) 24px);
+  background-image: radial-gradient(rgba(255, 243, 229, 0.7), rgba(255, 243, 229, 0) 24px);
 }
 /* line 238, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
 .x-button.x-button-plain.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-plain.x-button-pressed .x-button-icon.x-button-mask,
@@ -3876,7 +3863,7 @@ audio {
 /* line 43, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-tab .x-button-icon.compose,
 .x-button .x-button-icon.x-icon-mask.compose {
-  -webkit-mask-image: url('data:image/png;base64,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') !important;
+  -webkit-mask-image: url('data:image/png;base64,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');
 }
 
 /* line 43, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
@@ -3947,34 +3934,34 @@ audio {
 
 /* line 55, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
-  border: 1px solid #b15500;
-  border-top-color: #cb6100;
-  color: #594b3a;
+  border: 1px solid #7f4500;
+  border-top-color: #995300;
+  color: white;
 }
 /* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button.x-button-action.x-button-back:before, .x-button.x-button-action.x-button-forward:before, .x-toolbar .x-button.x-button-action.x-button-back:before, .x-toolbar .x-button.x-button-action.x-button-forward:before, .x-button.x-button-action-round.x-button-back:before, .x-button.x-button-action-round.x-button-forward:before, .x-toolbar .x-button.x-button-action-round.x-button-back:before, .x-toolbar .x-button.x-button-action-round.x-button-forward:before, .x-button.x-button-action-small.x-button-back:before, .x-button.x-button-action-small.x-button-forward:before, .x-toolbar .x-button.x-button-action-small.x-button-back:before, .x-toolbar .x-button.x-button-action-small.x-button-forward:before {
-  background: #b15500;
+  background: #7f4500;
 }
 /* line 64, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button.x-button-action, .x-button.x-button-action.x-button-back:after, .x-button.x-button-action.x-button-forward:after, .x-toolbar .x-button.x-button-action, .x-toolbar .x-button.x-button-action.x-button-back:after, .x-toolbar .x-button.x-button-action.x-button-forward:after, .x-button.x-button-action-round, .x-button.x-button-action-round.x-button-back:after, .x-button.x-button-action-round.x-button-forward:after, .x-toolbar .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round.x-button-back:after, .x-toolbar .x-button.x-button-action-round.x-button-forward:after, .x-button.x-button-action-small, .x-button.x-button-action-small.x-button-back:after, .x-button.x-button-action-small.x-button-forward:after, .x-toolbar .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small.x-button-back:after, .x-toolbar .x-button.x-button-action-small.x-button-forward:after {
-  background-color: #ff8718;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffd6b1), color-stop(2%, #ff9a3c), color-stop(100%, #f37500));
-  background-image: -webkit-linear-gradient(#ffd6b1, #ff9a3c 2%, #f37500);
-  background-image: linear-gradient(#ffd6b1, #ff9a3c 2%, #f37500);
+  background-color: #e57d00;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffc57f), color-stop(2%, #ff900a), color-stop(100%, #c16a00));
+  background-image: -webkit-linear-gradient(#ffc57f, #ff900a 2%, #c16a00);
+  background-image: linear-gradient(#ffc57f, #ff900a 2%, #c16a00);
 }
 /* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button.x-button-action .x-button-icon.x-icon-mask, .x-toolbar .x-button.x-button-action .x-button-icon.x-icon-mask, .x-button.x-button-action-round .x-button-icon.x-icon-mask, .x-toolbar .x-button.x-button-action-round .x-button-icon.x-icon-mask, .x-button.x-button-action-small .x-button-icon.x-icon-mask, .x-toolbar .x-button.x-button-action-small .x-button-icon.x-icon-mask {
-  background-color: #594b3a;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #994a00), color-stop(2%, #241100), color-stop(100%, #000000));
-  background-image: -webkit-linear-gradient(#994a00, #241100 2%, #000000);
-  background-image: linear-gradient(#994a00, #241100 2%, #000000);
+  background-color: white;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffffff), color-stop(100%, #ffefdb));
+  background-image: -webkit-linear-gradient(#ffffff, #ffffff 2%, #ffefdb);
+  background-image: linear-gradient(#ffffff, #ffffff 2%, #ffefdb);
 }
 /* line 73, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button.x-button-action.x-button-pressing, .x-button.x-button-action.x-button-pressing:after, .x-button.x-button-action.x-button-pressed, .x-button.x-button-action.x-button-pressed:after, .x-button.x-button-action.x-button-active, .x-button.x-button-action.x-button-active:after, .x-toolbar .x-button.x-button-action.x-button-pressing, .x-toolbar .x-button.x-button-action.x-button-pressing:after, .x-toolbar .x-button.x-button-action.x-button-pressed, .x-toolbar .x-button.x-button-action.x-button-pressed:after, .x-toolbar .x-button.x-button-action.x-button-active, .x-toolbar .x-button.x-button-action.x-button-active:after, .x-button.x-button-action-round.x-button-pressing, .x-button.x-button-action-round.x-button-pressing:after, .x-button.x-button-action-round.x-button-pressed, .x-button.x-button-action-round.x-button-pressed:after, .x-button.x-button-action-round.x-button-active, .x-button.x-button-action-round.x-button-active:after, .x-toolbar .x-button.x-button-action-round.x-button-pressing, .x-toolbar .x-button.x-button-action-round.x-button-pressing:after, .x-toolbar .x-button.x-button-action-round.x-button-pressed, .x-toolbar .x-button.x-button-action-round.x-button-pressed:after, .x-toolbar .x-button.x-button-action-round.x-button-active, .x-toolbar .x-button.x-button-action-round.x-button-active:after, .x-button.x-button-action-small.x-button-pressing, .x-button.x-button-action-small.x-button-pressing:after, .x-button.x-button-action-small.x-button-pressed, .x-button.x-button-action-small.x-button-pressed:after, .x-button.x-button-action-small.x-button-active, .x-button.x-button-action-small.x-button-active:after, .x-toolbar .x-button.x-button-action-small.x-button-pressing, .x-toolbar .x-button.x-button-action-small.x-button-pressing:after, .x-toolbar .x-button.x-button-action-small.x-button-pressed, .x-toolbar .x-button.x-button-action-small.x-button-pressed:after, .x-toolbar .x-button.x-button-action-small.x-button-active, .x-toolbar .x-button.x-button-action-small.x-button-active:after {
-  background-color: #ff7f09;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d56600), color-stop(10%, #ee7200), color-stop(65%, #ff7f09), color-stop(100%, #ff800b));
-  background-image: -webkit-linear-gradient(#d56600, #ee7200 10%, #ff7f09 65%, #ff800b);
-  background-image: linear-gradient(#d56600, #ee7200 10%, #ff7f09 65%, #ff800b);
+  background-color: #d67500;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a35900), color-stop(10%, #bc6700), color-stop(65%, #d67500), color-stop(100%, #d87600));
+  background-image: -webkit-linear-gradient(#a35900, #bc6700 10%, #d67500 65%, #d87600);
+  background-image: linear-gradient(#a35900, #bc6700 10%, #d67500 65%, #d87600);
 }
 
 /* line 55, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
@@ -4044,12 +4031,12 @@ audio {
 /* line 35, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_sheets.scss */
 .x-sheet, .x-sheet-action {
   padding: 0.7em;
-  border-top: 1px solid #395500;
+  border-top: 1px solid #7b4504;
   height: auto;
-  background-color: rgba(23, 34, 0, 0.9);
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(125, 187, 0, 0.9)), color-stop(2%, rgba(47, 70, 0, 0.9)), color-stop(100%, rgba(0, 0, 0, 0.9)));
-  background-image: -webkit-linear-gradient(rgba(125, 187, 0, 0.9), rgba(47, 70, 0, 0.9) 2%, rgba(0, 0, 0, 0.9));
-  background-image: linear-gradient(rgba(125, 187, 0, 0.9), rgba(47, 70, 0, 0.9) 2%, rgba(0, 0, 0, 0.9));
+  background-color: rgba(73, 41, 3, 0.9);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(221, 124, 8, 0.9)), color-stop(2%, rgba(108, 61, 4, 0.9)), color-stop(100%, rgba(39, 22, 1, 0.9)));
+  background-image: -webkit-linear-gradient(rgba(221, 124, 8, 0.9), rgba(108, 61, 4, 0.9) 2%, rgba(39, 22, 1, 0.9));
+  background-image: linear-gradient(rgba(221, 124, 8, 0.9), rgba(108, 61, 4, 0.9) 2%, rgba(39, 22, 1, 0.9));
   -webkit-border-radius: 0;
   border-radius: 0;
 }
@@ -4158,13 +4145,13 @@ audio {
 
 /* line 91, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_picker.scss */
 .x-picker-bar {
-  border-top: 0.12em solid #ff8718;
-  border-bottom: 0.12em solid #ff8718;
+  border-top: 0.12em solid #e57d00;
+  border-bottom: 0.12em solid #e57d00;
   height: 2.5em;
-  background-color: rgba(242, 123, 13, 0.3);
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(250, 202, 158, 0.3)), color-stop(2%, rgba(244, 142, 47, 0.3)), color-stop(100%, rgba(208, 106, 11, 0.3)));
-  background-image: -webkit-linear-gradient(rgba(250, 202, 158, 0.3), rgba(244, 142, 47, 0.3) 2%, rgba(208, 106, 11, 0.3));
-  background-image: linear-gradient(rgba(250, 202, 158, 0.3), rgba(244, 142, 47, 0.3) 2%, rgba(208, 106, 11, 0.3));
+  background-color: rgba(242, 138, 13, 0.3);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(250, 208, 158, 0.3)), color-stop(2%, rgba(244, 155, 47, 0.3)), color-stop(100%, rgba(208, 119, 11, 0.3)));
+  background-image: -webkit-linear-gradient(rgba(250, 208, 158, 0.3), rgba(244, 155, 47, 0.3) 2%, rgba(208, 119, 11, 0.3));
+  background-image: linear-gradient(rgba(250, 208, 158, 0.3), rgba(244, 155, 47, 0.3) 2%, rgba(208, 119, 11, 0.3));
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0.2em 0.2em;
 }
 
@@ -4178,12 +4165,12 @@ audio {
   height: 1.5em;
   position: relative;
   z-index: 2;
-  background-color: #adff08;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e0ffa1), color-stop(2%, #b9ff2c), color-stop(100%, #98e400));
-  background-image: -webkit-linear-gradient(#e0ffa1, #b9ff2c 2%, #98e400);
-  background-image: linear-gradient(#e0ffa1, #b9ff2c 2%, #98e400);
-  border-top: 1px solid #adff08;
-  border-bottom: 1px solid #6ca200;
+  background-color: #ffa233;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffe8cc), color-stop(2%, #ffb256), color-stop(100%, #ff920f));
+  background-image: -webkit-linear-gradient(#ffe8cc, #ffb256 2%, #ff920f);
+  background-image: linear-gradient(#ffe8cc, #ffb256 2%, #ff920f);
+  border-top: 1px solid #ffa233;
+  border-bottom: 1px solid #cc6f00;
   -webkit-box-shadow: 0px 0.1em 0.3em rgba(0, 0, 0, 0.3);
   padding: 0.2em 1.02em;
 }
@@ -4191,7 +4178,7 @@ audio {
 .x-picker-slot-title > div {
   font-weight: bold;
   font-size: 0.8em;
-  color: #486906;
+  color: #8c520d;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 }
 
@@ -4257,7 +4244,6 @@ audio {
   border-top-style: solid;
   height: 3em;
   padding: 0;
-  
 }
 /* line 155, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar.x-docked-bottom .x-tab {
@@ -4336,95 +4322,82 @@ audio {
 
 /* line 218, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light {
-  background-color: #9be20c;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d5f98e), color-stop(2%, #adf31f), color-stop(100%, #84c00a));
-  background-image: -webkit-linear-gradient(#d5f98e, #adf31f 2%, #84c00a);
-  background-image: linear-gradient(#d5f98e, #adf31f 2%, #84c00a);
-  border-top-color: #8aca0b;
-  border-bottom-color: #699908;
+  background-color: #ec952d;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f8dbb9), color-stop(2%, #efa54d), color-stop(100%, #e08415));
+  background-image: -webkit-linear-gradient(#f8dbb9, #efa54d 2%, #e08415);
+  background-image: linear-gradient(#f8dbb9, #efa54d 2%, #e08415);
+  border-top-color: #e98916;
+  border-bottom-color: #ba6e11;
 }
 /* line 223, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light .x-tab {
-  color: #e7fcbe;
+  color: #462906;
 }
 /* line 227, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light .x-tab-active {
-  color: white;
-  border-bottom: 1.5px solid #a5f10d;
+  color: black;
+  border-bottom: 1px solid #ed9c3b;
 }
 /* line 232, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light .x-tab-pressed {
-  color: white;
+  color: black;
 }
 
 /* line 239, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light.x-docked-bottom .x-tab {
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 }
 /* line 241, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light.x-docked-bottom .x-tab .x-button-icon {
-  background-color: #c4f65d;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f9feef), color-stop(2%, #d0f87f), color-stop(100%, #b7f53c));
-  background-image: -webkit-linear-gradient(#f9feef, #d0f87f 2%, #b7f53c);
-  background-image: linear-gradient(#f9feef, #d0f87f 2%, #b7f53c);
+  background-color: #a3600f;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f0ac5b), color-stop(2%, #c47312), color-stop(100%, #824d0c));
+  background-image: -webkit-linear-gradient(#f0ac5b, #c47312 2%, #824d0c);
+  background-image: linear-gradient(#f0ac5b, #c47312 2%, #824d0c);
 }
 /* line 246, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light.x-docked-bottom .x-tab-active {
-  background-color: #8aca0b;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #699908), color-stop(10%, #7ab209), color-stop(65%, #8aca0b), color-stop(100%, #8ccc0b));
-  background-image: -webkit-linear-gradient(#699908, #7ab209 10%, #8aca0b 65%, #8ccc0b);
-  background-image: linear-gradient(#699908, #7ab209 10%, #8aca0b 65%, #8ccc0b);
+  background-color: #e98916;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ba6e11), color-stop(10%, #d27b13), color-stop(65%, #e98916), color-stop(100%, #ea8a17));
+  background-image: -webkit-linear-gradient(#ba6e11, #d27b13 10%, #e98916 65%, #ea8a17);
+  background-image: linear-gradient(#ba6e11, #d27b13 10%, #e98916 65%, #ea8a17);
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
-  -webkit-box-shadow: #7ab209 0 0 0.25em inset;
-  box-shadow: #7ab209 0 0 0.25em inset;
+  -webkit-box-shadow: #d27b13 0 0 0.25em inset;
+  box-shadow: #d27b13 0 0 0.25em inset;
 }
 /* line 254, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light.x-docked-bottom .x-tab-active .x-button-icon {
-  background-color: #ffbc7e;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffcfa2), color-stop(100%, #ffa95a));
-  background-image: -webkit-linear-gradient(#ffffff, #ffcfa2 2%, #ffa95a);
-  background-image: linear-gradient(#ffffff, #ffcfa2 2%, #ffa95a);
+  background-color: #ffae4c;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff3e5), color-stop(2%, #ffbe70), color-stop(100%, #ff9e28));
+  background-image: -webkit-linear-gradient(#fff3e5, #ffbe70 2%, #ff9e28);
+  background-image: linear-gradient(#fff3e5, #ffbe70 2%, #ff9e28);
 }
 
 /* line 263, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-light.x-docked-top .x-tab-active {
-  background-color: #8aca0b;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #699908), color-stop(10%, #7ab209), color-stop(65%, #8aca0b), color-stop(100%, #8ccc0b));
-  background-image: -webkit-linear-gradient(#699908, #7ab209 10%, #8aca0b 65%, #8ccc0b);
-  background-image: linear-gradient(#699908, #7ab209 10%, #8aca0b 65%, #8ccc0b);
+  background-color: #e98916;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ba6e11), color-stop(10%, #d27b13), color-stop(65%, #e98916), color-stop(100%, #ea8a17));
+  background-image: -webkit-linear-gradient(#ba6e11, #d27b13 10%, #e98916 65%, #ea8a17);
+  background-image: linear-gradient(#ba6e11, #d27b13 10%, #e98916 65%, #ea8a17);
   color: white;
 }
 
 /* line 218, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark {
-  
-  background: #CEDB93 url('../images/bg-rp-top.png') repeat left top;
-  /* background-color: #CEDB93;
-  background-image: linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -o-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -moz-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -webkit-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -ms-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  
-  background-image: -webkit-gradient(
-  	linear,
-  	left bottom,
-  	left top,
-  	color-stop(0.47, rgb(205,214,139)),
-  	color-stop(0.74, rgb(206,219,147)),
-  	color-stop(0.87, rgb(206,219,147))
-  ); */
-  border-color: #594b3a !important;
-  border-radius: 5px 5px 0 0;
+  background-color: #ac6106;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f9ad52), color-stop(2%, #ce7407), color-stop(100%, #894d05));
+  background-image: -webkit-linear-gradient(#f9ad52, #ce7407 2%, #894d05);
+  background-image: linear-gradient(#f9ad52, #ce7407 2%, #894d05);
+  border-top-color: #935305;
+  border-bottom-color: #623704;
 }
 /* line 223, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark .x-tab {
-  color: #614021;
+  color: #fbc583;
 }
 /* line 227, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark .x-tab-active {
   color: white;
-  border-bottom: 2px solid #614021;
+  border-bottom: 1px solid #bb6907;
 }
 /* line 232, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark .x-tab-pressed {
@@ -4433,54 +4406,39 @@ audio {
 
 /* line 239, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab {
-  text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0;
-  font-family: Helvetica Neue;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
 }
 /* line 241, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
-  background: #1e5799;
-  background: -moz-linear-gradient(top,  #1e5799 0%, #614021 0%, #8e6e51 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#614021), color-stop(100%,#8e6e51));
-  background: -webkit-linear-gradient(top,  #1e5799 0%,#614021 0%,#8e6e51 100%);
-  background: -o-linear-gradient(top,  #1e5799 0%,#614021 0%,#8e6e51 100%);
-  background: -ms-linear-gradient(top,  #1e5799 0%,#614021 0%,#8e6e51 100%);
-  background: linear-gradient(top,  #1e5799 0%,#614021 0%,#8e6e51 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#8e6e51',GradientType=0 );
-  
+  background-color: #f79621;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fcdcb5), color-stop(2%, #f8a643), color-stop(100%, #ec8508));
+  background-image: -webkit-linear-gradient(#fcdcb5, #f8a643 2%, #ec8508);
+  background-image: linear-gradient(#fcdcb5, #f8a643 2%, #ec8508);
 }
 /* line 246, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
-background: #F79621;
-background: -moz-linear-gradient(top, #F79621 0%, #F9C667 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F79621), color-stop(100%,#F9C667));
-background: -webkit-linear-gradient(top, #F79621 0%,#F9C667 100%);
-background: -o-linear-gradient(top, #F79621 0%,#F9C667 100%);
-background: -ms-linear-gradient(top, #F79621 0%,#F9C667 100%);
-background: linear-gradient(top, #F79621 0%,#F9C667 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', endColorstr='#F9C667',GradientType=0 );
--webkit-box-shadow: #F79621 0 0 0.25em inset;
-box-shadow: #F79621 0 0 0.25em inset;
-color: #614021;
+  background-color: #935305;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #623704), color-stop(10%, #7b4504), color-stop(65%, #935305), color-stop(100%, #965405));
+  background-image: -webkit-linear-gradient(#623704, #7b4504 10%, #935305 65%, #965405);
+  background-image: linear-gradient(#623704, #7b4504 10%, #935305 65%, #965405);
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  -webkit-box-shadow: #7b4504 0 0 0.25em inset;
+  box-shadow: #7b4504 0 0 0.25em inset;
 }
 /* line 254, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
- background: #614021;
- background: -moz-linear-gradient(top,  #614021 0%, #996535 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#614021), color-stop(100%,#996535));
- background: -webkit-linear-gradient(top,  #614021 0%,#996535 100%);
- background: -o-linear-gradient(top,  #614021 0%,#996535 100%);
- background: -ms-linear-gradient(top,  #614021 0%,#996535 100%);
- background: linear-gradient(top,  #614021 0%,#996535 100%);
- filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#614021', endColorstr='#996535',GradientType=0 );
- 
+  background-color: #ffc57f;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffd5a3), color-stop(100%, #ffb55b));
+  background-image: -webkit-linear-gradient(#ffffff, #ffd5a3 2%, #ffb55b);
+  background-image: linear-gradient(#ffffff, #ffd5a3 2%, #ffb55b);
 }
 
 /* line 263, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-dark.x-docked-top .x-tab-active {
-  background-color: #4a6e00;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #283b00), color-stop(10%, #395500), color-stop(65%, #4a6e00), color-stop(100%, #4c7100));
-  background-image: -webkit-linear-gradient(#283b00, #395500 10%, #4a6e00 65%, #4c7100);
-  background-image: linear-gradient(#283b00, #395500 10%, #4a6e00 65%, #4c7100);
+  background-color: #935305;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #623704), color-stop(10%, #7b4504), color-stop(65%, #935305), color-stop(100%, #965405));
+  background-image: -webkit-linear-gradient(#623704, #7b4504 10%, #935305 65%, #965405);
+  background-image: linear-gradient(#623704, #7b4504 10%, #935305 65%, #965405);
   color: white;
 }
 
@@ -4499,12 +4457,12 @@ color: #614021;
 }
 /* line 227, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-neutral .x-tab-active {
-  color: #594b3a;
+  color: black;
   border-bottom: 1px solid #e8e8e8;
 }
 /* line 232, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
 .x-tabbar-neutral .x-tab-pressed {
-  color: #594b3a;
+  color: black;
 }
 
 /* line 239, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
@@ -4542,7 +4500,7 @@ color: #614021;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bababa), color-stop(10%, #c7c7c7), color-stop(65%, #d3d3d3), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(#bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   background-image: linear-gradient(#bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
-  color: #594b3a;
+  color: black;
 }
 
 /* line 111, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
@@ -4608,7 +4566,6 @@ color: #614021;
   text-overflow: ellipsis;
   margin: 0 0.3em;
   max-width: 100%;
-  color: #fff !important;
 }
 /* line 80, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-title .x-innerhtml {
@@ -4620,48 +4577,32 @@ color: #614021;
 
 /* line 120, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-dark {
-
-  background: #CEDB93 url('../images/bg-rp-top.png') repeat left top;
-  /* background-color: #CEDB93;
-  background-image: linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -o-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -moz-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -webkit-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%);
-  background-image: -ms-linear-gradient(bottom, rgb(205,214,139) 47%, rgb(206,219,147) 74%, rgb(206,219,147) 87%); 
-  
-  background-image: -webkit-gradient(
-  	linear,
-  	left bottom,
-  	left top,
-  	color-stop(0.47, rgb(205,214,139)),
-  	color-stop(0.74, rgb(206,219,147)),
-  	color-stop(0.87, rgb(206,219,147))
-  );
-  */
-  border-color: #594b3a !important;
-  border-radius: 0 0 5px 5px;
+  background-color: #dd7c08;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbc583), color-stop(2%, #f68f12), color-stop(100%, #bb6907));
+  background-image: -webkit-linear-gradient(#fbc583, #f68f12 2%, #bb6907);
+  background-image: linear-gradient(#fbc583, #f68f12 2%, #bb6907);
+  border-color: black;
 }
 /* line 124, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-dark .x-title {
   color: white;
-  /* Ticket 105 */
-  /*text-shadow: rgba(0, 0, 0, 1) 0 -0.08em 0; */
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
 }
 /* line 129, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-dark.x-docked-top {
-  border-bottom-color: #594b3a;
+  border-bottom-color: black;
 }
 /* line 133, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-dark.x-docked-bottom {
-  border-top-color: #594b3a;
+  border-top-color: black;
 }
 /* line 137, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-dark.x-docked-left {
-  border-right-color: #594b3a;
+  border-right-color: black;
 }
 /* line 141, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-dark.x-docked-right {
-  border-left-color: #594b3a;
+  border-left-color: black;
 }
 /* line 55, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button,
@@ -4669,8 +4610,8 @@ color: #614021;
 .x-toolbar-dark .x-field-select .x-component-outer,
 .x-toolbar-dark .x-field-select .x-component-outer:before, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before {
-  border: 1px solid #283b00;
-  border-top-color: #395500;
+  border: 1px solid #623704;
+  border-top-color: #7b4504;
   color: white;
 }
 /* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
@@ -4683,7 +4624,7 @@ color: #614021;
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-forward:before, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-back:before, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-forward:before {
-  background: #283b00;
+  background: #623704;
 }
 /* line 64, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-dark .x-button, .x-toolbar-dark .x-button.x-button-back:after, .x-toolbar-dark .x-button.x-button-forward:after, .x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back:after, .x-toolbar .x-toolbar-dark .x-button.x-button-forward:after,
@@ -4699,26 +4640,10 @@ color: #614021;
 .x-toolbar-dark .x-field-select .x-component-outer:before, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-back:after, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-forward:after {
- 
-
-background: #F79621;
-background: -moz-linear-gradient(top, #F9C667 0%, #F79621 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F9C667), color-stop(100%,#F79621));
-background: -webkit-linear-gradient(top, #F9C667 0%,#F79621 100%);
-background: -o-linear-gradient(top, #F9C667 0%,#F79621 100%);
-background: -ms-linear-gradient(top, #F9C667 0%,#F79621 100%);
-background: linear-gradient(top, #F9C667 0%,#F79621 100%);
-color: #614021;
-
-
-
- 
-  /* background-color: #6ca200;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #beff3c), color-stop(2%, #84c500), color-stop(100%, #547e00));
-  background-image: -webkit-linear-gradient(#beff3c, #84c500 2%, #547e00);
-  background-image: linear-gradient(#beff3c, #84c500 2%, #547e00); */
-  
-  
+  background-color: #c46f07;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fab96b), color-stop(2%, #e78208), color-stop(100%, #a25b06));
+  background-image: -webkit-linear-gradient(#fab96b, #e78208 2%, #a25b06);
+  background-image: linear-gradient(#fab96b, #e78208 2%, #a25b06);
 }
 /* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-dark .x-button .x-button-icon.x-icon-mask, .x-toolbar .x-toolbar-dark .x-button .x-button-icon.x-icon-mask,
@@ -4727,9 +4652,9 @@ color: #614021;
 .x-toolbar-dark .x-field-select .x-component-outer:before .x-button-icon.x-icon-mask, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before .x-button-icon.x-icon-mask {
   background-color: white;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffffff), color-stop(100%, #f3ffdb));
-  background-image: -webkit-linear-gradient(#ffffff, #ffffff 2%, #f3ffdb);
-  background-image: linear-gradient(#ffffff, #ffffff 2%, #f3ffdb);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffffff), color-stop(100%, #feefdd));
+  background-image: -webkit-linear-gradient(#ffffff, #ffffff 2%, #feefdd);
+  background-image: linear-gradient(#ffffff, #ffffff 2%, #feefdd);
 }
 /* line 73, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar-dark .x-button.x-button-active, .x-toolbar-dark .x-button.x-button-active:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-dark .x-button.x-button-active, .x-toolbar .x-toolbar-dark .x-button.x-button-active:after,
@@ -4757,17 +4682,10 @@ color: #614021;
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed:after, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active, .x-toolbar
 .x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active:after {
- 
-background: #F79621;
-background: -moz-linear-gradient(top, #F79621 0%, #F9C667 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F79621), color-stop(100%,#F9C667));
-background: -webkit-linear-gradient(top, #F79621 0%,#F9C667 100%);
-background: -o-linear-gradient(top, #F79621 0%,#F9C667 100%);
-background: -ms-linear-gradient(top, #F79621 0%,#F9C667 100%);
-background: linear-gradient(top, #F79621 0%,#F9C667 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', endColorstr='#F9C667',GradientType=0 );
-
-
+  background-color: #b66607;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #844b05), color-stop(10%, #9d5806), color-stop(65%, #b66607), color-stop(100%, #b86807));
+  background-image: -webkit-linear-gradient(#844b05, #9d5806 10%, #b66607 65%, #b86807);
+  background-image: linear-gradient(#844b05, #9d5806 10%, #b66607 65%, #b86807);
 }
 /* line 151, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-dark .x-form-label {
@@ -4777,68 +4695,68 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 
 /* line 120, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-light {
-  background-color: #9fee00;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d7ff88), color-stop(2%, #b1ff13), color-stop(100%, #87ca00));
-  background-image: -webkit-linear-gradient(#d7ff88, #b1ff13 2%, #87ca00);
-  background-image: linear-gradient(#d7ff88, #b1ff13 2%, #87ca00);
-  border-color: #594b3a;
+  background-color: #f79621;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fcdcb5), color-stop(2%, #f8a643), color-stop(100%, #ec8508));
+  background-image: -webkit-linear-gradient(#fcdcb5, #f8a643 2%, #ec8508);
+  background-image: linear-gradient(#fcdcb5, #f8a643 2%, #ec8508);
+  border-color: #180e01;
 }
 /* line 124, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-light .x-title {
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  color: black;
+  text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 }
 /* line 129, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-light.x-docked-top {
-  border-bottom-color: #594b3a;
+  border-bottom-color: #180e01;
 }
 /* line 133, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-light.x-docked-bottom {
-  border-top-color: #594b3a;
+  border-top-color: #180e01;
 }
 /* line 137, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-light.x-docked-left {
-  border-right-color: #594b3a;
+  border-right-color: #180e01;
 }
 /* line 141, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-light.x-docked-right {
-  border-left-color: #594b3a;
+  border-left-color: #180e01;
 }
 /* line 55, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-light .x-button, .x-toolbar .x-toolbar-light .x-button, .x-toolbar-light .x-field-select .x-component-outer, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer, .x-toolbar-light .x-field-select .x-component-outer:before, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before {
-  border: 1px solid #4a6e00;
-  border-top-color: #5b8800;
+  border: 1px solid #935305;
+  border-top-color: #ac6106;
   color: white;
 }
 /* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-light .x-button.x-button-back:before, .x-toolbar-light .x-button.x-button-forward:before, .x-toolbar .x-toolbar-light .x-button.x-button-back:before, .x-toolbar .x-toolbar-light .x-button.x-button-forward:before, .x-toolbar-light .x-field-select .x-component-outer.x-button-back:before, .x-toolbar-light .x-field-select .x-component-outer.x-button-forward:before, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-back:before, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-forward:before, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-back:before, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-forward:before, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-back:before, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-forward:before {
-  background: #4a6e00;
+  background: #935305;
 }
 /* line 64, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-light .x-button, .x-toolbar-light .x-button.x-button-back:after, .x-toolbar-light .x-button.x-button-forward:after, .x-toolbar .x-toolbar-light .x-button, .x-toolbar .x-toolbar-light .x-button.x-button-back:after, .x-toolbar .x-toolbar-light .x-button.x-button-forward:after, .x-toolbar-light .x-field-select .x-component-outer, .x-toolbar-light .x-field-select .x-component-outer.x-button-back:after, .x-toolbar-light .x-field-select .x-component-outer.x-button-forward:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-back:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-forward:after, .x-toolbar-light .x-field-select .x-component-outer:before, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-back:after, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-forward:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-back:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-forward:after {
-  background-color: #8ed400;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cfff6e), color-stop(2%, #a6f800), color-stop(100%, #76b100));
-  background-image: -webkit-linear-gradient(#cfff6e, #a6f800 2%, #76b100);
-  background-image: linear-gradient(#cfff6e, #a6f800 2%, #76b100);
+  background-color: #f68a09;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbd09c), color-stop(2%, #f79b2b), color-stop(100%, #d37708));
+  background-image: -webkit-linear-gradient(#fbd09c, #f79b2b 2%, #d37708);
+  background-image: linear-gradient(#fbd09c, #f79b2b 2%, #d37708);
 }
 /* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-light .x-button .x-button-icon.x-icon-mask, .x-toolbar .x-toolbar-light .x-button .x-button-icon.x-icon-mask, .x-toolbar-light .x-field-select .x-component-outer .x-button-icon.x-icon-mask, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer .x-button-icon.x-icon-mask, .x-toolbar-light .x-field-select .x-component-outer:before .x-button-icon.x-icon-mask, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before .x-button-icon.x-icon-mask {
   background-color: white;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffffff), color-stop(100%, #f3ffdb));
-  background-image: -webkit-linear-gradient(#ffffff, #ffffff 2%, #f3ffdb);
-  background-image: linear-gradient(#ffffff, #ffffff 2%, #f3ffdb);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffffff), color-stop(100%, #feefdd));
+  background-image: -webkit-linear-gradient(#ffffff, #ffffff 2%, #feefdd);
+  background-image: linear-gradient(#ffffff, #ffffff 2%, #feefdd);
 }
 /* line 73, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-light .x-button.x-button-pressing, .x-toolbar-light .x-button.x-button-pressing:after, .x-toolbar-light .x-button.x-button-pressed, .x-toolbar-light .x-button.x-button-pressed:after, .x-toolbar-light .x-button.x-button-active, .x-toolbar-light .x-button.x-button-active:after, .x-toolbar .x-toolbar-light .x-button.x-button-pressing, .x-toolbar .x-toolbar-light .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-light .x-button.x-button-pressed, .x-toolbar .x-toolbar-light .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-light .x-button.x-button-active, .x-toolbar .x-toolbar-light .x-button.x-button-active:after, .x-toolbar-light .x-field-select .x-component-outer.x-button-pressing, .x-toolbar-light .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar-light .x-field-select .x-component-outer.x-button-pressed, .x-toolbar-light .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar-light .x-field-select .x-component-outer.x-button-active, .x-toolbar-light .x-field-select .x-component-outer.x-button-active:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-pressing, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-pressed, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-active, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer.x-button-active:after, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressing, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressing:after, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressed, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressed:after, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-active, .x-toolbar-light .x-field-select .x-component-outer:before.x-button-active:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressing, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressing:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressed, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-pressed:after, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-active, .x-toolbar .x-toolbar-light .x-field-select .x-component-outer:before.x-button-active:after {
-  background-color: #84c500;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #629200), color-stop(10%, #73ac00), color-stop(65%, #84c500), color-stop(100%, #85c800));
-  background-image: -webkit-linear-gradient(#629200, #73ac00 10%, #84c500 65%, #85c800);
-  background-image: linear-gradient(#629200, #73ac00 10%, #84c500 65%, #85c800);
+  background-color: #e78208;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #b66607), color-stop(10%, #ce7407), color-stop(65%, #e78208), color-stop(100%, #e98308));
+  background-image: -webkit-linear-gradient(#b66607, #ce7407 10%, #e78208 65%, #e98308);
+  background-image: linear-gradient(#b66607, #ce7407 10%, #e78208 65%, #e98308);
 }
 /* line 151, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-light .x-form-label {
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  color: black;
+  text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 }
 
 /* line 120, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
@@ -4851,7 +4769,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 124, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-neutral .x-title {
-  color: #594b3a;
+  color: black;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 }
 /* line 129, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
@@ -4874,7 +4792,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 .x-toolbar-neutral .x-button, .x-toolbar .x-toolbar-neutral .x-button, .x-toolbar-neutral .x-field-select .x-component-outer, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer, .x-toolbar-neutral .x-field-select .x-component-outer:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer:before {
   border: 1px solid #a0a0a0;
   border-top-color: #adadad;
-  color: #594b3a;
+  color: black;
 }
 /* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-neutral .x-button.x-button-back:before, .x-toolbar-neutral .x-button.x-button-forward:before, .x-toolbar .x-toolbar-neutral .x-button.x-button-back:before, .x-toolbar .x-toolbar-neutral .x-button.x-button-forward:before, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:before, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:before, .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-back:before, .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-forward:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-back:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-forward:before {
@@ -4889,7 +4807,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-toolbar-neutral .x-button .x-button-icon.x-icon-mask, .x-toolbar .x-toolbar-neutral .x-button .x-button-icon.x-icon-mask, .x-toolbar-neutral .x-field-select .x-component-outer .x-button-icon.x-icon-mask, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer .x-button-icon.x-icon-mask, .x-toolbar-neutral .x-field-select .x-component-outer:before .x-button-icon.x-icon-mask, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer:before .x-button-icon.x-icon-mask {
-  background-color: #594b3a;
+  background-color: black;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d4d4d), color-stop(2%, #121212), color-stop(100%, #000000));
   background-image: -webkit-linear-gradient(#4d4d4d, #121212 2%, #000000);
   background-image: linear-gradient(#4d4d4d, #121212 2%, #000000);
@@ -4903,7 +4821,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 151, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar.scss */
 .x-toolbar-neutral .x-form-label {
-  color: #594b3a;
+  color: black;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 }
 
@@ -4986,7 +4904,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 115, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar-forms.scss */
 .x-toolbar .x-form-field:focus {
-  color: #594b3a;
+  color: black;
 }
 /* line 122, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_toolbar-forms.scss */
 .x-toolbar .x-field-select .x-component-outer,
@@ -5076,7 +4994,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 55, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_indexbar.scss */
 .x-indexbar > div {
-  color: #6b9d04;
+  color: #bf6e0c;
   font-size: 0.6em;
   text-align: center;
   line-height: 1.1em;
@@ -5094,13 +5012,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 .x-indexbar-pressed {
   -webkit-border-radius: 0.55em;
   border-radius: 0.55em;
-  background-color: rgba(156, 163, 143, 0.8);
+  background-color: rgba(163, 154, 143, 0.8);
 }
 
 /* line 80, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list {
   position: relative;
-  background-color: #f7f7f7;
+  background-color: #917d64;
 }
 /* line 84, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list .x-list-inner {
@@ -5117,10 +5035,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
   overflow: visible;
   -webkit-mask: 0 0 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFNkNCM0JGNTZFMjI2ODExQkNGQjkwMzk3MDc3MkZFQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3M0MzQUU1QUFDQkQxMURGOEQ2MUVDMjM0MzY2NTBDQSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3M0MzQUU1OUFDQkQxMURGOEQ2MUVDMjM0MzY2NTBDQSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkU3Q0IzQkY1NkUyMjY4MTFCQ0ZCOTAzOTcwNzcyRkVCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkU2Q0IzQkY1NkUyMjY4MTFCQ0ZCOTAzOTcwNzcyRkVCIi8+IDwvcmRmOkRlc2NyaXB0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') no-repeat;
   -webkit-mask-size: 1.7em;
-  background-color: #ff8718;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffd6b1), color-stop(2%, #ff9a3c), color-stop(100%, #f37500));
-  background-image: -webkit-linear-gradient(#ffd6b1, #ff9a3c 2%, #f37500);
-  background-image: linear-gradient(#ffd6b1, #ff9a3c 2%, #f37500);
+  background-color: #e57d00;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffc57f), color-stop(2%, #ff900a), color-stop(100%, #c16a00));
+  background-image: -webkit-linear-gradient(#ffc57f, #ff900a 2%, #c16a00);
+  background-image: linear-gradient(#ffc57f, #ff900a 2%, #c16a00);
   width: 1.7em;
   height: 1.7em;
 }
@@ -5135,7 +5053,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 /* line 111, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list .x-list-item {
   position: relative;
-  color: #594b3a;
+  color: black;
 }
 /* line 115, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list .x-list-item .x-list-item-label {
@@ -5144,16 +5062,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 121, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list .x-list-item.x-item-pressed .x-list-item-label {
-  background: white none;
+  background: #fff3e5 none;
 }
 /* line 127, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list .x-list-item.x-item-selected .x-list-item-label {
-  background-color: #ff8718;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffd6b1), color-stop(2%, #ff9a3c), color-stop(100%, #f37500));
-  background-image: -webkit-linear-gradient(#ffd6b1, #ff9a3c 2%, #f37500);
-  background-image: linear-gradient(#ffd6b1, #ff9a3c 2%, #f37500);
-  color: #594b3a;
-  text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
+  background-color: #e57d00;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffc57f), color-stop(2%, #ff900a), color-stop(100%, #c16a00));
+  background-image: -webkit-linear-gradient(#ffc57f, #ff900a 2%, #c16a00);
+  background-image: linear-gradient(#ffc57f, #ff900a 2%, #c16a00);
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
 }
 
 /* line 136, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
@@ -5177,14 +5095,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 
 /* line 153, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-header {
-  background-color: #c7ff55;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f9ffee), color-stop(2%, #d2ff79), color-stop(100%, #bbff31));
-  background-image: -webkit-linear-gradient(#f9ffee, #d2ff79 2%, #bbff31);
-  background-image: linear-gradient(#f9ffee, #d2ff79 2%, #bbff31);
-  color: #7dbb00;
+  background-color: #ffc57f;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #ffd5a3), color-stop(100%, #ffb55b));
+  background-image: -webkit-linear-gradient(#ffffff, #ffd5a3 2%, #ffb55b);
+  background-image: linear-gradient(#ffffff, #ffd5a3 2%, #ffb55b);
+  color: #e57d00;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
-  border-top: 1px solid #c7ff55;
-  border-bottom: 1px solid #9fee00;
+  border-top: 1px solid #ffc57f;
+  border-bottom: 1px solid #ff9719;
   font-weight: bold;
   font-size: 0.8em;
   padding: 0.2em 1.02em;
@@ -5192,11 +5110,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 178, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-item .x-list-item-label {
-  border-top: 1px solid #dedede;
+  border-top: 1px solid #73634f;
 }
 /* line 181, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-item:last-child .x-list-item-label {
-  border-bottom: 1px solid #dedede;
+  border-bottom: 1px solid #73634f;
 }
 /* line 186, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-item:first-child .x-list-item-label {
@@ -5204,55 +5122,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 }
 /* line 191, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-item.x-item-pressed .x-list-item-label {
-  border-top-color: white;
-  background-color: white;
+  border-top-color: #fff3e5;
+  background-color: #fff3e5;
 }
 /* line 196, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-item.x-item-selected .x-list-item-label {
-  border-top-color: #ff8718;
-  border-bottom-color: #cb6100;
+  border-top-color: #e57d00;
+  border-bottom-color: #995300;
 }
 
 /* line 207, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
-/*.x-list-round .x-scroll-view {*/
-  
-  /*background: #917D64;*/ /*url('../images/bg-rp-main.png') repeat left top;*/
-  
-  /* background-image: linear-gradient(bottom, rgb(145,125,100) 47%, rgb(143,120,93) 74%);
-  background-image: -o-linear-gradient(bottom, rgb(145,125,100) 47%, rgb(143,120,93) 74%);
-  background-image: -moz-linear-gradient(bottom, rgb(145,125,100) 47%, rgb(143,120,93) 74%);
-  background-image: -webkit-linear-gradient(bottom, rgb(145,125,100) 47%, rgb(143,120,93) 74%);
-  background-image: -ms-linear-gradient(bottom, rgb(145,125,100) 47%, rgb(143,120,93) 74%);
-  
-  background-image: -webkit-gradient(
-  	linear,
-  	left bottom,
-  	left top,
-  	color-stop(0.47, rgb(145,125,100)),
-  	color-stop(0.74, rgb(143,120,93))
-  ); */
-  
-/*}*/
-/* FRED */
-/*.x-dataview .x-scroll-view {
-  
-  background: #917D64 url('../images/bg-rp-main.png') repeat left top;
-
-}*/
-
-.dashboard {
-  background: #917D64 url('../images/bg-rp-main.png') repeat left top;  
+.x-list-round .x-scroll-view {
+  background-color: #EEEEEE !important;
 }
-
 /* line 211, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-round .x-list-disclosure {
   overflow: hidden;
   -webkit-mask: 0 0 url('data:image/png;base64,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') no-repeat;
   -webkit-mask-size: 1.5em;
-  background-color: #b2f42d;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e7fcbe), color-stop(2%, #bef64f), color-stop(100%, #a5f10d));
-  background-image: -webkit-linear-gradient(#e7fcbe, #bef64f 2%, #a5f10d);
-  background-image: linear-gradient(#e7fcbe, #bef64f 2%, #a5f10d);
+  background-color: #f0ac5b;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fdf3e7), color-stop(2%, #f3bd7c), color-stop(100%, #ed9c3b));
+  background-image: -webkit-linear-gradient(#fdf3e7, #f3bd7c 2%, #ed9c3b);
+  background-image: linear-gradient(#fdf3e7, #f3bd7c 2%, #ed9c3b);
   width: 1.5em;
   height: 1.5em;
   bottom: 0.5em;
@@ -5358,7 +5249,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', end
 /* line 322, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-paging .x-list-paging-msg {
   text-align: center;
-  color: #ff8718;
+  color: #e57d00;
   padding-top: 10px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
@@ -5593,7 +5484,6 @@ html, body {
   -webkit-box-orient: vertical;
   min-width: 100%;
   min-height: 100%;
-  /*background: #917D64; /*url('../images/bg-rp-main.png') repeat left top;*/
 }
 
 /* line 131, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_layout.scss */
@@ -5960,7 +5850,7 @@ html, body {
 /* line 141, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
 .x-form-label {
   text-shadow: #fff 0 1px 1px;
-  color: #4c321a;
+  color: #333333;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
   padding: 0.6em;
   display: none !important;
@@ -5968,6 +5858,11 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
   background-color: #f7f7f7;
+}
+/* line 149, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
+.x-form-label span {
+  font-size: .8em;
+  font-weight: bold;
 }
 
 /* line 156, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
@@ -6122,13 +6017,13 @@ html, body {
 /* line 308, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
 .x-field .x-input-radio:checked:after,
 .x-field .x-input-checkbox:checked:after {
-  background-color: #ff8718;
+  background-color: #e57d00;
 }
 
 /* line 316, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
 .x-field.x-item-disabled .x-input-radio:checked:after,
 .x-field.x-item-disabled .x-input-checkbox:checked:after {
-  background-color: #e7c3a1;
+  background-color: #dfc09a;
 }
 
 /* line 324, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
@@ -6168,7 +6063,7 @@ html, body {
 .x-spinner.x-item-disabled .x-spinner-button, .x-toolbar .x-spinner.x-item-disabled .x-spinner-button {
   border: 1px solid #c4c4c4;
   border-top-color: #d0d0d0;
-  color: #594b3a;
+  color: black;
 }
 /* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-spinner.x-item-disabled .x-spinner-button.x-button-back:before, .x-spinner.x-item-disabled .x-spinner-button.x-button-forward:before, .x-toolbar .x-spinner.x-item-disabled .x-spinner-button.x-button-back:before, .x-toolbar .x-spinner.x-item-disabled .x-spinner-button.x-button-forward:before {
@@ -6183,7 +6078,7 @@ html, body {
 }
 /* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-spinner.x-item-disabled .x-spinner-button .x-button-icon.x-icon-mask, .x-toolbar .x-spinner.x-item-disabled .x-spinner-button .x-button-icon.x-icon-mask {
-  background-color: #594b3a;
+  background-color: black;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d4d4d), color-stop(2%, #121212), color-stop(100%, #000000));
   background-image: -webkit-linear-gradient(#4d4d4d, #121212 2%, #000000);
   background-image: linear-gradient(#4d4d4d, #121212 2%, #000000);
@@ -6211,7 +6106,7 @@ html, body {
 .x-spinner .x-spinner-button, .x-toolbar .x-spinner .x-spinner-button {
   border: 1px solid #b7b7b7;
   border-top-color: #c4c4c4;
-  color: #594b3a;
+  color: black;
 }
 /* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-spinner .x-spinner-button.x-button-back:before, .x-spinner .x-spinner-button.x-button-forward:before, .x-toolbar .x-spinner .x-spinner-button.x-button-back:before, .x-toolbar .x-spinner .x-spinner-button.x-button-forward:before {
@@ -6226,7 +6121,7 @@ html, body {
 }
 /* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-spinner .x-spinner-button .x-button-icon.x-icon-mask, .x-toolbar .x-spinner .x-spinner-button .x-button-icon.x-icon-mask {
-  background-color: #594b3a;
+  background-color: black;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d4d4d), color-stop(2%, #121212), color-stop(100%, #000000));
   background-image: -webkit-linear-gradient(#4d4d4d, #121212 2%, #000000);
   background-image: linear-gradient(#4d4d4d, #121212 2%, #000000);
@@ -6305,7 +6200,7 @@ html, body {
 .x-slider,
 .x-toggle {
   position: relative;
-  height: 2.2em;
+  height: 1.4em;
   min-height: 0;
   min-width: 0;
 }
@@ -6325,20 +6220,20 @@ html, body {
 /* line 57, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form-sliders.scss */
 .x-thumb {
   position: absolute;
-  height: 2.2em;
-  width: 2.2em;
+  height: 1.4em;
+  width: 1.4em;
 }
 /* line 63, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form-sliders.scss */
 .x-thumb:before {
   content: "";
   position: absolute;
-  width: 1.85em;
-  height: 1.85em;
+  width: 1.05em;
+  height: 1.05em;
   top: 0.175em;
   left: 0.175em;
   border: 1px solid #919191;
-  -webkit-border-radius: 0.925em;
-  border-radius: 0.925em;
+  -webkit-border-radius: 0.525em;
+  border-radius: 0.525em;
   background-color: #dddddd;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(2%, #efefef), color-stop(100%, #cbcbcb));
   background-image: -webkit-linear-gradient(#ffffff, #efefef 2%, #cbcbcb);
@@ -6363,11 +6258,11 @@ html, body {
   content: "";
   position: absolute;
   width: auto;
-  height: 0.8em;
-  top: 0.737em;
+  height: 0.4em;
+  top: 0.537em;
   left: 0;
   right: 0;
-  margin: 0 0.925em;
+  margin: 0 0.525em;
   background-color: #dddddd;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c4c4c4), color-stop(10%, #d0d0d0), color-stop(65%, #dddddd), color-stop(100%, #dedede));
   background-image: -webkit-linear-gradient(#c4c4c4, #d0d0d0 10%, #dddddd 65%, #dedede);
@@ -6375,15 +6270,15 @@ html, body {
   border: 0.1em solid rgba(0, 0, 0, 0.1);
   border-bottom: 0;
   -webkit-box-shadow: rgba(255, 255, 255, 0.7) 0 0.1em 0;
-  -webkit-border-radius: 0.4em;
-  border-radius: 0.4em;
+  -webkit-border-radius: 0.2em;
+  border-radius: 0.2em;
 }
 
 /* line 93, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form-sliders.scss */
 .x-toggle {
-  width: 4.4em;
-  -webkit-border-radius: 1.1em;
-  border-radius: 1.1em;
+  width: 2.8em;
+  -webkit-border-radius: 0.7em;
+  border-radius: 0.7em;
   overflow: hidden;
   border: 1px solid #b7b7b7;
   background-color: #dddddd;
@@ -6532,9 +6427,9 @@ input[type="search"]::-webkit-search-cancel-button {
 /* line 555, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
 .x-form-fieldset-title {
   text-shadow: #fff 0 1px 1px;
-  color: #4c321a;
+  color: #333333;
   margin: 1em 0.7em 0.3em;
-  color: #4c321a;
+  color: #333333;
   font-weight: bold;
   white-space: nowrap;
 }
@@ -6542,7 +6437,7 @@ input[type="search"]::-webkit-search-cancel-button {
 /* line 563, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form.scss */
 .x-form-fieldset-instructions {
   text-shadow: #fff 0 1px 1px;
-  color: #4c321a;
+  color: #333333;
   color: gray;
   margin: 1em 0.7em 0.3em;
   font-size: .8em;
@@ -6605,7 +6500,7 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 0.1em 0.5em;
   -webkit-border-radius: 0.3em;
   border-radius: 0.3em;
-  border: 0.15em solid #e8ffbb;
+  border: 0.15em solid #f79621;
 }
 /* line 16, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
 .x-msgbox .x-icon {
@@ -6675,16 +6570,16 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* line 85, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
 .x-msgbox-dark .x-msgbox-text {
-  color: rgba(232, 255, 187, 0.9);
+  color: rgba(254, 243, 230, 0.9);
   text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
 }
 /* line 89, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_msgbox.scss */
 .x-msgbox-dark .x-msgbox-input {
-  background-color: rgba(232, 255, 187, 0.9);
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(215, 255, 136, 0.9)), color-stop(10%, rgba(224, 255, 161, 0.9)), color-stop(65%, rgba(232, 255, 187, 0.9)), color-stop(100%, rgba(233, 255, 190, 0.9)));
-  background-image: -webkit-linear-gradient(rgba(215, 255, 136, 0.9), rgba(224, 255, 161, 0.9) 10%, rgba(232, 255, 187, 0.9) 65%, rgba(233, 255, 190, 0.9));
-  background-image: linear-gradient(rgba(215, 255, 136, 0.9), rgba(224, 255, 161, 0.9) 10%, rgba(232, 255, 187, 0.9) 65%, rgba(233, 255, 190, 0.9));
-  border: 0.1em solid rgba(159, 238, 0, 0.9);
+  background-color: rgba(254, 243, 230, 0.9);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(252, 220, 181, 0.9)), color-stop(10%, rgba(253, 231, 205, 0.9)), color-stop(65%, rgba(254, 243, 230, 0.9)), color-stop(100%, rgba(254, 244, 232, 0.9)));
+  background-image: -webkit-linear-gradient(rgba(252, 220, 181, 0.9), rgba(253, 231, 205, 0.9) 10%, rgba(254, 243, 230, 0.9) 65%, rgba(254, 244, 232, 0.9));
+  background-image: linear-gradient(rgba(252, 220, 181, 0.9), rgba(253, 231, 205, 0.9) 10%, rgba(254, 243, 230, 0.9) 65%, rgba(254, 244, 232, 0.9));
+  border: 0.1em solid rgba(247, 150, 33, 0.9);
 }
 
 /* line 20, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_loading-spinner.scss */
@@ -6932,9 +6827,55 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-@CHARSET "UTF-8";
+/*@include toolbar-button( #F79621, #614021 );*/
+/*@include bevel-by-background(#614021);*/
+/* line 55, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
+.x-button.x-button-orange, .x-toolbar .x-button.x-button-orange, .x-button.x-button-orange-round, .x-toolbar .x-button.x-button-orange-round, .x-button.x-button-orange-small, .x-toolbar .x-button.x-button-orange-small {
+  border: 1px solid #ac6106;
+  border-top-color: #c46f07;
+  color: black;
+}
+/* line 60, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
+.x-button.x-button-orange.x-button-back:before, .x-button.x-button-orange.x-button-forward:before, .x-toolbar .x-button.x-button-orange.x-button-back:before, .x-toolbar .x-button.x-button-orange.x-button-forward:before, .x-button.x-button-orange-round.x-button-back:before, .x-button.x-button-orange-round.x-button-forward:before, .x-toolbar .x-button.x-button-orange-round.x-button-back:before, .x-toolbar .x-button.x-button-orange-round.x-button-forward:before, .x-button.x-button-orange-small.x-button-back:before, .x-button.x-button-orange-small.x-button-forward:before, .x-toolbar .x-button.x-button-orange-small.x-button-back:before, .x-toolbar .x-button.x-button-orange-small.x-button-forward:before {
+  background: #ac6106;
+}
+/* line 64, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
+.x-button.x-button-orange, .x-button.x-button-orange.x-button-back:after, .x-button.x-button-orange.x-button-forward:after, .x-toolbar .x-button.x-button-orange, .x-toolbar .x-button.x-button-orange.x-button-back:after, .x-toolbar .x-button.x-button-orange.x-button-forward:after, .x-button.x-button-orange-round, .x-button.x-button-orange-round.x-button-back:after, .x-button.x-button-orange-round.x-button-forward:after, .x-toolbar .x-button.x-button-orange-round, .x-toolbar .x-button.x-button-orange-round.x-button-back:after, .x-toolbar .x-button.x-button-orange-round.x-button-forward:after, .x-button.x-button-orange-small, .x-button.x-button-orange-small.x-button-back:after, .x-button.x-button-orange-small.x-button-forward:after, .x-toolbar .x-button.x-button-orange-small, .x-toolbar .x-button.x-button-orange-small.x-button-back:after, .x-toolbar .x-button.x-button-orange-small.x-button-forward:after {
+  background-color: #f79621;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fcdcb5), color-stop(2%, #f8a643), color-stop(100%, #ec8508));
+  background-image: -webkit-linear-gradient(#fcdcb5, #f8a643 2%, #ec8508);
+  background-image: linear-gradient(#fcdcb5, #f8a643 2%, #ec8508);
+}
+/* line 68, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
+.x-button.x-button-orange .x-button-icon.x-icon-mask, .x-toolbar .x-button.x-button-orange .x-button-icon.x-icon-mask, .x-button.x-button-orange-round .x-button-icon.x-icon-mask, .x-toolbar .x-button.x-button-orange-round .x-button-icon.x-icon-mask, .x-button.x-button-orange-small .x-button-icon.x-icon-mask, .x-toolbar .x-button.x-button-orange-small .x-button-icon.x-icon-mask {
+  background-color: black;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #945305), color-stop(2%, #221301), color-stop(100%, #000000));
+  background-image: -webkit-linear-gradient(#945305, #221301 2%, #000000);
+  background-image: linear-gradient(#945305, #221301 2%, #000000);
+}
+/* line 73, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
+.x-button.x-button-orange.x-button-pressing, .x-button.x-button-orange.x-button-pressing:after, .x-button.x-button-orange.x-button-pressed, .x-button.x-button-orange.x-button-pressed:after, .x-button.x-button-orange.x-button-active, .x-button.x-button-orange.x-button-active:after, .x-toolbar .x-button.x-button-orange.x-button-pressing, .x-toolbar .x-button.x-button-orange.x-button-pressing:after, .x-toolbar .x-button.x-button-orange.x-button-pressed, .x-toolbar .x-button.x-button-orange.x-button-pressed:after, .x-toolbar .x-button.x-button-orange.x-button-active, .x-toolbar .x-button.x-button-orange.x-button-active:after, .x-button.x-button-orange-round.x-button-pressing, .x-button.x-button-orange-round.x-button-pressing:after, .x-button.x-button-orange-round.x-button-pressed, .x-button.x-button-orange-round.x-button-pressed:after, .x-button.x-button-orange-round.x-button-active, .x-button.x-button-orange-round.x-button-active:after, .x-toolbar .x-button.x-button-orange-round.x-button-pressing, .x-toolbar .x-button.x-button-orange-round.x-button-pressing:after, .x-toolbar .x-button.x-button-orange-round.x-button-pressed, .x-toolbar .x-button.x-button-orange-round.x-button-pressed:after, .x-toolbar .x-button.x-button-orange-round.x-button-active, .x-toolbar .x-button.x-button-orange-round.x-button-active:after, .x-button.x-button-orange-small.x-button-pressing, .x-button.x-button-orange-small.x-button-pressing:after, .x-button.x-button-orange-small.x-button-pressed, .x-button.x-button-orange-small.x-button-pressed:after, .x-button.x-button-orange-small.x-button-active, .x-button.x-button-orange-small.x-button-active:after, .x-toolbar .x-button.x-button-orange-small.x-button-pressing, .x-toolbar .x-button.x-button-orange-small.x-button-pressing:after, .x-toolbar .x-button.x-button-orange-small.x-button-pressed, .x-toolbar .x-button.x-button-orange-small.x-button-pressed:after, .x-toolbar .x-button.x-button-orange-small.x-button-active, .x-toolbar .x-button.x-button-orange-small.x-button-active:after {
+  background-color: #f68f12;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ce7407), color-stop(10%, #e78208), color-stop(65%, #f68f12), color-stop(100%, #f79015));
+  background-image: -webkit-linear-gradient(#ce7407, #e78208 10%, #f68f12 65%, #f79015);
+  background-image: linear-gradient(#ce7407, #e78208 10%, #f68f12 65%, #f79015);
+}
 
+/*@include bevel-box('shadow');*/
+/*@include pictos-iconmask('../images/buttons/kasse');*/
+@CHARSET "UTF-8";
+/* ------- FONTS START --------- */
+@font-face {
+  font-family: 'ComfortaaRegular';
+  src: url("fonts/comfortaa_regular-webfont.eot");
+  src: url("fonts/comfortaa_regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/comfortaa_regular-webfont.woff") format("woff"), url("fonts/comfortaa_regular-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ------ FONTS END ----------*/
 /* line 37, app-default.scss */
+/* line 64, app-default.scss */
 .productListItem h2.title {
   /*float: left;*/
   /*width: 80%;*/
@@ -6943,6 +6884,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 43, app-default.scss */
+/* line 72, app-default.scss */
 .productListItem h2.price {
   /*float: left;*/
   font-size: 1em;
@@ -6950,13 +6892,16 @@ input[type="search"]::-webkit-search-cancel-button {
   /*width: 20%;*/
   /*text-align: right;*/
 }
+
 /* line 53, app-default.scss */
+/* line 80, app-default.scss */
 .productListItem div p {
   /*clear: both;*/
   font-size: 0.6em;
 }
 
 /* line 60, app-default.scss */
+/* line 86, app-default.scss */
 .productdetail-floating {
   border-radius: 0.3em !important;
   padding: 0.3em !important;
@@ -6966,8 +6911,10 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 67, app-default.scss */
+/* line 95, app-default.scss */
 .productDetailPanel {
-  background: #917D64; /*url('../images/bg-rp-main.png') repeat left top;*/
+  background: #917D64;
+  /*url('../images/bg-rp-main.png') repeat left top;*/
   padding: 0.5em;
   margin-bottom: 3px;
   border-radius: 0.3em;
@@ -6975,14 +6922,17 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* Set background for product description and amount spinner */
+/* line 104, app-default.scss */
 .productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
-  background: #917D64; /*url('../images/bg-rp-main.png') repeat left top;*/
+  background: #917D64;
+  /*url('../images/bg-rp-main.png') repeat left top;*/
   color: black;
   /* To prevent rounded corners on form label. */
   border-radius: 0 !important;
 }
 
 /* line 76, app-default.scss */
+/* line 112, app-default.scss */
 .productDetail {
   /*background: #917D64; */
   /*url('../images/bg-rp-main.png') repeat left top;*/
@@ -6990,24 +6940,26 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 0.5em;
 }
 
-
+/* line 120, app-default.scss */
 .productdetail-spinner-label {
   padding: 0;
   margin: 0;
 }
 
+/* line 125, app-default.scss */
 .productdetail-spinner-input {
-   border: solid 1px gray;
-   background: white;
-   border-radius: 0.3em;
-   font-size: 1.2em;
-   width: 45px !important;
-   text-align: center !important;
-   /* otherise value is 2.5em inherited from x-input-el */
-   min-height: 0em;   
-   /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.15em 0.3em !important;*/
+  border: solid 1px gray;
+  background: white;
+  border-radius: 0.3em;
+  font-size: 1.2em;
+  width: 45px !important;
+  text-align: center !important;
+  /* otherise value is 2.5em inherited from x-input-el */
+  min-height: 0em;
+  /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.15em 0.3em !important;*/
 }
 
+/* line 137, app-default.scss */
 .productdetail-spinner-down {
   position: relative;
   top: 25px;
@@ -7016,6 +6968,7 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 45px;
 }
 
+/* line 145, app-default.scss */
 .productdetail-spinner-up {
   position: relative;
   top: -2px;
@@ -7025,16 +6978,19 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 104, app-default.scss */
+/* line 154, app-default.scss */
 .x-button .x-button-icon.cart-button {
-  background-image: url('data:image/png;base64,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');
+  background-image: url("data:image/png;base64,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");
 }
 
 /* line 108, app-default.scss */
+/* line 159, app-default.scss */
 .productPrice {
   font-size: 1.5em;
 }
 
 /* line 113, app-default.scss */
+/* line 164, app-default.scss */
 .productDetail-close {
   background-color: #594b3a;
   border-radius: 1em;
@@ -7052,10 +7008,13 @@ input[type="search"]::-webkit-search-cancel-button {
 * Choices and Options
 */
 /* line 130, app-default.scss */
+/* line 181, app-default.scss */
 .choice-panel {
   padding: 5px;
 }
+
 /* line 134, app-default.scss */
+/* line 185, app-default.scss */
 .choice-panel .choice {
   font-size: 1em;
   color: #8AA529;
@@ -7065,10 +7024,14 @@ input[type="search"]::-webkit-search-cancel-button {
   border-radius: 0.3em;
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
 }
+
 /* line 138, app-default.scss */
+/* line 195, app-default.scss */
 .choice-panel .option {
   white-space: normal;
 }
+
+/* line 198, app-default.scss */
 .choice-panel .option-label {
   font-size: 0.8em;
   background-color: white;
@@ -7076,6 +7039,7 @@ input[type="search"]::-webkit-search-cancel-button {
   white-space: normal;
 }
 
+/* line 205, app-default.scss */
 .choice-panel .comment {
   font-size: 1em;
   color: #8AA529;
@@ -7087,17 +7051,20 @@ input[type="search"]::-webkit-search-cancel-button {
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
 }
 
+/* line 216, app-default.scss */
 .choice-panel .comment-input {
   border: 1px dashed gray;
   padding-top: 3px;
 }
 
 /* line 142, app-default.scss #8AA529*/
+/* line 222, app-default.scss */
 .choice-panel .option-panel {
   padding: 5px 0px;
   white-space: normal;
 }
 
+/* line 227, app-default.scss */
 .choice-panel-title {
   text-align: center;
 }
@@ -7105,29 +7072,29 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Orderlist
 */
-
+/* line 235, app-default.scss */
 .myorders-panel {
-  background: #917D64; 
+  background: #917D64;
 }
 
-.myorders-panel .x-list-round .x-scroll-view {
- background: #917D64;  
-}
-
+/* line 239, app-default.scss */
 .orderListItem {
   color: #000000;
 }
 
+/* line 243, app-default.scss */
 .orderListItem .order-title {
   margin-bottom: 7px;
 }
 
+/* line 247, app-default.scss */
 .orderListItem h2.title {
   color: #000000;
   font-size: 1em;
   padding-right: 3px;
 }
 
+/* line 253, app-default.scss */
 .orderListItem h2.price {
   color: #000000;
   font-size: 1em;
@@ -7136,75 +7103,92 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 25px;
 }
 
-.orderListItem li, .orderListItem p  {
+/* line 261, app-default.scss */
+.orderListItem li, .orderListItem p {
   color: #000000;
   margin-left: 15px;
   font-size: 0.7em;
 }
 
-.orderListItem h4{
+/* line 267, app-default.scss */
+.orderListItem h4 {
   font-size: 0.7em;
   color: #000000;
 }
 
-.orderListItem h3{
+/* line 272, app-default.scss */
+.orderListItem h3 {
   font-size: 0.9em;
   color: #000000;
 }
 
 /* line 174, app-default.scss */
+/* line 278, app-default.scss */
 .orderListItem .canceled {
   text-decoration: line-through;
 }
+
 /* line 177, app-default.scss */
+/* line 282, app-default.scss */
 .orderListItem .canceled h2 {
   text-decoration: line-through;
 }
 
+/* line 286, app-default.scss */
 .cart-panel {
-  background: #917D64; 
+  background: #917D64;
 }
 
+/* line 290, app-default.scss */
 .cart-panel .x-list-round .x-scroll-view {
- background: #917D64;  
+  background: #917D64;
 }
 
 /* line 182, app-default.scss */
+/* line 295, app-default.scss */
 .cartoverview {
   padding: 0.3em 0em;
 }
 
 /* line 186, app-default.scss */
+/* line 300, app-default.scss */
 .cartTotal {
   text-align: center;
   font-size: 1.5em;
   color: #FFFFFF;
-  background: #917D64; 
+  /*background: #917D64; */
 }
 
 /* line 191, app-default.scss */
+/* line 308, app-default.scss */
 .cartoverviewitem {
   padding: 5px;
   margin: 5px;
   border-radius: 0.3em;
   background-color: #fff;
 }
+
 /* line 197, app-default.scss */
+/* line 315, app-default.scss */
 .cartoverviewitem .name {
   width: 50%;
 }
+
 /* line 200, app-default.scss */
+/* line 319, app-default.scss */
 .cartoverviewitem .name h2.title {
   color: #000000;
   font-size: 1em;
 }
 
-
 /* line 206, app-default.scss */
+/* line 326, app-default.scss */
 .cartoverviewitem .name div.amount {
   float: left;
 }
+
 /* line 210, app-default.scss */
+/* line 330, app-default.scss */
 .cartoverviewitem .name h2.price {
   color: #000000;
   font-size: 1em;
@@ -7214,34 +7198,41 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 220, app-default.scss */
+/* line 339, app-default.scss */
 .cartoverviewitem .edit {
   top: 0;
   margin-right: 10px;
 }
+
 /* line 225, app-default.scss */
+/* line 344, app-default.scss */
 .cartoverviewitem .cancel {
   top: 0;
   margin-right: 5px;
 }
 
 /* line 231, app-default.scss */
+/* line 350, app-default.scss */
 .cartoverviewitem-name {
   width: 70%;
   margin-bottom: 20px;
 }
 
 /* line 236, app-default.scss */
+/* line 356, app-default.scss */
 .cartoverviewitem-edit {
   top: 0;
 }
 
 /* line 240, app-default.scss */
+/* line 361, app-default.scss */
 .cartoverviewitem-cancel {
   top: 0;
   margin-right: 5px;
 }
 
 /* line 246, app-default.scss */
+/* line 367, app-default.scss */
 .menuCategoryItem {
   float: left;
   width: 15%;
@@ -7251,6 +7242,7 @@ input[type="search"]::-webkit-search-cancel-button {
 *	OrderDetail Panel
 */
 /* line 255, app-default.scss */
+/* line 376, app-default.scss */
 .orderdetail-floating {
   border-radius: 0.3em !important;
   padding: 0.3em !important;
@@ -7261,29 +7253,39 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Dashboard
 */
+/* line 387, app-default.scss */
+.dashboard {
+  background: #917d64 url("../images/bg-rp-main.png") repeat left top;
+}
+
 /* line 266, app-default.scss */
+/* line 392, app-default.scss */
 .dashboard-button {
-  background-image: url(../images/dashboard/start_button.png); 
-  background-repeat:no-repeat; 
-  background-position:center center;
+  background-image: url(../images/dashboard/start_button.png);
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 /* line 279, app-default.scss */
+/* line 399, app-default.scss */
 .dashboard-button-pressed {
   background-image: url(../images/dashboard/start_button_touch.png) !important;
-  background-repeat:no-repeat; 
-  background-position:center center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
+/* line 405, app-default.scss */
 .dashboard-description {
   color: white;
 }
 
+/* line 409, app-default.scss */
 .about-text {
   font-size: 0.9em;
   margin: 5px;
 }
 
+/* line 414, app-default.scss */
 .about-text h2 {
   font-size: 1.2em;
   font-weight: bold;
@@ -7291,42 +7293,46 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-bottom: 3px;
 }
 
+/* line 421, app-default.scss */
 .about-text h3 {
   font-weight: bold;
 }
 
-.about-text p {
-
-}
-
+/* line 429, app-default.scss */
 .x-button-icon.about {
-  -webkit-mask-image: url('../images/buttons/about.png');
+  -webkit-mask-image: url("../images/buttons/about.png");
 }
 
 /* line 335, app-default.scss */
+/* line 434, app-default.scss */
 .x-tab .x-button-icon.cart {
   /*-webkit-mask-image: url('data:image/png;base64,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');*/
-  -webkit-mask-image: url('../images/buttons/bestellung.png');
+  -webkit-mask-image: url("../images/buttons/bestellung.png");
 }
 
+/* line 439, app-default.scss */
 .x-tab .x-button-icon.menu {
-  -webkit-mask-image: url('../images/buttons/speisekarte.png');
+  -webkit-mask-image: url("../images/buttons/speisekarte.png");
 }
 
+/* line 443, app-default.scss */
 .x-tab .x-button-icon.cash {
-  -webkit-mask-image: url('../images/buttons/kasse.png');
+  -webkit-mask-image: url("../images/buttons/kasse.png");
 }
 
+/* line 447, app-default.scss */
 .x-tab .x-button-icon.leave {
-  -webkit-mask-image: url('../images/buttons/forbidden.png');
+  -webkit-mask-image: url("../images/buttons/forbidden.png");
 }
 
 /* line 339, app-default.scss */
+/* line 452, app-default.scss */
 .x-tab .x-button-icon.requests {
   /*-webkit-mask-image: url('data:image/png;base64,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');*/
-  -webkit-mask-image: url('../images/buttons/aktionen.png');
+  -webkit-mask-image: url("../images/buttons/aktionen.png");
 }
 
+/* line 457, app-default.scss */
 .newsletter-floating {
   border-radius: 0.3em !important;
   padding: 3px !important;
@@ -7334,11 +7340,13 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em !important;
 }
 
+/* line 464, app-default.scss */
 .newsletter-register-button {
   width: 200px;
   margin-top: 5px;
 }
 
+/* line 469, app-default.scss */
 .newsletter-popup {
   background-color: #86B22D;
   background: black;
@@ -7346,206 +7354,305 @@ input[type="search"]::-webkit-search-cancel-button {
   border-right: 1px solid #86B22D;
 }
 
+/* line 476, app-default.scss */
 .newsletter-popup .x-panel-inner {
-    background: #917D64 url('../images/bg-rp-main.png');
+  background: #917d64 url("../images/bg-rp-main.png");
 }
 
 /*
 * Requests tab.
 */
+/* line 483, app-default.scss */
 .request-panel {
- background: #917D64;  
+  /*background: #917D64;  */
 }
 
 /*
 * Feedback
 */
-
+/* line 491, app-default.scss */
 .feedback-label {
-  color: white; 
+  color: white;
   font-size: 1em;
   word-break: break-word;
 }
 
-
+/* line 498, app-default.scss */
 .feedback-slider {
   background: #917D64;
 }
 
+/* line 502, app-default.scss */
 .feedback-panel {
   padding: 0.3em 0em;
-  background: #917D64; 
+  /*background: #917D64; */
 }
 
 /*
 * Settings tab.
 */
+/* line 510, app-default.scss */
 .setting-panel {
- background: #917D64;  
+  /*background: #917D64;  */
 }
-
 
 /*
 * General styles
 */
+/* line 518, app-default.scss */
 .general-label {
-  color: white; 
+  color: white;
   font-size: 1em;
   text-align: center;
 }
 
+/* line 524, app-default.scss */
 .general-label-black {
-  color: black; 
+  color: black;
   font-size: 1em;
   text-align: center;
 }
 
+/* line 530, app-default.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
 }
 
+/* line 535, app-default.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
+/* line 540, app-default.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
+/* line 545, app-default.scss */
 .general-panel {
-  background: #917D64;  
+  background: #917D64;
 }
 
+/* line 549, app-default.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
+/* line 554, app-default.scss */
 h9 {
   position: relative;
   padding-right: 20px;
-  
 }
 
+/* line 560, app-default.scss */
 .hidden {
   display: none;
-
 }
 
+/* line 565, app-default.scss */
 .collapsed-arrow {
-  background-image: url('../images/arrow_right.png');
+  background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 20px 20px;
 }
 
+/* line 572, app-default.scss */
 .expanded-arrow {
-  background-image: url('../images/arrow_down.png');
+  background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 20px 20px;
 }
 
+/* line 579, app-default.scss */
 .visible {
   display: block;
 }
 
-
 /*
 * Menu- and Productlist
 */
-
+/* line 588, app-default.scss */
 .menu-panel, .menu-panel .x-list-round .x-scroll-view {
- background: #917D64;
+  background: #917D64;
 }
 
 /*
 * CheckIn confirmation view
 */
-
+/* line 596, app-default.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
+/* line 600, app-default.scss */
 .checkin-confirm-nickname-label {
-  color: white; 
+  color: white;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
+/* line 606, app-default.scss */
 .checkin-confirm-nickname-toggle {
-  border-radius: 0.3em;  
+  border-radius: 0.3em;
   margin-top: 5px;
 }
 
+/* line 611, app-default.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
+/* line 615, app-default.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
+/* line 620, app-default.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 10px;
 }
 
+/* line 625, app-default.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
 
-
 /*
 * Overrides! Most of them should later be solved via mixins or custom classes.
 */
-
 /*
 * A smaller distance between border and box content.
 */
+/* line 637, app-default.scss */
 .x-msgbox.x-floating {
   padding: 2px;
-  background: #917D64 url('../images/bg-rp-main.png');
+  background: #917d64 url("../images/bg-rp-main.png");
 }
 
 /*
 * Rounded badges.
 */
+/* line 645, app-default.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Item disclosure! */
+/* line 650, app-default.scss */
 .x-list-round .x-list-disclosure {
-  background-image: -webkit-linear-gradient(top right, #8AA529, #ABCD34 50%);
+  background-image: -webkit-linear-gradient(top right, #8aa529, #abcd34 50%);
 }
 
 /* Perf. optimization for android. */
+/* line 655, app-default.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
 
 /** Override slider thickness for feedback form. */
-.x-container.x-slider:after {
+/*.x-container.x-slider:after {
   height: 0.4em;
   top: 0.9em;
-}
-
+}*/
 /** Override slider thumb thickness for feedback form. */
-.x-slider .x-thumb:before {
+/*.x-slider .x-thumb:before {
   height: 1.4em;
   width: 1.4em;
   top: 0.4em;
-}
-
+}*/
 /*
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
+/* line 676, app-default.scss */
 .x-tabbar > * {
-    z-index: 1;
+  z-index: 1;
 }
+
+/**
+* Set background image for tabbar.
+*/
+/* line 683, app-default.scss */
+.x-tabbar-dark {
+  background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
+  border-color: #594b3a !important;
+  border-radius: 5px 5px 0 0;
+}
+
+/**
+* Set background image for toolbar.
+*/
+/* line 692, app-default.scss */
+.x-toolbar-dark {
+  background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
+  border-color: #594b3a !important;
+  border-radius: 0 0 5px 5px;
+}
+
+/**
+* Prevent text shadow toolbar title.
+*/
+/* line 701, app-default.scss */
+.x-toolbar-dark .x-title {
+  color: white;
+  /* Ticket 105 */
+  /*text-shadow: rgba(0, 0, 0, 1) 0 -0.08em 0; */
+}
+
+/* line 707, app-default.scss */
+.x-list-round .x-scroll-view {
+  background-color: #917D64 !important;
+}
+
+/* line 711, app-default.scss */
+.lounge-tabbar .x-tab {
+  color: #614021;
+  text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
+  font-family: Helvetica Neue !important;
+}
+
+/* line 717, app-default.scss */
+.lounge-tabbar .x-tab-active {
+  color: #614021;
+  border-bottom: 2px solid #614021;
+}
+
+/*
+* Override tabbar background colors.
+*/
+/* line 724, app-default.scss */
+.x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
+  background: #614021;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(0%, #614021), color-stop(100%, #8e6e51));
+  background: -webkit-linear-gradient(top, #1e5799 0%, #614021 0%, #8e6e51 100%);
+}
+
+/*
+* Override active tabbar background colors.
+*/
+/* line 733, app-default.scss */
+.x-tabbar-dark.x-docked-bottom .x-tab-active {
+  background: #F79621;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f79621), color-stop(100%, #f9c667));
+  background: -webkit-linear-gradient(top, #f79621 0%, #f9c667 100%);
+  -webkit-box-shadow: #F79621 0 0 0.25em inset;
+  box-shadow: #F79621 0 0 0.25em inset;
+}
+
+/* 
+* Override button css. Prevents default gradient rendering.
+*/
+/*.x-toolbar-dark .x-button, .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after{
+	background: #F79621;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F9C667), color-stop(100%,#F79621));
+	background: -webkit-linear-gradient(top, #F9C667 0%,#F79621 100%);
+	color: #614021;
+} */

@@ -7,6 +7,7 @@ Ext.define('EatSense.view.Main', {
 			'EatSense.view.CheckinWithOthers', 'EatSense.view.Cart', 'EatSense.view.Menu', 'EatSense.view.Lounge', 'EatSense.view.Settings' ],
 	xtype : 'mainview',
 	config : {
+		fullscreen: true,
 		layout : {
 			type : 'card',
 			animation : {

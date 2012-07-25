@@ -11,7 +11,7 @@ Ext.define('EatSense.view.MyOrders', {
 			{
 				xtype: 'navigationview',
 				defaultBackButtonText: Karazy.i18n.translate('back'),
-				cls: 'myorders-panel',
+				// cls: 'myorders-panel',
 				navigationBar: {
 				    items: [
 						{
@@ -25,7 +25,7 @@ Ext.define('EatSense.view.MyOrders', {
 						{
 							xtype: 'button',
 							text: Karazy.i18n.translate('leaveButton'),
-							ui: 'forward',
+							ui: 'orange-forward',
 							action: 'leave',
 							align: 'right'
 						}
