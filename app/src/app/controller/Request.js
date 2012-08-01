@@ -8,7 +8,7 @@ Ext.define('EatSense.controller.Request',{
 		refs: {
 			callWaiterButton: 'requeststab button[action=waiter]',
 			callWaiterLabel: 'requeststab #callWaiterLabel',
-			accountLabel: 'requeststab #accountLabel'
+			accountLabel: 'requeststab #accountLabel'	
 		},
 		control: {
 			callWaiterButton: {

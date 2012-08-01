@@ -9,7 +9,7 @@ Ext.define('EatSense.view.About', {
 		left: '5%',
 		right: '5%',
 		bottom: '5%',
-		floatingCls: 'productdetail-floating',
+		floatingCls: 'panel-floating',
 		styleHtmlCls: 'about-text',
 		styleHtmlContent: true,
 		autoDestroy: true,

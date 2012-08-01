@@ -33,7 +33,7 @@ Ext.define('EatSense.view.ProductDetail', {
 		left: '3%',
 		right: '3%',
 		bottom: '3%',
-		floatingCls: 'productdetail-floating',
+		floatingCls: 'panel-floating',
 		items : [
 		{
 			xtype: 'titlebar',

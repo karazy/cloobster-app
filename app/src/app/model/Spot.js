@@ -15,7 +15,11 @@ Ext.define('EatSense.model.Spot', {
 		}, {
 			name : 'name',
 			type : 'string'
-		} ],
+		}, {
+			name: 'theme',
+			type: 'string',
+			defaultValue: 'default'
+		}],
 		 associations: [{
 	            type: 'hasMany',
 	            model: 'EatSense.model.PaymentMethod',

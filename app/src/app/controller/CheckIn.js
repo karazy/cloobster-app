@@ -249,9 +249,10 @@ Ext.define('EatSense.controller.CheckIn', {
                         'pathId' : me.getActiveCheckIn().get('businessId')
                     });
   					   	    //currently disabled, will be enabled when linking to users actually makes sense
-                    //me.showCheckinWithOthers();					   	    
-  					   	     me.showLounge();
-  					   	     me.getAppState().set('checkInId', response.get('userId'));
+                    //me.showCheckinWithOthers();
+                    me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
+  					   	    me.showLounge();
+  					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					   	    //save nickname in settings
   							   if(nicknameToggle.getValue() == 1) {
@@ -465,6 +466,7 @@ Ext.define('EatSense.controller.CheckIn', {
    			 this.showLounge();
    			    			
    			Ext.Viewport.add(main);
+        me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
    			
    			//after spot information is restored and stores are initialized load orders
    			
@@ -526,8 +528,8 @@ Ext.define('EatSense.controller.CheckIn', {
 	/**
 	 * This method handle status changes. It checks if valid transsions are made.
 	 * E. g. You cannot switch from PAYMENT_REQUEST to ORDER_PLACED.
-	 * It enables or disbales certain functionalities depending on the status.
-     * Furthermore resets ui states and does cleanups.
+	 * It enables or disables certain functionalities depending on the status.
+  * Furthermore resets ui states and does cleanups.
 	 * Always use this method to change the application status. 
 	 * @param status
 	 */
@@ -540,38 +542,40 @@ Ext.define('EatSense.controller.CheckIn', {
                 requestCtr = this.getApplication().getController('Request'),
                 menuStore = Ext.StoreManager.lookup('menuStore'),
                 feedbackCtr = this.getApplication().getController('Feedback');
+
 		//TODO check status transitions, refactor     
-				
-		if(status == Karazy.constants.PAYMENT_REQUEST) {
+		if(status == Karazy.constants.CHECKEDIN) {
+
+    }
+		else if(status == Karazy.constants.PAYMENT_REQUEST) {
 			this.getMenuTab().disable();
 			this.getCartTab().disable()
-            this.getSettingsTab().disable();
-            this.getRequestsTab().disable();
-			
+      this.getSettingsTab().disable();
+      this.getRequestsTab().disable();			
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == Karazy.constants.COMPLETE || status == Karazy.constants.CANCEL_ALL || status == Karazy.constants.FORCE_LOGOUT) {
 			this.showDashboard();
-            this.getMenuTab().enable();
+      this.getMenuTab().enable();
 			this.getCartTab().enable();
-            this.getSettingsTab().enable();
-            this.getRequestsTab().enable();			
+      this.getSettingsTab().enable();
+      this.getRequestsTab().enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());
-            menuCtr.backToMenu();
-		      	//remove menu to prevent problems on reload
-            menuStore.removeAll();
-            orderCtr.refreshCartBadgeText(true);
-            orderCtr.refreshMyOrdersBadgeText(true);
-            //clear checkInId
-            this.getAppState().set('checkInId', null);
-            //clear feedbackId
-            this.getAppState().set('feedbackId', null);
-            feedbackCtr.clearFeedback();
-            
-            this.resetDefaultAjaxHeaders();
-            Karazy.channel.closeChannel();
+      menuCtr.backToMenu();
+    	//remove menu to prevent problems on reload
+      menuStore.removeAll();
+      orderCtr.refreshCartBadgeText(true);
+      orderCtr.refreshMyOrdersBadgeText(true);
+      //clear checkInId
+      this.getAppState().set('checkInId', null);
+      //clear feedbackId
+      this.getAppState().set('feedbackId', null);
+      feedbackCtr.clearFeedback();
+      
+      this.resetDefaultAjaxHeaders();
+      Karazy.channel.closeChannel();
 
-            requestCtr.resetAllRequests();
-            androidCtr.setAndroidBackHandler(null);
+      requestCtr.resetAllRequests();
+      androidCtr.setAndroidBackHandler(null);
 		}
 
     if(status == Karazy.constants.CANCEL_ALL) {

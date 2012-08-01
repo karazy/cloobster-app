@@ -1,8 +1,8 @@
  /* General base color for style. */
-$base-color: #F79621;
+$base-color: #790921;
 
 /* Used for action buttons. */
-$active-color: #FF8718;
+$active-color: #BC924C;
 
 /*$neutral-color: #00AAFF;*/
 /* $confirm-color: #F79621; */
@@ -11,8 +11,8 @@ $base-gradient: 'matte';
 $button-gradient: 'matte';
 /*$toolbar-base-color: #F79621;*/
 /*$button-height: 3em;*/
-$page-bg-color: #917D64;
-$list-bg-color: #917D64;
+$page-bg-color: #303030;
+$list-bg-color: #303030;
 /* Label color for forms */
 /*$form-dark: #917D64;*/
 /*$form-label-background-color: #917D64;
@@ -24,7 +24,9 @@ $form-thumb-size: 1.4em;
 $form-label-color: #4C321A;
 
 /* Font color for most of the buttons. Also used as border color. */
-$font-color: #594b3a;
+$font-color: #BC924C;
+
+$product-sub-bg: #D3D3D3;
 
 /* Round tab buttons top left and lower right. */
 $tabs-bottom-radius: 21% 0;
@@ -99,7 +101,7 @@ $tab-border-bottom-color: #614021;
 }
 
 .productDetailPanel {
-  background: #917D64; /*url('../images/bg-rp-main.png') repeat left top;*/
+  background: $product-sub-bg;
   padding: 0.5em;
   margin-bottom: 3px;
   border-radius: 0.3em;
@@ -107,16 +109,13 @@ $tab-border-bottom-color: #614021;
 
 /* Set background for product description and amount spinner */
 .productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
-  background: #917D64; /*url('../images/bg-rp-main.png') repeat left top;*/
+  background: $product-sub-bg;
   color: black;
   /* To prevent rounded corners on form label. */
   border-radius: 0 !important;
 }
 
-/* line 76, app-default.scss */
 .productDetail {
-  /*background: #917D64; */
-  /*url('../images/bg-rp-main.png') repeat left top;*/
   font-size: 0.8em;
   padding-right: 0.5em;
 }
@@ -134,7 +133,7 @@ $tab-border-bottom-color: #614021;
    font-size: 1.2em;
    width: 45px !important;
    text-align: center !important;
-   /* otherise value is 2.5em inherited from x-input-el */
+   /* otherwise value is 2.5em inherited from x-input-el */
    min-height: 0em;   
    /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.15em 0.3em !important;*/
 }
@@ -174,8 +173,8 @@ $tab-border-bottom-color: #614021;
 
 .choice-panel .choice {
   font-size: 1em;
-  color: #8AA529;
-  background-color: #D3D3D3;
+  color: $font-color;
+  background-color: $product-sub-bg;
   font-weight: bold;
   padding: 3px 3px 3px 7px;
   border-radius: 0.3em;
@@ -194,8 +193,8 @@ $tab-border-bottom-color: #614021;
 
 .choice-panel .comment {
   font-size: 1em;
-  color: #8AA529;
-  background-color: #D3D3D3;
+  color: $font-color;
+  background-color: $product-sub-bg;
   font-weight: bold;
   margin-bottom: 3px;
   padding: 3px;
@@ -272,11 +271,11 @@ $tab-border-bottom-color: #614021;
 }
 
 .cart-panel {
-  background: #917D64; 
+  
 }
 
 .cart-panel .x-list-round .x-scroll-view {
- background: #917D64;  
+ background: $page-bg-color;  
 }
 
 .cartoverview {
@@ -539,7 +538,7 @@ h9 {
 */
 
 .menu-panel, .menu-panel .x-list-round .x-scroll-view {
- background: #917D64;
+ background: $page-bg-color;
 }
 
 /*
@@ -589,7 +588,6 @@ h9 {
 */
 .x-msgbox.x-floating {
   padding: 2px;
-  background: #917D64 url('../images/bg-rp-main.png');
 }
 
 /*
@@ -600,9 +598,9 @@ h9 {
 }
 
 /* Item disclosure! */
-.x-list-round .x-list-disclosure {
+/*.x-list-round .x-list-disclosure {
   background-image: -webkit-linear-gradient(top right, #8AA529, #ABCD34 50%);
-}
+}*/
 
 /* Perf. optimization for android. */
 .x-panel.x-floating {
@@ -633,34 +631,34 @@ h9 {
 /**
 * Set background image for tabbar.
 */
-.x-tabbar-dark {
+/*.x-tabbar-dark {
   background: #CEDB93 url('../images/bg-rp-top.png') repeat left top;
   border-color: $font-color !important;
   border-radius: 5px 5px 0 0;
-}
+}*/
 
 /**
 * Set background image for toolbar.
 */
-.x-toolbar-dark {
+/*.x-toolbar-dark {
   background: #CEDB93 url('../images/bg-rp-top.png') repeat left top;
   border-color: $font-color !important;
   border-radius: 0 0 5px 5px;
-}
+}*/
 
 /**
 * Prevent text shadow toolbar title.
 */
 .x-toolbar-dark .x-title {
-  color: white;
+  /*color: white;*/
   /* Ticket 105 */
-  text-shadow: none; 
+  /*text-shadow: none; */
 }
 
 
 .x-list-round .x-scroll-view {
   /* Explizit override needed because ui round ignores $list-bg-color. */
-	background-color: #917D64 !important;  
+	background-color: $page-bg-color !important;  
 }
 
 .lounge-tabbar .x-tab {
@@ -676,39 +674,38 @@ h9 {
 /*
 * Override tabbar background colors.
 */
-.x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
+/*.x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
 	background: $tab-border-bottom-color;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1E5799), color-stop(0%,$tab-border-bottom-color), color-stop(100%,#8E6E51));
 	background: -webkit-linear-gradient(top, #1E5799 0%,$tab-border-bottom-color 0%,#8E6E51 100%);
-
-}
+}*/
 /*
 * Override active tabbar background colors.
 */
-.x-tabbar-dark.x-docked-bottom .x-tab-active {
+/*.x-tabbar-dark.x-docked-bottom .x-tab-active {
 	background: $base-color;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$base-color), color-stop(100%,#F9C667));
 	background: -webkit-linear-gradient(top, $base-color 0%,#F9C667 100%);
 	-webkit-box-shadow: $base-color 0 0 0.25em inset;
 	box-shadow: $base-color 0 0 0.25em inset;
-}
+}*/
 
 /* 
 * Override button css. Prevents default gradient rendering.
 */
-.x-toolbar-dark .x-button, .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after{
+/*.x-toolbar-dark .x-button, .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after{
 	background: $base-color;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F9C667), color-stop(100%,$base-color));
 	background: -webkit-linear-gradient(top, #F9C667 0%,$base-color 100%);
 	color: $tab-border-bottom-color;
-} 
+} */
 
 /*
 * Override button font color.
 */
-.x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
+/*.x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: $font-color;
-}
+}*/
 
 /*
 * Override form label font color.
