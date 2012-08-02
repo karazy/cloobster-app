@@ -37,10 +37,6 @@ Ext.define('EatSense.view.Dashboard', {
 			iconMask: true,
 			iconCls: 'action',
 			height: 50
-			// height : 110,
-			// width : 186,
-			// baseCls : 'dashboard-button',
-			// pressedCls: 'dashboard-button-pressed'
 		},
 		{
 			xtype: 'label',
