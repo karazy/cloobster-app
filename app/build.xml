@@ -16,7 +16,6 @@
 			<arg line="build -p ${appDir}app.desktop.jsb3 -d ${appDir}" />
 		</exec>
 		<copy file="${appDir}/touch/sencha-touch.js" todir="${prodDir}/desktop/lib" overwrite="true"></copy>
-		<copy file="${appDir}/res/css/app-default.css" todir="${prodDir}/desktop/res/css" overwrite="true"></copy>
 		<copydir dest="${prodDir}/desktop/res/images" src="${appDir}/res/images" forceoverwrite="true"></copydir>
 		<move file="${appDir}/app-all.js" todir="${prodDir}/desktop/" overwrite="true"></move>
 		<copy todir="${prodDir}/desktop/lib" overwrite="true">
@@ -26,6 +25,9 @@
 				<exclude name="**/*.ignore.*" />
 			</fileset>
 		</copy>
+		<antcall target="copyCSS">
+		    <param name="cssDestDir" value="${prodDir}/desktop/res/css"></param>
+		</antcall>
 		<move todir="${prodDir}/desktop/lib" includeemptydirs="false" overwrite="true">
 			<fileset dir="${prodDir}/desktop/lib">
 			</fileset>
@@ -56,11 +58,23 @@
 				<exclude name="**/*.ignore.*" />
 			</fileset>
 		</copy>
+		<antcall target="copyCSS">
+		    <param name="cssDestDir" value="${prodDir}/android/res/css"></param>
+		</antcall>
 		<move todir="${prodDir}/android/lib" includeemptydirs="false" overwrite="true">
 			<fileset dir="${prodDir}/android/lib">
 			</fileset>
 			<regexpmapper from="^(.+)\.phone\.(.+)$$" to="\1.\2" />
 		</move>
+	</target>
+	
+	<target name="copyCSS">
+	    <copy todir="${cssDestDir}" overwrite="true">
+		    <fileset dir="${appDir}/res/css">
+		        <exclude name="*.rb"></exclude>
+		        <exclude name="*.scss"></exclude>
+		    </fileset>
+		</copy>
 	</target>
 
 	<target name="createIOSProduction">
@@ -75,7 +89,6 @@
 			<arg line="build -p ${appDir}app.ios.jsb3 -d ${appDir}" />
 		</exec>
 		<copy file="${appDir}/touch/sencha-touch.js" todir="${prodDir}/ios/lib" overwrite="true"></copy>
-		<copy file="${appDir}/res/css/app-default.css" todir="${prodDir}/ios/res/css" overwrite="true"></copy>
 		<copydir dest="${prodDir}/ios/res/images" src="${appDir}/res/images" forceoverwrite="true"></copydir>
 		<move file="${appDir}/app-all.js" todir="${prodDir}/ios/" overwrite="true"></move>
 		<copy todir="${prodDir}/ios/lib" overwrite="true">
@@ -85,6 +98,9 @@
 				<exclude name="**/*.ignore.*" />
 			</fileset>
 		</copy>
+		<antcall target="copyCSS">
+		    <param name="cssDestDir" value="${prodDir}/ios/res/css"></param>
+		</antcall>
 		<move todir="${prodDir}/ios/lib" includeemptydirs="false" overwrite="true">
 			<fileset dir="${prodDir}/ios/lib">
 			</fileset>
