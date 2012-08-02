@@ -167,47 +167,49 @@ $tab-border-bottom-color: #614021;
 
 .choice-panel {
   padding: 5px;
-}
 
-.choice-panel .choice {
-  font-size: 1em;
-  color: $font-color;
-  background-color: $product-sub-bg;
-  font-weight: bold;
-  padding: 3px 3px 3px 7px;
-  border-radius: 0.3em;
-  /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
-}
+  .choice {
+    font-size: 1em;
+    color: $font-color;
+    background-color: $product-sub-bg;
+    font-weight: bold;
+    padding: 3px 3px 3px 7px;
+    border-radius: 0.3em;
+  }
 
-.choice-panel .option {
-  white-space: normal;
-}
-.choice-panel .option-label {
-  font-size: 0.8em;
-  background-color: white;
-  color: black;
-  white-space: normal;
-}
+  .option {
+    white-space: normal;
+  }
 
-.choice-panel .comment {
-  font-size: 1em;
-  color: $font-color;
-  background-color: $product-sub-bg;
-  font-weight: bold;
-  margin-bottom: 3px;
-  padding: 3px;
-  border-radius: 0.3em;
-  /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
-}
+  .option-label {
+    font-size: 0.8em;
+    background-color: white;
+    color: black;
+    white-space: normal;
+  }
 
-.choice-panel .comment-input {
-  border: 1px dashed gray;
-  padding-top: 3px;
-}
+  .comment {
+    font-size: 1em;
+    color: $font-color;
+    background-color: $product-sub-bg;
+    font-weight: bold;
+    margin-bottom: 3px;
+    padding: 3px;
+    border-radius: 0.3em;
+    /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
+  }
 
-.choice-panel .option-panel {
-  padding: 5px 0px;
-  white-space: normal;
+  .comment-input {
+    border: 1px dashed gray;
+    padding-top: 3px;
+  }
+
+  .option-panel {
+    padding: 5px 0px;
+    white-space: normal;
+  }
+
+
 }
 
 .choice-panel-title {
@@ -224,52 +226,49 @@ $tab-border-bottom-color: #614021;
 
 .orderListItem {
   color: #000000;
-}
 
-.orderListItem .order-title {
-  margin-bottom: 7px;
-}
+  .order-title {
+    margin-bottom: 7px;
+  }
 
-.orderListItem h2.title {
-  color: #000000;
-  font-size: 1em;
-  padding-right: 3px;
-}
+  h2.title {
+    color: #000000;
+    font-size: 1em;
+    padding-right: 3px;
+  }
 
-.orderListItem h2.price {
-  color: #000000;
-  font-size: 1em;
-  white-space: nowrap;
-  text-align: right;
-  padding-right: 25px;
-}
+  h2.price {
+    color: #000000;
+    font-size: 1em;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 25px;
+  }
 
-.orderListItem li, .orderListItem p  {
-  color: #000000;
-  margin-left: 15px;
-  font-size: 0.7em;
-}
+  li, p  {
+    color: #000000;
+    margin-left: 15px;
+    font-size: 0.7em;
+  }
 
-.orderListItem h4 {
-  font-size: 0.7em;
-  color: #000000;
-}
+  h4 {
+    font-size: 0.7em;
+    color: #000000;
+  }
 
-.orderListItem h3 {
-  font-size: 0.9em;
-  color: #000000;
-}
+  h3 {
+    font-size: 0.9em;
+    color: #000000;
+  }
 
-.orderListItem .canceled {
-  text-decoration: line-through;
-}
+  .canceled {
+    text-decoration: line-through;
+  }
 
-.orderListItem .canceled h2 {
-  text-decoration: line-through;
-}
+  .canceled h2 {
+    text-decoration: line-through;
+  }
 
-.cart-panel {
-  
 }
 
 .cart-panel .x-list-round .x-scroll-view {
@@ -292,38 +291,46 @@ $tab-border-bottom-color: #614021;
   margin: 5px;
   border-radius: 0.3em;
   background-color: #fff;
-}
 
-.cartoverviewitem .name {
-  width: 50%;
-}
+  .name {
+    width: 50%;
+  }
 
-.cartoverviewitem .name h2.title {
-  color: #000000;
-  font-size: 1em;
-}
+  .name h2.title {
+    color: #000000;
+    font-size: 1em;
+  }
 
+  .name div.amount {
+    float: left;
+  }
 
-.cartoverviewitem .name div.amount {
-  float: left;
-}
+  .name h2.price {
+    color: #000000;
+    font-size: 1em;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 5px;
+  }
 
-.cartoverviewitem .name h2.price {
-  color: #000000;
-  font-size: 1em;
-  white-space: nowrap;
-  text-align: right;
-  padding-right: 5px;
-}
+  .name h2.price {
+    color: #000000;
+    font-size: 1em;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 5px;
+  }
 
-.cartoverviewitem .edit {
-  top: 0;
-  margin-right: 10px;
-}
+  .edit {
+    top: 0;
+    margin-right: 10px;
+  }
 
-.cartoverviewitem .cancel {
-  top: 0;
-  margin-right: 5px;
+  .cancel {
+    top: 0;
+    margin-right: 5px;
+  }
+
 }
 
 .cartoverviewitem-name {
@@ -429,13 +436,13 @@ $tab-border-bottom-color: #614021;
   background: $page-bg-color;
 }
 
-/*.feedback-slider .x-slider {
+.feedback-slider .x-slider {
   top: 0.4em;
 }
 
 .feedback-panel {
   padding: 0.3em 0em;
-}*/
+}
 
 
 /*
