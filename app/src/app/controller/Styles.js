@@ -39,7 +39,7 @@ Ext.define('EatSense.controller.Styles', {
 	*/
 	changeTheme: function(themeId) {
         var stylesheets = this.getStylesheets(),
-            targetTheme = themeId,
+            targetTheme = stylesheets[themeId],
             sheet,
             interval;
 
@@ -50,17 +50,22 @@ Ext.define('EatSense.controller.Styles', {
         //     indicator: false
         // });
 		
+		if(!targetTheme) {
+			return;
+		}
+		
 		this.setActiveTheme(themeId);
+
 		//activate theme by removing disbaled attribute
-        stylesheets[targetTheme].removeAttribute('disabled');
+        targetTheme.removeAttribute('disabled');
 
         interval = setInterval(function() {
-            if (stylesheets[targetTheme].sheet
-                && stylesheets[targetTheme].sheet.cssRules.length) {
+            if (targetTheme.sheet
+                && targetTheme.sheet.cssRules.length) {
                 clearInterval(interval);
             	//disable other stylsheets
                 for (sheet in stylesheets) {
-                    if (sheet != targetTheme) {
+                    if (sheet != themeId) {
                         stylesheets[sheet].setAttribute('disabled', true);
                     }
                 }
