@@ -139,7 +139,10 @@ Ext.define('EatSense.controller.CheckIn', {
     	console.log('CheckIn Controller -> checkIn');
     	//disable button to prevent multiple checkins
     	button.disable();
-    	var barcode, that = this, deviceId;
+    	var barcode,
+          that = this,
+          deviceId;
+
     	if(this.getProfile() == 'desktop' || !window.plugins || !window.plugins.barcodeScanner) {
             Ext.Msg.show({
                 title: Karazy.i18n.translate('barcodePromptTitle'),
@@ -170,7 +173,7 @@ Ext.define('EatSense.controller.CheckIn', {
     	} else if(this.getProfile() == 'phone' || this.getProfile() == 'tablet') {
     			window.plugins.barcodeScanner.scan(function(result) {
             if(!result.cancelled) {
-              barcode = result.text;
+              barcode =  that.extractBarcode(result.text);
               console.log('scanned ' + barcode);
               that.getDashboard().showLoadScreen(true);
               //FR 28.03.12 apple rejects apps which track device uuid
@@ -186,6 +189,26 @@ Ext.define('EatSense.controller.CheckIn', {
     	} else {
     		button.enable();
     	}    	
+   },
+   /**
+   * @private
+   * Expects a url with a barcode at the end. Separated by a #.
+   * e. g. https://cloobster.com/get-app#30001-1001
+   */
+   extractBarcode: function(url) {
+    var indexHashTag = url.lastIndexOf('#') + 1,
+        code;
+
+    try {
+      code = (indexHashTag > -1) ?  url.substring(indexHashTag, url.length) : url;
+    } catch(e) {
+      console.log('Error extracting code: ' + e);
+      code = url;
+    }
+
+    console.log('Code extracted ' + code + ' from ' +url);
+
+    return code;
    },
    /**
     * CheckIn Process
