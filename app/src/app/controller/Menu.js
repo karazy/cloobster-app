@@ -122,6 +122,7 @@ Ext.define('EatSense.controller.Menu', {
     		main = this.getMain(),
     		checkInCtr = this.getApplication().getController('CheckIn'),
     		businessId = Ext.String.trim(checkInCtr.getActiveCheckIn().get('businessId')),
+    		areaId = checkInCtr.getActiveSpot().get('areaId'),
     		menuStore = Ext.StoreManager.lookup('menuStore');
 		
 
@@ -130,7 +131,8 @@ Ext.define('EatSense.controller.Menu', {
 				scope   : this,
 				params: {
 					'includeProducts' : true,
-					'pathId': businessId
+					'pathId': businessId,
+					'areaId' : areaId
 				},
 			    callback: function(records, operation, success) {
 			    	if(!success) { 

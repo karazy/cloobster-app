@@ -1,8 +1,8 @@
  /* General base color for style. */
-$base-color: #790921;
+$base-color: #990033;
 
 /* Used for action buttons. */
-$active-color: #BC924C;
+$active-color: #6699cc;
 
 /*$neutral-color: #00AAFF;*/
 /* $confirm-color: #F79621; */
@@ -11,8 +11,8 @@ $base-gradient: 'matte';
 $button-gradient: 'matte';
 /*$toolbar-base-color: #F79621;*/
 /*$button-height: 3em;*/
-$page-bg-color: #303030;
-$list-bg-color: #303030;
+$page-bg-color: #cccccc;
+$list-bg-color: #cccccc;
 /* Label color for forms */
 /*$form-dark: #917D64;*/
 /*$form-label-background-color: #917D64;
@@ -24,14 +24,15 @@ $form-thumb-size: 1.4em;
 $form-label-color: #4C321A;
 
 /* Font color for most of the buttons. Also used as border color. */
-$font-color: #BC924C;
+$font-color: #FFFFFF;
+/*$font-color: #BC924C;*/
 
 $product-sub-bg: #D3D3D3;
 
 /* Round tab buttons top left and lower right. */
 $tabs-bottom-radius: 21% 0;
 /* Bottom border color for tabs. */
-$tab-border-bottom-color: #614021;
+$tab-border-bottom-color: #6699cc;
 
 /*$toolbar-button-color: #F79621;*/
 
@@ -607,12 +608,12 @@ h9 {
 }
 
 .lounge-tabbar .x-tab {
-	color: $tab-border-bottom-color;
+	/*color: $tab-border-bottom-color;*/
 	text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
 	font-family: Helvetica Neue !important;
 }
 
 .lounge-tabbar .x-tab-active {
-	color: $tab-border-bottom-color;
+	/*color: $tab-border-bottom-color;*/
 	border-bottom: 2px solid $tab-border-bottom-color;
 }
