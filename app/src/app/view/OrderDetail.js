@@ -116,13 +116,15 @@ Ext.define('EatSense.view.OrderDetail', {
 					xtype: 'button',
 					// ui: 'confirm',
 					text: Karazy.i18n.translate('change'),
-					action: 'edit'
+					action: 'edit',
+					ui: 'action',
 				},
 				{
 					xtype: 'button',
 					// ui: 'confirm',
 					text: Karazy.i18n.translate('cancel'),
-					action: 'undo'
+					action: 'undo',
+					ui: 'action',
 				}
 			]
 		}

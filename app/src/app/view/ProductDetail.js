@@ -121,12 +121,14 @@ Ext.define('EatSense.view.ProductDetail', {
 				{
 					xtype: 'button',
 					text: Karazy.i18n.translate('putIntoCartButton'),
-					action: 'cart'
+					action: 'cart',
+					ui: 'action',
 				}, 
 				{
 					xtype: 'button',
 					action: 'close',
-					text: Karazy.i18n.translate('close')
+					text: Karazy.i18n.translate('close'),
+					ui: 'action',
 				}
 			]
 		}

@@ -22,7 +22,7 @@ Ext.define('EatSense.view.About', {
 		{
 			xtype: 'button',
 			docked: 'bottom',
-			ui: 'confirm',
+			ui: 'action',
 			text: Karazy.i18n.translate('close'),
 			listeners: {
 				tap: function(button) {
