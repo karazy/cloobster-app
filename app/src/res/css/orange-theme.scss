@@ -1,39 +1,40 @@
+ /* Sencha Variables. */
  /* General base color for style. */
-$base-color: #D4D700;
-
-/* Used for action buttons. */
-$active-color: #362A00;
-
-/*$neutral-color: #00AAFF;*/
-/* $confirm-color: #F79621; */
-$font-family: 'ComfortaaRegular';
-$base-gradient: 'glossy';
-$button-gradient: 'glossy';
-/*$toolbar-base-color: #F79621;*/
-/*$button-height: 3em;*/
-$page-bg-color: #C8C8C8;
-$list-bg-color: #C8C8C8;
-/* Label color for forms */
-/*$form-dark: #917D64;*/
-/*$form-label-background-color: #917D64;
-$form-field-bg-color: #917D64;*/
-
+$base-color: #ff9933;
+/* Used for action buttons and active items. */
+$active-color: #6699cc;
+/* Disable gradients, shadows ... for tabs.*/
+$include-tab-highlights: false;
+$font-family: 'ComfortaaRegular',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
+$base-gradient: 'matte';
+$button-gradient: 'matte';
+$page-bg-color: #f4f1ea;
+$list-bg-color: #f4f1ea;
+/* Round tab buttons top left and lower right. */
+$tabs-bottom-radius: 21% 0;
 /* Forms */
 $form-slider-size: 0.4em;
 $form-thumb-size: 1.4em;
 $form-label-color: #4C321A;
 
+/* Custom variables */
 /* Font color for most of the buttons. Also used as border color. */
-$font-color: #BC924C;
-
+$font-color: #FFFFFF;
+/* Background for product detail description. */
 $product-sub-bg: #D3D3D3;
 
-/* Round tab buttons top left and lower right. */
-$tabs-bottom-radius: 21% 0;
-/* Bottom border color for tabs. */
-$tab-border-bottom-color: #614021;
+/* ------- FONTS START --------- */
+@font-face {
+    font-family: 'ComfortaaRegular';
+    src: url('fonts/comfortaa_regular-webfont.eot');
+    src: url('fonts/comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/comfortaa_regular-webfont.woff') format('woff'),
+         url('fonts/comfortaa_regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 
-/*$toolbar-button-color: #F79621;*/
+}
+/* ------ FONTS END ----------*/
 
 
 @import 'sencha-touch/default/all';
@@ -54,33 +55,10 @@ $tab-border-bottom-color: #614021;
 @include sencha-form;
 @include sencha-msgbox;
 @include sencha-loading-spinner;
-/*@include toolbar-button( #F79621, #614021 );*/
-/*@include bevel-by-background(#614021);*/
-/*@include sencha-button-ui('orange', #F79621, 'matte');*/
-/*@include sencha-toolbar-ui('orange-toolbar', #F79621, 'matte');*/
-/*@include bevel-box('shadow');*/ 
-
-/*@include pictos-iconmask('../images/buttons/kasse');*/
-
 
 
 
 @CHARSET "UTF-8";
-
-/* ------- FONTS START --------- */
-
-@font-face {
-    font-family: 'ComfortaaRegular';
-    src: url('fonts/comfortaa_regular-webfont.eot');
-    src: url('fonts/comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/comfortaa_regular-webfont.woff') format('woff'),
-         url('fonts/comfortaa_regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-/* ------ FONTS END ----------*/
 
 .productListItem {
   h2.title {
@@ -138,7 +116,6 @@ $tab-border-bottom-color: #614021;
    text-align: center !important;
    /* otherwise value is 2.5em inherited from x-input-el */
    min-height: 0em;   
-   /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.15em 0.3em !important;*/
 }
 
 .productdetail-spinner-down {
@@ -183,7 +160,6 @@ $tab-border-bottom-color: #614021;
   }
 
   .option-label {
-    font-size: 0.8em;
     background-color: white;
     color: black;
     white-space: normal;
@@ -562,7 +538,7 @@ h9 {
 
 
 /*
-* Overrides! Most of them should later be solved via mixins or custom classes.
+* Overrides of core css!
 */
 
 /*
@@ -601,19 +577,55 @@ h9 {
   /*text-shadow: none; */
 }
 
-
+/* Explizit override needed because ui round ignores $list-bg-color. */
 .x-list-round .x-scroll-view {
-  /* Explizit override needed because ui round ignores $list-bg-color. */
-  background-color: $page-bg-color !important;  
+	background-color: $page-bg-color !important;  
 }
 
 .lounge-tabbar .x-tab {
-  color: $tab-border-bottom-color;
-  text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
-  font-family: Helvetica Neue !important;
+	/*color: $tab-border-bottom-color;*/
+	text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
+	font-family: Helvetica Neue !important;
 }
 
-.lounge-tabbar .x-tab-active {
-  color: $tab-border-bottom-color;
-  border-bottom: 2px solid $tab-border-bottom-color;
+.lounge-tabbar .x-tab {
+  color: $font-color;
+}
+
+
+.x-tabbar-dark.x-docked-bottom .x-tab-active {
+  background-color: $active-color;
+  background-image: none;
+/*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, black), color-stop(10%, black), color-stop(65%, #1A0008), color-stop(100%, #1C0009));
+background-image: -webkit-linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
+background-image: linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
+text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;*/
+  -webkit-box-shadow: black 0 0 0.25em inset;
+  box-shadow: black 0 0 0.25em inset;
+}
+
+.x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
+  background-color: $font-color;
+/*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(2%, #F0F7FF), color-stop(100%, #A8D4FF));
+  background-image: -webkit-linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
+ /* background-image: linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
+}
+
+.x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
+  background-color: $font-color;
+  background-image: none;
+  /*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F37), color-stop(2%, #BD003F), color-stop(100%, #750027));
+  background-image: -webkit-linear-gradient(#F37, #BD003F 2%, #750027);
+  background-image: linear-gradient(#F37, #BD003F 2%, #750027);*/
+}
+
+/* Force action button to have white text color. */
+.x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
+  color: #FFF;
+}
+
+/* Force color of disclosure item instead of beeing calculated. */
+.x-list-round .x-list-disclosure {
+  background-image: none;
+  background-color: $active-color;
 }

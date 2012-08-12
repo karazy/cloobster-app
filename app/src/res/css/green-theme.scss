@@ -1,0 +1,631 @@
+ /* Sencha Variables. */
+ /* General base color for style. */
+$base-color: #cccc00;
+/* Used for action buttons and active items. */
+$active-color: #6699cc;
+/* Disable gradients, shadows ... for tabs.*/
+$include-tab-highlights: false;
+$font-family: 'ComfortaaRegular',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
+$base-gradient: 'matte';
+$button-gradient: 'matte';
+$page-bg-color: #f4f1ea;
+$list-bg-color: #f4f1ea;
+/* Round tab buttons top left and lower right. */
+$tabs-bottom-radius: 21% 0;
+/* Forms */
+$form-slider-size: 0.4em;
+$form-thumb-size: 1.4em;
+$form-label-color: #4C321A;
+
+/* Custom variables */
+/* Font color for most of the buttons. Also used as border color. */
+$font-color: #FFFFFF;
+/* Background for product detail description. */
+$product-sub-bg: #D3D3D3;
+
+/* ------- FONTS START --------- */
+@font-face {
+    font-family: 'ComfortaaRegular';
+    src: url('fonts/comfortaa_regular-webfont.eot');
+    src: url('fonts/comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/comfortaa_regular-webfont.woff') format('woff'),
+         url('fonts/comfortaa_regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/* ------ FONTS END ----------*/
+
+
+@import 'sencha-touch/default/all';
+
+@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-list-paging;
+@include sencha-list-pullrefresh;
+@include sencha-layout;
+@include sencha-carousel;
+@include sencha-form;
+@include sencha-msgbox;
+@include sencha-loading-spinner;
+
+
+
+@CHARSET "UTF-8";
+
+.productListItem {
+  h2.title {
+    font-size: 1em;  
+  }
+
+  h2.price {
+    font-size: 1em;
+    white-space: nowrap;
+  }
+
+  div p {
+    font-size: 0.6em;
+  }
+}
+
+.panel-floating {
+  border-radius: 0.3em !important;
+  padding: 0.3em !important;
+  background-color: #A9A9A9 !important;
+}
+
+.productDetailPanel {
+  background: $product-sub-bg;
+  padding: 0.5em;
+  margin-bottom: 3px;
+  border-radius: 0.3em;
+}
+
+/* Set background for product description and amount spinner */
+.productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
+  background: $product-sub-bg;
+  color: black;
+  /* To prevent rounded corners on form label. */
+  border-radius: 0 !important;
+}
+
+.productDetail {
+  font-size: 0.8em;
+  padding-right: 0.5em;
+}
+
+
+.productdetail-spinner-label {
+  padding: 0;
+  margin: 0;
+}
+
+.productdetail-spinner-input {
+   border: solid 1px gray;
+   background: white;
+   border-radius: 0.3em;
+   font-size: 1.2em;
+   width: 45px !important;
+   text-align: center !important;
+   /* otherwise value is 2.5em inherited from x-input-el */
+   min-height: 0em;   
+}
+
+.productdetail-spinner-down {
+  position: relative;
+  top: 25px;
+  right: -5px;
+  height: 26px;
+  width: 45px;
+}
+
+.productdetail-spinner-up {
+  position: relative;
+  top: -2px;
+  right: 40px;
+  height: 26px;
+  width: 45px;
+}
+
+/* line 108, app-default.scss */
+.productPrice {
+  font-size: 1.5em;
+}
+
+/*
+* Choices and Options
+*/
+
+.choice-panel {
+  padding: 5px;
+
+  .choice {
+    font-size: 1em;
+    color: $font-color;
+    background-color: $product-sub-bg;
+    font-weight: bold;
+    padding: 3px 3px 3px 7px;
+    border-radius: 0.3em;
+  }
+
+  .option {
+    white-space: normal;
+  }
+
+  .option-label {
+    background-color: white;
+    color: black;
+    white-space: normal;
+  }
+
+  .comment {
+    font-size: 1em;
+    color: $font-color;
+    background-color: $product-sub-bg;
+    font-weight: bold;
+    margin-bottom: 3px;
+    padding: 3px;
+    border-radius: 0.3em;
+    /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
+  }
+
+  .comment-input {
+    border: 1px dashed gray;
+    padding-top: 3px;
+  }
+
+  .option-panel {
+    padding: 5px 0px;
+    white-space: normal;
+  }
+
+
+}
+
+.choice-panel-title {
+  text-align: center;
+}
+
+/*
+* Orderlist
+*/
+
+.myorders-panel {
+  /*background: #917D64; */
+}
+
+.orderListItem {
+  color: #000000;
+
+  .order-title {
+    margin-bottom: 7px;
+  }
+
+  h2.title {
+    color: #000000;
+    font-size: 1em;
+    padding-right: 3px;
+  }
+
+  h2.price {
+    color: #000000;
+    font-size: 1em;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 25px;
+  }
+
+  li, p  {
+    color: #000000;
+    margin-left: 15px;
+    font-size: 0.7em;
+  }
+
+  h4 {
+    font-size: 0.7em;
+    color: #000000;
+  }
+
+  h3 {
+    font-size: 0.9em;
+    color: #000000;
+  }
+
+  .canceled {
+    text-decoration: line-through;
+  }
+
+  .canceled h2 {
+    text-decoration: line-through;
+  }
+
+}
+
+.cart-panel .x-list-round .x-scroll-view {
+ background: $page-bg-color;  
+}
+
+.cartoverview {
+  padding: 0.3em 0em;
+}
+
+.cartTotal {
+  text-align: center;
+  font-size: 1.5em;
+  color: #FFFFFF;
+  /*background: #917D64; */
+}
+
+.cartoverviewitem {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 0.3em;
+  background-color: #fff;
+
+  .name {
+    width: 50%;
+  }
+
+  .name h2.title {
+    color: #000000;
+    font-size: 1em;
+  }
+
+  .name div.amount {
+    float: left;
+  }
+
+  .name h2.price {
+    color: #000000;
+    font-size: 1em;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 5px;
+  }
+
+  .name h2.price {
+    color: #000000;
+    font-size: 1em;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 5px;
+  }
+
+  .edit {
+    top: 0;
+    margin-right: 10px;
+  }
+
+  .cancel {
+    top: 0;
+    margin-right: 5px;
+  }
+
+}
+
+.cartoverviewitem-name {
+  width: 70%;
+  margin-bottom: 20px;
+}
+
+.cartoverviewitem-edit {
+  top: 0;
+}
+
+.cartoverviewitem-cancel {
+  top: 0;
+  margin-right: 5px;
+}
+
+.menuCategoryItem {
+  float: left;
+  width: 15%;
+}
+
+/*
+* Dashboard
+*/
+
+.dashboard {
+  background: #917D64 url('../images/bg-rp-main.png') repeat left top;  
+}
+
+.dashboard-description {
+  color: white;
+}
+
+.about-text {
+  font-size: 0.9em;
+  margin: 5px;
+}
+
+.about-text h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 7px;
+  margin-bottom: 3px;
+}
+
+.about-text h3 {
+  font-weight: bold;
+}
+
+.about-text p {
+
+}
+
+/* Tabbar icons */
+.x-button-icon.about {
+  -webkit-mask-image: inline-image('buttons/about.png');
+}
+
+.x-tab .x-button-icon.cart {
+  -webkit-mask-image: inline-image('/buttons/bestellung.png');
+}
+
+.x-tab .x-button-icon.menu {
+  -webkit-mask-image: inline-image('/buttons/speisekarte.png');
+}
+
+.x-tab .x-button-icon.cash {
+  -webkit-mask-image: inline-image('/buttons/kasse.png');
+}
+
+.x-tab .x-button-icon.leave {
+  -webkit-mask-image: inline-image('/buttons/forbidden.png');
+}
+
+.x-tab .x-button-icon.requests {
+  -webkit-mask-image: inline-image('/buttons/aktionen.png');
+}
+
+.newsletter-floating {
+  border-radius: 0.3em !important;
+  padding: 3px !important;
+  background-color: #86B22D !important;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em !important;
+}
+
+.newsletter-register-button {
+  width: 200px;
+  margin-top: 5px;
+}
+
+/*
+* Feedback
+*/
+
+.feedback-label {
+  color: white; 
+  font-size: 1em;
+  word-break: break-word;
+}
+
+
+.feedback-slider {
+  background: $page-bg-color;
+}
+
+.feedback-slider .x-slider {
+  top: 0.4em;
+}
+
+.feedback-panel {
+  padding: 0.3em 0em;
+}
+
+
+/*
+* General styles
+*/
+.general-label {
+  color: white; 
+  font-size: 1em;
+  text-align: center;
+}
+
+.general-label-black {
+  color: black; 
+  font-size: 1em;
+  text-align: center;
+}
+
+.general-textfield {
+  border-radius: 0.3em;
+  margin: 5px 0px 7px 0px;
+}
+
+.general-field-label-horizontal {
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+}
+
+.general-field-label-vertical {
+  border-top-left-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+}
+
+.general-panel {
+  background: #917D64;  
+}
+
+h8 {
+  position: absolute;
+  left: 5px;
+}
+
+h9 {
+  position: relative;
+  padding-right: 20px;
+  
+}
+
+.hidden {
+  display: none;
+
+}
+
+.collapsed-arrow {
+  background-image: url('../images/arrow_right.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 20px 20px;
+}
+
+.expanded-arrow {
+  background-image: url('../images/arrow_down.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 20px 20px;
+}
+
+.visible {
+  display: block;
+}
+
+
+/*
+* Menu- and Productlist
+*/
+
+.menu-panel, .menu-panel .x-list-round .x-scroll-view {
+ background: $page-bg-color;
+}
+
+/*
+* CheckIn confirmation view
+*/
+
+.checkin-confirm-nickname-field {
+  border-radius: 0.3em;
+}
+
+.checkin-confirm-nickname-label {
+  color: white; 
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.checkin-confirm-nickname-toggle {
+  border-radius: 0.3em;  
+  margin-top: 5px;
+}
+
+.checkin-confirm-nickname-toggle .x-component-outer {
+  padding: 5px;
+}
+
+.checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
+  float: left;
+  margin-right: 10px;
+}
+
+.checkin-confirm-nickname-toggle .x-innerhtml {
+  position: relative;
+  top: 3px;
+}
+
+.checkin-confirm-nickname-toggle-label {
+  border-radius: 0.3em 0.3em 0 0;
+}
+
+
+/*
+* Overrides of core css!
+*/
+
+/*
+* A smaller distance between border and box content.
+*/
+.x-msgbox.x-floating {
+  padding: 2px;
+}
+
+/*
+* Rounded badges.
+*/
+.x-hasbadge > .x-badge {
+  border-radius: 1em;
+}
+
+/* Perf. optimization for android. */
+.x-panel.x-floating {
+  -webkit-box-shadow: none;
+}
+
+/*
+* Bugfix for icons in Android 4 not displayed.
+* http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
+*/
+.x-tabbar > * {
+    z-index: 1;
+}
+
+/**
+* Prevent text shadow toolbar title.
+*/
+.x-toolbar-dark .x-title {
+  /*color: white;*/
+  /* Ticket 105 */
+  /*text-shadow: none; */
+}
+
+/* Explizit override needed because ui round ignores $list-bg-color. */
+.x-list-round .x-scroll-view {
+  background-color: $page-bg-color !important;  
+}
+
+.lounge-tabbar .x-tab {
+  /*color: $tab-border-bottom-color;*/
+  text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
+  font-family: Helvetica Neue !important;
+}
+
+.lounge-tabbar .x-tab {
+  color: $font-color;
+}
+
+
+.x-tabbar-dark.x-docked-bottom .x-tab-active {
+  background-color: $active-color;
+  background-image: none;
+/*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, black), color-stop(10%, black), color-stop(65%, #1A0008), color-stop(100%, #1C0009));
+background-image: -webkit-linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
+background-image: linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
+text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;*/
+  -webkit-box-shadow: black 0 0 0.25em inset;
+  box-shadow: black 0 0 0.25em inset;
+}
+
+.x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
+  background-color: $font-color;
+/*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(2%, #F0F7FF), color-stop(100%, #A8D4FF));
+  background-image: -webkit-linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
+ /* background-image: linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
+}
+
+.x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
+  background-color: $font-color;
+  background-image: none;
+  /*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F37), color-stop(2%, #BD003F), color-stop(100%, #750027));
+  background-image: -webkit-linear-gradient(#F37, #BD003F 2%, #750027);
+  background-image: linear-gradient(#F37, #BD003F 2%, #750027);*/
+}
+
+/* Force action button to have white text color. */
+.x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
+  color: #FFF;
+}
+
+/* Force color of disclosure item instead of beeing calculated. */
+.x-list-round .x-list-disclosure {
+  background-image: none;
+  background-color: $active-color;
+}

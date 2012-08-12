@@ -9,12 +9,20 @@ Ext.define('EatSense.store.Styles', {
 			name: 'Default cloobster theme'
 		},
 		{
-			id: 'dark',
-			name: 'A dark and more elegant theme'
+			id: 'red',
+			name: 'A red and elegant theme'
 		},
 		{
-			id: 'light',
-			name: 'A light and friendly theme'
+			id: 'green',
+			name: 'A green and friendly theme'
+		},
+		{
+			id: 'blue',
+			name: 'A blue and airy theme'
+		},
+		{
+			id: 'orange',
+			name: 'A green and cosy theme'
 		}]
 	}
 });
