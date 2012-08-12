@@ -12,7 +12,16 @@ $form-field-bg-color: #917D64;*/
 /* Font color for most of the buttons. Also used as border color. */
 /* Round tab buttons top left and lower right. */
 /* Bottom border color for tabs. */
-/*$toolbar-button-color: #F79621;*/
+/* ------- FONTS START --------- */
+@font-face {
+  font-family: 'ComfortaaRegular';
+  src: url("fonts/comfortaa_regular-webfont.eot");
+  src: url("fonts/comfortaa_regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/comfortaa_regular-webfont.woff") format("woff"), url("fonts/comfortaa_regular-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ------ FONTS END ----------*/
 /* line 3, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_reset.scss */
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3,
 h4, h5, h6, pre, code, form, fieldset, legend,
@@ -257,7 +266,7 @@ input, textarea, select {
  */
 /* line 10, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_core.scss */
 html, body {
-  font-family: "ComfortaaRegular";
+  font-family: "ComfortaaRegular", "Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif;
   font-weight: normal;
   position: relative;
   -webkit-text-size-adjust: none;
@@ -6842,40 +6851,30 @@ input[type="search"]::-webkit-search-cancel-button {
 /*@include bevel-box('shadow');*/
 /*@include pictos-iconmask('../images/buttons/kasse');*/
 @CHARSET "UTF-8";
-/* ------- FONTS START --------- */
-@font-face {
-  font-family: 'ComfortaaRegular';
-  src: url("fonts/comfortaa_regular-webfont.eot");
-  src: url("fonts/comfortaa_regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/comfortaa_regular-webfont.woff") format("woff"), url("fonts/comfortaa_regular-webfont.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* ------ FONTS END ----------*/
-/* line 82, app-default.scss */
+/* line 80, app-default.scss */
 .productListItem h2.title {
   font-size: 1em;
 }
 
-/* line 86, app-default.scss */
+/* line 84, app-default.scss */
 .productListItem h2.price {
   font-size: 1em;
   white-space: nowrap;
 }
 
-/* line 91, app-default.scss */
+/* line 89, app-default.scss */
 .productListItem div p {
   font-size: 0.6em;
 }
 
-/* line 95, app-default.scss */
+/* line 93, app-default.scss */
 .panel-floating {
   border-radius: 0.3em !important;
   padding: 0.3em !important;
   background-color: #A9A9A9 !important;
 }
 
-/* line 101, app-default.scss */
+/* line 99, app-default.scss */
 .productDetailPanel {
   background: #917D64;
   /*url('../images/bg-rp-main.png') repeat left top;*/
@@ -6885,7 +6884,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* Set background for product description and amount spinner */
-/* line 109, app-default.scss */
+/* line 107, app-default.scss */
 .productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
   background: #917D64;
   /*url('../images/bg-rp-main.png') repeat left top;*/
@@ -6895,7 +6894,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 76, app-default.scss */
-/* line 117, app-default.scss */
+/* line 115, app-default.scss */
 .productDetail {
   /*background: #917D64; */
   /*url('../images/bg-rp-main.png') repeat left top;*/
@@ -6903,13 +6902,13 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 0.5em;
 }
 
-/* line 125, app-default.scss */
+/* line 123, app-default.scss */
 .productdetail-spinner-label {
   padding: 0;
   margin: 0;
 }
 
-/* line 130, app-default.scss */
+/* line 128, app-default.scss */
 .productdetail-spinner-input {
   border: solid 1px gray;
   background: white;
@@ -6922,7 +6921,7 @@ input[type="search"]::-webkit-search-cancel-button {
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.15em 0.3em !important;*/
 }
 
-/* line 142, app-default.scss */
+/* line 140, app-default.scss */
 .productdetail-spinner-down {
   position: relative;
   top: 25px;
@@ -6931,7 +6930,7 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 45px;
 }
 
-/* line 150, app-default.scss */
+/* line 148, app-default.scss */
 .productdetail-spinner-up {
   position: relative;
   top: -2px;
@@ -6944,7 +6943,7 @@ input[type="search"]::-webkit-search-cancel-button {
   background-image: url('data:image/png;base64,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');
 }*/
 /* line 108, app-default.scss */
-/* line 163, app-default.scss */
+/* line 161, app-default.scss */
 .productPrice {
   font-size: 1.5em;
 }
@@ -6952,12 +6951,12 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Choices and Options
 */
-/* line 171, app-default.scss */
+/* line 169, app-default.scss */
 .choice-panel {
   padding: 5px;
 }
 
-/* line 175, app-default.scss */
+/* line 173, app-default.scss */
 .choice-panel .choice {
   font-size: 1em;
   color: #8AA529;
@@ -6968,12 +6967,12 @@ input[type="search"]::-webkit-search-cancel-button {
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
 }
 
-/* line 185, app-default.scss */
+/* line 183, app-default.scss */
 .choice-panel .option {
   white-space: normal;
 }
 
-/* line 188, app-default.scss */
+/* line 186, app-default.scss */
 .choice-panel .option-label {
   font-size: 0.8em;
   background-color: white;
@@ -6981,7 +6980,7 @@ input[type="search"]::-webkit-search-cancel-button {
   white-space: normal;
 }
 
-/* line 195, app-default.scss */
+/* line 193, app-default.scss */
 .choice-panel .comment {
   font-size: 1em;
   color: #8AA529;
@@ -6993,19 +6992,19 @@ input[type="search"]::-webkit-search-cancel-button {
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
 }
 
-/* line 206, app-default.scss */
+/* line 204, app-default.scss */
 .choice-panel .comment-input {
   border: 1px dashed gray;
   padding-top: 3px;
 }
 
-/* line 211, app-default.scss */
+/* line 209, app-default.scss */
 .choice-panel .option-panel {
   padding: 5px 0px;
   white-space: normal;
 }
 
-/* line 216, app-default.scss */
+/* line 214, app-default.scss */
 .choice-panel-title {
   text-align: center;
 }
@@ -7013,29 +7012,29 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Orderlist
 */
-/* line 224, app-default.scss */
+/* line 222, app-default.scss */
 .myorders-panel {
   /*background: #917D64; */
 }
 
-/* line 228, app-default.scss */
+/* line 226, app-default.scss */
 .orderListItem {
   color: #000000;
 }
 
-/* line 232, app-default.scss */
+/* line 230, app-default.scss */
 .orderListItem .order-title {
   margin-bottom: 7px;
 }
 
-/* line 236, app-default.scss */
+/* line 234, app-default.scss */
 .orderListItem h2.title {
   color: #000000;
   font-size: 1em;
   padding-right: 3px;
 }
 
-/* line 242, app-default.scss */
+/* line 240, app-default.scss */
 .orderListItem h2.price {
   color: #000000;
   font-size: 1em;
@@ -7044,51 +7043,51 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 25px;
 }
 
-/* line 250, app-default.scss */
+/* line 248, app-default.scss */
 .orderListItem li, .orderListItem p {
   color: #000000;
   margin-left: 15px;
   font-size: 0.7em;
 }
 
-/* line 256, app-default.scss */
+/* line 254, app-default.scss */
 .orderListItem h4 {
   font-size: 0.7em;
   color: #000000;
 }
 
-/* line 261, app-default.scss */
+/* line 259, app-default.scss */
 .orderListItem h3 {
   font-size: 0.9em;
   color: #000000;
 }
 
-/* line 266, app-default.scss */
+/* line 264, app-default.scss */
 .orderListItem .canceled {
   text-decoration: line-through;
 }
 
-/* line 270, app-default.scss */
+/* line 268, app-default.scss */
 .orderListItem .canceled h2 {
   text-decoration: line-through;
 }
 
-/* line 274, app-default.scss */
+/* line 272, app-default.scss */
 .cart-panel {
   background: #917D64;
 }
 
-/* line 278, app-default.scss */
+/* line 276, app-default.scss */
 .cart-panel .x-list-round .x-scroll-view {
   background: #917D64;
 }
 
-/* line 282, app-default.scss */
+/* line 280, app-default.scss */
 .cartoverview {
   padding: 0.3em 0em;
 }
 
-/* line 286, app-default.scss */
+/* line 284, app-default.scss */
 .cartTotal {
   text-align: center;
   font-size: 1.5em;
@@ -7096,7 +7095,7 @@ input[type="search"]::-webkit-search-cancel-button {
   /*background: #917D64; */
 }
 
-/* line 293, app-default.scss */
+/* line 291, app-default.scss */
 .cartoverviewitem {
   padding: 5px;
   margin: 5px;
@@ -7104,23 +7103,23 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: #fff;
 }
 
-/* line 300, app-default.scss */
+/* line 298, app-default.scss */
 .cartoverviewitem .name {
   width: 50%;
 }
 
-/* line 304, app-default.scss */
+/* line 302, app-default.scss */
 .cartoverviewitem .name h2.title {
   color: #000000;
   font-size: 1em;
 }
 
-/* line 310, app-default.scss */
+/* line 308, app-default.scss */
 .cartoverviewitem .name div.amount {
   float: left;
 }
 
-/* line 314, app-default.scss */
+/* line 312, app-default.scss */
 .cartoverviewitem .name h2.price {
   color: #000000;
   font-size: 1em;
@@ -7129,36 +7128,36 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 5px;
 }
 
-/* line 322, app-default.scss */
+/* line 320, app-default.scss */
 .cartoverviewitem .edit {
   top: 0;
   margin-right: 10px;
 }
 
-/* line 327, app-default.scss */
+/* line 325, app-default.scss */
 .cartoverviewitem .cancel {
   top: 0;
   margin-right: 5px;
 }
 
-/* line 332, app-default.scss */
+/* line 330, app-default.scss */
 .cartoverviewitem-name {
   width: 70%;
   margin-bottom: 20px;
 }
 
-/* line 337, app-default.scss */
+/* line 335, app-default.scss */
 .cartoverviewitem-edit {
   top: 0;
 }
 
-/* line 341, app-default.scss */
+/* line 339, app-default.scss */
 .cartoverviewitem-cancel {
   top: 0;
   margin-right: 5px;
 }
 
-/* line 346, app-default.scss */
+/* line 344, app-default.scss */
 .menuCategoryItem {
   float: left;
   width: 15%;
@@ -7167,37 +7166,37 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Dashboard
 */
-/* line 355, app-default.scss */
+/* line 353, app-default.scss */
 .dashboard {
   background: #917d64 url("../images/bg-rp-main.png") repeat left top;
 }
 
-/* line 359, app-default.scss */
+/* line 357, app-default.scss */
 .dashboard-button {
   background-image: url(../images/dashboard/start_button.png);
   background-repeat: no-repeat;
   background-position: center center;
 }
 
-/* line 365, app-default.scss */
+/* line 363, app-default.scss */
 .dashboard-button-pressed {
   background-image: url(../images/dashboard/start_button_touch.png) !important;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
-/* line 371, app-default.scss */
+/* line 369, app-default.scss */
 .dashboard-description {
   color: white;
 }
 
-/* line 375, app-default.scss */
+/* line 373, app-default.scss */
 .about-text {
   font-size: 0.9em;
   margin: 5px;
 }
 
-/* line 380, app-default.scss */
+/* line 378, app-default.scss */
 .about-text h2 {
   font-size: 1.2em;
   font-weight: bold;
@@ -7205,44 +7204,44 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-bottom: 3px;
 }
 
-/* line 387, app-default.scss */
+/* line 385, app-default.scss */
 .about-text h3 {
   font-weight: bold;
 }
 
-/* line 395, app-default.scss */
+/* line 393, app-default.scss */
 .x-button-icon.about {
   -webkit-mask-image: url("../images/buttons/about.png");
 }
 
-/* line 399, app-default.scss */
+/* line 397, app-default.scss */
 .x-tab .x-button-icon.cart {
   /*-webkit-mask-image: url('data:image/png;base64,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');*/
   -webkit-mask-image: url("../images/buttons/bestellung.png");
 }
 
-/* line 404, app-default.scss */
+/* line 402, app-default.scss */
 .x-tab .x-button-icon.menu {
   -webkit-mask-image: url("../images/buttons/speisekarte.png");
 }
 
-/* line 408, app-default.scss */
+/* line 406, app-default.scss */
 .x-tab .x-button-icon.cash {
   -webkit-mask-image: url("../images/buttons/kasse.png");
 }
 
-/* line 412, app-default.scss */
+/* line 410, app-default.scss */
 .x-tab .x-button-icon.leave {
   -webkit-mask-image: url("../images/buttons/forbidden.png");
 }
 
-/* line 416, app-default.scss */
+/* line 414, app-default.scss */
 .x-tab .x-button-icon.requests {
   /*-webkit-mask-image: url('data:image/png;base64,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');*/
   -webkit-mask-image: url("../images/buttons/aktionen.png");
 }
 
-/* line 421, app-default.scss */
+/* line 419, app-default.scss */
 .newsletter-floating {
   border-radius: 0.3em !important;
   padding: 3px !important;
@@ -7250,7 +7249,7 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em !important;
 }
 
-/* line 428, app-default.scss */
+/* line 426, app-default.scss */
 .newsletter-register-button {
   width: 200px;
   margin-top: 5px;
@@ -7269,24 +7268,24 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Feedback
 */
-/* line 448, app-default.scss */
+/* line 446, app-default.scss */
 .feedback-label {
   color: white;
   font-size: 1em;
   word-break: break-word;
 }
 
-/* line 455, app-default.scss */
+/* line 453, app-default.scss */
 .feedback-slider {
   background: #917d64;
 }
 
-/* line 459, app-default.scss */
+/* line 457, app-default.scss */
 .feedback-slider .x-slider {
   top: 0.4em;
 }
 
-/* line 463, app-default.scss */
+/* line 461, app-default.scss */
 .feedback-panel {
   padding: 0.3em 0em;
 }
@@ -7294,61 +7293,61 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * General styles
 */
-/* line 471, app-default.scss */
+/* line 469, app-default.scss */
 .general-label {
   color: white;
   font-size: 1em;
   text-align: center;
 }
 
-/* line 477, app-default.scss */
+/* line 475, app-default.scss */
 .general-label-black {
   color: black;
   font-size: 1em;
   text-align: center;
 }
 
-/* line 483, app-default.scss */
+/* line 481, app-default.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
 }
 
-/* line 488, app-default.scss */
+/* line 486, app-default.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 493, app-default.scss */
+/* line 491, app-default.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 498, app-default.scss */
+/* line 496, app-default.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 502, app-default.scss */
+/* line 500, app-default.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 507, app-default.scss */
+/* line 505, app-default.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 513, app-default.scss */
+/* line 511, app-default.scss */
 .hidden {
   display: none;
 }
 
-/* line 518, app-default.scss */
+/* line 516, app-default.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -7356,7 +7355,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 525, app-default.scss */
+/* line 523, app-default.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -7364,7 +7363,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 532, app-default.scss */
+/* line 530, app-default.scss */
 .visible {
   display: block;
 }
@@ -7372,7 +7371,7 @@ h9 {
 /*
 * Menu- and Productlist
 */
-/* line 541, app-default.scss */
+/* line 539, app-default.scss */
 .menu-panel, .menu-panel .x-list-round .x-scroll-view {
   background: #917D64;
 }
@@ -7380,42 +7379,42 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 549, app-default.scss */
+/* line 547, app-default.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 553, app-default.scss */
+/* line 551, app-default.scss */
 .checkin-confirm-nickname-label {
   color: white;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
-/* line 559, app-default.scss */
+/* line 557, app-default.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 5px;
 }
 
-/* line 564, app-default.scss */
+/* line 562, app-default.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 568, app-default.scss */
+/* line 566, app-default.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 573, app-default.scss */
+/* line 571, app-default.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
-  top: 10px;
+  top: 4px;
 }
 
-/* line 578, app-default.scss */
+/* line 576, app-default.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -7426,7 +7425,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 590, app-default.scss */
+/* line 588, app-default.scss */
 .x-msgbox.x-floating {
   padding: 2px;
   background: #917d64 url("../images/bg-rp-main.png");
@@ -7435,19 +7434,19 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 598, app-default.scss */
+/* line 596, app-default.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Item disclosure! */
-/* line 603, app-default.scss */
+/* line 601, app-default.scss */
 .x-list-round .x-list-disclosure {
   background-image: -webkit-linear-gradient(top right, #8aa529, #abcd34 50%);
 }
 
 /* Perf. optimization for android. */
-/* line 608, app-default.scss */
+/* line 606, app-default.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
@@ -7467,7 +7466,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 629, app-default.scss */
+/* line 627, app-default.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -7475,7 +7474,7 @@ h9 {
 /**
 * Set background image for tabbar.
 */
-/* line 636, app-default.scss */
+/* line 634, app-default.scss */
 .x-tabbar-dark {
   background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
   border-color: #594b3a !important;
@@ -7485,7 +7484,7 @@ h9 {
 /**
 * Set background image for toolbar.
 */
-/* line 645, app-default.scss */
+/* line 643, app-default.scss */
 .x-toolbar-dark {
   background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
   border-color: #594b3a !important;
@@ -7495,27 +7494,27 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 654, app-default.scss */
+/* line 652, app-default.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /* Ticket 105 */
   text-shadow: none;
 }
 
-/* line 661, app-default.scss */
+/* line 659, app-default.scss */
 .x-list-round .x-scroll-view {
   /* Explizit override needed because ui round ignores $list-bg-color. */
   background-color: #917D64 !important;
 }
 
-/* line 666, app-default.scss */
+/* line 664, app-default.scss */
 .lounge-tabbar .x-tab {
   color: #614021;
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
   font-family: Helvetica Neue !important;
 }
 
-/* line 672, app-default.scss */
+/* line 670, app-default.scss */
 .lounge-tabbar .x-tab-active {
   color: #614021;
   border-bottom: 2px solid #614021;
@@ -7524,7 +7523,7 @@ h9 {
 /*
 * Override tabbar background colors.
 */
-/* line 679, app-default.scss */
+/* line 677, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background: #614021;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(0%, #614021), color-stop(100%, #8e6e51));
@@ -7534,7 +7533,7 @@ h9 {
 /*
 * Override active tabbar background colors.
 */
-/* line 688, app-default.scss */
+/* line 686, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background: #f79621;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f79621), color-stop(100%, #f9c667));
@@ -7546,7 +7545,7 @@ h9 {
 /* 
 * Override button css. Prevents default gradient rendering.
 */
-/* line 699, app-default.scss */
+/* line 697, app-default.scss */
 .x-toolbar-dark .x-button, .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after {
   background: #f79621;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9c667), color-stop(100%, #f79621));
@@ -7557,7 +7556,7 @@ h9 {
 /*
 * Override button font color.
 */
-/* line 709, app-default.scss */
+/* line 707, app-default.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: #594b3a;
 }

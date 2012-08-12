@@ -6,7 +6,7 @@ $active-color: #FF8718;
 
 /*$neutral-color: #00AAFF;*/
 /* $confirm-color: #F79621; */
-$font-family: 'ComfortaaRegular';
+$font-family: 'ComfortaaRegular', "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;;
 $base-gradient: 'matte';
 $button-gradient: 'matte';
 /*$toolbar-base-color: #F79621;*/
@@ -31,7 +31,20 @@ $tabs-bottom-radius: 21% 0;
 /* Bottom border color for tabs. */
 $tab-border-bottom-color: #614021;
 
-/*$toolbar-button-color: #F79621;*/
+/* ------- FONTS START --------- */
+
+@font-face {
+    font-family: 'ComfortaaRegular';
+    src: url('fonts/comfortaa_regular-webfont.eot');
+    src: url('fonts/comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/comfortaa_regular-webfont.woff') format('woff'),
+         url('fonts/comfortaa_regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* ------ FONTS END ----------*/
 
 
 @import 'sencha-touch/default/all';
@@ -63,21 +76,6 @@ $tab-border-bottom-color: #614021;
 
 
 @CHARSET "UTF-8";
-
-/* ------- FONTS START --------- */
-
-@font-face {
-    font-family: 'ComfortaaRegular';
-    src: url('fonts/comfortaa_regular-webfont.eot');
-    src: url('fonts/comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/comfortaa_regular-webfont.woff') format('woff'),
-         url('fonts/comfortaa_regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-/* ------ FONTS END ----------*/
 
 .productListItem h2.title {
   font-size: 1em;
@@ -572,7 +570,7 @@ h9 {
 
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
-  top: 10px;
+  top: 3px;
 }
 
 .checkin-confirm-nickname-toggle-label {

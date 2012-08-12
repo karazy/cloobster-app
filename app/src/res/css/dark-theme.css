@@ -261,7 +261,7 @@ input, textarea, select {
  */
 /* line 10, ../../touch/resources/themes/stylesheets/sencha-touch/default/core/_core.scss */
 html, body {
-  font-family: "ComfortaaRegular";
+  font-family: "ComfortaaRegular", "Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif;
   font-weight: normal;
   position: relative;
   -webkit-text-size-adjust: none;
@@ -439,7 +439,7 @@ input, textarea {
 /* line 33, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 .x-html body {
   line-height: 1.5;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: ComfortaaRegular, "Helvetica Neue", Arial, Helvetica, sans-serif;
   color: white;
   font-size: 75%;
 }

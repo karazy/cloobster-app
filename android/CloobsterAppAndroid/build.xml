@@ -43,7 +43,7 @@
 	
 	<target name="replaceConfigTesting" depends="renameFiles">
 			<echo message="Setting config values" />
-			<replaceregexp file="${config}" match="(serviceUrl :) .*" replace="\1 'http://eatsense-test.appspot.com'," byline="true">
+			<replaceregexp file="${config}" match="(serviceUrl :) .*" replace="\1 'https://cloobster-test.appspot.com'," byline="true">
 			</replaceregexp>
 			<replaceregexp file="${config}" match="(disableCaching :) .*" replace="\1 false," byline="true">
 			</replaceregexp>

@@ -43,7 +43,7 @@ Karazy.translations = (function() {
 		"checkInStep2Label1" : "Andere haben hier bereits eingecheckt.",
 		"checkInStep2Label2" : "Mit jemand anderem einchecken?",
 		"checkInStep2OnMyOwnButton" : "Ich bin alleine hier",
-		"checkInErrorBarcode" : "Der Barcode ist nicht valide!",
+		"checkInErrorBarcode" : "Der Barcode ist nicht valide oder inaktiv!",
 		"checkInErrorNickname" : "Der Spitzname muss zwischen {0} und {1} Zeichen lang sein.",
 		"checkInErrorNicknameExists" : "Der Spitzname wird an diesem Tisch bereits benutzt.",
 		"saveNicknameToggle" : "Spitzname speichern?",

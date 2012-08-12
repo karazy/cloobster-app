@@ -27,7 +27,7 @@ Ext.define('EatSense.controller.Styles', {
 		if(status == Karazy.constants.CHECKEDIN) {
 			console.log('activate theme ' + theme);
 			this.changeTheme(theme);	
-		} else if (status == Karazy.constants.COMPLETE) {
+		} else if (status == Karazy.constants.COMPLETE || status == Karazy.constants.FORCE_LOGOUT || status == Karazy.constants.CANCEL_ALL) {
 			this.changeTheme('default');	
 		}
 	},
