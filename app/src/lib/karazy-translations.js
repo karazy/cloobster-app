@@ -82,7 +82,7 @@ Karazy.translations = (function() {
 		//Lounge
 		"loungeviewTitle" : "Die Lounge",
 		//MyOrders
-		"myOrdersTitle" : "Deine Bestellung",
+		"myOrdersTitle" : "Bestellungen",
 		"myOrdersTabBt" : "Bezahlen",
 		"myOrdersTabLeaveBt" : "Verlassen",
 		"payRequestButton" : "Bezahlen",

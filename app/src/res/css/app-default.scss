@@ -184,7 +184,7 @@ $tab-border-bottom-color: #614021;
   white-space: normal;
 }
 .choice-panel .option-label {
-  font-size: 0.8em;
+  /*font-size: 0.8em;*/
   background-color: white;
   color: black;
   white-space: normal;
@@ -706,6 +706,41 @@ h9 {
 */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: $font-color;
+}
+
+/*
+* Override button pressed color.
+*/
+.x-toolbar-dark .x-button.x-button-pressing, .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar-dark .x-button.x-button-active, .x-toolbar-dark .x-button.x-button-active:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-dark .x-button.x-button-active, .x-toolbar .x-toolbar-dark .x-button.x-button-active:after,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing:after,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed:after,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active:after,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing:after,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed:after,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active:after { 
+  background: $base-color;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$base-color), color-stop(100%,#F9C667));
+  background: -webkit-linear-gradient(top, $base-color 0%,#F9C667 100%);
+  background: linear-gradient(top, $base-color 0%,#F9C667 100%);
+/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', endColorstr='#F9C667',GradientType=0 );*/
 }
 
 /*

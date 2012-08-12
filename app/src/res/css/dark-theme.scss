@@ -1,8 +1,7 @@
  /* Sencha Variables. */
  /* General base color for style. */
 $base-color: #990033;
-
-/* Used for action buttons. */
+/* Used for action buttons and active items. */
 $active-color: #6699cc;
 /* Disable gradients, shadows ... for tabs.*/
 $include-tab-highlights: false;
@@ -35,16 +34,6 @@ $product-sub-bg: #D3D3D3;
     font-style: normal;
 
 }
-
- @font-face {
-        font-family: $name;
-        font-style: normal;
-        font-weight: normal;
-        src: _simple-font-url($name, 'eot');
-        src: _full-font-url($name, 'woff', 'embedded-opentype', '?#iefix'),
-             _full-font-url($name, 'ttf', 'truetype'),
-             _full-font-url($name, 'svg', 'esvg', '?#' + $name);
-  }
 /* ------ FONTS END ----------*/
 
 
@@ -127,7 +116,6 @@ $product-sub-bg: #D3D3D3;
    text-align: center !important;
    /* otherwise value is 2.5em inherited from x-input-el */
    min-height: 0em;   
-   /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.15em 0.3em !important;*/
 }
 
 .productdetail-spinner-down {
@@ -172,7 +160,6 @@ $product-sub-bg: #D3D3D3;
   }
 
   .option-label {
-    font-size: 0.8em;
     background-color: white;
     color: black;
     white-space: normal;

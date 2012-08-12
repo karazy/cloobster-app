@@ -6974,7 +6974,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* line 186, app-default.scss */
 .choice-panel .option-label {
-  font-size: 0.8em;
+  /*font-size: 0.8em;*/
   background-color: white;
   color: black;
   white-space: normal;
@@ -7411,7 +7411,7 @@ h9 {
 /* line 571, app-default.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
-  top: 4px;
+  top: 3px;
 }
 
 /* line 576, app-default.scss */
@@ -7559,6 +7559,42 @@ h9 {
 /* line 707, app-default.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: #594b3a;
+}
+
+/*
+* Override button pressed color.
+*/
+/* line 738, app-default.scss */
+.x-toolbar-dark .x-button.x-button-pressing, .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar-dark .x-button.x-button-active, .x-toolbar-dark .x-button.x-button-active:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-dark .x-button.x-button-active, .x-toolbar .x-toolbar-dark .x-button.x-button-active:after,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing:after,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed:after,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active,
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer.x-button-active:after,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing:after,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed:after,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active,
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressing:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-pressed:after, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active, .x-toolbar
+.x-toolbar-dark .x-field-select .x-component-outer:before.x-button-active:after {
+  background: #f79621;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f79621), color-stop(100%, #f9c667));
+  background: -webkit-linear-gradient(top, #f79621 0%, #f9c667 100%);
+  background: linear-gradient(top, #f79621 0%, #f9c667 100%);
+  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F79621', endColorstr='#F9C667',GradientType=0 );*/
 }
 
 /*
