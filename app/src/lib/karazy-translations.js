@@ -57,8 +57,8 @@ Karazy.translations = (function() {
 		"choicesPanelTitle" : "Du hast die Wahl ...",
 		"putIntoCartButton" : "Auf den Bestellzettel",
 		"choiceValErrMandatory" : "Bitte triff eine Wahl für {0}",
-		"choiceValErrMin" : "Bitte mindestens {0} Optionen in {1} auswählen.",
-		"choiceValErrMax" : "Bitte maximal  {0} Optionen in {1} auswählen.",
+		"choiceValErrMin" : "Bitte min {0} Optionen in {1} auswählen.",
+		"choiceValErrMax" : "Bitte max  {0} Optionen in {1} auswählen.",
 		//Order
 		"orderInvalid" : "Bitte Auswahl überprüfen.",
 		"orderPlaced" : "Bestellung im Warenkorb.",
