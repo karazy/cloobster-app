@@ -370,6 +370,7 @@ Ext.define('EatSense.controller.Menu', {
 			productForCart = this.getActiveProduct(),
 			order,
 			validationError = "",
+			validationResult = null,
 			cartButton = this.getLoungeTabBar().getAt(1),
 			productIsValid = true,
 			appState = this.getApplication().getController('CheckIn').getAppState(),
@@ -383,11 +384,14 @@ Ext.define('EatSense.controller.Menu', {
 		productForCart.choices().each(function(choice) {
 			//only validate dependend choices if parent choice is active!
 			if(!choice.get('parent') || choice.getParentChoice().isActive()) {
-				if(choice.validateChoice() !== true) {
+				validationResult = choice.validateChoice();
+
+				if(!validationResult.valid) {
 					//coice is not valid
 					productIsValid = false;
-					validationError += choice.get('text') + '<br/>';
-				}
+					// validationError += choice.get('text') + '<br/>';
+					validationError += validationResult.errMsgs;
+				};
 			};
 		});
 		

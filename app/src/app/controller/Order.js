@@ -349,6 +349,7 @@
 			order = this.getActiveOrder(),
 			product = this.getActiveOrder().getProduct(), 
 			validationError = "", 
+			validationResult = null,
 			productIsValid = true,
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			detail = this.getProductdetail();
@@ -359,11 +360,14 @@
 		product.choices().each(function(choice) {
 			//only validate dependend choices if parent choice is active!
 			if(!choice.get('parent') || choice.getParentChoice().isActive()) {
-				if(choice.validateChoice() !== true) {
+				validationResult = choice.validateChoice();
+
+				if(!validationResult.valid) {
 					//coice is not valid
 					productIsValid = false;
-					validationError += choice.get('text') + '<br/>';
-				}
+					// validationError += choice.get('text') + '<br/>';
+					validationError += validationResult.errMsgs;
+				};
 			};
 		});
 		

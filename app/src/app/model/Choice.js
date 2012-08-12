@@ -29,14 +29,17 @@ Ext.define('EatSense.model.Choice', {
 		}
 	},	
 	/**
-	 * Validates the choice based on min- maxOccurence etc. 
+	 * Validates the choice based on min- maxOccurence etc.
+	 * @return
+	 *	Object with field valid (true for valid, false for invalid) and errMsgs which contains the information to display.
 	 */
 	validateChoice: function() {
 		console.log('validateChoide ' + this.get('text'));
-		var 	counter = 0, 
-				validationError = "",
-				minOccurence = this.get('minOccurence'),
-				maxOccurence = this.get('maxOccurence');
+		var counter = 0, 
+			validationError = "",
+			minOccurence = this.get('minOccurence'),
+			maxOccurence = this.get('maxOccurence'),
+			result = {valid : true, errMsgs : ''};
 
 		this.options().each(function(option) {
 			if(option.get('selected') === true) {
@@ -48,12 +51,21 @@ Ext.define('EatSense.model.Choice', {
 			//radio button mandatory field
 			validationError += Karazy.i18n.translate('choiceValErrMandatory', this.get('text')) + "<br/>";
 		}
+		else if(minOccurence > maxOccurence) {
+			//Wrong product data. Do nothing!
+		}
 		else if(counter < minOccurence) {
 			validationError += Karazy.i18n.translate('choiceValErrMin', minOccurence, this.get('text')) + "<br/>";
 		}else if(counter > maxOccurence && maxOccurence > 0) {
-			validationError += Karazy.i18n.translate('choiceValErrMin', maxOccurence, this.get('text')) + "<br/>";
+			validationError += Karazy.i18n.translate('choiceValErrMax', maxOccurence, this.get('text')) + "<br/>";
 		}
-		return (validationError.toString().length == 0) ? true : false;
+		
+		if(validationError.toString().length > 0) {
+			result.valid = false;
+			result.errMsgs = validationError;	
+		}
+		
+		return result;
 	},
 	/**
 	* If a choice has selected options it is considered active.
