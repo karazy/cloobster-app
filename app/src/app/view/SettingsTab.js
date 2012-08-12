@@ -56,6 +56,13 @@ Ext.define('EatSense.view.SettingsTab', {
 			action: 'about',
 			margin: '7 0 5 0',
 			width: '80%'
+		},
+		{
+			xtype: 'label',
+			html: 'Cloobster App Version: ' + Karazy.config.version,
+			style: 'text-align: right; font-size: 0.6em; color: black;',
+			margin: '10 0 0 0',
+			width: '80%'
 		}
 		]
 	}
