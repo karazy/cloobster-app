@@ -24,7 +24,6 @@ Ext.define('EatSense.view.SettingsTab', {
 			xtype: 'formpanel',
 			//prevents also that the panel has a wrong size. Bug?
 			scrollable: false,			
-			// padding: 5,	
 			margin: '10 0 0 0',
 			width: '80%',
 			items: [
@@ -39,6 +38,7 @@ Ext.define('EatSense.view.SettingsTab', {
 					label : Karazy.i18n.translate('nickname'),
 					labelWidth: '40%',
 					itemId : 'nickname',
+					maxLength: 25,
 					cls: 'general-textfield',
 					labelCls: 'general-field-label-horizontal'
 				}
@@ -46,7 +46,6 @@ Ext.define('EatSense.view.SettingsTab', {
 		},
 		{	
 			xtype: 'newsletter',			
-			// padding: 5,
 			width: '80%'
 		},
 		{
