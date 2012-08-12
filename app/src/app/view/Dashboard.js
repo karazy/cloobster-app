@@ -51,11 +51,6 @@ Ext.define('EatSense.view.Dashboard', {
 			iconMask: true,
 			styleHtmlContent: true,
 			style: 'position: absolute; bottom: 10px; right: 10px;'
-		},
-		{
-			xtype: 'image',
-			src: 'res/images/dashboard/start_button_touch.png',
-			hidden: true
 		}
 		]
 	},
