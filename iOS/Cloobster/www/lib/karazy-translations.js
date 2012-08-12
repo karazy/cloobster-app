@@ -43,7 +43,7 @@ Karazy.translations = (function() {
 		"checkInStep2Label1" : "Andere haben hier bereits eingecheckt.",
 		"checkInStep2Label2" : "Mit jemand anderem einchecken?",
 		"checkInStep2OnMyOwnButton" : "Ich bin alleine hier",
-		"checkInErrorBarcode" : "Der Barcode ist nicht valide!",
+		"checkInErrorBarcode" : "Der Barcode ist nicht valide oder inaktiv!",
 		"checkInErrorNickname" : "Der Spitzname muss zwischen {0} und {1} Zeichen lang sein.",
 		"checkInErrorNicknameExists" : "Der Spitzname wird an diesem Tisch bereits benutzt.",
 		"saveNicknameToggle" : "Spitzname speichern?",
@@ -57,8 +57,8 @@ Karazy.translations = (function() {
 		"choicesPanelTitle" : "Du hast die Wahl ...",
 		"putIntoCartButton" : "Auf den Bestellzettel",
 		"choiceValErrMandatory" : "Bitte triff eine Wahl für {0}",
-		"choiceValErrMin" : "Bitte mindestens {0} {1} auswählen.",
-		"choiceValErrMax" : "Bitte maximal  {0} {1} auswählen.",
+		"choiceValErrMin" : "Bitte min {0} Optionen in {1} auswählen.",
+		"choiceValErrMax" : "Bitte max  {0} Optionen in {1} auswählen.",
 		//Order
 		"orderInvalid" : "Bitte Auswahl überprüfen.",
 		"orderPlaced" : "Bestellung im Warenkorb.",
@@ -82,7 +82,7 @@ Karazy.translations = (function() {
 		//Lounge
 		"loungeviewTitle" : "Die Lounge",
 		//MyOrders
-		"myOrdersTitle" : "Deine Bestellung",
+		"myOrdersTitle" : "Bestellungen",
 		"myOrdersTabBt" : "Bezahlen",
 		"myOrdersTabLeaveBt" : "Verlassen",
 		"payRequestButton" : "Bezahlen",
@@ -128,7 +128,8 @@ Karazy.translations = (function() {
 		"errorMsg" : "Entschuldigung! Ein Fehler ist aufgetreten.<br/>Wir kümmern uns darum!",
 		"errorResource" : "Daten konnten nicht vom Server geladen werden.",
 		"errorPermission" : "Sitzung ist ungültig.",
-		"errorCommunication" : "Es kann keine Verbindung zum Server hergestellt werden.<br/>Bitte probiere es noch einmal."
+		"errorCommunication" : "Es kann keine Verbindung zum Server hergestellt werden.<br/>Bitte probiere es noch einmal.",
+		"error.menu.needsrefresh" : "Menü Daten nicht mehr aktuell. Bitte führen Sie die Bestellung nochmals durch."
 		}
 	}
 	

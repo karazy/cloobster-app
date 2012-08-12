@@ -8,7 +8,7 @@ Karazy.config = (function() {
 	
 	return {
 		
-		serviceUrl : 'https://karazy-cloobster.appspot.com',
+		serviceUrl : 'http://cloobster-quality.appspot.com',
 		msgboxHideTimeout : 1000,
 		msgboxHideLongTimeout: 2000,
 		currencyFormat: 'EURO',

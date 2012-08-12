@@ -57,7 +57,7 @@ Ext.define('EatSense.view.Feedback', {
 			items: [
 			{
 				xtype: 'button',
-				ui: 'confirm',
+				ui: 'action',
 				action: 'submit',
 				text: Karazy.i18n.translate('feedback'),
 				height: '50px',
