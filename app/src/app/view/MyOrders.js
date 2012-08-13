@@ -147,30 +147,7 @@ Ext.define('EatSense.view.MyOrders', {
 						}
 					]
 				}]
-			}
-
-		// {
-		// 	docked : 'top',
-		// 	xtype : 'titlebar',
-		// 	title : Karazy.i18n.translate('myOrdersTitle'),
-		// 	items : [
-		// 	{
-		// 		xtype: 'button',
-		// 		text: Karazy.i18n.translate('payRequestButton'),
-		// 		ui: 'forward',
-		// 		action: 'pay',
-		// 		hidden: true,
-		// 		align: 'right'
-		// 	},
-		// 	{
-		// 		xtype: 'button',
-		// 		text: Karazy.i18n.translate('leaveButton'),
-		// 		ui: 'forward',
-		// 		action: 'leave',
-		// 		align: 'right'
-		// 	}
-		// 	]
-		// },		
+			}	
 		]
 	},
 	/**

@@ -20,6 +20,8 @@ $form-label-color: #4C321A;
 /* Custom variables */
 /* Font color for most of the buttons. Also used as border color. */
 $font-color: #FFFFFF;
+/* Used for text directly displayed on the background. */
+$label-color: #000;
 /* Background for product detail description. */
 $product-sub-bg: #D3D3D3;
 
@@ -259,8 +261,7 @@ $product-sub-bg: #D3D3D3;
 .cartTotal {
   text-align: center;
   font-size: 1.5em;
-  color: #FFFFFF;
-  /*background: #917D64; */
+  color: $label-color;
 }
 
 .cartoverviewitem {
@@ -403,7 +404,7 @@ $product-sub-bg: #D3D3D3;
 */
 
 .feedback-label {
-  color: white; 
+  color: $label-color; 
   font-size: 1em;
   word-break: break-word;
 }
@@ -426,7 +427,7 @@ $product-sub-bg: #D3D3D3;
 * General styles
 */
 .general-label {
-  color: white; 
+  color: $label-color; 
   font-size: 1em;
   text-align: center;
 }
@@ -572,9 +573,9 @@ h9 {
 * Prevent text shadow toolbar title.
 */
 .x-toolbar-dark .x-title {
-  /*color: white;*/
-  /* Ticket 105 */
-  /*text-shadow: none; */
+  color: $font-color;
+   /*Ticket 105 */
+  text-shadow: none; 
 }
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
