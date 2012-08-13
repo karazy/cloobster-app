@@ -14,6 +14,7 @@ Ext.define('EatSense.controller.Styles', {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
 		checkInCtr.on('statusChanged', this.activateTheme, this);
+        this.getApplication().on('statusChanged', this.activateTheme, this);
 	},
 
 	/**
