@@ -47,7 +47,7 @@ Karazy.translations = (function() {
 		"checkInErrorNickname" : "Der Spitzname muss zwischen {0} und {1} Zeichen lang sein.",
 		"checkInErrorNicknameExists" : "Der Spitzname wird an diesem Tisch bereits benutzt.",
 		"saveNicknameToggle" : "Spitzname speichern?",
-		"checkInCanceled" : "Sitzung wurde durch das Restaurant beendet.",
+		"checkInCanceled" : "Sitzung wurde durch Servicepersonal beendet.",
 		"nickname" : "Spitzname",
 		"restoreStateLoading" : "Aktiver CheckIn wird geladen ...",
 		"restoreStateFailed" : "CheckIn nicht mehr gültig.<br/>Bitte neu einchecken.",
@@ -94,7 +94,7 @@ Karazy.translations = (function() {
 		"paymentRequestSend": "Bitte einen Moment warten,</br>die Rechnung wird vorbereitet ...",
 		//Settings
 		"settingsTitle" : "Einstellungen",
-		"nicknameDesc" : "Der Spitznamen ist der Anzeigename im Restaurant.</br>Änderungen wirken sich erst beim nächsten Check-In aus.",
+		"nicknameDesc" : "Der Spitzname ist der Anzeigename für das Servicepersonal.</br>Änderungen wirken sich erst beim nächsten Check-In aus.",
 		"newsletterRegisterBt": "Registrieren",
 		"newsletterEmail" : "E-Mail",
 		"newsletterRegisterSuccess" : "Danke! Eine Bestätigungsmail wird an {0} geschickt.",
