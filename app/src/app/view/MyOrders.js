@@ -105,7 +105,7 @@ Ext.define('EatSense.view.MyOrders', {
 							items: [{
 								xtype: 'label',	
 								cls: 'cartTotal',		
-								tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.productPrice)]}</h1>',
+								tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.price)]}</h1>',
 									{
 										formatPrice: function(price) {
 											return Karazy.util.formatPrice(price);
