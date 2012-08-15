@@ -39,7 +39,7 @@ Ext.define('EatSense.model.Menu', {
 			    				direction: 'ASC'
 			    			}
 			    	    ]
-			}
+			} 
 		}
 	}
 });

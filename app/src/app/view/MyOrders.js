@@ -46,12 +46,12 @@ Ext.define('EatSense.view.MyOrders', {
 							itemCls: 'orderListItem',
 							itemTpl:  new Ext.XTemplate(
 								"<table style='width:100%;'>"+				
-								"<td align='left'><h2 class='title'>{amount} x {Product.name}</h2></td><td align='right'><h2 class='price collapsed-arrow'>{[this.formatPrice(values.Product.price_calculated)]}</td></h2>"+
+								"<td align='left'><h2 class='title'>{amount} x {productName}</h2></td><td align='right'><h2 class='price collapsed-arrow'>{[this.formatPrice(values.price_calculated)]}</td></h2>"+
 								"</table>"+
 								"<div class='myorder-detail hidden'>"+
 								"<h4>"+Karazy.i18n.translate('orderTime')+": {[values.orderTime.toLocaleTimeString()]}</h4>"+
 								"<div class='choices'>"+
-									"<tpl for='Product.choices'>" +				
+									"<tpl for='choices'>" +				
 										"<tpl if='this.checkSelections(values, xindex)'>" +
 											"<tpl if='!parent'><h3>{text}</h3></tpl>" +
 											"<ul>" +
@@ -105,7 +105,7 @@ Ext.define('EatSense.view.MyOrders', {
 							items: [{
 								xtype: 'label',	
 								cls: 'cartTotal',		
-								tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.price)]}</h1>',
+								tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.productPrice)]}</h1>',
 									{
 										formatPrice: function(price) {
 											return Karazy.util.formatPrice(price);

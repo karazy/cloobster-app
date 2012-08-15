@@ -232,7 +232,7 @@ Ext.define('EatSense.controller.Feedback', {
 	* @private
 	* Enable feedback by displaying buttons.
 	*/
-	enableFeedback: function() {		
+	enableFeedback: function() {
 		this.getShowFeedbackButton().setHidden(false);
 		this.getFeedbackLabel().setHidden(false);
 

@@ -128,7 +128,7 @@ Ext.define('Ext.data.association.BelongsTo', {
         /**
          * @cfg {String} foreignKey The name of the foreign key on the owner model that links it to the associated
          * model. Defaults to the lowercased name of the associated model plus "_id", e.g. an association with a
-         * model called Product would set up a product_id foreign key.
+         * model called Product would set up a productId foreign key.
          *
          *     Ext.define('Order', {
          *         extend: 'Ext.data.Model',

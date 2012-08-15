@@ -87,7 +87,7 @@ Ext.define('EatSense.controller.Menu', {
 		/**
 		*	Current selected product.
 		*/
-		activeProduct: null,
+		activeOrder: null,
 
 		menuNavigationFunctions : new Array()
     },
@@ -164,7 +164,8 @@ Ext.define('EatSense.controller.Menu', {
 		this.getMenuNavigationFunctions().pop();
 	},
 	/**
-	 * Displays detailed information for a product (e.g. Burger)
+	 * Displays detailed information for a product (e.g. Burger). 
+	 * Creates an order object which gests manipulated.
 	 * @param dataview
 	 * @param record
 	 */
@@ -175,66 +176,42 @@ Ext.define('EatSense.controller.Menu', {
 			menu = this.getMenuview(), 
 			choicesPanel =  this.getProductdetail().getComponent('choicesPanel'),
 			titlebar = detail.down('titlebar'),
-			activeProduct;
+			activeProduct,
+			order;
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
 					me.getProductdetail().hide();
 			});
 
-		//save original ids
-		record.set('genuineId', record.get('id'));
-		record.choices().each(function(choice) {
-			choice.set('genuineId', choice.get('id'));
-			choice.options().each(function(opt) {
-				opt.set('genuineId', opt.get('id'));
-			});
-		});
-		this.setActiveProduct(record.copy());
-		activeProduct = this.getActiveProduct()
+		order = EatSense.model.Order.createOrder(record);
+		this.setActiveOrder(order);
 
 		choicesPanel.removeAll(false);
 
-		titlebar.setTitle(activeProduct.get('name'));
+		titlebar.setTitle(order.get('productName'));
 
-		 //reset product spinner
-		 this.getAmountSpinner().setValue(1);
-		 this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: activeProduct, amount: this.getAmountSpinner().getValue()});
-		 this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {product: activeProduct, amount: this.getAmountSpinner().getValue()});
+		//reset product spinner
+		this.getAmountSpinner().setValue(1);
+		this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: order, amount: this.getAmountSpinner().getValue()});
+		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
 
-		 //dynamically add choices and dependend choices if present		 
-		 if(typeof activeProduct.choices() !== 'undefined' && activeProduct.choices().getCount() > 0) {
+		 //dynamically add choices
+		if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 		 	 //render all main choices
-		 	 activeProduct.choices().queryBy(function(rec) {
-		 	 	if(!rec.get('parent')) {
-		 	 		return true;
-		 	 	}}).each(function(choice) {
+		 	 order.choices().each(function(choice) {
 					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + Karazy.util.formatPrice(choice.get('price')) + ')' : '';
 
 					optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
 					//recalculate when selection changes
 					choice.on('recalculate', function() {
-						me.recalculate(activeProduct);
+						me.recalculate(order);
 					});
 
 					me.createOptions(choice, optionsDetailPanel);
-					//process choices assigned to a this choice
-					activeProduct.choices().queryBy(function(rec) {
-						if(rec.get('parent') == choice.get('id')) {
-							return true;
-						}
-					}).each(function(memberChoice) {
-						memberChoice.setParentChoice(choice);
-						me.createOptions(memberChoice, optionsDetailPanel, choice);
-						//recalculate when selection changes
-						memberChoice.on('recalculate', function() {
-							me.recalculate(activeProduct);
-						});
-					});
-
 					choicesPanel.add(optionsDetailPanel);
 		 	 });
-		 }
+		};
 		 
 		//insert comment field after options have been added so it is positioned correctly
 		choicesPanel.add({
@@ -259,10 +236,8 @@ Ext.define('EatSense.controller.Menu', {
 	*	Choice containing options to create.
 	* @param panel
 	*	Panel to add options to
-	* @param parentChoice
-	*	parent to given choice
 	*/
-	createOptions: function(choice, panel, parentChoice) {
+	createOptions: function(choice, panel) {
 		if(!choice || !panel) {
 			console.log('You have to provide options and panel')
 			return;
@@ -297,13 +272,11 @@ Ext.define('EatSense.controller.Menu', {
 							label : opt.get('name') + optionPriceLabel,
 							checked: opt.get('selected'),
 							cls: 'option',
-							labelCls: 'option-label',
-							disabled: (parentChoice && !parentChoice.isActive()) ? true : false
+							labelCls: 'option-label'
 					}, me);							 
-			//TODO this is sooo dirty
 			field.addListener('check',function(cbox, event) {
 			 	console.log('check');
-				if(cbox.isXType('radiofield',true)) {				 	
+				if(cbox.isXType('radiofield',true)) {		 	
 					choice.options().each(function(innerOpt) {
 						if(innerOpt != opt) {
 					 		innerOpt.set('selected', false);	
@@ -318,11 +291,7 @@ Ext.define('EatSense.controller.Menu', {
 				 } else {
 				 	opt.set('selected', true);	
 				 }
-				 if(!parentChoice) {
-				 	choice.isActive();
-				 }
 				 choice.fireEvent('recalculate');
-				 // me.recalculate(productOrOrder);
 			 },me);
 
 			 field.addListener('uncheck',function(cbox) {
@@ -330,24 +299,9 @@ Ext.define('EatSense.controller.Menu', {
 				 if(cbox.isXType('checkboxfield',true)) {
 					 opt.set('selected', false);
 				 }
-				 if(!parentChoice) {
-				 	choice.isActive();
-				 }
-				 choice.fireEvent('recalculate');
-				 // me.recalculate(productOrOrder);								 
+				 choice.fireEvent('recalculate');				 
 			 },me);
 			 panel.getComponent('optionsPanel').add(field);
-
-			 if(parentChoice) {
-			 	parentChoice.on('activeChanged', function(isActive) {			 		
-			 		field.setDisabled(!isActive);
-			 		if(!isActive) {
-				 		//TODO leave active?
-				 		field.uncheck();
-				 		opt.set('selected', false);			 		
-			 		}
-			 	});
-			 }				 
 		});
 	},
 	/**
@@ -367,7 +321,7 @@ Ext.define('EatSense.controller.Menu', {
 	createOrder: function(button) {
 		//get active product and set choice values
 		var me = this,	
-			productForCart = this.getActiveProduct(),
+			order = this.getActiveOrder(),
 			order,
 			validationError = "",
 			validationResult = null,
@@ -381,30 +335,53 @@ Ext.define('EatSense.controller.Menu', {
 			androidCtr = this.getApplication().getController('Android');
 		
 		//validate choices 
-		productForCart.choices().each(function(choice) {
-			//only validate dependend choices if parent choice is active!
-			if(!choice.get('parent') || choice.getParentChoice().isActive()) {
+		order.choices().each(function(choice) {
 				validationResult = choice.validateChoice();
 
 				if(!validationResult.valid) {
 					//coice is not valid
 					productIsValid = false;
-					// validationError += choice.get('text') + '<br/>';
 					validationError += validationResult.errMsgs;
 				};
-			};
 		});
 		
 		//if valid create order and attach to checkin
 		if(productIsValid === true) {
-			order = Ext.create('EatSense.model.Order');
-			order.set('amount', this.getAmountSpinner().getValue());
-			order.set('status','CART');
-			productForCart.getData(true);
-			order.setProduct(productForCart);
-			
+			order.set('status','CART');			
 			order.set('comment', this.getProductdetail().getComponent('choicesPanel').getComponent('productComment').getValue());
 
+			// order.save({
+			// 	success: function(response, operation) {
+	  //   	    	// order.setId(response.responseText);
+	  //   	    	// order.phantom = false;	    	    	
+			// 		activeCheckIn.orders().add(order);
+			// 		cartButton.setBadgeText(activeCheckIn.orders().data.length);
+	  //   	    },
+	  //   	    failure: function(response, operation) {
+	  //   	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
+	  //   	    	if(response.status == 409) {
+	  //   	    		Karazy.util.toggleAlertActive(true);
+	  //   	    		Ext.Msg.alert(Karazy.i18n.translate('error'),
+	  //   	    			Karazy.i18n.translate('error.menu.needsrefresh'),
+	  //   	    			function() {
+			// 					Karazy.util.toggleAlertActive(false);
+			// 			});
+	  //   	    		//clear the menu store, don't send clear event
+	  //   	    		Ext.StoreManager.lookup('menuStore').removeAll();
+	  //   	    		Ext.StoreManager.lookup('productStore').removeAll();
+	  //   	    		//refresh menu
+	  //   	    		me.showMenu();
+
+	  //   	    	} else {
+		 //    	    	me.getApplication().handleServerError({
+	  //                       	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+	  //                       	'forceLogout': {403:true}
+	  //                   });	
+	  //   	    	}
+
+	    	    	
+	  //   	    }
+			// });
 			
 			Ext.Ajax.request({
 	    	    url: Karazy.config.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/',
@@ -443,8 +420,8 @@ Ext.define('EatSense.controller.Menu', {
 	    	});
 									
 			detail.hide();
-			message = Karazy.i18n.translate('productPutIntoCardMsg', this.getActiveProduct().get('name'));
-			this.setActiveProduct(null);
+			message = Karazy.i18n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
+			this.setActiveOrder(null);
 			
 			androidCtr.removeLastBackHandler();
 
@@ -494,9 +471,9 @@ Ext.define('EatSense.controller.Menu', {
 	/**
 	 * Recalculates the total price for the active product.
 	 */
-	recalculate: function(product) {
+	recalculate: function(order) {
 		console.log('Menu Controller -> recalculate');
-		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {product: product, amount:  this.getAmountSpinner().getValue()});
+		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order});
 	},
 	/**
 	 * Called when the product spinner value changes. 
@@ -507,7 +484,8 @@ Ext.define('EatSense.controller.Menu', {
 	 */
 	amountChanged: function(spinner, value, direction) {
 		console.log('MenuController > amountChanged (value:'+value+')');
-		this.recalculate(this.getActiveProduct());
+		this.getActiveOrder().set('amount', value);
+		this.recalculate(this.getActiveOrder());
 	},
 
      	

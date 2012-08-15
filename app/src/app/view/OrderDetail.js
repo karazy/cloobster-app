@@ -48,7 +48,7 @@ Ext.define('EatSense.view.OrderDetail', {
 				xtype : 'label',
 				itemId : 'prodDetailLabel',
 				cls: 'productDetail',
-				tpl: '{product.data.longDesc}'
+				tpl: '{order.data.longDesc}'
 			}, {
 				xtype : 'panel',
 				docked: 'right',
@@ -76,7 +76,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					margin: '5 0 0 0',
 					itemId : 'prodPriceLabel',
 					tpl: new Ext.XTemplate(
-					'{[this.formatPrice(values.product.calculate(values.amount))]}',
+					'{[this.formatPrice(values.order.calculate())]}',
 					{
 						formatPrice: function(price) {
 							return Karazy.util.formatPrice(price);

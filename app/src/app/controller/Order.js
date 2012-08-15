@@ -203,11 +203,6 @@
 				scope: this,
 				fn: function(btnId, value, opt) {
 				if(btnId=='yes') {					
-					// me.getOrderlist().removeAll();
-
-					// cart.set('status', Karazy.constants.Order.PLACED);
-					// cart.phantom = false;
-
 					cartview.showLoadScreen(true);
 					this.getSubmitOrderBt().disable();
 					this.getCancelOrderBt().disable();
@@ -267,12 +262,12 @@
 		 var 	me = this,
 		 		detail = this.getProductdetail(), 
 		 		choicesPanel =  this.getChoicespanel(),
-		 		order = button.getParent().getRecord(),
-		 		product = order.getProduct();		 		
-		 		this.setActiveOrder(order),
+		 		order = button.getParent().getRecord(),		 				 		
 		 		main = this.getMain(),
 		 		titlebar = detail.down('titlebar'),
 		 		menuCtr = this.getApplication().getController('Menu');
+
+		this.setActiveOrder(order),
 
 		me.getApplication().getController('Android').addBackHandler(function() {
 			me.closeOrderDetail();
@@ -286,15 +281,15 @@
 		 this.getAmountSpinner().setValue(order.get('amount'));
 
 		 //set title
-		 titlebar.setTitle(product.get('name'));
+		 titlebar.setTitle(order.get('productName'));
 
-		 this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: product, amount: this.getAmountSpinner().getValue()});
-		 this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {product: product, amount: this.getAmountSpinner().getValue()});
+		 this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
+		 this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
 		 //dynamically add choices if present		 
-		 if(typeof product.choices() !== 'undefined' && product.choices().getCount() > 0) {
+		 if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 
 		 	//render all main choices
-		 	product.choices().queryBy(function(rec) {
+		 	order.choices().queryBy(function(rec) {
 		 	 	if(!rec.get('parent')) {
 		 	 		return true;
 		 	 	}}).each(function(choice) {
@@ -308,7 +303,7 @@
 					});
 					// menuCtr.createOptions.apply(me, [choice, optionsDetailPanel, null, order]);
 					//process choices assigned to a this choice
-					product.choices().queryBy(function(rec) {
+					order.choices().queryBy(function(rec) {
 						if(rec.get('parent') == choice.get('id')) {
 							return true;
 						}
@@ -347,7 +342,6 @@
 	editOrder : function(component, eOpts) {
 		var me =this,
 			order = this.getActiveOrder(),
-			product = this.getActiveOrder().getProduct(), 
 			validationError = "", 
 			validationResult = null,
 			productIsValid = true,
@@ -357,18 +351,13 @@
 		order.getData(true);
 
 		//validate choices 
-		product.choices().each(function(choice) {
-			//only validate dependend choices if parent choice is active!
-			if(!choice.get('parent') || choice.getParentChoice().isActive()) {
+		order.choices().each(function(choice) {
 				validationResult = choice.validateChoice();
 
 				if(!validationResult.valid) {
-					//coice is not valid
 					productIsValid = false;
-					// validationError += choice.get('text') + '<br/>';
 					validationError += validationResult.errMsgs;
 				};
-			};
 		});
 		
 		if(productIsValid) {
@@ -409,7 +398,7 @@
 	cancelOrder: function(button, eventObj, eOpts) {
 		var 	order = button.getParent().getRecord(),
 				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
-				productName = order.getProduct().get('name');
+				productName = order.get('productName');
 			//delete item
 			activeCheckIn.orders().remove(order);
 			
@@ -468,7 +457,7 @@
 	 */
 	recalculate: function(order) {
 		console.log('Cart Controller -> recalculate');
-		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {product: order.getProduct(), amount: order.get('amount')});
+		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: order.get('amount')});
 	},
 	/**
 	 * Refreshes the badge text on cart tab icon.
@@ -542,7 +531,7 @@
 						//WORKAROUND to make sure all data is available in data property
 						//otherwise nested choices won't be shown
 						Ext.each(records, function(order) {
-							order.getProduct().getData(true);
+							order.getData(true);
 						});
 
 						
@@ -770,21 +759,6 @@
     	convert.toggleCls('hidden');
     	priceDiv.toggleCls('collapsed-arrow');
     	priceDiv.toggleCls('expanded-arrow');
-
-
-  //   	Ext.Anim.run(convert,'slide',{
-		//     out:false,
-		//     autoClear: false,
-		//     direction: 'down',
-		//     after: function() {
-		//         convert.toggleCls('hidden');
-		//     }
-		// });
-
-	    // el.toggleCls('hidden'); //remove the hidden class if available..
-	    // Ext.get(el.elements[0]).show(true); // show with animation
-
-
 	},
 	//Utility methods
 	/**
@@ -846,7 +820,7 @@
 
 				Ext.Msg.show({
 					title : Karazy.i18n.translate('hint'),
-					message : Karazy.i18n.translate('orderCanceled', oldOrder.getProduct().get('name')),
+					message : Karazy.i18n.translate('orderCanceled', oldOrder.get('productName')),
 					buttons : [{
 						text : Karazy.i18n.translate('continue'),
 						ui: 'action'
