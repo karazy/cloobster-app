@@ -276,6 +276,7 @@ Ext.define('EatSense.controller.CheckIn', {
                     me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
   					   	    me.showLounge();
   					   	    me.getAppState().set('checkInId', response.get('userId'));
+                    window.localStorage.setItem("cloobster_app_checkin_token", response.get('userId'));
   					   	     
   					   	    //save nickname in settings
   							   if(nicknameToggle.getValue() == 1) {
