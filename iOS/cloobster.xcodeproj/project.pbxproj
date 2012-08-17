@@ -39,6 +39,7 @@
 		30A0434914DC770100060A13 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434614DC770100060A13 /* Localizable.strings */; };
 		30E1352710E2C1420031B30D /* Cordova.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30E1352610E2C1420031B30D /* Cordova.plist */; };
 		30E5649213A7FCAF007403D8 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E5649113A7FCAF007403D8 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B63336D215DD4CA300EA8D39 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63336D115DD4CA300EA8D39 /* icon-72@2x.png */; };
 		B6C8C6D515DD3E0E00D8C709 /* CDVBarcodeScanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6C8C6D215DD3E0E00D8C709 /* CDVBarcodeScanner.mm */; };
 		B6C8C6D615DD3E0E00D8C709 /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6C8C6D315DD3E0E00D8C709 /* zxing-all-in-one.cpp */; };
 		B6C8C6D815DD3F3100D8C709 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C8C6D715DD3F3100D8C709 /* AssetsLibrary.framework */; };
@@ -120,6 +121,7 @@
 		30E5649113A7FCAF007403D8 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* cloobster-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cloobster-Prefix.pch"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* cloobster-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "cloobster-Info.plist"; path = "../cloobster-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		B63336D115DD4CA300EA8D39 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
 		B6C8C6D215DD3E0E00D8C709 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDVBarcodeScanner.mm; sourceTree = "<group>"; };
 		B6C8C6D315DD3E0E00D8C709 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "zxing-all-in-one.cpp"; sourceTree = "<group>"; };
 		B6C8C6D415DD3E0E00D8C709 /* zxing-all-in-one.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "zxing-all-in-one.h"; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		308D052D1370CCF300D202BF /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				B63336D115DD4CA300EA8D39 /* icon-72@2x.png */,
 				308D052E1370CCF300D202BF /* icon-72.png */,
 				308D052F1370CCF300D202BF /* icon.png */,
 				308D05301370CCF300D202BF /* icon@2x.png */,
@@ -432,6 +435,7 @@
 				B6C8C6E015DD414F00D8C709 /* 114.png in Resources */,
 				B6C8C6E215DD415400D8C709 /* Default.png in Resources */,
 				B6C8C6E415DD415700D8C709 /* Default@2x.png in Resources */,
+				B63336D215DD4CA300EA8D39 /* icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

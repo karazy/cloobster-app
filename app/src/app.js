@@ -11,7 +11,7 @@ Ext.application({
 	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 'Android', 'Feedback', 'Styles' ],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Bill', 'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback'],
 	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'Feedback'], 
-	stores : [ 'CheckIn', 'User', 'Spot', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles'],
+	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [
@@ -46,26 +46,12 @@ Ext.application({
 		
 		var me = this,
   			appStateStore = Ext.data.StoreManager.lookup('appStateStore'),
-        appState,
   	 		checkInCtr = this.getController('CheckIn'),
         settingsCtr = this.getController('Settings'),
-  	 		restoredCheckInId, 
-        checkInToken,
-        feedbackId,
-        nickname,
-        stateFound = false; 
+  	 		restoredCheckInId; 
 
-    try {
-      //restore application state
-      checkInToken = window.localStorage.getItem("cloobster_app_checkin_token");
-      nickname = window.localStorage.getItem("cloobster_app_nickname");
-      feedbackId = window.localStorage.getItem("cloobster_app_feedbackId");
-    } catch(e) {
-      console.log('failed to load localstorage data');
-    }
-
-  	//timeout for requests
-  	Ext.Ajax.timeout = 1200000;
+  		//timeout for requests
+  		Ext.Ajax.timeout = 1200000;
 
     //----- Launch functions start ------  	
     //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is move here.
@@ -87,26 +73,7 @@ Ext.application({
 	   	 Ext.create('EatSense.view.Main');
 	   	 
 	   	 try {
-        appState = checkInCtr.getAppState();
-          if(checkInToken) {
-            stateFound = true;
-            appState.set('checkInId', checkInToken);
-          }
-            
-          if(nickname) {
-            stateFound = true;
-            appState.set('nickname', nickname);
-
-          }
-            
-          if(feedbackId) {
-            stateFound = true;
-            appState.set('feedbackId', feedbackId);
-          }
-            
-          if(stateFound)
-          appStateStore.add(appState);
-	   		//appStateStore.load();
+	   		appStateStore.load();
 	   	 } catch (e) {
 	   		appStateStore.removeAll();
 	   	 }
