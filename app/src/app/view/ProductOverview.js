@@ -4,14 +4,12 @@
 Ext.define('EatSense.view.ProductOverview', {
 	extend : 'Ext.Container',
 	xtype : 'productoverview',
-	fullscreen : true,
 	config : {
 		items : [ 
 		{
 			xtype : 'list',
 			itemId : 'productlist',
 			ui: 'round',
-			layout : 'fit',
 			allowDeselect : true,
 			itemCls: 'productListItem',
 			itemTpl : new Ext.XTemplate(

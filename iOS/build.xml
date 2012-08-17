@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CloobsterAppiOS" default="replaceConfigTest" basedir=".">
 	<property name="appDir" value="../../cloobster_app/app/prod/ios" />
-	<property name="config" value="Cloobster/www/lib/karazy-config.js" />
+	<property name="config" value="www/lib/karazy-config.js" />
 
 	<target name="copySenchaApp" depends="">
 		<echo message="Delete old files" />
-		<delete dir="Cloobster/www"></delete>
+		<delete dir="www"></delete>
 		<echo message="Copy App" />
-		<copy todir="Cloobster/www" overwrite="true">
+		<copy todir="www" overwrite="true">
 			<fileset dir="${appDir}">
 				<exclude name="**/*.desktop.*" />
                 <exclude name="**/*.phone.*" />
@@ -28,7 +28,7 @@
 
 	<target name="replaceConfigLocal" depends="renameFiles">
 		<echo message="Setting config values" />
-		<replaceregexp file="${config}" match="(serviceUrl :) .*" replace="\1 'http://192.168.1.103:8888'," byline="true">
+		<replaceregexp file="${config}" match="(serviceUrl :) .*" replace="\1 'http://192.168.1.109:8888'," byline="true">
 		</replaceregexp>
 		<replaceregexp file="${config}" match="(disableCaching :) .*" replace="\1 true," byline="true">
 		</replaceregexp>

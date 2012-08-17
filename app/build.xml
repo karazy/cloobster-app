@@ -15,6 +15,9 @@
 			
 			<arg line="build -p ${appDir}app.desktop.jsb3 -d ${appDir}" />
 		</exec>
+		<antcall target="deleteOldProdFiles">
+		    <param name="deleteProdDir" value="${prodDir}desktop"></param>
+		</antcall>
 		<copy file="${appDir}/touch/sencha-touch.js" todir="${prodDir}/desktop/lib" overwrite="true"></copy>
 		<copydir dest="${prodDir}/desktop/res/images" src="${appDir}/res/images" forceoverwrite="true"></copydir>
 		<move file="${appDir}/app-all.js" todir="${prodDir}/desktop/" overwrite="true"></move>
@@ -44,9 +47,11 @@
 		<echo message="Disable debug mode" />
 		<replaceregexp file="${appDir}app.android.jsb3" match='"debug": true' replace='"debug": false' byline="true" />
 		<exec executable="${sencha.cmd}">	
-			
 			<arg line="build -p ${appDir}app.android.jsb3 -d ${appDir}" />
 		</exec>
+		<antcall target="deleteOldProdFiles">
+		    <param name="deleteProdDir" value="${prodDir}android"></param>
+		</antcall>
 		<copy file="${appDir}/touch/sencha-touch.js" todir="${prodDir}/android/lib" overwrite="true"></copy>
 		<copy file="${appDir}/res/css/app-default.css" todir="${prodDir}/android/res/css" overwrite="true"></copy>
 		<copydir dest="${prodDir}/android/res/images" src="${appDir}/res/images" forceoverwrite="true"></copydir>
@@ -57,7 +62,7 @@
 				<exclude name="**/*.iphone.*" />
 				<exclude name="**/*.ignore.*" />
 			</fileset>
-		</copy>
+		</copy>		
 		<antcall target="copyCSS">
 		    <param name="cssDestDir" value="${prodDir}/android/res/css"></param>
 		</antcall>
@@ -88,6 +93,9 @@
 			
 			<arg line="build -p ${appDir}app.ios.jsb3 -d ${appDir}" />
 		</exec>
+		<antcall target="deleteOldProdFiles">
+		    <param name="deleteProdDir" value="${prodDir}ios"></param>
+		</antcall>
 		<copy file="${appDir}/touch/sencha-touch.js" todir="${prodDir}/ios/lib" overwrite="true"></copy>
 		<copydir dest="${prodDir}/ios/res/images" src="${appDir}/res/images" forceoverwrite="true"></copydir>
 		<move file="${appDir}/app-all.js" todir="${prodDir}/ios/" overwrite="true"></move>
@@ -113,6 +121,13 @@
 		<delete file="${appDir}app.android.jsb3"></delete>
 		<delete file="${appDir}app.ios.jsb3"></delete>
 		<delete file="${appDir}all-classes.js"></delete>
+	</target>
+	
+	<target name="deleteOldProdFiles">
+	    <echo message="Delete old prod files in ${deleteProdDir}"></echo>
+	   <delete dir="${deleteProdDir}/lib"></delete>
+	   <delete dir="${deleteProdDir}/res"></delete>
+	   <delete file="${deleteProdDir}/app-all.js"></delete>
 	</target>
 	
 	<target name="default" depends="createDesktopProduction, createAndroidProduction, createIOSProduction,cleanUpProductionFiles"></target>
