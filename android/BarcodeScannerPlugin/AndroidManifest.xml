@@ -21,7 +21,8 @@ versionName is 2.31, 2.4, or 3.0. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.google.zxing.client.android"
           android:versionName="3.61 beta 1"
-          android:versionCode="71">
+          android:versionCode="71"
+          android:installLocation="auto">
   <!-- We require Cupcake (Android 1.5) or later, but are really targeting Donut. -->
   <uses-sdk android:minSdkVersion="3"
             android:targetSdkVersion="4"/>
@@ -42,10 +43,6 @@ versionName is 2.31, 2.4, or 3.0. -->
               android:configChanges="orientation|keyboardHidden"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:windowSoftInputMode="stateAlwaysHidden">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
       <intent-filter>
         <action android:name="com.google.zxing.client.android.SCAN"/>
         <category android:name="android.intent.category.DEFAULT"/>

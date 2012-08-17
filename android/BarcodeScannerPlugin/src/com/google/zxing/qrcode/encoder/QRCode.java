@@ -41,6 +41,7 @@ public final class QRCode {
   public QRCode() {
     mode = null;
     ecLevel = null;
+    version = -1;
     matrixWidth = -1;
     maskPattern = -1;
     numTotalBytes = -1;
