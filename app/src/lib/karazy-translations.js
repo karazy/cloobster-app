@@ -122,14 +122,28 @@ Karazy.translations = (function() {
 		"feedbackEmail" : "E-Mail (optional)",
 		"feedbackCompleteTitle" : "Feedback abgeschickt",
 		"feedbackCompleteMessage" : "Vielen Dank für Deine Meinung!",
-		//general errors
+		//Login
+		"login.title" : "User Login",
+		"login.field.email.placeholder" : "E-Mail",
+		"login.field.password.placeholder" : "Passwort",
+		"login.button.login" : "Login",
+		"login.button.signup" : "Signup",
+		"login.label.notamember" : "Kein Mitglied?",
+		"account.signup.confirm.title" : "Werde Mitglied ...",
+		"account.signup.confirm.message" : "Bei Cloobster registrieren?",
+		"account.signup.success.title" : "Willkommen bei Cloobster",
+		"account.signup.success.message" : "Danke das du dich registriert hast!<br/>",
+		//errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		
 		"errorMsg" : "Entschuldigung! Ein Fehler ist aufgetreten.<br/>Wir kümmern uns darum!",
 		"errorResource" : "Daten konnten nicht vom Server geladen werden.",
 		"errorPermission" : "Sitzung ist ungültig.",
 		"errorCommunication" : "Es kann keine Verbindung zum Server hergestellt werden.<br/>Bitte probiere es noch einmal.",
-		"error.menu.needsrefresh" : "Menü Daten nicht mehr aktuell. Bitte führen Sie die Bestellung nochmals durch."
+		"error.menu.needsrefresh" : "Menü Daten nicht mehr aktuell. Bitte führen Sie die Bestellung nochmals durch.",
+		"error.account.email.exists" : "Diese E-Mail wird bereits verwendet.",
+		"error.account.email" : "Bitte gib eine gültige E-Mail an.",
+		"error.account.password" : "Passwort muss min 6 Zeichen besitzen. Darunter 1 Zahl oder Sonderzeichen."
 		}
 	}
 	

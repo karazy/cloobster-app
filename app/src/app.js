@@ -8,9 +8,11 @@ Ext.Loader.setPath('EatSense', 'app');
 
 Ext.application({
 	name : 'EatSense',
-	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 'Android', 'Feedback', 'Styles' ],
-	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Bill', 'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback'],
-	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'Feedback'], 
+	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 'Android', 'Feedback', 'Styles', 'Account' ],
+	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Bill', 
+  'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account'],
+	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 
+    'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'Feedback', 'Login'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
@@ -70,14 +72,16 @@ Ext.application({
 		
     	//try to restore application state
 	   	 //create main screen
-	   	 Ext.create('EatSense.view.Main');
-	   	 
+	   	 Ext.create('EatSense.view.Main')
+	   	 // Ext.Viewport.add();
+
 	   	 try {
 	   		appStateStore.load();
 	   	 } catch (e) {
 	   		appStateStore.removeAll();
 	   	 }
 	     
+       //TODO check for access token
 	     
 	   	 if(appStateStore.getCount() == 1) {
 	   		console.log('app state found');	   		 
@@ -183,6 +187,16 @@ Ext.application({
                         this.fireEvent('statusChanged', Karazy.constants.FORCE_LOGOUT);
                     }
                     break;
+                case 400: //entered data is not valid
+                    if(typeof message == "object" && message[400]) {
+                      errMsg =  message[400];
+                    } else {
+                      errMsg = (typeof message == "string") ? message : Karazy.i18n.translate('errorResource');
+                    };
+                    if(forceLogout && (forceLogout[400] === true || forceLogout === true)) {
+                        this.fireEvent('statusChanged', Karazy.constants.FORCE_LOGOUT);
+                    };
+                    breakM
                 case 0:
                 	//communication failure, could not contact server
                 	if(typeof message == "object" && message[0]) {

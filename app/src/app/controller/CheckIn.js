@@ -10,8 +10,8 @@ Ext.define('EatSense.controller.CheckIn', {
     config: {
         profile: Ext.os.deviceType.toLowerCase(),
     	refs: {
-            main : 'mainview',
-            checkinconfirmation : 'checkinconfirmation',
+          main : 'mainview',
+          checkinconfirmation : 'checkinconfirmation',
         	nickname : 'checkinconfirmation #nicknameTf',
         	checkinwithothers: 'checkinwithothers',
         	dashboard: 'dashboard',

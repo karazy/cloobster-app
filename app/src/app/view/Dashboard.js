@@ -36,7 +36,19 @@ Ext.define('EatSense.view.Dashboard', {
 			ui: 'action',
 			iconMask: true,
 			iconCls: 'action',
-			height: 50
+			height: 50,
+			width: 150
+		},
+		{
+			xtype : 'button',
+			action: 'login',
+			margin: '20 0',
+			text: 'Login',
+			ui: 'action',
+			iconMask: true,
+			iconCls: 'user',
+			height: 50,
+			width: 150
 		},
 		{
 			xtype: 'label',

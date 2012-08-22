@@ -65,6 +65,8 @@ $tab-border-bottom-color: #614021;
 @include sencha-form;
 @include sencha-msgbox;
 @include sencha-loading-spinner;
+/*Include additional icons*/
+@include pictos-iconmask('user');
 /*@include toolbar-button( #F79621, #614021 );*/
 /*@include bevel-by-background(#614021);*/
 /*@include sencha-button-ui('orange', #F79621, 'matte');*/

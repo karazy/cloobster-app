@@ -57,7 +57,8 @@ $product-sub-bg: #D3D3D3;
 @include sencha-form;
 @include sencha-msgbox;
 @include sencha-loading-spinner;
-
+/*Include additional icons*/
+@include pictos-iconmask('user');
 
 
 @CHARSET "UTF-8";
