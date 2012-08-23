@@ -3,20 +3,20 @@ Ext.define('EatSense.view.MyOrders', {
 	xtype: 'myorderstab',	
 	config: {
 		iconCls : 'cash',
-		title: Karazy.i18n.translate('myOrdersTabLeaveBt'),
+		title: i10n.translate('myOrdersTabLeaveBt'),
 		iconMask : true,
 		itemId : 'myorderstab',		
 		layout : 'fit',
 		items: [
 			{
 				xtype: 'navigationview',
-				defaultBackButtonText: Karazy.i18n.translate('back'),
+				defaultBackButtonText: i10n.translate('back'),
 				// cls: 'myorders-panel',
 				navigationBar: {
 				    items: [
 						{
 							xtype: 'button',
-							text: Karazy.i18n.translate('payRequestButton'),
+							text: i10n.translate('payRequestButton'),
 							ui: 'forward',
 							action: 'pay',
 							hidden: true,
@@ -24,7 +24,7 @@ Ext.define('EatSense.view.MyOrders', {
 						},
 						{
 							xtype: 'button',
-							text: Karazy.i18n.translate('leaveButton'),
+							text: i10n.translate('leaveButton'),
 							ui: 'orange-forward',
 							action: 'leave',
 							align: 'right'
@@ -32,7 +32,7 @@ Ext.define('EatSense.view.MyOrders', {
 				    ]
 				},
 				items: [ {
-					title : Karazy.i18n.translate('myOrdersTitle'),
+					title : i10n.translate('myOrdersTitle'),
 					layout: {
 						type: 'fit'
 					},
@@ -49,7 +49,7 @@ Ext.define('EatSense.view.MyOrders', {
 								"<td align='left'><h2 class='title'>{amount} x {productName}</h2></td><td align='right'><h2 class='price collapsed-arrow'>{[this.formatPrice(values.price_calculated)]}</td></h2>"+
 								"</table>"+
 								"<div class='myorder-detail hidden'>"+
-								"<h4>"+Karazy.i18n.translate('orderTime')+": {[values.orderTime.toLocaleTimeString()]}</h4>"+
+								"<h4>"+i10n.translate('orderTime')+": {[values.orderTime.toLocaleTimeString()]}</h4>"+
 								"<div class='choices'>"+
 									"<tpl for='choices'>" +				
 										"<tpl if='this.checkSelections(values, xindex)'>" +
@@ -64,7 +64,7 @@ Ext.define('EatSense.view.MyOrders', {
 										"</tpl>" +
 									"</tpl>" +
 									"<tpl if='comment!=\"\"'>" +
-									"<h3>"+Karazy.i18n.translate('myorderComment')+"</h3>"+
+									"<h3>"+i10n.translate('myorderComment')+"</h3>"+
 									"<p>{comment}</p>" +
 									"</tpl>" +
 								"</div>"+
@@ -85,7 +85,7 @@ Ext.define('EatSense.view.MyOrders', {
 									return result;
 								},
 								formatPrice: function(price) {
-									return Karazy.util.formatPrice(price);
+									return appHelper.formatPrice(price);
 								},
 								renderChoices: function(values) {
 
@@ -108,7 +108,7 @@ Ext.define('EatSense.view.MyOrders', {
 								tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.price)]}</h1>',
 									{
 										formatPrice: function(price) {
-											return Karazy.util.formatPrice(price);
+											return appHelper.formatPrice(price);
 										}
 									}
 								)
@@ -126,7 +126,7 @@ Ext.define('EatSense.view.MyOrders', {
 								items: [
 								{
 									xtype: 'button',
-									text: Karazy.i18n.translate('feedback'),
+									text: i10n.translate('feedback'),
 									ui: 'action',
 									action: 'feedback',
 									height: '45px',
@@ -135,7 +135,7 @@ Ext.define('EatSense.view.MyOrders', {
 								},
 								{
 									xtype: 'button',
-									text: Karazy.i18n.translate('leave'),
+									text: i10n.translate('leave'),
 									ui: 'action',
 									action: 'complete',
 									height: '45px',
@@ -157,7 +157,7 @@ Ext.define('EatSense.view.MyOrders', {
     showLoadScreen : function(mask) {
     	if(mask) {
     		this.setMasked({
-    			message : Karazy.i18n.translate('loadingMsg'),
+    			message : i10n.translate('loadingMsg'),
         		xtype: 'loadmask' 
     		});
     	} else {

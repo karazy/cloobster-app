@@ -13,12 +13,12 @@ Ext.define('EatSense.view.SettingsTab', {
 		scrollable: 'vertical',				
 		iconCls : 'settings',
 		cls: 'setting-panel',
-		title: Karazy.i18n.translate('settingsButton'),
+		title: i10n.translate('settingsButton'),
 		iconMask : true,		
 		items : [ {
 			xtype : 'titlebar',
 			docked : 'top',
-			title : Karazy.i18n.translate('settingsTitle'),
+			title : i10n.translate('settingsTitle'),
 		}, 
 		{
 			xtype: 'formpanel',
@@ -31,11 +31,11 @@ Ext.define('EatSense.view.SettingsTab', {
 					xtype: 'label',
 					cls: 'general-label',
 					margin: '7 0 5 0',
-					html: Karazy.i18n.translate('nicknameDesc')
+					html: i10n.translate('nicknameDesc')
 				},
 				{
 					xtype : 'textfield',
-					label : Karazy.i18n.translate('nickname'),
+					label : i10n.translate('nickname'),
 					labelWidth: '40%',
 					itemId : 'nickname',
 					maxLength: 25,
@@ -67,7 +67,7 @@ Ext.define('EatSense.view.SettingsTab', {
 		},
 		{
 			xtype: 'label',
-			html: 'Cloobster App Version: ' + Karazy.config.version,
+			html: 'Cloobster App Version: ' + appConfig.version,
 			style: 'text-align: right; font-size: 0.6em; color: black;',
 			margin: '10 0 0 0',
 			width: '80%'

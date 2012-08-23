@@ -13,7 +13,12 @@ Ext.define('EatSense.controller.History', {
 			historyView : 'mainview history',
 			historyList : 'mainview history list',
 			backButton : 'history button[action=back]',
-			showHistoryButton: 'dashboard button[action=history]'
+			showHistoryButton: 'dashboard button[action=history]',
+			historyDetailView: {
+				selector: 'historydetail',
+				xtype: 'historydetail',
+				autoCreate: true
+			}
 		},
 		control: {
 			showHistoryButton : {
@@ -21,6 +26,9 @@ Ext.define('EatSense.controller.History', {
 			},
 			backButton : {
 				tap: 'showDashboard'
+			},
+			historyList : {
+				itemtap : 'showHistoryDetail'
 			}
 		}
 	},	
@@ -55,6 +63,16 @@ Ext.define('EatSense.controller.History', {
 
    		historyList.refresh();
 
+   },
+
+   showHistoryDetail: function(view, index, htmlElement, history) {
+   		var historyView = this.getHistoryView(),
+   			historyDetailView = this.getHistoryDetailView();
+
+   		//setTitle() doesn't work for Sencha 2.0.0
+   		historyDetailView.config.title = history.get('businessName');
+
+   		historyView.push(historyDetailView);
    }
 
 });

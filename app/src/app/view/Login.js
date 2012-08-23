@@ -21,11 +21,11 @@ Ext.define('EatSense.view.Login', {
 			{
 				docked : 'top',
 				xtype : 'toolbar',
-				title : Karazy.i18n.translate('login.title'),
+				title : i10n.translate('login.title'),
 				items : [ {
 					xtype : 'button',
 					action: 'back',
-					text : Karazy.i18n.translate('back'),
+					text : i10n.translate('back'),
 					ui : 'back'
 				}, ]
 			},
@@ -46,13 +46,13 @@ Ext.define('EatSense.view.Login', {
 							xtype: 'emailfield',
 							name: 'email',
 							required: true,
-							placeHolder: Karazy.i18n.translate('login.field.email.placeholder')
+							placeHolder: i10n.translate('login.field.email.placeholder')
 						},
 						{	
 							xtype: 'passwordfield',
 							name: 'password',
 							required: true,
-							placeHolder: Karazy.i18n.translate('login.field.password.placeholder')
+							placeHolder: i10n.translate('login.field.password.placeholder')
 						}
 					]
 				}
@@ -60,21 +60,21 @@ Ext.define('EatSense.view.Login', {
 			},
 			{
 				xtype: 'button',
-				text: Karazy.i18n.translate('login.button.login'),
+				text: i10n.translate('login.button.login'),
 				action: 'login'
 			},
 			// {
 			// 	xtype: 'button',
-			// 	text: Karazy.i18n.translate('login.button.login'),
+			// 	text: i10n.translate('login.button.login'),
 			// 	action: 'login-fb'
 			// },
 			{
 				xtype: 'label',
-				html: Karazy.i18n.translate('login.label.notamember')
+				html: i10n.translate('login.label.notamember')
 			},
 			{
 				xtype: 'button',
-				text: Karazy.i18n.translate('login.button.signup'),
+				text: i10n.translate('login.button.signup'),
 				action: 'signup'
 			}
 		]

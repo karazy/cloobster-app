@@ -4,7 +4,7 @@ Ext.define('EatSense.view.Cart', {
 	requires: ['EatSense.view.CartOverviewItem'],
 	config : {
 		iconCls : 'cart',
-		title: Karazy.i18n.translate('cartTabBt'),
+		title: i10n.translate('cartTabBt'),
 		iconMask : true,
 		itemId : 'carttab',
 		layout: 'fit',
@@ -14,7 +14,7 @@ Ext.define('EatSense.view.Cart', {
 			docked : 'top',
 			xtype : 'titlebar',
 			itemId: 'cartTopBar',
-			title : Karazy.i18n.translate('cartviewTitle'),
+			title : i10n.translate('cartviewTitle'),
 			items : [ 
 			{
 				xtype: 'button',
@@ -26,7 +26,7 @@ Ext.define('EatSense.view.Cart', {
 			{
 				xtype: 'button',
 				action: 'order',
-			    text: Karazy.i18n.translate('submitButton'),
+			    text: i10n.translate('submitButton'),
 			    ui: 'forward',
 			    align: 'right'
 			}]
@@ -49,7 +49,7 @@ Ext.define('EatSense.view.Cart', {
 				tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.price)]}</h1>',
 					{
 						formatPrice: function(price) {
-							return Karazy.util.formatPrice(price);
+							return appHelper.formatPrice(price);
 						}
 					}
 				)
@@ -65,7 +65,7 @@ Ext.define('EatSense.view.Cart', {
     showLoadScreen : function(mask) {
     	if(mask) {
     		this.setMasked({
-    			message : Karazy.i18n.translate('submitOrderProcess'),
+    			message : i10n.translate('submitOrderProcess'),
         		xtype: 'loadmask' 
     		});
     	} else {

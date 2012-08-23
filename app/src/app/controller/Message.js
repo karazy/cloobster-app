@@ -87,7 +87,7 @@ Ext.define('EatSense.controller.Message', {
 		console.log('request new token. clientId: ' + this.getChannelId());
 
 		Ext.Ajax.request({
-		    url: Karazy.config.serviceUrl+'/c/checkins/'+this.getChannelId()+'/tokens',		    
+		    url: appConfig.serviceUrl+'/c/checkins/'+this.getChannelId()+'/tokens',		    
 		    method: 'POST',
 		    jsonData: true,
 		    success: function(response){
@@ -103,7 +103,7 @@ Ext.define('EatSense.controller.Message', {
 					}, 
 					'forceLogout': false, 
 					'hideMessage':true, 
-					'message': Karazy.i18n.translate('channelTokenError')
+					'message': i10n.translate('channelTokenError')
 				});
 				connectionCallback();
 		    }
@@ -116,7 +116,7 @@ Ext.define('EatSense.controller.Message', {
 		
 		console.log('checkOnline: clientId ' + this.getChannelId());
 		Ext.Ajax.request({
-		    url: Karazy.config.serviceUrl+'/c/checkins/channels',		    
+		    url: appConfig.serviceUrl+'/c/checkins/channels',		    
 		    method: 'GET',
 		    params: {
 		    	'c' :  this.getChannelId()

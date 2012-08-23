@@ -70,14 +70,14 @@ Ext.define('EatSense.controller.Account', {
 		var me = this;
 
 	    Ext.Msg.show({
-            title: Karazy.i18n.translate('account.signup.confirm.title'),
-            message: Karazy.i18n.translate('account.signup.confirm.message'),
+            title: i10n.translate('account.signup.confirm.title'),
+            message: i10n.translate('account.signup.confirm.message'),
             buttons: [{
-                text: Karazy.i18n.translate('yes'),
+                text: i10n.translate('yes'),
                 itemId: 'yes',
                 ui: 'action'
             }, {
-                text: Karazy.i18n.translate('no'),
+                text: i10n.translate('no'),
                 itemId: 'no',
                 ui: 'action'
             }],
@@ -94,8 +94,8 @@ Ext.define('EatSense.controller.Account', {
         	me.hideDashboardLoginButton();
         	me.hideLoginView();
 
-    		Ext.Msg.alert(Karazy.i18n.translate('account.signup.success.title'),
-    	    	Karazy.i18n.translate('account.signup.success.message')
+    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
+    	    	i10n.translate('account.signup.success.message')
     	  	);
         };
 	},
@@ -121,15 +121,15 @@ Ext.define('EatSense.controller.Account', {
 
         if(!errors.isValid()) {
         	if(errors.getByField('email').length > 0) {
-        		errMsg = Karazy.i18n.translate('error.account.email');
+        		errMsg = i10n.translate('error.account.email');
         	}
         	if(errors.getByField('password').length > 0) {
         		if(errMsg.length > 0) {
         			errMsg += '<br/>'
         		};
-        		errMsg += Karazy.i18n.translate('error.account.password');
+        		errMsg += i10n.translate('error.account.password');
         	}
-            Ext.Msg.alert(Karazy.i18n.translate('error'), errMsg);
+            Ext.Msg.alert(i10n.translate('error'), errMsg);
             return;
         };
 
@@ -156,7 +156,7 @@ Ext.define('EatSense.controller.Account', {
 				me.getApplication().handleServerError({
                     'error': operation.error,
                     'message': {
-                        400: Karazy.i18n.translate(responseErrorKey)
+                        400: i10n.translate(responseErrorKey)
                     }
                 }); 
         	}
@@ -179,7 +179,7 @@ Ext.define('EatSense.controller.Account', {
 
 		//POST /c/accounts with credentials to get access token
 		Ext.Ajax.request({
-    	    url: Karazy.config.serviceUrl+'/c/accounts/tokens',
+    	    url: appConfig.serviceUrl+'/c/accounts/tokens',
     	    method: 'POST',
     	    headers: {
 				//provide credentials, they will be added to request header
@@ -210,7 +210,7 @@ Ext.define('EatSense.controller.Account', {
 					}
 				};
 
-				(!errorMessage || errorMessage == "") ?	errorMessage = Karazy.i18n.translate('wrongCredentials') : errorMessage;
+				(!errorMessage || errorMessage == "") ?	errorMessage = i10n.translate('wrongCredentials') : errorMessage;
 
     	    	me.getApplication().handleServerError({
 						'error': {

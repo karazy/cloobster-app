@@ -10,7 +10,7 @@ Ext.define('EatSense.view.CheckinWithOthers', {
         items : [ {
 			docked : 'top',
 			xtype : 'toolbar',
-			title : Karazy.i18n.translate('checkInTitle'),
+			title : i10n.translate('checkInTitle'),
 			items: [
 
 			       ]
@@ -32,7 +32,7 @@ Ext.define('EatSense.view.CheckinWithOthers', {
 				xtype: 'label',
 				id : 'checkInDlg2Label2',
 				styleHtmlContent: true,  
-				html: Karazy.i18n.translate('checkInStep2Label2')
+				html: i10n.translate('checkInStep2Label2')
 			}, 
 			{
 				xtype : 'list',				
@@ -53,7 +53,7 @@ Ext.define('EatSense.view.CheckinWithOthers', {
 			}, {
 				xtype : 'button',
 				id : 'checkinDlg2CancelBt',
-				text : Karazy.i18n.translate('checkInStep2OnMyOwnButton'),
+				text : i10n.translate('checkInStep2OnMyOwnButton'),
 				ui : 'action'
 			}]
 		} ]

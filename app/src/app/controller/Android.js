@@ -11,7 +11,7 @@ Ext.define('EatSense.controller.Android', {
 
 	},
 	addBackHandler: function(handler) {
-		if(Karazy.util.isFunction(handler) && Karazy.util.isArray(this.getAndroidBackHandler())) {
+		if(appHelper.isFunction(handler) && appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> addBackHandler');
 			this.getAndroidBackHandler().push(handler);	
 		} else {
@@ -19,7 +19,7 @@ Ext.define('EatSense.controller.Android', {
 		}
 	},
 	removeLastBackHandler: function() {		
-		if(Karazy.util.isArray(this.getAndroidBackHandler())) {
+		if(appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> removeLastBackHandler');
 			this.getAndroidBackHandler().pop();
 		}		
@@ -27,7 +27,7 @@ Ext.define('EatSense.controller.Android', {
 	executeBackHandler: function() {
 		var handler;
 		
-		if(Karazy.util.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
+		if(appHelper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
 			console.log('Android Controller -> executeBackHandler');
 			handler = this.getAndroidBackHandler().pop();
 			handler();

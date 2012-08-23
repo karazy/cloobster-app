@@ -26,7 +26,7 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype: 'label',
 			cls: 'dashboard-description',
 			style: 'text-align: center;',
-			html: Karazy.i18n.translate('dashboardLabel1')
+			html: i10n.translate('dashboardLabel1')
 		},	
 		{
 			xtype : 'button',
@@ -43,7 +43,7 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype : 'button',
 			action: 'history',
 			margin: '7 0',
-			text: Karazy.i18n.translate('dashboard.button.history'),
+			text: i10n.translate('dashboard.button.history'),
 			ui: 'action',
 			iconMask: true,
 			iconCls: 'locate4',
@@ -64,7 +64,7 @@ Ext.define('EatSense.view.Dashboard', {
 		{
 			xtype: 'label',
 			cls: 'dashboard-description',
-			html: Karazy.i18n.translate('dashboardLabel2')
+			html: i10n.translate('dashboardLabel2')
 		},
 		{
 			xtype: 'button',
@@ -80,7 +80,7 @@ Ext.define('EatSense.view.Dashboard', {
 	showLoadScreen : function(mask) {
 		if (mask) {
 			this.setMasked({
-				message : Karazy.i18n.translate('loadingMsg'),
+				message : i10n.translate('loadingMsg'),
 				xtype : 'loadmask'
 			});
 		} else {

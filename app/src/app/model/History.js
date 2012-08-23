@@ -15,6 +15,9 @@ Ext.define('EatSense.model.History', {
 				type: 'number'
 			},
 			{
+				name: 'paymentMethod'
+			},
+			{
 				name: 'businessId'
 			},
 			{

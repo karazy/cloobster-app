@@ -1,37 +1,72 @@
 Ext.define('EatSense.view.History',{
-	extend: 'Ext.Panel',
-	requires: [],
-	xtype: 'history',
+	extend: 'Ext.navigation.View',
+	requires: ['Ext.plugin.ListPaging', 'EatSense.view.HistoryDetail'],
+	xtype: 'history',				
 	config: {
 		cls: 'dashboard',
-		layout: 'fit',
-		items: [
+		// layout: 'fit',
+		defaultBackButtonText : i10n.translate('back'),
+		navigationBar : {
+			items: [
 			{
-				docked : 'top',
-				xtype : 'toolbar',				
-				title : Karazy.i18n.translate('history.title'),
-				items : [
-					{
-						xtype : 'button',
-						action: 'back',
-						text : Karazy.i18n.translate('back'),
-						ui : 'back'
-					}, 
-				]
-			},
-							{
+				xtype : 'button',
+				action: 'back',
+				text : i10n.translate('back'),
+				ui : 'back'
+			}
+			]
+		},
+		items: [
+
+			// {
+			// 	docked : 'top',
+			// 	xtype : 'toolbar',				
+			// 	title : i10n.translate('history.title'),
+			// 	items : [
+			// 		{
+			// 			xtype : 'button',
+			// 			action: 'back',
+			// 			text : i10n.translate('back'),
+			// 			ui : 'back'
+			// 		}, 
+			// 	]
+			// },
+			
+			
+			// title: i10n.translate('history.title'),
+			
+				{	
+					//title for navigation view (not part of list!)
+					title: i10n.translate('history.title'),
 					xtype: 'list',
-					ui: 'round',
-					// width: 400,
-					// height: 400,						
-					store: 'historyStore',
-					itemTpl: new Ext.XTemplate('{businessName} | {billTime} | {[this.formatPrice(values.billTotal)]}',
+					ui: 'round',					
+					store: 'historyStore',				
+					itemTpl: new Ext.XTemplate('{businessName} | {[this.formatDate(values.billTime)]} | {[this.formatPrice(values.billTotal)]} | {paymentMethod}',
 						{
 							formatPrice: function(price) {
-								return Karazy.util.formatPrice(price);
+								return appHelper.formatPrice(price);
+							},
+
+							formatDate: function(date) {
+								var format = appConstants.DateTimeFormat[appConfig.language];
+								return Ext.util.Format.date(date, format);
 							}
-						})
+						}
+					),
+					plugins: [
+				        {
+				            xclass: 'Ext.plugin.ListPaging',
+				            autoPaging: true
+				        }
+				    ],
+
+				    items: [
+				    	{
+				    		title: 'second'
+				    	}
+				    ]
 				}
+			
 		]
 
 	}

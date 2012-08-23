@@ -25,9 +25,15 @@ Ext.application({
 		'Ext.TitleBar',
     'Ext.Anim',
     'Ext.MessageBox',
+    'Ext.DateExtras',
     //util
     'EatSense.util.AjaxHeaderHelper',
     'EatSense.util.Constants',
+    'EatSense.util.Helper',
+    'EatSense.util.Configuration',
+    'EatSense.util.Localization',
+    'EatSense.util.Translations',
+    'EatSense.util.Channel',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
 		'EatSense.override.OperationImprovement',

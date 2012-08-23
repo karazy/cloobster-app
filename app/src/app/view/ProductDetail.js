@@ -64,7 +64,7 @@ Ext.define('EatSense.view.ProductDetail', {
 				items : [
 				{
 					xtype : 'spinnerfield',
-					label: Karazy.i18n.translate('amountspinnerLabel'),
+					label: i10n.translate('amountspinnerLabel'),
 					labelAlign: 'top',
 					itemId : 'productAmountSpinner',
 					labelCls: 'productdetail-spinner-label',
@@ -84,7 +84,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					'{[this.formatPrice(values.order.calculate())]}',
 					{
 						formatPrice: function(price) {
-							return Karazy.util.formatPrice(price);
+							return appHelper.formatPrice(price);
 						}
 					}
 					)
@@ -105,7 +105,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					xtype: 'label',
 					docked: 'top',
 					cls: 'choice-panel-title',
-					html: Karazy.i18n.translate('choicesPanelTitle')
+					html: i10n.translate('choicesPanelTitle')
 				}
 			]
 		},
@@ -120,14 +120,14 @@ Ext.define('EatSense.view.ProductDetail', {
 			items: [
 				{
 					xtype: 'button',
-					text: Karazy.i18n.translate('putIntoCartButton'),
+					text: i10n.translate('putIntoCartButton'),
 					action: 'cart',
 					ui: 'action',
 				}, 
 				{
 					xtype: 'button',
 					action: 'close',
-					text: Karazy.i18n.translate('close'),
+					text: i10n.translate('close'),
 					ui: 'action',
 				}
 			]

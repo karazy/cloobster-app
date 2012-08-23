@@ -101,7 +101,7 @@ Ext.define('EatSense.controller.CheckIn', {
     	    	if(barcode.length == 0) {
     	    		this.getDashboard().showLoadScreen(false);
     	    		button.enable();
-    	    		Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate('checkInErrorBarcode'), Ext.emptyFn);
+    	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
     	    	} else {
     	        	var me = this;
     	        	EatSense.model.Spot.load(barcode, {
@@ -113,7 +113,7 @@ Ext.define('EatSense.controller.CheckIn', {
                             me.getApplication().handleServerError({
                                 'error': operation.error,
                                 'message': {
-                                    404: Karazy.i18n.translate('checkInErrorBarcode')
+                                    404: i10n.translate('checkInErrorBarcode')
                                 } 
                             }); 
      	        	    },
@@ -139,14 +139,14 @@ Ext.define('EatSense.controller.CheckIn', {
 
     	if(this.getProfile() == 'desktop' || !window.plugins || !window.plugins.barcodeScanner) {
             Ext.Msg.show({
-                title: Karazy.i18n.translate('barcodePromptTitle'),
-                message: Karazy.i18n.translate('barcodePromptText'),
+                title: i10n.translate('barcodePromptTitle'),
+                message: i10n.translate('barcodePromptText'),
                 buttons: [{
-                    text: Karazy.i18n.translate('yes'),
+                    text: i10n.translate('yes'),
                     itemId: 'yes',
                     ui: 'action'
                 }, {
-                    text: Karazy.i18n.translate('no'),
+                    text: i10n.translate('no'),
                     itemId: 'no',
                     ui: 'action'
                 }],
@@ -251,7 +251,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
 	 //get CheckIn Object and save it.	   
 	   if(nickname.length < 3) {
-		   Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
+		   Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
 	   } else {		   
           checkInDialog.showLoadScreen(true);
 		      this.getActiveCheckIn().set('nickname',nickname);		  	   
@@ -331,7 +331,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	   			   model: 'EatSense.model.User',
 	   			   proxy: {
 	   				   type: 'rest',
-	   				   url : Karazy.config.serviceUrl+'/checkins/?spotId='+spotId+'&checkInId='+checkInId,
+	   				   url : appConfig.serviceUrl+'/checkins/?spotId='+spotId+'&checkInId='+checkInId,
 	   				   reader: {
 	   					   type: 'json'
 	   			   		}
@@ -371,9 +371,9 @@ Ext.define('EatSense.controller.CheckIn', {
 		   failure: function(record, operation) {
    	    	if(operation.getError() != null && operation.getError().status != null && operation.getError().status == 500) {
    	    		var error = Ext.JSON.decode(response.statusText);
-   	    		Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate(error.errorKey,error.substitutions), Ext.emptyFn);
+   	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate(error.errorKey,error.substitutions), Ext.emptyFn);
    	    	} else {
-   	    		Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate('errorMsg'), Ext.emptyFn);
+   	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('errorMsg'), Ext.emptyFn);
    	    	}
 		   }
 	   });
@@ -431,7 +431,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	 */
 	generateNickname : function(callback) {
 		Ext.Ajax.request({
-    	    url: Karazy.config.serviceUrl+'/nicknames',
+    	    url: appConfig.serviceUrl+'/nicknames',
     	    method: 'GET',
     	    scope: this,
     	    params: {
@@ -538,7 +538,7 @@ Ext.define('EatSense.controller.CheckIn', {
     if(typeof messageKey == "string") {
       dashboard.setMasked({
         xtype: 'loadmask',
-        message: Karazy.i18n.translate(messageKey)
+        message: i10n.translate(messageKey)
       });
     } else {
       dashboard.setMasked(false);
@@ -617,7 +617,7 @@ Ext.define('EatSense.controller.CheckIn', {
     // }
 
     if(status == appConstants.CANCEL_ALL) {
-        Ext.Msg.alert(Karazy.i18n.translate('hint'), Karazy.i18n.translate('checkInCanceled'), Ext.emptyFn);
+        Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkInCanceled'), Ext.emptyFn);
     }
 	},
     /**

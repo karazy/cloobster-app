@@ -84,7 +84,7 @@ Ext.define('EatSense.controller.Settings', {
         errors = record.validate();
 
         if(!errors.isValid()) {
-            Ext.Msg.alert(Karazy.i18n.translate('error'), Karazy.i18n.translate('newsletterInvalidEmail'));
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('newsletterInvalidEmail'));
             return;
         }
 
@@ -95,28 +95,28 @@ Ext.define('EatSense.controller.Settings', {
 
                 appState.set('newsletterRegistered', true);
                 
-                if(Karazy.util.isFunction(successCallback)) {
+                if(appHelper.isFunction(successCallback)) {
                     successCallback();    
                 }
                 
                 //show short success message
                 Ext.Msg.show({
-                    title : Karazy.i18n.translate('hint'),
-                    'message' : Karazy.i18n.translate('newsletterRegisterSuccess', record.get('email')),
+                    title : i10n.translate('hint'),
+                    'message' : i10n.translate('newsletterRegisterSuccess', record.get('email')),
                     buttons : []
                 });
                 //show short alert and then hide
                 Ext.defer((function() {
-                    if(!Karazy.util.getAlertActive()) {
+                    if(!appHelper.getAlertActive()) {
                         Ext.Msg.hide();
                     }                   
-                }), Karazy.config.msgboxHideTimeout, this);
+                }), appConfig.msgboxHideTimeout, this);
             },
             failure: function(record, operation) {
                 me.getApplication().handleServerError({
                     'error': operation.error, 
                     'forceLogout': false,
-                    'message' : {500: Karazy.i18n.translate('newsletterDuplicateEmail')}
+                    'message' : {500: i10n.translate('newsletterDuplicateEmail')}
                 }); 
             }
         });

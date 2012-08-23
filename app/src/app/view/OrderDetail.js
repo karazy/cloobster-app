@@ -60,7 +60,7 @@ Ext.define('EatSense.view.OrderDetail', {
 				},
 				items : [ {
 					xtype : 'spinnerfield',
-					label: Karazy.i18n.translate('amountspinnerLabel'),
+					label: i10n.translate('amountspinnerLabel'),
 					labelCls: 'productdetail-spinner-label',
 					inputCls: 'productdetail-spinner-input',
 					labelAlign: 'top',
@@ -79,7 +79,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					'{[this.formatPrice(values.order.calculate())]}',
 					{
 						formatPrice: function(price) {
-							return Karazy.util.formatPrice(price);
+							return appHelper.formatPrice(price);
 						}
 					}
 					)
@@ -99,7 +99,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					xtype: 'label',
 					docked: 'top',
 					cls: 'choice-panel-title',
-					html: Karazy.i18n.translate('choicesPanelTitle')
+					html: i10n.translate('choicesPanelTitle')
 				}
 			]
 		},
@@ -115,14 +115,14 @@ Ext.define('EatSense.view.OrderDetail', {
 				{
 					xtype: 'button',
 					// ui: 'confirm',
-					text: Karazy.i18n.translate('change'),
+					text: i10n.translate('change'),
 					action: 'edit',
 					ui: 'action',
 				},
 				{
 					xtype: 'button',
 					// ui: 'confirm',
-					text: Karazy.i18n.translate('cancel'),
+					text: i10n.translate('cancel'),
 					action: 'undo',
 					ui: 'action',
 				}
