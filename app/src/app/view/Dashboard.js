@@ -31,7 +31,7 @@ Ext.define('EatSense.view.Dashboard', {
 		{
 			xtype : 'button',
 			action: 'checkin',
-			margin: '20 0',
+			margin: '7 0',
 			text: 'Check-In',
 			ui: 'action',
 			iconMask: true,
@@ -41,8 +41,19 @@ Ext.define('EatSense.view.Dashboard', {
 		},
 		{
 			xtype : 'button',
+			action: 'history',
+			margin: '7 0',
+			text: Karazy.i18n.translate('dashboard.button.history'),
+			ui: 'action',
+			iconMask: true,
+			iconCls: 'action',
+			height: 50,
+			width: 150
+		},
+		{
+			xtype : 'button',
 			action: 'login',
-			margin: '20 0',
+			margin: '7 0',
 			text: 'Login',
 			ui: 'action',
 			iconMask: true,

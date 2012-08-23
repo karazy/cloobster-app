@@ -8,11 +8,11 @@ Ext.Loader.setPath('EatSense', 'app');
 
 Ext.application({
 	name : 'EatSense',
-	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 'Android', 'Feedback', 'Styles', 'Account' ],
+	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 'Android', 'Feedback', 'Styles', 'Account', 'History' ],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Bill', 
-  'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account'],
+  'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account', 'History'],
 	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 
-    'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'Feedback', 'Login'], 
+    'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'Feedback', 'Login', 'History'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
