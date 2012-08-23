@@ -561,7 +561,7 @@ Ext.define('EatSense.controller.CheckIn', {
                 requestCtr = this.getApplication().getController('Request'),
                 menuStore = Ext.StoreManager.lookup('menuStore'),
                 feedbackCtr = this.getApplication().getController('Feedback'),
-                loginCtr = this.getApplication().getController('Login');
+                accountCtr = this.getApplication().getController('Account');
 
 		//TODO check status transitions, refactor     
 		if(status == Karazy.constants.CHECKEDIN) {
@@ -598,6 +598,12 @@ Ext.define('EatSense.controller.CheckIn', {
       requestCtr.resetAllRequests();
       androidCtr.setAndroidBackHandler(null);
 		}
+
+    if(status == Karazy.constants.USER_LOGGED_IN) {
+        accountCtr.hideDashboardLoginButton();
+    } else if (status == Karazy.constants.USER_LOGGED_IN) {
+        accountCtr.showDashboardLoginButton();
+    }
 
     if(status == Karazy.constants.CANCEL_ALL) {
         Ext.Msg.alert(Karazy.i18n.translate('hint'), Karazy.i18n.translate('checkInCanceled'), Ext.emptyFn);

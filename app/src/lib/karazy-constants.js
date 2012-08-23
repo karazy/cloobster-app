@@ -33,8 +33,8 @@ Karazy.constants = (function() {
 		},
 		//Client side 
 		FORCE_LOGOUT : 'FORCE_LOGOUT',
-		LOGGED_IN : 'LOGGED_IN',
-		LOGGED_OUT : 'LOGGED_OUT',
+		USER_LOGGED_IN : 'USER_LOGGED_IN',
+		USER_LOGGED_OUT : 'USER_LOGGED_OUT',
 	};
 
 })();

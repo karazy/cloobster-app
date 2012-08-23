@@ -29,6 +29,10 @@ Ext.define('EatSense.model.AppState', {
 		{
 			name: 'feedbackId',
 			type: 'number'
+		},
+		{
+			name: 'status',
+			type: 'string'
 		} ]
 	}
 });

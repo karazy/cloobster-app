@@ -174,6 +174,7 @@ Ext.define('EatSense.controller.Account', {
 				headerUtil.addHeader('X-Auth', account.get('accessToken'));
 
 				checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
+				checkInCtr.fireEvent('statusChanged', Karazy.constants.USER_LOGGED_IN);
     	    },
     	    failure: function(response) {
 
@@ -202,12 +203,20 @@ Ext.define('EatSense.controller.Account', {
 	},
 
 	logout: function() {
+		var checkInCtr = this.getApplication().getController('CheckIn');
 
+		headerUtil.resetHeaders(['X-Auth']);
+		
+		checkInCtr.fireEvent('statusChanged', Karazy.constants.USER_LOGGED_OUT);
 	},
-
-	//TODO über events lösen?
+	//ui actions start
 	hideDashboardLoginButton: function() {
 		this.getShowLoginButton().disable();
 		this.getShowLoginButton().hide();
+	},
+	showDashboardLoginButton: function() {
+		this.getShowLoginButton().enable();
+		this.getShowLoginButton().show();	
 	}
+	//ui actions end
 });

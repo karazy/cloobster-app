@@ -100,7 +100,8 @@ Ext.application({
 
       //If access token was found set it
       if(accessToken) {
-        defaultHeaders['X-Auth'] = accessToken;
+        headerUtil.addHeader('X-Auth', accessToken);
+        checkInCtr.fireEvent('statusChanged', Karazy.constants.USER_LOGGED_IN);
       };
 
 	   	 //found a valid checkIn Id. Restore state.
