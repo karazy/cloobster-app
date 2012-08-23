@@ -6844,6 +6844,19 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
+/*Include additional icons*/
+/* line 43, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
+.x-tab .x-button-icon.user,
+.x-button .x-button-icon.x-icon-mask.user {
+  -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAEWElEQVRoBe2aS0gVYRiGO1lmF8nQQlETutGFokAiqEV0ISKwgmrdMtzUpnW7drWKbFGbQAKpJIhuUGIUFUkW0T1Jq4V2U4ui7GLPexpDD+ecuX1jHqcPHseZ+f9vvnf++e8n0d/fPyZONjZOYqU1doLHRV3CiURCz5gMxTANJsJg+8XJJ+iBt9BHNdO1SCwRZR1GbAFRl8F8WAFLoRwGLME/ffAM7kETvIYPxPWDo7lFIhiheURaCVtgBywHXXOzbhJcggZoRvR7twy+76uELSEAtQsqySPwGdQN+KWDPHuh2DI2+TIVm3T455M9G0Bk6ktRvd4NBZaiTQUT3AQnSNW/VAFBzl/iZw0kq56FcOtuaQHB7QIv9ZVkrqZ2YA9Mck3pMYGZYKeh2sBz1SJb2mqcmfk0E0xQ6l9rwNoKcWjm11JwEYFVW6t1/K218mspeB5B5VsFluKnIuU88Kml4PGBo3DPqBGZiVkKNgvKRFkGJ5aCv2Z4xoi6bCm4DWUaXERhZhMJS8FfolDq+DSbRFgKjrIOa8poYpaCTQKK2sl/wSHfcFSNlll1sSzhn7ys3pAvLFP275lu+L1uKVhBPfYbgMf0zz2mc01mKfgbT7vi+kT/CeT3sv9s6XNYCtbg4CJ0pX9U4Kv3yXk3cO6UjGaCWX5Rg/UArqY8I8yp1qdPQ08YJ4Pzmgl2nCqwc2DVyKjunuddqkE0MVPBBKYSuQ7tJtEhFj9apDczU8FOVB0ctZiuHYUw9obMjbxErW2bmblgApTQengVIkq1B83QEsJH2qzmgp2n3ObYCEGndZ3krbcuXcUWiWACldCjoA0yv6a8J6HJb0Yv6SMRrAcj+gmHA+B3aneDPHXk/8jR3LR3a2rOfnAlTmfDVPDb6Khrq8bPDI5PoRPxZpMSk+1SgtOKpTa8l8BC0JaLmAkloA1xr/aOhJqEtINGWeqW7jjHXrQHbRdw4WxSJf8L8Aeh2m1QaWoBfiUsA61PTwGtUYeZ1qlP1zhan3YraBSnz/0mdAUVHqiEESoxKs0a2AxloJIMI5DsWU0vQH2z2oZToAnFI7+fu2/BiF3PgzbCKqgC1bXhNH3S6rba4BocR7TquifzLBih5XjcCSrROaAGKbJWHt9uJuGq67fgAki4zrNaVsGIzCP3dNgE20B1VJ+uro8UUz3Xr39UvxugCeEZl3UzCkZsBZn1+W6HRaB6qtZ4pJp2PtTna+58DFoR3sVxqHFxyM8euFsIW6EeXoDeoPrBXEEbAlpqqoN1kD9YY6rYxSQ4DGoE9KOSXBGZLk4NYB7CfigZEP1XMBfVEJ0BJUznIFevaSBzEEolOimYkyo4AfocclVYtrjViB0C9SzJEdE+jrn+CWcTrHvdUKuRUSm0gPrZ0W7tGjjMhTiIVWFWSbAGEnGxhAT/y+HhsL9oiVWFjo3FqnRVqrETrG5pFmiSEAuTYC3TFMVCLSIzTg9H6wuIXR2OneDfMJq1NmzzbS8AAAAASUVORK5CYII=');
+}
+
+/* line 43, ../../touch/resources/themes/stylesheets/sencha-touch/default/_mixins.scss */
+.x-tab .x-button-icon.locate4,
+.x-button .x-button-icon.x-icon-mask.locate4 {
+  -webkit-mask-image: url('data:image/png;base64,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');
+}
+
 /*@include toolbar-button( #F79621, #614021 );*/
 /*@include bevel-by-background(#614021);*/
 /*@include sencha-button-ui('orange', #F79621, 'matte');*/
@@ -6851,30 +6864,30 @@ input[type="search"]::-webkit-search-cancel-button {
 /*@include bevel-box('shadow');*/
 /*@include pictos-iconmask('../images/buttons/kasse');*/
 @CHARSET "UTF-8";
-/* line 80, app-default.scss */
+/* line 83, app-default.scss */
 .productListItem h2.title {
   font-size: 1em;
 }
 
-/* line 84, app-default.scss */
+/* line 87, app-default.scss */
 .productListItem h2.price {
   font-size: 1em;
   white-space: nowrap;
 }
 
-/* line 89, app-default.scss */
+/* line 92, app-default.scss */
 .productListItem div p {
   font-size: 0.6em;
 }
 
-/* line 93, app-default.scss */
+/* line 96, app-default.scss */
 .panel-floating {
   border-radius: 0.3em !important;
   padding: 0.3em !important;
   background-color: #A9A9A9 !important;
 }
 
-/* line 99, app-default.scss */
+/* line 102, app-default.scss */
 .productDetailPanel {
   background: #917D64;
   /*url('../images/bg-rp-main.png') repeat left top;*/
@@ -6884,7 +6897,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* Set background for product description and amount spinner */
-/* line 107, app-default.scss */
+/* line 110, app-default.scss */
 .productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
   background: #917D64;
   /*url('../images/bg-rp-main.png') repeat left top;*/
@@ -6894,7 +6907,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 76, app-default.scss */
-/* line 115, app-default.scss */
+/* line 118, app-default.scss */
 .productDetail {
   /*background: #917D64; */
   /*url('../images/bg-rp-main.png') repeat left top;*/
@@ -6902,13 +6915,13 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 0.5em;
 }
 
-/* line 123, app-default.scss */
+/* line 126, app-default.scss */
 .productdetail-spinner-label {
   padding: 0;
   margin: 0;
 }
 
-/* line 128, app-default.scss */
+/* line 131, app-default.scss */
 .productdetail-spinner-input {
   border: solid 1px gray;
   background: white;
@@ -6921,7 +6934,7 @@ input[type="search"]::-webkit-search-cancel-button {
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.15em 0.3em !important;*/
 }
 
-/* line 140, app-default.scss */
+/* line 143, app-default.scss */
 .productdetail-spinner-down {
   position: relative;
   top: 25px;
@@ -6930,7 +6943,7 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 45px;
 }
 
-/* line 148, app-default.scss */
+/* line 151, app-default.scss */
 .productdetail-spinner-up {
   position: relative;
   top: -2px;
@@ -6943,7 +6956,7 @@ input[type="search"]::-webkit-search-cancel-button {
   background-image: url('data:image/png;base64,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');
 }*/
 /* line 108, app-default.scss */
-/* line 161, app-default.scss */
+/* line 164, app-default.scss */
 .productPrice {
   font-size: 1.5em;
 }
@@ -6951,12 +6964,12 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Choices and Options
 */
-/* line 169, app-default.scss */
+/* line 172, app-default.scss */
 .choice-panel {
   padding: 5px;
 }
 
-/* line 173, app-default.scss */
+/* line 176, app-default.scss */
 .choice-panel .choice {
   font-size: 1em;
   color: #8AA529;
@@ -6967,12 +6980,12 @@ input[type="search"]::-webkit-search-cancel-button {
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
 }
 
-/* line 183, app-default.scss */
+/* line 186, app-default.scss */
 .choice-panel .option {
   white-space: normal;
 }
 
-/* line 186, app-default.scss */
+/* line 189, app-default.scss */
 .choice-panel .option-label {
   /*font-size: 0.8em;*/
   background-color: white;
@@ -6980,7 +6993,7 @@ input[type="search"]::-webkit-search-cancel-button {
   white-space: normal;
 }
 
-/* line 193, app-default.scss */
+/* line 196, app-default.scss */
 .choice-panel .comment {
   font-size: 1em;
   color: #8AA529;
@@ -6992,19 +7005,19 @@ input[type="search"]::-webkit-search-cancel-button {
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
 }
 
-/* line 204, app-default.scss */
+/* line 207, app-default.scss */
 .choice-panel .comment-input {
   border: 1px dashed gray;
   padding-top: 3px;
 }
 
-/* line 209, app-default.scss */
+/* line 212, app-default.scss */
 .choice-panel .option-panel {
   padding: 5px 0px;
   white-space: normal;
 }
 
-/* line 214, app-default.scss */
+/* line 217, app-default.scss */
 .choice-panel-title {
   text-align: center;
 }
@@ -7012,29 +7025,29 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Orderlist
 */
-/* line 222, app-default.scss */
+/* line 225, app-default.scss */
 .myorders-panel {
   /*background: #917D64; */
 }
 
-/* line 226, app-default.scss */
+/* line 229, app-default.scss */
 .orderListItem {
   color: #000000;
 }
 
-/* line 230, app-default.scss */
+/* line 233, app-default.scss */
 .orderListItem .order-title {
   margin-bottom: 7px;
 }
 
-/* line 234, app-default.scss */
+/* line 237, app-default.scss */
 .orderListItem h2.title {
   color: #000000;
   font-size: 1em;
   padding-right: 3px;
 }
 
-/* line 240, app-default.scss */
+/* line 243, app-default.scss */
 .orderListItem h2.price {
   color: #000000;
   font-size: 1em;
@@ -7043,51 +7056,51 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 25px;
 }
 
-/* line 248, app-default.scss */
+/* line 251, app-default.scss */
 .orderListItem li, .orderListItem p {
   color: #000000;
   margin-left: 15px;
   font-size: 0.7em;
 }
 
-/* line 254, app-default.scss */
+/* line 257, app-default.scss */
 .orderListItem h4 {
   font-size: 0.7em;
   color: #000000;
 }
 
-/* line 259, app-default.scss */
+/* line 262, app-default.scss */
 .orderListItem h3 {
   font-size: 0.9em;
   color: #000000;
 }
 
-/* line 264, app-default.scss */
+/* line 267, app-default.scss */
 .orderListItem .canceled {
   text-decoration: line-through;
 }
 
-/* line 268, app-default.scss */
+/* line 271, app-default.scss */
 .orderListItem .canceled h2 {
   text-decoration: line-through;
 }
 
-/* line 272, app-default.scss */
+/* line 275, app-default.scss */
 .cart-panel {
   background: #917D64;
 }
 
-/* line 276, app-default.scss */
+/* line 279, app-default.scss */
 .cart-panel .x-list-round .x-scroll-view {
   background: #917D64;
 }
 
-/* line 280, app-default.scss */
+/* line 283, app-default.scss */
 .cartoverview {
   padding: 0.3em 0em;
 }
 
-/* line 284, app-default.scss */
+/* line 287, app-default.scss */
 .cartTotal {
   text-align: center;
   font-size: 1.5em;
@@ -7095,7 +7108,7 @@ input[type="search"]::-webkit-search-cancel-button {
   /*background: #917D64; */
 }
 
-/* line 291, app-default.scss */
+/* line 294, app-default.scss */
 .cartoverviewitem {
   padding: 5px;
   margin: 5px;
@@ -7103,23 +7116,23 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: #fff;
 }
 
-/* line 298, app-default.scss */
+/* line 301, app-default.scss */
 .cartoverviewitem .name {
   width: 50%;
 }
 
-/* line 302, app-default.scss */
+/* line 305, app-default.scss */
 .cartoverviewitem .name h2.title {
   color: #000000;
   font-size: 1em;
 }
 
-/* line 308, app-default.scss */
+/* line 311, app-default.scss */
 .cartoverviewitem .name div.amount {
   float: left;
 }
 
-/* line 312, app-default.scss */
+/* line 315, app-default.scss */
 .cartoverviewitem .name h2.price {
   color: #000000;
   font-size: 1em;
@@ -7128,36 +7141,36 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-right: 5px;
 }
 
-/* line 320, app-default.scss */
+/* line 323, app-default.scss */
 .cartoverviewitem .edit {
   top: 0;
   margin-right: 10px;
 }
 
-/* line 325, app-default.scss */
+/* line 328, app-default.scss */
 .cartoverviewitem .cancel {
   top: 0;
   margin-right: 5px;
 }
 
-/* line 330, app-default.scss */
+/* line 333, app-default.scss */
 .cartoverviewitem-name {
   width: 70%;
   margin-bottom: 20px;
 }
 
-/* line 335, app-default.scss */
+/* line 338, app-default.scss */
 .cartoverviewitem-edit {
   top: 0;
 }
 
-/* line 339, app-default.scss */
+/* line 342, app-default.scss */
 .cartoverviewitem-cancel {
   top: 0;
   margin-right: 5px;
 }
 
-/* line 344, app-default.scss */
+/* line 347, app-default.scss */
 .menuCategoryItem {
   float: left;
   width: 15%;
@@ -7166,37 +7179,23 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Dashboard
 */
-/* line 353, app-default.scss */
+/* line 356, app-default.scss */
 .dashboard {
   background: #917d64 url("../images/bg-rp-main.png") repeat left top;
 }
 
-/* line 357, app-default.scss */
-.dashboard-button {
-  background-image: url(../images/dashboard/start_button.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-/* line 363, app-default.scss */
-.dashboard-button-pressed {
-  background-image: url(../images/dashboard/start_button_touch.png) !important;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-/* line 369, app-default.scss */
+/* line 360, app-default.scss */
 .dashboard-description {
   color: white;
 }
 
-/* line 373, app-default.scss */
+/* line 364, app-default.scss */
 .about-text {
   font-size: 0.9em;
   margin: 5px;
 }
 
-/* line 378, app-default.scss */
+/* line 369, app-default.scss */
 .about-text h2 {
   font-size: 1.2em;
   font-weight: bold;
@@ -7204,44 +7203,44 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-bottom: 3px;
 }
 
-/* line 385, app-default.scss */
+/* line 376, app-default.scss */
 .about-text h3 {
   font-weight: bold;
 }
 
-/* line 393, app-default.scss */
+/* line 384, app-default.scss */
 .x-button-icon.about {
   -webkit-mask-image: url("../images/buttons/about.png");
 }
 
-/* line 397, app-default.scss */
+/* line 388, app-default.scss */
 .x-tab .x-button-icon.cart {
   /*-webkit-mask-image: url('data:image/png;base64,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');*/
   -webkit-mask-image: url("../images/buttons/bestellung.png");
 }
 
-/* line 402, app-default.scss */
+/* line 393, app-default.scss */
 .x-tab .x-button-icon.menu {
   -webkit-mask-image: url("../images/buttons/speisekarte.png");
 }
 
-/* line 406, app-default.scss */
+/* line 397, app-default.scss */
 .x-tab .x-button-icon.cash {
   -webkit-mask-image: url("../images/buttons/kasse.png");
 }
 
-/* line 410, app-default.scss */
+/* line 401, app-default.scss */
 .x-tab .x-button-icon.leave {
   -webkit-mask-image: url("../images/buttons/forbidden.png");
 }
 
-/* line 414, app-default.scss */
+/* line 405, app-default.scss */
 .x-tab .x-button-icon.requests {
   /*-webkit-mask-image: url('data:image/png;base64,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');*/
   -webkit-mask-image: url("../images/buttons/aktionen.png");
 }
 
-/* line 419, app-default.scss */
+/* line 410, app-default.scss */
 .newsletter-floating {
   border-radius: 0.3em !important;
   padding: 3px !important;
@@ -7249,7 +7248,7 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em !important;
 }
 
-/* line 426, app-default.scss */
+/* line 417, app-default.scss */
 .newsletter-register-button {
   width: 200px;
   margin-top: 5px;
@@ -7268,24 +7267,24 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Feedback
 */
-/* line 446, app-default.scss */
+/* line 437, app-default.scss */
 .feedback-label {
   color: white;
   font-size: 1em;
   word-break: break-word;
 }
 
-/* line 453, app-default.scss */
+/* line 444, app-default.scss */
 .feedback-slider {
   background: #917d64;
 }
 
-/* line 457, app-default.scss */
+/* line 448, app-default.scss */
 .feedback-slider .x-slider {
   top: 0.4em;
 }
 
-/* line 461, app-default.scss */
+/* line 452, app-default.scss */
 .feedback-panel {
   padding: 0.3em 0em;
 }
@@ -7293,61 +7292,61 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * General styles
 */
-/* line 469, app-default.scss */
+/* line 460, app-default.scss */
 .general-label {
   color: white;
   font-size: 1em;
   text-align: center;
 }
 
-/* line 475, app-default.scss */
+/* line 466, app-default.scss */
 .general-label-black {
   color: black;
   font-size: 1em;
   text-align: center;
 }
 
-/* line 481, app-default.scss */
+/* line 472, app-default.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
 }
 
-/* line 486, app-default.scss */
+/* line 477, app-default.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 491, app-default.scss */
+/* line 482, app-default.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 496, app-default.scss */
+/* line 487, app-default.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 500, app-default.scss */
+/* line 491, app-default.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 505, app-default.scss */
+/* line 496, app-default.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 511, app-default.scss */
+/* line 502, app-default.scss */
 .hidden {
   display: none;
 }
 
-/* line 516, app-default.scss */
+/* line 507, app-default.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -7355,7 +7354,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 523, app-default.scss */
+/* line 514, app-default.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -7363,7 +7362,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 530, app-default.scss */
+/* line 521, app-default.scss */
 .visible {
   display: block;
 }
@@ -7371,7 +7370,7 @@ h9 {
 /*
 * Menu- and Productlist
 */
-/* line 539, app-default.scss */
+/* line 530, app-default.scss */
 .menu-panel, .menu-panel .x-list-round .x-scroll-view {
   background: #917D64;
 }
@@ -7379,42 +7378,42 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 547, app-default.scss */
+/* line 538, app-default.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 551, app-default.scss */
+/* line 542, app-default.scss */
 .checkin-confirm-nickname-label {
   color: white;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
-/* line 557, app-default.scss */
+/* line 548, app-default.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 5px;
 }
 
-/* line 562, app-default.scss */
+/* line 553, app-default.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 566, app-default.scss */
+/* line 557, app-default.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 571, app-default.scss */
+/* line 562, app-default.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 3px;
 }
 
-/* line 576, app-default.scss */
+/* line 567, app-default.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -7425,7 +7424,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 588, app-default.scss */
+/* line 579, app-default.scss */
 .x-msgbox.x-floating {
   padding: 2px;
   background: #917d64 url("../images/bg-rp-main.png");
@@ -7434,19 +7433,19 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 596, app-default.scss */
+/* line 587, app-default.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Item disclosure! */
-/* line 601, app-default.scss */
+/* line 592, app-default.scss */
 .x-list-round .x-list-disclosure {
   background-image: -webkit-linear-gradient(top right, #8aa529, #abcd34 50%);
 }
 
 /* Perf. optimization for android. */
-/* line 606, app-default.scss */
+/* line 597, app-default.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
@@ -7466,7 +7465,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 627, app-default.scss */
+/* line 618, app-default.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -7474,7 +7473,7 @@ h9 {
 /**
 * Set background image for tabbar.
 */
-/* line 634, app-default.scss */
+/* line 625, app-default.scss */
 .x-tabbar-dark {
   background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
   border-color: #594b3a !important;
@@ -7484,7 +7483,7 @@ h9 {
 /**
 * Set background image for toolbar.
 */
-/* line 643, app-default.scss */
+/* line 634, app-default.scss */
 .x-toolbar-dark {
   background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
   border-color: #594b3a !important;
@@ -7494,27 +7493,27 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 652, app-default.scss */
+/* line 643, app-default.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /* Ticket 105 */
   text-shadow: none;
 }
 
-/* line 659, app-default.scss */
+/* line 650, app-default.scss */
 .x-list-round .x-scroll-view {
   /* Explizit override needed because ui round ignores $list-bg-color. */
   background-color: #917D64 !important;
 }
 
-/* line 664, app-default.scss */
+/* line 655, app-default.scss */
 .lounge-tabbar .x-tab {
   color: #614021;
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
   font-family: Helvetica Neue !important;
 }
 
-/* line 670, app-default.scss */
+/* line 661, app-default.scss */
 .lounge-tabbar .x-tab-active {
   color: #614021;
   border-bottom: 2px solid #614021;
@@ -7523,7 +7522,7 @@ h9 {
 /*
 * Override tabbar background colors.
 */
-/* line 677, app-default.scss */
+/* line 668, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background: #614021;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(0%, #614021), color-stop(100%, #8e6e51));
@@ -7533,7 +7532,7 @@ h9 {
 /*
 * Override active tabbar background colors.
 */
-/* line 686, app-default.scss */
+/* line 677, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background: #f79621;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f79621), color-stop(100%, #f9c667));
@@ -7545,7 +7544,7 @@ h9 {
 /* 
 * Override button css. Prevents default gradient rendering.
 */
-/* line 697, app-default.scss */
+/* line 688, app-default.scss */
 .x-toolbar-dark .x-button, .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after {
   background: #f79621;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9c667), color-stop(100%, #f79621));
@@ -7556,7 +7555,7 @@ h9 {
 /*
 * Override button font color.
 */
-/* line 707, app-default.scss */
+/* line 698, app-default.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: #594b3a;
 }
@@ -7564,7 +7563,7 @@ h9 {
 /*
 * Override button pressed color.
 */
-/* line 738, app-default.scss */
+/* line 729, app-default.scss */
 .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar-dark .x-button.x-button-active, .x-toolbar-dark .x-button.x-button-active:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-dark .x-button.x-button-active, .x-toolbar .x-toolbar-dark .x-button.x-button-active:after,
 .x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing,
 .x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing:after,

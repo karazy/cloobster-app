@@ -133,6 +133,9 @@ Karazy.translations = (function() {
 		"account.signup.confirm.message" : "Bei Cloobster registrieren?",
 		"account.signup.success.title" : "Willkommen bei Cloobster",
 		"account.signup.success.message" : "Danke das du dich registriert hast!<br/>",
+		//history
+		"history.title" : "Historie",
+		"dashboard.button.history" : "Historie",
 		//errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		

@@ -46,7 +46,7 @@ Ext.define('EatSense.view.Dashboard', {
 			text: Karazy.i18n.translate('dashboard.button.history'),
 			ui: 'action',
 			iconMask: true,
-			iconCls: 'action',
+			iconCls: 'locate4',
 			height: 50,
 			width: 150
 		},

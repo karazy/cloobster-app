@@ -1,24 +1,28 @@
 Ext.define('EatSense.model.History', {
 	extend: 'Ext.data.Model',
-	fields: [
-	{
-		name: 'businessName'	
-	},
-	{
-		name: 'billTime'
-	},
-	{
-		name: 'billTotal'
-	},
-	{
-		name: 'businessId'
-	},
-	{
-		name: 'checkInId'
-	}
-	],
+	config: {
+		fields: [
+			{
+				name: 'businessName'	
+			},
+			{
+				name: 'billTime',
+				type : 'date',
+				dateFormat : 'time'
+			},
+			{
+				name: 'billTotal',
+				type: 'number'
+			},
+			{
+				name: 'businessId'
+			},
+			{
+				name: 'checkInId'
+			}
+		],
 
-	proxy: {}
+	proxy: {
 		type: 'rest',
  		enablePagingParams: true,
  		url : ' /c/checkins/history',
@@ -26,5 +30,7 @@ Ext.define('EatSense.model.History', {
  			type: 'json'
  		}
 	}
+	}
+
 
 });
