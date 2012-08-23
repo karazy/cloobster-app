@@ -1,0 +1,32 @@
+Ext.define('EatSense.util.Constants', {
+	alternateClassName: ['appConstants'],
+	statics : {
+		//check in status
+		INTENT : 'INTENT',
+		CHECKEDIN : 'CHECKEDIN',
+		ORDER_PLACED : 'ORDER_PLACED',
+		PAYMENT_REQUEST : 'PAYMENT_REQUEST',
+		COMPLETE : 'COMPLETE',
+		CANCEL_ALL : 'CANCEL_ALL',
+		Order : {
+			CART : 'CART',
+			PLACED : 'PLACED',
+			RECEIVED: 'RECEIVED',
+			CANCELED : 'CANCELED',
+			COMPLETE : 'COMPLETE'
+		},
+		Request : {
+			CALL_WAITER : 'CALL_WAITER'
+		},
+		//regular expressions for different currencies
+		Currency : {
+			EURO: '$1,$2 €',
+			US_DOLLAR: '\$ $1.$2'
+		},
+		//Client side 
+		FORCE_LOGOUT : 'FORCE_LOGOUT',
+		USER_LOGGED_IN : 'USER_LOGGED_IN',
+		USER_LOGGED_OUT : 'USER_LOGGED_OUT',
+	}
+});
+
