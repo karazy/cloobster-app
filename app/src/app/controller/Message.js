@@ -59,7 +59,7 @@ Ext.define('EatSense.controller.Message', {
 		if(message.type == 'channel') {
 			console.log('received service message ' + message.action);
 			if(message.action == 'connected') {
-				Karazy.channel.connectedReceived();
+				appChannel.connectedReceived();
 			}
 		}
 		else {
@@ -143,9 +143,17 @@ Ext.define('EatSense.controller.Message', {
 
 		this.setChannelId(id);
 
-		Karazy.channel.setup({
+		// appChannel.setup({
+		// 	messageHandler: me.processMessages,
+		// 	requestTokenHandler: me.requestNewToken,			
+		// 	statusHandler: me.handleStatus,
+		// 	checkOnlineHandler: me.checkOnline,
+		// 	executionScope: me
+		// });
+
+		appChannel.setup({
 			messageHandler: me.processMessages,
-			requestTokenHandler: me.requestNewToken,			
+			requestTokenHandler: me.requestNewToken,
 			statusHandler: me.handleStatus,
 			checkOnlineHandler: me.checkOnline,
 			executionScope: me

@@ -598,7 +598,7 @@ Ext.define('EatSense.controller.CheckIn', {
       
       headerUtil.resetHeaders(['checkInId','pathId']);
 
-      Karazy.channel.closeChannel();
+      appChannel.closeChannel();
 
       requestCtr.resetAllRequests();
       androidCtr.setAndroidBackHandler(null);
