@@ -149,10 +149,9 @@ Ext.define('EatSense.controller.Account', {
 			errMsg = "",
 			account,
 			checkInCtr = this.getApplication().getController('CheckIn'),
-			errorMessage,
-			defaultHeaders = Ext.Ajax.getDefaultHeaders() || {};
+			errorMessage;
 
-		if(defaultHeaders.['X-Auth']) {
+		if(headerUtil.getHeaderValue('X-Auth')) {
 			//already logged in, skip
 			return;
 		};
@@ -168,17 +167,15 @@ Ext.define('EatSense.controller.Account', {
 			},
     	    scope: this,
     	    success: function(response) {
+    	    	//parse account, currently we only need the access token
     	    	account = Ext.create('EatSense.model.Account', Ext.decode(response.responseText));
 
 				//Set default headers so that always credentials are send
-				defaultHeaders['X-Auth'] = account.get('accessToken');
-
-				Ext.Ajax.setDefaultHeaders(defaultHeaders);
+				headerUtil.addHeader('X-Auth', account.get('accessToken'));
 
 				checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
     	    },
     	    failure: function(response) {
-				//me.resetDefaultAjaxHeaders();
 
 				if(response.status) {
 					//not authorized
@@ -202,5 +199,15 @@ Ext.define('EatSense.controller.Account', {
 				});
 	   	    }
 		});
+	},
+
+	logout: function() {
+
+	},
+
+	//TODO über events lösen?
+	hideDashboardLoginButton: function() {
+		this.getShowLoginButton().disable();
+		this.getShowLoginButton().hide();
 	}
 });

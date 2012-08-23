@@ -25,6 +25,8 @@ Ext.application({
 		'Ext.TitleBar',
     'Ext.Anim',
     'Ext.MessageBox',
+    //util
+    'EatSense.util.AjaxHeaderHelper',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
 		'EatSense.override.OperationImprovement',
@@ -40,9 +42,10 @@ Ext.application({
 	},
 	mainLaunch : function() {
 		
+    //Wait for phonegap to launch
 		if (cordovaInit == false || !this.launched) {
-        	return;
-        }
+     	return;
+    }
 
 		console.log('App -> mainLaunch');
 		
@@ -50,53 +53,63 @@ Ext.application({
   			appStateStore = Ext.data.StoreManager.lookup('appStateStore'),
   	 		checkInCtr = this.getController('CheckIn'),
         settingsCtr = this.getController('Settings'),
-  	 		restoredCheckInId; 
+  	 		restoredCheckInId,
+        accessToken,
+        //default ajax headers
+        defaultHeaders = {}; 
 
   		//timeout for requests
   		Ext.Ajax.timeout = 1200000;
 
+      //set Default headers object
+      Ext.Ajax.setDefaultHeaders(defaultHeaders);
+
     //----- Launch functions start ------  	
-    //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is move here.
+    //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is moved here.
     //Android controller launch
 		//Android specific behaviour
-        if(Ext.os.is.Android) {
-        	console.log('Android Controller -> setup android specific behaviour');
-        	document.addEventListener('backbutton', onBackKeyDown, false);
-          function onBackKeyDown() {            
-                console.log('fire backbutton event');
-                me.getController('Android').executeBackHandler();
-          };
-        }
+    if(Ext.os.is.Android) {
+      	console.log('Android Controller -> setup android specific behaviour');
+      	document.addEventListener('backbutton', onBackKeyDown, false);
+        function onBackKeyDown() {            
+              console.log('fire backbutton event');
+              me.getController('Android').executeBackHandler();
+      };
+    }
 
     //----- Launch functions end ------
 		
-    	//try to restore application state
-	   	 //create main screen
-	   	 Ext.create('EatSense.view.Main')
-	   	 // Ext.Viewport.add();
+    	
+	   	//create main screen
+	   	Ext.create('EatSense.view.Main')
 
-	   	 try {
-	   		appStateStore.load();
-	   	 } catch (e) {
+      //try to restore application state
+	   	try {
+        appStateStore.load();
+	   	} catch (e) {
 	   		appStateStore.removeAll();
-	   	 }
+	   	}
 	     
-       //TODO check for access token
 	     
-	   	 if(appStateStore.getCount() == 1) {
-	   		console.log('app state found');	   		 
+	   	if(appStateStore.getCount() == 1) {
+	   		console.log('app state found');
 		   	checkInCtr.setAppState(appStateStore.getAt(0));
 	   		restoredCheckInId = checkInCtr.getAppState().get('checkInId');
-	   	 }
-	   	 //found a valid checkIn Id. Restoring state.
+        accessToken = checkInCtr.getAppState().get('accessToken');
+	   	}
+
+      //If access token was found set it
+      if(accessToken) {
+        defaultHeaders['X-Auth'] = accessToken;
+      };
+
+	   	 //found a valid checkIn Id. Restore state.
 	   	 if(restoredCheckInId) {
         checkInCtr.showDashboard();
         //show loading mask, because it can take a while if server is not responding immediately
         checkInCtr.toggleDashboardMask('restoreStateLoading');
-	   	 	//TODO refactor
-	   	 	Ext.Ajax.setDefaultHeaders({
-          'checkInId': restoredCheckInId
-       	});
+
+        defaultHeaders['checkInId'] = restoredCheckInId;
 
    			 //reload old state
    			 EatSense.model.CheckIn.load(restoredCheckInId, {
@@ -110,26 +123,33 @@ Ext.application({
    					console.log('error restoring state');
             checkInCtr.toggleDashboardMask(false);
 
-   					Ext.Ajax.setDefaultHeaders({});
-   					appStateStore.removeAll();
-   					appStateStore.sync();
-   					appStateStore.add(checkInCtr.getAppState());
+            delete defaultHeaders['checkInId'];
+
+   					// appStateStore.removeAll();
+   					// appStateStore.sync();
+   					// appStateStore.add(checkInCtr.getAppState());
+
+            //delete invalid checkInId in appState
+            checkInCtr.getAppState().set('checkInId', '');
+
             checkInCtr.showDashboard();
+
             me.getApplication().handleServerError({
               'error': operation.error,
               'forceLogout': false,
               'message' : Karazy.i18n.translate('restoreStateFailed')
             });
    				}
-   			 });	 
+        });
 	   	 }	   		 	   	 	   	 
 	   	 else {	   		 
 	   		if (appStateStore.getCount() > 1){
-		   		 console.log('Too many appStates! Clearing cache. this should never happen.');
-		   		 appStateStore.removeAll();
-		   	 } else {
+		   	  console.log('Too many appStates! Clearing cache. this should never happen.');
+		   	  appStateStore.removeAll();
+          appStateStore.sync();
+		   	} else {
 		   		console.log('no app state found.');
-		   	 } 		   		 
+		   	}
 	   		 appStateStore.add(checkInCtr.getAppState());
 	   		 checkInCtr.showDashboard();
 	   	 }	

@@ -1,8 +1,8 @@
 /**
  * Controller handles the checkin process.
- * This includes scanning of a barcode, chosing a nickname, checking in with others
+ * This includes scanning of a barcode, choosing a nickname, checking in with others
  * and finally navigating to the menu.
- * 
+ * Also handles the application state.
  */
 Ext.define('EatSense.controller.CheckIn', {
     extend: 'Ext.app.Controller',
@@ -87,19 +87,13 @@ Ext.define('EatSense.controller.CheckIn', {
     },
     init: function() {
     	var messageCtr = this.getApplication().getController('Message');
-    	 
+    	
+      //register event handlers
     	this.on('statusChanged', this.handleStatusChange, this);
       this.getApplication().on('statusChanged', this.handleStatusChange, this);
     	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
 
     	 //private functions
-
-        /*
-        *   Resets default Ajax headers.
-        */
-        this.resetDefaultAjaxHeaders = function() {
-            Ext.Ajax.setDefaultHeaders({});
-        };
     	 
     	//called by checkInIntent. 
     	this.doCheckInIntent = function(barcode, button, deviceId) {    		 
@@ -248,7 +242,7 @@ Ext.define('EatSense.controller.CheckIn', {
     * Step 3: User confirmed his wish to check in
     * @param options
     */
-   checkIn: function(){
+   checkIn: function() {
 	   var     me = this,
 	           nickname = Ext.String.trim(this.getNickname().getValue()),
 	           nicknameToggle = this.getNicknameTogglefield(),
@@ -267,10 +261,11 @@ Ext.define('EatSense.controller.CheckIn', {
                     checkInDialog.showLoadScreen(false);
   					   	    console.log("CheckIn Controller -> checkIn success");
                     //Set default headers so that always checkInId is send
-                    Ext.Ajax.setDefaultHeaders({
-                        'checkInId': response.get('userId'),
-                        'pathId' : me.getActiveCheckIn().get('businessId')
+                    headerUtil.addHeaders({
+                      'checkInId' : response.get('userId'),
+                      'pathId' : me.getActiveCheckIn().get('businessId')
                     });
+
   					   	    //currently disabled, will be enabled when linking to users actually makes sense
                     //me.showCheckinWithOthers();
                     me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
@@ -476,10 +471,10 @@ Ext.define('EatSense.controller.CheckIn', {
 
 		
         //Set default headers so that always checkInId is send
-        Ext.Ajax.setDefaultHeaders({
-            'checkInId': checkIn.get('userId'),
-            'pathId' : checkIn.get('businessId')
-        });              
+        headerUtil.addHeaders({
+          'checkInId' : checkIn.get('userId'),
+          'pathId' : checkIn.get('businessId')
+        });
 
 		//load active spot
 		EatSense.model.Spot.load(checkIn.get('spotId'), {
@@ -516,9 +511,10 @@ Ext.define('EatSense.controller.CheckIn', {
   	    failure: function(record, operation) {
   	    	me.getApplication().handleServerError({
                   'error':operation.error
-              });        	    	
+          });        	    	
   	    }
-		});	
+		});
+
     //restore existing requests
     requestCtr.loadRequests();	
     //load feedback from server
@@ -564,7 +560,8 @@ Ext.define('EatSense.controller.CheckIn', {
                 androidCtr = this.getApplication().getController('Android'),
                 requestCtr = this.getApplication().getController('Request'),
                 menuStore = Ext.StoreManager.lookup('menuStore'),
-                feedbackCtr = this.getApplication().getController('Feedback');
+                feedbackCtr = this.getApplication().getController('Feedback'),
+                loginCtr = this.getApplication().getController('Login');
 
 		//TODO check status transitions, refactor     
 		if(status == Karazy.constants.CHECKEDIN) {
@@ -594,7 +591,8 @@ Ext.define('EatSense.controller.CheckIn', {
       this.getAppState().set('feedbackId', null);
       feedbackCtr.clearFeedback();
       
-      this.resetDefaultAjaxHeaders();
+      headerUtil.resetHeaders(['checkInId','pathId']);
+
       Karazy.channel.closeChannel();
 
       requestCtr.resetAllRequests();

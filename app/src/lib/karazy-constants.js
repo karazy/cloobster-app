@@ -32,7 +32,9 @@ Karazy.constants = (function() {
 			US_DOLLAR: '\$ $1.$2'
 		},
 		//Client side 
-		FORCE_LOGOUT : 'FORCE_LOGOUT'
+		FORCE_LOGOUT : 'FORCE_LOGOUT',
+		LOGGED_IN : 'LOGGED_IN',
+		LOGGED_OUT : 'LOGGED_OUT',
 	};
 
 })();
