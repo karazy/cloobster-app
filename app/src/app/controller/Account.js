@@ -8,19 +8,23 @@ Ext.define('EatSense.controller.Account', {
 	config: {
 		refs: {
 			mainView: 'mainview',
-			loginView : 'login',
-			showLoginButton : 'dashboard button[action=login]',
-			backToDashBoardButton : 'login button[action=back]',
+			loginView : {
+				selector: 'login',
+				xtype: 'login',
+				autoCreate: true
+			},
+			showLoginButtonDashboard : 'dashboard button[action=login]',
+			backButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
 			loginForm : 'login formpanel'
 		},
 		control: {
-			showLoginButton : {
+			showLoginButtonDashboard : {
 				tap: 'showLoginView'
 			},
-			backToDashBoardButton : {
-				tap: 'showDashboard'
+			backButton : {
+				tap: 'hideLoginView'
 			},
 			signupButton : {
 				tap: 'showSignupConfimDialog'
@@ -28,22 +32,38 @@ Ext.define('EatSense.controller.Account', {
 			loginButton : {
 				tap: 'login'
 			}
-		}
+		},
 	},
+
+
+	checkAccessToken: function() {
+		var accessToken,
+			checkInCtr = this.getApplication().getController('CheckIn');
+
+		accessToken = checkInCtr.getAppState().get('accessToken');
+		      //If access token was found set it
+      if(accessToken) {
+        headerUtil.addHeader('X-Auth', accessToken);
+        this.hideDashboardLoginButton();
+      };
+  },
 
 	showLoginView: function(button) {
-		var mainView = this.getMainView(),
-			loginView = this.getLoginView();
+		var loginView = this.getLoginView();
 
-		mainView.switchAnim('left');
-		mainView.setActiveItem(loginView);	
+		// mainView.switchAnim('left');
+		// mainView.setActiveItem(loginView);	
+		Ext.Viewport.add(loginView);
+		loginView.show();
 	},
 
-	showDashboard: function(button) {
-		var mainView = this.getMainView();
-		
-		mainView.switchAnim('right');
-		mainView.setActiveItem(0);
+	hideLoginView: function(button) {		
+		// mainView.switchAnim('right');
+		// mainView.setActiveItem(0);
+
+		// Ext.Viewport.remove(this.getLoginView());
+
+		this.getLoginView().hide();
 	},
 
 	showSignupConfimDialog: function(button) {
@@ -69,9 +89,10 @@ Ext.define('EatSense.controller.Account', {
             }
         }); 
 
-	    //Called after succesful signuo
+	    //Called after succesful signup
         function callback() {
-        	me.showDashboard();
+        	me.hideDashboardLoginButton();
+        	me.hideLoginView();
 
     		Ext.Msg.alert(Karazy.i18n.translate('account.signup.success.title'),
     	    	Karazy.i18n.translate('account.signup.success.message')
@@ -174,7 +195,9 @@ Ext.define('EatSense.controller.Account', {
 				headerUtil.addHeader('X-Auth', account.get('accessToken'));
 
 				checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
-				checkInCtr.fireEvent('statusChanged', Karazy.constants.USER_LOGGED_IN);
+				
+				me.hideDashboardLoginButton();
+				me.hideLoginView();
     	    },
     	    failure: function(response) {
 
@@ -206,17 +229,17 @@ Ext.define('EatSense.controller.Account', {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
 		headerUtil.resetHeaders(['X-Auth']);
-		
-		checkInCtr.fireEvent('statusChanged', Karazy.constants.USER_LOGGED_OUT);
+
+		me.showDashboardLoginButton();
 	},
 	//ui actions start
 	hideDashboardLoginButton: function() {
-		this.getShowLoginButton().disable();
-		this.getShowLoginButton().hide();
+		this.getShowLoginButtonDashboard().disable();
+		this.getShowLoginButtonDashboard().hide();
 	},
 	showDashboardLoginButton: function() {
-		this.getShowLoginButton().enable();
-		this.getShowLoginButton().show();	
+		this.getShowLoginButtonDashboard().enable();
+		this.getShowLoginButtonDashboard().show();	
 	}
 	//ui actions end
 });

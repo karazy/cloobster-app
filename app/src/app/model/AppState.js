@@ -33,6 +33,10 @@ Ext.define('EatSense.model.AppState', {
 		{
 			name: 'status',
 			type: 'string'
+		},
+		{
+			name: 'prevStatus',
+			type: 'string'
 		} ]
 	}
 });

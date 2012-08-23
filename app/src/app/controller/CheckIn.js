@@ -268,7 +268,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
   					   	    //currently disabled, will be enabled when linking to users actually makes sense
                     //me.showCheckinWithOthers();
-                    me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
+                    me.fireEvent('statusChanged', appConstants.CHECKEDIN);
   					   	    me.showLounge();
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
@@ -462,9 +462,9 @@ Ext.define('EatSense.controller.CheckIn', {
 
         this.setActiveCheckIn(checkIn);
         //reload of application before hitting leave button
-        if(checkIn.get('status') == Karazy.constants.PAYMENT_REQUEST) {
+        if(checkIn.get('status') == appConstants.PAYMENT_REQUEST) {
             console.log('PAYMENT_REQUEST already issued. Don\'t restore state!');
-            this.handleStatusChange(Karazy.constants.COMPLETE);
+            this.handleStatusChange(appConstants.COMPLETE);
             this.setActiveCheckIn(null);
             return;
         }
@@ -484,14 +484,14 @@ Ext.define('EatSense.controller.CheckIn', {
    			 this.showLounge();
    			    			
    			Ext.Viewport.add(main);
-        me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
+        me.fireEvent('statusChanged', appConstants.CHECKEDIN);
    			
    			//after spot information is restored and stores are initialized load orders
    			
    			this.getActiveCheckIn().orders().load({
    				scope: this,
    				params: {
-   					'status': Karazy.constants.Order.CART,
+   					'status': appConstants.Order.CART,
    				},
    				callback: function(records, operation, success) {
    					if(success == true) {
@@ -551,6 +551,7 @@ Ext.define('EatSense.controller.CheckIn', {
   * Furthermore resets ui states and does cleanups.
 	 * Always use this method to change the application status. 
 	 * @param status
+   *  The new status to set.
 	 */
 	handleStatusChange: function(status) {
 		console.log('CheckIn Controller -> handleStatusChange' + ' new status '+status);
@@ -561,19 +562,23 @@ Ext.define('EatSense.controller.CheckIn', {
                 requestCtr = this.getApplication().getController('Request'),
                 menuStore = Ext.StoreManager.lookup('menuStore'),
                 feedbackCtr = this.getApplication().getController('Feedback'),
-                accountCtr = this.getApplication().getController('Account');
+                accountCtr = this.getApplication().getController('Account'),
+                appState = this.getAppState();
 
-		//TODO check status transitions, refactor     
-		if(status == Karazy.constants.CHECKEDIN) {
+    appState.set('prevStatus', appState.get('status'));
+    appState.set('status', status);
+
+		//TODO check status transitions, refactor
+		if(status == appConstants.CHECKEDIN) {
 
     }
-		else if(status == Karazy.constants.PAYMENT_REQUEST) {
+		else if(status == appConstants.PAYMENT_REQUEST) {
 			this.getMenuTab().disable();
 			this.getCartTab().disable()
       this.getSettingsTab().disable();
       this.getRequestsTab().disable();			
 			this.getActiveCheckIn().set('status', status);
-		} else if (status == Karazy.constants.COMPLETE || status == Karazy.constants.CANCEL_ALL || status == Karazy.constants.FORCE_LOGOUT) {
+		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 			this.showDashboard();
       this.getMenuTab().enable();
 			this.getCartTab().enable();
@@ -598,14 +603,20 @@ Ext.define('EatSense.controller.CheckIn', {
       requestCtr.resetAllRequests();
       androidCtr.setAndroidBackHandler(null);
 		}
+    
+    //TODO remove?
+    // if(status == appConstants.USER_LOGGED_IN) {
+    //     accountCtr.hideDashboardLoginButton();
+    //     if(!appState.get('status')) {
+    //         //User is currently not in a checkIn and 
+    //         accountCtr.showDashboard();
+    //     }
 
-    if(status == Karazy.constants.USER_LOGGED_IN) {
-        accountCtr.hideDashboardLoginButton();
-    } else if (status == Karazy.constants.USER_LOGGED_IN) {
-        accountCtr.showDashboardLoginButton();
-    }
+    // } else if (status == appConstants.USER_LOGGED_IN) {
+    //     accountCtr.showDashboardLoginButton();
+    // }
 
-    if(status == Karazy.constants.CANCEL_ALL) {
+    if(status == appConstants.CANCEL_ALL) {
         Ext.Msg.alert(Karazy.i18n.translate('hint'), Karazy.i18n.translate('checkInCanceled'), Ext.emptyFn);
     }
 	},
@@ -618,7 +629,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
         if(action == "delete") {
             if(checkIn.get('userId') == updatedCheckIn.userId) {
-                this.fireEvent('statusChanged', Karazy.constants.CANCEL_ALL);
+                this.fireEvent('statusChanged', appConstants.CANCEL_ALL);
             }
         }
     }

@@ -48,7 +48,7 @@ Ext.define('EatSense.controller.Request',{
 		
 		//TODO validate!?!?!
 
-		request.set('type', Karazy.constants.Request.CALL_WAITER);
+		request.set('type', appConstants.Request.CALL_WAITER);
 		//workaround to prevent sencha from sending phantom id
 		request.setId('');
 
@@ -93,7 +93,7 @@ Ext.define('EatSense.controller.Request',{
 
 		console.log('Request Controller -> cancelCallWaiterRequest');
 
-		request = requestStore.findRecord('type', Karazy.constants.Request.CALL_WAITER, false, true, true);
+		request = requestStore.findRecord('type', appConstants.Request.CALL_WAITER, false, true, true);
 
 		if(request) {
 			button.disable();
@@ -156,7 +156,7 @@ Ext.define('EatSense.controller.Request',{
                  } 
                 else {
                 	Ext.each(records,(function(rec) {
-                		if(rec.get('type') ==  Karazy.constants.Request.CALL_WAITER) {
+                		if(rec.get('type') ==  appConstants.Request.CALL_WAITER) {
                 			me.getCallWaiterButton().mode = 'cancel';
                 			label.setHtml(Karazy.i18n.translate('callWaiterCancelHint'));
 							me.getCallWaiterButton().setText(Karazy.i18n.translate('cancelCallWaiterRequest'));
@@ -192,7 +192,7 @@ Ext.define('EatSense.controller.Request',{
 
 		request = requestStore.getById(data.id);
 		if(request) {
-			if(action == 'delete' && data.type == Karazy.constants.Request.CALL_WAITER) {
+			if(action == 'delete' && data.type == appConstants.Request.CALL_WAITER) {
 				requestStore.remove(request);
 				this.getCallWaiterButton().mode = 'call';
 				this.getCallWaiterButton().setText(Karazy.i18n.translate('callWaiterButton'));

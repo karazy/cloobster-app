@@ -598,7 +598,7 @@
 			choosenMethod,
 			me = this;
 		
-		if(orderCount>0 && checkIn.get('status') !== Karazy.constants.PAYMENT_REQUEST && checkIn.get('status') !== Karazy.constants.COMPLETE) {
+		if(orderCount>0 && checkIn.get('status') !== appConstants.PAYMENT_REQUEST && checkIn.get('status') !== appConstants.COMPLETE) {
 
 			//create picker
 			picker = Ext.create('Ext.Picker', {
@@ -668,7 +668,7 @@
 			scope: this,
 			success: function(record, operation) {
 					me.setActiveBill(record);
-					checkInCtr.fireEvent('statusChanged', Karazy.constants.PAYMENT_REQUEST);
+					checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
 					payButton.hide();
 					myordersComplete.show();
 					me.refreshMyOrdersBadgeText(true);
@@ -703,7 +703,7 @@
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			myordersStore = Ext.data.StoreManager.lookup('orderStore');	
 
-		if(checkIn.get('status') != Karazy.constants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) { 
+		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) { 
 			checkIn.erase( {
 				failure: function(response, operation) {
 					me.getApplication().handleServerError({
@@ -713,7 +713,7 @@
 				}
 			}
 			);
-			this.getApplication().getController('CheckIn').fireEvent('statusChanged', Karazy.constants.COMPLETE);
+			this.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
 		}				
 	},
 	/**
@@ -723,7 +723,7 @@
 		var myordersComplete = this.getMyordersComplete();
 		
 		myordersComplete.hide();
-		this.getApplication().getController('CheckIn').fireEvent('statusChanged', Karazy.constants.COMPLETE);
+		this.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
 	},	
 	//UI Actions
 	/**

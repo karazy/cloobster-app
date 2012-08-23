@@ -1,6 +1,6 @@
 Ext.define('EatSense.view.Login', {
 	extend: 'Ext.Panel',
-	requires: ['Ext.field.Text', 'Ext.field.Password', 'Ext.Button'],
+	requires: ['Ext.field.Text', 'Ext.field.Password', 'Ext.Button', 'Ext.form.FieldSet'],
 	xtype: 'login',
 	config: {
 		layout: {
@@ -8,6 +8,14 @@ Ext.define('EatSense.view.Login', {
 			// align : 'center',
 			pack: 'center'
 		},
+		showAnimation: 'slideIn',
+		hideAnimation:  {
+			type: 'slide',
+			direction: 'right'
+		},
+		//BUG: has to be set otherwise an error gets trown
+		//http://www.sencha.com/forum/showthread.php?192847-Animating-panels-throws-Cannot-call-method-getPageBox-of-null/page2
+		hidden: true,
 		cls: 'dashboard',		
 		items: [
 			{

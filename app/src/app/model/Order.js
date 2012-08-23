@@ -134,7 +134,7 @@ Ext.define('EatSense.model.Order', {
 		_total = _total*_amount;
 		this.set('price_calculated', _total);
 		
-		return (this.get('status') == Karazy.constants.Order.CANCELED) ? 0 : _total;
+		return (this.get('status') == appConstants.Order.CANCELED) ? 0 : _total;
 	},
 	/**
 	*	Saves the state of this order.

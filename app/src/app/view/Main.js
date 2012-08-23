@@ -23,9 +23,9 @@ Ext.define('EatSense.view.Main', {
 		{
 			xtype : 'checkinconfirmation'
 		}, 
-		{
-			xtype: 'login'
-		},
+		// {
+		// 	xtype: 'login'
+		// },
 		// {
 		// 	layout : 'fit',
 		// 	xtype : 'checkinwithothers'

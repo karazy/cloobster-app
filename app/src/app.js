@@ -27,6 +27,7 @@ Ext.application({
     'Ext.MessageBox',
     //util
     'EatSense.util.AjaxHeaderHelper',
+    'EatSense.util.Constants',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
 		'EatSense.override.OperationImprovement',
@@ -53,8 +54,8 @@ Ext.application({
   			appStateStore = Ext.data.StoreManager.lookup('appStateStore'),
   	 		checkInCtr = this.getController('CheckIn'),
         settingsCtr = this.getController('Settings'),
+        accountCtr = this.getController('Account'),
   	 		restoredCheckInId,
-        accessToken,
         //default ajax headers
         defaultHeaders = {}; 
 
@@ -95,14 +96,9 @@ Ext.application({
 	   		console.log('app state found');
 		   	checkInCtr.setAppState(appStateStore.getAt(0));
 	   		restoredCheckInId = checkInCtr.getAppState().get('checkInId');
-        accessToken = checkInCtr.getAppState().get('accessToken');
+        accountCtr.checkAccessToken();
 	   	}
 
-      //If access token was found set it
-      if(accessToken) {
-        headerUtil.addHeader('X-Auth', accessToken);
-        checkInCtr.fireEvent('statusChanged', Karazy.constants.USER_LOGGED_IN);
-      };
 
 	   	 //found a valid checkIn Id. Restore state.
 	   	 if(restoredCheckInId) {

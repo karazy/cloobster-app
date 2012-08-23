@@ -48,15 +48,15 @@ Ext.define('EatSense.view.SettingsTab', {
 			xtype: 'newsletter',			
 			width: '80%'
 		},
-		{
-			xtype: 'button',
-			text: Karazy.i10n.translate('settings.button.logout',
-			ui: 'action',
-			action: 'logout',
-			margin: '7 0 5 0',
-			disabled: true,
-			width: '80%'
-		},
+		// {
+		// 	xtype: 'button',
+		// 	text: Karazy.i10n.translate('settings.button.logout'),
+		// 	ui: 'action',
+		// 	action: 'logout',
+		// 	margin: '7 0 5 0',
+		// 	disabled: true,
+		// 	width: '80%'
+		// },
 		{
 			xtype: 'button',
 			text: 'Impressum',
