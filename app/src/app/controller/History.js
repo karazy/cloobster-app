@@ -85,7 +85,7 @@ Ext.define('EatSense.controller.History', {
    		footer.getTpl().overwrite(footer.element, history.getData());
 
    		this.loadHistoryOrders(history);
-   		
+
    		mainView.switchAnim('left');
 		mainView.setActiveItem(historyDetailView);
 
@@ -101,7 +101,10 @@ Ext.define('EatSense.controller.History', {
 
    loadHistoryOrders: function(history) {
    		var	list = this.getHistoryDetailOrderList();
+   		console.log('load history for checkInId ' + history.get('checkInId'));
 
+   		list.getStore().removeAll();
+   		
    		list.getStore().load({
    			params: {
    				'pathId' : history.get('businessId'),
