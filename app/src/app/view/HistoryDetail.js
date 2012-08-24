@@ -21,39 +21,48 @@ Ext.define('EatSense.view.HistoryDetail', {
 					}, 
 				]
 			},
-			{	//Business name and CheckInTime
-				xtype: 'label',	
-				itemId: 'header',
-				cls: 'history-detail-header',
-				tpl: new Ext.XTemplate('<h1>{businessName}</h1> <h3>{[this.formatDate(values.billTime)]}<h3>', {
+			{
+				xtype: 'panel',
+				cls: 'history-detail-wrapper',
+				layout: 'fit',
+				items: [
+					{	//Business name and CheckInTime
+					xtype: 'label',	
+					itemId: 'header',
+					cls: 'history-detail-header',
+					tpl: new Ext.XTemplate('<h1>{businessName} - {[this.formatDate(values.billTime)]}</h1>', {
 
-					formatDate: function(date) {
-						var format = appConstants.DateTimeFormat[appConfig.language];
-						return Ext.util.Format.date(date, format);
-					}
-				}),
-				docked: 'top',
-				// flex: 1		
-			},
-			{	//orders
-				xtype: 'list',
-				itemId: 'historyOrders',
-				store: {
-					model: 'EatSense.model.Order'
+						formatDate: function(date) {
+							var format = appConstants.DateTimeFormat[appConfig.language];
+							return Ext.util.Format.date(date, format);
+						}
+					}),
+					docked: 'top',
+					// flex: 1		
 				},
-				itemTpl: '{amount}x - {productName}',
-				// flex: 4,
-				// layout: 'fit',
-				// fullscreen: true
-			},
-			{	//total amount
-				xtype: 'label',
-				cls: 'history-detail-footer',
-				itemId: 'footer',
-				tpl: '<h1>Total: {billTotal}</h1>',
-				docked: 'bottom'
-				// flex: 1
+				{	//orders
+					xtype: 'list',
+					itemId: 'historyOrders',
+					cls: 'history-detail-list',
+					itemCls: 'history-detail-item',
+					disableSelection: true,
+					store: {
+						model: 'EatSense.model.Order'
+					},
+					itemTpl: '{amount}x - {productName}',
+				},
+				{	//total amount
+					xtype: 'label',
+					cls: 'history-detail-footer',
+					itemId: 'footer',
+					tpl: '<h1>Total: {billTotal}</h1>',
+					docked: 'bottom'
+					// flex: 1
+				}
+
+				]
 			}
+
 		]
 	}
 });

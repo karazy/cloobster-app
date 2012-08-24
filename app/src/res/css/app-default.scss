@@ -571,28 +571,46 @@ h9 {
 /*
 * History
 */
+
+.history-detail-wrapper {
+  padding: 1em;
+}
+
 .history-detail-header {
-    margin-bottom: 1em;
+    background: url(../images/history/header-bg.png) repeat-x;
+    height: 2em;
     text-align: center;
 
-    h1 {
-      float: left;
-      margin-right: 0.5em;
+    h1 {      
+      padding-top: 0.5em;
       font-size: 1em;
-    }
-
-    h3 {
-      font-size: 0.8em;
     }
 }
 
 .history-detail-footer {
+   background: url(../images/history/footer-bg.png) repeat-x;
+   background-position: left bottom;
+   height: 2em;
+
   text-align: center;
 
   h1 {
     font-size: 1em;
   }
 
+}
+
+.history-detail-list {
+  background-color: #f3e8d5;
+}
+
+.history-detail-item {
+  background: url(../images/history/item-bg.png) repeat-x;
+  height: 40px;
+
+  .x-list-item-label {
+    border: none !important;
+  }
 }
 
 
