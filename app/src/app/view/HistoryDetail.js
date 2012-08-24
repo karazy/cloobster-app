@@ -30,7 +30,7 @@ Ext.define('EatSense.view.HistoryDetail', {
 					xtype: 'label',	
 					itemId: 'header',
 					cls: 'history-detail-header',
-					tpl: new Ext.XTemplate('<h1>{businessName} - {[this.formatDate(values.billTime)]}</h1>', {
+					tpl: new Ext.XTemplate('<h1>{businessName} - {[this.formatDate(values.billTime)]}</h1> ', {
 
 						formatDate: function(date) {
 							var format = appConstants.DateTimeFormat[appConfig.language];
@@ -49,7 +49,15 @@ Ext.define('EatSense.view.HistoryDetail', {
 					store: {
 						model: 'EatSense.model.Order'
 					},
-					itemTpl: '{amount}x - {productName}',
+					itemTpl: new Ext.XTemplate(
+							"<table style='width:100%;'>"+				
+							"<td align='left'><h2 class='title'>{amount} x {productName}</h2></td><td align='right'><h2 class='price'>{[this.formatPrice(values.price_calculated)]}</td></h2>"+
+							"</table>",
+					{
+						formatPrice: function(price) {
+									return appHelper.formatPrice(price);
+						}
+					})
 				},
 				{	//total amount
 					xtype: 'label',

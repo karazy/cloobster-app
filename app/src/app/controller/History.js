@@ -104,7 +104,7 @@ Ext.define('EatSense.controller.History', {
    		console.log('load history for checkInId ' + history.get('checkInId'));
 
    		list.getStore().removeAll();
-   		
+
    		list.getStore().load({
    			params: {
    				'pathId' : history.get('businessId'),
@@ -113,6 +113,10 @@ Ext.define('EatSense.controller.History', {
    			},
    			callback: function(records, operation, success) {
    				if(success) {
+   					Ext.Array.each(records, function(order) {
+   						//TODO remove maybe later and store calculated price in backend
+   						order.calculate();
+   					});
    					list.refresh();
    				}
    			}
