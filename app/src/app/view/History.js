@@ -5,17 +5,6 @@ Ext.define('EatSense.view.History',{
 	config: {
 		cls: 'dashboard',
 		layout: 'fit',
-		// defaultBackButtonText : i10n.translate('back'),
-		// navigationBar : {
-		// 	items: [
-		// 	{
-		// 		xtype : 'button',
-		// 		action: 'back',
-		// 		text : i10n.translate('back'),
-		// 		ui : 'back'
-		// 	}
-		// 	]
-		// },
 		items: [
 		{
 			docked : 'top',
@@ -30,9 +19,7 @@ Ext.define('EatSense.view.History',{
 				}, 
 			]
 		},
-		{	
-			//title for navigation view (not part of list!)
-			// title: i10n.translate('history.title'),
+		{
 			xtype: 'list',
 			ui: 'round',					
 			store: 'historyStore',				

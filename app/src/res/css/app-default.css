@@ -7440,27 +7440,28 @@ h9 {
 
 /* line 590, app-default.scss */
 .history-detail-footer {
-  background: url(../images/history/footer-bg-2.png) repeat-x;
-  background-position: left bottom;
+  /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
+  /*background-position: left bottom;*/
+  background-color: #f3e8d5;
   height: 2em;
   text-align: center;
 }
-/* line 597, app-default.scss */
+/* line 598, app-default.scss */
 .history-detail-footer h1 {
   font-size: 1em;
 }
 
-/* line 603, app-default.scss */
+/* line 604, app-default.scss */
 .history-detail-list {
   background-color: #f3e8d5;
 }
 
-/* line 607, app-default.scss */
+/* line 608, app-default.scss */
 .history-detail-item {
   background: url(../images/history/item-bg.png) repeat-x;
   height: 40px;
 }
-/* line 611, app-default.scss */
+/* line 612, app-default.scss */
 .history-detail-item .x-list-item-label {
   border: none !important;
 }
@@ -7471,7 +7472,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 624, app-default.scss */
+/* line 625, app-default.scss */
 .x-msgbox.x-floating {
   padding: 2px;
   background: #917d64 url("../images/bg-rp-main.png");
@@ -7480,19 +7481,19 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 632, app-default.scss */
+/* line 633, app-default.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Item disclosure! */
-/* line 637, app-default.scss */
+/* line 638, app-default.scss */
 .x-list-round .x-list-disclosure {
   background-image: -webkit-linear-gradient(top right, #8aa529, #abcd34 50%);
 }
 
 /* Perf. optimization for android. */
-/* line 642, app-default.scss */
+/* line 643, app-default.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
@@ -7512,7 +7513,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 663, app-default.scss */
+/* line 664, app-default.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -7520,7 +7521,7 @@ h9 {
 /**
 * Set background image for tabbar.
 */
-/* line 670, app-default.scss */
+/* line 671, app-default.scss */
 .x-tabbar-dark {
   background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
   border-color: #594b3a !important;
@@ -7530,7 +7531,7 @@ h9 {
 /**
 * Set background image for toolbar.
 */
-/* line 679, app-default.scss */
+/* line 680, app-default.scss */
 .x-toolbar-dark {
   background: #cedb93 url("../images/bg-rp-top.png") repeat left top;
   border-color: #594b3a !important;
@@ -7540,27 +7541,27 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 688, app-default.scss */
+/* line 689, app-default.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /* Ticket 105 */
   text-shadow: none;
 }
 
-/* line 695, app-default.scss */
+/* line 696, app-default.scss */
 .x-list-round .x-scroll-view {
   /* Explizit override needed because ui round ignores $list-bg-color. */
   background-color: #917D64 !important;
 }
 
-/* line 700, app-default.scss */
+/* line 701, app-default.scss */
 .lounge-tabbar .x-tab {
   color: #614021;
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
   font-family: Helvetica Neue !important;
 }
 
-/* line 706, app-default.scss */
+/* line 707, app-default.scss */
 .lounge-tabbar .x-tab-active {
   color: #614021;
   border-bottom: 2px solid #614021;
@@ -7569,7 +7570,7 @@ h9 {
 /*
 * Override tabbar background colors.
 */
-/* line 713, app-default.scss */
+/* line 714, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background: #614021;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(0%, #614021), color-stop(100%, #8e6e51));
@@ -7579,7 +7580,7 @@ h9 {
 /*
 * Override active tabbar background colors.
 */
-/* line 722, app-default.scss */
+/* line 723, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background: #f79621;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f79621), color-stop(100%, #f9c667));
@@ -7591,7 +7592,7 @@ h9 {
 /* 
 * Override button css. Prevents default gradient rendering.
 */
-/* line 733, app-default.scss */
+/* line 734, app-default.scss */
 .x-toolbar-dark .x-button, .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-button, .x-toolbar .x-toolbar-dark .x-button.x-button-back::after, .x-toolbar .x-toolbar-dark .x-button.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer.x-button-forward::after, .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-back::after, .x-toolbar .x-toolbar-dark .x-field-select .x-component-outer::before.x-button-forward::after {
   background: #f79621;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9c667), color-stop(100%, #f79621));
@@ -7602,7 +7603,7 @@ h9 {
 /*
 * Override button font color.
 */
-/* line 743, app-default.scss */
+/* line 744, app-default.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: #594b3a;
 }
@@ -7610,7 +7611,7 @@ h9 {
 /*
 * Override button pressed color.
 */
-/* line 774, app-default.scss */
+/* line 775, app-default.scss */
 .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar-dark .x-button.x-button-active, .x-toolbar-dark .x-button.x-button-active:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing, .x-toolbar .x-toolbar-dark .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed, .x-toolbar .x-toolbar-dark .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-dark .x-button.x-button-active, .x-toolbar .x-toolbar-dark .x-button.x-button-active:after,
 .x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing,
 .x-toolbar-dark .x-field-select .x-component-outer.x-button-pressing:after,
