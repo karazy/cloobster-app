@@ -568,6 +568,33 @@ h9 {
   border-radius: 0.3em 0.3em 0 0;
 }
 
+/*
+* History
+*/
+.history-detail-header {
+    margin-bottom: 1em;
+    text-align: center;
+
+    h1 {
+      float: left;
+      margin-right: 0.5em;
+      font-size: 1em;
+    }
+
+    h3 {
+      font-size: 0.8em;
+    }
+}
+
+.history-detail-footer {
+  text-align: center;
+
+  h1 {
+    font-size: 1em;
+  }
+
+}
+
 
 /*
 * Overrides! Most of them should later be solved via mixins or custom classes.

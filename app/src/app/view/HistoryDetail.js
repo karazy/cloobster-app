@@ -4,7 +4,8 @@ Ext.define('EatSense.view.HistoryDetail', {
 	xtype: 'historydetail',
 	config: {
 		layout: {
-			type: 'vbox'
+			type: 'fit',
+			align: 'stretch'
 		},
 		items: [
 			{
@@ -23,22 +24,35 @@ Ext.define('EatSense.view.HistoryDetail', {
 			{	//Business name and CheckInTime
 				xtype: 'label',	
 				itemId: 'header',
-				tpl: '{businessName}',
-				flex: 1		
+				cls: 'history-detail-header',
+				tpl: new Ext.XTemplate('<h1>{businessName}</h1> <h3>{[this.formatDate(values.billTime)]}<h3>', {
+
+					formatDate: function(date) {
+						var format = appConstants.DateTimeFormat[appConfig.language];
+						return Ext.util.Format.date(date, format);
+					}
+				}),
+				docked: 'top',
+				// flex: 1		
 			},
 			{	//orders
 				xtype: 'list',
+				itemId: 'historyOrders',
 				store: {
 					model: 'EatSense.model.Order'
 				},
 				itemTpl: '{amount}x - {productName}',
-				flex: 4
+				// flex: 4,
+				// layout: 'fit',
+				// fullscreen: true
 			},
 			{	//total amount
 				xtype: 'label',
+				cls: 'history-detail-footer',
 				itemId: 'footer',
-				tpl: 'Total: {billTotal}',
-				flex: 1
+				tpl: '<h1>Total: {billTotal}</h1>',
+				docked: 'bottom'
+				// flex: 1
 			}
 		]
 	}

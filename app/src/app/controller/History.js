@@ -15,12 +15,13 @@ Ext.define('EatSense.controller.History', {
 			backButton : 'history button[action=back]',
 			backDetailButton : 'historydetail button[action=back]',
 			showHistoryButton: 'dashboard button[action=history]',
-			historyDetailView: {
-				selector: 'history historydetail',
-				xtype: 'historydetail',
-				autoCreate: true
-			},
-			historyDetailOrderList : 'historydetail list'
+			// historyDetailView: {
+			// 	selector: 'historydetail',
+			// 	xtype: 'historydetail',
+			// 	autoCreate: true
+			// },
+			historyDetailView: 'mainview historydetail',
+			historyDetailOrderList : 'historydetail #historyOrders'
 		},
 		control: {
 			showHistoryButton : {
@@ -54,21 +55,15 @@ Ext.define('EatSense.controller.History', {
 	       mainView = this.getMainView(),
 	       historyView = this.getHistoryView();	 
 	   
-	   if(historyView.getActiveItem() == 0) {
-	   		mainView.switchAnim('right');
-	   		mainView.setActiveItem(dashboardView);
-	   } else {
-	   	historyView.setActiveItem(0);
-	   }
-
-
+	   	mainView.switchAnim('right');
+	   	mainView.setActiveItem(dashboardView);
    },
 
    loadHistory: function() {
    		var historyStore = Ext.StoreManager.lookup('historyStore'),
    			historyList = this.getHistoryList();
 
-   		historyStore.load();
+   		historyStore.loadPage(1);
 
    		historyList.refresh();
 
@@ -89,10 +84,12 @@ Ext.define('EatSense.controller.History', {
    		header.getTpl().overwrite(header.element, history.getData());
    		footer.getTpl().overwrite(footer.element, history.getData());
 
+   		this.loadHistoryOrders(history);
+   		
    		mainView.switchAnim('left');
 		mainView.setActiveItem(historyDetailView);
 
-		this.loadHistoryOrders(history);
+		
    },
 
    backToHistory: function(button) {
@@ -108,7 +105,13 @@ Ext.define('EatSense.controller.History', {
    		list.getStore().load({
    			params: {
    				'pathId' : history.get('businessId'),
-   				'checkInId' : history.get('checkInId')
+   				'checkInId' : history.get('checkInId'),
+   				'status' : appConstants.Order.COMPLETE
+   			},
+   			callback: function(records, operation, success) {
+   				if(success) {
+   					list.refresh();
+   				}
    			}
    		});
    }

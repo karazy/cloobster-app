@@ -130,6 +130,7 @@ Ext.define('EatSense.util.Translations',{
 		//history
 		"history.title" : "Historie",
 		"dashboard.button.history" : "Historie",
+		"history.detail.title" : "Rechnung",
 		//errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		
