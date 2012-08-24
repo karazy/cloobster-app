@@ -51,7 +51,8 @@ Ext.define('EatSense.view.History',{
 			plugins: [
 		        {
 		            xclass: 'Ext.plugin.ListPaging',
-		            autoPaging: true
+		            loadMoreText: i10n.translate('history.detail.list.paging')
+		            // autoPaging: true
 		        }
 		    ]
 		}			

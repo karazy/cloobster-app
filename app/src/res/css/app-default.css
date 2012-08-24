@@ -7428,19 +7428,19 @@ h9 {
 
 /* line 579, app-default.scss */
 .history-detail-header {
-  background: url(../images/history/header-bg.png) repeat-x;
-  height: 2em;
+  background: url(../images/history/header-bg-2.png) repeat-x;
+  height: 2.2em;
   text-align: center;
 }
 /* line 584, app-default.scss */
 .history-detail-header h1 {
-  padding-top: 0.5em;
+  padding-top: 0.8em;
   font-size: 1em;
 }
 
 /* line 590, app-default.scss */
 .history-detail-footer {
-  background: url(../images/history/footer-bg.png) repeat-x;
+  background: url(../images/history/footer-bg-2.png) repeat-x;
   background-position: left bottom;
   height: 2em;
   text-align: center;

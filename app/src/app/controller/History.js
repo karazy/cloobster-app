@@ -1,6 +1,6 @@
 /**
 * Controller handles user history of visited locations.
-*
+* 
 */
 Ext.define('EatSense.controller.History', {
 	extend: 'Ext.app.Controller',
@@ -38,7 +38,10 @@ Ext.define('EatSense.controller.History', {
 			}
 		}
 	},	
-
+	/**
+	* Event handler for history button.
+	* Shows the history view.
+	*/
 	showHistory: function(button) {
 		var mainView = this.getMainView(),
 			historyView = this.getHistoryView();
@@ -49,7 +52,9 @@ Ext.define('EatSense.controller.History', {
 			this.loadHistory();
 	},
 
-
+	/**
+	* Jump back to dashboard.
+	*/
    showDashboard: function(options) {
 	   var dashboardView = this.getDashboard(),
 	       mainView = this.getMainView(),
@@ -58,28 +63,40 @@ Ext.define('EatSense.controller.History', {
 	   	mainView.switchAnim('right');
 	   	mainView.setActiveItem(dashboardView);
    },
-
+   /**
+   * Loads the history for logged in user.
+   * History will be stored in historyStore.
+   */
    loadHistory: function() {
    		var historyStore = Ext.StoreManager.lookup('historyStore'),
    			historyList = this.getHistoryList();
 
-   		historyStore.loadPage(1);
+   		historyStore.loadPage(1, {
+   			callback: function(records, operation, success) {
+   				if(!success) {
+   					me.getApplication().handleServerError({
+							'error': operation.error,
+							//accessToken invalid
+							'forceLogout': {403: true}
+					});
+   				}
+   			}
+   		});
 
    		historyList.refresh();
 
    },
 
    //start history detail
-
+   /**
+   * Tap event handler for history list.
+   * Loads all orders assigned to selected history element and shows them in a detail view.
+   */
    showHistoryDetail: function(view, index, htmlElement, history) {
    		var mainView = this.getMainView(),
    			historyDetailView = this.getHistoryDetailView(),
    			header = historyDetailView.down('#header'),
    			footer = historyDetailView.down('#footer');
-
-   		//setTitle() doesn't work for Sencha 2.0.0
-   		// historyDetailView.config.title = history.get('businessName');
-   		// historyView.push(historyDetailView);
 
    		header.getTpl().overwrite(header.element, history.getData());
    		footer.getTpl().overwrite(footer.element, history.getData());
@@ -91,16 +108,23 @@ Ext.define('EatSense.controller.History', {
 
 		
    },
-
+   /**
+   * Jump back to history overview.
+   */
    backToHistory: function(button) {
    		var mainView = this.getMainView(),
    		historyView = this.getHistoryView();
    		mainView.switchAnim('right');
 		mainView.setActiveItem(historyView);
    },
-
+   /**
+   * Loads all orders for given history.
+   * @param history
+   *	History to load orders for.
+   */
    loadHistoryOrders: function(history) {
-   		var	list = this.getHistoryDetailOrderList();
+   		var	me = this,
+   			list = this.getHistoryDetailOrderList();
    		console.log('load history for checkInId ' + history.get('checkInId'));
 
    		list.getStore().removeAll();
@@ -118,6 +142,12 @@ Ext.define('EatSense.controller.History', {
    						order.calculate();
    					});
    					list.refresh();
+   				} else {
+   					me.getApplication().handleServerError({
+							'error': operation.error,
+							//accessToken invalid
+							'forceLogout': {403: true}
+					});
    				}
    			}
    		});

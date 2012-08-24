@@ -136,6 +136,8 @@ Karazy.translations = (function() {
 		//history
 		"history.title" : "Historie",
 		"dashboard.button.history" : "Historie",
+		"history.detail.title" : "Rechnung",
+		"history.detail.list.paging" : "Mehr laden ...",
 		//errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		
