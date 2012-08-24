@@ -140,7 +140,8 @@ Ext.define('EatSense.controller.Account', {
         		//set active Account in Application
         		//store accessToken in AppState
         		checkInCtr.getAppState().set('accessToken', record.get('accessToken'));
-
+        		//Set default headers so that always credentials are send
+				headerUtil.addHeader('X-Auth', record.get('accessToken'));
         		callback();
         	},
         	failure: function(record, operation) {

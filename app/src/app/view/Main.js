@@ -26,6 +26,9 @@ Ext.define('EatSense.view.Main', {
 		{
 			xtype: 'history'
 		},
+		{
+			xtype: 'historydetail'
+		},
 		// {
 		// 	layout : 'fit',
 		// 	xtype : 'checkinwithothers'

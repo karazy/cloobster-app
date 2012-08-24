@@ -13,12 +13,14 @@ Ext.define('EatSense.controller.History', {
 			historyView : 'mainview history',
 			historyList : 'mainview history list',
 			backButton : 'history button[action=back]',
+			backDetailButton : 'historydetail button[action=back]',
 			showHistoryButton: 'dashboard button[action=history]',
 			historyDetailView: {
-				selector: 'historydetail',
+				selector: 'history historydetail',
 				xtype: 'historydetail',
 				autoCreate: true
-			}
+			},
+			historyDetailOrderList : 'historydetail list'
 		},
 		control: {
 			showHistoryButton : {
@@ -26,6 +28,9 @@ Ext.define('EatSense.controller.History', {
 			},
 			backButton : {
 				tap: 'showDashboard'
+			},
+			backDetailButton: {
+				tap: 'backToHistory'
 			},
 			historyList : {
 				itemtap : 'showHistoryDetail'
@@ -43,16 +48,20 @@ Ext.define('EatSense.controller.History', {
 			this.loadHistory();
 	},
 
-	   /**
-    * CheckIn Process
-    * Step 2 alt: cancel process
-    */
+
    showDashboard: function(options) {
 	   var dashboardView = this.getDashboard(),
-	       mainView = this.getMainView();	 
-	   	   
-	   mainView.switchAnim('right');
-	   mainView.setActiveItem(dashboardView);
+	       mainView = this.getMainView(),
+	       historyView = this.getHistoryView();	 
+	   
+	   if(historyView.getActiveItem() == 0) {
+	   		mainView.switchAnim('right');
+	   		mainView.setActiveItem(dashboardView);
+	   } else {
+	   	historyView.setActiveItem(0);
+	   }
+
+
    },
 
    loadHistory: function() {
@@ -65,14 +74,45 @@ Ext.define('EatSense.controller.History', {
 
    },
 
+   //start history detail
+
    showHistoryDetail: function(view, index, htmlElement, history) {
-   		var historyView = this.getHistoryView(),
-   			historyDetailView = this.getHistoryDetailView();
+   		var mainView = this.getMainView(),
+   			historyDetailView = this.getHistoryDetailView(),
+   			header = historyDetailView.down('#header'),
+   			footer = historyDetailView.down('#footer');
 
    		//setTitle() doesn't work for Sencha 2.0.0
-   		historyDetailView.config.title = history.get('businessName');
+   		// historyDetailView.config.title = history.get('businessName');
+   		// historyView.push(historyDetailView);
 
-   		historyView.push(historyDetailView);
+   		header.getTpl().overwrite(header.element, history.getData());
+   		footer.getTpl().overwrite(footer.element, history.getData());
+
+   		mainView.switchAnim('left');
+		mainView.setActiveItem(historyDetailView);
+
+		this.loadHistoryOrders(history);
+   },
+
+   backToHistory: function(button) {
+   		var mainView = this.getMainView(),
+   		historyView = this.getHistoryView();
+   		mainView.switchAnim('right');
+		mainView.setActiveItem(historyView);
+   },
+
+   loadHistoryOrders: function(history) {
+   		var	list = this.getHistoryDetailOrderList();
+
+   		list.getStore().load({
+   			params: {
+   				'pathId' : history.get('businessId'),
+   				'checkInId' : history.get('checkInId')
+   			}
+   		});
    }
+
+   //end history detail
 
 });
