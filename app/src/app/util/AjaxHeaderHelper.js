@@ -74,7 +74,7 @@ Ext.define('EatSense.util.AjaxHeaderHelper', {
 			return null;
 		}
 
-		if(this.getHeaders()) {
+		if(!this.getHeaders()) {
 			return null;
 		}
 

@@ -239,6 +239,11 @@ Ext.define('EatSense.controller.Account', {
 
 		this.showDashboardLoginButton();
 	},
+
+	isLoggedIn: function() {
+		return headerUtil.getHeaderValue('X-Auth') != null;
+	},
+
 	//ui actions start
 	hideDashboardLoginButton: function() {
 		this.getShowLoginButtonDashboard().disable();

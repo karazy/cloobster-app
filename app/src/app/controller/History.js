@@ -44,12 +44,19 @@ Ext.define('EatSense.controller.History', {
 	*/
 	showHistory: function(button) {
 		var mainView = this.getMainView(),
-			historyView = this.getHistoryView();
+			historyView = this.getHistoryView(),
+         loggedIn = this.getApplication().getController('Account').isLoggedIn();
 
-			mainView.switchAnim('left');
-			mainView.setActiveItem(historyView);
+         //if user has no account or is not logged in show alert window
+         if(!loggedIn) {
+            Ext.Msg.alert(i10n.translate('hint'), i10n.translate('history.noaccount'));
+         } else {
+            //show history view
+            mainView.switchAnim('left');
+            mainView.setActiveItem(historyView);
 
-			this.loadHistory();
+            this.loadHistory();
+         }
 	},
 
 	/**

@@ -132,6 +132,7 @@ Ext.define('EatSense.util.Translations',{
 		"dashboard.button.history" : "Historie",
 		"history.detail.title" : "Rechnung",
 		"history.detail.list.paging" : "Mehr laden ...",
+		"history.noaccount" : "Bitte log dich ein oder registriere dich um diese Funktion zu nutzen.",
 		//errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		
