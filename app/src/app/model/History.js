@@ -21,7 +21,7 @@ Ext.define('EatSense.model.History', {
 				name: 'businessId'
 			},
 			{
-				name: 'checkInId'
+				name: 'id'
 			}
 		],
 

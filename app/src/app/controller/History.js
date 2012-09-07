@@ -68,8 +68,9 @@ Ext.define('EatSense.controller.History', {
    * History will be stored in historyStore.
    */
    loadHistory: function() {
-   		var historyStore = Ext.StoreManager.lookup('historyStore'),
-   			historyList = this.getHistoryList();
+   		var me = this,
+             historyStore = Ext.StoreManager.lookup('historyStore'),
+   			 historyList = this.getHistoryList();
 
    		historyStore.loadPage(1, {
    			callback: function(records, operation, success) {
@@ -77,8 +78,12 @@ Ext.define('EatSense.controller.History', {
    					me.getApplication().handleServerError({
 							'error': operation.error,
 							//accessToken invalid
-							'forceLogout': {403: true}
-					});
+							'userLogout': {403: true}
+					   });
+
+                  if(operation.error.status == 403) {
+                     me.showDashboard();
+                  }
    				}
    			}
    		});
@@ -112,10 +117,11 @@ Ext.define('EatSense.controller.History', {
    * Jump back to history overview.
    */
    backToHistory: function(button) {
-   		var mainView = this.getMainView(),
+   	var mainView = this.getMainView(),
    		historyView = this.getHistoryView();
    		mainView.switchAnim('right');
-		mainView.setActiveItem(historyView);
+		
+      mainView.setActiveItem(historyView);
    },
    /**
    * Loads all orders for given history.
@@ -132,7 +138,7 @@ Ext.define('EatSense.controller.History', {
    		list.getStore().load({
    			params: {
    				'pathId' : history.get('businessId'),
-   				'checkInId' : history.get('checkInId'),
+   				'checkInId' : history.getId(),
    				'status' : appConstants.Order.COMPLETE
    			},
    			callback: function(records, operation, success) {
@@ -146,8 +152,12 @@ Ext.define('EatSense.controller.History', {
    					me.getApplication().handleServerError({
 							'error': operation.error,
 							//accessToken invalid
-							'forceLogout': {403: true}
-					});
+							'userLogout': {403: true}
+					   });
+
+                  if(operation.error.status == 403) {
+                     me.showDashboard();
+                  }
    				}
    			}
    		});

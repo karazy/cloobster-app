@@ -35,6 +35,11 @@ Ext.define('EatSense.controller.Account', {
 		},
 	},
 
+	init: function() {
+		//occurs when a user has an invalid login
+		this.getApplication().on('userLogout', this.logout, this);
+	},
+
 
 	checkAccessToken: function() {
 		var accessToken,
@@ -230,8 +235,9 @@ Ext.define('EatSense.controller.Account', {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
 		headerUtil.resetHeaders(['X-Auth']);
+		checkInCtr.getAppState().set('accessToken', null);
 
-		me.showDashboardLoginButton();
+		this.showDashboardLoginButton();
 	},
 	//ui actions start
 	hideDashboardLoginButton: function() {
