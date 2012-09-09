@@ -102,6 +102,7 @@ Ext.application({
 	   		console.log('app state found');
 		   	checkInCtr.setAppState(appStateStore.getAt(0));
 	   		restoredCheckInId = checkInCtr.getAppState().get('checkInId');
+        //Checks for existing access token. It exists when a user is logged in.
         accountCtr.checkAccessToken();
 	   	}
 

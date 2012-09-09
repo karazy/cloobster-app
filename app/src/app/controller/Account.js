@@ -33,6 +33,8 @@ Ext.define('EatSense.controller.Account', {
 				tap: 'login'
 			}
 		},
+		//user account if logged in
+		account: null
 	},
 
 	init: function() {
@@ -40,18 +42,41 @@ Ext.define('EatSense.controller.Account', {
 		this.getApplication().on('userLogout', this.logout, this);
 	},
 
-
+	/**
+	* Searches for accessToken in localstorage. If one is found
+	* sets X-Auth in header and loads the corresponding account.
+	*/
 	checkAccessToken: function() {
 		var accessToken,
 			checkInCtr = this.getApplication().getController('CheckIn');
 
 		accessToken = checkInCtr.getAppState().get('accessToken');
 		      //If access token was found set it
-      if(accessToken) {
-        headerUtil.addHeader('X-Auth', accessToken);
-        this.hideDashboardLoginButton();
-      };
-  },
+      	if(accessToken) {
+        	headerUtil.addHeader('X-Auth', accessToken);
+        	//load users account
+        	this.loadAccount(checkInCtr.getAppState().get('accountId'));
+        	this.hideDashboardLoginButton();
+		};
+	},
+
+	loadAccount: function(id) {
+		var me = this;
+
+		EatSense.model.Account.load(id,{
+			success: function(record, operation) {
+				me.setAccount(record);
+			},
+			failure: function(record, operation) {
+    	    	me.getApplication().handleServerError({
+					'error': operation.error,
+					'forceLogout': false,
+					// 'userLogout' : true,
+					'hideMessage':false
+				});
+			}
+		});
+	},
 
 	showLoginView: function(button) {
 		var loginView = this.getLoginView();
@@ -145,6 +170,7 @@ Ext.define('EatSense.controller.Account', {
         		//set active Account in Application
         		//store accessToken in AppState
         		checkInCtr.getAppState().set('accessToken', record.get('accessToken'));
+        		checkInCtr.getAppState().set('accountId', record.get('id'));
         		//Set default headers so that always credentials are send
 				headerUtil.addHeader('X-Auth', record.get('accessToken'));
         		callback();
@@ -184,6 +210,7 @@ Ext.define('EatSense.controller.Account', {
 		};
 
 		//POST /c/accounts with credentials to get access token
+		//for ceonvenience the complete account object is transferred
 		Ext.Ajax.request({
     	    url: appConfig.serviceUrl+'/c/accounts/tokens',
     	    method: 'POST',
@@ -196,11 +223,12 @@ Ext.define('EatSense.controller.Account', {
     	    success: function(response) {
     	    	//parse account, currently we only need the access token
     	    	account = Ext.create('EatSense.model.Account', Ext.decode(response.responseText));
-
+    	    	me.setAccount(account);
 				//Set default headers so that always credentials are send
 				headerUtil.addHeader('X-Auth', account.get('accessToken'));
 
 				checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
+				checkInCtr.getAppState().set('accountId', account.get('id'));
 				
 				me.hideDashboardLoginButton();
 				me.hideLoginView();
@@ -236,7 +264,7 @@ Ext.define('EatSense.controller.Account', {
 
 		headerUtil.resetHeaders(['X-Auth']);
 		checkInCtr.getAppState().set('accessToken', null);
-
+		this.setAccount(null);
 		this.showDashboardLoginButton();
 	},
 

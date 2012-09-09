@@ -97,6 +97,12 @@ Ext.define('EatSense.util.Translations',{
 		"newsletterPopupTitle" : "Newsletter abonnieren?", 
 		"newsletterDontAskButton" : "Nicht mehr nachfragen!",
 		"newsletterLabel" : "Nicht den Cloobster Big-Bang verpassen und für den Newsletter anmelden!",
+		"settings.account.label.email" : "Account E-Mail",
+		"settings.account.field.email" : "E-Mail",
+		"settings.account.button.email" : "E-Mail ändern",
+		"settings.account.label.password" : "Account Passwort",
+		"settings.account.field.password" : "Passwort",
+		"settings.account.button.password" : "Passwort ändern",
 		//Request
 		"errorRequest" : "Anfrage konnte leider nicht bearbeitet werden.",
 		"requestsButton" : "VIP",

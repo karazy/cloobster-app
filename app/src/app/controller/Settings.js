@@ -12,6 +12,11 @@ Ext.define('EatSense.controller.Settings', {
             newsletterView: 'settingstab newsletter',
             registerNewsletterBt: 'settingstab newsletter button[action=register]',
             aboutBt: 'settingstab button[action=about]',
+            //account related stuff
+            emailField: 'settingstab emailfield',
+            passwordField: 'settingstab passwordfield',
+            emailChangeBt: 'settingstab button[action=email-change]',
+            passwordChangeBt: 'settingstab button[action=password-change]'
     	},
 
     	control: {
@@ -26,6 +31,9 @@ Ext.define('EatSense.controller.Settings', {
             },
             aboutBt: {
                 tap: 'showAbout'
+            },
+            emailChangeBt: {
+                tap: 'changeEmail'
             }
     	}
     },
@@ -38,9 +46,11 @@ Ext.define('EatSense.controller.Settings', {
     */
     loadSettings: function(tab, options) {
     	var checkInCtr = this.getApplication().getController('CheckIn'),
-    		appState = checkInCtr.getAppState();
+    		appState = checkInCtr.getAppState()
+            account = this.getApplication().getController('Account').getAccount();
 
-    	this.getNicknameField().setValue(appState.get('nickname'));    	
+    	this.getNicknameField().setValue(appState.get('nickname'));
+        this.getEmailField().setValue(account.get('email'));
     },
 
     /**
@@ -129,7 +139,42 @@ Ext.define('EatSense.controller.Settings', {
         var about = Ext.create('EatSense.view.About');
 
         Ext.Viewport.add(about);
+    },
+
+    //Account actions start
+
+    /**
+    * Change user email.
+    * 
+    */
+    changeEmail: function() {
+        var me = this,
+            newEmail = this.getEmailField().getValue(),
+            account = this.getApplication().getController('Account').getAccount();
+
+        account.set('email', newEmail);
+        
+        //TODO validate email!
+        //TODO ask for password?
+        account.save({
+            failure: function(record, operation) {
+                me.getApplication().handleServerError({
+                    'error': operation.error, 
+                    'forceLogout': false,
+                    // 'message' : {500: i10n.translate('newsletterDuplicateEmail')}
+                }); 
+            }
+        });
+
+    },
+    /**
+    * Change user password.
+    */
+    changePassword: function() {
+
     }
+    //Account actions end
+
     /**
     * Shows a popup to user asking for his email to register for newsletter.
     */

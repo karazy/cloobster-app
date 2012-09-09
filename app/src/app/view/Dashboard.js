@@ -66,10 +66,19 @@ Ext.define('EatSense.view.Dashboard', {
 			cls: 'dashboard-description',
 			html: i10n.translate('dashboardLabel2')
 		},
+		// {
+		// 	xtype: 'button',
+		// 	action: 'settings',
+		// 	ui: 'action',
+		// 	iconCls: 'settings',
+		// 	iconMask: true,
+		// 	// styleHtmlContent: true,
+		// 	style: 'position: absolute; bottom: 10px; right: 60px;'
+		// },
 		{
 			xtype: 'button',
 			action: 'about',
-			ui: 'confirm',
+			ui: 'action',
 			iconCls: 'about',
 			iconMask: true,
 			styleHtmlContent: true,

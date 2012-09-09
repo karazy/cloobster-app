@@ -23,6 +23,10 @@ Ext.define('EatSense.model.AppState', {
 			type: 'string'
 		},
 		{
+			name: 'accountId',
+			type: 'number'
+		},
+		{
 			name: 'newsletterRegistered',
 			type: 'boolean'
 		}, 
