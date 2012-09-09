@@ -13,6 +13,7 @@ Ext.define('EatSense.view.Login', {
 			type: 'slide',
 			direction: 'right'
 		},
+		padding: '0 10 0 10',
 		//BUG: has to be set otherwise an error gets trown
 		//http://www.sencha.com/forum/showthread.php?192847-Animating-panels-throws-Cannot-call-method-getPageBox-of-null/page2
 		hidden: true,
@@ -61,7 +62,8 @@ Ext.define('EatSense.view.Login', {
 			{
 				xtype: 'button',
 				text: i10n.translate('login.button.login'),
-				action: 'login'
+				action: 'login',
+				margin: '5 0 7 0'
 			},
 			// {
 			// 	xtype: 'button',
