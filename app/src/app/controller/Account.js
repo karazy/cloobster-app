@@ -14,6 +14,7 @@ Ext.define('EatSense.controller.Account', {
 				autoCreate: true
 			},
 			showLoginButtonDashboard : 'dashboard button[action=login]',
+			showLogoutButtonDashboard : 'dashboard button[action=logout]',
 			backButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
@@ -22,6 +23,9 @@ Ext.define('EatSense.controller.Account', {
 		control: {
 			showLoginButtonDashboard : {
 				tap: 'showLoginView'
+			},
+			showLogoutButtonDashboard : {
+				tap: 'confirmUserLogout'
 			},
 			backButton : {
 				tap: 'hideLoginView'
@@ -259,6 +263,28 @@ Ext.define('EatSense.controller.Account', {
 		});
 	},
 
+	confirmUserLogout: function(button) {
+		Ext.Msg.show({
+            title: i10n.translate('account.logout.confirm.title'),
+            message: i10n.translate('account.logout.confirm.message'),
+            buttons: [{
+                text: i10n.translate('yes'),
+                itemId: 'yes',
+                ui: 'action'
+            }, {
+                text: i10n.translate('no'),
+                itemId: 'no',
+                ui: 'action'
+            }],
+            scope: this,
+            fn: function(btnId, value, opt) {
+                if(btnId=='yes') {
+                	this.logout();
+                }
+            }
+        }); 
+	},
+
 	logout: function() {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
@@ -276,10 +302,14 @@ Ext.define('EatSense.controller.Account', {
 	hideDashboardLoginButton: function() {
 		this.getShowLoginButtonDashboard().disable();
 		this.getShowLoginButtonDashboard().hide();
+		this.getShowLogoutButtonDashboard().enable();
+		this.getShowLogoutButtonDashboard().show();	
 	},
 	showDashboardLoginButton: function() {
 		this.getShowLoginButtonDashboard().enable();
 		this.getShowLoginButtonDashboard().show();	
+		this.getShowLogoutButtonDashboard().disable();
+		this.getShowLogoutButtonDashboard().hide();	
 	}
 	//ui actions end
 });

@@ -4,7 +4,7 @@
 Ext.define('EatSense.view.SettingsTab', {
 	extend : 'Ext.Panel',
 	xtype : 'settingstab',
-	requires: ['Ext.navigation.View', 'EatSense.view.EmailSetting'],
+	requires: ['Ext.navigation.View', 'EatSense.view.EmailSetting', 'EatSense.view.PasswordSetting'],
 	config : {
 		layout: {
 			type: 'fit'
@@ -52,27 +52,50 @@ Ext.define('EatSense.view.SettingsTab', {
 						]
 					},
 					{
+						xtype: 'panel',
+						layout: {
+							type: 'vbox',
+							pack: 'center',
+							align: 'middle'
+						},
+						width: '100%',
+						itemId: 'accountPanel',
+						items: [
+							{
+								xtype: 'label',
+								cls: 'general-label',
+								html: '<h1>' + i10n.translate('settings.section.account') + '</h1>'						
+							},
+							{
+								xtype: 'label',
+								itemId: 'accountEmail',
+								cls: 'general-label',
+								tpl: i10n.translate('settings.account.email')						
+							},
+							{
+								xtype: 'button',
+								ui: 'action',
+								margin: '7 0 5 0',
+								action: 'email-change',
+								width: '80%',
+								text: i10n.translate('settings.account.button.email')
+							},
+							{
+								xtype: 'button',
+								ui: 'action',
+								action: 'password-change',
+								margin: '7 0 5 0',
+								width: '80%',
+								text: i10n.translate('settings.account.button.password')
+							}
+						]
+					},
+					{
 						xtype: 'label',
 						cls: 'general-label',
-						html: 'CURRENT EMAIL PLACEHOLDER'
+						html: '<h1>' + i10n.translate('settings.section.infos') + '</h1>'						
 					},
 					{
-						xtype: 'button',
-						ui: 'action',
-						margin: '7 0 5 0',
-						action: 'email-change',
-						width: '80%',
-						text: i10n.translate('settings.account.button.email')
-					},
-					{
-						xtype: 'button',
-						ui: 'action',
-						action: 'password-change',
-						margin: '7 0 5 0',
-						width: '80%',
-						text: i10n.translate('settings.account.button.password')
-					},
-							{
 						xtype: 'button',
 						text: 'Impressum',
 						ui: 'action',

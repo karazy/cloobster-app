@@ -14,16 +14,22 @@ Ext.define('EatSense.controller.Settings', {
             registerNewsletterBt: 'settingstab newsletter button[action=register]',
             aboutBt: 'settingstab button[action=about]',
             //account related stuff
-            // emailField: 'settingstab emailfield',
-            // passwordField: 'settingstab passwordfield',
+            accountPanel: 'settingstab #accountPanel',
             emailChangeBt: 'settingstab button[action=email-change]',
             passwordChangeBt: 'settingstab button[action=password-change]',
+            emailLabel: 'settingstab #accountEmail',
             emailChangeView: {
                 xtype: 'emailsetting',
                 selector: 'emailsetting',
                 autoCreate: true
             },
-            saveEmailBt: 'emailsetting button[action=save]'
+            saveEmailBt: 'emailsetting button[action=save]',
+            passwordChangeView: {
+                xtype: 'passwordsetting',
+                selector: 'passwordsetting',
+                autoCreate: true
+            },
+            savePasswordBt: 'passwordsetting button[action=save]',
     	},
 
     	control: {
@@ -42,8 +48,14 @@ Ext.define('EatSense.controller.Settings', {
             emailChangeBt: {
                 tap: 'showEmailChangeView'
             },
+            passwordChangeBt: {
+                tap: 'showPasswordChangeView'
+            },
             saveEmailBt: {
                 tap: 'saveEmail'
+            },
+            savePasswordBt: {
+                tap: 'savePassword'
             }
     	}
     },
@@ -56,10 +68,23 @@ Ext.define('EatSense.controller.Settings', {
     */
     loadSettings: function(tab, options) {
     	var checkInCtr = this.getApplication().getController('CheckIn'),
-    		appState = checkInCtr.getAppState()
-            account = this.getApplication().getController('Account').getAccount();
+    		appState = checkInCtr.getAppState(),
+            accountCtr = this.getApplication().getController('Account'),
+            account = this.getApplication().getController('Account').getAccount(),
+            emailLabel = this.getEmailLabel(),
+            accountPanel = this.getAccountPanel();
 
     	this.getNicknameField().setValue(appState.get('nickname'));
+
+        if(accountCtr.isLoggedIn()) {
+            accountPanel.setHidden(false);
+            emailLabel.getTpl().overwrite(emailLabel.element, account.getData());    
+        } else {
+            //hide account settings
+            //TODO show signup button
+            accountPanel.setHidden(true);
+        }
+        
     },
 
     /**
@@ -159,16 +184,15 @@ Ext.define('EatSense.controller.Settings', {
     showEmailChangeView: function() {
         var me = this,
             emailChangeView = this.getEmailChangeView(),
-            navView = this.getSettingsNavView(),
-            account = this.getApplication().getController('Account').getAccount();
+            navView = this.getSettingsNavView();
 
         
         navView.push(emailChangeView);
-
-
-
     },
-
+    /**
+    * Save new email adress.
+    *
+    */
     saveEmail: function() {
         var me = this,
             emailChangeView = this.getEmailChangeView(),
@@ -232,6 +256,8 @@ Ext.define('EatSense.controller.Settings', {
 
                 headerUtil.resetHeaders(['login', 'password']);
                 Ext.Viewport.setMasked(false);
+                me.loadSettings();
+
                 //switch back to settings
                 navView.pop();
                 //show success message
@@ -259,7 +285,7 @@ Ext.define('EatSense.controller.Settings', {
                 me.getApplication().handleServerError({
                     'error': operation.error, 
                     'forceLogout': false,
-                    // 'message' : {500: i10n.translate('newsletterDuplicateEmail')}
+                    'message' : {403: i10n.translate('newsletterDuplicateEmail')}
                 }); 
             }
         });
@@ -269,8 +295,113 @@ Ext.define('EatSense.controller.Settings', {
     * Change user password.
     */
     showPasswordChangeView: function() {
+        var me = this,
+            passwordChangeView = this.getPasswordChangeView(),
+            navView = this.getSettingsNavView();
 
-    }
+        
+        navView.push(passwordChangeView);
+    },
+
+    savePassword: function() {
+        var me = this,
+            passwordChangeView = this.getPasswordChangeView(),
+            navView = this.getSettingsNavView(),
+            newPassword = passwordChangeView.down('#newPassword'),
+            repeatPassword = passwordChangeView.down('#repeatPassword'),
+            password = passwordChangeView.down('#oldPassword'),
+            account = this.getApplication().getController('Account').getAccount(),
+            errors,
+            errMsg,
+            email = account.get('email'),
+            xauth = headerUtil.getHeaderValue('X-Auth'),
+            checkInId = headerUtil.getHeaderValue('checkInId');
+
+        if(!newPassword.getValue()) {
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('passwordsetting.error.newpassword'));
+            return;
+        };
+
+        if(!repeatPassword.getValue() || newPassword.getValue() != repeatPassword.getValue()) {
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('passwordsetting.error.passwordmatch'));
+            return;  
+        };
+
+        account.set('password', newPassword.getValue());
+
+        //validate record
+        errors = account.validate();
+
+        if(!errors.isValid()) {
+            if(errors.getByField('password').length > 0) {
+                if(errMsg.length > 0) {
+                    errMsg += '<br/>'
+                };
+                errMsg += i10n.translate('error.account.password');
+                Ext.Msg.alert(i10n.translate('error'), errMsg);
+                return;
+            }
+        };
+
+        if(!password.getValue()) {
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('passwordsetting.error.nopassword'));
+            return;
+        };
+
+        Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: i10n.translate('passwordsetting.saving')
+        });
+
+        headerUtil.resetHeaders(['X-Auth', 'checkInId']);
+        headerUtil.addHeaders({
+            'login': email,
+            'password' : password.getValue()
+        });
+
+
+        account.save({
+            success: function(record, operation) {
+                headerUtil.addHeaders({
+                    'X-Auth': xauth,
+                    'checkInId' : checkInId
+                });
+
+                headerUtil.resetHeaders(['login', 'password']);
+                Ext.Viewport.setMasked(false);
+                //switch back to settings
+                navView.pop();
+                //show success message
+                Ext.Msg.show({
+                    title : i10n.translate('success'),
+                    message : i10n.translate('passwordsetting.success'),
+                    buttons : []
+                });
+                
+                Ext.defer((function() {
+                    if(!appHelper.getAlertActive()) {
+                        Ext.Msg.hide();
+                    }
+                }), appConfig.msgboxHideLongTimeout, this);
+            },
+            failure: function(record, operation) {
+                headerUtil.addHeaders({
+                    'X-Auth': xauth,
+                    'checkInId' : checkInId
+                });
+                headerUtil.resetHeaders(['login', 'password']);
+                account.set('email', oldMail);
+
+                Ext.Viewport.setMasked(false);
+                me.getApplication().handleServerError({
+                    'error': operation.error, 
+                    'forceLogout': false,
+                    // 'message' : {500: i10n.translate('newsletterDuplicateEmail')}
+                }); 
+            }
+        });
+    },
+
     //Account actions end
 
     /**

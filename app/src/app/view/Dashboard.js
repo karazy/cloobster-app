@@ -62,6 +62,18 @@ Ext.define('EatSense.view.Dashboard', {
 			width: 150
 		},
 		{
+			xtype : 'button',
+			action: 'logout',
+			margin: '7 0',
+			text: 'Logout',
+			ui: 'action',
+			hidden: true,
+			iconMask: true,
+			iconCls: 'user',
+			height: 50,
+			width: 150
+		},
+		{
 			xtype: 'label',
 			cls: 'dashboard-description',
 			html: i10n.translate('dashboardLabel2')
