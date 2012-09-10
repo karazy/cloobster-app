@@ -242,13 +242,13 @@ Ext.define('EatSense.controller.Account', {
 				if(response.status) {
 					//not authorized
 					if(response.status == "401" || response.status == "403") {
-						errorMessage = i10n.translate('wrongCredentials');
+						errorMessage = i10n.translate('general.credentials.invalid');
 					} else if (response.status == "404") {
 						errorMessage = i10n.translate('resourceNotAvailable');
 					}
 				};
 
-				(!errorMessage || errorMessage == "") ?	errorMessage = i10n.translate('wrongCredentials') : errorMessage;
+				(!errorMessage || errorMessage == "") ?	errorMessage = i10n.translate('general.credentials.invalid') : errorMessage;
 
     	    	me.getApplication().handleServerError({
 						'error': {

@@ -237,7 +237,7 @@ Ext.define('EatSense.controller.Settings', {
 
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i10n.translate('emailsetting.saving')
+            message: i10n.translate('general.processing')
         });
 
         headerUtil.resetHeaders(['X-Auth', 'checkInId']);
@@ -285,7 +285,7 @@ Ext.define('EatSense.controller.Settings', {
                 me.getApplication().handleServerError({
                     'error': operation.error, 
                     'forceLogout': false,
-                    'message' : {403: i10n.translate('newsletterDuplicateEmail')}
+                    'message' : {403: i10n.translate('general.credentials.invalid')}
                 }); 
             }
         });
@@ -334,10 +334,7 @@ Ext.define('EatSense.controller.Settings', {
 
         if(!errors.isValid()) {
             if(errors.getByField('password').length > 0) {
-                if(errMsg.length > 0) {
-                    errMsg += '<br/>'
-                };
-                errMsg += i10n.translate('error.account.password');
+                errMsg = i10n.translate('error.account.password');
                 Ext.Msg.alert(i10n.translate('error'), errMsg);
                 return;
             }
@@ -350,7 +347,7 @@ Ext.define('EatSense.controller.Settings', {
 
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i10n.translate('passwordsetting.saving')
+            message: i10n.translate('general.processing')
         });
 
         headerUtil.resetHeaders(['X-Auth', 'checkInId']);
@@ -390,13 +387,12 @@ Ext.define('EatSense.controller.Settings', {
                     'checkInId' : checkInId
                 });
                 headerUtil.resetHeaders(['login', 'password']);
-                account.set('email', oldMail);
 
                 Ext.Viewport.setMasked(false);
                 me.getApplication().handleServerError({
                     'error': operation.error, 
                     'forceLogout': false,
-                    // 'message' : {500: i10n.translate('newsletterDuplicateEmail')}
+                    'message' : {403: i10n.translate('general.credentials.invalid')}
                 }); 
             }
         });
