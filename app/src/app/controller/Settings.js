@@ -8,15 +8,22 @@ Ext.define('EatSense.controller.Settings', {
     config: {
     	refs: {
     		settingsTab: 'lounge settingstab[tabName=settings]',
+            settingsNavView: 'settingstab navigationview',
     		nicknameField: 'settingstab #nickname',
             newsletterView: 'settingstab newsletter',
             registerNewsletterBt: 'settingstab newsletter button[action=register]',
             aboutBt: 'settingstab button[action=about]',
             //account related stuff
-            emailField: 'settingstab emailfield',
-            passwordField: 'settingstab passwordfield',
+            // emailField: 'settingstab emailfield',
+            // passwordField: 'settingstab passwordfield',
             emailChangeBt: 'settingstab button[action=email-change]',
-            passwordChangeBt: 'settingstab button[action=password-change]'
+            passwordChangeBt: 'settingstab button[action=password-change]',
+            emailChangeView: {
+                xtype: 'emailsetting',
+                selector: 'emailsetting',
+                autoCreate: true
+            },
+            saveEmailBt: 'emailsetting button[action=save]'
     	},
 
     	control: {
@@ -33,7 +40,10 @@ Ext.define('EatSense.controller.Settings', {
                 tap: 'showAbout'
             },
             emailChangeBt: {
-                tap: 'changeEmail'
+                tap: 'showEmailChangeView'
+            },
+            saveEmailBt: {
+                tap: 'saveEmail'
             }
     	}
     },
@@ -50,7 +60,6 @@ Ext.define('EatSense.controller.Settings', {
             account = this.getApplication().getController('Account').getAccount();
 
     	this.getNicknameField().setValue(appState.get('nickname'));
-        this.getEmailField().setValue(account.get('email'));
     },
 
     /**
@@ -144,20 +153,87 @@ Ext.define('EatSense.controller.Settings', {
     //Account actions start
 
     /**
-    * Change user email.
+    * Show change email dialog.
     * 
     */
-    changeEmail: function() {
+    showEmailChangeView: function() {
         var me = this,
-            newEmail = this.getEmailField().getValue(),
+            emailChangeView = this.getEmailChangeView(),
+            navView = this.getSettingsNavView(),
             account = this.getApplication().getController('Account').getAccount();
 
-        account.set('email', newEmail);
         
-        //TODO validate email!
-        //TODO ask for password?
+        navView.push(emailChangeView);
+
+
+
+    },
+
+    saveEmail: function() {
+        var me = this,
+            emailChangeView = this.getEmailChangeView(),
+            navView = this.getSettingsNavView(),
+            newMail = emailChangeView.down('#newMail'),
+            repeatMail = emailChangeView.down('#repeatMail'),
+            password = emailChangeView.down('passwordfield'),
+            account = this.getApplication().getController('Account').getAccount(),
+            errors,
+            errMsg;
+
+        if(!newMail.getValue()) {
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('emailsetting.error.noemail'));
+            return;
+        };
+
+        if(!repeatMail.getValue() || newMail.getValue() != repeatMail.getValue()) {
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('emailsetting.error.emailmatch'));
+            return;  
+        };
+
+        account.set('email', newMail.getValue());
+
+        //validate record
+        errors = account.validate();
+
+        if(!errors.isValid()) {
+            if(errors.getByField('email').length > 0) {
+                errMsg = i10n.translate('emailsetting.error.invalidmail');
+                Ext.Msg.alert(i10n.translate('error'), errMsg);
+                return;
+            }
+        };
+
+        if(!password.getValue()) {
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('emailsetting.error.nopassword'));
+            return;
+        };
+
+        Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: i10n.translate('emailsetting.saving')
+        });
+
+
         account.save({
+            success: function(record, operation) {
+                Ext.Viewport.setMasked(false);
+                //switch back to settings
+                navView.pop();
+                //show success message
+                Ext.Msg.show({
+                    title : i10n.translate('success'),
+                    message : i10n.translate('emailsetting.success'),
+                    buttons : []
+                });
+                
+                Ext.defer((function() {
+                    if(!appHelper.getAlertActive()) {
+                        Ext.Msg.hide();
+                    }
+                }), appConfig.msgboxHideLongTimeout, this);
+            },
             failure: function(record, operation) {
+                Ext.Viewport.setMasked(false);
                 me.getApplication().handleServerError({
                     'error': operation.error, 
                     'forceLogout': false,
@@ -165,12 +241,12 @@ Ext.define('EatSense.controller.Settings', {
                 }); 
             }
         });
-
     },
+
     /**
     * Change user password.
     */
-    changePassword: function() {
+    showPasswordChangeView: function() {
 
     }
     //Account actions end
