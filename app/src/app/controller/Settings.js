@@ -178,7 +178,10 @@ Ext.define('EatSense.controller.Settings', {
             password = emailChangeView.down('passwordfield'),
             account = this.getApplication().getController('Account').getAccount(),
             errors,
-            errMsg;
+            errMsg,
+            oldMail = account.get('email'),
+            xauth = headerUtil.getHeaderValue('X-Auth'),
+            checkInId = headerUtil.getHeaderValue('checkInId');
 
         if(!newMail.getValue()) {
             Ext.Msg.alert(i10n.translate('error'), i10n.translate('emailsetting.error.noemail'));
@@ -213,9 +216,21 @@ Ext.define('EatSense.controller.Settings', {
             message: i10n.translate('emailsetting.saving')
         });
 
+        headerUtil.resetHeaders(['X-Auth', 'checkInId']);
+        headerUtil.addHeaders({
+            'login': oldMail,
+            'password' : password.getValue()
+        });
+
 
         account.save({
             success: function(record, operation) {
+                headerUtil.addHeaders({
+                    'X-Auth': xauth,
+                    'checkInId' : checkInId
+                });
+
+                headerUtil.resetHeaders(['login', 'password']);
                 Ext.Viewport.setMasked(false);
                 //switch back to settings
                 navView.pop();
@@ -233,6 +248,13 @@ Ext.define('EatSense.controller.Settings', {
                 }), appConfig.msgboxHideLongTimeout, this);
             },
             failure: function(record, operation) {
+                headerUtil.addHeaders({
+                    'X-Auth': xauth,
+                    'checkInId' : checkInId
+                });
+                headerUtil.resetHeaders(['login', 'password']);
+                account.set('email', oldMail);
+
                 Ext.Viewport.setMasked(false);
                 me.getApplication().handleServerError({
                     'error': operation.error, 
