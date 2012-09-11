@@ -213,12 +213,20 @@ Ext.define('EatSense.controller.CheckIn', {
 	  var checkInDialog = this.getCheckinconfirmation(), 
 		    main = this.getMain(),
         nicknameToggle = this.getNicknameTogglefield(),
-		    checkIn = Ext.create('EatSense.model.CheckIn');		
+		    checkIn = Ext.create('EatSense.model.CheckIn'),
+        accountCtr = this.getApplication().getController('Account'),
+        profile = accountCtr.getProfile();
 			
-	   	 if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
-	   		 this.getNickname().setValue(this.getAppState().get('nickname'));
-         nicknameToggle.setValue(1);
-	   	 } else {
+      //restore from profile
+       if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
+          this.getNickname().setValue(profile.get('nickname'));
+          nicknameToggle.setValue(1);
+       } 
+        //restore from localstorage
+        else if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
+          this.getNickname().setValue(this.getAppState().get('nickname'));
+          nicknameToggle.setValue(1);
+       } else {
 	   		this.generateNickname();
 	   	 }
 		
@@ -243,11 +251,13 @@ Ext.define('EatSense.controller.CheckIn', {
     * @param options
     */
    checkIn: function() {
-	   var     me = this,
-	           nickname = Ext.String.trim(this.getNickname().getValue()),
-	           nicknameToggle = this.getNicknameTogglefield(),
-             messageCtr = this.getApplication().getController('Message'),
-             checkInDialog = this.getCheckinconfirmation();
+	   var me = this,
+	       nickname = Ext.String.trim(this.getNickname().getValue()),
+	       nicknameToggle = this.getNicknameTogglefield(),
+         messageCtr = this.getApplication().getController('Message'),
+         checkInDialog = this.getCheckinconfirmation(),
+         accountCtr = this.getApplication().getController('Account'),
+         profile = accountCtr.getProfile();
 
 	 //get CheckIn Object and save it.	   
 	   if(nickname.length < 3) {
@@ -273,25 +283,31 @@ Ext.define('EatSense.controller.CheckIn', {
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					   	    //save nickname in settings
-  							   if(nicknameToggle.getValue() == 1) {
-  								   me.getAppState().set('nickname', nickname);
-  								   nicknameToggle.reset();
-  							   }
+  					if(nicknameToggle.getValue() == 1) {
+                        if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
+                            profile.set('nickname', nickname);
+                            profile.save();
+                        } else {
+                            me.getAppState().set('nickname', nickname);  
+                        }
+                        nicknameToggle.reset();
+  					}
+                   
                    //open a channel for push messags
                    try {
                         messageCtr.openChannel(response.get('userId'));
                     } catch(e) {
                         console.log('could not open a channel ' + e);
                     }
-					   	    },
-					   	    failure: function(response, operation) {
+					},
+				failure: function(response, operation) {
                     checkInDialog.showLoadScreen(false);
                     me.getApplication().handleServerError({
                       'error': operation.error, 
                       'forceLogout':{403 : true}
                     }); 
 					   	    }
-					   }	   
+				}	   
 			   );
 	   }
    },

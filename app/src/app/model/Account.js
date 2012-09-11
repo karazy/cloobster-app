@@ -26,6 +26,9 @@ Ext.define('EatSense.model.Account', {
 		},
 		{	//the active customer checkin, used during signup to link a checkin 
 			name: 'checkInId'
+		},
+		{	//id of account profile
+			name: 'profileId'
 		}
 		],
 		validations: [

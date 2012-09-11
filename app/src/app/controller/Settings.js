@@ -59,10 +59,6 @@ Ext.define('EatSense.controller.Settings', {
             }
     	}
     },
-    launch: function() {
-        var me = this;
-
-    },
     /**
     *	Loads the settings and sets the corresponding fields.
     */
@@ -71,15 +67,20 @@ Ext.define('EatSense.controller.Settings', {
     		appState = checkInCtr.getAppState(),
             accountCtr = this.getApplication().getController('Account'),
             account = this.getApplication().getController('Account').getAccount(),
+            profile = this.getApplication().getController('Account').getProfile(),
             emailLabel = this.getEmailLabel(),
             accountPanel = this.getAccountPanel();
 
-    	this.getNicknameField().setValue(appState.get('nickname'));
+    	
 
         if(accountCtr.isLoggedIn()) {
             accountPanel.setHidden(false);
-            emailLabel.getTpl().overwrite(emailLabel.element, account.getData());    
+            emailLabel.getTpl().overwrite(emailLabel.element, account.getData()); 
+            if(profile) {
+                this.getNicknameField().setValue(profile.get('nickname'));    
+            } 
         } else {
+            this.getNicknameField().setValue(appState.get('nickname'));
             //hide account settings
             //TODO show signup button
             accountPanel.setHidden(true);
@@ -88,13 +89,32 @@ Ext.define('EatSense.controller.Settings', {
     },
 
     /**
-	 * Saves the nickname in local store.
+	 * Saves the nickname. If user has an account save Nickname in Datastore.
+     * Otherwise in localstorage.
 	 */
 	saveNickname: function(component, newData, oldValue, eOpts) {
-    	var 	checkInCtr = this.getApplication().getController('CheckIn'),
-		appState = checkInCtr.getAppState();
+    	var checkInCtr = this.getApplication().getController('CheckIn'),
+            accountCtr = this.getApplication().getController('Account'),
+    		appState = checkInCtr.getAppState();
 
-		appState.set('nickname', newData);
+        if(accountCtr.isLoggedIn()) {
+            accountCtr.getProfile().set('nickname', newData);
+            //TODO error handling?
+            accountCtr.getProfile().save({
+
+                failure: function(record, operation) {
+                    me.getApplication().handleServerError({
+                        'error': operation.error, 
+                        'forceLogout': false,
+                        'userLogout' : false,
+                        'message' : {403: i10n.translate('general.credentials.invalid')}
+                    });     
+                }
+                
+            });
+        } else {
+            appState.set('nickname', newData);
+        }		
 	},
     /**
     *   Tap handler for register newsletter button.

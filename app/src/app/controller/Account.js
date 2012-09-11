@@ -1,6 +1,6 @@
 /**
 * Controller handles login, signup, facebook connect.
-*
+* Updates of account settings currently handled by Settings Controller.
 */
 Ext.define('EatSense.controller.Account', {
 	extend: 'Ext.app.Controller',
@@ -38,7 +38,9 @@ Ext.define('EatSense.controller.Account', {
 			}
 		},
 		//user account if logged in
-		account: null
+		account: null,
+		//users profile if logged in
+		profile: null
 	},
 
 	init: function() {
@@ -63,13 +65,41 @@ Ext.define('EatSense.controller.Account', {
         	this.hideDashboardLoginButton();
 		};
 	},
-
+	/**
+	* Loads users account and sets it in Account Controller.
+	* After successful account loading, loads the corresponding profile.
+	* @param id
+	*	Account id.
+	*/
 	loadAccount: function(id) {
 		var me = this;
 
 		EatSense.model.Account.load(id,{
 			success: function(record, operation) {
 				me.setAccount(record);
+				me.loadProfile(record.get('profileId'));
+			},
+			failure: function(record, operation) {
+    	    	me.getApplication().handleServerError({
+					'error': operation.error,
+					'forceLogout': false,
+					// 'userLogout' : true,
+					'hideMessage':false
+				});
+			}
+		});
+	},
+	/**
+	* Loads users profile and sets it in Account Controller.
+	* @param id
+	*	Account id.
+	*/
+	loadProfile: function(id) {
+		var me = this;
+
+		EatSense.model.Profile.load(id,{
+			success: function(record, operation) {
+				me.setProfile(record);
 			},
 			failure: function(record, operation) {
     	    	me.getApplication().handleServerError({
@@ -141,13 +171,12 @@ Ext.define('EatSense.controller.Account', {
 			newAccount = Ext.create('EatSense.model.Account'),
 			errMsg = "",
 			checkInCtr = this.getApplication().getController('CheckIn'),
+			appState = checkInCtr.getAppState(),
 			responseError,
 			responseErrorKey;
-			//appStateStore = Ext.StoreManager.looup('appStateStore');
 
 		//validate for password length and match regex
 		//validate email
-
 		newAccount.setData(formValues);
 
 		//validate record
@@ -165,6 +194,12 @@ Ext.define('EatSense.controller.Account', {
         	}
             Ext.Msg.alert(i10n.translate('error'), errMsg);
             return;
+        };
+
+        if(appState.get('nickname')) {
+        	//save nickname in profile
+
+        	appState.set('nickname', null);
         };
 
         //do a post to create an account
@@ -206,6 +241,7 @@ Ext.define('EatSense.controller.Account', {
 			errMsg = "",
 			account,
 			checkInCtr = this.getApplication().getController('CheckIn'),
+			appState = checkInCtr.getAppState(),
 			errorMessage;
 
 		if(headerUtil.getHeaderValue('X-Auth')) {
@@ -236,6 +272,13 @@ Ext.define('EatSense.controller.Account', {
 				
 				me.hideDashboardLoginButton();
 				me.hideLoginView();
+
+				me.loadProfile(account.get('profileId'));
+
+				//delete nicknames in localstorage
+		        if(appState.get('nickname')) {
+        			appState.set('nickname', null);
+        		};
     	    },
     	    failure: function(response) {
 
@@ -290,6 +333,7 @@ Ext.define('EatSense.controller.Account', {
 
 		headerUtil.resetHeaders(['X-Auth']);
 		checkInCtr.getAppState().set('accessToken', null);
+		checkInCtr.getAppState().set('accountId', null);
 		this.setAccount(null);
 		this.showDashboardLoginButton();
 	},
