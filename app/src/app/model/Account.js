@@ -36,6 +36,13 @@ Ext.define('EatSense.model.Account', {
             {type: 'email', field: 'email'},
             {type: 'format',    field: 'password', matcher: /([a-z]+)[0-9]{2,3}/}
         ],
+        associations: [
+            { 
+            	type: 'hasOne', 
+            	model: 'EatSense.model.Profile', 
+            	foreignKey: 'profileId' 
+            }
+        ],
 		proxy : {
 			type : 'rest',
 			enablePagingParams: false,
