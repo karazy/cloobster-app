@@ -16,7 +16,7 @@ Ext.define('EatSense.view.History',{
 					action: 'back',
 					text : i10n.translate('back'),
 					ui : 'back'
-				}, 
+				},
 			]
 		},
 		{
@@ -38,8 +38,8 @@ Ext.define('EatSense.view.History',{
 			plugins: [
 		        {
 		            xclass: 'Ext.plugin.ListPaging',
-		            loadMoreText: i10n.translate('history.detail.list.paging')
-		            // autoPaging: true
+		            loadMoreText: i10n.translate('history.detail.list.paging'),
+		            autoPaging: true
 		        }
 		    ]
 		}			
