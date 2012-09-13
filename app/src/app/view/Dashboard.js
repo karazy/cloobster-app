@@ -8,93 +8,122 @@ Ext.define('EatSense.view.Dashboard', {
 	requires: ['Ext.Img'],
 	config : {
 		layout : {
-			type : 'vbox',
-			pack : 'center',
-			align : 'center',
+			type : 'fit'
 		},
-		cls: 'dashboard',
-		items : [ 
+		// cls: 'dashboard',
+		items : [
 		{
 			xtype : 'image',
-			src : 'res/images/dashboard/cloobster-logo-186.png',
-			style : 'background-repeat:no-repeat; background-position:center center;',
-			height : 80,
-			width : 186,
-			margin: '0 0 10 0'
+			src : 'res/images/dashboard/header-bg.jpg',
+			cls: 'dashboard-header',
+			style : 'background-repeat:no-repeat; background-position:center top; background-size: 100% 150px',
+			height : 150,
+			margin: '0 0 7 0',
+			docked: 'top'
 		},		
 		{
 			xtype: 'label',
 			cls: 'dashboard-description',
+			docked: 'top',
 			style: 'text-align: center;',
 			html: i10n.translate('dashboardLabel1')
-		},	
-		{
-			xtype : 'button',
-			action: 'checkin',
-			margin: '7 0',
-			text: 'Check-In',
-			ui: 'action',
-			iconMask: true,
-			iconCls: 'action',
-			height: 50,
-			width: 150
 		},
 		{
-			xtype : 'button',
-			action: 'history',
-			margin: '7 0',
-			text: i10n.translate('dashboard.button.history'),
-			ui: 'action',
-			iconMask: true,
-			iconCls: 'locate4',
-			height: 50,
-			width: 150
+			xtype: 'panel',
+			width: '100%',
+			layout: {
+				type: 'vbox',
+				align: 'center',
+				pack: 'center'
+			},
+			items: [
+			{
+				xtype: 'panel',
+				width: '100%',
+				layout: {
+					type: 'hbox',
+					align: 'center',
+					pack: 'center'
+				},
+				items: [
+				{
+					xtype : 'button',
+					action: 'checkin',
+					text: i10n.translate('dashboard.button.checkin'),
+					baseCls: 'dashboard-button',
+					cls: 'dashboard-button-checkin',
+					pressedCls: 'dashboard-button-pressed',
+					labelCls: 'dashboard-button-label'
+				},
+				{
+					xtype : 'button',
+					action: 'history',
+					text: i10n.translate('dashboard.button.history'),
+					baseCls: 'dashboard-button',
+					cls: 'dashboard-button-history',
+					pressedCls: 'dashboard-button-pressed',
+					labelCls: 'dashboard-button-label'
+				}
+				]
+			},
+			{
+				xtype: 'panel',
+				width: '100%',
+				layout: {
+					type: 'hbox',
+					align: 'center',
+					pack: 'center'
+				},
+				items: [
+					{
+						xtype : 'button',
+						action: 'login',
+						text: 'Login',
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-login',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label'
+					},
+					{
+						xtype : 'button',
+						action: 'logout',
+						text: 'Logout',
+						hidden: true,
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-login',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label'
+					},
+					{
+						xtype : 'button',
+						action: 'facebook',
+						text: 'Facebook',
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-facebook',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label',
+						badgeText: i10n.translate('general.comingsoon'),
+						disabled: true
+					},
+				]
+			}
+			]
 		},
 		{
-			xtype : 'button',
-			action: 'login',
-			margin: '7 0',
-			text: 'Login',
-			ui: 'action',
-			iconMask: true,
-			iconCls: 'user',
-			height: 50,
-			width: 150
-		},
-		{
-			xtype : 'button',
-			action: 'logout',
-			margin: '7 0',
-			text: 'Logout',
-			ui: 'action',
-			hidden: true,
-			iconMask: true,
-			iconCls: 'user',
-			height: 50,
-			width: 150
-		},
-		{
-			xtype: 'label',
-			cls: 'dashboard-description',
-			html: i10n.translate('dashboardLabel2')
-		},
-		// {
-		// 	xtype: 'button',
-		// 	action: 'settings',
-		// 	ui: 'action',
-		// 	iconCls: 'settings',
-		// 	iconMask: true,
-		// 	// styleHtmlContent: true,
-		// 	style: 'position: absolute; bottom: 10px; right: 60px;'
-		// },
-		{
+			xtype: 'toolbar',
+			docked: 'bottom',
+			items: [
+			{
+				xtype: 'spacer'
+			},
+			{
 			xtype: 'button',
 			action: 'about',
-			ui: 'action',
 			iconCls: 'about',
 			iconMask: true,
 			styleHtmlContent: true,
-			style: 'position: absolute; bottom: 10px; right: 10px;'
+		},
+			]
 		}
 		]
 	},

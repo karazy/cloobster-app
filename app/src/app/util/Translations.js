@@ -13,6 +13,7 @@ Ext.define('EatSense.util.Translations',{
 		"loadingMsg" : "Laden ...",
 		"general.processing" : "In Bearbeitung ...",
 		"general.credentials.invalid" : "Passwort und/oder Benutzername ungültig",
+		"general.comingsoon" : "Demnächst",
 		"save" : "Speichern",
 		"hint" : "Hinweis",
 		"success" : "Erfolg",
@@ -27,7 +28,9 @@ Ext.define('EatSense.util.Translations',{
 		"newRestaurantsButton" : "Neue Restaurants",
 		"settingsButton" : "Einstellungen",
 		//Dashboard
-		"dashboardLabel1" : "<span style='font-weight: bold;'>präsentiert</span><br/>\"nie mehr Schlange stehen...\"",
+		"dashboard.button.checkin" : "Eintreten",
+		"dashboardLabel1" : "<h2>Service At Its Peak</h2><p>With cloobster you have your concierge at hand."+
+		"</p><p>Just check-in and enjoy our service.</p>",
 		"dashboardLabel2" : "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
 		// Checkin
 		"checkInTitle" : "Check-In",
