@@ -432,7 +432,8 @@ $product-sub-bg: #D3D3D3;
   -webkit-border-radius: 0.2em;
   border-radius: 0.2em;
   padding: .1em .3em;
-  z-index: 2;
+  /* To prevent overlapping in login window. */
+  /*z-index: 2;*/
   text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
