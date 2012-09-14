@@ -13,13 +13,13 @@ Ext.define('EatSense.view.Dashboard', {
 		// cls: 'dashboard',
 		items : [
 		{
-			xtype : 'image',
-			src : 'res/images/dashboard/header-bg.jpg',
+			xtype : 'panel',
+			// src : 'res/images/dashboard/header-bg.jpg',
+			//use a real html img tag!
+			html: '<img src="res/images/dashboard/header-bg.jpg" />',
 			cls: 'dashboard-header',
-			style : 'background-repeat:no-repeat; background-position:center top; background-size: 100% 150px',
-			height : 150,
-			margin: '0 0 7 0',
-			docked: 'top'
+			docked: 'top',
+			layout: 'fit'
 		},		
 		{
 			xtype: 'label',
@@ -102,6 +102,7 @@ Ext.define('EatSense.view.Dashboard', {
 						cls: 'dashboard-button-facebook',
 						pressedCls: 'dashboard-button-pressed',
 						labelCls: 'dashboard-button-label',
+						badgeCls: 'dashboard-button-badge',
 						badgeText: i10n.translate('general.comingsoon'),
 						disabled: true
 					},

@@ -10,7 +10,7 @@ Ext.define('EatSense.view.Login', {
 		},
 		showAnimation: 'slideIn',
 		hideAnimation:  {
-			type: 'slide',
+			type: 'slideOut',
 			direction: 'right'
 		},
 		padding: '0 10 0 10',
