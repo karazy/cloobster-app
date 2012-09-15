@@ -77,6 +77,18 @@ Ext.define('EatSense.view.Dashboard', {
 				items: [
 					{
 						xtype : 'button',
+						action: 'facebook',
+						text: 'Facebook',
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-facebook',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label',
+						badgeCls: 'dashboard-button-badge',
+						badgeText: i10n.translate('general.comingsoon'),
+						disabled: true
+					},
+					{
+						xtype : 'button',
 						action: 'login',
 						text: 'Login',
 						baseCls: 'dashboard-button',
@@ -93,19 +105,7 @@ Ext.define('EatSense.view.Dashboard', {
 						cls: 'dashboard-button-login',
 						pressedCls: 'dashboard-button-pressed',
 						labelCls: 'dashboard-button-label'
-					},
-					{
-						xtype : 'button',
-						action: 'facebook',
-						text: 'Facebook',
-						baseCls: 'dashboard-button',
-						cls: 'dashboard-button-facebook',
-						pressedCls: 'dashboard-button-pressed',
-						labelCls: 'dashboard-button-label',
-						badgeCls: 'dashboard-button-badge',
-						badgeText: i10n.translate('general.comingsoon'),
-						disabled: true
-					},
+					}
 				]
 			}
 			]

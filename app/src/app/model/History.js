@@ -24,15 +24,11 @@ Ext.define('EatSense.model.History', {
 				name: 'id'
 			}
 		],
-
-	proxy: {
-		type: 'rest',
- 		enablePagingParams: true,
- 		url : ' /c/checkins/history',
- 		reader: {
- 			type: 'json'
- 		}
-	}
+		proxy: {
+			type: 'rest',
+	 		enablePagingParams: true,
+	 		url : '/c/checkins/history',
+		}
 	}
 
 

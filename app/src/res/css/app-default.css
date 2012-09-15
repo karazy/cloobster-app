@@ -7211,13 +7211,13 @@ input[type="search"]::-webkit-search-cancel-button {
 /* line 408, app-default.scss */
 .dashboard-button-login {
   background-image: url("../images/dashboard/login.png");
-  margin-right: 1em;
+  margin-left: 1em;
 }
 
 /* line 413, app-default.scss */
 .dashboard-button-facebook {
   background-image: url("../images/dashboard/facebook.png");
-  margin-left: 1em;
+  margin-right: 1em;
 }
 
 /* line 418, app-default.scss */

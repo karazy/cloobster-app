@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CloobsterAndroidApp" default="replaceConfigLocal" basedir=".">
 	<property name="appDir" value="../../../cloobster_app/app/prod/android" />
-	<property name="config" value="assets/www/lib/karazy-config.js" />
+	<property name="config" value="assets/www/app-all.js" />
 	
 	<target name="copySenchaApp" depends="">
 		<echo message="Delete old files" />

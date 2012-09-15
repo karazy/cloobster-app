@@ -7,6 +7,10 @@ Ext.define('EatSense.model.Profile', {
 			},
 			{
 				name: 'nickname'
+			},
+			{	//id of account profile
+				name: 'profileId',
+				persist: false
 			}
 		],
 		proxy: {
