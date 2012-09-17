@@ -55,8 +55,9 @@ Ext.define('EatSense.controller.Menu', {
              loungeview : {
      			activeitemchange : function(container, value, oldValue, opts) {
      				var androidCtr = this.getApplication().getController('Android');
+     				//prevent false exit!
+     				androidCtr.setExitOnBack(false);
 
-    				console.log('tab change to ' + value.tabName);
     				if(value.tabName === 'cart') {
     					status = this.getApplication().getController('Order').refreshCart();
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
