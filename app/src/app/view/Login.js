@@ -82,6 +82,12 @@ Ext.define('EatSense.view.Login', {
 				text: i10n.translate('login.button.signup'),
 				ui: 'action',
 				action: 'signup'
+			},
+			{
+				xtype: 'toolbar',
+				docked: 'bottom',
+				items: [
+				]
 			}
 		]
 	}

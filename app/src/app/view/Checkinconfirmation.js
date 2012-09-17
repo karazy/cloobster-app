@@ -7,7 +7,6 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 	xtype : 'checkinconfirmation',
 	requires: ['Ext.field.Toggle'],
 	config : {
-		cls: 'dashboard',
 		layout : {
 			type : 'vbox',
 			pack : 'center',
@@ -71,7 +70,13 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			width: '80%',
 			value : 0,
 			label : i10n.translate('saveNicknameToggle')			
-		}
+		},
+		{
+			xtype: 'toolbar',
+			docked: 'bottom',
+			items: [
+			]
+		}	
 		]
 	},
 	
