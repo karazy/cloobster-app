@@ -5,13 +5,14 @@ Ext.define('EatSense.controller.Android', {
 	extend: 'Ext.app.Controller',
 	config: {
 		//Array of functions to execute when back button event is triggered
-		androidBackHandler : null,
+		androidBackHandler : new Array(),
 		//when true, will exit application on next backbutton event
 		exitOnBack: false
 	},
 	launch: function() {
 
 	},
+
 	addBackHandler: function(handler) {
 		if(appHelper.isFunction(handler) && appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> addBackHandler');
@@ -20,12 +21,14 @@ Ext.define('EatSense.controller.Android', {
 			console.log('handler is not of type function');
 		}
 	},
-	removeLastBackHandler: function() {		
+
+	removeLastBackHandler: function() {
 		if(appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> removeLastBackHandler');
 			this.getAndroidBackHandler().pop();
 		}		
 	},
+
 	executeBackHandler: function() {
 		var handler,
 			msgBox;
@@ -64,5 +67,11 @@ Ext.define('EatSense.controller.Android', {
 			}
 			
 		}
+	},
+	/**
+	* Clear current back handler and set it to an empty array.
+	*/
+	resetBackHandler: function() {
+		this.setAndroidBackHandler(new Array());
 	}
 });

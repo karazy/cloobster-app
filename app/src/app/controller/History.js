@@ -43,9 +43,11 @@ Ext.define('EatSense.controller.History', {
 	* Shows the history view.
 	*/
 	showHistory: function(button) {
-		var mainView = this.getMainView(),
-			historyView = this.getHistoryView(),
-         loggedIn = this.getApplication().getController('Account').isLoggedIn();
+		var me = this,
+          mainView = this.getMainView(),
+			 historyView = this.getHistoryView(),
+          loggedIn = this.getApplication().getController('Account').isLoggedIn(),
+          androidCtr = this.getApplication().getController('Android');
 
          //if user has no account or is not logged in show alert window
          if(!loggedIn) {
@@ -54,7 +56,9 @@ Ext.define('EatSense.controller.History', {
             //show history view
             mainView.switchAnim('left');
             mainView.setActiveItem(historyView);
-
+            androidCtr.addBackHandler(function(){
+               me.showDashboard();
+            });
             this.loadHistory();
          }
 	},
@@ -66,7 +70,9 @@ Ext.define('EatSense.controller.History', {
 	   var dashboardView = this.getDashboard(),
 	       mainView = this.getMainView(),
 	       historyView = this.getHistoryView();	 
-	   
+	     
+         //also this method can be called from different points, we can savely remove the handler it is always the last
+         this.getApplication().getController('Android').removeLastBackHandler();
 	   	mainView.switchAnim('right');
 	   	mainView.setActiveItem(dashboardView);
    },
@@ -105,29 +111,39 @@ Ext.define('EatSense.controller.History', {
    * Loads all orders assigned to selected history element and shows them in a detail view.
    */
    showHistoryDetail: function(view, index, htmlElement, history) {
-   		var mainView = this.getMainView(),
-   			historyDetailView = this.getHistoryDetailView(),
-   			header = historyDetailView.down('#header'),
-   			footer = historyDetailView.down('#footer');
+   		var me = this,
+             mainView = this.getMainView(),
+   			 historyDetailView = this.getHistoryDetailView(),
+   			 header = historyDetailView.down('#header'),
+   			 footer = historyDetailView.down('#footer'),
+             androidCtr = this.getApplication().getController('Android');
 
    		header.getTpl().overwrite(header.element, history.getData());
    		footer.getTpl().overwrite(footer.element, history.getData());
 
    		this.loadHistoryOrders(history);
 
+         androidCtr.addBackHandler(function(){
+            me.backToHistory();
+         });
    		mainView.switchAnim('left');
-		mainView.setActiveItem(historyDetailView);
-
-		
+		   mainView.setActiveItem(historyDetailView);
+   },
+   /**
+   * Event handler for back button tap in history detail view.
+   */
+   backToHistoryButton: function(button) {
+      this.backToHistory();
+      this.getApplication().getController('Android').removeLastBackHandler();
    },
    /**
    * Jump back to history overview.
    */
-   backToHistory: function(button) {
+   backToHistory: function() {
    	var mainView = this.getMainView(),
    		historyView = this.getHistoryView();
    		mainView.switchAnim('right');
-		
+		      
       mainView.setActiveItem(historyView);
    },
    /**

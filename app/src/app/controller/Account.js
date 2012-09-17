@@ -113,21 +113,19 @@ Ext.define('EatSense.controller.Account', {
 	},
 
 	showLoginView: function(button) {
-		var loginView = this.getLoginView();
+		var me = this,
+			loginView = this.getLoginView(),
+			androidCtr = this.getApplication().getController('Android');
 
-		// mainView.switchAnim('left');
-		// mainView.setActiveItem(loginView);	
 		Ext.Viewport.add(loginView);
 		loginView.show();
+		androidCtr.addBackHandler(function() {
+			me.hideLoginView()
+		});
 	},
 
 	hideLoginView: function(button) {		
-		// mainView.switchAnim('right');
-		// mainView.setActiveItem(0);
-
-		// Ext.Viewport.remove(this.getLoginView());
-
-		this.getLoginView().hide();
+		this.getLoginView().hide();		
 	},
 
 	showSignupConfimDialog: function(button) {
@@ -165,6 +163,7 @@ Ext.define('EatSense.controller.Account', {
         	if(success) {
         		me.hideDashboardLoginButton();
 	        	me.hideLoginView();
+	        	this.getApplication().getController('Android').removeLastBackHandler();
 
 	    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
 	    	    	i10n.translate('account.signup.success.message')
@@ -298,6 +297,7 @@ Ext.define('EatSense.controller.Account', {
 				
 				me.hideDashboardLoginButton();
 				me.hideLoginView();
+				this.getApplication().getController('Android').removeLastBackHandler();
 
 				me.loadProfile(account.get('profileId'));
 

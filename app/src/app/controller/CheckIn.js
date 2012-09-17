@@ -622,7 +622,7 @@ Ext.define('EatSense.controller.CheckIn', {
       appChannel.closeChannel();
 
       requestCtr.resetAllRequests();
-      androidCtr.setAndroidBackHandler(null);
+      androidCtr.resetBackHandler();
 		}
     
     //TODO remove?
