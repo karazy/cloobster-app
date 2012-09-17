@@ -80,9 +80,9 @@ $product-sub-bg: #D3D3D3;
 }
 
 .panel-floating {
-  border-radius: 0.3em !important;
-  padding: 0.3em !important;
-  background-color: #A9A9A9 !important;
+  border-radius: 0.1em !important;
+  padding: 0.1em !important;
+  background-color: $base-color !important;
 }
 
 .productDetailPanel {
@@ -432,6 +432,12 @@ $product-sub-bg: #D3D3D3;
   color: $label-color; 
   font-size: 1em;
   text-align: center;
+
+  h1 {
+    font-size: 1em;
+    font-weight: bold;
+  }
+  
 }
 
 .general-label-black {

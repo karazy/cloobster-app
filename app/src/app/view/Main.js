@@ -35,7 +35,7 @@ Ext.define('EatSense.view.Main', {
 		// }, 
 		{
 			xtype : 'lounge'
-		} 
+		}
 		]
 	},
 	/**

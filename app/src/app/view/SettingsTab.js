@@ -64,6 +64,7 @@ Ext.define('EatSense.view.SettingsTab', {
 							{
 								xtype: 'label',
 								cls: 'general-label',
+								style: 'margin-top: 1em; font-weight: bold;',
 								html: '<h1>' + i10n.translate('settings.section.account') + '</h1>'						
 							},
 							{
@@ -91,16 +92,11 @@ Ext.define('EatSense.view.SettingsTab', {
 						]
 					},
 					{
-						xtype: 'label',
-						cls: 'general-label',
-						html: '<h1>' + i10n.translate('settings.section.infos') + '</h1>'						
-					},
-					{
 						xtype: 'button',
 						text: 'Impressum',
 						ui: 'action',
 						action: 'about',
-						margin: '7 0 5 0',
+						style: 'margin-top: 1em;',
 						width: '80%'
 					},
 					{
@@ -114,73 +110,6 @@ Ext.define('EatSense.view.SettingsTab', {
 			}
 			]
 		}
-
-		 // {
-			// xtype : 'titlebar',
-			// docked : 'top',
-			// title : i10n.translate('settingsTitle'),
-		// }, 
-
-		// {
-		// 	xtype: 'formpanel',
-		// 	//prevents also that the panel has a wrong size. Bug?
-		// 	scrollable: false,			
-		// 	margin: '10 0 0 0',
-		// 	width: '80%',
-		// 	items: [
-		// {
-		// 	xtype: 'label',
-		// 	cls: 'general-label',
-		// 	html: i10n.translate('settings.account.label.email')
-		// },
-		// {
-		// 	xtype: 'emailfield',
-		// 	labelWidth: '40%',
-		// 	cls: 'general-textfield',
-		// 	labelCls: 'general-field-label-horizontal',
-		// 	label: i10n.translate('settings.account.field.email')
-		// },
-		// {
-		// 	xtype: 'button',
-		// 	ui: 'action',
-		// 	margin: '7 0 5 0',
-		// 	action: 'email-change',
-		// 	text: i10n.translate('settings.account.button.email')
-		// },
-		// {
-		// 	xtype: 'label',
-		// 	cls: 'general-label',
-		// 	html: i10n.translate('settings.account.label.password')
-		// },
-		// {
-		// 	xtype: 'passwordfield',
-		// 	labelWidth: '40%',
-		// 	cls: 'general-textfield',
-		// 	labelCls: 'general-field-label-horizontal',
-		// 	label: i10n.translate('settings.account.field.password')
-		// },
-		// {
-		// 	xtype: 'button',
-		// 	ui: 'action',
-		// 	action: 'password-change',
-		// 	margin: '7 0 5 0',
-		// 	text: i10n.translate('settings.account.button.password')
-		// },
-		// 	]
-		// },
-		// {
-		// 	xtype: 'newsletter',			
-		// 	width: '80%'
-		// },
-		// {
-		// 	xtype: 'button',
-		// 	text: Karazy.i10n.translate('settings.button.logout'),
-		// 	ui: 'action',
-		// 	action: 'logout',
-		// 	margin: '7 0 5 0',
-		// 	disabled: true,
-		// 	width: '80%'
-		// },
 
 		]
 	}

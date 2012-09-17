@@ -29,9 +29,9 @@ Ext.define('EatSense.util.Translations',{
 		"newRestaurantsButton" : "Neue Restaurants",
 		"settingsButton" : "Einstellungen",
 		//Dashboard
-		"dashboard.button.checkin" : "Eintreten",
-		"dashboardLabel1" : "<h2>Service At Its Peak</h2><p>With cloobster you have your concierge at hand."+
-		"</p><p>Just check-in and enjoy our service.</p>",
+		"dashboard.button.checkin" : "Check-In",
+		"dashboardLabel1" : "<h2>Service At Its Peak</h2><p>With cloobster you have your concierge<br/>at hand."+
+		" Just check-in and enjoy our service.</p>",
 		"dashboardLabel2" : "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
 		// Checkin
 		"checkInTitle" : "Check-In",
@@ -164,8 +164,8 @@ Ext.define('EatSense.util.Translations',{
 		"account.logout.confirm.title" : "User Logout",
 		"account.logout.confirm.message" : "Möchtest du ausloggen?",
 		//history
-		"history.title" : "Historie",
-		"dashboard.button.history" : "Historie",
+		"history.title" : "My Places",
+		"dashboard.button.history" : "My Places",
 		"history.detail.title" : "Rechnung",
 		"history.detail.list.paging" : "Mehr laden ...",
 		"history.noaccount" : "Bitte log dich ein oder registriere dich um diese Funktion zu nutzen.",

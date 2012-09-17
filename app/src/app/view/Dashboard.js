@@ -10,7 +10,7 @@ Ext.define('EatSense.view.Dashboard', {
 		layout : {
 			type : 'fit'
 		},
-		// cls: 'dashboard',
+		cls: 'dashboard',
 		items : [
 		{
 			xtype : 'panel',
@@ -123,7 +123,7 @@ Ext.define('EatSense.view.Dashboard', {
 			iconCls: 'about',
 			iconMask: true,
 			styleHtmlContent: true,
-		},
+			}
 			]
 		}
 		]
