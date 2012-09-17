@@ -48,7 +48,7 @@ Ext.define('EatSense.view.OrderDetail', {
 				xtype : 'label',
 				itemId : 'prodDetailLabel',
 				cls: 'productDetail',
-				tpl: '{order.data.longDesc}'
+				tpl: '{order.data.productLongDesc}'
 			}, {
 				xtype : 'panel',
 				docked: 'right',

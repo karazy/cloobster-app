@@ -8,8 +8,7 @@ Ext.define('EatSense.view.SettingsTab', {
 	config : {
 		layout: {
 			type: 'fit'
-		},
-		scrollable: 'vertical',
+		},		
 		iconCls : 'settings',
 		cls: 'setting-panel',
 		title: i10n.translate('settingsButton'),
@@ -26,6 +25,7 @@ Ext.define('EatSense.view.SettingsTab', {
 					pack: 'center',
 					align: 'middle'
 				},
+				scrollable: 'vertical',
 				items: [
 					{
 					xtype: 'formpanel',

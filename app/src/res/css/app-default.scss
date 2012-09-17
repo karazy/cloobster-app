@@ -381,15 +381,23 @@ $product-sub-bg: #D3D3D3;
   background-size: 55px 55px;
   background-repeat: no-repeat;
   background-position: center 5px;
-  height: 80px;
-  width: 80px;
+  height: 85px;
+  width: 85px;
   color: #497EC1;
+}
+
+.dashboard-button-label {
+  width: 85px;
+  text-align: center;
+  position: absolute;
+  bottom: 10px; 
+  font-size: 0.8em; 
 }
 
 .dashboard-button-pressed {
   -webkit-box-shadow: 0px 0px 15px 5px #497EC1;
   box-shadow: 0px 0px 15px 5px #497EC1;
-  border-radius: 1em;
+  border-radius: 0.5em;
   color: #C3C3C3;
   border: 1px solid #C3C3C3;
 }
@@ -413,14 +421,6 @@ $product-sub-bg: #D3D3D3;
 .dashboard-button-facebook {
   background-image: url('../images/dashboard/facebook.png');
   margin-right: 1em;
-}
-
-.dashboard-button-label {
-  width: 80px;
-  text-align: center;
-  position: absolute;
-  bottom: 5px; 
-  font-size: 0.8em; 
 }
 
 .dashboard-button-badge {
@@ -741,6 +741,12 @@ h9 {
 	background-color: $page-bg-color !important;
 }
 
+/* Override needed because ui-round already has a white background. */
+.x-list-round .x-list-item.x-item-pressed .x-list-item-label {
+  border-top-color: lighten($active-color, 30%);
+  background-color: lighten($active-color, 30%);
+}
+
 .x-tabbar-dark .x-tab {
 	/*color: $tab-border-bottom-color;*/
 	text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -749,8 +755,13 @@ h9 {
 }
 
 .x-tabbar-dark .x-tab-pressed {
-  color: $active-color !important;
+  color: $active-color !important;  
+
+  .x-button-icon {
+    background-color:$active-color !important;
+  }
 }
+
 
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background-color: $active-color;
