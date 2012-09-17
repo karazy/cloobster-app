@@ -7066,11 +7066,6 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Dashboard
 */
-/* line 339, green-theme.scss */
-.dashboard {
-  background: #917d64 url("../images/bg-rp-main.png") repeat left top;
-}
-
 /* line 343, green-theme.scss */
 .dashboard-description {
   color: white;

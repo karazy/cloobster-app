@@ -22,6 +22,7 @@ Ext.define('EatSense.util.Translations',{
 		"continue" : "Weiter",
 		"leave" : "Verlassen",
 		"channelTokenError" : "Updates im Hintergrund nicht funktionsfähig.",
+		"android.backbutton.exit" : "Nochmal drücken um zu beenden.",
 		// main menu
 		"checkInButton" : "Check-In",
 		"currentDealsButton" : "Deals",
@@ -59,6 +60,7 @@ Ext.define('EatSense.util.Translations',{
 		"choiceValErrMandatory" : "Bitte triff eine Wahl für {0}",
 		"choiceValErrMin" : "Bitte min {0} Optionen in {1} auswählen.",
 		"choiceValErrMax" : "Bitte max  {0} Optionen in {1} auswählen.",
+		"menu.product.detail.loading" : "Lade Produktdaten...",
 		//Order
 		"orderInvalid" : "Bitte Auswahl überprüfen.",
 		"orderPlaced" : "Bestellung im Warenkorb.",

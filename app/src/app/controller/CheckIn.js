@@ -99,7 +99,7 @@ Ext.define('EatSense.controller.CheckIn', {
     	this.doCheckInIntent = function(barcode, button, deviceId) {    		 
     	    	//validate barcode field
     	    	if(barcode.length == 0) {
-    	    		this.getDashboard().showLoadScreen(false);
+              Ext.Viewport.setMasked(false);
     	    		button.enable();
     	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
     	    	} else {
@@ -118,7 +118,7 @@ Ext.define('EatSense.controller.CheckIn', {
                             }); 
      	        	    },
      	        	    callback: function() {
-     	        	    	me.getDashboard().showLoadScreen(false);
+                      Ext.Viewport.setMasked(false);
      	        	    	button.enable();
      	        	    }
     	        	});
@@ -156,7 +156,10 @@ Ext.define('EatSense.controller.CheckIn', {
                     if(btnId=='yes') {
                         barcode = Ext.String.trim(value);    
                         deviceId = '_browser';
-                        this.getDashboard().showLoadScreen(true);
+                        Ext.Viewport.setMasked({
+                          message : i10n.translate('loadingMsg'),
+                          xtype : 'loadmask'
+                        });
                         this.doCheckInIntent(barcode, button, deviceId);
                     } else {
                         button.enable();
@@ -169,7 +172,10 @@ Ext.define('EatSense.controller.CheckIn', {
             if(!result.cancelled) {
               barcode =  that.extractBarcode(result.text);
               console.log('scanned ' + barcode);
-              that.getDashboard().showLoadScreen(true);
+              Ext.Viewport.setMasked({
+                message : i10n.translate('loadingMsg'),
+                xtype : 'loadmask'
+              });
               //FR 28.03.12 apple rejects apps which track device uuid
               // deviceId = device.uuid;
               that.doCheckInIntent(barcode, button, deviceId);
@@ -263,12 +269,12 @@ Ext.define('EatSense.controller.CheckIn', {
 	   if(nickname.length < 3) {
 		   Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
 	   } else {		   
-          checkInDialog.showLoadScreen(true);
+          appHelper.toggleMask('loadingMsg');
 		      this.getActiveCheckIn().set('nickname',nickname);		  	   
 		      this.getActiveCheckIn().save(
 					   {
 					   	    success: function(response) {
-                    checkInDialog.showLoadScreen(false);
+                    appHelper.toggleMask(false);
   					   	    console.log("CheckIn Controller -> checkIn success");
                     //Set default headers so that always checkInId is send
                     headerUtil.addHeaders({
@@ -301,7 +307,7 @@ Ext.define('EatSense.controller.CheckIn', {
                     }
 					},
 				failure: function(response, operation) {
-                    checkInDialog.showLoadScreen(false);
+                    appHelper.toggleMask(false);
                     me.getApplication().handleServerError({
                       'error': operation.error, 
                       'forceLogout':{403 : true}
@@ -543,21 +549,20 @@ Ext.define('EatSense.controller.CheckIn', {
     
 	},
   /**
-  * Show a loading mask on the dashboard or remove it.
+  * Show a loading mask on the viewport or remove it.
   * @param messageKey
   *   MessageKey used to get messager for loading message.
   *   If this is not a string (e. g. boolean false), loading mask gets removed.
   */
   toggleDashboardMask: function(messageKey) {
-    var dashboard = this.getDashboard();
 
     if(typeof messageKey == "string") {
-      dashboard.setMasked({
+      Ext.Viewport.setMasked({
         xtype: 'loadmask',
         message: i10n.translate(messageKey)
       });
     } else {
-      dashboard.setMasked(false);
+      Ext.Viewport.setMasked(false);
     }
   },
 	/**

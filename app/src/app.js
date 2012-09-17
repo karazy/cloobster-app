@@ -111,7 +111,7 @@ Ext.application({
 	   	 if(restoredCheckInId) {
         checkInCtr.showDashboard();
         //show loading mask, because it can take a while if server is not responding immediately
-        checkInCtr.toggleDashboardMask('restoreStateLoading');
+        appHelper.toggleMask('restoreStateLoading');
 
         defaultHeaders['checkInId'] = restoredCheckInId;
 
@@ -119,13 +119,13 @@ Ext.application({
    			 EatSense.model.CheckIn.load(restoredCheckInId, {
    				scope: this,
    				success : function(record, operation) {
-   					console.log('found existing checkin '+record);
-            checkInCtr.toggleDashboardMask(false);
-   					checkInCtr.restoreState(record);  						   				
+   					console.log('found existing checkin '+record);            
+   					checkInCtr.restoreState(record);
+            appHelper.toggleMask(false);   				
    				},
    				failure: function(record, operation) {
    					console.log('error restoring state');
-            checkInCtr.toggleDashboardMask(false);
+            appHelper.toggleMask(false);
 
             delete defaultHeaders['checkInId'];
 

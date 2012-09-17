@@ -174,7 +174,8 @@ Ext.define('EatSense.controller.Menu', {
 			detail = this.getProductdetail(), 
 			main = this.getMain(), 
 			menu = this.getMenuview(), 
-			choicesPanel =  this.getProductdetail().getComponent('choicesPanel'),
+			choicesPanel =  this.getProductdetail().down('#choicesPanel'),
+			choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
 			titlebar = detail.down('titlebar'),
 			activeProduct,
 			order;
@@ -188,46 +189,59 @@ Ext.define('EatSense.controller.Menu', {
 
 		choicesPanel.removeAll(false);
 
-		titlebar.setTitle(order.get('productName'));
+		titlebar.setTitle(order.get('productName'));		
 
 		//reset product spinner
 		this.getAmountSpinner().setValue(1);
 		this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: order, amount: this.getAmountSpinner().getValue()});
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
 
-		 //dynamically add choices
-		if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
-		 	 //render all main choices
-		 	 order.choices().each(function(choice) {
-					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
-						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
-
-					optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
-					//recalculate when selection changes
-					choice.on('recalculate', function() {
-						me.recalculate(order);
-					});
-
-					me.createOptions(choice, optionsDetailPanel);
-					choicesPanel.add(optionsDetailPanel);
-		 	 });
-		};
-		 
-		//insert comment field after options have been added so it is positioned correctly
-		choicesPanel.add({
-			xtype: 'textareafield',
-			label: i10n.translate('orderComment'),
-			labelAlign: 'top',
-			itemId: 'productComment',
-			maxRows: 3,
-			value: '',
-			inputCls: 'comment-input',
-			labelCls: 'comment'
-		});
-		 
 		Ext.Viewport.add(detail);
 		detail.getScrollable().getScroller().scrollToTop();
 		detail.show();
+
+		detail.setMasked({
+			xtype: 'loadmask',
+			message: i10n.translate('menu.product.detail.loading')
+		});
+
+		Ext.defer((function() {		
+			//dynamically add choices
+			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
+			 	 //render all main choices
+			 	 order.choices().each(function(choice) {
+						var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
+							choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
+
+						optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
+						//recalculate when selection changes
+						choice.on('recalculate', function() {
+							me.recalculate(order);
+						});
+
+						me.createOptions(choice, optionsDetailPanel);
+						choicesPanel.add(optionsDetailPanel);
+			 	 });		 	 
+			};
+			 
+			//insert comment field after options have been added so it is positioned correctly
+			choicesPanel.add({
+				xtype: 'textareafield',
+				label: i10n.translate('orderComment'),
+				labelAlign: 'top',
+				itemId: 'productComment',
+				maxRows: 3,
+				value: '',
+				inputCls: 'comment-input',
+				labelCls: 'comment'
+			});
+
+			detail.setMasked(false);
+		}), 10, this);
+
+
+		
+		
 	},
 	/**
 	* @private

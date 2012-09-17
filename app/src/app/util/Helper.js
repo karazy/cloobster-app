@@ -93,6 +93,22 @@ Ext.define('EatSense.util.Helper', {
 	toggleAlertActive: function(active) {
 		this.setAlertActive(active);
 	},
+	/**
+	* Show hide loading mask on viewport to prevent user actions and show an ongoing progress.
+	* @param messageKey
+	*	If messagekey is of type string, shows the loading mask with the given message. Otherwise hides the mask.
+	*/
+	toggleMask: function(messageKey) {
+
+	    if(typeof messageKey == "string") {
+	      Ext.Viewport.setMasked({
+	        xtype: 'loadmask',
+	        message: i10n.translate(messageKey)
+	      });
+	    } else {
+	      Ext.Viewport.setMasked(false);
+	    };
+  },
 	// /**
 	// * Get status of alertActive.
 	// */
