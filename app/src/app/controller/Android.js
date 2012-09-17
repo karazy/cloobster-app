@@ -40,10 +40,13 @@ Ext.define('EatSense.controller.Android', {
 				console.log('Android Controller -> executeBackHandler: exit app');
 				navigator.app.exitApp();
 			} else {
+				//make it to look like android toast message
 				msgBox = Ext.create('Ext.MessageBox', {
 					modal: false,
 					centered: false,
 					bottom: '5%',
+					right: '3%',
+					left: '3%',
 					'message' : i10n.translate('android.backbutton.exit'),
 					buttons : []
 				});
