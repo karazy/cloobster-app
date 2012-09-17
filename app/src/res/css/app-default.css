@@ -7446,7 +7446,7 @@ h9 {
 
 /* line 624, app-default.scss */
 .checkin-confirm-nickname-label {
-  color: white;
+  color: black;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
@@ -7578,15 +7578,16 @@ h9 {
 }
 
 /* line 744, app-default.scss */
-.lounge-tabbar .x-tab {
+.x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
   font-family: Helvetica Neue !important;
+  color: white !important;
 }
 
-/* line 750, app-default.scss */
-.lounge-tabbar .x-tab {
-  color: white;
+/* line 751, app-default.scss */
+.x-tabbar-dark .x-tab-pressed {
+  color: #ff9933 !important;
 }
 
 /* line 755, app-default.scss */

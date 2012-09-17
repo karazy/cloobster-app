@@ -4,6 +4,6 @@ Ext.define('EatSense.store.History', {
 	config: {
 		storeId: 'historyStore',
 		model: 'EatSense.model.History',
-		pageSize: 5
+		pageSize: 15
 	}
 })

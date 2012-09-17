@@ -12,7 +12,7 @@ Ext.define('EatSense.util.Translations',{
 		"close" : "Schliessen",
 		"loadingMsg" : "Laden ...",
 		"general.processing" : "In Bearbeitung ...",
-		"general.credentials.invalid" : "Passwort und/oder Benutzername ungültig",
+		"general.credentials.invalid" : "Passwort und/oder Benutzername falsch!",
 		"general.comingsoon" : "Demnächst",
 		"save" : "Speichern",
 		"hint" : "Hinweis",
@@ -177,7 +177,8 @@ Ext.define('EatSense.util.Translations',{
 		"error.menu.needsrefresh" : "Menü Daten nicht mehr aktuell. Bitte führen Sie die Bestellung nochmals durch.",
 		"error.account.email.exists" : "Diese E-Mail wird bereits verwendet.",
 		"error.account.email" : "Bitte gib eine gültige E-Mail an.",
-		"error.account.password" : "Passwort muss min 6 Zeichen besitzen. Darunter 1 Zahl oder Sonderzeichen."
+		"error.account.password" : "Passwort muss min 6 Zeichen besitzen. Darunter 1 Zahl oder Sonderzeichen.",
+		"error.account.nocredentials" : "Bitte gib deinen Zugangsdaten ein um dich einzuloggen."
 		}
 	}
 	}

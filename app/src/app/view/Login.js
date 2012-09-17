@@ -17,7 +17,9 @@ Ext.define('EatSense.view.Login', {
 		//BUG: has to be set otherwise an error gets trown
 		//http://www.sencha.com/forum/showthread.php?192847-Animating-panels-throws-Cannot-call-method-getPageBox-of-null/page2
 		hidden: true,
-		cls: 'dashboard',		
+		cls: 'dashboard',
+		//make login panel stay on top!
+		style: 'z-index: 2;',		
 		items: [
 			{
 				docked : 'top',
@@ -63,6 +65,7 @@ Ext.define('EatSense.view.Login', {
 				xtype: 'button',
 				text: i10n.translate('login.button.login'),
 				action: 'login',
+				ui: 'action',
 				margin: '5 0 7 0'
 			},
 			// {
@@ -77,6 +80,7 @@ Ext.define('EatSense.view.Login', {
 			{
 				xtype: 'button',
 				text: i10n.translate('login.button.signup'),
+				ui: 'action',
 				action: 'signup'
 			}
 		]

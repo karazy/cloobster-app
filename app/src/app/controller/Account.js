@@ -131,7 +131,8 @@ Ext.define('EatSense.controller.Account', {
 	},
 
 	showSignupConfimDialog: function(button) {
-		var me = this;
+		var me = this,
+			loginView = this.getLoginView();
 
 	    Ext.Msg.show({
             title: i10n.translate('account.signup.confirm.title'),
@@ -148,19 +149,27 @@ Ext.define('EatSense.controller.Account', {
             scope: this,
             fn: function(btnId, value, opt) {
                 if(btnId=='yes') {
+                	loginView.setMasked({
+                		xtype: 'loadmask',
+                		message: i10n.translate('general.processing')
+                	});
                 	this.signup(callback);
                 }
             }
         }); 
 
 	    //Called after succesful signup
-        function callback() {
-        	me.hideDashboardLoginButton();
-        	me.hideLoginView();
+        function callback(success) {
+        	loginView.setMasked(false);
 
-    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
-    	    	i10n.translate('account.signup.success.message')
-    	  	);
+        	if(success) {
+        		me.hideDashboardLoginButton();
+	        	me.hideLoginView();
+
+	    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
+	    	    	i10n.translate('account.signup.success.message')
+	    	  	);
+        	}        	
         };
 	},
 
@@ -192,6 +201,7 @@ Ext.define('EatSense.controller.Account', {
         		};
         		errMsg += i10n.translate('error.account.password');
         	}
+        	callback(false);
             Ext.Msg.alert(i10n.translate('error'), errMsg);
             return;
         };
@@ -212,9 +222,11 @@ Ext.define('EatSense.controller.Account', {
         		checkInCtr.getAppState().set('accountId', record.get('id'));
         		//Set default headers so that always credentials are send
 				headerUtil.addHeader('X-Auth', record.get('accessToken'));
-        		callback();
+        		callback(true);
         	},
         	failure: function(record, operation) {
+        		callback(false);
+
         		try {
         			responseError = Ext.JSON.decode(operation.error.responseText);
         			responseErrorKey = responseError.errorKey;
@@ -242,12 +254,24 @@ Ext.define('EatSense.controller.Account', {
 			account,
 			checkInCtr = this.getApplication().getController('CheckIn'),
 			appState = checkInCtr.getAppState(),
-			errorMessage;
+			errorMessage,
+			loginView = this.getLoginView();
 
 		if(headerUtil.getHeaderValue('X-Auth')) {
-			//already logged in, skip
+			//already logged in, skip			
 			return;
 		};
+
+		if(!formValues.email || Ext.String.trim(formValues.email).length == 0 || !formValues.password || Ext.String.trim(formValues.password).length == 0) {
+			//no credentials provided
+			Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.account.nocredentials'));
+			return;
+		}
+
+		loginView.setMasked({
+    		xtype: 'loadmask',
+    		message: i10n.translate('general.processing')
+    	});
 
 		//POST /c/accounts with credentials to get access token
 		//for ceonvenience the complete account object is transferred
@@ -261,6 +285,8 @@ Ext.define('EatSense.controller.Account', {
 			},
     	    scope: this,
     	    success: function(response) {
+    	    	loginView.setMasked(false);
+
     	    	//parse account, currently we only need the access token
     	    	account = Ext.create('EatSense.model.Account', Ext.decode(response.responseText));
     	    	me.setAccount(account);
@@ -281,6 +307,7 @@ Ext.define('EatSense.controller.Account', {
         		};
     	    },
     	    failure: function(response) {
+    	    	loginView.setMasked(false);
 
 				if(response.status) {
 					//not authorized

@@ -506,7 +506,7 @@ h9 {
 }
 
 .checkin-confirm-nickname-label {
-  color: white; 
+  color: $label-color; 
   font-size: 1.2em;
   margin-bottom: 5px;
 }
@@ -580,14 +580,15 @@ h9 {
 	background-color: $page-bg-color !important;  
 }
 
-.lounge-tabbar .x-tab {
-	/*color: $tab-border-bottom-color;*/
-	text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
-	font-family: Helvetica Neue !important;
+.x-tabbar-dark .x-tab {
+  /*color: $tab-border-bottom-color;*/
+  text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
+  font-family: Helvetica Neue !important;
+  color: $font-color !important;
 }
 
-.lounge-tabbar .x-tab {
-  color: $font-color;
+.x-tabbar-dark .x-tab-pressed {
+  color: $active-color !important;
 }
 
 

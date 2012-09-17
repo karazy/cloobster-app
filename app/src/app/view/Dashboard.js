@@ -16,7 +16,7 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype : 'panel',
 			// src : 'res/images/dashboard/header-bg.jpg',
 			//use a real html img tag!
-			html: '<img src="res/images/dashboard/header-bg.jpg" />',
+			html: '<img src="res/images/dashboard/header-bg.png" />',
 			cls: 'dashboard-header',
 			docked: 'top',
 			layout: 'fit'
