@@ -7170,48 +7170,53 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 1em;
   text-align: center;
 }
+/* line 437, blue-theme.scss */
+.general-label h1 {
+  font-size: 1em;
+  font-weight: bold;
+}
 
-/* line 438, blue-theme.scss */
+/* line 444, blue-theme.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
 }
 
-/* line 443, blue-theme.scss */
+/* line 449, blue-theme.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 448, blue-theme.scss */
+/* line 454, blue-theme.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 453, blue-theme.scss */
+/* line 459, blue-theme.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 457, blue-theme.scss */
+/* line 463, blue-theme.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 462, blue-theme.scss */
+/* line 468, blue-theme.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 468, blue-theme.scss */
+/* line 474, blue-theme.scss */
 .hidden {
   display: none;
 }
 
-/* line 473, blue-theme.scss */
+/* line 479, blue-theme.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -7219,7 +7224,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 480, blue-theme.scss */
+/* line 486, blue-theme.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -7227,7 +7232,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 487, blue-theme.scss */
+/* line 493, blue-theme.scss */
 .visible {
   display: block;
 }
@@ -7235,7 +7240,7 @@ h9 {
 /*
 * Menu- and Productlist
 */
-/* line 496, blue-theme.scss */
+/* line 502, blue-theme.scss */
 .menu-panel, .menu-panel .x-list-round .x-scroll-view {
   background: #f4f1ea;
 }
@@ -7243,42 +7248,42 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 504, blue-theme.scss */
+/* line 510, blue-theme.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 508, blue-theme.scss */
+/* line 514, blue-theme.scss */
 .checkin-confirm-nickname-label {
   color: black;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
-/* line 514, blue-theme.scss */
+/* line 520, blue-theme.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 5px;
 }
 
-/* line 519, blue-theme.scss */
+/* line 525, blue-theme.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 523, blue-theme.scss */
+/* line 529, blue-theme.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 528, blue-theme.scss */
+/* line 534, blue-theme.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 3px;
 }
 
-/* line 533, blue-theme.scss */
+/* line 539, blue-theme.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -7289,7 +7294,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 545, blue-theme.scss */
+/* line 551, blue-theme.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -7297,13 +7302,13 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 552, blue-theme.scss */
+/* line 558, blue-theme.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Perf. optimization for android. */
-/* line 557, blue-theme.scss */
+/* line 563, blue-theme.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
@@ -7312,7 +7317,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 565, blue-theme.scss */
+/* line 571, blue-theme.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -7320,7 +7325,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 572, blue-theme.scss */
+/* line 578, blue-theme.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -7328,19 +7333,19 @@ h9 {
 }
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
-/* line 579, blue-theme.scss */
+/* line 585, blue-theme.scss */
 .x-list-round .x-scroll-view {
   background-color: #f4f1ea !important;
 }
 
 /* Override needed because ui-round already has a white background. */
-/* line 584, blue-theme.scss */
+/* line 590, blue-theme.scss */
 .x-list-round .x-list-item.x-item-pressed .x-list-item-label {
   border-top-color: #ffe6cc;
   background-color: #ffe6cc;
 }
 
-/* line 589, blue-theme.scss */
+/* line 595, blue-theme.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -7348,16 +7353,16 @@ h9 {
   color: white !important;
 }
 
-/* line 596, blue-theme.scss */
+/* line 602, blue-theme.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #ff9933 !important;
 }
-/* line 599, blue-theme.scss */
+/* line 605, blue-theme.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #ff9933 !important;
 }
 
-/* line 605, blue-theme.scss */
+/* line 611, blue-theme.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background-color: #ff9933;
   background-image: none;
@@ -7369,7 +7374,7 @@ h9 {
   box-shadow: black 0 0 0.25em inset;
 }
 
-/* line 616, blue-theme.scss */
+/* line 622, blue-theme.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
   /*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(2%, #F0F7FF), color-stop(100%, #A8D4FF));
@@ -7377,7 +7382,7 @@ h9 {
   /* background-image: linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
 }
 
-/* line 623, blue-theme.scss */
+/* line 629, blue-theme.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
@@ -7387,13 +7392,13 @@ h9 {
 }
 
 /* Force action button to have white text color. */
-/* line 632, blue-theme.scss */
+/* line 638, blue-theme.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: #FFF;
 }
 
 /* Force color of disclosure item instead of beeing calculated. */
-/* line 637, blue-theme.scss */
+/* line 643, blue-theme.scss */
 .x-list-round .x-list-disclosure {
   background-image: none;
   background-color: #ff9933;

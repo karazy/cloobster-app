@@ -7169,48 +7169,53 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 1em;
   text-align: center;
 }
+/* line 436, green-theme.scss */
+.general-label h1 {
+  font-size: 1em;
+  font-weight: bold;
+}
 
-/* line 437, green-theme.scss */
+/* line 443, green-theme.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
 }
 
-/* line 442, green-theme.scss */
+/* line 448, green-theme.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 447, green-theme.scss */
+/* line 453, green-theme.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 452, green-theme.scss */
+/* line 458, green-theme.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 456, green-theme.scss */
+/* line 462, green-theme.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 461, green-theme.scss */
+/* line 467, green-theme.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 467, green-theme.scss */
+/* line 473, green-theme.scss */
 .hidden {
   display: none;
 }
 
-/* line 472, green-theme.scss */
+/* line 478, green-theme.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -7218,7 +7223,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 479, green-theme.scss */
+/* line 485, green-theme.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -7226,7 +7231,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 486, green-theme.scss */
+/* line 492, green-theme.scss */
 .visible {
   display: block;
 }
@@ -7234,7 +7239,7 @@ h9 {
 /*
 * Menu- and Productlist
 */
-/* line 495, green-theme.scss */
+/* line 501, green-theme.scss */
 .menu-panel, .menu-panel .x-list-round .x-scroll-view {
   background: #f4f1ea;
 }
@@ -7242,42 +7247,42 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 503, green-theme.scss */
+/* line 509, green-theme.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 507, green-theme.scss */
+/* line 513, green-theme.scss */
 .checkin-confirm-nickname-label {
   color: black;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
-/* line 513, green-theme.scss */
+/* line 519, green-theme.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 5px;
 }
 
-/* line 518, green-theme.scss */
+/* line 524, green-theme.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 522, green-theme.scss */
+/* line 528, green-theme.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 527, green-theme.scss */
+/* line 533, green-theme.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 3px;
 }
 
-/* line 532, green-theme.scss */
+/* line 538, green-theme.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -7288,7 +7293,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 544, green-theme.scss */
+/* line 550, green-theme.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -7296,13 +7301,13 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 551, green-theme.scss */
+/* line 557, green-theme.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Perf. optimization for android. */
-/* line 556, green-theme.scss */
+/* line 562, green-theme.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
@@ -7311,7 +7316,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 564, green-theme.scss */
+/* line 570, green-theme.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -7319,7 +7324,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 571, green-theme.scss */
+/* line 577, green-theme.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -7327,19 +7332,19 @@ h9 {
 }
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
-/* line 578, green-theme.scss */
+/* line 584, green-theme.scss */
 .x-list-round .x-scroll-view {
   background-color: #f4f1ea !important;
 }
 
 /* Override needed because ui-round already has a white background. */
-/* line 583, green-theme.scss */
+/* line 589, green-theme.scss */
 .x-list-round .x-list-item.x-item-pressed .x-list-item-label {
   border-top-color: #d9e6f2;
   background-color: #d9e6f2;
 }
 
-/* line 588, green-theme.scss */
+/* line 594, green-theme.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -7347,16 +7352,16 @@ h9 {
   color: white !important;
 }
 
-/* line 595, green-theme.scss */
+/* line 601, green-theme.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #6699cc !important;
 }
-/* line 598, green-theme.scss */
+/* line 604, green-theme.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #6699cc !important;
 }
 
-/* line 604, green-theme.scss */
+/* line 610, green-theme.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background-color: #6699cc;
   background-image: none;
@@ -7368,7 +7373,7 @@ h9 {
   box-shadow: black 0 0 0.25em inset;
 }
 
-/* line 615, green-theme.scss */
+/* line 621, green-theme.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
   /*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(2%, #F0F7FF), color-stop(100%, #A8D4FF));
@@ -7376,7 +7381,7 @@ h9 {
   /* background-image: linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
 }
 
-/* line 622, green-theme.scss */
+/* line 628, green-theme.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
@@ -7386,13 +7391,13 @@ h9 {
 }
 
 /* Force action button to have white text color. */
-/* line 631, green-theme.scss */
+/* line 637, green-theme.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: #FFF;
 }
 
 /* Force color of disclosure item instead of beeing calculated. */
-/* line 636, green-theme.scss */
+/* line 642, green-theme.scss */
 .x-list-round .x-list-disclosure {
   background-image: none;
   background-color: #6699cc;
