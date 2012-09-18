@@ -61,7 +61,7 @@ Ext.define('EatSense.controller.Android', {
 					if(!appHelper.getAlertActive()) {
 						msgBox.destroy();
 					}					
-				}), appConfig.msgboxHideTimeout, this);
+				}), appConfig.msgboxHideLongTimeout, this);
 
 				this.setExitOnBack(true);	
 			}
