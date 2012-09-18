@@ -48,11 +48,7 @@ Ext.define('EatSense.view.History',{
 			docked: 'bottom',
 			items: [
 			]
-		}		
-			
-
-			
-			
+		}	
 		]
 
 	}

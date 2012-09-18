@@ -236,7 +236,7 @@ Ext.define('EatSense.controller.Feedback', {
 		this.getShowFeedbackButton().setHidden(false);
 		this.getFeedbackLabel().setHidden(false);
 
-		if(!this.getActiveFeedback().get('id')) {
+		if(!this.getActiveFeedback() || !this.getActiveFeedback().get('id')) {
 			this.getShowFeedbackLeaveButton().setHidden(false);
 		}
 	},
