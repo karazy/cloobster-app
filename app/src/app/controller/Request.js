@@ -139,8 +139,7 @@ Ext.define('EatSense.controller.Request',{
 			   	if(!success) { 
                     me.getApplication().handleServerError({
                        	'error': operation.error, 
-                     	'forceLogout': {403:true},
-                     	hideMessage: true
+                     	'forceLogout': {403:true}
                     });
                  } 
                 else {

@@ -183,101 +183,54 @@ Ext.application({
                forceLogout = options.forceLogout,
                invalidAccessToken = options.userLogout,
                hideMessage = options.hideMessage,
-               message = options.message;
+               message = options.message,
+               code = error.status || 500,
+               defaultErrorKey = null;
+
         if(error && typeof error.status == 'number') {
         	console.log('handle error: '+ error.status + ' ' + error.statusText);
         	if(!hideMessage) {
         		appHelper.toggleAlertActive(true);
         	}
-            switch(error.status) {
+            switch(code) {
                 case 403:
-                    //no permission
-                    processError.call(this, 403, 'errorPermission');
-                    // if(typeof message == "object" && message[403]) {
-                    // 	errMsg = message[403];
-                    // } else {
-                    // 	errMsg = (typeof message == "string") ? message : i10n.translate('errorPermission');
-                    // }
-                    
-                    // if(forceLogout && (forceLogout[403] === true || forceLogout === true)) {
-                    //     this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);
-                    // }
+                    defaultErrorKey = 'errorPermission';
                     break;
                 case 404:
-                    //could not load resource or server is not reachable
-                    processError.call(this, 404, 'errorResource');
-                    // if(typeof message == "object" && message[404]) {
-                    // 	errMsg =  message[404];
-                    // } else {
-                    // 	errMsg = (typeof message == "string") ? message : i10n.translate('errorResource');
-                    // }
-                    // if(forceLogout && (forceLogout[404] === true || forceLogout === true)) {
-                    //     this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);
-                    // }
+                    defaultErrorKey = 'errorResource';
                     break;
                 case 400: 
-                    //entered data is not valid
-                    processError.call(this, 400, 'errorResource');
-                    // if(typeof message == "object" && message[400]) {
-                    //   errMsg =  message[400];
-                    // } else {
-                    //   errMsg = (typeof message == "string") ? message : i10n.translate('errorResource');
-                    // };
-                    // if(forceLogout && (forceLogout[400] === true || forceLogout === true)) {
-                    //     this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);
-                    // };
+                    defaultErrorKey = 'errorResource';
                     break;
                 case 0:
-                	//communication failure, could not contact server
-                  processError.call(this, 0, 'errorCommunication');
-                	// if(typeof message == "object" && message[0]) {
-                	// 	errMsg = message[0];
-                 //    } else {
-                 //    	errMsg = (typeof message == "string") ? message : i10n.translate('errorCommunication');
-                 //    }
-                 //    if(forceLogout && (forceLogout[0] === true || forceLogout === true)) {
-                 //        this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);
-                 //    }
+                  defaultErrorKey = 'errorCommunication';
                 	break;
                 default:
-                    processError.call(this, 500, 'errorMsg');
-                    // if(typeof message == "object" && message[500]) {
-                    // 	errMsg = message[500];                    
-                    // } else {
-                    // 	try {
-                    // 		nestedError = Ext.JSON.decode(error.responseText);
-                    // 		errMsg = i10n.translate(nestedError.errorKey,nestedError.substitutions);
-	                   //  } catch (e) {
-	                   //      errMsg = (typeof message == "string") ? message : i10n.translate('errorMsg');
-	                   //  }
-                    // }
-                    // if(forceLogout && (forceLogout[500] === true || forceLogout === true)) {
-                    //     this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);
-                    // }
+                    defaultErrorKey = 'errorMsg';
                     break;
             };
 
-            function processError(code, defaultErrorKey) {
-                    if(typeof message == "object" && message[code]) {
-                      errMsg = message[code];
-                    } else {
-                      try {
-                        nestedError = Ext.JSON.decode(error.responseText);
-                        errMsg = i10n.translate(nestedError.errorKey,nestedError.substitutions);
-                      } catch (e) {
-                          errMsg = (typeof message == "string") ? message : i10n.translate(defaultErrorKey);
-                      }
-                    }
-                    //handle checkIn logout                    
-                    if(forceLogout && (forceLogout[code] === true || forceLogout === true)) {
-                        this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);                        
-                    }
-                    //handle user logout
-                    if(invalidAccessToken && (invalidAccessToken[code] === true || invalidAccessToken === true)) {
-                      this.fireEvent('userLogout');
-                    }
-            };
-        }
+
+            if(typeof message == "object" && message[code]) {
+              errMsg = message[code];
+            } else {
+              try {
+                nestedError = Ext.JSON.decode(error.responseText);
+                errMsg = i10n.translate(nestedError.errorKey, nestedError.substitutions) || i10n.translate(defaultErrorKey);
+              } catch (e) {
+                  errMsg = (typeof message == "string") ? message : i10n.translate(defaultErrorKey);
+              }
+            }
+            //handle checkIn logout                    
+            if(forceLogout && (forceLogout[code] === true || forceLogout === true)) {
+                this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);                        
+            }
+            //handle user logout
+            if(invalidAccessToken && (invalidAccessToken[code] === true || invalidAccessToken === true)) {
+              this.fireEvent('userLogout');
+            }
+        };
+
         if(!hideMessage) {
         	Ext.Msg.alert(i10n.translate('errorTitle'), errMsg, function() {
         		appHelper.toggleAlertActive(false);

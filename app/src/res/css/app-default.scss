@@ -794,7 +794,7 @@ h9 {
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
 .x-list-round .x-scroll-view {
-	background-color: $page-bg-color !important;
+  background-color: $page-bg-color !important;
 }
 
 /* Override needed because ui-round already has a white background. */
@@ -804,9 +804,9 @@ h9 {
 }
 
 .x-tabbar-dark .x-tab {
-	/*color: $tab-border-bottom-color;*/
-	text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
-	font-family: Helvetica Neue !important;
+  /*color: $tab-border-bottom-color;*/
+  text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
+  font-family: Helvetica Neue !important;
   color: $font-color !important;
 }
 
