@@ -69,12 +69,15 @@ Ext.define('EatSense.controller.History', {
    showDashboard: function(options) {
 	   var dashboardView = this.getDashboard(),
 	       mainView = this.getMainView(),
-	       historyView = this.getHistoryView();	 
+	       historyView = this.getHistoryView(),
+          historyList = this.getHistoryList();
 	     
          //also this method can be called from different points, we can savely remove the handler it is always the last
          this.getApplication().getController('Android').removeLastBackHandler();
 	   	mainView.switchAnim('right');
 	   	mainView.setActiveItem(dashboardView);
+
+         historyList.deselectAll();
    },
    /**
    * Loads the history for logged in user.
