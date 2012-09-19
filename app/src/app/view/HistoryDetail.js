@@ -46,6 +46,8 @@ Ext.define('EatSense.view.HistoryDetail', {
 					cls: 'history-detail-list',
 					itemCls: 'history-detail-item',
 					disableSelection: true,
+					//prevent highlighting of item
+					pressedCls: 'fake-class',
 					store: {
 						model: 'EatSense.model.Order'
 					},

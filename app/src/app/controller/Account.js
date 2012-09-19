@@ -278,7 +278,7 @@ Ext.define('EatSense.controller.Account', {
     	});
 
 		//POST /c/accounts with credentials to get access token
-		//for ceonvenience the complete account object is transferred
+		//for convenience the complete account object is transferred
 		Ext.Ajax.request({
     	    url: appConfig.serviceUrl+'/c/accounts/tokens',
     	    method: 'POST',
