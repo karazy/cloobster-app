@@ -18,7 +18,8 @@ Ext.define('EatSense.controller.Account', {
 			backButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
-			loginForm : 'login formpanel'
+			loginForm : 'login formpanel',
+			passwordField: 'login passwordfield'
 		},
 		control: {
 			showLoginButtonDashboard : {
@@ -125,7 +126,9 @@ Ext.define('EatSense.controller.Account', {
 	},
 
 	hideLoginView: function(button) {		
-		this.getLoginView().hide();		
+		this.getLoginView().hide();
+		//make sure never to store password
+		this.getPasswordField().setValue('');	
 	},
 
 	showSignupConfimDialog: function(button) {
@@ -221,6 +224,8 @@ Ext.define('EatSense.controller.Account', {
         		checkInCtr.getAppState().set('accountId', record.get('id'));
         		//Set default headers so that always credentials are send
 				headerUtil.addHeader('X-Auth', record.get('accessToken'));
+				//reset fields
+        		form.reset();
         		callback(true);
         	},
         	failure: function(record, operation) {
@@ -305,6 +310,9 @@ Ext.define('EatSense.controller.Account', {
 		        if(appState.get('nickname')) {
         			appState.set('nickname', null);
         		};
+
+        		//reset fields
+        		form.reset();
     	    },
     	    failure: function(response) {
     	    	loginView.setMasked(false);
