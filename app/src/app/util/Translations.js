@@ -53,8 +53,8 @@ Ext.define('EatSense.util.Translations',{
 		"restoreStateLoading" : "Aktiver CheckIn wird geladen ...",
 		"restoreStateFailed" : "CheckIn nicht mehr gültig.<br/>Bitte neu einchecken.",
 		// Menu
-		"menuTab" : "Auswählen",
-		"menuTitle" : "Angebote für Sie",
+		"menuTab" : "Angebot",
+		"menuTitle" : "Unser Angebot",
 		"choicesPanelTitle" : "Bitte wählen Sie",
 		"putIntoCartButton" : "Auf den Bestellzettel",
 		"choiceValErrMandatory" : "Bitte eine Auswahl treffen für {0}.",
@@ -75,7 +75,7 @@ Ext.define('EatSense.util.Translations',{
 		"orderCanceled" : "{0} wurde storniert.",
 		//Cart
 		"cartviewTitle" : "Ich will ...",
-		"cartTabBt" : "Bestellen",
+		"cartTabBt" : "Bestellzettel",
 		"dumpCart" : "Bestellzettel leeren?",
 		"dumpItem" : "{0} entfernen?",
 		"submitButton" : "Bestellen",
