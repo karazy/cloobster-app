@@ -5,7 +5,7 @@ Ext.define('EatSense.view.Login', {
 	config: {
 		layout: {
 			type: 'vbox',
-			// align : 'center',
+			align : 'center',
 			pack: 'center'
 		},
 		showAnimation: 'slideIn',
@@ -17,9 +17,8 @@ Ext.define('EatSense.view.Login', {
 		//BUG: has to be set otherwise an error gets trown
 		//http://www.sencha.com/forum/showthread.php?192847-Animating-panels-throws-Cannot-call-method-getPageBox-of-null/page2
 		hidden: true,
-		cls: 'dashboard',
 		//make login panel stay on top!
-		style: 'z-index: 2;',		
+		style: 'z-index: 2;',
 		items: [
 			{
 				docked : 'top',
@@ -37,28 +36,35 @@ Ext.define('EatSense.view.Login', {
 				// layout: 'vbox',
 				//prevents also that the panel has a wrong size. Bug?
 				scrollable: false,
+				width: '90%',
 				// defaults: {
-				// 	width: '85%',
+					// width: '80%',
 				// 	margin: '5 0'
 				// },
 				items: [
-				{
-					xtype: 'fieldset',
-					items: [
+				// {
+				// 	xtype: 'fieldset',
+				// 	items: [
 						{	
 							xtype: 'emailfield',
 							name: 'email',
 							required: true,
-							placeHolder: i10n.translate('login.field.email.placeholder')
+							label: i10n.translate('login.field.email.placeholder'),
+							labelAlign: 'top',
+							cls: 'general-textfield',
+							labelCls: 'general-field-label-vertical'
 						},
 						{	
 							xtype: 'passwordfield',
 							name: 'password',
 							required: true,
-							placeHolder: i10n.translate('login.field.password.placeholder')
+							label: i10n.translate('login.field.password.placeholder'),
+							labelAlign: 'top',
+							cls: 'general-textfield',
+							labelCls: 'general-field-label-vertical'
 						}
-					]
-				}
+				// 	]
+				// }
 				]
 			},
 			{
@@ -66,7 +72,8 @@ Ext.define('EatSense.view.Login', {
 				text: i10n.translate('login.button.login'),
 				action: 'login',
 				ui: 'action',
-				margin: '5 0 7 0'
+				margin: '7 0 10 0',
+				width: '90%'
 			},
 			// {
 			// 	xtype: 'button',
@@ -75,13 +82,15 @@ Ext.define('EatSense.view.Login', {
 			// },
 			{
 				xtype: 'label',
-				html: i10n.translate('login.label.notamember')
+				html: i10n.translate('login.label.notamember'),
+				width: '90%'
 			},
 			{
 				xtype: 'button',
 				text: i10n.translate('login.button.signup'),
 				ui: 'action',
-				action: 'signup'
+				action: 'signup',
+				width: '90%'
 			},
 			{
 				xtype: 'toolbar',
