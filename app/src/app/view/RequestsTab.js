@@ -8,15 +8,15 @@ Ext.define('EatSense.view.RequestsTab', {
 	config : {
 		layout : 'fit',
 		iconCls : 'requests',
-		title: Karazy.i18n.translate('requestsButton'),
+		title: i10n.translate('requestsButton'),
 		iconMask : true,
 		items : [
 			{
 				xtype: 'navigationview',
-				defaultBackButtonText: Karazy.i18n.translate('back'),			
+				defaultBackButtonText: i10n.translate('back'),			
 				items: [
 				{
-					title : Karazy.i18n.translate('requestsTitle'),
+					title : i10n.translate('requestsTitle'),
 					layout : {
 						type: 'vbox',
 						pack: 'center',
@@ -36,11 +36,11 @@ Ext.define('EatSense.view.RequestsTab', {
 							xtype: 'label',
 							cls: 'general-label',
 							itemId: 'callWaiterLabel',
-							html: Karazy.i18n.translate('callWaiterCallHint')
+							html: i10n.translate('callWaiterCallHint')
 						},
 						{
 							xtype: 'button',
-							text: Karazy.i18n.translate('callWaiterButton'),
+							text: i10n.translate('callWaiterButton'),
 							action: 'waiter',
 							ui: 'action',
 							margin: '10 0 20 0',
@@ -50,11 +50,11 @@ Ext.define('EatSense.view.RequestsTab', {
 							xtype: 'label',
 							itemId: 'feedbackLabel',
 							cls: 'general-label',
-							html: Karazy.i18n.translate('feedbackLabel')
+							html: i10n.translate('feedbackLabel')
 						},
 						{
 							xtype: 'button',
-							text: Karazy.i18n.translate('feedback'),
+							text: i10n.translate('feedback'),
 							action: 'feedback',
 							ui: 'action',
 							margin: '10 0 0 0',

@@ -59,7 +59,7 @@ Ext.define('EatSense.controller.Message', {
 		if(message.type == 'channel') {
 			console.log('received service message ' + message.action);
 			if(message.action == 'connected') {
-				Karazy.channel.connectedReceived();
+				appChannel.connectedReceived();
 			}
 		}
 		else {
@@ -87,7 +87,7 @@ Ext.define('EatSense.controller.Message', {
 		console.log('request new token. clientId: ' + this.getChannelId());
 
 		Ext.Ajax.request({
-		    url: Karazy.config.serviceUrl+'/c/checkins/'+this.getChannelId()+'/tokens',		    
+		    url: appConfig.serviceUrl+'/c/checkins/'+this.getChannelId()+'/tokens',		    
 		    method: 'POST',
 		    jsonData: true,
 		    success: function(response){
@@ -103,7 +103,7 @@ Ext.define('EatSense.controller.Message', {
 					}, 
 					'forceLogout': false, 
 					'hideMessage':true, 
-					'message': Karazy.i18n.translate('channelTokenError')
+					'message': i10n.translate('channelTokenError')
 				});
 				connectionCallback();
 		    }
@@ -112,22 +112,35 @@ Ext.define('EatSense.controller.Message', {
 	/**
 	* 	Let the server know we are still there.
 	*/
-	checkOnline: function(disconnectCallback) {
+	checkOnline: function(disconnectCallback, connectedCallback) {
 		
 		console.log('checkOnline: clientId ' + this.getChannelId());
 		Ext.Ajax.request({
-		    url: Karazy.config.serviceUrl+'/c/checkins/channels',		    
+		    url: appConfig.serviceUrl+'/c/checkins/channels',		    
 		    method: 'GET',
 		    params: {
 		    	'c' :  this.getChannelId()
 		    },
-		    success: function(response){
+		    success: function(response) {
 		       	console.log('online check request result: ' + response.responseText);
 		       	if(response.responseText == 'DISCONNECTED') {
 		       		disconnectCallback();
-		       	}		       	
+		       	}
+		       	else if(response.responseText == 'CONNECTED') {
+		       		if(connectedCallback) {
+		       			connectedCallback();
+		       		}
+		       	}
 		    }, 
 		    failure: function(response) {
+		    	if(appChannel.connectionStatus != 'CONNECTION_LOST') {
+		    		//TODO Notify user of the interrupted connection.
+		    		appChannel.setStatusHelper('CONNECTION_LOST');
+		    		me.handleStatus({
+		    			'status' : appChannel.connectionStatus, 
+		    			'prevStatus': appChannel.previousStatus
+		    		});
+		    	}
 		    	console.log('online check request failed with code: ' + response.status);
 		    }
 		});
@@ -143,9 +156,17 @@ Ext.define('EatSense.controller.Message', {
 
 		this.setChannelId(id);
 
-		Karazy.channel.setup({
+		// appChannel.setup({
+		// 	messageHandler: me.processMessages,
+		// 	requestTokenHandler: me.requestNewToken,			
+		// 	statusHandler: me.handleStatus,
+		// 	checkOnlineHandler: me.checkOnline,
+		// 	executionScope: me
+		// });
+
+		appChannel.setup({
 			messageHandler: me.processMessages,
-			requestTokenHandler: me.requestNewToken,			
+			requestTokenHandler: me.requestNewToken,
 			statusHandler: me.handleStatus,
 			checkOnlineHandler: me.checkOnline,
 			executionScope: me

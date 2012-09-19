@@ -30,7 +30,7 @@
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
 			myordersview: 'myorderstab',
-			// myordersTabBt: 'lounge button[title='+Karazy.i18n.translate('myOrdersTabBt')+']',
+			// myordersTabBt: 'lounge button[title='+i10n.translate('myOrdersTabBt')+']',
 			//TODO find a better way to select tab
 			myordersTabBt: 'lounge #ext-tab-3',
 			loungeTabBar: '#loungeTabBar',
@@ -135,14 +135,14 @@
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn();
 		
 		Ext.Msg.show({
-			title: Karazy.i18n.translate('hint'),
-			message: Karazy.i18n.translate('dumpCart'),
+			title: i10n.translate('hint'),
+			message: i10n.translate('dumpCart'),
 			buttons: [{
-				text: Karazy.i18n.translate('yes'),
+				text: i10n.translate('yes'),
 				itemId: 'yes',
 				ui: 'action'
 			}, {
-				text:  Karazy.i18n.translate('no'),
+				text:  i10n.translate('no'),
 				itemId: 'no',
 				ui: 'action'
 			}],
@@ -152,7 +152,7 @@
 				//workaround, because view stays masked after switch to menu
 				Ext.Msg.hide();
 				Ext.Ajax.request({				
-			    	    url: Karazy.config.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
+			    	    url: appConfig.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
 			    	    method: 'DELETE',
 			    	    success: function(response) {
 			    	    	//clear store				
@@ -189,14 +189,14 @@
 		
 		if(ordersCount > 0) {
 			Ext.Msg.show({
-				title: Karazy.i18n.translate('hint'),
-				message: Karazy.i18n.translate('submitOrdersQuestion'),
+				title: i10n.translate('hint'),
+				message: i10n.translate('submitOrdersQuestion'),
 				buttons: [{
-					text: Karazy.i18n.translate('yes'),
+					text: i10n.translate('yes'),
 					itemId: 'yes',
 					ui: 'action'
 				}, {
-					text: Karazy.i18n.translate('no'),
+					text: i10n.translate('no'),
 					itemId: 'no',
 					ui: 'action'
 				}],
@@ -208,7 +208,7 @@
 					this.getCancelOrderBt().disable();
 					
 					Ext.Ajax.request({
-						url: Karazy.config.serviceUrl+'/c/checkins/'+checkInId+'/cart',
+						url: appConfig.serviceUrl+'/c/checkins/'+checkInId+'/cart',
 						method: 'PUT',
 						jsonData: {}, //empty object needed, otherwise 411 gets thrown
 						success: function(response) {
@@ -224,16 +224,16 @@
 
 							//show success message
 							Ext.Msg.show({
-								title : Karazy.i18n.translate('success'),
-								message : Karazy.i18n.translate('orderSubmit'),
+								title : i10n.translate('success'),
+								message : i10n.translate('orderSubmit'),
 								buttons : []
 							});
 							
 							Ext.defer((function() {
-								if(!Karazy.util.getAlertActive()) {
+								if(!appHelper.getAlertActive()) {
 									Ext.Msg.hide();
 								}
-							}), Karazy.config.msgboxHideTimeout, this);
+							}), appConfig.msgboxHideTimeout, this);
 						},
 						failure: function(response) {
 							cartview.showLoadScreen(false);
@@ -294,7 +294,7 @@
 		 	 		return true;
 		 	 	}}).each(function(choice) {
 					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
-						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + Karazy.util.formatPrice(choice.get('price')) + ')' : '';
+						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
 
 					optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
 					menuCtr.createOptions(choice, optionsDetailPanel);
@@ -324,7 +324,7 @@
 		 //insert comment field after options have been added so it is positioned correctly
 		 choicesPanel.add({
 				xtype: 'textareafield',
-				label: Karazy.i18n.translate('orderComment'),
+				label: i10n.translate('orderComment'),
 				labelAlign: 'top',
 				itemId: 'productComment',
 				value: order.get('comment'),
@@ -364,7 +364,7 @@
 			this.getActiveOrder().set('comment', this.getChoicespanel().getComponent('productComment').getValue());	
 		
 			Ext.Ajax.request({				
-	    	    url: Karazy.config.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
+	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
 	    	    method: 'PUT',
 	    	    jsonData: order.getRawJsonData(),
 	    	    failure: function(response) {
@@ -380,7 +380,7 @@
 			return true;
 		} else {
 			//show validation error
-			Ext.Msg.alert(Karazy.i18n.translate('orderInvalid'),validationError, Ext.emptyFn, detail);
+			Ext.Msg.alert(i10n.translate('orderInvalid'),validationError, Ext.emptyFn, detail);
 			if(component) {
 				//component exists if this was called by hide listener
 				component.show();
@@ -403,7 +403,7 @@
 			activeCheckIn.orders().remove(order);
 			
 			Ext.Ajax.request({
-	    	    url: Karazy.config.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
+	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
 	    	    method: 'DELETE',
 	    	    failure: function(response) {
 					me.getApplication().handleServerError({
@@ -417,16 +417,16 @@
 			
 			//show success message and switch to next view
 			Ext.Msg.show({
-				title : Karazy.i18n.translate('orderRemoved'),
+				title : i10n.translate('orderRemoved'),
 				message : productName,
 				buttons : []
 			});
 			//show short alert and then hide
 			Ext.defer((function() {
-				if(!Karazy.util.getAlertActive()) {
+				if(!appHelper.getAlertActive()) {
 						Ext.Msg.hide();
 				}
-			}), Karazy.config.msgboxHideTimeout, this);
+			}), appConfig.msgboxHideTimeout, this);
 	},
 
 	closeOrderDetail: function() {
@@ -486,17 +486,17 @@
 
 		if(clear) {
 			button.setBadgeText("");
-			button.setText(Karazy.i18n.translate('leave'));
+			button.setText(i10n.translate('leave'));
 			// button.setIconCls('leave');
 		} else {
 
 			if(orderStore && orderStore.getCount() > 0) {
 				badgeText = orderStore.getCount();
-				button.setText(Karazy.i18n.translate('myOrdersTabBt'));
+				button.setText(i10n.translate('myOrdersTabBt'));
 				// button.setIconCls('cash');
 			} else {
 				badgeText = '';
-				button.setText(Karazy.i18n.translate('leave'));
+				button.setText(i10n.translate('leave'));
 				// button.setIconCls('leave');
 			}
 			//badgeText = (!orderStore) ? '' : (orderStore.getCount() > 0) ? orderStore.getCount() : '';
@@ -598,13 +598,13 @@
 			choosenMethod,
 			me = this;
 		
-		if(orderCount>0 && checkIn.get('status') !== Karazy.constants.PAYMENT_REQUEST && checkIn.get('status') !== Karazy.constants.COMPLETE) {
+		if(orderCount>0 && checkIn.get('status') !== appConstants.PAYMENT_REQUEST && checkIn.get('status') !== appConstants.COMPLETE) {
 
 			//create picker
 			picker = Ext.create('Ext.Picker', {
 				height: '45%',
 				doneButton: {
-					text: Karazy.i18n.translate('ok'),
+					text: i10n.translate('ok'),
 					listeners: {
 						tap: function() {
 							//TODO investigate if bug
@@ -615,7 +615,7 @@
 					}
 				},
 				cancelButton: {
-					text: Karazy.i18n.translate('cancel'),
+					text: i10n.translate('cancel'),
 					listeners: {
 						tap: function() {
 							picker.destroy();					
@@ -627,7 +627,7 @@
 			        	align: 'center',
 			        	 valueField: 'name',
 			             displayField: 'name',
-			            title: Karazy.i18n.translate('paymentPickerTitle'),
+			            title: i10n.translate('paymentPickerTitle'),
 			            store: availableMethods
 			        }
 			    ]
@@ -668,7 +668,7 @@
 			scope: this,
 			success: function(record, operation) {
 					me.setActiveBill(record);
-					checkInCtr.fireEvent('statusChanged', Karazy.constants.PAYMENT_REQUEST);
+					checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
 					payButton.hide();
 					myordersComplete.show();
 					me.refreshMyOrdersBadgeText(true);
@@ -684,16 +684,16 @@
 
 		//show success message to give user the illusion of success ;)
 		Ext.Msg.show({
-			title : Karazy.i18n.translate('hint'),
-			message : Karazy.i18n.translate('paymentRequestSend'),
+			title : i10n.translate('hint'),
+			message : i10n.translate('paymentRequestSend'),
 			buttons : []
 		});
 		
 		Ext.defer((function() {
-			if(!Karazy.util.getAlertActive()) {
+			if(!appHelper.getAlertActive()) {
 				Ext.Msg.hide();
 			}
-		}), Karazy.config.msgboxHideLongTimeout, this);
+		}), appConfig.msgboxHideLongTimeout, this);
 	},
 	/**
 	 * Called when user checks in and wants to leave without issuing an order.
@@ -703,7 +703,7 @@
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			myordersStore = Ext.data.StoreManager.lookup('orderStore');	
 
-		if(checkIn.get('status') != Karazy.constants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) { 
+		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) { 
 			checkIn.erase( {
 				failure: function(response, operation) {
 					me.getApplication().handleServerError({
@@ -713,7 +713,7 @@
 				}
 			}
 			);
-			this.getApplication().getController('CheckIn').fireEvent('statusChanged', Karazy.constants.COMPLETE);
+			this.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
 		}				
 	},
 	/**
@@ -723,7 +723,7 @@
 		var myordersComplete = this.getMyordersComplete();
 		
 		myordersComplete.hide();
-		this.getApplication().getController('CheckIn').fireEvent('statusChanged', Karazy.constants.COMPLETE);
+		this.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
 	},	
 	//UI Actions
 	/**
@@ -819,10 +819,10 @@
 				me.toggleMyordersButtons();
 
 				Ext.Msg.show({
-					title : Karazy.i18n.translate('hint'),
-					message : Karazy.i18n.translate('orderCanceled', oldOrder.get('productName')),
+					title : i10n.translate('hint'),
+					message : i10n.translate('orderCanceled', oldOrder.get('productName')),
 					buttons : [{
-						text : Karazy.i18n.translate('continue'),
+						text : i10n.translate('continue'),
 						ui: 'action'
 					}]
 				});

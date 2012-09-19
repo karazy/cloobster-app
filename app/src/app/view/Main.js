@@ -4,7 +4,7 @@
 Ext.define('EatSense.view.Main', {
 	extend : 'Ext.Container',
 	requires : [ 'EatSense.view.Dashboard', 'EatSense.view.MenuOverview', 'EatSense.view.Checkinconfirmation', 'EatSense.view.ProductOverview',
-			'EatSense.view.CheckinWithOthers', 'EatSense.view.Cart', 'EatSense.view.Menu', 'EatSense.view.Lounge', 'EatSense.view.Settings' ],
+			'EatSense.view.CheckinWithOthers', 'EatSense.view.Cart', 'EatSense.view.Menu', 'EatSense.view.Lounge'],
 	xtype : 'mainview',
 	config : {
 		fullscreen: true,
@@ -23,16 +23,20 @@ Ext.define('EatSense.view.Main', {
 		{
 			xtype : 'checkinconfirmation'
 		}, 
+		{
+			xtype: 'history'
+		},
+		{
+			xtype: 'historydetail'
+		},
 		// {
 		// 	layout : 'fit',
 		// 	xtype : 'checkinwithothers'
 		// }, 
 		{
 			xtype : 'lounge'
-		}, 
-		{
-			xtype : 'settings'
-		} ]
+		}
+		]
 	},
 	/**
 	 * Change the direction of the slide animation.

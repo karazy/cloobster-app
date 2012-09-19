@@ -16,7 +16,7 @@ Ext.define('EatSense.view.CartOverviewItem', {
 				"</table>",					
 				{
 					formatPrice: function(price) {
-						return Karazy.util.formatPrice(price);
+						return appHelper.formatPrice(price);
 					}
 				}
 				),

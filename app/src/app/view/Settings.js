@@ -11,9 +11,9 @@ Ext.define('EatSense.view.Settings', {
 		items : [ {
 			xtype : 'titlebar',
 			docked : 'top',
-			title : Karazy.i18n.translate('settingsTitle'),
+			title : i10n.translate('settingsTitle'),
 			items : [ {
-				text: Karazy.i18n.translate('back'),
+				text: i10n.translate('back'),
 				action: 'back',
 				ui: 'back',
 				align: 'left'
@@ -25,12 +25,12 @@ Ext.define('EatSense.view.Settings', {
 			items: [
 				{
 					xtype: 'label',
-					html: Karazy.i18n.translate('nicknameDesc'),
+					html: i10n.translate('nicknameDesc'),
 					width: '80%'
 				},
 				{
 					xtype : 'textfield',
-					label : Karazy.i18n.translate('nickname'),
+					label : i10n.translate('nickname'),
 					itemId : 'nicknameSetting',
 					width: '80%'
 				}

@@ -6,7 +6,7 @@ Ext.define('EatSense.view.Feedback', {
 	xtype: 'feedback',
 	requires: ['EatSense.view.FeedbackQuestion'],
 	config: {
-		title: Karazy.i18n.translate('feedback'),
+		title: i10n.translate('feedback'),
 		layout: {
 			type: 'vbox',
 			align: 'center',
@@ -18,7 +18,7 @@ Ext.define('EatSense.view.Feedback', {
 		{
 			xtype: 'label',
 			cls: 'general-label',
-			text: Karazy.i18n.translate('feedbackQuestion'),
+			text: i10n.translate('feedbackQuestion'),
 			docked: 'top'
 		},
 		{
@@ -35,14 +35,14 @@ Ext.define('EatSense.view.Feedback', {
 			itemId : 'comment',
 			cls: 'general-textfield',
 			width: '95%',
-			placeHolder: Karazy.i18n.translate('feedbackComment')
+			placeHolder: i10n.translate('feedbackComment')
 		},
 		{
 			xtype: 'emailfield',
 			itemId: 'email',
 			cls: 'general-textfield',
 			width: '95%',
-			placeHolder: Karazy.i18n.translate('feedbackEmail')
+			placeHolder: i10n.translate('feedbackEmail')
 		},
 		{
 			xtype: 'panel',
@@ -59,7 +59,7 @@ Ext.define('EatSense.view.Feedback', {
 				xtype: 'button',
 				ui: 'action',
 				action: 'submit',
-				text: Karazy.i18n.translate('feedback'),
+				text: i10n.translate('feedback'),
 				height: '50px',
 				width: '80%'
 			}

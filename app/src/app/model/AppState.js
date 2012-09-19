@@ -19,12 +19,28 @@ Ext.define('EatSense.model.AppState', {
 			type : 'string'
 		}, 
 		{
+			name: 'accessToken',
+			type: 'string'
+		},
+		{
+			name: 'accountId',
+			type: 'number'
+		},
+		{
 			name: 'newsletterRegistered',
 			type: 'boolean'
 		}, 
 		{
 			name: 'feedbackId',
 			type: 'number'
+		},
+		{
+			name: 'status',
+			type: 'string'
+		},
+		{
+			name: 'prevStatus',
+			type: 'string'
 		} ]
 	}
 });

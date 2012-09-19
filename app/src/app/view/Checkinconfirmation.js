@@ -7,7 +7,6 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 	xtype : 'checkinconfirmation',
 	requires: ['Ext.field.Toggle'],
 	config : {
-		cls: 'dashboard',
 		layout : {
 			type : 'vbox',
 			pack : 'center',
@@ -16,18 +15,18 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 		items : [ {
 			docked : 'top',
 			xtype : 'toolbar',
-			title : Karazy.i18n.translate('nickname'),
+			title : i10n.translate('nickname'),
 			items : [ {
 				xtype : 'button',
 				action: 'cancel-checkin',
-				text : Karazy.i18n.translate('back'),
+				text : i10n.translate('back'),
 				ui : 'back'
 			}, ]
 		}, 
 		{
 			xtype : 'label',
 			itemId : 'checkInDlg1Label1',
-			html : Karazy.i18n.translate('checkInStep1Label1'),
+			html : i10n.translate('checkInStep1Label1'),
 			cls: 'checkin-confirm-nickname-label'
 		}, 
 		{
@@ -46,7 +45,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			items : [ {
 				xtype : 'button',
 				action: 'regenerate-nickname',
-				text : Karazy.i18n.translate('refreshNicknameBt'),
+				text : i10n.translate('refreshNicknameBt'),
 				// iconCls : 'refresh',
 				// iconMask : true,
 				style : 'margin-right:10px;',
@@ -56,7 +55,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			{
 				xtype : 'button',
 				action: 'confirm-checkin',
-				text : Karazy.i18n.translate('checkInStep1Button'),
+				text : i10n.translate('checkInStep1Button'),
 				ui : 'action',
 				margin : 5
 			} ]
@@ -67,18 +66,24 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			cls: 'checkin-confirm-nickname-toggle',
 			labelCls: 'checkin-confirm-nickname-toggle-label',
 			labelAlign: 'top',
-			html: Karazy.i18n.translate('nicknameToggleHint'),
+			html: i10n.translate('nicknameToggleHint'),
 			width: '80%',
 			value : 0,
-			label : Karazy.i18n.translate('saveNicknameToggle')			
-		}
+			label : i10n.translate('saveNicknameToggle')			
+		},
+		{
+			xtype: 'toolbar',
+			docked: 'bottom',
+			items: [
+			]
+		}	
 		]
 	},
 	
 	showLoadScreen : function(mask) {
 		if (mask) {
 			this.setMasked({
-				message : Karazy.i18n.translate('loadingMsg'),
+				message : i10n.translate('loadingMsg'),
 				xtype : 'loadmask'
 			});
 		} else {

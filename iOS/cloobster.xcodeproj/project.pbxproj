@@ -40,6 +40,8 @@
 		30E1352710E2C1420031B30D /* Cordova.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30E1352610E2C1420031B30D /* Cordova.plist */; };
 		30E5649213A7FCAF007403D8 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E5649113A7FCAF007403D8 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B63336D215DD4CA300EA8D39 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63336D115DD4CA300EA8D39 /* icon-72@2x.png */; };
+		B6B21E7B1604945C009F55C4 /* 72.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B21E7A1604945C009F55C4 /* 72.png */; };
+		B6B21E7D16049460009F55C4 /* 144.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B21E7C16049460009F55C4 /* 144.png */; };
 		B6C8C6D515DD3E0E00D8C709 /* CDVBarcodeScanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6C8C6D215DD3E0E00D8C709 /* CDVBarcodeScanner.mm */; };
 		B6C8C6D615DD3E0E00D8C709 /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6C8C6D315DD3E0E00D8C709 /* zxing-all-in-one.cpp */; };
 		B6C8C6D815DD3F3100D8C709 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C8C6D715DD3F3100D8C709 /* AssetsLibrary.framework */; };
@@ -122,6 +124,8 @@
 		32CA4F630368D1EE00C91783 /* cloobster-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cloobster-Prefix.pch"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* cloobster-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "cloobster-Info.plist"; path = "../cloobster-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B63336D115DD4CA300EA8D39 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
+		B6B21E7A1604945C009F55C4 /* 72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72.png; sourceTree = "<group>"; };
+		B6B21E7C16049460009F55C4 /* 144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 144.png; sourceTree = "<group>"; };
 		B6C8C6D215DD3E0E00D8C709 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDVBarcodeScanner.mm; sourceTree = "<group>"; };
 		B6C8C6D315DD3E0E00D8C709 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "zxing-all-in-one.cpp"; sourceTree = "<group>"; };
 		B6C8C6D415DD3E0E00D8C709 /* zxing-all-in-one.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "zxing-all-in-one.h"; sourceTree = "<group>"; };
@@ -203,6 +207,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				B6B21E7C16049460009F55C4 /* 144.png */,
+				B6B21E7A1604945C009F55C4 /* 72.png */,
 				B6C8C6E315DD415700D8C709 /* Default@2x.png */,
 				B6C8C6E115DD415400D8C709 /* Default.png */,
 				B6C8C6DF15DD414F00D8C709 /* 114.png */,
@@ -436,6 +442,8 @@
 				B6C8C6E215DD415400D8C709 /* Default.png in Resources */,
 				B6C8C6E415DD415700D8C709 /* Default@2x.png in Resources */,
 				B63336D215DD4CA300EA8D39 /* icon-72@2x.png in Resources */,
+				B6B21E7B1604945C009F55C4 /* 72.png in Resources */,
+				B6B21E7D16049460009F55C4 /* 144.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,7 +540,7 @@
 				GCC_PREFIX_HEADER = "cloobster/cloobster-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "cloobster/cloobster-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = cloobster;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -551,7 +559,7 @@
 				GCC_PREFIX_HEADER = "cloobster/cloobster-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "cloobster/cloobster-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = cloobster;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

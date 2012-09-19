@@ -19,7 +19,7 @@ Ext.define('EatSense.view.ProductOverview', {
 					"<p>{shortDesc}</p>",
 					{
 						formatPrice: function(price) {
-							return Karazy.util.formatPrice(price);
+							return appHelper.formatPrice(price);
 						}
 					}
 				),					

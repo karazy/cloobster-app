@@ -1,14 +1,6 @@
-/*Karazy namespace. Create if not exists.*/
-var Karazy = (Karazy) ? Karazy : {};
-
-/**
-*	Contains contants used throughout the application.
-*	
-*/
-Karazy.constants = (function() {
-
-	return {
-		
+Ext.define('EatSense.util.Constants', {
+	alternateClassName: ['appConstants'],
+	statics : {
 		//check in status
 		INTENT : 'INTENT',
 		CHECKEDIN : 'CHECKEDIN',
@@ -31,8 +23,15 @@ Karazy.constants = (function() {
 			EURO: '$1,$2 €',
 			US_DOLLAR: '\$ $1.$2'
 		},
+		//general date format
+		DateTimeFormat : {
+			'DE' : 'd.m.yy H:i',
+			'EN' : 'm/d/yy H:i'
+		},
 		//Client side 
-		FORCE_LOGOUT : 'FORCE_LOGOUT'
-	};
+		FORCE_LOGOUT : 'FORCE_LOGOUT',
+		USER_LOGGED_IN : 'USER_LOGGED_IN',
+		USER_LOGGED_OUT : 'USER_LOGGED_OUT',
+	}
+});
 
-})();

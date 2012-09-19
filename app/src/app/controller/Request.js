@@ -43,12 +43,12 @@ Ext.define('EatSense.controller.Request',{
 
 		button.disable();
 		button.mode = 'cancel';
-		me.getCallWaiterButton().setText(Karazy.i18n.translate('cancelCallWaiterRequest'));
-		label.setHtml(Karazy.i18n.translate('callWaiterCancelHint'));
+		me.getCallWaiterButton().setText(i10n.translate('cancelCallWaiterRequest'));
+		label.setHtml(i10n.translate('callWaiterCancelHint'));
 		
 		//TODO validate!?!?!
 
-		request.set('type', Karazy.constants.Request.CALL_WAITER);
+		request.set('type', appConstants.Request.CALL_WAITER);
 		//workaround to prevent sencha from sending phantom id
 		request.setId('');
 
@@ -62,8 +62,8 @@ Ext.define('EatSense.controller.Request',{
 			failure: function(record, operation) {				
 				button.enable();
 				button.mode = 'call';
-				me.getCallWaiterButton().setText(Karazy.i18n.translate('callWaiterButton'));
-				label.setHtml(Karazy.i18n.translate('callWaiterCallHint'));
+				me.getCallWaiterButton().setText(i10n.translate('callWaiterButton'));
+				label.setHtml(i10n.translate('callWaiterCallHint'));
 
 				me.getApplication().handleServerError({
 					'error': operation.error,
@@ -74,16 +74,16 @@ Ext.define('EatSense.controller.Request',{
 
 		//show success message to give user the illusion of success
 		// Ext.Msg.show({
-		// 	title : Karazy.i18n.translate('hint'),
-		// 	message : Karazy.i18n.translate('requestCallWaiterSendMsd'),
+		// 	title : i10n.translate('hint'),
+		// 	message : i10n.translate('requestCallWaiterSendMsd'),
 		// 	buttons : []
 		// });
 		
 		// Ext.defer((function() {
-		// 	if(!Karazy.util.getAlertActive()) {
+		// 	if(!appHelper.getAlertActive()) {
 		// 		Ext.Msg.hide();
 		// 	}
-		// }), Karazy.config.msgboxHideLongTimeout, this);
+		// }), appConfig.msgboxHideLongTimeout, this);
 	},
 	cancelCallWaiterRequest: function(button, event) {
 		var me = this,
@@ -93,13 +93,13 @@ Ext.define('EatSense.controller.Request',{
 
 		console.log('Request Controller -> cancelCallWaiterRequest');
 
-		request = requestStore.findRecord('type', Karazy.constants.Request.CALL_WAITER, false, true, true);
+		request = requestStore.findRecord('type', appConstants.Request.CALL_WAITER, false, true, true);
 
 		if(request) {
 			button.disable();
 			button.mode = 'call';
-			me.getCallWaiterButton().setText(Karazy.i18n.translate('callWaiterButton'));
-			label.setHtml(Karazy.i18n.translate('callWaiterCallHint'));
+			me.getCallWaiterButton().setText(i10n.translate('callWaiterButton'));
+			label.setHtml(i10n.translate('callWaiterCallHint'));
 
 			// requestStore.setSyncRemovedRecords(true);
 			requestStore.remove(request);
@@ -116,8 +116,8 @@ Ext.define('EatSense.controller.Request',{
 						if(operation.error.status != 404) {
 							button.enable();
 							button.mode = 'cancel';
-							me.getCallWaiterButton().setText(Karazy.i18n.translate('cancelCallWaiterRequest'));
-							label.setHtml(Karazy.i18n.translate('callWaiterCancelHint'));
+							me.getCallWaiterButton().setText(i10n.translate('cancelCallWaiterRequest'));
+							label.setHtml(i10n.translate('callWaiterCancelHint'));
 
 							me.getApplication().handleServerError({
 								'error': operation.error,
@@ -156,10 +156,10 @@ Ext.define('EatSense.controller.Request',{
                  } 
                 else {
                 	Ext.each(records,(function(rec) {
-                		if(rec.get('type') ==  Karazy.constants.Request.CALL_WAITER) {
+                		if(rec.get('type') ==  appConstants.Request.CALL_WAITER) {
                 			me.getCallWaiterButton().mode = 'cancel';
-                			label.setHtml(Karazy.i18n.translate('callWaiterCancelHint'));
-							me.getCallWaiterButton().setText(Karazy.i18n.translate('cancelCallWaiterRequest'));
+                			label.setHtml(i10n.translate('callWaiterCancelHint'));
+							me.getCallWaiterButton().setText(i10n.translate('cancelCallWaiterRequest'));
                 		}
                 	}));
                 }
@@ -176,8 +176,8 @@ Ext.define('EatSense.controller.Request',{
 		console.log('Request Controller -> resetAllRequests');
 
 		this.getCallWaiterButton().mode = 'call';
-		this.getCallWaiterButton().setText(Karazy.i18n.translate('callWaiterButton'));
-		label.setHtml(Karazy.i18n.translate('callWaiterCallHint'));
+		this.getCallWaiterButton().setText(i10n.translate('callWaiterButton'));
+		label.setHtml(i10n.translate('callWaiterCallHint'));
 
 		requestStore.removeAll();
 	},
@@ -192,11 +192,11 @@ Ext.define('EatSense.controller.Request',{
 
 		request = requestStore.getById(data.id);
 		if(request) {
-			if(action == 'delete' && data.type == Karazy.constants.Request.CALL_WAITER) {
+			if(action == 'delete' && data.type == appConstants.Request.CALL_WAITER) {
 				requestStore.remove(request);
 				this.getCallWaiterButton().mode = 'call';
-				this.getCallWaiterButton().setText(Karazy.i18n.translate('callWaiterButton'));
-				label.setHtml(Karazy.i18n.translate('callWaiterCallHint'));
+				this.getCallWaiterButton().setText(i10n.translate('callWaiterButton'));
+				label.setHtml(i10n.translate('callWaiterCallHint'));
 			}
 		}
 
@@ -208,6 +208,6 @@ Ext.define('EatSense.controller.Request',{
 		var accountLabel = this.getAccountLabel(),
 			checkInCtr = this.getApplication().getController('CheckIn');
 
-		accountLabel.setHtml(Karazy.i18n.translate('vipGreetingMessage', checkInCtr.getActiveCheckIn().get('nickname')));
+		accountLabel.setHtml(i10n.translate('vipGreetingMessage', checkInCtr.getActiveCheckIn().get('nickname')));
 	}
 });

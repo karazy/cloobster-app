@@ -55,8 +55,9 @@ Ext.define('EatSense.controller.Menu', {
              loungeview : {
      			activeitemchange : function(container, value, oldValue, opts) {
      				var androidCtr = this.getApplication().getController('Android');
+     				//prevent false exit!
+     				androidCtr.setExitOnBack(false);
 
-    				console.log('tab change to ' + value.tabName);
     				if(value.tabName === 'cart') {
     					status = this.getApplication().getController('Order').refreshCart();
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
@@ -109,7 +110,7 @@ Ext.define('EatSense.controller.Menu', {
     	this.setActiveMenu(record);
     	this.getProductlist().setStore(prodStore);
     	this.getMenulist().refresh();
-    	this.switchView(pov, record.get('title'), Karazy.i18n.translate('back'), 'left');
+    	this.switchView(pov, record.get('title'), i10n.translate('back'), 'left');
     },
     /**
     *	Load menus and products and show menutab.
@@ -158,7 +159,7 @@ Ext.define('EatSense.controller.Menu', {
 	backToMenu: function() {
 		var androidCtr = this.getApplication().getController('Android');
 
-		this.switchView(this.getMenuoverview(), Karazy.i18n.translate('menuTitle'), null, 'right');
+		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
 		//directly remove handler, because this function can be called from another controller
 		//so the wrong context is set
 		this.getMenuNavigationFunctions().pop();
@@ -174,7 +175,8 @@ Ext.define('EatSense.controller.Menu', {
 			detail = this.getProductdetail(), 
 			main = this.getMain(), 
 			menu = this.getMenuview(), 
-			choicesPanel =  this.getProductdetail().getComponent('choicesPanel'),
+			choicesPanel =  this.getProductdetail().down('#choicesPanel'),
+			choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
 			titlebar = detail.down('titlebar'),
 			activeProduct,
 			order;
@@ -188,46 +190,59 @@ Ext.define('EatSense.controller.Menu', {
 
 		choicesPanel.removeAll(false);
 
-		titlebar.setTitle(order.get('productName'));
+		titlebar.setTitle(order.get('productName'));		
 
 		//reset product spinner
 		this.getAmountSpinner().setValue(1);
 		this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: order, amount: this.getAmountSpinner().getValue()});
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
 
-		 //dynamically add choices
-		if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
-		 	 //render all main choices
-		 	 order.choices().each(function(choice) {
-					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
-						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + Karazy.util.formatPrice(choice.get('price')) + ')' : '';
-
-					optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
-					//recalculate when selection changes
-					choice.on('recalculate', function() {
-						me.recalculate(order);
-					});
-
-					me.createOptions(choice, optionsDetailPanel);
-					choicesPanel.add(optionsDetailPanel);
-		 	 });
-		};
-		 
-		//insert comment field after options have been added so it is positioned correctly
-		choicesPanel.add({
-			xtype: 'textareafield',
-			label: Karazy.i18n.translate('orderComment'),
-			labelAlign: 'top',
-			itemId: 'productComment',
-			maxRows: 3,
-			value: '',
-			inputCls: 'comment-input',
-			labelCls: 'comment'
-		});
-		 
 		Ext.Viewport.add(detail);
 		detail.getScrollable().getScroller().scrollToTop();
 		detail.show();
+
+		detail.setMasked({
+			xtype: 'loadmask',
+			message: i10n.translate('menu.product.detail.loading')
+		});
+
+		Ext.defer((function() {		
+			//dynamically add choices
+			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
+			 	 //render all main choices
+			 	 order.choices().each(function(choice) {
+						var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
+							choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
+
+						optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
+						//recalculate when selection changes
+						choice.on('recalculate', function() {
+							me.recalculate(order);
+						});
+
+						me.createOptions(choice, optionsDetailPanel);
+						choicesPanel.add(optionsDetailPanel);
+			 	 });		 	 
+			};
+			 
+			//insert comment field after options have been added so it is positioned correctly
+			choicesPanel.add({
+				xtype: 'textareafield',
+				label: i10n.translate('orderComment'),
+				labelAlign: 'top',
+				itemId: 'productComment',
+				maxRows: 3,
+				value: '',
+				inputCls: 'comment-input',
+				labelCls: 'comment'
+			});
+
+			detail.setMasked(false);
+		}), 10, this);
+
+
+		
+		
 	},
 	/**
 	* @private
@@ -259,9 +274,9 @@ Ext.define('EatSense.controller.Menu', {
 
 		choice.options().each(function(opt) {
 			if(overrideMode == 'NONE' && opt.get('price') > 0) {
-				optionPriceLabel =  ' (+'+ Karazy.util.formatPrice(opt.get('price')) + ')';	
+				optionPriceLabel =  ' (+'+ appHelper.formatPrice(opt.get('price')) + ')';	
 			} else if (overrideMode == 'OVERRIDE_SINGLE_PRICE' && choice.get('price') > 0) {
-				optionPriceLabel =  ' (+'+ Karazy.util.formatPrice(choice.get('price')) + ')';
+				optionPriceLabel =  ' (+'+ appHelper.formatPrice(choice.get('price')) + ')';
 			} else {
 				optionPriceLabel = '';
 			}
@@ -360,11 +375,11 @@ Ext.define('EatSense.controller.Menu', {
 	  //   	    failure: function(response, operation) {
 	  //   	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
 	  //   	    	if(response.status == 409) {
-	  //   	    		Karazy.util.toggleAlertActive(true);
-	  //   	    		Ext.Msg.alert(Karazy.i18n.translate('error'),
-	  //   	    			Karazy.i18n.translate('error.menu.needsrefresh'),
+	  //   	    		appHelper.toggleAlertActive(true);
+	  //   	    		Ext.Msg.alert(i10n.translate('error'),
+	  //   	    			i10n.translate('error.menu.needsrefresh'),
 	  //   	    			function() {
-			// 					Karazy.util.toggleAlertActive(false);
+			// 					appHelper.toggleAlertActive(false);
 			// 			});
 	  //   	    		//clear the menu store, don't send clear event
 	  //   	    		Ext.StoreManager.lookup('menuStore').removeAll();
@@ -384,7 +399,7 @@ Ext.define('EatSense.controller.Menu', {
 			// });
 			
 			Ext.Ajax.request({
-	    	    url: Karazy.config.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/',
+	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/',
 	    	    method: 'POST',
 	    	    jsonData: order.getRawJsonData(),
 	    	    success: function(response, operation) {
@@ -396,11 +411,11 @@ Ext.define('EatSense.controller.Menu', {
 	    	    failure: function(response, operation) {
 	    	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
 	    	    	if(response.status == 409) {
-	    	    		Karazy.util.toggleAlertActive(true);
-	    	    		Ext.Msg.alert(Karazy.i18n.translate('error'),
-	    	    			Karazy.i18n.translate('error.menu.needsrefresh'),
+	    	    		appHelper.toggleAlertActive(true);
+	    	    		Ext.Msg.alert(i10n.translate('error'),
+	    	    			i10n.translate('error.menu.needsrefresh'),
 	    	    			function() {
-								Karazy.util.toggleAlertActive(false);
+								appHelper.toggleAlertActive(false);
 						});
 	    	    		//clear the menu store, don't send clear event
 	    	    		Ext.StoreManager.lookup('menuStore').removeAll();
@@ -420,27 +435,27 @@ Ext.define('EatSense.controller.Menu', {
 	    	});
 									
 			detail.hide();
-			message = Karazy.i18n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
+			message = i10n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
 			this.setActiveOrder(null);
 			
 			androidCtr.removeLastBackHandler();
 
 			if (message) {
 				Ext.Msg.show({
-					title : Karazy.i18n.translate('orderPlaced'),
+					title : i10n.translate('orderPlaced'),
 					'message' : message,
 					buttons : []
 				});
 				//show short alert and then hide
 				Ext.defer((function() {
-					if(!Karazy.util.getAlertActive()) {
+					if(!appHelper.getAlertActive()) {
 						Ext.Msg.hide();
 					}					
-				}), Karazy.config.msgboxHideTimeout, this);
+				}), appConfig.msgboxHideTimeout, this);
 			}
 		} else {
 			//show validation error
-			Ext.Msg.alert(Karazy.i18n.translate('orderInvalid'),validationError, Ext.emptyFn);
+			Ext.Msg.alert(i10n.translate('orderInvalid'),validationError, Ext.emptyFn);
 		}
 		
 	},

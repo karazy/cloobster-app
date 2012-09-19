@@ -25,10 +25,10 @@ Ext.define('EatSense.controller.Styles', {
 			theme = checkInCtr.getActiveSpot().get('theme'),
 			activeTheme = this.getActiveTheme();
 
-		if(status == Karazy.constants.CHECKEDIN) {
+		if(status == appConstants.CHECKEDIN) {
 			console.log('activate theme ' + theme);
 			this.changeTheme(theme);	
-		} else if (status == Karazy.constants.COMPLETE || status == Karazy.constants.FORCE_LOGOUT || status == Karazy.constants.CANCEL_ALL) {
+		} else if (status == appConstants.COMPLETE || status == appConstants.FORCE_LOGOUT || status == appConstants.CANCEL_ALL) {
 			this.changeTheme('default');	
 		}
 	},

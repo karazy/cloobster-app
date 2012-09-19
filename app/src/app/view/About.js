@@ -23,7 +23,7 @@ Ext.define('EatSense.view.About', {
 			xtype: 'button',
 			docked: 'bottom',
 			ui: 'action',
-			text: Karazy.i18n.translate('close'),
+			text: i10n.translate('close'),
 			listeners: {
 				tap: function(button) {
 					Ext.Viewport.remove(button.getParent());

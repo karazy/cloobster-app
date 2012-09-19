@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CloobsterApp" default="default" basedir=".">
+    <!-- Path to src dir -->
 	<property name="appDir" value="src/" />
+	<!-- 	Path to production dir -->
 	<property name="prodDir" value="prod/" />
+	<!-- 	Apllication file -->
+	<property name="appFile" value="src/app.js" />
+	<!-- 	Configuration file -->
+	<property name="configFile" value="src/app/util/Configuration.js" />
 	
-	<target name="createDesktopProduction">
-		<echo message="Executing createDesktopProduction task from build.xml" />
+	<property name="androidDir" value="../android/CloobsterAppAndroid/assets/www/" />
+	<property name="iOSDir" value="../iOS/www/" />
+	
+	<target name="buildDesktop">
+		<echo message="Executing buildDesktop task from build.xml" />
 		<exec executable="${sencha.cmd}" >
 		
 			<arg line="create jsb -a ${appDir}index.desktop.html -p ${appDir}app.desktop.jsb3" />
@@ -38,8 +47,8 @@
 		</move>
 	</target>
 	
-	<target name="createAndroidProduction">
-		<echo message="Executing createAndroidProduction task from build.xml" />
+	<target name="buildAndroid">
+		<echo message="Executing buildAndroid task from build.xml" />
 		<exec executable="${sencha.cmd}" >	
 			
 			<arg line="create jsb -a ${appDir}index.desktop.html -p ${appDir}app.android.jsb3" />
@@ -72,18 +81,9 @@
 			<regexpmapper from="^(.+)\.phone\.(.+)$$" to="\1.\2" />
 		</move>
 	</target>
-	
-	<target name="copyCSS">
-	    <copy todir="${cssDestDir}" overwrite="true">
-		    <fileset dir="${appDir}/res/css">
-		        <exclude name="*.rb"></exclude>
-		        <exclude name="*.scss"></exclude>
-		    </fileset>
-		</copy>
-	</target>
 
-	<target name="createIOSProduction">
-		<echo message="Executing createIOSProduction task from build.xml" />
+	<target name="buildIOS">
+		<echo message="Executing buildIOS task from build.xml" />
 		<exec executable="${sencha.cmd}" >		
 			<arg line="create jsb -a ${appDir}index.desktop.html -p ${appDir}app.ios.jsb3" />
 		</exec>
@@ -116,6 +116,7 @@
 		</move>
 	</target>
 
+	<!-- general tasks  -->
 	<target name="cleanUpProductionFiles">
 		<delete file="${appDir}app.desktop.jsb3"></delete>
 		<delete file="${appDir}app.android.jsb3"></delete>
@@ -130,8 +131,133 @@
 	   <delete file="${deleteProdDir}/app-all.js"></delete>
 	</target>
 	
-	<target name="default" depends="createDesktopProduction, createAndroidProduction, createIOSProduction,cleanUpProductionFiles"></target>
-	<target name="android-production" depends="createAndroidProduction, cleanUpProductionFiles"/>
-	<target name="desktop-production" depends="createDesktopProduction, cleanUpProductionFiles"/>
-	<target name="ios-production" depends="createIOSProduction, cleanUpProductionFiles"/>
+	<target name="resetDefaultConfig" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 ''," byline="true">
+		</replaceregexp>
+		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 true" byline="true">
+		</replaceregexp>
+	</target>
+	
+	<target name="copyCSS">
+	    <copy todir="${cssDestDir}" overwrite="true">
+		    <fileset dir="${appDir}/res/css">
+		        <exclude name="*.rb"></exclude>
+		        <exclude name="*.scss"></exclude>
+		    </fileset>
+		</copy>
+	</target>
+	
+	<!-- Android -->
+	<target name="copyAppAndroid" depends="buildAndroid">
+		<echo message="Delete old files" />
+		<delete dir="${androidDir}"></delete>
+		<echo message="Copy App" />
+		<copy todir="${androidDir}" overwrite="true">
+			<fileset dir="${prodDir}/android">
+				<exclude name="**/*.desktop.*" />
+				<exclude name="**/*.iphone.*" />
+				<exclude name="**/*.ignore.*" />
+				<exclude name="**/.sass-cache/**" />
+			</fileset>
+		</copy>
+		<echo message="Rename files" />
+		<move todir="${androidDir}" includeemptydirs="false">
+			<fileset dir="${androidDir}">
+			</fileset>
+			<regexpmapper from="^(.+)\.phone\.(.+)$$" to="\1.\2" />
+		</move>
+	</target>
+
+	<target name="androidConfigLocal" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'http://192.168.1.101:8888'," byline="true">
+		</replaceregexp>
+		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 false," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<target name="androidConfigTest" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'https://cloobster-test.appspot.com'," byline="true">
+		</replaceregexp>
+		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 false," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<target name="androidConfigQuality" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'https://cloobster-quality.appspot.com'," byline="true">
+		</replaceregexp>
+		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 false," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<target name="androidConfigProduction" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'https://karazy-cloobster.appspot.com'," byline="true">
+		</replaceregexp>
+		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 false," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<!-- iOS -->
+	
+	<target name="copyAppiOS" depends="buildIOS">
+		<echo message="Delete old files" />
+		<delete dir="${iOSDir}"></delete>
+		<echo message="Copy App" />
+		<copy todir="${iOSDir}" overwrite="true">
+			<fileset dir="${prodDir}/ios">
+				<exclude name="**/*.desktop.*" />
+				<exclude name="**/*.phone.*" />
+				<exclude name="**/*.ignore.*" />
+				<exclude name="**/.sass-cache/**" />
+			</fileset>
+		</copy>
+		<echo message="Rename files" />
+		<move todir="${iOSDir}" includeemptydirs="false">
+			<fileset dir="${iOSDir}">
+			</fileset>
+			<regexpmapper from="^(.+)\.iphone\.(.+)$$" to="\1.\2" />
+		</move>
+	</target>
+	
+	<target name="iOSConfigLocal" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'http://192.168.1.101:8888'," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<target name="iOSConfigTest" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'https://cloobster-test.appspot.com'," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<target name="iOSConfigQuality" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'https://cloobster-quality.appspot.com'," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<target name="iOSConfigProduction" depends="">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'https://karazy-cloobster.appspot.com'," byline="true">
+		</replaceregexp>
+	</target>
+	
+	
+<!-- 	<target name="default" depends="buildDesktop, buildAndroid, buildIOS,cleanUpProductionFiles"></target> -->
+	<target name="android-local" depends="androidConfigLocal, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="android-test" depends="androidConfigTest, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="android-quality" depends="androidConfigQuality, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="android-production" depends="androidConfigProduction, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	
+	<target name="ios-local" depends="iOSConfigLocal, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="ios-test" depends="iOSConfigTest, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="ios-quality" depends="iOSConfigQuality, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="ios-production" depends="iOSConfigProduction, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	
+	<target name="desktop-production" depends="buildDesktop, cleanUpProductionFiles"/>	
 </project>

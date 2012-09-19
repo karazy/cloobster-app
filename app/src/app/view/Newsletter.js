@@ -18,11 +18,11 @@ Ext.define('EatSense.view.Newsletter', {
 		{
 			xtype: 'label',			
 			cls: 'general-label',
-			html: Karazy.i18n.translate('newsletterLabel')
+			html: i10n.translate('newsletterLabel')
 		},
 		{
 			xtype: 'emailfield',
-			label: Karazy.i18n.translate('newsletterEmail'),
+			label: i10n.translate('newsletterEmail'),
 			name:'email',
 			labelWidth: '40%',
 			cls: 'general-textfield',
@@ -32,7 +32,7 @@ Ext.define('EatSense.view.Newsletter', {
 			action: 'register',
 			ui: 'action',
 			cls: 'newsletter-button',
-			text: Karazy.i18n.translate('newsletterRegisterBt'),
+			text: i10n.translate('newsletterRegisterBt'),
 			cls: 'newsletter-register-button',			
 		}
 		]

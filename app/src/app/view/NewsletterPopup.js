@@ -22,7 +22,7 @@ Ext.define('EatSense.view.NewsletterPopup', {
 		{
 			xtype: 'titlebar',
 			docked: 'top',
-			title: Karazy.i18n.translate('newsletterPopupTitle')
+			title: i10n.translate('newsletterPopupTitle')
 		},
 		{
 			xtype: 'newsletter',
@@ -34,7 +34,7 @@ Ext.define('EatSense.view.NewsletterPopup', {
 			action: 'dont-ask',
 			width: '80%',
 			margin: '5 0 5 0',
-			text: Karazy.i18n.translate('newsletterDontAskButton')
+			text: i10n.translate('newsletterDontAskButton')
 		}]
 	}
 });

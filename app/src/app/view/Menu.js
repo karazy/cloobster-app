@@ -4,7 +4,7 @@ Ext.define('EatSense.view.Menu', {
 	config : {
 		layout: 'fit',
 		iconCls : 'menu',
-		title: Karazy.i18n.translate('menuTab'),
+		title: i10n.translate('menuTab'),
 		iconMask : true,
 		itemId : 'menutab',
 		// cls: 'menu-panel',
@@ -12,12 +12,12 @@ Ext.define('EatSense.view.Menu', {
 			docked : 'top',
 			xtype : 'titlebar',
 			itemId: 'menuTopBar',
-			title : Karazy.i18n.translate('menuTitle'),
+			title : i10n.translate('menuTitle'),
 			items : [ {
 				xtype : 'button',
 				itemId : 'menuBackBt',
 				action: 'back',
-				text : Karazy.i18n.translate('back'),
+				text : i10n.translate('back'),
 				ui : 'back',
 				align: 'left'
 			}

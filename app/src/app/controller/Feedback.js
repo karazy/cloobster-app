@@ -180,7 +180,7 @@ Ext.define('EatSense.controller.Feedback', {
 			errors = activeFeedback.validate();
 			//we don't need to check a specific field because only email has a validation
 			if(!errors.isValid()) {
-	            Ext.Msg.alert(Karazy.i18n.translate('error'), Karazy.i18n.translate('newsletterInvalidEmail'));
+	            Ext.Msg.alert(i10n.translate('error'), i10n.translate('newsletterInvalidEmail'));
 	            return;
 	        }
 		}
@@ -216,16 +216,16 @@ Ext.define('EatSense.controller.Feedback', {
 		this.getShowFeedbackLeaveButton().setHidden(true);
 
 		Ext.Msg.show({
-			title : Karazy.i18n.translate('feedbackCompleteTitle'),
-			'message' : Karazy.i18n.translate('feedbackCompleteMessage'),
+			title : i10n.translate('feedbackCompleteTitle'),
+			'message' : i10n.translate('feedbackCompleteMessage'),
 			buttons : []
 		});
 		//show short alert and then hide
 		Ext.defer((function() {
-			if(!Karazy.util.getAlertActive()) {
+			if(!appHelper.getAlertActive()) {
 				Ext.Msg.hide();
 			}					
-		}), Karazy.config.msgboxHideLongTimeout, this);
+		}), appConfig.msgboxHideLongTimeout, this);
 
 	},
 	/**
@@ -236,7 +236,7 @@ Ext.define('EatSense.controller.Feedback', {
 		this.getShowFeedbackButton().setHidden(false);
 		this.getFeedbackLabel().setHidden(false);
 
-		if(!this.getActiveFeedback().get('id')) {
+		if(!this.getActiveFeedback() || !this.getActiveFeedback().get('id')) {
 			this.getShowFeedbackLeaveButton().setHidden(false);
 		}
 	},

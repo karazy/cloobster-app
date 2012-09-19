@@ -7,9 +7,9 @@ Ext.define('EatSense.store.Order', {
 		filters: [
 			{ 
 				filterFn: function(record, id) {
-					return (record.get('status') == Karazy.constants.Order.PLACED 
-						|| record.get('status') == Karazy.constants.Order.RECEIVED
-						|| record.get('status') == Karazy.constants.Order.CANCELED);
+					return (record.get('status') == appConstants.Order.PLACED 
+						|| record.get('status') == appConstants.Order.RECEIVED
+						|| record.get('status') == appConstants.Order.CANCELED);
 	 			}
 	 		}
 	 	],

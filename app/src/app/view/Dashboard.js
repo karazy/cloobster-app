@@ -8,56 +8,130 @@ Ext.define('EatSense.view.Dashboard', {
 	requires: ['Ext.Img'],
 	config : {
 		layout : {
-			type : 'vbox',
-			pack : 'center',
-			align : 'center',
+			type : 'fit'
 		},
 		cls: 'dashboard',
-		items : [ 
+		items : [
 		{
-			xtype : 'image',
-			src : 'res/images/dashboard/cloobster-logo-186.png',
-			style : 'background-repeat:no-repeat; background-position:center center;',
-			height : 80,
-			width : 186,
-			margin: '0 0 10 0'
+			xtype : 'panel',
+			// src : 'res/images/dashboard/header-bg.jpg',
+			//use a real html img tag!
+			html: '<img src="res/images/dashboard/header-bg.png" />',
+			cls: 'dashboard-header',
+			docked: 'top',
+			layout: 'fit'
 		},		
 		{
 			xtype: 'label',
 			cls: 'dashboard-description',
+			docked: 'top',
 			style: 'text-align: center;',
-			html: Karazy.i18n.translate('dashboardLabel1')
-		},	
-		{
-			xtype : 'button',
-			action: 'checkin',
-			margin: '20 0',
-			text: 'Check-In',
-			ui: 'action',
-			iconMask: true,
-			iconCls: 'action',
-			height: 50
+			html: i10n.translate('dashboardLabel1')
 		},
 		{
-			xtype: 'label',
-			cls: 'dashboard-description',
-			html: Karazy.i18n.translate('dashboardLabel2')
+			xtype: 'panel',
+			width: '100%',
+			layout: {
+				type: 'vbox',
+				align: 'center',
+				pack: 'center'
+			},
+			items: [
+			{
+				xtype: 'panel',
+				width: '100%',
+				layout: {
+					type: 'hbox',
+					align: 'center',
+					pack: 'center'
+				},
+				items: [
+				{
+					xtype : 'button',
+					action: 'checkin',
+					text: i10n.translate('dashboard.button.checkin'),
+					baseCls: 'dashboard-button',
+					cls: 'dashboard-button-checkin',
+					pressedCls: 'dashboard-button-pressed',
+					labelCls: 'dashboard-button-label'
+				},
+				{
+					xtype : 'button',
+					action: 'history',
+					text: i10n.translate('dashboard.button.history'),
+					baseCls: 'dashboard-button',
+					cls: 'dashboard-button-history',
+					pressedCls: 'dashboard-button-pressed',
+					labelCls: 'dashboard-button-label'
+				}
+				]
+			},
+			{
+				xtype: 'panel',
+				width: '100%',
+				layout: {
+					type: 'hbox',
+					align: 'center',
+					pack: 'center'
+				},
+				items: [
+					{
+						xtype : 'button',
+						action: 'facebook',
+						text: 'Facebook',
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-facebook',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label',
+						badgeCls: 'dashboard-button-badge',
+						badgeText: i10n.translate('general.comingsoon'),
+						disabled: true
+					},
+					{
+						xtype : 'button',
+						action: 'login',
+						text: 'Login',
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-login',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label'
+					},
+					{
+						xtype : 'button',
+						action: 'logout',
+						text: 'Logout',
+						hidden: true,
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-login',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label'
+					}
+				]
+			}
+			]
 		},
 		{
+			xtype: 'toolbar',
+			docked: 'bottom',
+			items: [
+			{
+				xtype: 'spacer'
+			},
+			{
 			xtype: 'button',
 			action: 'about',
-			ui: 'confirm',
 			iconCls: 'about',
 			iconMask: true,
 			styleHtmlContent: true,
-			style: 'position: absolute; bottom: 10px; right: 10px;'
+			}
+			]
 		}
 		]
 	},
 	showLoadScreen : function(mask) {
 		if (mask) {
 			this.setMasked({
-				message : Karazy.i18n.translate('loadingMsg'),
+				message : i10n.translate('loadingMsg'),
 				xtype : 'loadmask'
 			});
 		} else {

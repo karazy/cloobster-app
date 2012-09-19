@@ -1,8 +1,8 @@
 /**
  * Controller handles the checkin process.
- * This includes scanning of a barcode, chosing a nickname, checking in with others
+ * This includes scanning of a barcode, choosing a nickname, checking in with others
  * and finally navigating to the menu.
- * 
+ * Also handles the application state.
  */
 Ext.define('EatSense.controller.CheckIn', {
     extend: 'Ext.app.Controller',
@@ -10,8 +10,8 @@ Ext.define('EatSense.controller.CheckIn', {
     config: {
         profile: Ext.os.deviceType.toLowerCase(),
     	refs: {
-            main : 'mainview',
-            checkinconfirmation : 'checkinconfirmation',
+          main : 'mainview',
+          checkinconfirmation : 'checkinconfirmation',
         	nickname : 'checkinconfirmation #nicknameTf',
         	checkinwithothers: 'checkinwithothers',
         	dashboard: 'dashboard',
@@ -87,27 +87,21 @@ Ext.define('EatSense.controller.CheckIn', {
     },
     init: function() {
     	var messageCtr = this.getApplication().getController('Message');
-    	 
+    	
+      //register event handlers
     	this.on('statusChanged', this.handleStatusChange, this);
       this.getApplication().on('statusChanged', this.handleStatusChange, this);
     	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
 
     	 //private functions
-
-        /*
-        *   Resets default Ajax headers.
-        */
-        this.resetDefaultAjaxHeaders = function() {
-            Ext.Ajax.setDefaultHeaders({});
-        };
     	 
     	//called by checkInIntent. 
     	this.doCheckInIntent = function(barcode, button, deviceId) {    		 
     	    	//validate barcode field
     	    	if(barcode.length == 0) {
-    	    		this.getDashboard().showLoadScreen(false);
+              Ext.Viewport.setMasked(false);
     	    		button.enable();
-    	    		Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate('checkInErrorBarcode'), Ext.emptyFn);
+    	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
     	    	} else {
     	        	var me = this;
     	        	EatSense.model.Spot.load(barcode, {
@@ -119,12 +113,12 @@ Ext.define('EatSense.controller.CheckIn', {
                             me.getApplication().handleServerError({
                                 'error': operation.error,
                                 'message': {
-                                    404: Karazy.i18n.translate('checkInErrorBarcode')
+                                    404: i10n.translate('checkInErrorBarcode')
                                 } 
                             }); 
      	        	    },
      	        	    callback: function() {
-     	        	    	me.getDashboard().showLoadScreen(false);
+                      Ext.Viewport.setMasked(false);
      	        	    	button.enable();
      	        	    }
     	        	});
@@ -145,14 +139,14 @@ Ext.define('EatSense.controller.CheckIn', {
 
     	if(this.getProfile() == 'desktop' || !window.plugins || !window.plugins.barcodeScanner) {
             Ext.Msg.show({
-                title: Karazy.i18n.translate('barcodePromptTitle'),
-                message: Karazy.i18n.translate('barcodePromptText'),
+                title: i10n.translate('barcodePromptTitle'),
+                message: i10n.translate('barcodePromptText'),
                 buttons: [{
-                    text: Karazy.i18n.translate('yes'),
+                    text: i10n.translate('yes'),
                     itemId: 'yes',
                     ui: 'action'
                 }, {
-                    text: Karazy.i18n.translate('no'),
+                    text: i10n.translate('no'),
                     itemId: 'no',
                     ui: 'action'
                 }],
@@ -162,7 +156,10 @@ Ext.define('EatSense.controller.CheckIn', {
                     if(btnId=='yes') {
                         barcode = Ext.String.trim(value);    
                         deviceId = '_browser';
-                        this.getDashboard().showLoadScreen(true);
+                        Ext.Viewport.setMasked({
+                          message : i10n.translate('loadingMsg'),
+                          xtype : 'loadmask'
+                        });
                         this.doCheckInIntent(barcode, button, deviceId);
                     } else {
                         button.enable();
@@ -175,7 +172,10 @@ Ext.define('EatSense.controller.CheckIn', {
             if(!result.cancelled) {
               barcode =  that.extractBarcode(result.text);
               console.log('scanned ' + barcode);
-              that.getDashboard().showLoadScreen(true);
+              Ext.Viewport.setMasked({
+                message : i10n.translate('loadingMsg'),
+                xtype : 'loadmask'
+              });
               //FR 28.03.12 apple rejects apps which track device uuid
               // deviceId = device.uuid;
               that.doCheckInIntent(barcode, button, deviceId);
@@ -219,12 +219,20 @@ Ext.define('EatSense.controller.CheckIn', {
 	  var checkInDialog = this.getCheckinconfirmation(), 
 		    main = this.getMain(),
         nicknameToggle = this.getNicknameTogglefield(),
-		    checkIn = Ext.create('EatSense.model.CheckIn');		
+		    checkIn = Ext.create('EatSense.model.CheckIn'),
+        accountCtr = this.getApplication().getController('Account'),
+        profile = accountCtr.getProfile();
 			
-	   	 if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
-	   		 this.getNickname().setValue(this.getAppState().get('nickname'));
-         nicknameToggle.setValue(1);
-	   	 } else {
+      //restore from profile
+       if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
+          this.getNickname().setValue(profile.get('nickname'));
+          nicknameToggle.setValue(1);
+       } 
+        //restore from localstorage
+        else if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
+          this.getNickname().setValue(this.getAppState().get('nickname'));
+          nicknameToggle.setValue(1);
+       } else {
 	   		this.generateNickname();
 	   	 }
 		
@@ -248,55 +256,64 @@ Ext.define('EatSense.controller.CheckIn', {
     * Step 3: User confirmed his wish to check in
     * @param options
     */
-   checkIn: function(){
-	   var     me = this,
-	           nickname = Ext.String.trim(this.getNickname().getValue()),
-	           nicknameToggle = this.getNicknameTogglefield(),
-             messageCtr = this.getApplication().getController('Message'),
-             checkInDialog = this.getCheckinconfirmation();
+   checkIn: function() {
+	   var me = this,
+	       nickname = Ext.String.trim(this.getNickname().getValue()),
+	       nicknameToggle = this.getNicknameTogglefield(),
+         messageCtr = this.getApplication().getController('Message'),
+         checkInDialog = this.getCheckinconfirmation(),
+         accountCtr = this.getApplication().getController('Account'),
+         profile = accountCtr.getProfile();
 
 	 //get CheckIn Object and save it.	   
 	   if(nickname.length < 3) {
-		   Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
+		   Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
 	   } else {		   
-          checkInDialog.showLoadScreen(true);
+          appHelper.toggleMask('loadingMsg');
 		      this.getActiveCheckIn().set('nickname',nickname);		  	   
 		      this.getActiveCheckIn().save(
 					   {
 					   	    success: function(response) {
-                    checkInDialog.showLoadScreen(false);
+                    appHelper.toggleMask(false);
   					   	    console.log("CheckIn Controller -> checkIn success");
                     //Set default headers so that always checkInId is send
-                    Ext.Ajax.setDefaultHeaders({
-                        'checkInId': response.get('userId'),
-                        'pathId' : me.getActiveCheckIn().get('businessId')
+                    headerUtil.addHeaders({
+                      'checkInId' : response.get('userId'),
+                      'pathId' : me.getActiveCheckIn().get('businessId')
                     });
+
   					   	    //currently disabled, will be enabled when linking to users actually makes sense
                     //me.showCheckinWithOthers();
-                    me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
+                    me.fireEvent('statusChanged', appConstants.CHECKEDIN);
   					   	    me.showLounge();
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					   	    //save nickname in settings
-  							   if(nicknameToggle.getValue() == 1) {
-  								   me.getAppState().set('nickname', nickname);
-  								   nicknameToggle.reset();
-  							   }
+  					if(nicknameToggle.getValue() == 1) {
+                        if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
+                            profile.set('nickname', nickname);
+                            profile.save();
+                        } else {
+                            me.getAppState().set('nickname', nickname);  
+                        }
+                        nicknameToggle.reset();
+  					}
+                   
                    //open a channel for push messags
                    try {
                         messageCtr.openChannel(response.get('userId'));
                     } catch(e) {
                         console.log('could not open a channel ' + e);
                     }
-					   	    },
-					   	    failure: function(response, operation) {
-                    checkInDialog.showLoadScreen(false);
+					},
+				failure: function(response, operation) {
+                    appHelper.toggleMask(false);
                     me.getApplication().handleServerError({
                       'error': operation.error, 
                       'forceLogout':{403 : true}
                     }); 
 					   	    }
-					   }	   
+				}	   
 			   );
 	   }
    },
@@ -336,7 +353,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	   			   model: 'EatSense.model.User',
 	   			   proxy: {
 	   				   type: 'rest',
-	   				   url : Karazy.config.serviceUrl+'/checkins/?spotId='+spotId+'&checkInId='+checkInId,
+	   				   url : appConfig.serviceUrl+'/checkins/?spotId='+spotId+'&checkInId='+checkInId,
 	   				   reader: {
 	   					   type: 'json'
 	   			   		}
@@ -376,9 +393,9 @@ Ext.define('EatSense.controller.CheckIn', {
 		   failure: function(record, operation) {
    	    	if(operation.getError() != null && operation.getError().status != null && operation.getError().status == 500) {
    	    		var error = Ext.JSON.decode(response.statusText);
-   	    		Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate(error.errorKey,error.substitutions), Ext.emptyFn);
+   	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate(error.errorKey,error.substitutions), Ext.emptyFn);
    	    	} else {
-   	    		Ext.Msg.alert(Karazy.i18n.translate('errorTitle'), Karazy.i18n.translate('errorMsg'), Ext.emptyFn);
+   	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('errorMsg'), Ext.emptyFn);
    	    	}
 		   }
 	   });
@@ -436,7 +453,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	 */
 	generateNickname : function(callback) {
 		Ext.Ajax.request({
-    	    url: Karazy.config.serviceUrl+'/nicknames',
+    	    url: appConfig.serviceUrl+'/nicknames',
     	    method: 'GET',
     	    scope: this,
     	    params: {
@@ -467,19 +484,19 @@ Ext.define('EatSense.controller.CheckIn', {
 
         this.setActiveCheckIn(checkIn);
         //reload of application before hitting leave button
-        if(checkIn.get('status') == Karazy.constants.PAYMENT_REQUEST) {
+        if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
             console.log('PAYMENT_REQUEST already issued. Don\'t restore state!');
-            this.handleStatusChange(Karazy.constants.COMPLETE);
+            this.handleStatusChange(appConstants.COMPLETE);
             this.setActiveCheckIn(null);
             return;
         }
 
 		
         //Set default headers so that always checkInId is send
-        Ext.Ajax.setDefaultHeaders({
-            'checkInId': checkIn.get('userId'),
-            'pathId' : checkIn.get('businessId')
-        });              
+        headerUtil.addHeaders({
+          'checkInId' : checkIn.get('userId'),
+          'pathId' : checkIn.get('businessId')
+        });
 
 		//load active spot
 		EatSense.model.Spot.load(checkIn.get('spotId'), {
@@ -489,14 +506,14 @@ Ext.define('EatSense.controller.CheckIn', {
    			 this.showLounge();
    			    			
    			Ext.Viewport.add(main);
-        me.fireEvent('statusChanged', Karazy.constants.CHECKEDIN);
+        me.fireEvent('statusChanged', appConstants.CHECKEDIN);
    			
    			//after spot information is restored and stores are initialized load orders
    			
    			this.getActiveCheckIn().orders().load({
    				scope: this,
    				params: {
-   					'status': Karazy.constants.Order.CART,
+   					'status': appConstants.Order.CART,
    				},
    				callback: function(records, operation, success) {
    					if(success == true) {
@@ -516,9 +533,10 @@ Ext.define('EatSense.controller.CheckIn', {
   	    failure: function(record, operation) {
   	    	me.getApplication().handleServerError({
                   'error':operation.error
-              });        	    	
+          });        	    	
   	    }
-		});	
+		});
+
     //restore existing requests
     requestCtr.loadRequests();	
     //load feedback from server
@@ -531,21 +549,20 @@ Ext.define('EatSense.controller.CheckIn', {
     
 	},
   /**
-  * Show a loading mask on the dashboard or remove it.
+  * Show a loading mask on the viewport or remove it.
   * @param messageKey
   *   MessageKey used to get messager for loading message.
   *   If this is not a string (e. g. boolean false), loading mask gets removed.
   */
   toggleDashboardMask: function(messageKey) {
-    var dashboard = this.getDashboard();
 
     if(typeof messageKey == "string") {
-      dashboard.setMasked({
+      Ext.Viewport.setMasked({
         xtype: 'loadmask',
-        message: Karazy.i18n.translate(messageKey)
+        message: i10n.translate(messageKey)
       });
     } else {
-      dashboard.setMasked(false);
+      Ext.Viewport.setMasked(false);
     }
   },
 	/**
@@ -555,6 +572,7 @@ Ext.define('EatSense.controller.CheckIn', {
   * Furthermore resets ui states and does cleanups.
 	 * Always use this method to change the application status. 
 	 * @param status
+   *  The new status to set.
 	 */
 	handleStatusChange: function(status) {
 		console.log('CheckIn Controller -> handleStatusChange' + ' new status '+status);
@@ -564,19 +582,24 @@ Ext.define('EatSense.controller.CheckIn', {
                 androidCtr = this.getApplication().getController('Android'),
                 requestCtr = this.getApplication().getController('Request'),
                 menuStore = Ext.StoreManager.lookup('menuStore'),
-                feedbackCtr = this.getApplication().getController('Feedback');
+                feedbackCtr = this.getApplication().getController('Feedback'),
+                accountCtr = this.getApplication().getController('Account'),
+                appState = this.getAppState();
 
-		//TODO check status transitions, refactor     
-		if(status == Karazy.constants.CHECKEDIN) {
+    appState.set('prevStatus', appState.get('status'));
+    appState.set('status', status);
+
+		//TODO check status transitions, refactor
+		if(status == appConstants.CHECKEDIN) {
 
     }
-		else if(status == Karazy.constants.PAYMENT_REQUEST) {
+		else if(status == appConstants.PAYMENT_REQUEST) {
 			this.getMenuTab().disable();
 			this.getCartTab().disable()
       this.getSettingsTab().disable();
       this.getRequestsTab().disable();			
 			this.getActiveCheckIn().set('status', status);
-		} else if (status == Karazy.constants.COMPLETE || status == Karazy.constants.CANCEL_ALL || status == Karazy.constants.FORCE_LOGOUT) {
+		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 			this.showDashboard();
       this.getMenuTab().enable();
 			this.getCartTab().enable();
@@ -594,15 +617,28 @@ Ext.define('EatSense.controller.CheckIn', {
       this.getAppState().set('feedbackId', null);
       feedbackCtr.clearFeedback();
       
-      this.resetDefaultAjaxHeaders();
-      Karazy.channel.closeChannel();
+      headerUtil.resetHeaders(['checkInId','pathId']);
+
+      appChannel.closeChannel();
 
       requestCtr.resetAllRequests();
-      androidCtr.setAndroidBackHandler(null);
+      androidCtr.resetBackHandler();
 		}
+    
+    //TODO remove?
+    // if(status == appConstants.USER_LOGGED_IN) {
+    //     accountCtr.hideDashboardLoginButton();
+    //     if(!appState.get('status')) {
+    //         //User is currently not in a checkIn and 
+    //         accountCtr.showDashboard();
+    //     }
 
-    if(status == Karazy.constants.CANCEL_ALL) {
-        Ext.Msg.alert(Karazy.i18n.translate('hint'), Karazy.i18n.translate('checkInCanceled'), Ext.emptyFn);
+    // } else if (status == appConstants.USER_LOGGED_IN) {
+    //     accountCtr.showDashboardLoginButton();
+    // }
+
+    if(status == appConstants.CANCEL_ALL) {
+        Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkInCanceled'), Ext.emptyFn);
     }
 	},
     /**
@@ -614,7 +650,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
         if(action == "delete") {
             if(checkIn.get('userId') == updatedCheckIn.userId) {
-                this.fireEvent('statusChanged', Karazy.constants.CANCEL_ALL);
+                this.fireEvent('statusChanged', appConstants.CANCEL_ALL);
             }
         }
     }
