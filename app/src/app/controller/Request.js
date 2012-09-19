@@ -14,7 +14,9 @@ Ext.define('EatSense.controller.Request',{
 			callWaiterButton: {
 				tap: 'toggleCallWaiterRequest'
 			}
-		}
+		},
+
+		requestNavigationFunctions : new Array()
 	},
 	init: function() {
 		var messageCtr = this.getApplication().getController('Message');
@@ -71,19 +73,6 @@ Ext.define('EatSense.controller.Request',{
 				});
 			}
 		});
-
-		//show success message to give user the illusion of success
-		// Ext.Msg.show({
-		// 	title : i10n.translate('hint'),
-		// 	message : i10n.translate('requestCallWaiterSendMsd'),
-		// 	buttons : []
-		// });
-		
-		// Ext.defer((function() {
-		// 	if(!appHelper.getAlertActive()) {
-		// 		Ext.Msg.hide();
-		// 	}
-		// }), appConfig.msgboxHideLongTimeout, this);
 	},
 	cancelCallWaiterRequest: function(button, event) {
 		var me = this,

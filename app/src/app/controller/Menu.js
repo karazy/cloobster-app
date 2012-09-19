@@ -68,12 +68,14 @@ Ext.define('EatSense.controller.Menu', {
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getCartNavigationFunctions());
     				} else if(value.tabName === 'menu') {
     					androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
-    				} else {
-    					if(value.tabName === 'requests') {
-    						//reset navigation view
-    						this.getApplication().getController('Feedback').getRequestNavview().pop();
-    					}
-
+    				} else if(value.tabName === 'settings') {
+    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Settings').getSettingsNavigationFunctions());
+    				} else if(value.tabName === 'requests') {
+    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Request').getRequestNavigationFunctions());
+    					//reset navigation view
+    					this.getApplication().getController('Feedback').getRequestNavview().pop();
+    				}
+    				else {    				
     					androidCtr.setAndroidBackHandler(null);
     				}
 
@@ -89,7 +91,7 @@ Ext.define('EatSense.controller.Menu', {
 		*	Current selected product.
 		*/
 		activeOrder: null,
-
+		/* Android Back handlers */
 		menuNavigationFunctions : new Array()
     },
     /**

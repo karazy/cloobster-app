@@ -39,6 +39,12 @@ Ext.define('EatSense.controller.Feedback', {
 			},
 			commentField: {
 				change: 'saveComment'
+			},
+			requestNavview : {
+				back: 'navBackButtonTap'
+			},
+			myordersNavview : {
+				back: 'navBackButtonTap'
 			}
 		},
 
@@ -65,6 +71,10 @@ Ext.define('EatSense.controller.Feedback', {
 		//show feedback form
 		requestNavview.push(feedback);
 		this.setActiveNavview(requestNavview);
+
+		this.getApplication().getController('Android').addBackHandler(function() {
+            requestNavview.pop();
+        });
 	},
 
 	/**
@@ -82,6 +92,10 @@ Ext.define('EatSense.controller.Feedback', {
 		//show feedback form
 		myordersNavview.push(feedback);
 		this.setActiveNavview(myordersNavview);
+
+		this.getApplication().getController('Android').addBackHandler(function() {
+            myordersNavview.pop();
+        });
 	},
 	/**
 	* Load Feedback data from server.
@@ -289,5 +303,12 @@ Ext.define('EatSense.controller.Feedback', {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
 		checkInCtr.getAppState().set('feedbackId', id);
-	}
+	},
+	/**
+	* 
+	*/
+	navBackButtonTap: function(button) {
+        console.log('SettingsController.navBackButtonTap');
+        this.getApplication().getController('Android').removeLastBackHandler();
+    }
 });

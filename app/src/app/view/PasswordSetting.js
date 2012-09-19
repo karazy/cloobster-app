@@ -20,6 +20,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 					xtype: 'passwordfield',
 					itemId: 'oldPassword',
 					cls: 'general-textfield',
+					labelCls: 'general-field-label-vertical',
 					label: i10n.translate('passwordsetting.oldpassword.field'),
 					labelAlign: 'top'
 				},
@@ -28,6 +29,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 					xtype: 'passwordfield',
 					itemId: 'newPassword',
 					cls: 'general-textfield',
+					labelCls: 'general-field-label-vertical',
 					label: i10n.translate('passwordsetting.newpassword.field'),
 					labelAlign: 'top'
 				},
@@ -36,6 +38,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 					xtype: 'passwordfield',
 					itemId: 'repeatPassword',
 					cls: 'general-textfield',
+					labelCls: 'general-field-label-vertical',
 					label: i10n.translate('passwordsetting.repeatpassword.field'),
 					labelAlign: 'top'
 				},

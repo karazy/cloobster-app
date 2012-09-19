@@ -21,14 +21,16 @@ Ext.define('EatSense.view.EmailSetting', {
 					xtype: 'emailfield',
 					itemId: 'newMail',
 					cls: 'general-textfield',
+					labelCls: 'general-field-label-vertical',
 					label: i10n.translate('emailsetting.email.field'),
 					labelAlign: 'top'
 				},
 				{	
 					//repeat email field
-					xtype: 'textfield',
+					xtype: 'emailfield',
 					itemId: 'repeatMail',
 					cls: 'general-textfield',
+					labelCls: 'general-field-label-vertical',
 					label: i10n.translate('emailsetting.repeat.field'),
 					labelAlign: 'top'
 				},
@@ -36,6 +38,7 @@ Ext.define('EatSense.view.EmailSetting', {
 					xtype: 'passwordfield',
 					itemId: 'password',
 					cls: 'general-textfield',
+					labelCls: 'general-field-label-vertical',
 					label: i10n.translate('emailsetting.password.field'),
 					labelAlign: 'top'
 				},
