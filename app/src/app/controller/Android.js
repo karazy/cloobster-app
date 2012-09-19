@@ -14,6 +14,7 @@ Ext.define('EatSense.controller.Android', {
 	},
 
 	addBackHandler: function(handler) {
+		this.setExitOnBack(false);
 		if(appHelper.isFunction(handler) && appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> addBackHandler');
 			this.getAndroidBackHandler().push(handler);	
@@ -23,6 +24,7 @@ Ext.define('EatSense.controller.Android', {
 	},
 
 	removeLastBackHandler: function() {
+		this.setExitOnBack(false);
 		if(appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> removeLastBackHandler');
 			this.getAndroidBackHandler().pop();

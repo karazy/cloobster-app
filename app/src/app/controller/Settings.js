@@ -81,7 +81,9 @@ Ext.define('EatSense.controller.Settings', {
         if(accountCtr.isLoggedIn()) {
             accountPanel.setHidden(false);
             //TODO check if account is loaded correctly!
-            emailLabel.getTpl().overwrite(emailLabel.element, account.getData()); 
+            if(account) {
+                emailLabel.getTpl().overwrite(emailLabel.element, account.getData());     
+            }
             if(profile) {
                 this.getNicknameField().setValue(profile.get('nickname'));    
             } 

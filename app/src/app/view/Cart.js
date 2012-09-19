@@ -30,7 +30,7 @@ Ext.define('EatSense.view.Cart', {
 			    ui: 'forward',
 			    align: 'right'
 			}]
-		}, 
+		},
 		{
 				xtype: 'dataview',
 				itemId: 'orderlist',

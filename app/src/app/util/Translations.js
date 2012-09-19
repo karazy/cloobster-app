@@ -74,18 +74,18 @@ Ext.define('EatSense.util.Translations',{
 		"productCartBt" : "Auf den Bestellzettel",
 		"orderCanceled" : "{0} wurde storniert.",
 		//Cart
-		"cartviewTitle" : "Ich will ...",
+		"cartviewTitle" : "Bestellung",
 		"cartTabBt" : "Bestellzettel",
 		"dumpCart" : "Bestellzettel leeren?",
 		"dumpItem" : "{0} entfernen?",
-		"submitButton" : "Bestellen",
+		"submitButton" : "Abschicken",
 		"submitOrderProcess" : "Schicke Bestellung ...",
 		"submitOrdersQuestion" : "Bestellung abschicken?",
 		//Lounge
 		"loungeviewTitle" : "Die Lounge",
 		//MyOrders
-		"myOrdersTitle" : "Bestellungen",
-		"myOrdersTabBt" : "Bezahlen",
+		"myOrdersTitle" : "Bestellung",
+		"myOrdersTabBt" : "Kasse",
 		"myOrdersTabLeaveBt" : "Verlassen",
 		"payRequestButton" : "Bezahlen",
 		"leaveButton" : "Verlassen",

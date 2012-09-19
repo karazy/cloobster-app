@@ -29,6 +29,7 @@ Ext.define('EatSense.controller.Styles', {
 			console.log('activate theme ' + theme);
 			this.changeTheme(theme);	
 		} else if (status == appConstants.COMPLETE || status == appConstants.FORCE_LOGOUT || status == appConstants.CANCEL_ALL) {
+            console.log('activate theme ' + theme);
 			this.changeTheme('default');	
 		}
 	},

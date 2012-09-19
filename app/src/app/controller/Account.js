@@ -186,6 +186,9 @@ Ext.define('EatSense.controller.Account', {
 			responseError,
 			responseErrorKey;
 
+		//Bgufix on some devices textfield overlaps alert window on error message
+		this.getPasswordField().blur();
+
 		//validate for password length and match regex
 		//validate email
 		newAccount.setData(formValues);
@@ -260,6 +263,9 @@ Ext.define('EatSense.controller.Account', {
 			appState = checkInCtr.getAppState(),
 			errorMessage,
 			loginView = this.getLoginView();
+
+		//Bgufix on some devices textfield overlaps alert window on error message
+		this.getPasswordField().blur();
 
 		if(headerUtil.getHeaderValue('X-Auth')) {
 			//already logged in, skip			
