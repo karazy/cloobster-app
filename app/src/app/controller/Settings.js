@@ -111,8 +111,8 @@ Ext.define('EatSense.controller.Settings', {
                         'message' : {403: i10n.translate('general.credentials.invalid')}
                     });     
                 }
-                
             });
+            appState.set('nickname', null);
         } else {
             appState.set('nickname', newData);
         }		

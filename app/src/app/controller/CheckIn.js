@@ -290,21 +290,21 @@ Ext.define('EatSense.controller.CheckIn', {
   					   	     
   					   	    //save nickname in settings
   					if(nicknameToggle.getValue() == 1) {
-                        if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
-                            profile.set('nickname', nickname);
-                            profile.save();
-                        } else {
-                            me.getAppState().set('nickname', nickname);  
-                        }
-                        nicknameToggle.reset();
+              if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
+                  profile.set('nickname', nickname);
+                  profile.save();
+              } else {
+                  me.getAppState().set('nickname', nickname);
+              }
+              nicknameToggle.reset();
   					}
                    
-                   //open a channel for push messags
-                   try {
-                        messageCtr.openChannel(response.get('userId'));
-                    } catch(e) {
-                        console.log('could not open a channel ' + e);
-                    }
+               //open a channel for push messags
+               try {
+                    messageCtr.openChannel(response.get('userId'));
+                } catch(e) {
+                    console.log('could not open a channel ' + e);
+                }
 					},
 				failure: function(response, operation) {
                     appHelper.toggleMask(false);
