@@ -3,12 +3,12 @@ Ext.define('EatSense.view.History',{
 	requires: ['Ext.plugin.ListPaging', 'EatSense.view.HistoryDetail'],
 	xtype: 'history',				
 	config: {
-		cls: 'dashboard',
 		layout: 'fit',
+		cls: 'dashboard',
 		items: [
 		{
 			docked : 'top',
-			xtype : 'titlebar',				
+			xtype : 'titlebar',			
 			title : i10n.translate('history.title'),
 			items : [
 				{
@@ -20,17 +20,27 @@ Ext.define('EatSense.view.History',{
 			]
 		},
 		{
+			xtype: 'panel',
+			itemId: 'historyListDescPanel',
+			docked: 'top',
+			cls: 'dashboard',
+			html: i10n.translate('history.list.description'),
+			style: 'text-align: center;',
+			styleHtmlContent: true,
+			hidden: true,
+		},
+		{
 			xtype: 'list',
 			ui: 'round',					
 			store: 'historyStore',				
-			itemTpl: new Ext.XTemplate('{businessName} | {[this.formatDate(values.billTime)]} | {[this.formatPrice(values.billTotal)]}',
+			itemTpl: new Ext.XTemplate('<strong>{businessName}</strong><br/>{[this.formatDate(values.billTime)]} | {[this.formatPrice(values.billTotal)]}',
 				{
 					formatPrice: function(price) {
 						return appHelper.formatPrice(price);
 					},
 
 					formatDate: function(date) {
-						var format = appConstants.DateTimeFormat[appConfig.language];
+						var format = appConstants.DateFormat[appConfig.language];
 						return Ext.util.Format.date(date, format);
 					}
 				}

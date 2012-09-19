@@ -169,6 +169,7 @@ Ext.define('EatSense.util.Translations',{
 		"history.detail.title" : "Rechnung",
 		"history.detail.list.paging" : "Mehr laden ...",
 		"history.noaccount" : "Bitte loggen Sie sich ein oder registrieren Sie sich, um diese Funktion zu nutzen.",
+		"history.list.description" : "Hier werden Ihre besuchten Orte aufgelistet. Sie haben noch keine Orte besucht.",
 		//errors
 		"error" : "Fehler",
 		"errorTitle" : "Fehler",		

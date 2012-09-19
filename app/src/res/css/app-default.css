@@ -7554,37 +7554,42 @@ h9 {
   background: url(../images/history/header-bg-2.png) repeat-x;
   height: 2.2em;
   text-align: center;
+  height: 100%;
 }
-/* line 719, app-default.scss */
+/* line 720, app-default.scss */
 .history-detail-header h1 {
   padding-top: 0.8em;
   font-size: 1em;
 }
+/* line 724, app-default.scss */
+.history-detail-header p {
+  font-size: 0.8em;
+}
 
-/* line 725, app-default.scss */
+/* line 729, app-default.scss */
 .history-detail-footer {
   /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
   /*background-position: left bottom;*/
   background-color: #f3e8d5;
-  height: 2em;
+  /*height: 2em;*/
   text-align: center;
 }
-/* line 733, app-default.scss */
+/* line 737, app-default.scss */
 .history-detail-footer h1 {
   font-size: 1em;
 }
 
-/* line 739, app-default.scss */
+/* line 743, app-default.scss */
 .history-detail-list {
   background-color: #f3e8d5;
 }
 
-/* line 743, app-default.scss */
+/* line 747, app-default.scss */
 .history-detail-item {
   background: url(../images/history/item-bg.png) repeat-x;
   height: 40px;
 }
-/* line 747, app-default.scss */
+/* line 751, app-default.scss */
 .history-detail-item .x-list-item-label {
   border: none !important;
 }
@@ -7595,7 +7600,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 759, app-default.scss */
+/* line 763, app-default.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -7603,13 +7608,13 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 766, app-default.scss */
+/* line 770, app-default.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Perf. optimization for android. */
-/* line 771, app-default.scss */
+/* line 775, app-default.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
@@ -7618,7 +7623,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 779, app-default.scss */
+/* line 783, app-default.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -7626,7 +7631,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 786, app-default.scss */
+/* line 790, app-default.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -7634,19 +7639,19 @@ h9 {
 }
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
-/* line 793, app-default.scss */
+/* line 797, app-default.scss */
 .x-list-round .x-scroll-view {
   background-color: #f4f1ea !important;
 }
 
 /* Override needed because ui-round already has a white background. */
-/* line 798, app-default.scss */
+/* line 802, app-default.scss */
 .x-list-round .x-list-item.x-item-pressed .x-list-item-label {
   border-top-color: #ffe6cc;
   background-color: #ffe6cc;
 }
 
-/* line 803, app-default.scss */
+/* line 807, app-default.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -7654,16 +7659,16 @@ h9 {
   color: white !important;
 }
 
-/* line 810, app-default.scss */
+/* line 814, app-default.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #ff9933 !important;
 }
-/* line 813, app-default.scss */
+/* line 817, app-default.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #ff9933 !important;
 }
 
-/* line 819, app-default.scss */
+/* line 823, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background-color: #ff9933;
   background-image: none;
@@ -7675,7 +7680,7 @@ h9 {
   box-shadow: black 0 0 0.25em inset;
 }
 
-/* line 830, app-default.scss */
+/* line 834, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
   /*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(2%, #F0F7FF), color-stop(100%, #A8D4FF));
@@ -7683,7 +7688,7 @@ h9 {
   /* background-image: linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
 }
 
-/* line 837, app-default.scss */
+/* line 841, app-default.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
@@ -7693,13 +7698,13 @@ h9 {
 }
 
 /* Force action button to have white text color. */
-/* line 846, app-default.scss */
+/* line 850, app-default.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: #FFF;
 }
 
 /* Force color of disclosure item instead of beeing calculated. */
-/* line 851, app-default.scss */
+/* line 855, app-default.scss */
 .x-list-round .x-list-disclosure {
   background-image: none;
   background-color: #ff9933;

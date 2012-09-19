@@ -29,16 +29,15 @@ Ext.define('EatSense.view.HistoryDetail', {
 					{	//Business name and CheckInTime
 					xtype: 'label',	
 					itemId: 'header',
+					docked: 'top',
 					cls: 'history-detail-header',
-					tpl: new Ext.XTemplate('<h1>{businessName} - {[this.formatDate(values.billTime)]}</h1> ', {
+					tpl: new Ext.XTemplate('<h1>{businessName}</h1><p>{[this.formatDate(values.billTime)]}</p>', {
 
 						formatDate: function(date) {
 							var format = appConstants.DateTimeFormat[appConfig.language];
 							return Ext.util.Format.date(date, format);
 						}
-					}),
-					docked: 'top',
-					// flex: 1		
+					})
 				},
 				{	//orders
 					xtype: 'list',
@@ -65,9 +64,13 @@ Ext.define('EatSense.view.HistoryDetail', {
 					xtype: 'label',
 					cls: 'history-detail-footer',
 					itemId: 'footer',
-					tpl: '<h1>Total: {billTotal}</h1>',
-					docked: 'bottom'
-					// flex: 1
+					docked: 'bottom',
+					tpl: new Ext.XTemplate('Total: {[this.formatPrice(values.billTotal)]}',
+					{
+						formatPrice: function(price) {
+							return appHelper.formatPrice(price);
+						}
+					})
 				}
 
 				]

@@ -14,14 +14,10 @@ Ext.define('EatSense.controller.History', {
 			historyList : 'mainview history list',
 			backButton : 'history button[action=back]',
 			backDetailButton : 'historydetail button[action=back]',
-			showHistoryButton: 'dashboard button[action=history]',
-			// historyDetailView: {
-			// 	selector: 'historydetail',
-			// 	xtype: 'historydetail',
-			// 	autoCreate: true
-			// },
+			showHistoryButton: 'dashboard button[action=history]',			
 			historyDetailView: 'mainview historydetail',
-			historyDetailOrderList : 'historydetail #historyOrders'
+			historyDetailOrderList : 'historydetail #historyOrders',
+         historyDescriptionPanel : 'history #historyListDescPanel'
 		},
 		control: {
 			showHistoryButton : {
@@ -86,7 +82,8 @@ Ext.define('EatSense.controller.History', {
    loadHistory: function() {
    		var me = this,
              historyStore = Ext.StoreManager.lookup('historyStore'),
-   			 historyList = this.getHistoryList();
+   			 historyList = this.getHistoryList(),
+             descPanel = this.getHistoryDescriptionPanel();
 
    		historyStore.loadPage(1, {
    			callback: function(records, operation, success) {
@@ -100,7 +97,16 @@ Ext.define('EatSense.controller.History', {
                   if(operation.error.status == 403) {
                      me.showDashboard();
                   }
-   				}
+   				} else {
+                  if(records.length == 0) {
+                     //show description when empty
+                     descPanel.setHidden(false);
+                     historyList.setHidden(true);
+                  } else {
+                     descPanel.setHidden(true);
+                     historyList.setHidden(false);
+                  }
+               }
    			}
    		});
 
