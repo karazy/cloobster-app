@@ -38,7 +38,7 @@ Ext.define('EatSense.controller.Android', {
 			this.setExitOnBack(false);
 			handler = this.getAndroidBackHandler().pop();
 			handler();
-		} else {			
+		} else {
 			if(this.getExitOnBack()) {
 				console.log('Android Controller -> executeBackHandler: exit app');
 				navigator.app.exitApp();
