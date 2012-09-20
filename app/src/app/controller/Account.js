@@ -85,8 +85,11 @@ Ext.define('EatSense.controller.Account', {
     	    	me.getApplication().handleServerError({
 					'error': operation.error,
 					'forceLogout': false,
-					// 'userLogout' : true,
-					'hideMessage':false
+					'userLogout' : true,
+					'hideMessage':false,
+					'message': {
+                       	403: i10n.translate('error.account.credentials.invalid')
+                    },
 				});
 			}
 		});

@@ -110,11 +110,12 @@ Ext.define('EatSense.controller.CheckIn', {
     	        			 me.checkInConfirm({model:record, deviceId : deviceId}); 	        	    	
      	        	    },
      	        	    failure: function(record, operation) {
+                            //403 can only occur if you are logged in, with an invalid user
                             me.getApplication().handleServerError({
                                 'error': operation.error,
                                 'message': {
                                     404: i10n.translate('checkInErrorBarcode'),
-                                    // 403: i10n.translate('checkInErrorBarcode'),
+                                    403: i10n.translate('error.account.credentials.invalid')
                                 },
                                 userLogout : {
                                   403: true

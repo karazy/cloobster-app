@@ -181,7 +181,8 @@ Ext.define('EatSense.util.Translations',{
 		"error.account.email.exists" : "Diese E-Mail wird bereits verwendet.",
 		"error.account.email" : "Bitte geben Sie eine gültige E-Mail ein.",
 		"error.account.password" : "Passwort muss min. 6 Zeichen besitzen. Darunter eine Zahl oder ein Sonderzeichen.",
-		"error.account.nocredentials" : "Bitte geben Sie Ihre Zugangsdaten ein, um sich einzuloggen."
+		"error.account.nocredentials" : "Bitte geben Sie Ihre Zugangsdaten ein, um sich einzuloggen.",
+		"error.account.credentials.invalid" : "Gespeicherte Zugangsdaten ungültig. Bitte neu einloggen."
 		}
 	}
 	}
