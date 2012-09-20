@@ -77,6 +77,7 @@ Ext.define('EatSense.controller.Account', {
 
 		EatSense.model.Account.load(id,{
 			success: function(record, operation) {
+				//set account to make it accesible for the application
 				me.setAccount(record);
 				me.loadProfile(record.get('profileId'));
 			},
@@ -227,6 +228,8 @@ Ext.define('EatSense.controller.Account', {
         		checkInCtr.getAppState().set('accountId', record.get('id'));
         		//Set default headers so that always credentials are send
 				headerUtil.addHeader('X-Auth', record.get('accessToken'));
+				//set account to make it accesible for the application
+				me.setAccount(record);
 				//reset fields
         		form.reset();
         		callback(true);
@@ -299,6 +302,7 @@ Ext.define('EatSense.controller.Account', {
 
     	    	//parse account, currently we only need the access token
     	    	account = Ext.create('EatSense.model.Account', Ext.decode(response.responseText));
+    	    	//set account to make it accesible for the application
     	    	me.setAccount(account);
 				//Set default headers so that always credentials are send
 				headerUtil.addHeader('X-Auth', account.get('accessToken'));
