@@ -184,7 +184,7 @@ Ext.application({
                invalidAccessToken = options.userLogout,
                hideMessage = options.hideMessage,
                message = options.message,
-               code = error.status || 500,
+               code = error.status,
                defaultErrorKey = null;
 
         if(error && typeof error.status == 'number') {
@@ -194,20 +194,21 @@ Ext.application({
         	}
             switch(code) {
                 case 403:
-                    defaultErrorKey = 'errorPermission';
-                    break;
+                  defaultErrorKey = 'errorPermission';
+                  break;
                 case 404:
-                    defaultErrorKey = 'errorResource';
-                    break;
+                  defaultErrorKey = 'errorResource';
+                  break;
                 case 400: 
-                    defaultErrorKey = 'errorResource';
-                    break;
+                  defaultErrorKey = 'errorResource';
+                  break;
                 case 0:
                   defaultErrorKey = 'errorCommunication';
                 	break;
                 default:
-                    defaultErrorKey = 'errorMsg';
-                    break;
+                  code = 500
+                  defaultErrorKey = 'errorMsg';
+                  break;
             };
 
 

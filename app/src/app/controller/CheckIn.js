@@ -113,8 +113,12 @@ Ext.define('EatSense.controller.CheckIn', {
                             me.getApplication().handleServerError({
                                 'error': operation.error,
                                 'message': {
-                                    404: i10n.translate('checkInErrorBarcode')
-                                } 
+                                    404: i10n.translate('checkInErrorBarcode'),
+                                    // 403: i10n.translate('checkInErrorBarcode'),
+                                },
+                                userLogout : {
+                                  403: true
+                                }
                             }); 
      	        	    },
      	        	    callback: function() {

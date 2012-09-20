@@ -45,7 +45,7 @@ Ext.define('EatSense.controller.Styles', {
             sheet,
             interval;
 
-        //TODO do we need a loading mask
+        //TODO do we need a loading mask?
         // main.setMasked({
         //     xtype: 'loadmask',
         //     message: 'Theming',
