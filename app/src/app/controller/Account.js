@@ -239,10 +239,13 @@ Ext.define('EatSense.controller.Account', {
         	},
         	failure: function(record, operation) {
         		callback(false);
-
+        		//"error.account.password" use correct error message
         		try {
         			responseError = Ext.JSON.decode(operation.error.responseText);
         			responseErrorKey = responseError.errorKey;
+        			if(responseErrorKey == "validationError") {
+        				responseErrorKey = "error.account.password";
+        			};
         		} catch(e) {
         			console.log("Could not parse error response.")
         		};

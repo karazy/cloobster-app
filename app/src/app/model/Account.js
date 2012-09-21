@@ -9,8 +9,7 @@ Ext.define('EatSense.model.Account', {
 			name: 'login'
 		},
 		{
-			name: 'password',
-			matcher: /^(?=[!-~]*$)(?=.*([^A-Za-z0-9]|\d))(?=.*[a-zA-Z]).*$/
+			name: 'password'
 		},
 		{
 			name: 'email'
@@ -34,7 +33,7 @@ Ext.define('EatSense.model.Account', {
 		validations: [
 		 	{type: 'presence',  field: 'email'},
             {type: 'email', field: 'email'},
-            {type: 'format',    field: 'password', matcher: /([a-z]+)[0-9]{2,3}/}
+            {type: 'format',    field: 'password', matcher: /^(?=[!-~]*$)(?=.*([^A-Za-z0-9]|\d))(?=.*[a-zA-Z]).*$/}
         ],
         associations: [
             { 
