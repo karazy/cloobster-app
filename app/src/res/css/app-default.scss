@@ -531,6 +531,10 @@ $dashboard-color: #1E4776;
   -webkit-mask-image: inline-image('buttons/about.png');
 }
 
+.x-button-icon.cart-button {
+  -webkit-mask-image: inline-image('/buttons/bestellung.png');
+}
+
 .x-tab .x-button-icon.cart {
   -webkit-mask-image: inline-image('/buttons/bestellung.png');
 }

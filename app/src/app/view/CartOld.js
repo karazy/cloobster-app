@@ -1,11 +1,11 @@
 Ext.define('EatSense.view.Cart', {
 	extend : 'Ext.Panel',
 	xtype : 'carttab',
-	requires: ['EatSense.view.CartOverviewItem', 'EatSense.view.BackButton'],
+	requires: ['EatSense.view.CartOverviewItem'],
 	config : {
 		iconCls : 'cart',
-		// title: i10n.translate('cartTabBt'),
-		// iconMask : true,
+		title: i10n.translate('cartTabBt'),
+		iconMask : true,
 		itemId : 'carttab',
 		layout: 'fit',
 		// cls: 'cart-panel',
@@ -17,43 +17,19 @@ Ext.define('EatSense.view.Cart', {
 			title : i10n.translate('cartviewTitle'),
 			items : [ 
 			{
-				// xtype : 'button',
-				// itemId : 'backButton',
-				action: 'back',
-				text : i10n.translate('back'),
-				ui : 'back',
-				align: 'left'
-			},
-			]
-		},
-		{
-			xtype: 'panel',
-			docked: 'top',
-			layout: {
-				type: 'hbox',
-				align: 'center',
-				pack: 'center'
-			},
-			items: [
-			{
 				xtype: 'button',
 				action: 'trash',
 			    iconCls: 'trash',
 			    iconMask: true,
-			    align: 'left',
-			    ui: 'action',
-			    // flex: 1
+			    align: 'left'
 			},
 			{
 				xtype: 'button',
 				action: 'order',
 			    text: i10n.translate('submitButton'),
-			    ui: 'action',
-			    align: 'right',
-			    // flex: 2
-			}
-			]
-			
+			    ui: 'forward',
+			    align: 'right'
+			}]
 		},
 		{
 				xtype: 'dataview',

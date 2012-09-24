@@ -7,6 +7,28 @@ Ext.define('EatSense.view.ProductOverview', {
 	config : {
 		items : [ 
 		{
+			docked : 'top',
+			xtype : 'titlebar',
+			itemId: 'menuTopBar',
+			title : i10n.translate('menuTitle'),
+			items : [ {
+				xtype : 'button',
+				itemId : 'menuBackBt',
+				action: 'back',
+				text : i10n.translate('back'),
+				ui : 'back',
+				align: 'left'
+			},{
+				xtype: 'button',
+				itemId: 'cartBt',
+				action: 'show-cart',
+				align: 'right',
+				iconCls : 'cart-button',
+				iconMask : true
+			}
+			]
+		},
+		{
 			xtype : 'list',
 			itemId : 'productlist',
 			ui: 'round',

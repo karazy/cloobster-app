@@ -29,6 +29,8 @@ Ext.define('EatSense.controller.Menu', {
         	topToolbar: 'menutab #menuTopBar',
         	loungeview: 'lounge',
         	loungeTabBar: 'lounge tabbar',
+        	showCartButton: 'menutab button[action=show-cart]',
+        	cartView: 'menutab carttab'
 		},
 
 		control: {
@@ -50,6 +52,9 @@ Ext.define('EatSense.controller.Menu', {
              },
              amountSpinner : {
             	 spin: 'amountChanged'
+             },
+             showCartButton: {
+             	tap: 'showCart'
              },
              //TODO refactor general loungeview control into another controller!
              loungeview : {
@@ -342,7 +347,7 @@ Ext.define('EatSense.controller.Menu', {
 			order,
 			validationError = "",
 			validationResult = null,
-			cartButton = this.getLoungeTabBar().getAt(1),
+			cartButton = this.getShowCartButton(),
 			productIsValid = true,
 			appState = this.getApplication().getController('CheckIn').getAppState(),
 			appStateStore = Ext.StoreManager.lookup('appStateStore'),
@@ -366,39 +371,6 @@ Ext.define('EatSense.controller.Menu', {
 		if(productIsValid === true) {
 			order.set('status','CART');			
 			order.set('comment', this.getProductdetail().getComponent('choicesPanel').getComponent('productComment').getValue());
-
-			// order.save({
-			// 	success: function(response, operation) {
-	  //   	    	// order.setId(response.responseText);
-	  //   	    	// order.phantom = false;	    	    	
-			// 		activeCheckIn.orders().add(order);
-			// 		cartButton.setBadgeText(activeCheckIn.orders().data.length);
-	  //   	    },
-	  //   	    failure: function(response, operation) {
-	  //   	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
-	  //   	    	if(response.status == 409) {
-	  //   	    		appHelper.toggleAlertActive(true);
-	  //   	    		Ext.Msg.alert(i10n.translate('error'),
-	  //   	    			i10n.translate('error.menu.needsrefresh'),
-	  //   	    			function() {
-			// 					appHelper.toggleAlertActive(false);
-			// 			});
-	  //   	    		//clear the menu store, don't send clear event
-	  //   	    		Ext.StoreManager.lookup('menuStore').removeAll();
-	  //   	    		Ext.StoreManager.lookup('productStore').removeAll();
-	  //   	    		//refresh menu
-	  //   	    		me.showMenu();
-
-	  //   	    	} else {
-		 //    	    	me.getApplication().handleServerError({
-	  //                       	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
-	  //                       	'forceLogout': {403:true}
-	  //                   });	
-	  //   	    	}
-
-	    	    	
-	  //   	    }
-			// });
 			
 			Ext.Ajax.request({
 	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/',
@@ -465,7 +437,13 @@ Ext.define('EatSense.controller.Menu', {
 	 * Switches to card view.
 	 */
 	showCart: function(){		
-		this.getApplication().getController('Order').showCart();
+		var menuview = this.getMenuview(),
+			cartView = this.getCartView(),
+			androidCtr = this.getApplication().getController('Android');
+
+		this.getApplication().getController('Order').refreshCart();
+    	androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
+    	menuview.switchMenuview(cartView, "left");
 	},
 	/**
 	 * Switches to another view
@@ -479,7 +457,6 @@ Ext.define('EatSense.controller.Menu', {
 	 * 			Direction for switch animation.
 	 */
 	switchView: function(view, title, labelBackBt, direction) {
-		console.log('Menu Controller -> switchView');
 		var menu = this.getMenuview();
     		this.getTopToolbar().setTitle(title);
     	(labelBackBt == null || labelBackBt.length == 0) ? menu.hideBackButton() : menu.showBackButton(labelBackBt);

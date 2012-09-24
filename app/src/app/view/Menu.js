@@ -8,21 +8,7 @@ Ext.define('EatSense.view.Menu', {
 		iconMask : true,
 		itemId : 'menutab',
 		// cls: 'menu-panel',
-		items : [ {
-			docked : 'top',
-			xtype : 'titlebar',
-			itemId: 'menuTopBar',
-			title : i10n.translate('menuTitle'),
-			items : [ {
-				xtype : 'button',
-				itemId : 'menuBackBt',
-				action: 'back',
-				text : i10n.translate('back'),
-				ui : 'back',
-				align: 'left'
-			}
-			]
-		},
+		items : [ 
 		{
 			xtype: 'panel',
 			itemId: 'menuCardPanel',
@@ -37,6 +23,10 @@ Ext.define('EatSense.view.Menu', {
 			        },
 			        {
 			        	xtype: 'productoverview',
+			        	layout: 'fit'
+			        },
+			        {
+			        	xtype: 'carttab',
 			        	layout: 'fit'
 			        }
 			]

@@ -731,8 +731,8 @@
 	 */
 	toggleCartButtons: function() {
 		var cartview = this.getCartview(),
-			trashBt = cartview.down('#cartTopBar button[action="trash"]'),	
-			orderBt = cartview.down('#cartTopBar button[action="order"]'),
+			trashBt = cartview.down('button[action="trash"]'),	
+			orderBt = cartview.down('button[action="order"]'),
 			hidden = (this.cartCount() > 0) ? false : true;
 		
 		trashBt.setHidden(hidden);

@@ -9,6 +9,22 @@ Ext.define('EatSense.view.MenuOverview', {
 	xtype : 'menuoverview',
 	config : {
 		items : [ 
+			{
+				docked : 'top',
+				xtype : 'titlebar',
+				itemId: 'menuTopBar',
+				title : i10n.translate('menuTitle'),
+				items : [ 
+				{
+					xtype: 'button',
+					itemId: 'cartBt',
+					action: 'show-cart',
+					align: 'right',
+					iconCls : 'cart-button',
+					iconMask : true
+				}
+				]
+			},
 		   {
 			xtype : 'list',
 			ui: 'round',
