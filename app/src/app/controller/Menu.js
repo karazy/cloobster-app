@@ -116,17 +116,39 @@ Ext.define('EatSense.controller.Menu', {
     	console.log("Menu Controller -> showProductlist");
     	var me = this,
     		pov = this.getProductoverview(),
-    		prodStore = record.productsStore;
+    		prodStore = record.productsStore,
+    		firstEntry,
+    		oldHeader = null;
 
 		//Android: return to menu on backbutton
 		this.getApplication().getController('Android').addBackHandler(function() {
 					me.backToMenu();
 		});
 
+		//set title of titlebar
+		// pov.down('titlebar').setTitle(record.get('title'));
+
     	this.setActiveMenu(record);
-    	this.getProductlist().setStore(prodStore);
-    	this.getMenulist().refresh();
-    	this.switchView(pov, record.get('title'), i10n.translate('back'), 'left');
+    	
+    	//remove custom HTML otherwise an "Uncaught TypeError: Cannot set property 'innerHTML' of undefined " gets thrown
+    	oldHeader = this.getProductlist().element.down('div[class="productlist-header"]');
+    	if(oldHeader) {
+    		oldHeader.destroy();
+    		oldHeader = null;
+    	};
+
+    	this.getProductlist().setStore(prodStore);  
+		this.getProductlist().refresh();
+    	this.getProductlist().getTpl().insertBefore(this.getProductlist().element.down('div[class="x-list-item-label"]') , record.getData());
+
+    	// this.getProductlist().setHtml('<div class="header"'+record.get('title')+'</div>');
+    	// firstEntry = this.getProductlist().getItems().first();
+    	// if(firstEntry) {
+    		// firstEntry.setHtml('<div class="header">'+record.get('title')+'</div>')
+    		// firstEntry.element.dom.innerHtml =  '<div class="header">'+record.get('title')+'</div>' + firstEntry.element.dom.innerHtml;
+    	// };
+
+    	this.switchView(pov, "", "", 'left');
     },
     /**
     *	Load menus and products and show menutab.
@@ -486,7 +508,8 @@ Ext.define('EatSense.controller.Menu', {
 	 */
 	switchView: function(view, title, labelBackBt, direction) {
 		var menu = this.getMenuview();
-    		this.getTopToolbar().setTitle(title);
+
+		// this.getTopToolbar().setTitle(title);
     	// (labelBackBt == null || labelBackBt.length == 0) ? menu.hideBackButton() : menu.showBackButton(labelBackBt);
     	menu.switchMenuview(view,direction);
 	},

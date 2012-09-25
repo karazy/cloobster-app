@@ -854,3 +854,22 @@ h9 {
   background-image: none;
   background-color: $active-color;
 }
+
+
+.productlist-header {
+  border-style: solid solid none solid;
+  border-color: #DDD;
+  border-width: 1px;
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+  background-color: $active-color;
+  width: 80%;
+  color: white;
+  text-align: center;
+  padding: 2px;
+
+  + div.x-list-item-label {
+      -webkit-border-top-left-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+  }
+}

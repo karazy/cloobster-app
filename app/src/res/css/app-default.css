@@ -7709,3 +7709,22 @@ h9 {
   background-image: none;
   background-color: #ff9933;
 }
+
+/* line 859, app-default.scss */
+.productlist-header {
+  border-style: solid solid none solid;
+  border-color: #DDD;
+  border-width: 1px;
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+  background-color: #ff9933;
+  width: 80%;
+  color: white;
+  text-align: center;
+  padding: 2px;
+}
+/* line 871, app-default.scss */
+.productlist-header + div.x-list-item-label {
+  -webkit-border-top-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
