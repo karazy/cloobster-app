@@ -93,7 +93,7 @@ Ext.define('EatSense.controller.Message', {
 		    success: function(response){
 		       	token = response.responseText;
 		       	successCallback(token);
-		       	connectionCallback();
+		       	connectionCallback(response.status);
 		    },
 		    failure: function(response, opts) {
 		    	me.getApplication().handleServerError({
@@ -105,7 +105,7 @@ Ext.define('EatSense.controller.Message', {
 					'hideMessage':true, 
 					'message': i10n.translate('channelTokenError')
 				});
-				connectionCallback();
+				connectionCallback(response.status);
 		    }
 		});
 	},
@@ -134,8 +134,10 @@ Ext.define('EatSense.controller.Message', {
 		    }, 
 		    failure: function(response) {
 		    	if(appChannel.connectionStatus != 'CONNECTION_LOST') {
-		    		//TODO Notify user of the interrupted connection.
 		    		appChannel.setStatusHelper('CONNECTION_LOST');
+		    		appChannel.stopOnlinePing();
+		    		appChannel.clearMessageTimeout();
+		    		appChannel.startOnlineCheck();
 		    		me.handleStatus({
 		    			'status' : appChannel.connectionStatus, 
 		    			'prevStatus': appChannel.previousStatus
@@ -156,14 +158,6 @@ Ext.define('EatSense.controller.Message', {
 
 		this.setChannelId(id);
 
-		// appChannel.setup({
-		// 	messageHandler: me.processMessages,
-		// 	requestTokenHandler: me.requestNewToken,			
-		// 	statusHandler: me.handleStatus,
-		// 	checkOnlineHandler: me.checkOnline,
-		// 	executionScope: me
-		// });
-
 		appChannel.setup({
 			messageHandler: me.processMessages,
 			requestTokenHandler: me.requestNewToken,
@@ -177,8 +171,12 @@ Ext.define('EatSense.controller.Message', {
 	*	Called when the connection status changes.
 	*
 	*/
-	handleStatus: function(connectionStatus, previousStatus, reconnectIteration) {
-		//render status in UI
+	handleStatus: function(opts) {
+		var connectionStatus = opts.status,
+			previousStatus = opts.prevStatus,
+			reconnectIteration = opts.reconnectIteration;
+
+		// Log status change.
 		console.log('Connection status changed to '+connectionStatus+' from '+previousStatus+'. ('+reconnectIteration+' call)');
 	}
 });
