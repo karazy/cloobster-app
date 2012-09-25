@@ -82,8 +82,15 @@ Ext.define('EatSense.util.Translations',{
 		"submitOrderProcess" : "Schicke Bestellung ...",
 		"submitOrdersQuestion" : "Bestellung abschicken?",
 		"cart.button.deleteall" : "Löschen",
-		//Lounge
-		"loungeviewTitle" : "Die Lounge",
+		//Lounge Dashboard
+		"clubdashboard.tab.title" : "Home",
+		"clubdashboard.label.description" : "<h2>Willkommen {0}<h2><p>Du hast in {1} eingecheckt. Bitte wähle was du tun möchtest.</p>",
+		"clubdashboard.button.vip" : "VIP Call",
+		"clubdashboard.button.feedback" : "Feedback",
+		"clubdashboard.button.info" : "Info",
+		"clubdashboard.button.events" : "Events",
+		"clubdashboard.button.aroundme" : "Around me",
+		"clubdashboard.button.exit" : "Exit",
 		//MyOrders
 		"myOrdersTitle" : "Bestellung",
 		"myOrdersTabBt" : "Check-out",

@@ -29,10 +29,10 @@ Ext.define('EatSense.view.ProductDetail', {
     	// scrollable : 'vertical',
     	// fullscreen: true,
     	modal: true,
-		top: '5%',
-		left: '3%',
-		right: '3%',
-		bottom: '3%',
+		top: '3%',
+		left: '2%',
+		right: '2%',
+		bottom: '2%',
 		floatingCls: 'panel-floating',
 		items : [
 		{

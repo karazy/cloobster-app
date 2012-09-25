@@ -7,6 +7,9 @@ Ext.define('EatSense.view.ClubDashboard', {
 	xtype : 'clubdashboard',
 	requires: ['Ext.Img'],
 	config : {
+		iconCls : 'home',
+		title: i10n.translate('clubdashboard.tab.title'),
+		iconMask: true,
 		layout : {
 			type : 'fit'
 		},
@@ -21,10 +24,11 @@ Ext.define('EatSense.view.ClubDashboard', {
 		},		
 		{
 			xtype: 'label',
-			cls: 'dashboard-description',
+			itemId: 'description',
+			cls: 'club-dashboard-description',
 			docked: 'top',
 			style: 'text-align: center;',
-			html: i10n.translate('club.dashboard.label.description')
+			html: i10n.translate('clubdashboard.label.description')
 		},
 		{
 			xtype: 'panel',
@@ -46,21 +50,30 @@ Ext.define('EatSense.view.ClubDashboard', {
 				items: [
 				{
 					xtype : 'button',
-					action: 'checkin',
-					text: i10n.translate('dashboard.button.checkin'),
-					baseCls: 'dashboard-button',
-					cls: 'dashboard-button-checkin',
-					pressedCls: 'dashboard-button-pressed',
-					labelCls: 'dashboard-button-label'
+					action: 'show-menu',
+					text: i10n.translate('menuTab'),
+					baseCls: 'club-dashboard-button',
+					cls: 'club-dashboard-button-menu',
+					pressedCls: 'club-dashboard-button-pressed',
+					labelCls: 'club-dashboard-button-label'
 				},
 				{
 					xtype : 'button',
-					action: 'history',
-					text: i10n.translate('dashboard.button.history'),
-					baseCls: 'dashboard-button',
-					cls: 'dashboard-button-history',
-					pressedCls: 'dashboard-button-pressed',
-					labelCls: 'dashboard-button-label'
+					action: 'show-history',
+					text: i10n.translate('clubdashboard.button.vip'),
+					baseCls: 'club-dashboard-button',
+					cls: 'club-dashboard-button-vip',
+					pressedCls: 'club-dashboard-button-pressed',
+					labelCls: 'club-dashboard-button-label'
+				},
+				{
+					xtype : 'button',
+					action: 'show-feedback',
+					text: i10n.translate('clubdashboard.button.feedback'),
+					baseCls: 'club-dashboard-button',
+					cls: 'club-dashboard-button-feedback',
+					pressedCls: 'club-dashboard-button-pressed',
+					labelCls: 'club-dashboard-button-label'
 				}
 				]
 			},
@@ -75,52 +88,59 @@ Ext.define('EatSense.view.ClubDashboard', {
 				items: [
 					{
 						xtype : 'button',
-						action: 'facebook',
-						text: 'Facebook',
-						baseCls: 'dashboard-button',
-						cls: 'dashboard-button-facebook',
-						pressedCls: 'dashboard-button-pressed',
-						labelCls: 'dashboard-button-label',
-						badgeCls: 'dashboard-button-badge',
-						badgeText: i10n.translate('general.comingsoon'),
-						disabled: true
+						action: 'show-info',
+						text: i10n.translate('clubdashboard.button.info'),
+						baseCls: 'club-dashboard-button',
+						cls: 'club-dashboard-button-info',
+						pressedCls: 'club-dashboard-button-pressed',
+						labelCls: 'club-dashboard-button-label',
+						badgeCls: 'club-dashboard-button-badge',
 					},
 					{
 						xtype : 'button',
-						action: 'login',
-						text: 'Login',
-						baseCls: 'dashboard-button',
-						cls: 'dashboard-button-login',
-						pressedCls: 'dashboard-button-pressed',
-						labelCls: 'dashboard-button-label'
+						action: 'show-events',
+						text: i10n.translate('clubdashboard.button.events'),
+						baseCls: 'club-dashboard-button',
+						cls: 'club-dashboard-button-events',
+						pressedCls: 'club-dashboard-button-pressed',
+						labelCls: 'club-dashboard-button-label'
 					},
 					{
 						xtype : 'button',
-						action: 'logout',
-						text: 'Logout',
-						hidden: true,
-						baseCls: 'dashboard-button',
-						cls: 'dashboard-button-login',
-						pressedCls: 'dashboard-button-pressed',
-						labelCls: 'dashboard-button-label'
+						action: 'show-aroundme',
+						text: i10n.translate('clubdashboard.button.aroundme'),
+						baseCls: 'club-dashboard-button',
+						cls: 'club-dashboard-button-aroundme',
+						pressedCls: 'club-dashboard-button-pressed',
+						labelCls: 'club-dashboard-button-label'
 					}
 				]
-			}
-			]
-		},
-		{
-			xtype: 'toolbar',
-			docked: 'bottom',
-			items: [
-			{
-				xtype: 'spacer'
 			},
 			{
-			xtype: 'button',
-			action: 'about',
-			iconCls: 'about',
-			iconMask: true,
-			styleHtmlContent: true,
+				xtype: 'panel',
+				width: '100%',
+				layout: {
+					type: 'hbox',
+					align: 'center',
+					pack: 'center'
+				},
+				items: [
+					{
+						xtype : 'spacer',
+					},
+					{
+						xtype : 'button',
+						action: 'exit',
+						text: i10n.translate('clubdashboard.button.exit'),
+						baseCls: 'club-dashboard-button',
+						cls: 'club-dashboard-button-exit',
+						pressedCls: 'club-dashboard-button-pressed',
+						labelCls: 'club-dashboard-button-label'
+					},
+					{
+						xtype : 'spacer',
+					}
+				]
 			}
 			]
 		}

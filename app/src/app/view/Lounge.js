@@ -5,7 +5,8 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.Menu', 
 		'EatSense.view.MenuOverview', 
 		'EatSense.view.SettingsTab', 
-		'EatSense.view.RequestsTab' 
+		'EatSense.view.RequestsTab',
+		'EatSense.view.ClubDashboard'
 	],
 	xtype : 'lounge',
 	config : {
@@ -23,6 +24,10 @@ Ext.define('EatSense.view.Lounge', {
 		},
 		activeItem : 0,
 		items : [ 
+			{
+				xtype: 'clubdashboard',
+				tabName: 'home'
+			},
 			{
 				xtype: 'menutab',
 				tabName: 'menu'	

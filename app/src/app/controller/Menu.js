@@ -62,38 +62,7 @@ Ext.define('EatSense.controller.Menu', {
              },
              showCartButton: {
              	tap: 'showCart'
-             },
-             //TODO refactor general loungeview control into another controller!
-             loungeview : {
-     			activeitemchange : function(container, value, oldValue, opts) {
-     				var androidCtr = this.getApplication().getController('Android');
-     				//prevent false exit!
-     				androidCtr.setExitOnBack(false);
-
-    				if(value.tabName === 'cart') {
-    					status = this.getApplication().getController('Order').refreshCart();
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
-    				} else if (value.tabName === 'myorders') {
-    					this.getApplication().getController('Order').refreshMyOrdersList();
-    					//reset navigation view
-    					this.getApplication().getController('Feedback').getMyordersNavview().pop();
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getCartNavigationFunctions());
-    				} else if(value.tabName === 'menu') {
-    					androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
-    				} else if(value.tabName === 'settings') {
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Settings').getSettingsNavigationFunctions());
-    				} else if(value.tabName === 'requests') {
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Request').getRequestNavigationFunctions());
-    					//reset navigation view
-    					this.getApplication().getController('Feedback').getRequestNavview().pop();
-    				}
-    				else {    				
-    					androidCtr.setAndroidBackHandler(null);
-    				}
-
-    				return status;
-    			}
-    		},
+             }
 		},
 		/**
 		*	Current selected menu.
@@ -117,7 +86,7 @@ Ext.define('EatSense.controller.Menu', {
     	var me = this,
     		pov = this.getProductoverview(),
     		prodStore = record.productsStore,
-    		firstEntry,
+    		firstItem,
     		oldHeader = null;
 
 		//Android: return to menu on backbutton
@@ -126,27 +95,28 @@ Ext.define('EatSense.controller.Menu', {
 		});
 
 		//set title of titlebar
+		//DEPRECATED, set title directly above list
 		// pov.down('titlebar').setTitle(record.get('title'));
 
     	this.setActiveMenu(record);
     	
-    	//remove custom HTML otherwise an "Uncaught TypeError: Cannot set property 'innerHTML' of undefined " gets thrown
+    	//remove custom HTML title tab otherwise an "Uncaught TypeError: Cannot set property 'innerHTML' of undefined " gets thrown
     	oldHeader = this.getProductlist().element.down('div[class="productlist-header"]');
     	if(oldHeader) {
     		oldHeader.destroy();
     		oldHeader = null;
     	};
 
+
     	this.getProductlist().setStore(prodStore);  
 		this.getProductlist().refresh();
-    	this.getProductlist().getTpl().insertBefore(this.getProductlist().element.down('div[class="x-list-item-label"]') , record.getData());
+		//inject a dynamic title tab directly above the list
+		firstItem = this.getProductlist().element.down('div[class="x-list-item-label"]');
 
-    	// this.getProductlist().setHtml('<div class="header"'+record.get('title')+'</div>');
-    	// firstEntry = this.getProductlist().getItems().first();
-    	// if(firstEntry) {
-    		// firstEntry.setHtml('<div class="header">'+record.get('title')+'</div>')
-    		// firstEntry.element.dom.innerHtml =  '<div class="header">'+record.get('title')+'</div>' + firstEntry.element.dom.innerHtml;
-    	// };
+		if(firstItem) {
+			this.getProductlist().getTpl().insertBefore(firstItem, record.getData());	
+		};
+    	
 
     	this.switchView(pov, "", "", 'left');
     },
