@@ -847,7 +847,7 @@ text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;*/
 
 /* Force action button to have white text color. */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
-  color: #FFF;
+  color: $font-color;
 }
 
 /* Force color of disclosure item instead of beeing calculated. */

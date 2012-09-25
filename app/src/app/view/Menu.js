@@ -7,7 +7,6 @@ Ext.define('EatSense.view.Menu', {
 		title: i10n.translate('menuTab'),
 		iconMask : true,
 		itemId : 'menutab',
-		// cls: 'menu-panel',
 		items : [ 
 		{
 			xtype: 'panel',
@@ -35,39 +34,28 @@ Ext.define('EatSense.view.Menu', {
 		],
 	},
 	/**
-	 * Change the direction of the slide animation.
+	 * Switch to a view with the given direction for slide animation.
+	 * @param view
+	 *		view to switch to
 	 * @param direction
 	 * 			left or right
 	 */
 	switchMenuview : function(view, direction){
 		var cardpanel = this.getComponent('menuCardPanel');
+
 		cardpanel.getLayout().setAnimation({
 			 type: 'slide',
 	         direction: direction
-		});
-		cardpanel.setActiveItem(view);
+		});		
+		cardpanel.setActiveItem(view);		
 	},
 	/**
 	 * Shows or hides the product cart button.
 	 * @param show
-	 * 		<code>true</code> to show, <code>false</code> to hide
+	 * 		true = show | false = hide
 	 */
-	toggleProductCartButton: function(show) {		
-		this.query('#menuTopBar #productCartBt')[0].setHidden(!show);
-	},
-	/**
-	 * Hides the back button in top toolbar.
-	 */
-	hideBackButton: function() {
-		this.query('#menuBackBt')[0].hide();
-	},
-	/**
-	 * Shows the back button in top toolbar.
-	 * @param text
-	 * 		Label to display on button.
-	 */
-	showBackButton: function(text) {
-		this.query('#menuBackBt')[0].setText(text);
-		this.query('#menuBackBt')[0].show();
+	showCartButtons: function(show) {
+		this.down('menuoverview button[action=show-cart]').setHidden(!show);
+		this.down('productoverview button[action=show-cart]').setHidden(!show);
 	}
 });

@@ -81,11 +81,12 @@ Ext.define('EatSense.util.Translations',{
 		"submitButton" : "Abschicken",
 		"submitOrderProcess" : "Schicke Bestellung ...",
 		"submitOrdersQuestion" : "Bestellung abschicken?",
+		"cart.button.deleteall" : "Löschen",
 		//Lounge
 		"loungeviewTitle" : "Die Lounge",
 		//MyOrders
 		"myOrdersTitle" : "Bestellung",
-		"myOrdersTabBt" : "Kasse",
+		"myOrdersTabBt" : "Check-out",
 		"myOrdersTabLeaveBt" : "Verlassen",
 		"payRequestButton" : "Bezahlen",
 		"leaveButton" : "Verlassen",

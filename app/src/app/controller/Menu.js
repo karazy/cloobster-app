@@ -24,8 +24,9 @@ Ext.define('EatSense.controller.Menu', {
         	createOrderBt :'productdetail button[action="cart"]',
         	closeProductDetailBt: 'productdetail button[action=close]',
         	menuview: 'menutab',
-        	productcomment: 'productdetail #productComment',
-        	backBt: 'menutab button[action=back]',
+        	productcomment: 'carttab #productComment',
+        	cartBackButton: 'menutab button[action=back]',
+        	productBackButton: 'productoverview button[action=back]',
         	topToolbar: 'menutab #menuTopBar',
         	loungeview: 'lounge',
         	loungeTabBar: 'lounge tabbar',
@@ -47,8 +48,14 @@ Ext.define('EatSense.controller.Menu', {
              closeProductDetailBt: {
              	tap: 'closeProductDetail'
              },
-             backBt : {
+             cartBackButton : {
             	 tap: 'backToMenu'
+             },
+             productBackButton: {
+             	tap: 'backToMenu'
+             },
+             cartBackButton: {
+             	tap: 'backToPreviousView'
              },
              amountSpinner : {
             	 spin: 'amountChanged'
@@ -96,6 +103,8 @@ Ext.define('EatSense.controller.Menu', {
 		*	Current selected product.
 		*/
 		activeOrder: null,
+		//used for back button logic, is either productoverview or menuoverview
+		viewCallingCart: null,
 		/* Android Back handlers */
 		menuNavigationFunctions : new Array()
     },
@@ -155,7 +164,7 @@ Ext.define('EatSense.controller.Menu', {
             //always show menuoverview on first access
             //TODO schoener loesen
             menu.getComponent('menuCardPanel').setActiveItem(0);
-            menu.hideBackButton();
+            // menu.hideBackButton();
             main.switchAnim('left');
             main.setActiveItem(lounge);
 		}
@@ -170,6 +179,18 @@ Ext.define('EatSense.controller.Menu', {
 		//directly remove handler, because this function can be called from another controller
 		//so the wrong context is set
 		this.getMenuNavigationFunctions().pop();
+	},
+	/**
+	* Tap event handler for cart back button. Switches to previous displayed view.
+	* This can either be menuoverview or productoverview.
+	*/
+	backToPreviousView: function() {
+		if(this.getViewCallingCart()) {
+			this.switchView(this.getViewCallingCart(), i10n.translate('menuTitle'), null, 'right');
+			this.setViewCallingCart(null);
+		} else {
+			console.log('Menu.backToPreviousView > called without viewCallingCart set')
+		}	
 	},
 	/**
 	 * Displays detailed information for a product (e.g. Burger). 
@@ -347,7 +368,7 @@ Ext.define('EatSense.controller.Menu', {
 			order,
 			validationError = "",
 			validationResult = null,
-			cartButton = this.getShowCartButton(),
+			cartButtons = this.getMenuview().query('button[action=show-cart]'),
 			productIsValid = true,
 			appState = this.getApplication().getController('CheckIn').getAppState(),
 			appStateStore = Ext.StoreManager.lookup('appStateStore'),
@@ -380,7 +401,12 @@ Ext.define('EatSense.controller.Menu', {
 	    	    	order.setId(response.responseText);
 	    	    	order.phantom = false;	    	    	
 					activeCheckIn.orders().add(order);
-					cartButton.setBadgeText(activeCheckIn.orders().data.length);
+					// cartButtons.setBadgeText(activeCheckIn.orders().data.length);
+					Ext.Array.each(cartButtons, function(button) {
+						button.setBadgeText(activeCheckIn.orders().data.length);						
+					});
+
+					me.getMenuview().showCartButtons(true);
 	    	    },
 	    	    failure: function(response, operation) {
 	    	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
@@ -436,11 +462,13 @@ Ext.define('EatSense.controller.Menu', {
 	/**
 	 * Switches to card view.
 	 */
-	showCart: function(){		
+	showCart: function(button){		
 		var menuview = this.getMenuview(),
 			cartView = this.getCartView(),
+			activePanel = menuview.down('#menuCardPanel').getActiveItem(),
 			androidCtr = this.getApplication().getController('Android');
 
+		this.setViewCallingCart(activePanel);
 		this.getApplication().getController('Order').refreshCart();
     	androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
     	menuview.switchMenuview(cartView, "left");
@@ -459,7 +487,7 @@ Ext.define('EatSense.controller.Menu', {
 	switchView: function(view, title, labelBackBt, direction) {
 		var menu = this.getMenuview();
     		this.getTopToolbar().setTitle(title);
-    	(labelBackBt == null || labelBackBt.length == 0) ? menu.hideBackButton() : menu.showBackButton(labelBackBt);
+    	// (labelBackBt == null || labelBackBt.length == 0) ? menu.hideBackButton() : menu.showBackButton(labelBackBt);
     	menu.switchMenuview(view,direction);
 	},
 	/**

@@ -825,32 +825,28 @@ h9 {
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background-color: $active-color;
   background-image: none;
-/*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, black), color-stop(10%, black), color-stop(65%, #1A0008), color-stop(100%, #1C0009));
-background-image: -webkit-linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
-background-image: linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
-text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;*/
   -webkit-box-shadow: black 0 0 0.25em inset;
   box-shadow: black 0 0 0.25em inset;
 }
 
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: $font-color;
-/*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(2%, #F0F7FF), color-stop(100%, #A8D4FF));
-  background-image: -webkit-linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
- /* background-image: linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
 }
 
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: $font-color;
   background-image: none;
-  /*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F37), color-stop(2%, #BD003F), color-stop(100%, #750027));
-  background-image: -webkit-linear-gradient(#F37, #BD003F 2%, #750027);
-  background-image: linear-gradient(#F37, #BD003F 2%, #750027);*/
+}
+
+/* Override background color of icons. */
+.x-button .x-button-icon {
+  background-color: $font-color !important;
+  background-image: none !important;
 }
 
 /* Force action button to have white text color. */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
-  color: #FFF;
+  color: $font-color;
 }
 
 /* Force color of disclosure item instead of beeing calculated. */

@@ -11,8 +11,8 @@
 			myordersCompleteButton: 'myorderstab button[action=complete]',
 			menutab: 'menutab',
 			orderlist : 'carttab #orderlist',
-			cancelAllOrdersBt : 'carttab #cartTopBar button[action="trash"]',
-			submitOrderBt : 'carttab #cartTopBar button[action="order"]',
+			cancelAllOrdersBt : 'carttab button[action="trash"]',
+			submitOrderBt : 'carttab button[action="order"]',
 			topToolbar : 'carttab #cartTopBar',
 			productdetail : {
                 selector: 'orderdetail',
@@ -113,7 +113,7 @@
 		
 		total = this.calculateOrdersTotal(orders);			
 		this.getCartoverviewTotal().getTpl().overwrite(this.getCartoverviewTotal().element, {'price':total});
-		this.refreshCartBadgeText();
+		this.updateCartButtons();
 		this.toggleCartButtons();
 		return true;
 	},
@@ -122,7 +122,7 @@
 	 */
 	showMenu: function() {
 		//TODO not used
-		console.log('Cart Controller -> showMenu');
+		console.log('Cart.showMenu');
 		var lounge = this.getLoungeview(), menu = this.getMenutab();		
 		lounge.setActiveItem(menu);
 	},
@@ -130,7 +130,7 @@
 	 * Remove all orders from cart and switch back to menu.
 	 */
 	dumpCart: function() {
-		console.log('Cart Controller -> dumpCart');
+		console.log('Cart.dumpCart');
 		var me = this,
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn();
 		
@@ -151,6 +151,8 @@
 			if(btnId=='yes') {
 				//workaround, because view stays masked after switch to menu
 				Ext.Msg.hide();
+				//cart is empty jump back to previews menu view
+				this.getApplication().getController('Menu').backToPreviousView();
 				Ext.Ajax.request({				
 			    	    url: appConfig.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
 			    	    method: 'DELETE',
@@ -414,6 +416,10 @@
 	    	});
 			
 			this.refreshCart();
+			//if no orders are left jump back to menu view
+			if(activeCheckIn.orders().getCount() == 0) {
+				this.getApplication().getController('Menu').backToPreviousView();
+			};
 			
 			//show success message and switch to next view
 			Ext.Msg.show({
@@ -460,19 +466,36 @@
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: order.get('amount')});
 	},
 	/**
-	 * Refreshes the badge text on cart tab icon.
+	 * Updates the badge text on cart buttons based on amount of orders.
+	 * If no orders are present hide the button.
 	 * Displays the number of orders.
+	 * @param clear
+	 *	true to set badge text to empty string
 	 */
-	refreshCartBadgeText: function(clear) {
-		var cartButton = this.getLoungeTabBar().getAt(1),
+	updateCartButtons: function(clear) {
+		var cartButtons = this.getMenutab().query('button[action=show-cart]'),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			badgeText;
 		
-		if(clear) {
-			cartButton.setBadgeText("");
+		if(clear == true) {
+			Ext.Array.each(cartButtons, function(button) {
+				button.setBadgeText("");	
+			});
+
+			this.getMenutab().showCartButtons(false);
+			
 		} else {
-			badgeText = (!checkIn) ? "" : (checkIn.orders().getCount() > 0) ? checkIn.orders().getCount() : "";
-			cartButton.setBadgeText(badgeText);
+			if(!checkIn || checkIn.orders().getCount() == 0 ) {
+				badgeText = "";
+				this.getMenutab().showCartButtons(false);
+			} else {
+				badgeText = checkIn.orders().getCount();
+				this.getMenutab().showCartButtons(true);
+			}
+			
+			Ext.Array.each(cartButtons, function(button) {
+				button.setBadgeText(badgeText);	
+			});
 		}
 	},
 	/**

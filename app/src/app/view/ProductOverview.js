@@ -19,12 +19,12 @@ Ext.define('EatSense.view.ProductOverview', {
 				ui : 'back',
 				align: 'left'
 			},{
-				xtype: 'button',
-				itemId: 'cartBt',
+				xtype: 'button',				
 				action: 'show-cart',
 				align: 'right',
 				iconCls : 'cart-button',
-				iconMask : true
+				iconMask : true,
+				hidden: true
 			}
 			]
 		},

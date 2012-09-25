@@ -614,7 +614,7 @@ Ext.define('EatSense.controller.CheckIn', {
       menuCtr.backToMenu();
     	//remove menu to prevent problems on reload
       menuStore.removeAll();
-      orderCtr.refreshCartBadgeText(true);
+      orderCtr.updateCartButtons(true);
       orderCtr.refreshMyOrdersBadgeText(true);
       //clear checkInId
       this.getAppState().set('checkInId', null);

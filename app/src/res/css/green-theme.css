@@ -7632,7 +7632,7 @@ h9 {
 /* Force action button to have white text color. */
 /* line 849, green-theme.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
-  color: #FFF;
+  color: white;
 }
 
 /* Force color of disclosure item instead of beeing calculated. */

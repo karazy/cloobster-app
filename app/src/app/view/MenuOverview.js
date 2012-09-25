@@ -17,11 +17,11 @@ Ext.define('EatSense.view.MenuOverview', {
 				items : [ 
 				{
 					xtype: 'button',
-					itemId: 'cartBt',
 					action: 'show-cart',
 					align: 'right',
 					iconCls : 'cart-button',
-					iconMask : true
+					iconMask : true,
+					hidden: true
 				}
 				]
 			},

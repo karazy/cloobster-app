@@ -4,11 +4,8 @@ Ext.define('EatSense.view.Cart', {
 	requires: ['EatSense.view.CartOverviewItem', 'EatSense.view.BackButton'],
 	config : {
 		iconCls : 'cart',
-		// title: i10n.translate('cartTabBt'),
-		// iconMask : true,
 		itemId : 'carttab',
 		layout: 'fit',
-		// cls: 'cart-panel',
 		items : [
 		          {
 			docked : 'top',
@@ -17,8 +14,6 @@ Ext.define('EatSense.view.Cart', {
 			title : i10n.translate('cartviewTitle'),
 			items : [ 
 			{
-				// xtype : 'button',
-				// itemId : 'backButton',
 				action: 'back',
 				text : i10n.translate('back'),
 				ui : 'back',
@@ -31,26 +26,30 @@ Ext.define('EatSense.view.Cart', {
 			docked: 'top',
 			layout: {
 				type: 'hbox',
-				align: 'center',
+				align: 'stretch',
 				pack: 'center'
 			},
+			margin: '5',
 			items: [
 			{
 				xtype: 'button',
 				action: 'trash',
 			    iconCls: 'trash',
 			    iconMask: true,
-			    align: 'left',
+			    text: i10n.translate('cart.button.deleteall'),
 			    ui: 'action',
-			    // flex: 1
+			    margin: '0 5 0 5',
+			    flex: 1
 			},
 			{
 				xtype: 'button',
 				action: 'order',
+				iconCls: 'action',
+			    iconMask: true,
 			    text: i10n.translate('submitButton'),
 			    ui: 'action',
-			    align: 'right',
-			    // flex: 2
+			    margin: '0 5 0 5',
+			    flex: 1
 			}
 			]
 			

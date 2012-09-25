@@ -2,22 +2,20 @@
  * The dashboard represents the main screen of the application. From here the
  * user can navigate, access his order history or change his settings.
  */
-Ext.define('EatSense.view.Dashboard', {
+Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
-	xtype : 'dashboard',
+	xtype : 'clubdashboard',
 	requires: ['Ext.Img'],
 	config : {
 		layout : {
 			type : 'fit'
 		},
-		cls: 'dashboard',
+		cls: 'club-dashboard',
 		items : [
 		{
 			xtype : 'panel',
-			// src : 'res/images/dashboard/header-bg.jpg',
-			//use a real html img tag!
 			html: '<img src="res/images/dashboard/header-bg.png" />',
-			cls: 'dashboard-header',
+			cls: 'club-dashboard-header',
 			docked: 'top',
 			layout: 'fit'
 		},		
@@ -26,7 +24,7 @@ Ext.define('EatSense.view.Dashboard', {
 			cls: 'dashboard-description',
 			docked: 'top',
 			style: 'text-align: center;',
-			html: i10n.translate('dashboardLabel1')
+			html: i10n.translate('club.dashboard.label.description')
 		},
 		{
 			xtype: 'panel',
