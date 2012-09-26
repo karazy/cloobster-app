@@ -74,14 +74,16 @@ $dashboard-color: #1E4776;
   border-top-left-radius: 0.4em;
   border-top-right-radius: 0.4em;
   background-color: $active-color;
-  width: 80%;
+  /*width: 80%;*/
+  margin-right: 20px;
+  margin-left: 20px;
   color: white;
   text-align: center;
   padding: 2px;
 
   + div.x-list-item-label {
-      -webkit-border-top-left-radius: 0 !important;
-      border-top-left-radius: 0 !important;
+      /*-webkit-border-top-left-radius: 0 !important;*/
+      /*border-top-left-radius: 0 !important;*/
   }
 }
 

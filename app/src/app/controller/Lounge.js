@@ -44,6 +44,30 @@ Ext.define('EatSense.controller.Lounge', {
 		}
 	},
 
+    initDashboard: function() {
+        var descriptionLanel = this.getDescriptionLanel(),
+            // accountCtr = this.getApplication().getController('Account'),
+            checkInCtr = this.getApplication().getController('CheckIn'),
+            nickname = "",
+            business = "";
+
+        //always use the nickname from checkin not profile
+        // if(accountCtr.getProfile()) {
+        //     //TODO show nickname in not logged in state
+        //     nickname = accountCtr.getProfile().get('nickname');
+        // } else if(checkInCtr.getActiveCheckIn()){
+        //     nickname = checkInCtr.getActiveCheckIn().get('nickname');
+        // };
+
+        if(checkInCtr.getActiveCheckIn()){
+            nickname = checkInCtr.getActiveCheckIn().get('nickname');
+            business = checkInCtr.getActiveCheckIn().get('businessName');
+        };
+
+
+        descriptionLanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
+    },
+
 	showMenu: function(button) {
 		this.getLoungeview().setActiveItem(1);
 	}

@@ -413,8 +413,10 @@ Ext.define('EatSense.controller.CheckIn', {
     	var menuCtr = this.getApplication().getController('Menu'),
           requestCtr = this.getApplication().getController('Request'),
           androidCtr = this.getApplication().getController('Android'),
-          feedbackCtr = this.getApplication().getController('Feedback');
+          feedbackCtr = this.getApplication().getController('Feedback'),
+          loungeCtr = this.getApplication().getController('Lounge');
 
+        loungeCtr.initDashboard();
         menuCtr.showMenu();
         requestCtr.refreshAccountLabel();
             //load feedback from server
