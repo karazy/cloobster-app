@@ -9,7 +9,7 @@ Ext.define('EatSense.view.SettingsTab', {
 		layout: {
 			type: 'fit'
 		},		
-		iconCls : 'settings',
+		iconCls : 'user',
 		cls: 'setting-panel',
 		title: i10n.translate('settingsButton'),
 		iconMask : true,

@@ -27,7 +27,7 @@ Ext.define('EatSense.util.Translations',{
 		"checkInButton" : "Check-In",
 		"currentDealsButton" : "Deals",
 		"newRestaurantsButton" : "Neue Restaurants",
-		"settingsButton" : "Einstellungen",
+		"settingsButton" : "Profil",
 		//Dashboard
 		"dashboard.button.checkin" : "Check-In",
 		"dashboardLabel1" : "<h2>Service At Its Peak</h2><p>With cloobster you have your concierge<br/>at hand."+
@@ -94,7 +94,7 @@ Ext.define('EatSense.util.Translations',{
 		//MyOrders
 		"myOrdersTitle" : "Bestellung",
 		"myOrdersTabBt" : "Check-out",
-		"myOrdersTabLeaveBt" : "Verlassen",
+		"myOrdersTabLeaveBt" : "Check-out",
 		"payRequestButton" : "Bezahlen",
 		"leaveButton" : "Verlassen",
 		"orderTime" : "Bestellzeit",
@@ -103,7 +103,7 @@ Ext.define('EatSense.util.Translations',{
 		"paymentPickerTitle" : "Bezahlmethode",
 		"paymentRequestSend": "Bitte einen Moment warten,</br>die Rechnung wird vorbereitet ...",
 		//Settings
-		"settingsTitle" : "Einstellungen",
+		"settingsTitle" : "Profil",
 		"nicknameDesc" : "Der Spitzname ist der Anzeigename für das Servicepersonal.</br>Änderungen wirken sich erst beim nächsten Check-In aus.",
 		"newsletterRegisterBt": "Registrieren",
 		"newsletterEmail" : "E-Mail",

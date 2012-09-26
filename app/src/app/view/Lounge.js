@@ -40,10 +40,10 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'myorderstab',
 				tabName: 'myorders'
 			},
-			{
-				xtype: 'requeststab',
-				tabName: 'requests'
-			},
+			// {
+			// 	xtype: 'requeststab',
+			// 	tabName: 'requests'
+			// },
 			{
 				xtype: 'settingstab',
 				tabName: 'settings'
