@@ -4,27 +4,36 @@
 Ext.define('EatSense.view.RequestsTab', {
 	extend : 'Ext.Panel',
 	xtype : 'requeststab',
-	requires: ['Ext.navigation.View'],
+	// requires: ['Ext.navigation.View'],
 	config : {
-		layout : 'fit',
-		iconCls : 'requests',
-		title: i10n.translate('requestsButton'),
-		iconMask : true,
+		// layout : 'fit',
+		// iconCls : 'requests',
+		// title: i10n.translate('requestsButton'),
+		// iconMask : true,
+		layout: {
+			type: 'vbox',
+			pack: 'center',
+			align: 'middle'
+		},
+		cls: 'request-panel',
 		items : [
-			{
-				xtype: 'navigationview',
-				defaultBackButtonText: i10n.translate('back'),			
-				items: [
-				{
-					title : i10n.translate('requestsTitle'),
-					layout : {
-						type: 'vbox',
-						pack: 'center',
-						align: 'middle'
-					},
-					cls: 'request-panel',
+			// {
+			// 	xtype: 'navigationview',
+			// 	defaultBackButtonText: i10n.translate('back'),			
+			// 	items: [
+			// 	{	
+					{
+						xtype: 'titlebar',
+						title : i10n.translate('requestsTitle'),
+						docked: 'top',
+						items:[
+						{
+							xtype: 'backbutton'
+						}
+						]
+					},										
 
-					items: [
+					// items: [
 						{
 							xtype: 'label',
 							itemId: 'accountLabel',
@@ -46,24 +55,24 @@ Ext.define('EatSense.view.RequestsTab', {
 							margin: '10 0 20 0',
 							width: '80%'
 						},
-						{
-							xtype: 'label',
-							itemId: 'feedbackLabel',
-							cls: 'general-label',
-							html: i10n.translate('feedbackLabel')
-						},
-						{
-							xtype: 'button',
-							text: i10n.translate('feedback'),
-							action: 'feedback',
-							ui: 'action',
-							margin: '10 0 0 0',
-							width: '80%'
-						}
-					]
-				}
-				]	
-			}
+						// {
+						// 	xtype: 'label',
+						// 	itemId: 'feedbackLabel',
+						// 	cls: 'general-label',
+						// 	html: i10n.translate('feedbackLabel')
+						// },
+						// {
+						// 	xtype: 'button',
+						// 	text: i10n.translate('feedback'),
+						// 	action: 'feedback',
+						// 	ui: 'action',
+						// 	margin: '10 0 0 0',
+						// 	width: '80%'
+						// }
+					// ]
+			// 	}
+			// 	]	
+			// }
 			
 		]
 	}

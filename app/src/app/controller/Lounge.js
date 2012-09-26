@@ -1,21 +1,22 @@
+/**
+* Controller handles general initializations during checkin.
+* Other responsibilities include stuff like setting correct android back handlers on 
+* tab switch. Everything which does not fit in a specific controller should be handled here.
+*/
 Ext.define('EatSense.controller.Lounge', {
 	extend: 'Ext.app.Controller',
 	requires: [],
 	config: {
 		refs: {
 			loungeview: 'lounge',
-            clubDashboard: 'clubdashboard',
-			descriptionLanel: 'clubdashboard #description',
-            showFeedbackButton: 'clubdashboard button[action=show-feedback]',
-			menuDashboardButton: 'clubdashboard button[action="show-menu"]'
+            clubDashboard: 'clubarea clubdashboard',
+			descriptionLanel: 'clubarea clubdashboard #description',
+			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]'
 		},
 		control: {
 			menuDashboardButton : {
 				tap: 'showMenu'
 			},
-            showFeedbackButton : {
-                tap: 'showFeedback'
-            },
 			loungeview : {
      			activeitemchange : function(container, value, oldValue, opts) {
      				var androidCtr = this.getApplication().getController('Android');
@@ -70,17 +71,17 @@ Ext.define('EatSense.controller.Lounge', {
         };
 
 
-        descriptionLanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
+       descriptionLanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
     },
 
-    showFeedback: function(button) {
-        var dashboard = this.getClubDashboard(),
-            feedbackView = this.getApplication().getController('Feedback').getFeedback();
+    // showFeedback: function(button) {
+    //     var dashboard = this.getClubDashboard(),
+    //         feedbackView = this.getApplication().getController('Feedback').getFeedback();
 
-        dashboard.add(feedbackView);
-        feedbackView.show();
-        // dashboard.show(feedbackView);
-    },
+    //     dashboard.add(feedbackView);
+    //     feedbackView.show();
+    //     // dashboard.show(feedbackView);
+    // },
 
 	showMenu: function(button) {
 		this.getLoungeview().setActiveItem(1);

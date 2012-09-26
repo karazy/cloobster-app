@@ -6,13 +6,22 @@ Ext.define('EatSense.controller.Request',{
 	extend: 'Ext.app.Controller',
 	config: {
 		refs: {
+			clubArea: 'clubarea',
+			showRequestViewButton: 'clubarea clubdashboard button[action=show-requests]',
 			callWaiterButton: 'requeststab button[action=waiter]',
 			callWaiterLabel: 'requeststab #callWaiterLabel',
-			accountLabel: 'requeststab #accountLabel'	
+			accountLabel: 'requeststab #accountLabel',
+			backButton: 'requeststab button[action=back]'
 		},
 		control: {
 			callWaiterButton: {
 				tap: 'toggleCallWaiterRequest'
+			},
+			showRequestViewButton: {
+				tap: 'showRequestView'
+			},
+			backButton: {
+				tap: 'backToDashboard'
 			}
 		},
 
@@ -23,7 +32,16 @@ Ext.define('EatSense.controller.Request',{
 
 		messageCtr.on('eatSense.request', this.handleRequestMessage, this);
 	},
-	//<call-waiter-request>
+	showRequestView: function(button) {
+		var me = this,
+			clubArea = this.getClubArea();
+
+		clubArea.setActiveItem(2);
+
+		this.getApplication().getController('Android').addBackHandler(function() {
+            clubArea.setActiveItem(0);
+        });
+	},
 	toggleCallWaiterRequest: function(button, event) {
 		if(!button.mode || button.mode == 'call') {
 			this.sendCallWaiterRequest(button, event);
@@ -123,7 +141,7 @@ Ext.define('EatSense.controller.Request',{
 			}
 		}
 	},
-	//</call-waiter-request>
+	
 	/**
 	* Load existing requests for this checkin.
 	*/
@@ -197,5 +215,16 @@ Ext.define('EatSense.controller.Request',{
 			checkInCtr = this.getApplication().getController('CheckIn');
 
 		accountLabel.setHtml(i10n.translate('vipGreetingMessage', checkInCtr.getActiveCheckIn().get('nickname')));
-	}
+	},
+	/**
+    * Return to dashboard view.
+    */
+    backToDashboard: function(button) {
+    	var me = this,
+			clubArea = this.getClubArea();
+
+		clubArea.setActiveItem(0);
+
+		this.getApplication().getController('Android').removeLastBackHandler();
+    }
 });

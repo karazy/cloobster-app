@@ -7,12 +7,12 @@ Ext.define('EatSense.view.ClubDashboard', {
 	xtype : 'clubdashboard',
 	requires: ['Ext.Img'],
 	config : {
-		iconCls : 'home',
-		title: i10n.translate('clubdashboard.tab.title'),
-		iconMask: true,
-		layout : {
-			type : 'fit'
-		},
+		// iconCls : 'home',
+		// title: i10n.translate('clubdashboard.tab.title'),
+		// iconMask: true,
+		// layout : {
+		// 	type : 'fit'
+		// },
 		cls: 'club-dashboard',
 		items : [
 		{
@@ -59,7 +59,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				},
 				{
 					xtype : 'button',
-					action: 'show-history',
+					action: 'show-requests',
 					text: i10n.translate('clubdashboard.button.vip'),
 					baseCls: 'club-dashboard-button',
 					cls: 'club-dashboard-button-vip',

@@ -1,9 +1,10 @@
+/**
+* A button used for toolbars for navigating to previous view.
+*/
 Ext.define('EatSense.view.BackButton', {
-	extends: 'Ext.Button',
-	// requires: ['Ext.Button'],
+	extend: 'Ext.Button',
 	xtype: 'backbutton',
 	config : {
-		// xtype : 'button',
 		itemId : 'backButton',
 		action: 'back',
 		text : i10n.translate('back'),

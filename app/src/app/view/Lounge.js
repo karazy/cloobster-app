@@ -6,7 +6,7 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.MenuOverview', 
 		'EatSense.view.SettingsTab', 
 		'EatSense.view.RequestsTab',
-		'EatSense.view.ClubDashboard'
+		'EatSense.view.ClubArea'
 	],
 	xtype : 'lounge',
 	config : {
@@ -23,9 +23,9 @@ Ext.define('EatSense.view.Lounge', {
 			// hidden: true
 		},
 		activeItem : 0,
-		items : [ 
+		items : [
 			{
-				xtype: 'clubdashboard',
+				xtype: 'clubarea',
 				tabName: 'home'
 			},
 			{
@@ -53,10 +53,8 @@ Ext.define('EatSense.view.Lounge', {
 	/**
 	 * Switch the tab.
 	 * 
-	 * @param direction
-	 *            left or right
 	 */
-	switchTab : function(view, direction) {
+	switchTab : function(view) {
 		this.setActiveItem(view);
 	}
 });

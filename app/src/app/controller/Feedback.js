@@ -8,7 +8,8 @@ Ext.define('EatSense.controller.Feedback', {
 	config: {
 		refs: {
 			//feedback button in request tab
-			showFeedbackButton: 'requeststab button[action=feedback]',
+			clubArea: 'clubarea',
+			showFeedbackButton: 'clubarea clubdashboard button[action=show-feedback]',
 			feedbackLabel: 'requeststab #feedbackLabel',
 			//feedback button in myorders tab
 			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
@@ -22,7 +23,8 @@ Ext.define('EatSense.controller.Feedback', {
 			questionsList: 'feedback dataview',
 			emailField: 'feedback emailfield',
 			commentField: 'feedback textareafield',
-			submitFeedBackButton: 'feedback button[action=submit]'
+			submitFeedBackButton: 'feedback button[action=submit]',
+			backButton: 'feedback button[action=back]'
 		},
 		control: {
 			showFeedbackButton: {
@@ -45,6 +47,9 @@ Ext.define('EatSense.controller.Feedback', {
 			},
 			myordersNavview : {
 				back: 'navBackButtonTap'
+			},
+			backButton : {
+				tap: 'backToDashboard'
 			}
 		},
 
@@ -64,16 +69,19 @@ Ext.define('EatSense.controller.Feedback', {
 	showFeedbackForm: function(button) {
 		var me = this,
 			feedback = this.getFeedback(),
+			clubArea = this.getClubArea(),
 			requestNavview = this.getRequestNavview();
 
 		this.propateFeedbackForm();
 
 		//show feedback form
-		requestNavview.push(feedback);
-		this.setActiveNavview(requestNavview);
+		// requestNavview.push(feedback);
+		clubArea.setActiveItem(1);
+		// this.setActiveNavview(requestNavview);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
-            requestNavview.pop();
+            // requestNavview.pop();
+            clubArea.setActiveItem(0);
         });
 	},
 
@@ -310,5 +318,16 @@ Ext.define('EatSense.controller.Feedback', {
 	navBackButtonTap: function(button) {
         console.log('SettingsController.navBackButtonTap');
         this.getApplication().getController('Android').removeLastBackHandler();
+    },
+    /**
+    * Return to dashboard view.
+    */
+    backToDashboard: function(button) {
+    	var me = this,
+			clubArea = this.getClubArea();
+
+		clubArea.setActiveItem(0);
+
+		this.getApplication().getController('Android').removeLastBackHandler();
     }
 });
