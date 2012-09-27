@@ -366,28 +366,14 @@ $dashboard-color: #1E4776;
 }
 
 .dashboard-header {
-    /*height: 120px;*/
-    /*background-image: url('../images/dashboard/header-bg.jpg');*/
     img {
       width: 100%;
       height: auto;
-      /*-webkit-mask-box-image: url("../images/dashboard/triangle.png") 15 0 15 0 repeat repeat;*/
     }
-   /* background-repeat:no-repeat; 
-    background-position:center top; 
-    background-size: 100% auto;*/
     margin: 0 0 7px 0;
-   
-/*   -webkit-mask-position: left bottom;
--webkit-mask-size: 20px 20px;
--webkit-mask-box-image: -webkit-gradient(linear, left top, right bottom, 
-  color-stop(0.00, rgba(0,0,0,1)), color-stop(0.45, rgba(0,0,0,1)), 
-  color-stop(0.50, rgba(0,0,0,0)), color-stop(0.55, rgba(0,0,0,0)), color-stop(1.00, rgba(0,0,0,0)));
--webkit-mask-repeat: repeat-x;*/
 }
 
 .dashboard-description {
-  /*margin: 0 0 1em 0;*/
   color: $dashboard-color;
 
   h2 {
@@ -409,13 +395,6 @@ $dashboard-color: #1E4776;
   color: $dashboard-color;
 
   /* http://twitter.github.com/bootstrap/scaffolding.html#responsive */
-  /* Large desktop */
-/*  @media (min-width: 1200px) {
-    background-size: 130px 130px;
-    height: 160px;
-    width: 160px;
-  }*/
- 
   /* Portrait tablet to landscape and desktop */
   /*and (max-width: 979px)*/
   @media only screen and (min-width: 768px) {
@@ -600,11 +579,11 @@ $dashboard-color: #1E4776;
 }
 
 .club-dashboard-button-pressed {
-  -webkit-box-shadow: 0px 0px 15px 5px $dashboard-color;
-  box-shadow: 0px 0px 15px 5px $dashboard-color;
+  -webkit-box-shadow: 0px 0px 15px 5px $base-color;
+  box-shadow: 0px 0px 15px 5px $base-color;
   border-radius: 0.5em;
-  color: #C3C3C3;
-  border: 1px solid #C3C3C3;
+  color: $base-color;
+  border: 1px solid $base-color;
 }
 
 .club-dashboard-button-menu {

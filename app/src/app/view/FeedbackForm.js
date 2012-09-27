@@ -1,30 +1,21 @@
 /**
 * View for feedback form.
 */
-Ext.define('EatSense.view.Feedback', {
+Ext.define('EatSense.view.FeedbackForm', {
 	extend: 'Ext.Panel',
-	xtype: 'feedback',
+	xtype: 'feedbackform',
 	requires: ['EatSense.view.FeedbackQuestion'],
 	config: {
-		// title: i10n.translate('feedback'),
+		//used innavigation view
+		title: i10n.translate('feedback'),
 		layout: {
 			type: 'vbox',
 			align: 'center',
 			pack: 'center'
 		},
 		scrollable: 'vertical',
-		cls: 'feedback-panel',
+		// cls: 'feedback-panel',
 		items: [
-		{
-			xtype: 'titlebar',
-			title: i10n.translate('feedback'),
-			docked: 'top',
-			items: [
-			{
-				xtype: 'backbutton'
-			}
-			]
-		},
 		{
 			xtype: 'label',
 			cls: 'general-label',

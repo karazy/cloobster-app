@@ -37,8 +37,8 @@ Ext.define('EatSense.controller.CheckIn', {
             loungeview : 'lounge',
         	menuTab: 'menutab',
         	cartTab: 'carttab',
-            settingsTab: 'settingstab',
-            requestsTab: 'requeststab',
+          settingsTab: 'settingstab',
+          homeTab: 'clubarea',
     	},
     	control: {
     		checkInBtn: {
@@ -604,14 +604,14 @@ Ext.define('EatSense.controller.CheckIn', {
 			this.getMenuTab().disable();
 			this.getCartTab().disable()
       this.getSettingsTab().disable();
-      this.getRequestsTab().disable();			
+      this.getHomeTab().disable();			
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 			this.showDashboard();
       this.getMenuTab().enable();
 			this.getCartTab().enable();
       this.getSettingsTab().enable();
-      this.getRequestsTab().enable();			
+      this.getHomeTab().enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());
       menuCtr.backToMenu();
     	//remove menu to prevent problems on reload

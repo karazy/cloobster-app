@@ -10,21 +10,22 @@ Ext.define('EatSense.controller.Feedback', {
 			//feedback button in request tab
 			clubArea: 'clubarea',
 			showFeedbackButton: 'clubarea clubdashboard button[action=show-feedback]',
-			feedbackLabel: 'requeststab #feedbackLabel',
+			// feedbackLabel: 'clubdashboard #feedbackLabel',
 			//feedback button in myorders tab
 			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
-			requestNavview: 'requeststab navigationview',
+			// requestNavview: 'requeststab navigationview',
 			myordersNavview: 'myorderstab navigationview',
 			feedback: {
-				xtype: 'feedback',
-				selector: 'feedback',
+				xtype: 'feedbackform',
+				selector: 'feedbackform',
 				autoCreate: true
 			},
-			questionsList: 'feedback dataview',
-			emailField: 'feedback emailfield',
-			commentField: 'feedback textareafield',
-			submitFeedBackButton: 'feedback button[action=submit]',
-			backButton: 'feedback button[action=back]'
+			questionsList: 'feedbackform dataview',
+			emailField: 'feedbackform emailfield',
+			commentField: 'feedbackform textareafield',
+			submitFeedBackButton: 'feedbackform button[action=submit]',
+			//back button in dashboard
+			backButton: 'clubarea #feedback button[action=back]'
 		},
 		control: {
 			showFeedbackButton: {
@@ -42,9 +43,9 @@ Ext.define('EatSense.controller.Feedback', {
 			commentField: {
 				change: 'saveComment'
 			},
-			requestNavview : {
-				back: 'navBackButtonTap'
-			},
+			// requestNavview : {
+			// 	back: 'navBackButtonTap'
+			// },
 			myordersNavview : {
 				back: 'navBackButtonTap'
 			},
@@ -57,8 +58,8 @@ Ext.define('EatSense.controller.Feedback', {
 		activeFeedback: null,
 		/** The feedback form. */
 		feedbackTemplate: null,
-
-		activeNavview: null
+		//home if opened from dashboard, checkout otherwise
+		feedbackOrigin: null
 	},
 
 	/**
@@ -68,19 +69,17 @@ Ext.define('EatSense.controller.Feedback', {
 	*/
 	showFeedbackForm: function(button) {
 		var me = this,
-			feedback = this.getFeedback(),
-			clubArea = this.getClubArea(),
-			requestNavview = this.getRequestNavview();
+			clubArea = this.getClubArea();
 
+		this.setFeedbackOrigin('home');
+		//make sure feedback form exists
+		this.getFeedback();
 		this.propateFeedbackForm();
 
 		//show feedback form
-		// requestNavview.push(feedback);
 		clubArea.setActiveItem(1);
-		// this.setActiveNavview(requestNavview);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
-            // requestNavview.pop();
             clubArea.setActiveItem(0);
         });
 	},
@@ -96,6 +95,7 @@ Ext.define('EatSense.controller.Feedback', {
 			myordersNavview = this.getMyordersNavview();
 
 		this.propateFeedbackForm();
+		this.setFeedbackOrigin('checkout');
 
 		//show feedback form
 		myordersNavview.push(feedback);
@@ -159,7 +159,7 @@ Ext.define('EatSense.controller.Feedback', {
 		}
 	},
 	/**
-	* Change handler vor email field. Saves the value in feedback object.
+	* Change handler for email field. Saves the value in feedback object.
 	*/
 	saveEmail: function(field, newVal, oldVal) {
 		var activeFeedback = this.getActiveFeedback();
@@ -185,7 +185,7 @@ Ext.define('EatSense.controller.Feedback', {
 			activeFeedback = this.getActiveFeedback(),
 			feedbackTemplate = this.getFeedbackTemplate(),
 			feedback = this.getFeedback(),
-			requestNavview = this.getRequestNavview(),
+			// requestNavview = this.getRequestNavview(),
 			questions = this.getQuestionsList(),
 			emailField = feedback.down('#email'),
 			commentField = feedback.down('#comment'),
@@ -231,8 +231,16 @@ Ext.define('EatSense.controller.Feedback', {
 		});
 
 		//3. back to previous view
-		this.getActiveNavview().pop();
-		this.setActiveNavview(null);
+		if(this.getFeedbackOrigin() == 'home') {
+			this.backToDashboard();			
+		} else if(this.getFeedbackOrigin()) {
+			this.getMyordersNavview().pop();
+		} else {
+			console.log('Feedback.submitFeedback > incorrect feedback origin provided: ' + this.getFeedbackOrigin());
+		};
+
+		this.setFeedbackOrigin(null);
+		
 
 		//hide the feedback button after payment request when feedback has been submitted
 		this.getShowFeedbackLeaveButton().setHidden(true);
@@ -256,7 +264,7 @@ Ext.define('EatSense.controller.Feedback', {
 	*/
 	enableFeedback: function() {
 		this.getShowFeedbackButton().setHidden(false);
-		this.getFeedbackLabel().setHidden(false);
+		// this.getFeedbackLabel().setHidden(false);
 
 		if(!this.getActiveFeedback() || !this.getActiveFeedback().get('id')) {
 			this.getShowFeedbackLeaveButton().setHidden(false);
@@ -269,7 +277,7 @@ Ext.define('EatSense.controller.Feedback', {
 	disableFeedback: function() {
     	this.getShowFeedbackLeaveButton().setHidden(true);
 		this.getShowFeedbackButton().setHidden(true);
-		this.getFeedbackLabel().setHidden(true);
+		// this.getFeedbackLabel().setHidden(true);
 	},
 	/**
 	* Loads an existing feedback form.
@@ -317,6 +325,7 @@ Ext.define('EatSense.controller.Feedback', {
 	*/
 	navBackButtonTap: function(button) {
         console.log('SettingsController.navBackButtonTap');
+        this.setFeedbackOrigin(null);
         this.getApplication().getController('Android').removeLastBackHandler();
     },
     /**
@@ -326,8 +335,8 @@ Ext.define('EatSense.controller.Feedback', {
     	var me = this,
 			clubArea = this.getClubArea();
 
+		this.setFeedbackOrigin(null);
 		clubArea.setActiveItem(0);
-
 		this.getApplication().getController('Android').removeLastBackHandler();
     }
 });

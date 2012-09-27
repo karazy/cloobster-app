@@ -115,7 +115,7 @@
 		total = this.calculateOrdersTotal(orders);			
 		this.getCartoverviewTotal().getTpl().overwrite(this.getCartoverviewTotal().element, {'price':total});
 		this.updateCartButtons();
-		this.toggleCartButtons();
+		// this.toggleCartButtons();
 		return true;
 	},
 	/**
@@ -725,16 +725,34 @@
 			myordersStore = Ext.data.StoreManager.lookup('orderStore');
 
 		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) {
-			checkIn.erase( {
-				failure: function(response, operation) {
-					me.getApplication().handleServerError({
-						'error': operation.error,
-						'forceLogout': {403: true}
-					});
+			Ext.Msg.show({
+				title: i10n.translate('hint'),
+				message: i10n.translate('clubdashboard.leave.message'),
+				buttons: [{
+					text: i10n.translate('yes'),
+					itemId: 'yes',
+					ui: 'action'
+				}, {
+					text: i10n.translate('no'),
+					itemId: 'no',
+					ui: 'action'
+				}],
+				fn: function(btnId) {
+					if(btnId == "yes") {
+						checkIn.erase( {
+							failure: function(response, operation) {
+								me.getApplication().handleServerError({
+									'error': operation.error,
+									'forceLogout': {403: true}
+								});
+							}
+						}
+						);
+						me.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
+					}
 				}
-			}
-			);
-			this.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
+			});
+			
 		} else {
 			this.getLoungeview().setActiveItem(this.getMyordersview());
 		}			
@@ -750,6 +768,8 @@
 	},	
 	//UI Actions
 	/**
+	 * @DEPRECATED
+	 * Since cart only shows when not empty, since function is unecessary.
 	 * Shows (cart is not empty) or hides (cart is empty) cart buttons (trash, order).
 	 */
 	toggleCartButtons: function() {

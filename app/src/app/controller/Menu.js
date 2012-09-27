@@ -121,12 +121,12 @@ Ext.define('EatSense.controller.Menu', {
     	this.switchView(pov, "", "", 'left');
     },
     /**
-    *	Load menus and products and show menutab.
+    *	Load menus and products and selects menu card.
     *
     */
     showMenu: function() {
     	var me = this,
-    	    menu = this.getMenuview(), 
+    	    menu = this.getMenuview(),
     		lounge = this.getLoungeview(),
     		main = this.getMain(),
     		checkInCtr = this.getApplication().getController('CheckIn'),
@@ -154,11 +154,7 @@ Ext.define('EatSense.controller.Menu', {
 			 });
 
             //always show menuoverview on first access
-            //TODO schoener loesen
-            menu.getComponent('menuCardPanel').setActiveItem(0);
-            // menu.hideBackButton();
-            main.switchAnim('left');
-            main.setActiveItem(lounge);
+            menu.getComponent('menuCardPanel').setActiveItem(0);       
 		}
     },
     /**

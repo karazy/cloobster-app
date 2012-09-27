@@ -8,7 +8,9 @@ Ext.define('EatSense.controller.Lounge', {
 	requires: [],
 	config: {
 		refs: {
+            mainview: 'mainview',
 			loungeview: 'lounge',
+            clubArea: 'clubarea',
             clubDashboard: 'clubarea clubdashboard',
 			descriptionLanel: 'clubarea clubdashboard #description',
 			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]'
@@ -35,11 +37,16 @@ Ext.define('EatSense.controller.Lounge', {
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Menu').getMenuNavigationFunctions());
     				} else if(value.tabName === 'settings') {
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Settings').getSettingsNavigationFunctions());
-    				} else if(value.tabName === 'requests') {
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Request').getRequestNavigationFunctions());
-    					//reset navigation view
-    					this.getApplication().getController('Feedback').getRequestNavview().pop();
-    				}
+    				} 
+        //             else if(value.tabName === 'requests') {
+    				// 	androidCtr.setAndroidBackHandler(this.getApplication().getController('Request').getRequestNavigationFunctions());
+    				// 	//reset navigation view
+    				// 	this.getApplication().getController('Feedback').getRequestNavview().pop();
+    				// } 
+                    else if(value.tabName === 'home') {
+                         //always jump to dashboard on home tab pressed
+                         this.getClubArea().setActiveItem(0);
+                    }
     				else {    				
     					androidCtr.setAndroidBackHandler(null);
     				}
@@ -49,39 +56,33 @@ Ext.define('EatSense.controller.Lounge', {
     		}
 		}
 	},
-
+    /**
+    * Init and show dashboard upon checkin.
+    */
     initDashboard: function() {
         var descriptionLanel = this.getDescriptionLanel(),
             // accountCtr = this.getApplication().getController('Account'),
             checkInCtr = this.getApplication().getController('CheckIn'),
             nickname = "",
-            business = "";
+            business = "",
+            main = this.getMainview(),
+            lounge = this.getLoungeview();
 
-        //always use the nickname from checkin not profile
-        // if(accountCtr.getProfile()) {
-        //     //TODO show nickname in not logged in state
-        //     nickname = accountCtr.getProfile().get('nickname');
-        // } else if(checkInCtr.getActiveCheckIn()){
-        //     nickname = checkInCtr.getActiveCheckIn().get('nickname');
-        // };
 
         if(checkInCtr.getActiveCheckIn()){
             nickname = checkInCtr.getActiveCheckIn().get('nickname');
             business = checkInCtr.getActiveCheckIn().get('businessName');
         };
 
-
        descriptionLanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
+
+        //always show dashboard first
+        this.getClubArea().setActiveItem(0);
+        lounge.setActiveItem(0);
+
+        main.switchAnim('left');
+        main.setActiveItem(lounge);
     },
-
-    // showFeedback: function(button) {
-    //     var dashboard = this.getClubDashboard(),
-    //         feedbackView = this.getApplication().getController('Feedback').getFeedback();
-
-    //     dashboard.add(feedbackView);
-    //     feedbackView.show();
-    //     // dashboard.show(feedbackView);
-    // },
 
 	showMenu: function(button) {
 		this.getLoungeview().setActiveItem(1);
