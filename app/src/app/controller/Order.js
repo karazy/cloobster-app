@@ -3,7 +3,7 @@
 	requires: ['Ext.picker.Picker'],
 	config: {
 		refs: {
-			main : 'mainview',
+			main : 'mainview',			
 			cartview : 'carttab',
 			cartoverviewTotal: 'carttab #carttotalpanel label',
 			myordersTotal : 'myorderstab #myorderstotalpanel label',
@@ -35,9 +35,10 @@
 			myordersTabBt: 'lounge #ext-tab-3',
 			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
-			leaveButton: 'myorderstab button[action="leave"]',
+			leaveButton: 'clubarea clubdashboard button[action="exit"]',
 			confirmEditButton: 'orderdetail button[action="edit"]',
-			undoEditButton: 'orderdetail button[action="undo"]'
+			undoEditButton: 'orderdetail button[action="undo"]',
+			clubarea: 'clubarea'
 		},
 		control: {
 			cancelAllOrdersBt : {
@@ -509,18 +510,15 @@
 
 		if(clear) {
 			button.setBadgeText("");
-			button.setText(i10n.translate('leave'));
-			// button.setIconCls('leave');
+			// button.setText(i10n.translate('leave'));
 		} else {
 
 			if(orderStore && orderStore.getCount() > 0) {
 				badgeText = orderStore.getCount();
-				button.setText(i10n.translate('myOrdersTabBt'));
-				// button.setIconCls('cash');
+				// button.setText(i10n.translate('myOrdersTabBt'));
 			} else {
 				badgeText = '';
-				button.setText(i10n.translate('leave'));
-				// button.setIconCls('leave');
+				// button.setText(i10n.translate('leave'));
 			}
 			//badgeText = (!orderStore) ? '' : (orderStore.getCount() > 0) ? orderStore.getCount() : '';
 			button.setBadgeText(badgeText);
@@ -724,9 +722,9 @@
 	leave: function() {
 		var	me = this,
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
-			myordersStore = Ext.data.StoreManager.lookup('orderStore');	
+			myordersStore = Ext.data.StoreManager.lookup('orderStore');
 
-		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) { 
+		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) {
 			checkIn.erase( {
 				failure: function(response, operation) {
 					me.getApplication().handleServerError({
@@ -737,7 +735,9 @@
 			}
 			);
 			this.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
-		}				
+		} else {
+			this.getLoungeview().setActiveItem(this.getMyordersview());
+		}			
 	},
 	/**
 	 * Marks the process as complete and returns to home menu
@@ -770,7 +770,7 @@
 			myordersStore = Ext.StoreManager.lookup('orderStore');
 
 		(myordersStore.getCount() > 0) ? payButton.show() : payButton.hide();
-		(myordersStore.getCount() > 0) ? leaveButton.hide() : leaveButton.show();
+		// (myordersStore.getCount() > 0) ? leaveButton.hide() : leaveButton.show();
 	},
 	toggleOrderDetail: function(view, index, htmlElement, order) {		
     // change the div plus to minu..

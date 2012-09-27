@@ -14,29 +14,50 @@ Ext.define('EatSense.view.MyOrders', {
 				// cls: 'myorders-panel',
 				navigationBar: {
 				    items: [
-						{
-							xtype: 'button',
-							text: i10n.translate('payRequestButton'),
-							ui: 'forward',
-							action: 'pay',
-							hidden: true,
-							align: 'right'
-						},
-						{
-							xtype: 'button',
-							text: i10n.translate('leaveButton'),
-							ui: 'orange-forward',
-							action: 'leave',
-							align: 'right'
-						}
+						// {
+						// 	xtype: 'button',
+						// 	text: i10n.translate('payRequestButton'),
+						// 	ui: 'forward',
+						// 	action: 'pay',
+						// 	hidden: true,
+						// 	align: 'right'
+						// },
+						// {
+						// 	xtype: 'button',
+						// 	text: i10n.translate('leaveButton'),
+						// 	ui: 'forward',
+						// 	action: 'leave',
+						// 	align: 'right'
+						// }
 				    ]
 				},
 				items: [ {
 					title : i10n.translate('myOrdersTitle'),
 					layout: {
 						type: 'fit'
-					},
+					},				
 					items: [
+						{
+							xtype: 'panel',
+							docked: 'top',
+							layout: {
+								type: 'vbox',
+								align: 'stretch',
+								pack: 'center'
+							},
+							margin: '5',
+							items: [
+							{
+								xtype: 'button',
+								text: i10n.translate('payRequestButton'),
+								ui: 'action',
+								action: 'pay',
+								// hidden: true,
+								// align: 'right'
+							}
+							]
+							
+						},
 						{
 							xtype: 'list',
 							store: 'orderStore',
