@@ -47,6 +47,7 @@ Ext.define('EatSense.controller.Lounge', {
                     else if(value.tabName === 'home') {
                          //always jump to dashboard on home tab pressed
                          this.getClubArea().setActiveItem(0);
+                         androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
                     }
     				else {    				
     					androidCtr.setAndroidBackHandler(null);
@@ -55,7 +56,9 @@ Ext.define('EatSense.controller.Lounge', {
     				return status;
     			}
     		}
-		}
+		},
+		/* Android Back handlers */
+		navigationFunctions : new Array()
 	},
     /**
     * Init and show dashboard upon checkin.

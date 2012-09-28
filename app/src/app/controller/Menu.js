@@ -48,14 +48,11 @@ Ext.define('EatSense.controller.Menu', {
              closeProductDetailBt: {
              	tap: 'closeProductDetail'
              },
-             cartBackButton : {
-            	 tap: 'backToMenu'
-             },
              productBackButton: {
              	tap: 'backToMenu'
              },
              cartBackButton: {
-             	tap: 'backToPreviousView'
+             	tap: 'cartBackButtonHandler'
              },
              amountSpinner : {
             	 spin: 'amountChanged'
@@ -169,13 +166,20 @@ Ext.define('EatSense.controller.Menu', {
 		this.getMenuNavigationFunctions().pop();
 	},
 	/**
+	* Tap event handler for cart back button.
+	*/
+	cartBackButtonHandler: function(button) {
+		this.getMenuNavigationFunctions().pop();
+		this.backToPreviousView();
+	},
+	/**
 	* Tap event handler for cart back button. Switches to previous displayed view.
 	* This can either be menuoverview or productoverview.
 	*/
 	backToPreviousView: function() {
 		if(this.getViewCallingCart()) {
 			this.switchView(this.getViewCallingCart(), i10n.translate('menuTitle'), null, 'right');
-			this.setViewCallingCart(null);
+			this.setViewCallingCart(null);			
 		} else {
 			console.log('Menu.backToPreviousView > called without viewCallingCart set')
 		}	
@@ -451,14 +455,18 @@ Ext.define('EatSense.controller.Menu', {
 	 * Switches to card view.
 	 */
 	showCart: function(button){		
-		var menuview = this.getMenuview(),
+		var me = this,
+			menuview = this.getMenuview(),
 			cartView = this.getCartView(),
 			activePanel = menuview.down('#menuCardPanel').getActiveItem(),
 			androidCtr = this.getApplication().getController('Android');
 
 		this.setViewCallingCart(activePanel);
 		this.getApplication().getController('Order').refreshCart();
-    	androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
+
+		androidCtr.addBackHandler(function() {
+			me.backToPreviousView();
+		});
     	menuview.switchMenuview(cartView, "left");
 	},
 	/**
