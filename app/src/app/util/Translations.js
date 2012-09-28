@@ -186,7 +186,7 @@ Ext.define('EatSense.util.Translations',{
 		// Menu
 		"menuTab" : {
 			"DE" :  "Angebot",
-			"EN" : ""
+			"EN" : "Offers"
 		},
 		"menuTitle" : {
 			"DE" :  "Unser Angebot",

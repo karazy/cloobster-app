@@ -8,7 +8,8 @@ Ext.define('EatSense.util.Configuration', {
 		version: "1.3.1",
 		//true means caching is disabled
 		disableCaching: false,
-		language: 'DE',
+		//if language is configured it will be used. otherwise system language
+		// language: 'EN',
 		channelReconnectTimeout: 10000,
 		channelReconnectTries: 20,
 		heartbeatInterval: 10000,
