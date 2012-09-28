@@ -98,9 +98,9 @@ Ext.define('EatSense.controller.Lounge', {
                 headerHtml +='<img class="logo" src="'+logoUrl+'" />';
             };
             //TODO testing purpose
-            headerHtml = '<img class="header" src="res/images/club/banner_test.png" />';
-            headerHtml +='<img class="logo" src="res/images/club/logo_v_test.png" />';
-            headerUrl = true;
+            // headerHtml = '<img class="header" src="res/images/club/banner_test.png" />';
+            // headerHtml +='<img class="logo" src="res/images/club/logo_test.png" />';
+            // headerUrl = true;
             //only show if header exists!
             if(headerUrl) {
                 header.setHtml(headerHtml);

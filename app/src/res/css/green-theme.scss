@@ -66,6 +66,28 @@ $dashboard-color: #1E4776;
 
 @CHARSET "UTF-8";
 
+/* Style for product tab header */
+.productlist-header {
+  border-style: solid solid none solid;
+  border-color: #DDD;
+  border-width: 1px;
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+  background-color: $active-color;
+  /*width: 80%;*/
+  margin-right: 20px;
+  margin-left: 20px;
+  color: white;
+  text-align: center;
+  padding: 2px;
+  font-weight: bold;
+
+  + div.x-list-item-label {
+      /*-webkit-border-top-left-radius: 0 !important;*/
+      /*border-top-left-radius: 0 !important;*/
+  }
+}
+
 .productListItem {
   h2.title {
     font-size: 1em;  
@@ -335,6 +357,21 @@ $dashboard-color: #1E4776;
   width: 15%;
 }
 
+/* MyOders View */
+.myorders-description {
+  text-align: center;
+
+  h2 {
+    font-size: 1.6em;
+    font-style: bold;
+  }
+
+  p {
+    font-size: 0.8em;
+    padding: 0 0.5em 0 0.5em;
+  }
+}
+
 /*
 * Dashboard
 */
@@ -344,28 +381,15 @@ $dashboard-color: #1E4776;
 }
 
 .dashboard-header {
-    /*height: 120px;*/
-    /*background-image: url('../images/dashboard/header-bg.jpg');*/
     img {
       width: 100%;
       height: auto;
-      /*-webkit-mask-box-image: url("../images/dashboard/triangle.png") 15 0 15 0 repeat repeat;*/
+      -webkit-box-shadow: 0px 0px 10px 2px gray;
     }
-   /* background-repeat:no-repeat; 
-    background-position:center top; 
-    background-size: 100% auto;*/
     margin: 0 0 7px 0;
-   
-/*   -webkit-mask-position: left bottom;
--webkit-mask-size: 20px 20px;
--webkit-mask-box-image: -webkit-gradient(linear, left top, right bottom, 
-  color-stop(0.00, rgba(0,0,0,1)), color-stop(0.45, rgba(0,0,0,1)), 
-  color-stop(0.50, rgba(0,0,0,0)), color-stop(0.55, rgba(0,0,0,0)), color-stop(1.00, rgba(0,0,0,0)));
--webkit-mask-repeat: repeat-x;*/
 }
 
 .dashboard-description {
-  /*margin: 0 0 1em 0;*/
   color: $dashboard-color;
 
   h2 {
@@ -387,13 +411,6 @@ $dashboard-color: #1E4776;
   color: $dashboard-color;
 
   /* http://twitter.github.com/bootstrap/scaffolding.html#responsive */
-  /* Large desktop */
-/*  @media (min-width: 1200px) {
-    background-size: 130px 130px;
-    height: 160px;
-    width: 160px;
-  }*/
- 
   /* Portrait tablet to landscape and desktop */
   /*and (max-width: 979px)*/
   @media only screen and (min-width: 768px) {
@@ -450,7 +467,6 @@ $dashboard-color: #1E4776;
 .dashboard-button-checkin {
   background-image: url('../images/dashboard/checkin.png');
   margin-right: 0.6em;
-  /*left: 25%;*/
 }
 
 .dashboard-button-history {
@@ -506,11 +522,44 @@ $dashboard-color: #1E4776;
   background: #FFF;
 }
 
-.club-dashboard-header {
+.club-dashboard-header {    
 
-    img {
+    img.header {
       width: 100%;
       height: auto;
+      max-height: 150px;
+      -webkit-box-shadow: 0px 0px 10px 2px gray;
+      /*mask image with triangles*/
+      /*-webkit-mask-box-image: url("../images/club/header_bg_mask.png") 0 0 10 0 repeat repeat;*/
+    }
+
+    img.logo {
+      position: absolute;
+      z-index: 10;
+      border-width: 2px;
+      border-color: #C3C3C3;
+      border-style: solid;
+      background-color: white;
+
+      height: auto;
+      top: 25px;
+      /* center image */
+      left: 50%;
+      margin-left: -90px;
+      width: 180px;
+    }
+
+    img.logo-vertical {
+      position: absolute;
+      z-index: 10;
+      border-width: 2px;
+      border-color: #C3C3C3;
+      border-style: solid;
+      background-color: white;
+
+      height: 80px;
+      top: 20px;
+      /* no width because we calculate it dynamically*/
     }
 
     margin: 0 0 7px 0;
@@ -518,6 +567,7 @@ $dashboard-color: #1E4776;
 
 .club-dashboard-description {
   color: $dashboard-color;
+  margin: 0 0 7px 0;
 
   h2 {
     font-size: 1.2em;
@@ -538,21 +588,23 @@ $dashboard-color: #1E4776;
   color: $dashboard-color;
 
   @media only screen and (min-width: 768px) {
-    background-size: 80px 80px;
-    height: 110px;
-    width: 110px;
+    background-size: 70px 70px;
+    height: 100px;
+    width: 100px;
   }
 
   @media only screen and (max-width: 767px) { 
-    background-size: 60px 60px;
-    height: 90px;
-    width: 90px;
+    background-size: 50px 50px;
+    height: 80px;
+    width: 80px;
+    font-size: 0.85em;
   }
 
   @media only screen and (max-width: 320px) { 
-    background-size: 40px 40px;
-    height: 70px;
-    width: 70px;
+    background-size: 30px 30px;
+    height: 60px;
+    width: 60px;
+    font-size: 0.75em;
   }
 
 }
@@ -564,17 +616,17 @@ $dashboard-color: #1E4776;
   font-size: 1em; 
 
   @media (min-width: 768px) { 
-    width: 110px;
+    width: 100px;
   }
  
   /* Landscape phone to portrait tablet */
   @media (max-width: 767px) { 
-    width: 90px;
+    width: 80px;
   }
  
   /* Landscape phones and down */
   @media (max-width: 320px) { 
-    width: 70px;
+    width: 60px;
   }
 }
 
@@ -621,6 +673,10 @@ $dashboard-color: #1E4776;
   margin-right: 0.6em;
 }
 
+
+
+
+
 .x-button-icon.checkin {
   /*-webkit-mask-image: url('../images/dashboard/checkin.png');*/
   background-image: url('../images/dashboard/checkin.png');
@@ -650,6 +706,10 @@ $dashboard-color: #1E4776;
 /* Tabbar icons */
 .x-button-icon.about {
   -webkit-mask-image: inline-image('buttons/about.png');
+}
+
+.x-button-icon.cart-button {
+  -webkit-mask-image: inline-image('/buttons/bestellung.png');
 }
 
 .x-tab .x-button-icon.cart {
@@ -826,7 +886,6 @@ h9 {
 /*
 * History
 */
-
 .history-detail-wrapper {
   padding: 1em;
 }
@@ -943,27 +1002,23 @@ h9 {
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background-color: $active-color;
   background-image: none;
-/*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, black), color-stop(10%, black), color-stop(65%, #1A0008), color-stop(100%, #1C0009));
-background-image: -webkit-linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
-background-image: linear-gradient(black, black 10%, #1A0008 65%, #1C0009);
-text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;*/
   -webkit-box-shadow: black 0 0 0.25em inset;
   box-shadow: black 0 0 0.25em inset;
 }
 
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: $font-color;
-/*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(2%, #F0F7FF), color-stop(100%, #A8D4FF));
-  background-image: -webkit-linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
- /* background-image: linear-gradient(white, #F0F7FF 2%, #A8D4FF);*/
 }
 
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: $font-color;
   background-image: none;
-  /*background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F37), color-stop(2%, #BD003F), color-stop(100%, #750027));
-  background-image: -webkit-linear-gradient(#F37, #BD003F 2%, #750027);
-  background-image: linear-gradient(#F37, #BD003F 2%, #750027);*/
+}
+
+/* Override background color of icons. */
+.x-button .x-button-icon {
+  background-color: $font-color !important;
+  background-image: none !important;
 }
 
 /* Force action button to have white text color. */
@@ -976,3 +1031,4 @@ text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;*/
   background-image: none;
   background-color: $active-color;
 }
+
