@@ -98,8 +98,8 @@ Ext.define('EatSense.view.Dashboard', {
 					},
 					{
 						xtype : 'button',
-						action: 'logout',
-						text: 'Logout',
+						action: 'profile',
+						text: i10n.translate('dashboard.button.profile'),
 						hidden: true,
 						baseCls: 'dashboard-button',
 						cls: 'dashboard-button-login',

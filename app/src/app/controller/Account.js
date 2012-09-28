@@ -13,8 +13,10 @@ Ext.define('EatSense.controller.Account', {
 				xtype: 'login',
 				autoCreate: true
 			},
+			settingsView: 'mainview settings',
 			showLoginButtonDashboard : 'dashboard button[action=login]',
-			showLogoutButtonDashboard : 'dashboard button[action=logout]',
+			showProfileButtonDashboard : 'dashboard button[action=profile]',
+			logoutButton: 'settingstab button[action=logout]',
 			backButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
@@ -25,7 +27,10 @@ Ext.define('EatSense.controller.Account', {
 			showLoginButtonDashboard : {
 				tap: 'showLoginView'
 			},
-			showLogoutButtonDashboard : {
+			showProfileButtonDashboard : {
+				tap: 'showSettingsView'
+			},
+			logoutButton : {
 				tap: 'confirmUserLogout'
 			},
 			backButton : {
@@ -127,7 +132,7 @@ Ext.define('EatSense.controller.Account', {
 		androidCtr.addBackHandler(function() {
 			me.hideLoginView()
 		});
-	},
+	},	
 
 	hideLoginView: function(button) {		
 		this.getLoginView().hide();
@@ -357,6 +362,10 @@ Ext.define('EatSense.controller.Account', {
 		});
 	},
 
+	showSettingsView: function(button) {
+		this.getMainView().setActiveItem(this.getSettingsView);
+	},
+
 	confirmUserLogout: function(button) {
 		Ext.Msg.show({
             title: i10n.translate('account.logout.confirm.title'),
@@ -397,14 +406,14 @@ Ext.define('EatSense.controller.Account', {
 	hideDashboardLoginButton: function() {
 		this.getShowLoginButtonDashboard().disable();
 		this.getShowLoginButtonDashboard().hide();
-		this.getShowLogoutButtonDashboard().enable();
-		this.getShowLogoutButtonDashboard().show();	
+		this.getShowProfileButtonDashboard().enable();
+		this.getShowProfileButtonDashboard().show();	
 	},
 	showDashboardLoginButton: function() {
 		this.getShowLoginButtonDashboard().enable();
 		this.getShowLoginButtonDashboard().show();	
-		this.getShowLogoutButtonDashboard().disable();
-		this.getShowLogoutButtonDashboard().hide();	
+		this.getShowProfileButtonDashboard().disable();
+		this.getShowProfileButtonDashboard().hide();	
 	}
 	//ui actions end
 });
