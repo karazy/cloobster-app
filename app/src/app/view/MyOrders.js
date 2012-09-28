@@ -52,11 +52,17 @@ Ext.define('EatSense.view.MyOrders', {
 								text: i10n.translate('payRequestButton'),
 								ui: 'action',
 								action: 'pay',
-								// hidden: true,
-								// align: 'right'
 							}
 							]
 							
+						},
+						{
+							xtype: 'label',
+							itemId: 'description',
+							html: i10n.translate('checkout.description'),
+							cls: 'myorders-description',
+							hidden: true,
+							docked: 'top'
 						},
 						{
 							xtype: 'list',

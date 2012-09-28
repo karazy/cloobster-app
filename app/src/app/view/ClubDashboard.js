@@ -19,7 +19,6 @@ Ext.define('EatSense.view.ClubDashboard', {
 			xtype : 'panel',
 			itemId: 'header',
 			html: '<img class="header" src="res/images/dashboard/header-bg.png" />',
-					// '<img class="logo" src="res/images/club/logo_test.png" />',
 			cls: 'club-dashboard-header',
 			docked: 'top',
 			layout: 'fit'
@@ -40,6 +39,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				align: 'center',
 				pack: 'center'
 			},
+			padding: '10 0 0 0',
 			items: [
 			{
 				xtype: 'panel',

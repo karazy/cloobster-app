@@ -72,7 +72,11 @@ Ext.define('EatSense.controller.Lounge', {
             headerUrl = null,
             logoUrl = null,
             //html for custom business header            
-            headerHtml = null;
+            headerHtml = null,
+            //used for dynamic size calculation
+            domLogo = null,
+            realLogoWidth = null,
+            realLogoHeight = null;
 
 
         if(checkInCtr.getActiveCheckIn()){
@@ -85,18 +89,52 @@ Ext.define('EatSense.controller.Lounge', {
        //set header images with business logo and banner
        if(checkInCtr.getActiveSpot()) {
             headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
-            logoUrl = checkInCtr.getActiveSpot().get('logoUrl')
+            logoUrl = checkInCtr.getActiveSpot().get('logoUrl');
+
             if(headerUrl) {
                 headerHtml = '<img class="header" src="'+headerUrl+'" />';
             };
             if(logoUrl) {
                 headerHtml +='<img class="logo" src="'+logoUrl+'" />';
             };
-
-            if(headerHtml) {
+            //TODO testing purpose
+            headerHtml = '<img class="header" src="res/images/club/banner_test.png" />';
+            headerHtml +='<img class="logo" src="res/images/club/logo_v_test.png" />';
+            headerUrl = true;
+            //only show if header exists!
+            if(headerUrl) {
                 header.setHtml(headerHtml);
             };
        };
+       //a switch to change classes for business logo
+       header.on('painted', function(panel, eOpts){
+       		console.log('Lounge.initDashboard > header painted');
+       		//get width and height of logo
+       		try {
+       			domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('logo')[0];
+       			domLogo.onload = function() {
+       				       			realLogoWidth = domLogo.width;
+       			realLogoHeight = domLogo.height;
+
+       			//if image is taller then wide remove calss logo and add class logo-vertical
+       			if((realLogoWidth/realLogoHeight) < (3/2)) {
+       				//add class vertical, than adjust dynamic properties
+       				domLogo.setAttribute('class', 'logo-vertical');
+       				domLogo.style.left = '50%';
+       				domLogo.style.marginLeft = -domLogo.width/2 + "px";
+       			};
+
+       			};
+
+       		} catch(e) {
+       			console.log('Lounge.initDashboard > something went fucking wrong ' + e);
+       			//restore default
+       			header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
+       		}
+       		
+       }, this, {
+       	// single: true
+       });
 
         //always show dashboard first
         this.getClubArea().setActiveItem(0);

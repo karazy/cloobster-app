@@ -38,7 +38,8 @@
 			leaveButton: 'clubarea clubdashboard button[action="exit"]',
 			confirmEditButton: 'orderdetail button[action="edit"]',
 			undoEditButton: 'orderdetail button[action="undo"]',
-			clubarea: 'clubarea'
+			clubarea: 'clubarea',
+			checkoutDescription: 'myorderstab #description'
 		},
 		control: {
 			cancelAllOrdersBt : {
@@ -483,12 +484,11 @@
 				button.setBadgeText("");	
 			});
 
-			this.getMenutab().showCartButtons(false);
-			
+			this.getMenutab().showCartButtons(false);		
 		} else {
 			if(!checkIn || checkIn.orders().getCount() == 0 ) {
 				badgeText = "";
-				this.getMenutab().showCartButtons(false);
+				this.getMenutab().showCartButtons(false);				
 			} else {
 				badgeText = checkIn.orders().getCount();
 				this.getMenutab().showCartButtons(true);
@@ -510,15 +510,18 @@
 
 		if(clear) {
 			button.setBadgeText("");
-			// button.setText(i10n.translate('leave'));
+			//show description when checkout is empty
+			this.getCheckoutDescription().setHidden(false);
 		} else {
 
 			if(orderStore && orderStore.getCount() > 0) {
 				badgeText = orderStore.getCount();
-				// button.setText(i10n.translate('myOrdersTabBt'));
+				//hide description when checkout is empty
+				this.getCheckoutDescription().setHidden(true);
 			} else {
 				badgeText = '';
-				// button.setText(i10n.translate('leave'));
+				//show description when checkout is empty
+				this.getCheckoutDescription().setHidden(false);
 			}
 			//badgeText = (!orderStore) ? '' : (orderStore.getCount() > 0) ? orderStore.getCount() : '';
 			button.setBadgeText(badgeText);
