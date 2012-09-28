@@ -508,9 +508,22 @@ $dashboard-color: #1E4776;
 
 .club-dashboard-header {
 
-    img {
+    img.header {
       width: 100%;
       height: auto;
+      /*mask image with triangles*/
+      /*-webkit-mask-box-image: url("../images/club/header_bg_mask.png") 0 0 10 0 repeat repeat;*/
+    }
+
+    img.logo {
+      height: auto;
+      bottom: 4px;
+      position: absolute;
+      z-index: 10;
+      /* center image */
+      left: 50%;
+      margin-left: -75px;
+      width: 150px;
     }
 
     margin: 0 0 7px 0;

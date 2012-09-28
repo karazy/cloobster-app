@@ -12,6 +12,7 @@ Ext.define('EatSense.controller.Lounge', {
 			loungeview: 'lounge',
             clubArea: 'clubarea',
             clubDashboard: 'clubarea clubdashboard',
+            dashboardHeader: 'clubarea clubdashboard #header',
 			descriptionLanel: 'clubarea clubdashboard #description',
 			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]'
 		},
@@ -65,8 +66,13 @@ Ext.define('EatSense.controller.Lounge', {
             checkInCtr = this.getApplication().getController('CheckIn'),
             nickname = "",
             business = "",
+            header = this.getDashboardHeader(),
             main = this.getMainview(),
-            lounge = this.getLoungeview();
+            lounge = this.getLoungeview(),
+            headerUrl = null,
+            logoUrl = null,
+            //html for custom business header            
+            headerHtml = null;
 
 
         if(checkInCtr.getActiveCheckIn()){
@@ -75,6 +81,22 @@ Ext.define('EatSense.controller.Lounge', {
         };
 
        descriptionLanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
+
+       //set header images with business logo and banner
+       if(checkInCtr.getActiveSpot()) {
+            headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
+            logoUrl = checkInCtr.getActiveSpot().get('logoUrl')
+            if(headerUrl) {
+                headerHtml = '<img class="header" src="'+headerUrl+'" />';
+            };
+            if(logoUrl) {
+                headerHtml +='<img class="logo" src="'+logoUrl+'" />';
+            };
+
+            if(headerHtml) {
+                header.setHtml(headerHtml);
+            };
+       };
 
         //always show dashboard first
         this.getClubArea().setActiveItem(0);

@@ -15,9 +15,21 @@ Ext.define('EatSense.model.Spot', {
 		}, {
 			name : 'name',
 			type : 'string'
-		}, 
+		},		
 		{
 			name: 'areaId'
+		},
+		{
+			name: 'logoUrl',
+			type: 'string',
+			defaultValue: 'res/images/club/logo_test.png',
+			persist: false
+		},
+		{
+			name: 'headerUrl',
+			type: 'string',
+			defaultValue: 'res/images/club/banner_test.png',
+			persist: false
 		},
 		{
 			name: 'theme',
