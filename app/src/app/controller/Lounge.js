@@ -90,12 +90,12 @@ Ext.define('EatSense.controller.Lounge', {
        if(checkInCtr.getActiveSpot()) {
             headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
             logoUrl = checkInCtr.getActiveSpot().get('logoUrl');
-
+            //use image scaling from google =sxxx
             if(headerUrl) {
-                headerHtml = '<img class="header" src="'+headerUrl+'" />';
+                headerHtml = '<img class="header" src="'+headerUrl+'=s720" />';
             };
             if(logoUrl) {
-                headerHtml +='<img class="logo" src="'+logoUrl+'" />';
+                headerHtml +='<img class="logo" src="'+logoUrl+'=s180" />';
             };
             //TODO testing purpose
             // headerHtml = '<img class="header" src="res/images/club/banner_test.png" />';
@@ -107,11 +107,13 @@ Ext.define('EatSense.controller.Lounge', {
             };
        };
        //a switch to change classes for business logo
-       header.on('painted', function(panel, eOpts){
-       		console.log('Lounge.initDashboard > header painted');
+       //waits for panel to be drawn
+       header.on('painted', function(panel, eOpts){       		
        		//get width and height of logo
        		try {
+       			//get hold of the logo img element
        			domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('logo')[0];
+       			//wait for logo to be fully loaded, only then we can get the real width and height
        			domLogo.onload = function() {
        				       			realLogoWidth = domLogo.width;
        			realLogoHeight = domLogo.height;
@@ -128,7 +130,7 @@ Ext.define('EatSense.controller.Lounge', {
 
        		} catch(e) {
        			console.log('Lounge.initDashboard > something went fucking wrong ' + e);
-       			//restore default
+       			//restore default on error
        			header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
        		}
        		
