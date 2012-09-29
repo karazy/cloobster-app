@@ -10,6 +10,16 @@ Ext.define('EatSense.view.EmailSetting', {
 		},
 		items: [
 			{
+				docked : 'top',
+				xtype : 'titlebar',				
+				title : i10n.translate('emailsetting.title'),
+				items : [
+					{
+						xtype : 'backbutton',
+					}, 
+				]
+			},
+			{
 			xtype: 'formpanel',
 			//Prevents also that the panel has a wrong size. Bug?
 			scrollable: false,

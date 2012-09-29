@@ -7,17 +7,20 @@ Ext.define('EatSense.controller.Settings', {
     requires: ['EatSense.view.NewsletterPopup', 'EatSense.view.Newsletter'],
     config: {
     	refs: {
+            //settings accessed from lounge when checked-in
     		settingsTab: 'lounge settingstab[tabName=settings]',
+            //settings accessed from mainview
+            settingsView: 'mainview settingsview',
             settingsNavView: 'settingstab navigationview',
-    		nicknameField: 'settingstab #nickname',
-            newsletterView: 'settingstab newsletter',
-            registerNewsletterBt: 'settingstab newsletter button[action=register]',
-            aboutBt: 'settingstab button[action=about]',
+    		nicknameField: 'settings #nickname',
+            newsletterView: 'settings newsletter',
+            registerNewsletterBt: 'settings newsletter button[action=register]',
+            aboutBt: 'settings button[action=about]',
             //account related stuff
-            accountPanel: 'settingstab #accountPanel',
-            emailChangeBt: 'settingstab button[action=email-change]',
-            passwordChangeBt: 'settingstab button[action=password-change]',
-            emailLabel: 'settingstab #accountEmail',
+            accountPanel: 'settings #accountPanel',
+            emailChangeBt: 'settings button[action=email-change]',
+            passwordChangeBt: 'settings button[action=password-change]',
+            emailLabel: 'settings #accountEmail',
             emailChangeView: {
                 xtype: 'emailsetting',
                 selector: 'emailsetting',
@@ -34,7 +37,7 @@ Ext.define('EatSense.controller.Settings', {
 
     	control: {
     		settingsTab : {
-    			activate: 'loadSettings'
+    			activate: 'settingsTabActivated'
     		},
     		nicknameField : {
     			change: 'saveNickname'
@@ -62,21 +65,52 @@ Ext.define('EatSense.controller.Settings', {
             }
     	},
         //android back handler
-        settingsNavigationFunctions : new Array()
+        settingsNavigationFunctions : new Array(),
+        //used for back button logic, dynamically wiring button tap events ...
+        callingView : null
+    },
+    /**
+    * Activate event handler for settingstab.
+    */
+    settingsTabActivated: function(tab, options) {        
+        this.loadSettings('settingstab');
     },
     /**
     *	Loads the settings and sets the corresponding fields.
+    * @param view
+    *       can either be settingstab or settingsview
     */
-    loadSettings: function(tab, options) {
+    loadSettings: function(view) {
     	var checkInCtr = this.getApplication().getController('CheckIn'),
     		appState = checkInCtr.getAppState(),
             accountCtr = this.getApplication().getController('Account'),
             account = this.getApplication().getController('Account').getAccount(),
             profile = this.getApplication().getController('Account').getProfile(),
-            emailLabel = this.getEmailLabel(),
-            accountPanel = this.getAccountPanel();
+            callingView = null,
+            emailChangeBt = null,
+            emailLabel = null ,//this.getEmailLabel(),
+            accountPanel = null; //this.getAccountPanel();
 
+        //TODO check view xtype
+
+        this.setCallingView(view);
+        callingView = this.getCallingView();
+
+        // if(view == 'settingstab') {
+        //     callingView = this.getSettingsTab();
+        // } else if(view == 'settingsview') {
+        //     callingView = this.getSettingsView();
+        // } else {
+        //     //error handling
+        //     return;
+        // };
+
+        emailLabel = callingView.down('settings #accountEmail');
+        accountPanel = callingView.down('settings #accountPanel');
     	
+        emailChangeBt = callingView.down('settings button[action=email-change]');
+
+        emailChangeBt.on('tab', function(button) {this.showEmailChangeView(button);}, this);
 
         if(accountCtr.isLoggedIn()) {
             accountPanel.setHidden(false);
@@ -210,12 +244,16 @@ Ext.define('EatSense.controller.Settings', {
     * 
     */
     showEmailChangeView: function() {
-        var me = this,
-            emailChangeView = this.getEmailChangeView(),
-            navView = this.getSettingsNavView();
+        // var me = this,
+        //     emailChangeView = this.getEmailChangeView(),
+        //     navView = this.getSettingsNavView();
 
         
-        navView.push(emailChangeView);
+        // navView.push(emailChangeView);
+
+        var emailView = this.getCallingView().down('emailsetting');
+
+        this.getCallingView().setActiveItem(emailView);
 
         this.getApplication().getController('Android').addBackHandler(function() {
             navView.pop();

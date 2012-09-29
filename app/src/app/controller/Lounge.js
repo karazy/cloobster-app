@@ -138,7 +138,8 @@ Ext.define('EatSense.controller.Lounge', {
        		}
        		
        }, this, {
-       	// single: true
+        //only execute on first load
+       	single: true
        });
 
         //always show dashboard first

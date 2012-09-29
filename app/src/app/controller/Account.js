@@ -13,11 +13,12 @@ Ext.define('EatSense.controller.Account', {
 				xtype: 'login',
 				autoCreate: true
 			},
-			settingsView: 'mainview settings',
+			settingsView: 'mainview settingsview',			
 			showLoginButtonDashboard : 'dashboard button[action=login]',
-			showProfileButtonDashboard : 'dashboard button[action=profile]',
+			showSettingsButtonDashboard : 'dashboard button[action=profile]',
+			settingsViewBackButton: 'mainview settingsview button[action=back]',
 			logoutButton: 'settingstab button[action=logout]',
-			backButton : 'login button[action=back]',
+			loginViewBackButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
 			loginForm : 'login formpanel',
@@ -27,14 +28,17 @@ Ext.define('EatSense.controller.Account', {
 			showLoginButtonDashboard : {
 				tap: 'showLoginView'
 			},
-			showProfileButtonDashboard : {
+			showSettingsButtonDashboard : {
 				tap: 'showSettingsView'
+			},
+			settingsViewBackButton: {
+				tap: 'settingsViewBackButtonHandler'
 			},
 			logoutButton : {
 				tap: 'confirmUserLogout'
 			},
-			backButton : {
-				tap: 'hideLoginView'
+			loginViewBackButton : {
+				tap: 'loginViewBackButtonHandler'
 			},
 			signupButton : {
 				tap: 'showSignupConfimDialog'
@@ -121,7 +125,9 @@ Ext.define('EatSense.controller.Account', {
 			}
 		});
 	},
-
+	/**
+	* Show loginview.
+	*/
 	showLoginView: function(button) {
 		var me = this,
 			loginView = this.getLoginView(),
@@ -132,8 +138,17 @@ Ext.define('EatSense.controller.Account', {
 		androidCtr.addBackHandler(function() {
 			me.hideLoginView()
 		});
-	},	
-
+	},
+	/**
+	* Tap event handler for login backbutton.
+	*/
+	loginViewBackButtonHandler: function(button) {
+		this.getApplication().getController('Android').removeLastBackHandler();
+		this.hideLoginView();
+	},
+	/**
+	* Hide loginview.
+	*/
 	hideLoginView: function(button) {		
 		this.getLoginView().hide();
 		//make sure never to store password
@@ -183,7 +198,9 @@ Ext.define('EatSense.controller.Account', {
         	}        	
         };
 	},
-
+	/**
+	* Signup for a cloubster account.
+	*/
 	signup: function(callback) {
 		var me = this,
 			form = this.getLoginForm(),
@@ -361,9 +378,32 @@ Ext.define('EatSense.controller.Account', {
 	   	    }
 		});
 	},
-
+	/**
+	* Shows the settingsview.
+	*/
 	showSettingsView: function(button) {
-		this.getMainView().setActiveItem(this.getSettingsView);
+		this.getApplication().getController('Settings').loadSettings(this.getSettingsView().down('#settingCards'));
+		this.getMainView().switchAnim('left');
+		this.getMainView().setActiveItem(this.getSettingsView());
+
+		this.getApplication().getController('Android').addBackHandler(function() {
+			me.hideSettingsView();
+		});
+	},
+	/**
+	* Tap event handler for settings view back button.
+	*/
+	settingsViewBackButtonHandler: function(button) {
+		this.getApplication().getController('Android').removeLastBackHandler();
+		this.hideSettingsView();
+	},
+	/**
+	* Hide settingsview.
+	*/
+	hideSettingsView: function(button) {
+		this.getMainView().switchAnim('right');
+		//back to dashboard
+		this.getMainView().setActiveItem(0);
 	},
 
 	confirmUserLogout: function(button) {
@@ -406,14 +446,14 @@ Ext.define('EatSense.controller.Account', {
 	hideDashboardLoginButton: function() {
 		this.getShowLoginButtonDashboard().disable();
 		this.getShowLoginButtonDashboard().hide();
-		this.getShowProfileButtonDashboard().enable();
-		this.getShowProfileButtonDashboard().show();	
+		this.getShowSettingsButtonDashboard().enable();
+		this.getShowSettingsButtonDashboard().show();	
 	},
 	showDashboardLoginButton: function() {
 		this.getShowLoginButtonDashboard().enable();
 		this.getShowLoginButtonDashboard().show();	
-		this.getShowProfileButtonDashboard().disable();
-		this.getShowProfileButtonDashboard().hide();	
+		this.getShowSettingsButtonDashboard().disable();
+		this.getShowSettingsButtonDashboard().hide();	
 	}
 	//ui actions end
 });

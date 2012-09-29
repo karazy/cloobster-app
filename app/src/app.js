@@ -13,7 +13,7 @@ Ext.application({
   'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile'],
 	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
-    'EatSense.view.BackButton'], 
+    'EatSense.view.BackButton', 'EatSense.view.SettingsView'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles', 'History'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',

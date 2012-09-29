@@ -1,3 +1,7 @@
+/**
+* Shows a login/signup panel.
+* Has dedicated hide/show animations to use this view in various places.
+*/
 Ext.define('EatSense.view.Login', {
 	extend: 'Ext.Panel',
 	requires: ['Ext.field.Text', 'Ext.field.Password', 'Ext.Button', 'Ext.form.FieldSet'],
@@ -25,11 +29,8 @@ Ext.define('EatSense.view.Login', {
 				xtype : 'toolbar',
 				title : i10n.translate('login.title'),
 				items : [ {
-					xtype : 'button',
-					action: 'back',
-					text : i10n.translate('back'),
-					ui : 'back'
-				}, ]
+					xtype : 'backbutton'
+				}]
 			},
 			{
 				xtype: 'formpanel',

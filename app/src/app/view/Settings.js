@@ -1,5 +1,5 @@
 /**
-*	Settings section. Show when navigating from dashboard.
+*	Settings. Used in SettingsView and SettingsTab.
 */
 Ext.define('EatSense.view.Settings', {
 	extend : 'Ext.Panel',
