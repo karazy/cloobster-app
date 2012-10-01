@@ -517,9 +517,11 @@
 			badgeText;
 
 		if(clear) {
-			button.setBadgeText("");
-			//show description when checkout is empty
-			this.getCheckoutDescription().setHidden(false);
+			button.setBadgeText("");			
+			if(orderStore && orderStore.getCount() > 0) {
+				//show description when checkout is empty
+				this.getCheckoutDescription().setHidden(false);
+			}
 		} else {
 
 			if(orderStore && orderStore.getCount() > 0) {

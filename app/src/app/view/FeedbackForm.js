@@ -61,7 +61,7 @@ Ext.define('EatSense.view.FeedbackForm', {
 				ui: 'action',
 				action: 'submit',
 				text: i10n.translate('feedback'),
-				height: '50px',
+				// height: '50px',
 				width: '80%'
 			}
 			]

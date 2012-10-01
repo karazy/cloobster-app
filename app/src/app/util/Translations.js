@@ -288,7 +288,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Cancel {0}?"
 		},
 		"submitButton" : {
-			"DE" :  "Abschicken",
+			"DE" :  "Senden",
 			"EN" :  "Send"
 		},
 		"submitOrderProcess" : {
@@ -309,7 +309,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>Willkommen, {0}!<h2><p>Sie haben in {1} eingecheckt.</p>",
+			"DE" :  "<h2>Guten Tag {0}!<h2><p>Herzlichen Willkommen im \"{1}\"</p>",
 			"EN" :  "<h2>Welcome, {0}!<h2><p>You have checked into {1}.</p>"
 		},
 		"clubdashboard.button.vip" : {

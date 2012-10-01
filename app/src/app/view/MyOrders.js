@@ -11,26 +11,6 @@ Ext.define('EatSense.view.MyOrders', {
 			{
 				xtype: 'navigationview',
 				defaultBackButtonText: i10n.translate('back'),
-				// cls: 'myorders-panel',
-				navigationBar: {
-				    items: [
-						// {
-						// 	xtype: 'button',
-						// 	text: i10n.translate('payRequestButton'),
-						// 	ui: 'forward',
-						// 	action: 'pay',
-						// 	hidden: true,
-						// 	align: 'right'
-						// },
-						// {
-						// 	xtype: 'button',
-						// 	text: i10n.translate('leaveButton'),
-						// 	ui: 'forward',
-						// 	action: 'leave',
-						// 	align: 'right'
-						// }
-				    ]
-				},
 				items: [ {
 					title : i10n.translate('myOrdersTitle'),
 					layout: {
@@ -156,7 +136,7 @@ Ext.define('EatSense.view.MyOrders', {
 									text: i10n.translate('feedback'),
 									ui: 'action',
 									action: 'feedback',
-									height: '45px',
+									// height: '45px',
 									margin: '0 0 5 0 ',
 									width: '80%'
 								},
@@ -165,7 +145,7 @@ Ext.define('EatSense.view.MyOrders', {
 									text: i10n.translate('leave'),
 									ui: 'action',
 									action: 'complete',
-									height: '45px',
+									// height: '45px',
 									width: '80%'
 								}
 								]
