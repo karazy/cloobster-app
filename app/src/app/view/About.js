@@ -16,7 +16,7 @@ Ext.define('EatSense.view.About', {
 		items: [
 		{
 			xtype: 'titlebar',
-			title: 'Impressum',
+			title: i10n.translate('general.legalnotice'),
 			docked: 'top'
 		},
 		{
@@ -44,7 +44,7 @@ Ext.define('EatSense.view.About', {
 				'<h2>Kontakt:</h2>'+		
 				'<p>Telefon:	+49.176.8319.2088<br/>'+
 				'Telefax:<br/>'+
-				'E-Mail:	info@karazy.net</p>'+
+				'E-Mail:	info@cloobster.com</p>'+
 		
 				'<h2>Registereintrag:</h2>'+
 				'<p>Eintragung im Handelsregister.<br/>'+

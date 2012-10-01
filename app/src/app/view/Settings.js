@@ -101,7 +101,7 @@ Ext.define('EatSense.view.Settings', {
 			},
 			{
 				xtype: 'button',
-				text: 'Impressum',
+				text: i10n.translate('general.legalnotice'),
 				ui: 'action',
 				action: 'about',
 				style: 'margin-top: 1em;',

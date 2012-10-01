@@ -547,12 +547,15 @@ Ext.define('EatSense.controller.CheckIn', {
     //restore existing requests
     requestCtr.loadRequests();	
     //load feedback from server
-    feedbackCtr.loadFeedbackTemplate();
+    feedbackCtr.loadFeedbackTemplate(restoreFeedback);
 
-    //restore existing feedback
-    if(this.getAppState().get('feedbackId')) {
-      feedbackCtr.loadFeedback(this.getAppState().get('feedbackId'));
-    }
+    function restoreFeedback() {
+      //restore existing feedback
+      if(me.getAppState().get('feedbackId')) {
+        feedbackCtr.loadFeedback(me.getAppState().get('feedbackId'));
+      }
+    };
+    
     
 	},
   /**

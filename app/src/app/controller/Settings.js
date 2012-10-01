@@ -30,18 +30,8 @@ Ext.define('EatSense.controller.Settings', {
             passwordBackClubBt: 'lounge passwordsetting button[action=back]',
 
             emailLabel: 'settings #accountEmail',
-            // emailChangeView: {
-            //     xtype: 'emailsetting',
-            //     selector: 'emailsetting',
-            //     autoCreate: true
-            // },
             saveEmailBt: 'emailsetting button[action=save]',
-            // passwordChangeView: {
-            //     xtype: 'passwordsetting',
-            //     selector: 'passwordsetting',
-            //     autoCreate: true
-            // },
-            savePasswordBt: 'passwordsetting button[action=save]',
+            savePasswordBt: 'passwordsetting button[action=save]'
     	},
 
     	control: {
@@ -114,15 +104,17 @@ Ext.define('EatSense.controller.Settings', {
             account = this.getApplication().getController('Account').getAccount(),
             profile = this.getApplication().getController('Account').getProfile(),
             callingView = null,
+            nicknameField = null,
             emailChangeBt = null,
-            emailLabel = null ,//this.getEmailLabel(),
-            accountPanel = null; //this.getAccountPanel();
+            emailLabel = null,
+            accountPanel = null; 
 
         //TODO check view xtype
 
         this.setCallingView(view);
         callingView = this.getCallingView();
 
+        nicknameField = callingView.down('settings #nickname');
         emailLabel = callingView.down('settings #accountEmail');
         accountPanel = callingView.down('settings #accountPanel');
 
@@ -134,10 +126,10 @@ Ext.define('EatSense.controller.Settings', {
                 emailLabel.getTpl().overwrite(emailLabel.element, account.getData());     
             };
             if(profile) {
-                this.getNicknameField().setValue(profile.get('nickname'));    
+                nicknameField.setValue(profile.get('nickname'));    
             } ;
         } else {
-            this.getNicknameField().setValue(appState.get('nickname'));
+            nicknameField.setValue(appState.get('nickname'));
             //hide account settings
             //TODO show signup button
             accountPanel.setHidden(true);

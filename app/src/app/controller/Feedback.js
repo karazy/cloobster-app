@@ -107,8 +107,10 @@ Ext.define('EatSense.controller.Feedback', {
 	},
 	/**
 	* Load Feedback data from server.
+	* @param callback
+	*	callback function executed upon successful template load
 	*/
-	loadFeedbackTemplate: function() {
+	loadFeedbackTemplate: function(callback) {
 		var me = this,
 			feedbackStore = Ext.StoreManager.lookup('feedbackStore');
 
@@ -130,7 +132,9 @@ Ext.define('EatSense.controller.Feedback', {
 						//copy all questions and add them to answers of active feedback
 						me.getFeedbackTemplate().questions().each(function(question) {
 							me.getActiveFeedback().answers().add(question.copy(question.get('id')));
-						});		    		
+						});
+
+						callback();	
 			    	}
 			    	else {
 			    		//no feedback form exists, hide feedback buttons
