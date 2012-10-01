@@ -65,15 +65,15 @@ Ext.define('EatSense.view.ClubDashboard', {
 					pressedCls: 'club-dashboard-button-pressed',
 					labelCls: 'club-dashboard-button-label'
 				},
-				{
-					xtype : 'button',
-					action: 'show-feedback',
-					text: i10n.translate('clubdashboard.button.feedback'),
-					baseCls: 'club-dashboard-button',
-					cls: 'club-dashboard-button-feedback',
-					pressedCls: 'club-dashboard-button-pressed',
-					labelCls: 'club-dashboard-button-label'
-				}
+				// {
+				// 	xtype : 'button',
+				// 	action: 'show-feedback',
+				// 	text: i10n.translate('clubdashboard.button.feedback'),
+				// 	baseCls: 'club-dashboard-button',
+				// 	cls: 'club-dashboard-button-feedback',
+				// 	pressedCls: 'club-dashboard-button-pressed',
+				// 	labelCls: 'club-dashboard-button-label'
+				// }
 				]
 			},
 			{
@@ -87,45 +87,12 @@ Ext.define('EatSense.view.ClubDashboard', {
 				items: [
 					{
 						xtype : 'button',
-						action: 'show-info',
-						text: i10n.translate('clubdashboard.button.info'),
+						action: 'show-feedback',
+						text: i10n.translate('clubdashboard.button.feedback'),
 						baseCls: 'club-dashboard-button',
-						cls: 'club-dashboard-button-info',
-						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label',
-						badgeCls: 'club-dashboard-button-badge',
-					},
-					{
-						xtype : 'button',
-						action: 'show-events',
-						text: i10n.translate('clubdashboard.button.events'),
-						baseCls: 'club-dashboard-button',
-						cls: 'club-dashboard-button-events',
+						cls: 'club-dashboard-button-feedback',
 						pressedCls: 'club-dashboard-button-pressed',
 						labelCls: 'club-dashboard-button-label'
-					},
-					{
-						xtype : 'button',
-						action: 'show-aroundme',
-						text: i10n.translate('clubdashboard.button.aroundme'),
-						baseCls: 'club-dashboard-button',
-						cls: 'club-dashboard-button-aroundme',
-						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label'
-					}
-				]
-			},
-			{
-				xtype: 'panel',
-				width: '100%',
-				layout: {
-					type: 'hbox',
-					align: 'center',
-					pack: 'center'
-				},
-				items: [
-					{
-						xtype : 'spacer',
 					},
 					{
 						xtype : 'button',
@@ -136,11 +103,62 @@ Ext.define('EatSense.view.ClubDashboard', {
 						pressedCls: 'club-dashboard-button-pressed',
 						labelCls: 'club-dashboard-button-label'
 					},
-					{
-						xtype : 'spacer',
-					}
+					// {
+					// 	xtype : 'button',
+					// 	action: 'show-info',
+					// 	text: i10n.translate('clubdashboard.button.info'),
+					// 	baseCls: 'club-dashboard-button',
+					// 	cls: 'club-dashboard-button-info',
+					// 	pressedCls: 'club-dashboard-button-pressed',
+					// 	labelCls: 'club-dashboard-button-label',
+					// 	badgeCls: 'club-dashboard-button-badge',
+					// },
+					// {
+					// 	xtype : 'button',
+					// 	action: 'show-events',
+					// 	text: i10n.translate('clubdashboard.button.events'),
+					// 	baseCls: 'club-dashboard-button',
+					// 	cls: 'club-dashboard-button-events',
+					// 	pressedCls: 'club-dashboard-button-pressed',
+					// 	labelCls: 'club-dashboard-button-label'
+					// },
+					// {
+					// 	xtype : 'button',
+					// 	action: 'show-aroundme',
+					// 	text: i10n.translate('clubdashboard.button.aroundme'),
+					// 	baseCls: 'club-dashboard-button',
+					// 	cls: 'club-dashboard-button-aroundme',
+					// 	pressedCls: 'club-dashboard-button-pressed',
+					// 	labelCls: 'club-dashboard-button-label'
+					// }
 				]
-			}
+			},
+			// {
+			// 	xtype: 'panel',
+			// 	width: '100%',
+			// 	layout: {
+			// 		type: 'hbox',
+			// 		align: 'center',
+			// 		pack: 'center'
+			// 	},
+			// 	items: [
+			// 		{
+			// 			xtype : 'spacer',
+			// 		},
+			// 		{
+			// 			xtype : 'button',
+			// 			action: 'exit',
+			// 			text: i10n.translate('clubdashboard.button.exit'),
+			// 			baseCls: 'club-dashboard-button',
+			// 			cls: 'club-dashboard-button-exit',
+			// 			pressedCls: 'club-dashboard-button-pressed',
+			// 			labelCls: 'club-dashboard-button-label'
+			// 		},
+			// 		{
+			// 			xtype : 'spacer',
+			// 		}
+			// 	]
+			// }
 			]
 		}
 		]

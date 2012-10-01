@@ -309,8 +309,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>Willkommen, {0}!<h2><p>Du hast in {1} eingecheckt. Bitte wähle, was Du tun möchtest.</p>",
-			"EN" :  "<h2>Welcome, {0}!<h2><p>You have checked into {1}. Please proceed.</p>"
+			"DE" :  "<h2>Willkommen, {0}!<h2><p>Sie haben in {1} eingecheckt.</p>",
+			"EN" :  "<h2>Welcome, {0}!<h2><p>You have checked into {1}.</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",
@@ -569,8 +569,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "We have been notified!<br>We'll be serving you any minute."
 		},
 		"vipGreetingMessage" : {
-			"DE" :  "Willkommen <span style='font-weight:bold;'>{0}</span> in Ihrem persönlichen VIP-Bereich!",
-			"EN" :  "Welcome <span style='font-weight:bold;'>{0}</span> to your personal VIP area!"
+			"DE" :  "Willkommen <span style='font-weight:bold;'>{0}</span><br/>in Ihrem persönlichen VIP-Bereich!",
+			"EN" :  "Welcome <span style='font-weight:bold;'>{0}</span><br/> to your personal VIP area!"
 		},
 		//Feedback
 		"feedback" : {

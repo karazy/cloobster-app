@@ -544,7 +544,7 @@
 				GCC_PREFIX_HEADER = "cloobster/cloobster-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "cloobster/cloobster-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = cloobster;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -563,7 +563,7 @@
 				GCC_PREFIX_HEADER = "cloobster/cloobster-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "cloobster/cloobster-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = cloobster;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

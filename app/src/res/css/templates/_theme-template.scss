@@ -1,3 +1,37 @@
+@font-face {
+    font-family: 'PT Sans';
+    src: url('fonts/PT_Sans-Web.regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@import 'sencha-touch/default/all';
+
+@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-list-paging;
+@include sencha-list-pullrefresh;
+@include sencha-layout;
+@include sencha-carousel;
+@include sencha-form;
+@include sencha-msgbox;
+@include sencha-loading-spinner;
+/*Include additional icons*/
+@include pictos-iconmask('user');
+@include pictos-iconmask('shop1');
+@include pictos-iconmask('locate4');
+
+
+@CHARSET "UTF-8";
+
 
 /* Style for product tab header */
 .productlist-header {
@@ -520,6 +554,25 @@
   color: $dashboard-color;
 
   @media only screen and (min-width: 768px) {
+    background-size: 110px 110px;
+    height: 140px;
+    width: 140px;
+  }
+
+  /* Landscape phone to portrait tablet */
+  @media only screen and (max-width: 767px) { 
+    background-size: 80px 80px;
+    height: 110px;
+    width: 110px;
+  }
+
+  /* Landscape phones and down */
+  @media only screen and (max-width: 320px) { 
+    background-size: 60px 60px;
+    height: 90px;
+    width: 90px;
+  }
+/*  @media only screen and (min-width: 768px) {
     background-size: 70px 70px;
     height: 100px;
     width: 100px;
@@ -537,7 +590,7 @@
     height: 70px;
     width: 70px;
     font-size: 0.75em;
-  }
+  }*/
 
 }
 
@@ -548,17 +601,17 @@
   font-size: 1em; 
 
   @media (min-width: 768px) { 
-    width: 100px;
+    width: 140px;
   }
  
   /* Landscape phone to portrait tablet */
   @media (max-width: 767px) { 
-    width: 80px;
+    width: 110px;
   }
  
   /* Landscape phones and down */
   @media (max-width: 320px) { 
-    width: 70px;
+    width: 90px;
   }
 }
 
@@ -649,11 +702,11 @@
 }
 
 .x-tab .x-button-icon.menu {
-  -webkit-mask-image: inline-image('/buttons/speisekarte.png');
+  -webkit-mask-image: inline-image('/buttons/notes.png');
 }
 
 .x-tab .x-button-icon.cash {
-  -webkit-mask-image: inline-image('/buttons/kasse.png');
+  -webkit-mask-image: inline-image('/buttons/exit.png');
 }
 
 .x-tab .x-button-icon.leave {

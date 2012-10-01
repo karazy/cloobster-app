@@ -88,7 +88,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		//Android: return to menu on backbutton
 		this.getApplication().getController('Android').addBackHandler(function() {
-					me.backToMenu();
+			me.backToMenu();
 		});
 
 		//set title of titlebar

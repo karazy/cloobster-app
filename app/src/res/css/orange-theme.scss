@@ -5,7 +5,7 @@ $base-color: #ff9933;
 $active-color: #6699cc;
 /* Disable gradients, shadows ... for tabs.*/
 $include-tab-highlights: false;
-$font-family: 'ComfortaaRegular',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
+$font-family: 'PT Sans',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
 $base-gradient: 'matte';
 $button-gradient: 'matte';
 $page-bg-color: #f4f1ea;
@@ -27,43 +27,5 @@ $product-sub-bg: #D3D3D3;
 /* Color for dashboard fonts. */
 $dashboard-color: #1E4776;
 
-/* ------- FONTS START --------- */
-@font-face {
-    font-family: 'ComfortaaRegular';
-    src: url('fonts/comfortaa_regular-webfont.eot');
-    src: url('fonts/comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/comfortaa_regular-webfont.woff') format('woff'),
-         url('fonts/comfortaa_regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-/* ------ FONTS END ----------*/
-
-
-@import 'sencha-touch/default/all';
-
-@include sencha-panel;
-@include sencha-buttons;
-@include sencha-sheet;
-@include sencha-picker;
-@include sencha-tabs;
-@include sencha-toolbar;
-@include sencha-toolbar-forms;
-@include sencha-indexbar;
-@include sencha-list;
-@include sencha-list-paging;
-@include sencha-list-pullrefresh;
-@include sencha-layout;
-@include sencha-carousel;
-@include sencha-form;
-@include sencha-msgbox;
-@include sencha-loading-spinner;
-/*Include additional icons*/
-@include pictos-iconmask('user');
-@include pictos-iconmask('locate4');
-
-
-@CHARSET "UTF-8";
 
 @import 'templates/_theme-template.scss';

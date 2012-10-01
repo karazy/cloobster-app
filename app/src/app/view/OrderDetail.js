@@ -27,10 +27,10 @@ Ext.define('EatSense.view.OrderDetail', {
 		  outOfBoundRestrictFactor: 0	
 		},
     	modal: true,
-		top: '5%',
-		left: '3%',
-		right: '3%',
-		bottom: '3%',
+		top: '3%',
+		left: '2%',
+		right: '2%',
+		bottom: '2%',
 		floatingCls: 'panel-floating',
 		items : [
 		{
@@ -118,6 +118,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					text: i10n.translate('change'),
 					action: 'edit',
 					ui: 'action',
+					flex: 1
 				},
 				{
 					xtype: 'button',
@@ -125,6 +126,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					text: i10n.translate('cancel'),
 					action: 'undo',
 					ui: 'action',
+					flex: 1
 				}
 			]
 		}

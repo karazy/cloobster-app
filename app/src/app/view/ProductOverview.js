@@ -22,7 +22,7 @@ Ext.define('EatSense.view.ProductOverview', {
 				xtype: 'button',				
 				action: 'show-cart',
 				align: 'right',
-				iconCls : 'cart-button',
+				iconCls : 'shop1',
 				iconMask : true,
 				hidden: true
 			}

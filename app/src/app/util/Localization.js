@@ -7,17 +7,9 @@ Ext.define('EatSense.util.Localization', {
 		lang: null
 	},
 	/**
-	 * Contains translations.
-	 */
-	// translations : null,
-	/**
 	 * default language.
 	 */
 	defaultLang : "DE",
-	/**
-	 * Chosen language.
-	 */
-	// lang : null,
 
 	appConfig: null,
 
@@ -26,12 +18,6 @@ Ext.define('EatSense.util.Localization', {
 		this.appConfig = EatSense.util.Configuration;
 		//get browser/system locale 
 		this.setLang(this.getLanguage());		
-		// try {
-		// 	this.setTranslations(EatSense.util.Translation.data);
-		// } catch(e) {
-		// 	console.log('translation data not loaded');
-		// 	this.setTranslations({});
-		// }
 	},
 
 	getTranslations: function() {

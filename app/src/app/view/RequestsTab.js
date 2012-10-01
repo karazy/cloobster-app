@@ -35,6 +35,13 @@ Ext.define('EatSense.view.RequestsTab', {
 
 					// items: [
 						{
+							xtype : 'panel',
+							html: '<img src="res/images/club/vip.png" />',
+							// cls: '',
+							// docked: 'top',
+							layout: 'fit'
+						},	
+						{
 							xtype: 'label',
 							itemId: 'accountLabel',
 							cls: 'general-label',
@@ -45,7 +52,8 @@ Ext.define('EatSense.view.RequestsTab', {
 							xtype: 'label',
 							cls: 'general-label',
 							itemId: 'callWaiterLabel',
-							html: i10n.translate('callWaiterCallHint')
+							html: i10n.translate('callWaiterCallHint'),
+							padding: '0 5 0 5'
 						},
 						{
 							xtype: 'button',
