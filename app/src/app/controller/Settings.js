@@ -11,10 +11,10 @@ Ext.define('EatSense.controller.Settings', {
     		settingsTab: 'lounge settingstab[tabName=settings]',
             //settings accessed from mainview
             settingsView: 'mainview settingsview',
-            settingsNavView: 'settingstab navigationview',
+            // settingsNavView: 'settingstab navigationview',
     		nicknameField: 'settings #nickname',
-            newsletterView: 'settings newsletter',
-            registerNewsletterBt: 'settings newsletter button[action=register]',
+            // newsletterView: 'settings newsletter',
+            // registerNewsletterBt: 'settings newsletter button[action=register]',
             aboutBt: 'settings button[action=about]',
             //account related stuff
             accountPanel: 'settings #accountPanel',
@@ -30,17 +30,17 @@ Ext.define('EatSense.controller.Settings', {
             passwordBackClubBt: 'lounge passwordsetting button[action=back]',
 
             emailLabel: 'settings #accountEmail',
-            emailChangeView: {
-                xtype: 'emailsetting',
-                selector: 'emailsetting',
-                autoCreate: true
-            },
+            // emailChangeView: {
+            //     xtype: 'emailsetting',
+            //     selector: 'emailsetting',
+            //     autoCreate: true
+            // },
             saveEmailBt: 'emailsetting button[action=save]',
-            passwordChangeView: {
-                xtype: 'passwordsetting',
-                selector: 'passwordsetting',
-                autoCreate: true
-            },
+            // passwordChangeView: {
+            //     xtype: 'passwordsetting',
+            //     selector: 'passwordsetting',
+            //     autoCreate: true
+            // },
             savePasswordBt: 'passwordsetting button[action=save]',
     	},
 
@@ -61,25 +61,25 @@ Ext.define('EatSense.controller.Settings', {
                 tap: 'showEmailChangeView'
             },
             emailBackDashboardBt: {
-                tap: 'backToSettings'
+                tap: 'backButtonHandler'
             },
             passwordChangeDashboardBt: {
                 tap: 'showPasswordChangeView'
             },
             passwordBackDashboardBt: {
-                tap: 'backToSettings'
+                tap: 'backButtonHandler'
             },
             emailChangeClubBt: {
                 tap: 'showEmailChangeView'
             },
             emailBackClubBt: {
-                tap: 'backToSettings'
+                tap: 'backButtonHandler'
             },
             passwordChangeClubBt: {
                 tap: 'showPasswordChangeView'
             },
             passwordBackClubBt: {
-                tap: 'backToSettings'
+                tap: 'backButtonHandler'
             },
             saveEmailBt: {
                 tap: 'saveEmail'
@@ -132,10 +132,10 @@ Ext.define('EatSense.controller.Settings', {
             //TODO check if account is loaded correctly!
             if(account) {
                 emailLabel.getTpl().overwrite(emailLabel.element, account.getData());     
-            }
+            };
             if(profile) {
                 this.getNicknameField().setValue(profile.get('nickname'));    
-            } 
+            } ;
         } else {
             this.getNicknameField().setValue(appState.get('nickname'));
             //hide account settings
@@ -174,6 +174,7 @@ Ext.define('EatSense.controller.Settings', {
         }		
 	},
     /**
+    * @deprecated
     *   Tap handler for register newsletter button.
     */
     registerNewsletterBtTap: function(button) {
@@ -187,6 +188,7 @@ Ext.define('EatSense.controller.Settings', {
         this.registerNewsletter(values);
     },
     /**
+    * @deprecated
     * Submits the form to register a new newsletter.
     * @param record
     *   newsletter data to submit
@@ -265,8 +267,7 @@ Ext.define('EatSense.controller.Settings', {
         this.getCallingView().setActiveItem(emailView);
 
         this.getApplication().getController('Android').addBackHandler(function() {
-            // navView.pop();
-            me.getCallingView().setActiveItem(0);
+            me.backToSettings()
         });
     },
     /**
@@ -275,7 +276,8 @@ Ext.define('EatSense.controller.Settings', {
     */
     saveEmail: function() {
         var me = this,
-            emailChangeView = this.getEmailChangeView(),
+            callingView = this.getCallingView(),
+            emailChangeView = callingView.down('emailsetting'),
             form = emailChangeView.down('formpanel'),
             navView = this.getSettingsNavView(),
             newMail = emailChangeView.down('#newMail'),
@@ -385,13 +387,14 @@ Ext.define('EatSense.controller.Settings', {
         this.getCallingView().setActiveItem(passwordView);
 
         this.getApplication().getController('Android').addBackHandler(function() {
-            me.getCallingView().setActiveItem(0);
+            me.backToSettings();
         });
     },
 
     savePassword: function() {
         var me = this,
-            passwordChangeView = this.getPasswordChangeView(),
+            callingView = this.getCallingView(),
+            passwordChangeView = callingView.down('passwordsetting'),
             form = passwordChangeView.down('formpanel'),
             navView = this.getSettingsNavView(),
             newPassword = passwordChangeView.down('#newPassword'),
@@ -486,16 +489,37 @@ Ext.define('EatSense.controller.Settings', {
             }
         });
     },
-
-    navBackButtonTap: function(button) {
-        console.log('SettingsController.navBackButtonTap');
-        
-    },
     /**
     * Tap event handler called from back buttons in emailsetting or passwordsetting views.
     */
-    backToSettings: function(button) {
+    backButtonHandler: function(button) {
+        this.backToSettings();
         this.getApplication().getController('Android').removeLastBackHandler();
+    },
+    /**
+    * Switches back to settings and removes inserted passwords.
+    */
+    backToSettings: function() {
+        var passwordFields = this.getCallingView().query('passwordfield');
+
+        //make sure to empty password fields!
+        //works on all pw fields in emailsetting and passwordsetting
+        passwordFields.every(function(field) {
+            field.setValue("");
+            //true to iterate over all elements
+            return true;
+        });
+
+        this.getCallingView().getLayout().setAnimation({
+            type: 'slide',
+            direction: 'right'
+        });
+        
         this.getCallingView().setActiveItem(0);
+
+        this.getCallingView().getLayout().setAnimation({
+            type: 'slide',
+            direction: 'left'
+        });
     }
 });

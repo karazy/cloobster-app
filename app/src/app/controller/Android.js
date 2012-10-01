@@ -10,21 +10,26 @@ Ext.define('EatSense.controller.Android', {
 		exitOnBack: false
 	},
 	launch: function() {
-
+		Ext.Viewport.element.on('tap', function() {
+			this.setExitOnBack(false);
+		},
+		this, {
+			delay: 50
+		});
 	},
 
 	addBackHandler: function(handler) {
-		this.setExitOnBack(false);
+		// this.setExitOnBack(false);
 		if(appHelper.isFunction(handler) && appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> addBackHandler');
 			this.getAndroidBackHandler().push(handler);	
 		} else {
 			console.log('handler is not of type function');
-		}
+		};
 	},
 
 	removeLastBackHandler: function() {
-		this.setExitOnBack(false);
+		// this.setExitOnBack(false);
 		if(appHelper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> removeLastBackHandler');
 			this.getAndroidBackHandler().pop();
@@ -37,7 +42,7 @@ Ext.define('EatSense.controller.Android', {
 		
 		if(appHelper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
 			console.log('Android Controller -> executeBackHandler');
-			this.setExitOnBack(false);
+			// this.setExitOnBack(false);
 			handler = this.getAndroidBackHandler().pop();
 			handler();
 		} else {
@@ -65,7 +70,7 @@ Ext.define('EatSense.controller.Android', {
 					}					
 				}), appConfig.msgboxHideLongTimeout, this);
 
-				this.setExitOnBack(true);	
+				this.setExitOnBack(true);
 			}
 			
 		}

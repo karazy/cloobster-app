@@ -326,7 +326,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"clubdashboard.button.aroundme" : {
 			"DE" :  "Around me",
-			"EN" : ""
+			"EN" : "Around me"
 		},
 		"clubdashboard.button.exit" : {
 			"DE" :  "Check-out",

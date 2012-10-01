@@ -16,7 +16,7 @@ Ext.define('EatSense.controller.Account', {
 			settingsView: 'mainview settingsview',			
 			showLoginButtonDashboard : 'dashboard button[action=login]',
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
-			settingsViewBackButton: 'mainview settingsview #backButton',
+			settingsViewBackButton: 'mainview settingsview settings #backButton',
 			logoutClubButton: 'settingstab button[action=logout]',
 			logoutDashboardButton: 'settingsview button[action=logout]',
 			loginViewBackButton : 'login button[action=back]',
@@ -383,9 +383,11 @@ Ext.define('EatSense.controller.Account', {
 		});
 	},
 	/**
-	* Shows the settingsview.
+	* Shows the settingsview from cloobster dashboard.
 	*/
 	showSettingsView: function(button) {
+		var me = this;
+
 		this.getApplication().getController('Settings').loadSettings(this.getSettingsView().down('#settingCards'));
 		this.getMainView().switchAnim('left');
 		this.getMainView().setActiveItem(this.getSettingsView());

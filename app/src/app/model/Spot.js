@@ -3,37 +3,42 @@ Ext.define('EatSense.model.Spot', {
 	requires: ['EatSense.model.PaymentMethod'],
 	config : {
 		idProperty : 'barcode',
-		fields : [ {
-			name : 'barcode',
-			type : 'string'
-		}, {
-			name : 'business',
-			type : 'string'
-		}, {
-			name : 'businessId',
-			type : 'string'
-		}, {
-			name : 'name',
-			type : 'string'
-		},		
-		{
-			name: 'areaId'
-		},
-		{
-			name: 'logoUrl',
-			type: 'string',
-			persist: false
-		},
-		{
-			name: 'headerUrl',
-			type: 'string',
-			persist: false
-		},
-		{
-			name: 'theme',
-			type: 'string',
-			defaultValue: 'default'
-		}],
+		fields : [ 
+			{
+				name : 'barcode',
+				type : 'string'
+			}, 
+			{
+				name : 'business',
+				type : 'string'
+			}, 
+			{
+				name : 'businessId',
+				type : 'string'
+			}, 
+			{
+				name : 'name',
+				type : 'string'
+			},		
+			{
+				name: 'areaId'
+			},
+			{
+				name: 'logoUrl',
+				type: 'string',
+				persist: false
+			},
+			{
+				name: 'headerUrl',
+				type: 'string',
+				persist: false
+			},
+			{
+				name: 'theme',
+				type: 'string',
+				defaultValue: 'default'
+			}
+		],
 		 associations: [{
 	            type: 'hasMany',
 	            model: 'EatSense.model.PaymentMethod',

@@ -11,19 +11,16 @@ Ext.define('EatSense.view.Settings', {
 			align: 'middle'
 		},
 		scrollable: 'vertical',
-		//if true, adds a backbutton to titlebar
+		/**
+         * @cfg {Boolean} If true adds a back button to the components titlebar.
+         * @accessor
+         */
 		backButton: false,
 		items: [
 			{
 				xtype: 'titlebar',
 				title: i10n.translate('settingsButton'),
 				docked: 'top',
-				items: [
-					// {
-					// 	xtype: 'backbutton',
-					// 	itemId: 'backButton'
-					// }
-				]
 			},
 			{
 			xtype: 'formpanel',
@@ -114,13 +111,14 @@ Ext.define('EatSense.view.Settings', {
 			}
 		]
 	},
-	// constructor: function(config) {
-	// 	console.log('INITIALIZE SETTINGS');
-	// },
-	initialize: function() {
-		console.log('INITIALIZE SETTINGS');
-		// if(this.getBackButton()) {
-		// 	console.log('Back button true');
-		// }
+	constructor: function(config) {
+		this.callParent(arguments);
+		this.initConfig(config);
+
+		if(config.backButton) {
+			this.setBackButton(true);
+			this.down('titlebar').add(Ext.create('EatSense.view.BackButton'));	
+		}
+
 	}
 });

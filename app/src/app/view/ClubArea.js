@@ -11,7 +11,13 @@ Ext.define('EatSense.view.ClubArea', {
 		iconCls : 'home',
 		title: i10n.translate('clubdashboard.tab.title'),
 		iconMask: true,
-		layout: 'card',
+		layout: {
+				type: 'card',
+				animation : {
+					type : 'slide',
+					direction : 'left'
+				}
+		},
 		activeItem: 0,
 		items: [
 				{
@@ -36,7 +42,6 @@ Ext.define('EatSense.view.ClubArea', {
 							xtype: 'feedbackform'
 						}
 					]
-					
 				},
 				{
 					xtype: 'requeststab'

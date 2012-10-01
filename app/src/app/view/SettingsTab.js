@@ -25,7 +25,13 @@ Ext.define('EatSense.view.SettingsTab', {
 		// }
 		{
 			xtype: 'panel',
-			layout: 'card',
+			layout: {
+				type: 'card',
+				animation : {
+					type : 'slide',
+					direction : 'left'
+				}
+			},
 			itemId: 'settingCards',
 			activeItem: 0,
 			items:[

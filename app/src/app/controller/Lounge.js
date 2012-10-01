@@ -8,11 +8,11 @@ Ext.define('EatSense.controller.Lounge', {
 	requires: [],
 	config: {
 		refs: {
-            mainview: 'mainview',
-			loungeview: 'lounge',
-            clubArea: 'clubarea',
-            clubDashboard: 'clubarea clubdashboard',
-            dashboardHeader: 'clubarea clubdashboard #header',
+      mainview: 'mainview',
+	    loungeview: 'lounge',
+      clubArea: 'clubarea',
+      clubDashboard: 'clubarea clubdashboard',
+      dashboardHeader: 'clubarea clubdashboard #header',
 			descriptionLanel: 'clubarea clubdashboard #description',
 			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]'
 		},
@@ -44,12 +44,11 @@ Ext.define('EatSense.controller.Lounge', {
     				// 	//reset navigation view
     				// 	this.getApplication().getController('Feedback').getRequestNavview().pop();
     				// } 
-                    else if(value.tabName === 'home') {
-                         //always jump to dashboard on home tab pressed
-                         this.getClubArea().setActiveItem(0);
-                         androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
-                    }
-    				else {    				
+            else if(value.tabName === 'home') {
+                 //always jump to dashboard on home tab pressed
+                 this.getClubArea().setActiveItem(0);
+                 androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
+            }	else {    				
     					androidCtr.setAndroidBackHandler(null);
     				}
 

@@ -421,7 +421,7 @@ Ext.define('EatSense.controller.CheckIn', {
         requestCtr.refreshAccountLabel();
             //load feedback from server
         feedbackCtr.loadFeedbackTemplate();
-        androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());
+        // androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());
 	},
   /**
   * Shows an about screen.

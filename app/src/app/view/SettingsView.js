@@ -11,30 +11,19 @@ Ext.define('EatSense.view.SettingsView', {
 		items: [
 		{
 			xtype: 'panel',
-			layout: 'card',
+			layout: {
+				type: 'card',
+				animation : {
+					type : 'slide',
+					direction : 'left'
+				}
+			},
 			itemId: 'settingCards',
 			activeItem: 0,
 			items:[
 				{
-					xtype: 'panel',
-					layout: 'fit',
-					items: [
-						// {
-						// 	xtype: 'titlebar',
-						// 	title: i10n.translate('settingsButton'),
-						// 	docked: 'top',
-						// 	items: [
-						// 		{
-						// 			xtype: 'backbutton',
-						// 			itemId: 'backButton'
-						// 		}
-						// 	]
-						// },
-						{
-							xtype: 'settings',
-							backButton: true							
-						}
-					]
+					xtype: 'settings',
+					backButton: true							
 				},
 				{
 					xtype: 'emailsetting'
@@ -46,9 +35,7 @@ Ext.define('EatSense.view.SettingsView', {
 		},
 		{
 			xtype: 'toolbar',
-			docked: 'bottom',
-			items: [
-			]
+			docked: 'bottom'
 		}
 		]
 

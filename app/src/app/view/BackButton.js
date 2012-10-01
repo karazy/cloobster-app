@@ -5,7 +5,7 @@ Ext.define('EatSense.view.BackButton', {
 	extend: 'Ext.Button',
 	xtype: 'backbutton',
 	config : {
-		// itemId : 'backButton',
+		itemId : 'backButton',
 		action: 'back',
 		text : i10n.translate('back'),
 		ui : 'back',
