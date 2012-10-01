@@ -32,7 +32,7 @@ Ext.define('EatSense.view.Main', {
 		// {
 		// 	layout : 'fit',
 		// 	xtype : 'checkinwithothers'
-		// }, 
+		// },
 		{
 			xtype : 'lounge'
 		},

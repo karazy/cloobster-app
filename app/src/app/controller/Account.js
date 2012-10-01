@@ -16,8 +16,9 @@ Ext.define('EatSense.controller.Account', {
 			settingsView: 'mainview settingsview',			
 			showLoginButtonDashboard : 'dashboard button[action=login]',
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
-			settingsViewBackButton: 'mainview settingsview button[action=back]',
-			logoutButton: 'settingstab button[action=logout]',
+			settingsViewBackButton: 'mainview settingsview #backButton',
+			logoutClubButton: 'settingstab button[action=logout]',
+			logoutDashboardButton: 'settingsview button[action=logout]',
 			loginViewBackButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
@@ -34,7 +35,10 @@ Ext.define('EatSense.controller.Account', {
 			settingsViewBackButton: {
 				tap: 'settingsViewBackButtonHandler'
 			},
-			logoutButton : {
+			logoutClubButton : {
+				tap: 'confirmUserLogout'
+			},
+			logoutDashboardButton : {
 				tap: 'confirmUserLogout'
 			},
 			loginViewBackButton : {

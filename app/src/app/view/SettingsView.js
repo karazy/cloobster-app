@@ -19,18 +19,20 @@ Ext.define('EatSense.view.SettingsView', {
 					xtype: 'panel',
 					layout: 'fit',
 					items: [
+						// {
+						// 	xtype: 'titlebar',
+						// 	title: i10n.translate('settingsButton'),
+						// 	docked: 'top',
+						// 	items: [
+						// 		{
+						// 			xtype: 'backbutton',
+						// 			itemId: 'backButton'
+						// 		}
+						// 	]
+						// },
 						{
-							xtype: 'titlebar',
-							title: i10n.translate('settingsButton'),
-							docked: 'top',
-							items: [
-								{
-									xtype: 'backbutton'
-								}
-							]
-						},
-						{
-							xtype: 'settings'
+							xtype: 'settings',
+							backButton: true							
 						}
 					]
 				},

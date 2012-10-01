@@ -59,7 +59,7 @@ Ext.define('EatSense.view.MyOrders', {
 						{
 							xtype: 'label',
 							itemId: 'description',
-							html: i10n.translate('checkout.description'),
+							html: i10n.translate('myorders.description'),
 							cls: 'myorders-description',
 							hidden: true,
 							docked: 'top'

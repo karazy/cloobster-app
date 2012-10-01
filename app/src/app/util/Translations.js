@@ -5,703 +5,720 @@ Ext.define('EatSense.util.Translations',{
 		// General translations
 		"ok" : {
 			"DE" :  "OK",
-			"EN" : ""
+			"EN" :  "OK"
 		},
 		"cancel" : {
 			"DE" :  "Abbrechen",
-			"EN" : ""
+			"EN" :  "Cancel"
 		},
 		"back" : {
 			"DE" :  "Zurück",
-			"EN" : ""
+			"EN" :  "Back"
 		},
 		"change" : {
 			"DE" :  "Ändern",
-			"EN" : ""
+			"EN" :  "Change"
 		},
 		"barcode" : {
 			"DE" :  "Barcode",
-			"EN" : ""
+			"EN" :  "Bar code"
 		},
 		"close" : {
 			"DE" :  "Schliessen",
-			"EN" : ""
+			"EN" :  "Close"
 		},
 		"loadingMsg" : {
 			"DE" :  "Laden ...",
-			"EN" : ""
+			"EN" :  "Loading ..."
 		},
 		"general.processing" : {
 			"DE" :  "In Bearbeitung ...",
-			"EN" : ""
+			"EN" :  "Processing ..."
 		},
 		"general.credentials.invalid" : {
 			"DE" :  "Passwort und/oder Benutzername falsch!",
-			"EN" : ""
+			"EN" :  "Password and/or user name incorrect!"
 		},
 		"general.comingsoon" : {
 			"DE" :  "Demnächst",
-			"EN" : ""
+			"EN" :  "Coming soon"
 		},
 		"save" : {
 			"DE" :  "Speichern",
-			"EN" : ""
+			"EN" :  "Save"
 		},
 		"hint" : {
 			"DE" :  "Hinweis",
-			"EN" : ""
+			"EN" :  "Hint"
 		},
 		"success" : {
 			"DE" :  "Erfolg",
-			"EN" : ""
+			"EN" :  "Success"
 		},
 		"yes" : {
 			"DE" :  "Ja",
-			"EN" : ""
+			"EN" :  "Yes"
 		},
 		"no" : {
 			"DE" :  "Nein",
-			"EN" : ""
+			"EN" :  "No"
 		},
 		"continue" : {
 			"DE" :  "Weiter",
-			"EN" : ""
+			"EN" :  "Next"
 		},
 		"leave" : {
 			"DE" :  "Verlassen",
-			"EN" : ""
+			"EN" :  "Quit"
 		},
 		"channelTokenError" : {
 			"DE" :  "Updates im Hintergrund nicht funktionsfähig.",
-			"EN" : ""
+			"EN" :  "Updates have been successful."
 		},
 		"android.backbutton.exit" : {
 			"DE" :  "Nochmal drücken, um zu beenden.",
-			"EN" : ""
+			"EN" :  "Please confirm to close."
 		},
 		// main menu
 		"checkInButton" : {
-			"DE" :  "Check-In",
-			"EN" : ""
+			"DE" :  "Check-in",
+			"EN" :  "Check-in"
 		},
 		"currentDealsButton" : {
 			"DE" :  "Deals",
-			"EN" : ""
+			"EN" :  "Deals"
 		},
 		"newRestaurantsButton" : {
 			"DE" :  "Neue Restaurants",
-			"EN" : ""
+			"EN" :  "New Locations"
 		},
 		"settingsButton" : {
 			"DE" :  "Profil",
-			"EN" : ""
+			"EN" :  "Profile"
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "Check-In",
-			"EN" : ""
+			"DE" :  "Check-in",
+			"EN" :  "Check-in"
 		},
 		"dashboardLabel1" : {
-			"DE" :  "<h2>Service At Its Peak</h2><p>With cloobster you have your concierge<br/>at hand."+
-			" Just check-in and enjoy our service.</p>",
-			"EN" : ""
+			"DE" :  "<h2>Service At Its Peak</h2><p>cloobster, your personal concierge.<br/>"+
+			"Check in and enjoy our service.</p>",
+			"EN" : "<h2>Service At Its Peak</h2><p>cloobster, your personal concierge.<br/>"+
+			"Check in and enjoy our service.</p>",
 		},
 		"dashboardLabel2" : {
 			"DE" :  "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
-			"EN" : ""
+			"EN" :  "1. Check in<br/>2. Order<br/>3. Enjoy"
+		},
+		"dashboard.button.settings" : {
+			"DE" : "Profil",
+			"EN" : "Profile"
 		},
 		// Checkin
 		"checkInTitle" : {
-			"DE" :  "Check-In",
-			"EN" : ""
+			"DE" :  "Check-in",
+			"EN" :  "Check-in"
 		},
 		"barcodePromptTitle" : {
-			"DE" :  "Barcode Abfrage",
-			"EN" : ""
+			"DE" :  "Barcode-Abfrage",
+			"EN" :  "Read bar code"
 		},
 		"barcodePromptText" : {
-			"DE" :  "Bitte Tischcode eingeben.",
-			"EN" : ""
+			"DE" :  "Bitte Barcode eingeben.",
+			"EN" :  "Please enter bar code."
 		},
 		"checkInStep1Label1" : {
 			"DE" :  "Bitte einen Spitznamen wählen.",
-			"EN" : ""
+			"EN" :  "Please choose an alias."
 		},
 		"refreshNicknameBt" : {
 			"DE" :  "Neu",
-			"EN" : ""
+			"EN" :  "New"
 		},
 		"checkInStep1Button" : {
 			"DE" :  "Los geht's!",
-			"EN" : ""
+			"EN" :  "Continue!"
 		},
 		"nicknameToggleHint" : {
 			"DE" :  "Nein/Ja",
-			"EN" : ""
+			"EN" :  "No/Yes"
 		},
 		"checkInStep2Label1" : {
 			"DE" :  "Andere haben hier bereits eingecheckt.",
-			"EN" : ""
+			"EN" :  "Someone else has checked in at this location."
 		},
 		"checkInStep2Label2" : {
 			"DE" :  "Mit einer anderen Person einchecken?",
-			"EN" : ""
+			"EN" :  "Share check-in location with someone else?"
 		},
 		"checkInStep2OnMyOwnButton" : {
 			"DE" :  "Ich bin alleine hier.",
-			"EN" : ""
+			"EN" :  "I am on my own."
 		},
 		"checkInErrorBarcode" : {
 			"DE" :  "Der Barcode ist nicht valide oder inaktiv!",
-			"EN" : ""
+			"EN" :  "Bar code is not valid or inactive."
 		},
 		"checkInErrorNickname" : {
 			"DE" :  "Der Spitzname muss zwischen {0} und {1} Zeichen lang sein.",
-			"EN" : ""
+			"EN" :  "Alias must be between {0} and {1} characters."
 		},
 		"checkInErrorNicknameExists" : {
-			"DE" :  "Der Spitzname wird an diesem Tisch bereits benutzt.",
-			"EN" : ""
+			"DE" :  "Der Spitzname wird an diesem Ort bereits benutzt.",
+			"EN" :  "Alias already in use at this location."
 		},
 		"saveNicknameToggle" : {
 			"DE" :  "Spitzname speichern?",
-			"EN" : ""
+			"EN" :  "Save alias?"
 		},
 		"checkInCanceled" : {
 			"DE" :  "Sitzung wurde durch Servicepersonal beendet.",
-			"EN" : ""
+			"EN" :  "Session has been closed."
 		},
 		"nickname" : {
 			"DE" :  "Spitzname",
-			"EN" : ""
+			"EN" :  "Alias"
 		},
 		"restoreStateLoading" : {
-			"DE" :  "Aktiver CheckIn wird geladen ...",
-			"EN" : ""
+			"DE" :  "Aktiver Check-in wird geladen ...",
+			"EN" :  "Check-in in progress ..."
 		},
 		"restoreStateFailed" : {
-			"DE" :  "CheckIn nicht mehr gültig.<br/>Bitte neu einchecken.",
-			"EN" : ""
+			"DE" :  "Check-in nicht mehr gültig.<br/>Bitte neu einchecken.",
+			"EN" :  "Check-in invalid.<br/>Please try again."
 		},
 		// Menu
 		"menuTab" : {
 			"DE" :  "Angebot",
-			"EN" : "Offers"
+			"EN" :  "Offer"
 		},
 		"menuTitle" : {
 			"DE" :  "Unser Angebot",
-			"EN" : ""
+			"EN" :  "Our offer"
 		},
 		"choicesPanelTitle" : {
 			"DE" :  "Bitte wählen Sie",
-			"EN" : ""
+			"EN" :  "Please choose"
 		},
 		"putIntoCartButton" : {
 			"DE" :  "Auf den Bestellzettel",
-			"EN" : ""
+			"EN" :  "Add to cart"
 		},
 		"choiceValErrMandatory" : {
 			"DE" :  "Bitte eine Auswahl treffen für {0}.",
-			"EN" : ""
+			"EN" :  "Please make a choice for {0}."
 		},
 		"choiceValErrMin" : {
-			"DE" :  "Bitte min. {0} Optionen in {1} auswählen.",
-			"EN" : ""
+			"DE" :  "Bitte min. {0} Option(en) in {1} auswählen.",
+			"EN" :  "Please select at least {0} option(s) in {1}."
 		},
 		"choiceValErrMax" : {
 			"DE" :  "Bitte max. {0} Optionen in {1} auswählen.",
-			"EN" : ""
+			"EN" :  "Please do not exceed {0} option(s) in {1}."
 		},
 		"menu.product.detail.loading" : {
 			"DE" :  "Lade Produktdaten...",
-			"EN" : ""
+			"EN" :  "Loading products"
 		},
 		//Order
 		"orderInvalid" : {
 			"DE" :  "Bitte Auswahl überprüfen.",
-			"EN" : ""
+			"EN" :  "Please confirm your choice."
 		},
 		"orderPlaced" : {
 			"DE" :  "Bestellung im Warenkorb.",
-			"EN" : ""
+			"EN" :  "Add to cart."
 		},
 		"cartEmpty" : {
 			"DE" :  "Noch keine Bestellung getätigt.",
-			"EN" : ""
+			"EN" :  "No existing order."
 		},
 		"productPutIntoCardMsg" : {
 			"DE" :  "{0} auf Bestellzettel geparkt.",
-			"EN" : ""
+			"EN" :  "{0} added to cart."
 		},
 		"orderRemoved" : {
 			"DE" :  "Bestellung entfernt.",
-			"EN" : ""
+			"EN" :  "Order deleted."
 		},
 		"orderComment" : {
 			"DE" :  "Besondere Wünsche?",
-			"EN" : ""
+			"EN" :  "Need to tell us anything else?"
 		},
 		"amount" : {
 			"DE" :  "Menge",
-			"EN" : ""
+			"EN" :  "Amount"
 		},
 		"amountspinnerLabel" : {
 			"DE" :  "Ich will ...",
-			"EN" : ""
+			"EN" :  "I like ..."
 		},
 		"orderSubmit" : {
 			"DE" :  "Bestellung abgeschickt ...<br/>Guten Appetit!",
-			"EN" : ""
+			"EN" :  "Order sent ...<br/>Enjoy your meal!"
 		},
 		"productCartBt" : {
 			"DE" :  "Auf den Bestellzettel",
-			"EN" : ""
+			"EN" :  "Add to cart"
 		},
 		"orderCanceled" : {
 			"DE" :  "{0} wurde storniert.",
-			"EN" : ""
+			"EN" :  "{0} has been canceled."
 		},
 		//Cart
 		"cartviewTitle" : {
 			"DE" :  "Bestellung",
-			"EN" : ""
+			"EN" :  "Order"
 		},
 		"cartTabBt" : {
 			"DE" :  "Bestellzettel",
-			"EN" : ""
+			"EN" :  "Cart"
 		},
 		"dumpCart" : {
 			"DE" :  "Bestellzettel leeren?",
-			"EN" : ""
+			"EN" :  "Empty cart?"
 		},
 		"dumpItem" : {
 			"DE" :  "{0} entfernen?",
-			"EN" : ""
+			"EN" :  "Cancel {0}?"
 		},
 		"submitButton" : {
 			"DE" :  "Abschicken",
-			"EN" : ""
+			"EN" :  "Send"
 		},
 		"submitOrderProcess" : {
 			"DE" :  "Schicke Bestellung ...",
-			"EN" : ""
+			"EN" :  "Sending order ..."
 		},
 		"submitOrdersQuestion" : {
 			"DE" :  "Bestellung abschicken?",
-			"EN" : ""
+			"EN" :  "Send order?"
 		},
 		"cart.button.deleteall" : {
 			"DE" :  "Löschen",
-			"EN" : ""
+			"EN" :  "Delete"
 		},
 		//Lounge Dashboard
 		"clubdashboard.tab.title" : {
 			"DE" :  "Home",
-			"EN" : ""
+			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>Willkommen {0}<h2><p>Du hast in {1} eingecheckt. Bitte wähle was du tun möchtest.</p>",
-			"EN" : ""
+			"DE" :  "<h2>Willkommen, {0}!<h2><p>Du hast in {1} eingecheckt. Bitte wähle, was Du tun möchtest.</p>",
+			"EN" :  "<h2>Welcome, {0}!<h2><p>You have checked into {1}. Please proceed.</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",
-			"EN" : ""
+			"EN" :  "VIP Call"
 		},
 		"clubdashboard.button.feedback" : {
 			"DE" :  "Feedback",
-			"EN" : ""
+			"EN" :  "Feedback"
 		},
 		"clubdashboard.button.info" : {
 			"DE" :  "Info",
-			"EN" : ""
+			"EN" :  "Info"
 		},
 		"clubdashboard.button.events" : {
 			"DE" :  "Events",
-			"EN" : ""
+			"EN" :  "Events"
 		},
 		"clubdashboard.button.aroundme" : {
 			"DE" :  "Around me",
 			"EN" : ""
 		},
 		"clubdashboard.button.exit" : {
-			"DE" :  "Exit",
-			"EN" : ""
+			"DE" :  "Check-out",
+			"EN" :  "Check-out"
+		},
+		"clubdashboard.leave.message" : {
+			"DE" :  "Wirklich verlassen?",
+			"EN" :  "Really leave?"
 		},
 		//MyOrders
 		"myOrdersTitle" : {
 			"DE" :  "Bestellung",
-			"EN" : ""
+			"EN" :  "Order"
 		},
 		"myOrdersTabBt" : {
 			"DE" :  "Check-out",
-			"EN" : ""
+			"EN" :  "Check-out"
 		},
 		"myOrdersTabLeaveBt" : {
 			"DE" :  "Check-out",
-			"EN" : ""
+			"EN" :  "Check-out"
 		},
 		"payRequestButton" : {
 			"DE" :  "Bezahlen",
-			"EN" : ""
+			"EN" :  "Bill"
 		},
 		"leaveButton" : {
 			"DE" :  "Verlassen",
-			"EN" : ""
+			"EN" :  "Leave"
 		},
 		"orderTime" : {
 			"DE" :  "Bestellzeit",
-			"EN" : ""
+			"EN" :  "Order lead-time"
 		},
 		"myorderComment" : {
 			"DE" :  "Meine Wünsche",
-			"EN" : ""
+			"EN" :  "My order"
+		},
+		"myorders.description" : {
+			"DE" :  "Hier werden Ihre abgeschickten Bestellungen angezeigt. Zur Zeit haben Sie nichts bestellt.",
+			"EN" :  "Your issued orders will be listed here. Currently you have no orders."
 		},
 		//Payment Request
 		"paymentPickerTitle" : {
 			"DE" :  "Bezahlmethode",
-			"EN" : ""
+			"EN" :  "Payment method"
 		},
 		"paymentRequestSend" : {
 			"DE" :  "Bitte einen Moment warten,</br>die Rechnung wird vorbereitet ...",
-			"EN" : ""
+			"EN" :  "One moment please,</br>bill is on the way ..."
 		},
 		//Settings
 		"settingsTitle" : {
 			"DE" :  "Profil",
-			"EN" : ""
+			"EN" :  "Profile"
 		},
 		"nicknameDesc" : {
 			"DE" :  "Der Spitzname ist der Anzeigename für das Servicepersonal.</br>Änderungen wirken sich erst beim nächsten Check-In aus.",
-			"EN" : ""
+			"EN" :  "Alias is used to identify your order.</br>Change will take effect after you have checked in again."
 		},
 		"newsletterRegisterBt" : {
 			"DE" :  "Registrieren",
-			"EN" : ""
+			"EN" :  "Register"
 		},
 		"newsletterEmail" : {
 			"DE" :  "E-Mail",
-			"EN" : ""
+			"EN" :  "Email"
 		},
 		"newsletterRegisterSuccess" : {
 			"DE" :  "Danke! Eine Bestätigungsmail wird an {0} geschickt.",
-			"EN" : ""
+			"EN" :  "Thank you! Confirmation email will be sent to {0} shortly."
 		},
 		"newsletterInvalidEmail" : {
 			"DE" :  "Bitte eine gültige E-Mail Adresse eingeben.",
-			"EN" : ""
+			"EN" :  "Please enter a valid email address."
 		},
 		"newsletterDuplicateEmail" : {
 			"DE" :  "Diese E-Mail Adresse ist bereits registriert.",
-			"EN" : ""
+			"EN" :  "This email already exists."
 		},
 		"newsletterPopupTitle" : {
 			"DE" :  "Newsletter abonnieren?",
-			"EN" : ""
+			"EN" :  "Subscribe to newsletter?"
 		}, 
 		"newsletterDontAskButton" : {
 			"DE" :  "Nicht mehr nachfragen!",
-			"EN" : ""
+			"EN" :  "Please don't ask again!"
 		},
 		"newsletterLabel" : {
 			"DE" :  "Nicht den Cloobster Big-Bang verpassen und für den Newsletter anmelden!",
-			"EN" : ""
+			"EN" :  "Subscribe to newsletter!"
+		},
+		"settings.button.logout" : {
+			"DE" : "Logout",
+			"EN" : "Logout"
 		},
 		"settings.account.label.email" : {
 			"DE" :  "Account E-Mail",
-			"EN" : ""
+			"EN" :  "Account email address"
 		},
 		"settings.account.field.email" : {
 			"DE" :  "E-Mail",
-			"EN" : ""
+			"EN" :  "Email address"
 		},
 		"settings.account.button.email" : {
 			"DE" :  "E-Mail ändern",
-			"EN" : ""
+			"EN" :  "Change email address"
 		},
 		"settings.account.label.password" : {
 			"DE" :  "Account Passwort",
-			"EN" : ""
+			"EN" :  "Account password"
 		},
 		"settings.account.field.password" : {
 			"DE" :  "Passwort",
-			"EN" : ""
+			"EN" :  "Password"
 		},
 		"settings.account.button.password" : {
 			"DE" :  "Passwort ändern",
-			"EN" : ""
+			"EN" :  "Change password"
 		},
 		"settings.section.account" : {
 			"DE" :  "Account-Daten",
-			"EN" : ""
+			"EN" :  "Account data"
 		},
 		"settings.account.email" : {
 			"DE" :  "E-Mail: {email}",
-			"EN" : ""
+			"EN" :  "Email: {email}"
 		},
 		"settings.section.infos" : {
 			"DE" :  "Weitere Infos",
-			"EN" : ""
+			"EN" :  "Other data"
 		},
 		"emailsetting.title" : {
 			"DE" :  "E-Mail ändern",
-			"EN" : ""
+			"EN" :  "Change email address"
 		},
 		"emailsetting.password.field" : {
 			"DE" :  "Passwort",
-			"EN" : ""
+			"EN" :  "Password"
 		},
 		"emailsetting.email.field" : {
 			"DE" :  "Neue E-Mail",
-			"EN" : ""
+			"EN" :  "New email address"
 		},
 		"emailsetting.repeat.field" : {
 			"DE" :  "E-Mail wiederholen",
-			"EN" : ""
+			"EN" :  "Repeast email address"
 		},
 		"emailsetting.error.noemail" : {
 			"DE" :  "Neue E-Mail darf nicht leer sein.",
-			"EN" : ""
+			"EN" :  "New email address cannot be empty."
 		},
 		"emailsetting.error.invalidmail" : {
 			"DE" :  "Ungültige E-Mail.",
-			"EN" : ""
+			"EN" :  "Invalid email address."
 		},
 		"emailsetting.error.nopassword" : {
 			"DE" :  "Passwort darf nicht leer sein.",
-			"EN" : ""
+			"EN" :  "Password cannot be empty."
 		},
 		"emailsetting.error.emailmatch" : {
 			"DE" :  "E-Mails stimmen nicht überein",
-			"EN" : ""
+			"EN" :  "Email address does not match."
 		},
 		"emailsetting.success" : {
 			"DE" :  "E-Mail erfolgreich geändert. Eine Bestätigung wurde an neue Adresse geschickt.",
-			"EN" : ""
+			"EN" :  "Email address has been changed. A confirmation email has been sent to new address."
 		},
 		"passwordsetting.title" : {
 			"DE" :  "Passwort ändern",
-			"EN" : ""
+			"EN" :  "Change Pasword"
 		},
 		"passwordsetting.oldpassword.field" : {
 			"DE" :  "Altes Passwort",
-			"EN" : ""
+			"EN" :  "Old Password"
 		},
 		"passwordsetting.newpassword.field" : {
 			"DE" :  "Neues Passwort",
-			"EN" : ""
+			"EN" :  "New Password"
 		},
 		"passwordsetting.repeatpassword.field" : {
 			"DE" :  "Passwort wiederholen",
-			"EN" : ""
+			"EN" :  "Repeast password"
 		},
 		"passwordsetting.error.newpassword" : {
 			"DE" :  "Neues Passwort darf nicht leer sein.",
-			"EN" : ""
+			"EN" :  "New password cannot be empty."
 		},
 		"passwordsetting.error.passwordmatch" : {
 			"DE" :  "Passwörter stimmen nicht überein",
-			"EN" : ""
+			"EN" :  "Password does not match."
 		},
 		"passwordsetting.error.nopassword" : {
 			"DE" :  "Altes Passwort darf nicht leer sein.",
-			"EN" : ""
+			"EN" :  "Old password cannot be empty."
 		},
 		"passwordsetting.success" : {
 			"DE" :  "Passwort erfolgreich geändert.",
-			"EN" : ""
+			"EN" :  "Password has been changed."
 		},
 		//Request
 		"errorRequest" : {
 			"DE" :  "Anfrage konnte leider nicht bearbeitet werden.",
-			"EN" : ""
+			"EN" :  "Request could not processed."
 		},
 		"requestsButton" : {
 			"DE" :  "VIP",
-			"EN" : ""
+			"EN" :  "VIP"
 		},
 		"requestsTitle" : {
 			"DE" :  "VIP",
-			"EN" : ""
+			"EN" :  "VIP"
 		},
 		"requestCallWaiterSendMsd" : {
 			"DE" :  "Bitte einen Moment Geduld!<br>Es wird gleich jemand kommen.",
-			"EN" : ""
+			"EN" :  "One moment please!<br>We'll be serving you any minute."
 		},
 		"callWaiterButton" : {
 			"DE" :  "VIP Call",
-			"EN" : ""
+			"EN" :  "VIP Call"
 		},
 		"callWaiterRequestBadge" : {
 			"DE" :  "Sie haben uns gerufen.",
-			"EN" : ""
+			"EN" :  "We'll be service you any minute."
 		},
 		"cancelCallWaiterRequest" : {
 			"DE" :  "Danke, hat sich erledigt",
-			"EN" : ""
+			"EN" :  "Cancel request."
 		},
 		"callWaiterCallHint" : {
 			"DE" :  "Können wir für Sie da sein?",
-			"EN" : ""
+			"EN" :  "What can we for you?"
 		},
 		"callWaiterCancelHint" : {
 			"DE" :  "Wir wurden gerufen und <br/>kommen so schnell wie möglich!",
-			"EN" : ""
+			"EN" :  "We have been notified!<br>We'll be serving you any minute."
 		},
 		"vipGreetingMessage" : {
 			"DE" :  "Willkommen <span style='font-weight:bold;'>{0}</span> in Ihrem persönlichen VIP-Bereich!",
-			"EN" : ""
+			"EN" :  "Welcome <span style='font-weight:bold;'>{0}</span> to your personal VIP area!"
 		},
 		//Feedback
 		"feedback" : {
 			"DE" :  "Feedback",
-			"EN" : ""
+			"EN" :  "Feedback"
 		},
 		"feedbackLabel" : {
 			"DE" :  "Sagen Sie uns Ihre Meinung.",
-			"EN" : ""
+			"EN" :  "We value your feedback."
 		},
 		"feedbackQuestion" : {
 			"DE" :  "Wie hat es Ihnen gefallen?",
-			"EN" : ""
+			"EN" :  "Did you enjoy your stay?"
 		},
 		"feedbackComment" : {
 			"DE" :  "Kommentar (optional)",
-			"EN" : ""
+			"EN" :  "Comment (optional)"
 		},
 		"feedbackEmail" : {
 			"DE" :  "E-Mail (optional)",
-			"EN" : ""
+			"EN" :  "Email (optional)"
 		},
 		"feedbackCompleteTitle" : {
 			"DE" :  "Feedback abgeschickt",
-			"EN" : ""
+			"EN" :  "Feedback has been sent"
 		},
 		"feedbackCompleteMessage" : {
 			"DE" :  "Vielen Dank für Ihre Meinung!",
-			"EN" : ""
+			"EN" :  "Thank you for your feedback!"
 		},
 		//Login
 		"login.title" : {
 			"DE" :  "User Login",
-			"EN" : ""
+			"EN" :  "User login"
 		},
 		"login.field.email.placeholder" : {
 			"DE" :  "E-Mail",
-			"EN" : ""
+			"EN" :  "Email"
 		},
 		"login.field.password.placeholder" : {
 			"DE" :  "Passwort",
-			"EN" : ""
+			"EN" :  "Password"
 		},
 		"login.button.login" : {
 			"DE" :  "Login",
-			"EN" : ""
+			"EN" :  "Login"
 		},
 		"login.button.signup" : {
 			"DE" :  "Signup",
-			"EN" : ""
+			"EN" :  "Sign-up"
 		},
 		"login.label.notamember" : {
 			"DE" :  "Kein Mitglied?",
-			"EN" : ""
+			"EN" :  "Not a member?"
 		},
 		"account.signup.confirm.title" : {
 			"DE" :  "Werde Mitglied ...",
-			"EN" : ""
+			"EN" :  "Register ..."
 		},
 		"account.signup.confirm.message" : {
 			"DE" :  "Bei Cloobster registrieren?",
-			"EN" : ""
+			"EN" :  "Register?"
 		},
 		"account.signup.success.title" : {
 			"DE" :  "Willkommen bei Cloobster",
-			"EN" : ""
+			"EN" :  "Welcome to cloobster"
 		},
 		"account.signup.success.message" : {
 			"DE" :  "Danke, dass Sie sich registriert haben!<br/>",
-			"EN" : ""
+			"EN" :  "Thank you for your registration!<br/>"
 		},
 		"account.logout.confirm.title" : {
-			"DE" :  "User Logout",
-			"EN" : ""
+			"DE" :  "Abmelden",
+			"EN" :  "Log-out"
 		},
 		"account.logout.confirm.message" : {
-			"DE" :  "Möchten Sie sich ausloggen?",
-			"EN" : ""
+			"DE" :  "Möchten Sie sich abmelden?",
+			"EN" :  "Do you want to log out?"
 		},
 		//history
 		"history.title" : {
 			"DE" :  "My Places",
-			"EN" : ""
+			"EN" :  "My places"
 		},
 		"dashboard.button.history" : {
 			"DE" :  "My Places",
-			"EN" : ""
+			"EN" :  "My places"
 		},
 		"history.detail.title" : {
 			"DE" :  "Rechnung",
-			"EN" : ""
+			"EN" :  "Bill"
 		},
 		"history.detail.list.paging" : {
 			"DE" :  "Mehr laden ...",
-			"EN" : ""
+			"EN" :  "Show more ..."
 		},
 		"history.noaccount" : {
 			"DE" :  "Bitte loggen Sie sich ein oder registrieren Sie sich, um diese Funktion zu nutzen.",
-			"EN" : ""
+			"EN" :  "You need to register to use this function."
 		},
 		"history.list.description" : {
 			"DE" :  "Hier werden Ihre besuchten Orte aufgelistet. Sie haben noch keine Orte besucht.",
-			"EN" : ""
+			"EN" :  "Places you have visited. No hits."
 		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
-			"EN" : ""
+			"EN" :  "Error"
 		},
 		"errorTitle" : {
 			"DE" :  "Fehler",
-			"EN" : ""
+			"EN" :  "Error"
 		},		
 		"errorMsg" : {
 			"DE" :  "Entschuldigung! Ein Fehler ist aufgetreten.<br/>Wir kümmern uns darum!",
-			"EN" : ""
+			"EN" :  "We apologies! An error has occurred.<br/>We'll fix it as soon as possible."
 		},
 		"errorResource" : {
 			"DE" :  "Daten konnten nicht vom Server geladen werden.",
-			"EN" : ""
+			"EN" :  "Data error... Connection to server has failed."
 		},
 		"errorPermission" : {
 			"DE" :  "Sitzung ist ungültig.",
-			"EN" : ""
+			"EN" :  "Session is invalid."
 		},
 		"errorCommunication" : {
 			"DE" :  "Es kann keine Verbindung zum Server hergestellt werden.<br/>Bitte probiere es noch einmal.",
-			"EN" : ""
+			"EN" :  "Connection to server failed.<br/ Please try again."
 		},
 		"error.menu.needsrefresh" : {
 			"DE" :  "Auswahl nicht mehr aktuell. Bitte führen Sie die Bestellung nochmals durch.",
-			"EN" : ""
+			"EN" :  "Your order has been changed. Please order again."
 		},
 		"error.account.email.exists" : {
 			"DE" :  "Diese E-Mail wird bereits verwendet.",
-			"EN" : ""
+			"EN" :  "Email address exists."
 		},
 		"error.account.email" : {
 			"DE" :  "Bitte geben Sie eine gültige E-Mail ein.",
-			"EN" : ""
+			"EN" :  "Please enter a valid email address."
 		},
 		"error.account.password" : {
-			"DE" :  "Passwort muss min. 6 Zeichen besitzen. Darunter eine Zahl oder ein Sonderzeichen.",
-			"EN" : ""
+			"DE" :  "Passwort muss min. 6 Zeichen besitzen. Darunter 1 Zahl oder 1 Sonderzeichen.",
+			"EN" :  "Password must have 6 characters including 1 number or special character."
 		},
 		"error.account.nocredentials" : {
 			"DE" :  "Bitte geben Sie Ihre Zugangsdaten ein, um sich einzuloggen.",
-			"EN" : ""
+			"EN" :  "Please enter user name and password to proceed."
 		},
 		"error.account.credentials.invalid" : {
 			"DE" :  "Gespeicherte Zugangsdaten ungültig. Bitte neu einloggen.",
-			"EN" : ""
+			"EN" :  "Login data invalid. Please log in again."
 		},
 		
 	}

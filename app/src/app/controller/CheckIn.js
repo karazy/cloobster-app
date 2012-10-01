@@ -630,19 +630,10 @@ Ext.define('EatSense.controller.CheckIn', {
 
       requestCtr.resetAllRequests();
       androidCtr.resetBackHandler();
+      
+      accountCtr.getAccount().set('checkInId', null);
 		}
-    
-    //TODO remove?
-    // if(status == appConstants.USER_LOGGED_IN) {
-    //     accountCtr.hideDashboardLoginButton();
-    //     if(!appState.get('status')) {
-    //         //User is currently not in a checkIn and 
-    //         accountCtr.showDashboard();
-    //     }
 
-    // } else if (status == appConstants.USER_LOGGED_IN) {
-    //     accountCtr.showDashboardLoginButton();
-    // }
 
     if(status == appConstants.CANCEL_ALL) {
         Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkInCanceled'), Ext.emptyFn);

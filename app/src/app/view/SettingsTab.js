@@ -13,14 +13,31 @@ Ext.define('EatSense.view.SettingsTab', {
 		title: i10n.translate('settingsButton'),
 		iconMask : true,
 		items : [
+		// {
+		// 	xtype: 'navigationview',
+		// 	defaultBackButtonText: i10n.translate('back'),
+		// 	items: [
+		// 	{
+		// 		title : i10n.translate('settingsTitle'),
+		// 		xtype: 'settings'
+		// 	}
+		// 	]
+		// }
 		{
-			xtype: 'navigationview',
-			defaultBackButtonText: i10n.translate('back'),
-			items: [
-			{
-				title : i10n.translate('settingsTitle'),
-				xtype: 'settings'
-			}
+			xtype: 'panel',
+			layout: 'card',
+			itemId: 'settingCards',
+			activeItem: 0,
+			items:[
+				{
+					xtype: 'settings'
+				},
+				{
+					xtype: 'emailsetting'
+				},
+				{
+					xtype: 'passwordsetting'
+				}
 			]
 		}
 

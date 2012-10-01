@@ -18,8 +18,17 @@ Ext.define('EatSense.controller.Settings', {
             aboutBt: 'settings button[action=about]',
             //account related stuff
             accountPanel: 'settings #accountPanel',
-            emailChangeBt: 'settings button[action=email-change]',
-            passwordChangeBt: 'settings button[action=password-change]',
+            //event handler for settings called from dashboard settingsview
+            emailChangeDashboardBt: 'mainview settings button[action=email-change]',
+            emailBackDashboardBt: 'mainview emailsetting button[action=back]',
+            passwordChangeDashboardBt: 'mainview settings button[action=password-change]',
+            passwordBackDashboardBt: 'mainview passwordsetting button[action=back]',
+            //event handler for settings called from lounge tabbar
+            emailChangeClubBt: 'lounge settings button[action=email-change]',
+            emailBackClubBt: 'lounge emailsetting button[action=back]',
+            passwordChangeClubBt: 'lounge settings button[action=password-change]',
+            passwordBackClubBt: 'lounge passwordsetting button[action=back]',
+
             emailLabel: 'settings #accountEmail',
             emailChangeView: {
                 xtype: 'emailsetting',
@@ -48,11 +57,29 @@ Ext.define('EatSense.controller.Settings', {
             aboutBt: {
                 tap: 'showAbout'
             },
-            emailChangeBt: {
+            emailChangeDashboardBt: {
                 tap: 'showEmailChangeView'
             },
-            passwordChangeBt: {
+            emailBackDashboardBt: {
+                tap: 'backToSettings'
+            },
+            passwordChangeDashboardBt: {
                 tap: 'showPasswordChangeView'
+            },
+            passwordBackDashboardBt: {
+                tap: 'backToSettings'
+            },
+            emailChangeClubBt: {
+                tap: 'showEmailChangeView'
+            },
+            emailBackClubBt: {
+                tap: 'backToSettings'
+            },
+            passwordChangeClubBt: {
+                tap: 'showPasswordChangeView'
+            },
+            passwordBackClubBt: {
+                tap: 'backToSettings'
             },
             saveEmailBt: {
                 tap: 'saveEmail'
@@ -73,12 +100,12 @@ Ext.define('EatSense.controller.Settings', {
     * Activate event handler for settingstab.
     */
     settingsTabActivated: function(tab, options) {        
-        this.loadSettings('settingstab');
+        this.loadSettings(tab.down('#settingCards'));
     },
     /**
     *	Loads the settings and sets the corresponding fields.
     * @param view
-    *       can either be settingstab or settingsview
+    *       a card panel with the settings, emailsetting and passwordsetting xtypes
     */
     loadSettings: function(view) {
     	var checkInCtr = this.getApplication().getController('CheckIn'),
@@ -96,21 +123,9 @@ Ext.define('EatSense.controller.Settings', {
         this.setCallingView(view);
         callingView = this.getCallingView();
 
-        // if(view == 'settingstab') {
-        //     callingView = this.getSettingsTab();
-        // } else if(view == 'settingsview') {
-        //     callingView = this.getSettingsView();
-        // } else {
-        //     //error handling
-        //     return;
-        // };
-
         emailLabel = callingView.down('settings #accountEmail');
         accountPanel = callingView.down('settings #accountPanel');
-    	
-        emailChangeBt = callingView.down('settings button[action=email-change]');
 
-        emailChangeBt.on('tab', function(button) {this.showEmailChangeView(button);}, this);
 
         if(accountCtr.isLoggedIn()) {
             accountPanel.setHidden(false);
@@ -244,19 +259,14 @@ Ext.define('EatSense.controller.Settings', {
     * 
     */
     showEmailChangeView: function() {
-        // var me = this,
-        //     emailChangeView = this.getEmailChangeView(),
-        //     navView = this.getSettingsNavView();
-
-        
-        // navView.push(emailChangeView);
-
-        var emailView = this.getCallingView().down('emailsetting');
+        var me = this,
+            emailView = this.getCallingView().down('emailsetting');
 
         this.getCallingView().setActiveItem(emailView);
 
         this.getApplication().getController('Android').addBackHandler(function() {
-            navView.pop();
+            // navView.pop();
+            me.getCallingView().setActiveItem(0);
         });
     },
     /**
@@ -266,6 +276,7 @@ Ext.define('EatSense.controller.Settings', {
     saveEmail: function() {
         var me = this,
             emailChangeView = this.getEmailChangeView(),
+            form = emailChangeView.down('formpanel'),
             navView = this.getSettingsNavView(),
             newMail = emailChangeView.down('#newMail'),
             repeatMail = emailChangeView.down('#repeatMail'),
@@ -329,7 +340,10 @@ Ext.define('EatSense.controller.Settings', {
                 me.loadSettings();
 
                 //switch back to settings
-                navView.pop();
+                me.getCallingView().setActiveItem(0);
+                //clear form values
+                form.reset();
+
                 //show success message
                 Ext.Msg.show({
                     title : i10n.translate('success'),
@@ -366,20 +380,19 @@ Ext.define('EatSense.controller.Settings', {
     */
     showPasswordChangeView: function() {
         var me = this,
-            passwordChangeView = this.getPasswordChangeView(),
-            navView = this.getSettingsNavView();
+            passwordView = this.getCallingView().down('passwordsetting');
 
-        
-        navView.push(passwordChangeView);
+        this.getCallingView().setActiveItem(passwordView);
 
         this.getApplication().getController('Android').addBackHandler(function() {
-            navView.pop();
+            me.getCallingView().setActiveItem(0);
         });
     },
 
     savePassword: function() {
         var me = this,
             passwordChangeView = this.getPasswordChangeView(),
+            form = passwordChangeView.down('formpanel'),
             navView = this.getSettingsNavView(),
             newPassword = passwordChangeView.down('#newPassword'),
             repeatPassword = passwordChangeView.down('#repeatPassword'),
@@ -440,8 +453,10 @@ Ext.define('EatSense.controller.Settings', {
 
                 headerUtil.resetHeaders(['login', 'password']);
                 Ext.Viewport.setMasked(false);
+                //clear form
+                form.reset();
                 //switch back to settings
-                navView.pop();
+                me.getCallingView().setActiveItem(0);
                 //show success message
                 Ext.Msg.show({
                     title : i10n.translate('success'),
@@ -474,6 +489,13 @@ Ext.define('EatSense.controller.Settings', {
 
     navBackButtonTap: function(button) {
         console.log('SettingsController.navBackButtonTap');
+        
+    },
+    /**
+    * Tap event handler called from back buttons in emailsetting or passwordsetting views.
+    */
+    backToSettings: function(button) {
         this.getApplication().getController('Android').removeLastBackHandler();
+        this.getCallingView().setActiveItem(0);
     }
 });
