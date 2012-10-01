@@ -67,13 +67,13 @@
             	 tap: 'leave'
              }, 
              closeOrderDetailBt: {
-             	tap: 'closeOrderDetail'
+             	tap: 'closeOrderDetailButtonHandler'
              },
              confirmEditButton: {
              	tap: 'editOrder'
              },
              undoEditButton: {
-             	tap: 'closeOrderDetail'
+             	tap: 'closeOrderDetailButtonHandler'
              }, 
              myorderlist: {
              	itemtap: 'toggleOrderDetail'
@@ -436,7 +436,17 @@
 				}
 			}), appConfig.msgboxHideTimeout, this);
 	},
-
+	/**
+	* Tap event handler for close button in order detail.
+	*
+	*/
+	closeOrderDetailButtonHandler: function(button) {
+		this.getApplication().getController('Android').removeLastBackHandler();
+		this.closeOrderDetail();
+	},
+	/**
+	* Close order detail and restore state of order.
+	*/
 	closeOrderDetail: function() {
 		var detail = this.getProductdetail();
 		
@@ -445,8 +455,6 @@
 		this.recalculate(this.getActiveOrder());
 		this.refreshCart();
 		detail.hide();
-
-		this.getApplication().getController('Android').removeLastBackHandler();		
 	},
 	/**
 	 * Called when the product spinner value changes. 

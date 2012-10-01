@@ -7,15 +7,35 @@ Ext.define('EatSense.controller.Android', {
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
 		//when true, will exit application on next backbutton event
-		exitOnBack: false
+		exitOnBack: false,
+		//if true won't remove a backhandler. Only used for message boxes. Setting this somewhere else won't have any effect.
+		keepHandler: false
 	},
 	launch: function() {
+		// var keepHandler = false;
+
 		Ext.Viewport.element.on('tap', function() {
 			this.setExitOnBack(false);
 		},
 		this, {
 			delay: 50
 		});
+
+		//let the button also work on message boxes
+		Ext.Msg.on('show', function() {
+			var me = this;
+			this.addBackHandler(function() {
+				me.setKeepHandler(true);
+				Ext.Msg.hide();
+			});
+		}, this);
+
+		Ext.Msg.on('hide', function() {
+			if(!this.getKeepHandler()) {
+				this.removeLastBackHandler();
+			};
+			this.setKeepHandler(false);
+		}, this);
 	},
 
 	addBackHandler: function(handler) {

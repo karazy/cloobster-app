@@ -19,10 +19,10 @@ Ext.define('EatSense.controller.Settings', {
             //account related stuff
             accountPanel: 'settings #accountPanel',
             //event handler for settings called from dashboard settingsview
-            emailChangeDashboardBt: 'mainview settings button[action=email-change]',
-            emailBackDashboardBt: 'mainview emailsetting button[action=back]',
-            passwordChangeDashboardBt: 'mainview settings button[action=password-change]',
-            passwordBackDashboardBt: 'mainview passwordsetting button[action=back]',
+            emailChangeDashboardBt: 'settingsview settings button[action=email-change]',
+            emailBackDashboardBt: 'settingsview emailsetting button[action=back]',
+            passwordChangeDashboardBt: 'settingsview settings button[action=password-change]',
+            passwordBackDashboardBt: 'settingsview passwordsetting button[action=back]',
             //event handler for settings called from lounge tabbar
             emailChangeClubBt: 'lounge settings button[action=email-change]',
             emailBackClubBt: 'lounge emailsetting button[action=back]',
@@ -264,10 +264,11 @@ Ext.define('EatSense.controller.Settings', {
         var me = this,
             emailView = this.getCallingView().down('emailsetting');
 
+        console.log('Settings.showEmailChangeView');
         this.getCallingView().setActiveItem(emailView);
 
         this.getApplication().getController('Android').addBackHandler(function() {
-            me.backToSettings()
+            me.backToSettings();
         });
     },
     /**
