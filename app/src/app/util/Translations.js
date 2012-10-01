@@ -643,8 +643,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Log-out"
 		},
 		"account.logout.confirm.message" : {
-			"DE" :  "Möchten Sie sich abmelden?",
-			"EN" :  "Do you want to log out?"
+			"DE" :  "Möchten Sie sich abmelden?<br/>Zukünftige Check-ins tauchen nicht unter \"My Places auf\"!",
+			"EN" :  "Do you want to log out? Future Check-ins won't show up under \"My Places auf\"!"
 		},
 		//history
 		"history.title" : {
@@ -665,7 +665,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"history.noaccount" : {
 			"DE" :  "Bitte loggen Sie sich ein oder registrieren Sie sich, um diese Funktion zu nutzen.",
-			"EN" :  "You need to register to use this function."
+			"EN" :  "You need to register/login to use this function."
 		},
 		"history.list.description" : {
 			"DE" :  "Hier werden Ihre besuchten Orte aufgelistet. Sie haben noch keine Orte besucht.",

@@ -1,6 +1,6 @@
 /**
-* Controller to handle submit and loading of feedback forms.
-*
+* Controller to handle submit, loading of feedback forms
+* and ui actions in form views.
 */
 Ext.define('EatSense.controller.Feedback', {
 	extend: 'Ext.app.Controller',
@@ -277,7 +277,6 @@ Ext.define('EatSense.controller.Feedback', {
 	disableFeedback: function() {
     	this.getShowFeedbackLeaveButton().setHidden(true);
 		this.getShowFeedbackButton().setHidden(true);
-		// this.getFeedbackLabel().setHidden(true);
 	},
 	/**
 	* Loads an existing feedback form.
@@ -329,6 +328,13 @@ Ext.define('EatSense.controller.Feedback', {
         this.getApplication().getController('Android').removeLastBackHandler();
     },
     /**
+	* Tap handler for backbutton.
+	*/
+	backButtonHandler: function(button) {
+		this.backToDashboard();
+		this.getApplication().getController('Android').removeLastBackHandler();
+	},
+    /**
     * Return to dashboard view.
     */
     backToDashboard: function(button) {
@@ -336,7 +342,8 @@ Ext.define('EatSense.controller.Feedback', {
 			clubArea = this.getClubArea();
 
 		this.setFeedbackOrigin(null);
+		clubArea.switchAnim('right');
 		clubArea.setActiveItem(0);
-		this.getApplication().getController('Android').removeLastBackHandler();
+		clubArea.switchAnim('left');
     }
 });

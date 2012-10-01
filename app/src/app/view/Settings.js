@@ -16,6 +16,11 @@ Ext.define('EatSense.view.Settings', {
          * @accessor
          */
 		backButton: false,
+		/**
+         * @cfg {Boolean} If false, hides the logout button from settings panel.
+         * @accessor
+         */
+		logoutButton: true,
 		items: [
 			{
 				xtype: 'titlebar',
@@ -118,7 +123,13 @@ Ext.define('EatSense.view.Settings', {
 		if(config.backButton) {
 			this.setBackButton(true);
 			this.down('titlebar').add(Ext.create('EatSense.view.BackButton'));	
-		}
+		};
+
+		if(config.logoutButton === false) {
+			this.setLogoutButton(false);
+			this.down('button[action=logout]').setHidden(true);	
+			this.down('button[action=logout]').disable();
+		};
 
 	}
 });

@@ -631,7 +631,10 @@ Ext.define('EatSense.controller.CheckIn', {
       requestCtr.resetAllRequests();
       androidCtr.resetBackHandler();
       
-      accountCtr.getAccount().set('checkInId', null);
+      if(accountCtr.getAccount()) {
+        //account can be null when no one is logged in
+        accountCtr.getAccount().set('checkInId', null);  
+      };
 		}
 
 

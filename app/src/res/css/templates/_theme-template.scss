@@ -7,7 +7,6 @@
   border-top-left-radius: 0.4em;
   border-top-right-radius: 0.4em;
   background-color: $active-color;
-  /*width: 80%;*/
   margin-right: 20px;
   margin-left: 20px;
   color: white;
@@ -15,10 +14,10 @@
   padding: 2px;
   font-weight: bold;
 
-  + div.x-list-item-label {
+  /*+ div.x-list-item-label {*/
       /*-webkit-border-top-left-radius: 0 !important;*/
       /*border-top-left-radius: 0 !important;*/
-  }
+  /*}*/
 }
 
 .productListItem {

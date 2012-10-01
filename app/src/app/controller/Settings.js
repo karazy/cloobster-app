@@ -280,7 +280,7 @@ Ext.define('EatSense.controller.Settings', {
             callingView = this.getCallingView(),
             emailChangeView = callingView.down('emailsetting'),
             form = emailChangeView.down('formpanel'),
-            navView = this.getSettingsNavView(),
+            // navView = this.getSettingsNavView(),
             newMail = emailChangeView.down('#newMail'),
             repeatMail = emailChangeView.down('#repeatMail'),
             password = emailChangeView.down('passwordfield'),
@@ -343,7 +343,8 @@ Ext.define('EatSense.controller.Settings', {
                 me.loadSettings();
 
                 //switch back to settings
-                me.getCallingView().setActiveItem(0);
+                me.backToSettings();
+                me.getApplication().getController('Android').removeLastBackHandler();
                 //clear form values
                 form.reset();
 
@@ -397,7 +398,7 @@ Ext.define('EatSense.controller.Settings', {
             callingView = this.getCallingView(),
             passwordChangeView = callingView.down('passwordsetting'),
             form = passwordChangeView.down('formpanel'),
-            navView = this.getSettingsNavView(),
+            // navView = this.getSettingsNavView(),
             newPassword = passwordChangeView.down('#newPassword'),
             repeatPassword = passwordChangeView.down('#repeatPassword'),
             password = passwordChangeView.down('#oldPassword'),
@@ -460,7 +461,8 @@ Ext.define('EatSense.controller.Settings', {
                 //clear form
                 form.reset();
                 //switch back to settings
-                me.getCallingView().setActiveItem(0);
+                me.backToSettings();
+                me.getApplication().getController('Android').removeLastBackHandler();
                 //show success message
                 Ext.Msg.show({
                     title : i10n.translate('success'),

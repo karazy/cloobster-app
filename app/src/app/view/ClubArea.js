@@ -47,6 +47,18 @@ Ext.define('EatSense.view.ClubArea', {
 					xtype: 'requeststab'
 				}
 		]
+	},
+	/**
+	* Change the direction of the slide animation.
+	* 
+	* @param direction
+	*            left or right
+	*/
+	switchAnim : function(direction) {
+		this.getLayout().setAnimation({
+			type : 'slide',
+			direction : direction
+		});
 	}
 	
 });

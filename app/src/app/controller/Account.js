@@ -17,7 +17,7 @@ Ext.define('EatSense.controller.Account', {
 			showLoginButtonDashboard : 'dashboard button[action=login]',
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
 			settingsViewBackButton: 'mainview settingsview settings #backButton',
-			logoutClubButton: 'settingstab button[action=logout]',
+			// logoutClubButton: 'settingstab button[action=logout]',
 			logoutDashboardButton: 'settingsview button[action=logout]',
 			loginViewBackButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
@@ -35,11 +35,11 @@ Ext.define('EatSense.controller.Account', {
 			settingsViewBackButton: {
 				tap: 'settingsViewBackButtonHandler'
 			},
-			logoutClubButton : {
-				tap: 'confirmUserLogout'
-			},
+			// logoutClubButton : {
+			// 	tap: 'confirmUserLogout'
+			// },
 			logoutDashboardButton : {
-				tap: 'confirmUserLogout'
+				tap: 'logoutDashboardButtonHandler'
 			},
 			loginViewBackButton : {
 				tap: 'loginViewBackButtonHandler'
@@ -411,8 +411,16 @@ Ext.define('EatSense.controller.Account', {
 		//back to dashboard
 		this.getMainView().setActiveItem(0);
 	},
-
-	confirmUserLogout: function(button) {
+	/**
+	* Tap event for logout button in dashboard settingsview.
+	*/
+	logoutDashboardButtonHandler:  function(button) {
+		this.confirmUserLogout();
+	},
+	/**
+	* Let user confirm has wish to logout. 
+	*/
+	confirmUserLogout: function() {
 		Ext.Msg.show({
             title: i10n.translate('account.logout.confirm.title'),
             message: i10n.translate('account.logout.confirm.message'),
@@ -429,11 +437,14 @@ Ext.define('EatSense.controller.Account', {
             fn: function(btnId, value, opt) {
                 if(btnId=='yes') {
                 	this.logout();
+                	this.hideSettingsView();
                 }
             }
         }); 
 	},
-
+	/**
+	* Do a logout.
+	*/
 	logout: function() {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 

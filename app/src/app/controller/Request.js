@@ -1,5 +1,5 @@
 /**
-*	Handles customer requests like "Call Waiter".
+*	Handles customer requests like "Call Waiter" and ui actions in request view.
 *	
 */
 Ext.define('EatSense.controller.Request',{
@@ -21,7 +21,7 @@ Ext.define('EatSense.controller.Request',{
 				tap: 'showRequestView'
 			},
 			backButton: {
-				tap: 'backToDashboard'
+				tap: 'backButtonHandler'
 			}
 		},
 
@@ -39,7 +39,7 @@ Ext.define('EatSense.controller.Request',{
 		clubArea.setActiveItem(2);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
-            clubArea.setActiveItem(0);
+            me.backToDashboard();
         });
 	},
 	toggleCallWaiterRequest: function(button, event) {
@@ -217,14 +217,21 @@ Ext.define('EatSense.controller.Request',{
 		accountLabel.setHtml(i10n.translate('vipGreetingMessage', checkInCtr.getActiveCheckIn().get('nickname')));
 	},
 	/**
+	* Tap handler for backbutton.
+	*/
+	backButtonHandler: function(button) {
+		this.backToDashboard();
+		this.getApplication().getController('Android').removeLastBackHandler();
+	},
+	/**
     * Return to dashboard view.
     */
     backToDashboard: function(button) {
     	var me = this,
 			clubArea = this.getClubArea();
 
+		clubArea.switchAnim('right');
 		clubArea.setActiveItem(0);
-
-		this.getApplication().getController('Android').removeLastBackHandler();
+		clubArea.switchAnim('left');		
     }
 });
