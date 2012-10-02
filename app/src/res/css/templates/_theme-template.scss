@@ -326,6 +326,7 @@
 /* MyOders View */
 .myorders-description {
   text-align: center;
+  color: $label-color; 
 
   h2 {
     font-size: 1.6em;
@@ -568,9 +569,9 @@
 
   /* Landscape phones and down */
   @media only screen and (max-width: 320px) { 
-    background-size: 60px 60px;
-    height: 90px;
-    width: 90px;
+    background-size: 50px 50px;
+    height: 80px;
+    width: 80px;
   }
 /*  @media only screen and (min-width: 768px) {
     background-size: 70px 70px;
@@ -611,7 +612,7 @@
  
   /* Landscape phones and down */
   @media (max-width: 320px) { 
-    width: 90px;
+    width: 80px;
   }
 }
 

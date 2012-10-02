@@ -58,6 +58,9 @@ Ext.define('EatSense.util.Localization', {
 			//use default language
 			lang = defaultLang;
 		}
+		//set language to make it available in the rest of the app
+		this.appConfig.language = lang.toUpperCase();
+
 		return lang.toUpperCase();
 	},
 
