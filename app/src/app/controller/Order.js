@@ -207,7 +207,8 @@
 				scope: this,
 				fn: function(btnId, value, opt) {
 				if(btnId=='yes') {					
-					cartview.showLoadScreen(true);
+					// cartview.showLoadScreen(true);
+					appHelper.toggleMask('submitOrderProcess');
 					this.getSubmitOrderBt().disable();
 					this.getCancelOrderBt().disable();
 					
@@ -216,7 +217,8 @@
 						method: 'PUT',
 						jsonData: {}, //empty object needed, otherwise 411 gets thrown
 						success: function(response) {
-			    	    	cartview.showLoadScreen(false);
+			    	    	// cartview.showLoadScreen(false);
+			    	    	appHelper.toggleMask(false);
 			    	    	me.getSubmitOrderBt().enable();
 			    	    	me.getCancelOrderBt().enable();
 							orders.removeAll();
@@ -240,7 +242,8 @@
 							}), appConfig.msgboxHideTimeout, this);
 						},
 						failure: function(response) {
-							cartview.showLoadScreen(false);
+							// cartview.showLoadScreen(false);
+							appHelper.toggleMask(false);
 			    	    	me.getSubmitOrderBt().enable();
 			    	    	me.getCancelOrderBt().enable();
 							// me.getOrderlist().setStore(orders);
