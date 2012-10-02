@@ -194,7 +194,7 @@ Ext.define('EatSense.controller.Account', {
         	if(success) {
         		me.hideDashboardLoginButton();
 	        	me.hideLoginView();
-	        	this.getApplication().getController('Android').removeLastBackHandler();
+	        	me.getApplication().getController('Android').removeLastBackHandler();
 
 	    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
 	    	    	i10n.translate('account.signup.success.message')
