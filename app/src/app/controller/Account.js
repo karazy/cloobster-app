@@ -239,13 +239,19 @@ Ext.define('EatSense.controller.Account', {
         	callback(false);
             Ext.Msg.alert(i10n.translate('error'), errMsg);
             return;
-        };
+        }
+
+        if(formValues.password.length < 6) {
+        	callback(false);
+        	Ext.Msg.alert(i10n.translate('error'), i10n.translate('error.account.password'));
+            return;
+        }
 
         if(appState.get('nickname')) {
         	//save nickname in profile
 
         	appState.set('nickname', null);
-        };
+        }
 
         //do a post to create an account
 		///POST /c/accounts

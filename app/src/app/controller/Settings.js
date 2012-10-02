@@ -397,6 +397,7 @@ Ext.define('EatSense.controller.Settings', {
             account = this.getApplication().getController('Account').getAccount(),
             errors,
             errMsg,
+            responseError,
             email = account.get('email'),
             xauth = headerUtil.getHeaderValue('X-Auth'),
             checkInId = headerUtil.getHeaderValue('checkInId');
@@ -476,10 +477,24 @@ Ext.define('EatSense.controller.Settings', {
                 headerUtil.resetHeaders(['login', 'password']);
 
                 Ext.Viewport.setMasked(false);
+
+                try {
+                    responseError = Ext.JSON.decode(operation.error.responseText);
+                    responseErrorKey = responseError.errorKey;
+                    if(responseErrorKey == "validationError") {
+                        responseErrorKey = "error.account.password";
+                    };
+                } catch(e) {
+                    console.log("Could not parse error response.")
+                };
+
                 me.getApplication().handleServerError({
                     'error': operation.error, 
                     'forceLogout': false,
-                    'message' : {403: i10n.translate('general.credentials.invalid')}
+                    'message' : {
+                        403: i10n.translate('general.credentials.invalid'),
+                        400: i10n.translate(responseErrorKey)
+                    }
                 }); 
             }
         });
