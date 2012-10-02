@@ -78,7 +78,7 @@ Ext.define('EatSense.controller.Message', {
 	*/
 	requestNewToken: function(successCallback, connectionCallback) {	
 		var me = this,
-			timestamp = new Date().getTime();;
+			timestamp = new Date().getTime();
 			
 		if(!this.getChannelId()) {
 			console.log('no channel id is set');

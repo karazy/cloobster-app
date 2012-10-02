@@ -297,7 +297,8 @@ Ext.define('EatSense.controller.Account', {
 			checkInCtr = this.getApplication().getController('CheckIn'),
 			appState = checkInCtr.getAppState(),
 			errorMessage,
-			loginView = this.getLoginView();
+			loginView = this.getLoginView(),
+			timestamp = new Date().getTime();
 
 		//Bgufix on some devices textfield overlaps alert window on error message
 		this.getPasswordField().blur();
@@ -326,8 +327,10 @@ Ext.define('EatSense.controller.Account', {
     	    headers: {
 				//provide credentials, they will be added to request header
 				'login': formValues.email,
-				'password': formValues.password
+				'password': formValues.password				
 			},
+			//submit a timestamp to prevent iOS6 from caching the POST request
+			jsonData: timestamp,
     	    scope: this,
     	    success: function(response) {
     	    	console.log('Account.login > success ' + response.status);
