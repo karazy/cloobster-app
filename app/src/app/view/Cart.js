@@ -59,8 +59,8 @@ Ext.define('EatSense.view.Cart', {
 				itemId: 'orderlist',
 				useComponents: true,
 				cls: 'cartoverview',
-				defaultType: 'cartoverviewitem',
-				grouped: true			
+				defaultType: 'cartoverviewitem'
+				// grouped: true
 		}, 
 		{
 			type: 'panel',

@@ -12,7 +12,6 @@ Ext.define('EatSense.view.CartOverviewItem', {
 			tpl: new Ext.XTemplate(
 				"<table style='width:100%;'>"+
 					"<td align='left'><h2 class='title'>{amount} x {productName}</h2></td><td align='right'><h2 class='price'>{[this.formatPrice(values.price_calculated)]}</td></h2>"+
-					// "<td align='left'><h8>{amount}x</h8> <h9>{Product.name}</h9></td><td align='right'>{[this.formatPrice(values.Product.price_calculated)]}</td>"+
 				"</table>",					
 				{
 					formatPrice: function(price) {
