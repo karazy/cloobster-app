@@ -135,7 +135,7 @@ Ext.application({
 
             checkInCtr.showDashboard();
 
-            
+
 
             me.getApplication().handleServerError({
               'error': operation.error,
@@ -211,7 +211,7 @@ Ext.application({
             };
 
 
-            if(typeof message == "object" && message[code]) {
+            if(message && typeof message == "object" && message[code]) {
               errMsg = message[code];
             } else {
               try {

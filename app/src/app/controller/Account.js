@@ -367,7 +367,7 @@ Ext.define('EatSense.controller.Account', {
 					}
 				};
 
-				(!errorMessage || errorMessage == "") ?	errorMessage = i10n.translate('general.credentials.invalid') : errorMessage;
+				// (!errorMessage || errorMessage == "") ?	errorMessage = i10n.translate('general.credentials.invalid') : errorMessage;
 
     	    	me.getApplication().handleServerError({
 						'error': {
@@ -376,7 +376,7 @@ Ext.define('EatSense.controller.Account', {
 						}, 
 						'forceLogout': false, 
 						'hideMessage':false,
-						'message': errorMessage
+						'message': errorMessage || null
 				});
 	   	    }
 		});
