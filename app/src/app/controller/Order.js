@@ -95,6 +95,7 @@
 		var	messageCtr = this.getApplication().getController('Message');
 
     	messageCtr.on('eatSense.order', this.handleOrderMessage, this);
+    	messageCtr.on('eatSense.bill', this.handleBillMessage, this);
 	},
 	/**
 	 * Load cart orders.
@@ -124,7 +125,6 @@
 	 */
 	showMenu: function() {
 		//TODO not used
-		console.log('Cart.showMenu');
 		var lounge = this.getLoungeview(), menu = this.getMenutab();		
 		lounge.setActiveItem(menu);
 	},
@@ -884,6 +884,39 @@
 				});
 			}
 
+		}
+	},
+	/**
+	* Handles push notifications for bills.
+	* @param action
+	*	Message action like new, update...
+	* @param billdata
+	*	Object with bill data
+	*/
+	handleBillMessage: function(action, billdata) {
+		var bill = Ext.create('EatSense.model.Bill'),
+			// paymentMethod = Ext.create('EatSense.model.PaymentMethod'),
+			checkInCtr =  this.getApplication().getController('CheckIn'),
+			myordersComplete = this.getMyordersComplete(),
+			payButton = this.getPaymentButton(),
+			lounge = this.getLoungeview(), 
+			tab = this.getMyordersview();				
+
+		if(action == "new") {
+			//this occurs when business manually completes a checkin
+			console.log("Order.handleBillMessage > new bill arrived. Businesses completed checkin.");
+			bill.set('id', bill.id);
+			bill.set('checkInId', bill.checkInId);
+			bill.set('paymentMethod', billdata.paymentMethod.name);
+			this.setActiveBill(bill);			
+			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
+			lounge.setActiveItem(tab);
+			payButton.hide();
+			myordersComplete.show();
+			this.refreshMyOrdersBadgeText(true);
+
+			//show a message 
+			Ext.Msg.alert(i10n.translate('hint'), i10n.translate('myorders.messages.billnew.message', bill.get('paymentMethod')));
 		}
 	}
 });

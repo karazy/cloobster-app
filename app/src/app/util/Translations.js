@@ -382,6 +382,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Bitte einen Moment warten,</br>die Rechnung wird vorbereitet ...",
 			"EN" :  "One moment please,</br>bill is on the way ..."
 		},
+		"myorders.messages.billnew.message" : {
+		 	"DE" :  "Ihre Rechnung ({0}) wurde erstellt.",
+		 	"EN" : "Your bill ({0}) has beed issued."
+		 }, 
 		//Settings
 		"settingsTitle" : {
 			"DE" :  "Profil",
