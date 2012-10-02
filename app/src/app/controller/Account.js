@@ -61,7 +61,6 @@ Ext.define('EatSense.controller.Account', {
 		//occurs when a user has an invalid login
 		this.getApplication().on('userLogout', this.logout, this);
 	},
-
 	/**
 	* Searches for accessToken in localstorage. If one is found
 	* sets X-Auth in header and loads the corresponding account.

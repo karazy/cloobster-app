@@ -492,7 +492,7 @@ Ext.define('EatSense.controller.CheckIn', {
         this.setActiveCheckIn(checkIn);
         //reload of application before hitting leave button
         if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
-            console.log('PAYMENT_REQUEST already issued. Don\'t restore state!');
+            console.log('CheckIn in status '+checkIn.get('status')+'. Don\'t restore state!');
             this.handleStatusChange(appConstants.COMPLETE);
             this.setActiveCheckIn(null);
             return;

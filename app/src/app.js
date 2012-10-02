@@ -130,14 +130,12 @@ Ext.application({
 
             delete defaultHeaders['checkInId'];
 
-   					// appStateStore.removeAll();
-   					// appStateStore.sync();
-   					// appStateStore.add(checkInCtr.getAppState());
-
             //delete invalid checkInId in appState
             checkInCtr.getAppState().set('checkInId', '');
 
             checkInCtr.showDashboard();
+
+            
 
             me.getApplication().handleServerError({
               'error': operation.error,
