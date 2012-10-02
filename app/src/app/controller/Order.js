@@ -519,8 +519,7 @@
 		if(clear) {
 			button.setBadgeText("");			
 			if(orderStore && orderStore.getCount() > 0) {
-				//show description when checkout is empty
-				this.getCheckoutDescription().setHidden(false);
+				this.getCheckoutDescription().setHidden(true);
 			}
 		} else {
 
@@ -533,7 +532,6 @@
 				//show description when checkout is empty
 				this.getCheckoutDescription().setHidden(false);
 			}
-			//badgeText = (!orderStore) ? '' : (orderStore.getCount() > 0) ? orderStore.getCount() : '';
 			button.setBadgeText(badgeText);
 		}
 	},
@@ -558,16 +556,12 @@
 					if(success == true) {
 						payButton.enable();
 						me.toggleMyordersButtons();
-						// (myordersStore.getCount() > 0) ? payButton.show() : payButton.hide();
-						// (myordersStore.getCount() > 0) ? leaveButton.hide() : leaveButton.show();
-						
 
 						//WORKAROUND to make sure all data is available in data property
 						//otherwise nested choices won't be shown
 						Ext.each(records, function(order) {
 							order.getData(true);
 						});
-
 						
 						//refresh the order list
 						total = me.calculateOrdersTotal(myordersStore);
@@ -795,15 +789,14 @@
 		orderBt.setHidden(hidden);
 	},
 	/**
-	 * Shows (issued orders are not empty) or hides (issued orders are empty) myorders buttons (pay).
+	 * Shows (issued orders are not empty and checkin status != PAYMENT_REQUEST) or hides (issued orders are empty) myorders buttons (pay).
 	 */
 	toggleMyordersButtons: function() {
 		var payButton = this.getPaymentButton(),
-			// leaveButton = this.getLeaveButton(),
-			myordersStore = Ext.StoreManager.lookup('orderStore');
+			myordersStore = Ext.StoreManager.lookup('orderStore'),
+			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn();
 
-		(myordersStore.getCount() > 0) ? payButton.show() : payButton.hide();
-		// (myordersStore.getCount() > 0) ? leaveButton.hide() : leaveButton.show();
+		(activeCheckIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() > 0) ? payButton.show() : payButton.hide();
 	},
 	toggleOrderDetail: function(view, index, htmlElement, order) {		
     // change the div plus to minu..
@@ -908,12 +901,14 @@
 			bill.set('id', bill.id);
 			bill.set('checkInId', bill.checkInId);
 			bill.set('paymentMethod', billdata.paymentMethod.name);
-			this.setActiveBill(bill);			
-			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
+			this.setActiveBill(bill);						
 			lounge.setActiveItem(tab);
-			payButton.hide();
 			myordersComplete.show();
 			this.refreshMyOrdersBadgeText(true);
+			payButton.hide();
+			
+			
+			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
 
 			//show a message 
 			Ext.Msg.alert(i10n.translate('hint'), i10n.translate('myorders.messages.billnew.message', bill.get('paymentMethod')));

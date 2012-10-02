@@ -605,14 +605,14 @@ Ext.define('EatSense.controller.CheckIn', {
     }
 		else if(status == appConstants.PAYMENT_REQUEST) {
 			this.getMenuTab().disable();
-			this.getCartTab().disable()
+			// this.getCartTab().disable();
       this.getSettingsTab().disable();
       this.getHomeTab().disable();			
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 			this.showDashboard();
       this.getMenuTab().enable();
-			this.getCartTab().enable();
+			// this.getCartTab().enable();
       this.getSettingsTab().enable();
       this.getHomeTab().enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());
