@@ -77,7 +77,8 @@ Ext.define('EatSense.controller.Message', {
 	*	
 	*/
 	requestNewToken: function(successCallback, connectionCallback) {	
-		var me = this;
+		var me = this,
+			timestamp = new Date().getTime();;
 			
 		if(!this.getChannelId()) {
 			console.log('no channel id is set');
@@ -89,7 +90,8 @@ Ext.define('EatSense.controller.Message', {
 		Ext.Ajax.request({
 		    url: appConfig.serviceUrl+'/c/checkins/'+this.getChannelId()+'/tokens',		    
 		    method: 'POST',
-		    jsonData: true,
+		    //submit a timestamp to prevent iOS6 from caching the POST request
+		    jsonData: timestamp,
 		    success: function(response){
 		       	token = response.responseText;
 		       	successCallback(token);

@@ -14,7 +14,7 @@ Ext.define('EatSense.controller.Account', {
 				autoCreate: true
 			},
 			settingsView: 'mainview settingsview',			
-			showLoginButtonDashboard : 'dashboard button[action=login]',
+			showLoginButtonDashboard : 'dashboard button[action=show-login]',
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
 			settingsViewBackButton: 'mainview settingsview settings #backButton',
 			// logoutClubButton: 'settingstab button[action=logout]',
@@ -72,6 +72,7 @@ Ext.define('EatSense.controller.Account', {
 		accessToken = checkInCtr.getAppState().get('accessToken');
 		      //If access token was found set it
       	if(accessToken) {
+      		console.log('Account.checkAccessToken > found accessToken');
         	headerUtil.addHeader('X-Auth', accessToken);
         	//load users account
         	this.loadAccount(checkInCtr.getAppState().get('accountId'));
@@ -301,10 +302,10 @@ Ext.define('EatSense.controller.Account', {
 		//Bgufix on some devices textfield overlaps alert window on error message
 		this.getPasswordField().blur();
 
-		if(headerUtil.getHeaderValue('X-Auth')) {
-			//already logged in, skip			
-			return;
-		};
+		// if(headerUtil.getHeaderValue('X-Auth')) {
+		// 	//already logged in, skip			
+		// 	return;
+		// };
 
 		if(!formValues.email || Ext.String.trim(formValues.email).length == 0 || !formValues.password || Ext.String.trim(formValues.password).length == 0) {
 			//no credentials provided
@@ -329,6 +330,7 @@ Ext.define('EatSense.controller.Account', {
 			},
     	    scope: this,
     	    success: function(response) {
+    	    	console.log('Account.login > success ' + response.status);
     	    	loginView.setMasked(false);
 
     	    	//parse account, currently we only need the access token
@@ -356,6 +358,7 @@ Ext.define('EatSense.controller.Account', {
         		form.reset();
     	    },
     	    failure: function(response) {
+    	    	console.log('Account.login > failure ' + response.status);
     	    	loginView.setMasked(false);
 
 				if(response.status) {

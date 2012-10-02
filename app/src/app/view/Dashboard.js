@@ -89,7 +89,7 @@ Ext.define('EatSense.view.Dashboard', {
 					},
 					{
 						xtype : 'button',
-						action: 'login',
+						action: 'show-login',
 						text: 'Login',
 						baseCls: 'dashboard-button',
 						cls: 'dashboard-button-login',
