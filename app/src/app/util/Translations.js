@@ -45,7 +45,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"general.legalnotice" : {
 			"DE" : "Impressum",
-			"EN" : "legal notice"
+			"EN" : "Legal Notice"
 		},
 		"save" : {
 			"DE" :  "Speichern",
@@ -53,7 +53,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"hint" : {
 			"DE" :  "Hinweis",
-			"EN" :  "Hint"
+			"EN" :  "Message"
 		},
 		"success" : {
 			"DE" :  "Erfolg",
@@ -141,8 +141,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "New"
 		},
 		"checkInStep1Button" : {
-			"DE" :  "Los geht's!",
-			"EN" :  "Continue!"
+			"DE" :  "Los geht's",
+			"EN" :  "Continue"
 		},
 		"nicknameToggleHint" : {
 			"DE" :  "Nein/Ja",
@@ -199,7 +199,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"menuTitle" : {
 			"DE" :  "Unser Angebot",
-			"EN" :  "Our offer"
+			"EN" :  "Our Offer"
 		},
 		"choicesPanelTitle" : {
 			"DE" :  "Bitte wählen Sie",
@@ -248,7 +248,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"orderComment" : {
 			"DE" :  "Besondere Wünsche?",
-			"EN" :  "Need to tell us anything else?"
+			"EN" :  "Add your comments here:"
 		},
 		"amount" : {
 			"DE" :  "Menge",
@@ -263,7 +263,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Order sent ...<br/>Enjoy your meal!"
 		},
 		"productCartBt" : {
-			"DE" :  "Auf den Bestellzettel",
+			"DE" :  "Bestellzettel",
 			"EN" :  "Add to cart"
 		},
 		"orderCanceled" : {
@@ -297,7 +297,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"submitOrdersQuestion" : {
 			"DE" :  "Bestellung verbindlich abschicken?",
-			"EN" :  "Send order bindingly?"
+			"EN" :  "Confirm & send order?"
 		},
 		"cart.button.deleteall" : {
 			"DE" :  "Löschen",
@@ -310,7 +310,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"clubdashboard.label.description" : {
 			"DE" :  "<h2>Guten Tag {0}</h2><p>Herzlich Willkommen im</p><p>\"{1}\"</p>",
-			"EN" :  "<h2>Welcome, {0}</h2><p>You have checked into {1}.</p>"
+			"EN" :  "<h2>Welcome, {0}</h2>!<p>You have checked into {1}.</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",
@@ -338,7 +338,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"clubdashboard.leave.message" : {
 			"DE" :  "Wirklich verlassen?",
-			"EN" :  "Really leave?"
+			"EN" :  "Do you want to quit?"
 		},
 		//MyOrders
 		"myOrdersTitle" : {
@@ -371,7 +371,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"myorders.description" : {
 			"DE" :  "Hier werden Ihre abgeschickten Bestellungen angezeigt. Zur Zeit haben Sie nichts bestellt.",
-			"EN" :  "Your issued orders will be listed here. Currently you have no orders."
+			"EN" :  "Your ordered items are listed here. There are no recent orders."
 		},
 		//Payment Request
 		"paymentPickerTitle" : {
@@ -384,7 +384,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"myorders.messages.billnew.message" : {
 		 	"DE" :  "Ihre Rechnung ({0}) wurde erstellt.",
-		 	"EN" : "Your bill ({0}) has beed issued."
+		 	"EN" : "Your bill ({0}) has been issued."
 		 }, 
 		//Settings
 		"settingsTitle" : {
@@ -562,11 +562,11 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"cancelCallWaiterRequest" : {
 			"DE" :  "Danke, hat sich erledigt",
-			"EN" :  "Cancel request."
+			"EN" :  "Cancel request"
 		},
 		"callWaiterCallHint" : {
 			"DE" :  "Können wir für Sie da sein?",
-			"EN" :  "What can we for you?"
+			"EN" :  "What can we do for you?"
 		},
 		"callWaiterCancelHint" : {
 			"DE" :  "Wir wurden gerufen und <br/>kommen so schnell wie möglich!",
@@ -574,7 +574,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"vipGreetingMessage" : {
 			"DE" :  "Willkommen <span style='font-weight:bold;'>{0}</span><br/>in Ihrem persönlichen VIP-Bereich!",
-			"EN" :  "Welcome <span style='font-weight:bold;'>{0}</span><br/> to your personal VIP area!"
+			"EN" :  "Welcome, <span style='font-weight:bold;'>{0}</span>,<br/> to your personal VIP area!"
 		},
 		//Feedback
 		"feedback" : {
