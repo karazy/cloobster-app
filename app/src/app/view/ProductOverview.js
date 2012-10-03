@@ -24,7 +24,8 @@ Ext.define('EatSense.view.ProductOverview', {
 				align: 'right',
 				iconCls : 'shop1',
 				iconMask : true,
-				hidden: true
+				hidden: true,
+				ui: 'action'
 			}
 			]
 		},

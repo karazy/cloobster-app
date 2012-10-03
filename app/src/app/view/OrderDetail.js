@@ -118,6 +118,8 @@ Ext.define('EatSense.view.OrderDetail', {
 					text: i10n.translate('change'),
 					action: 'edit',
 					ui: 'action',
+					iconCls: 'check2',
+					iconMask: true,
 					flex: 1
 				},
 				{
@@ -126,6 +128,8 @@ Ext.define('EatSense.view.OrderDetail', {
 					text: i10n.translate('cancel'),
 					action: 'undo',
 					ui: 'action',
+					iconCls: 'delete1',
+					iconMask: true,
 					flex: 1
 				}
 			]

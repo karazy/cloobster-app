@@ -123,6 +123,8 @@ Ext.define('EatSense.view.ProductDetail', {
 					text: i10n.translate('putIntoCartButton'),
 					action: 'cart',
 					ui: 'action',
+					iconCls: 'shop1',
+					iconMask: true,
 					flex: 1
 				}, 
 				{
@@ -130,6 +132,8 @@ Ext.define('EatSense.view.ProductDetail', {
 					action: 'close',
 					text: i10n.translate('close'),
 					ui: 'action',
+					iconCls: 'delete1',
+					iconMask: true,
 					flex: 1
 				}
 			]

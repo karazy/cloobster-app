@@ -6785,9 +6785,21 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-mask-image: url('data:image/png;base64,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');
 }
 
+/* line 43, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/../_mixins.scss */
+.x-tab .x-button-icon.check2,
+.x-button .x-button-icon.x-icon-mask.check2 {
+  -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAE+klEQVRoBe2aS28URxRGsY0h2FmwCQuEWLHjvUNgZAQ4PMwrEkIRIGEgySKwB8QvYIvEP+ANO0CwsJAA88wGBEKBZJUVQkJCQrwJ5nxN31Z5pnpc7e4ZT9vT0peqqanquqfurVvlIW3Dw8NTJtPTPplgxdoCnugeb3m45eEJtgJTJwJPGw8cP8V6TfmC4/Z/H9uEAAZsIdqHZiMBn2UNbvigSw8M2AIAD6PtqBPpmYe+8t1NoL9GLfYf3bTKKhiWo9PoA9KV0dUgn/tRh8tXWg/Hnj0KUB8yz1JNnjXUuhFd264A/f0O7dKXpQ7EIiTPfkKuVyvrSlx3US+KPF26cMbwxeg8Gg3W4LWHFd6rUUepQprQnI/Rh9A25AtjmqseHVkK7w59UxpgYFdg7wH0CwqFpWvyrKI23GZ7OWluwgqwOnqOobVoWh4Tm97DwCpBHUFp2TiUX3v5QVMnLQzMmqAsUVWWyta3UX/TAmOcwjjk6KmE830W7GbU0ZTAGKYEJdj3yAcQ2qYw1jmsG9e0KF8122UDw/SHwFX0EYWC+fpZGG/hPcn1sqk8jGHas+dQ6KXCB6o2g91IPfKsObZpgDGsqAT1hXdpz25A7QZqZU1gBsxFSh5zbEA9yniOU5R5PSvvCnYTSsLYtdkLTGf9uKdD/gS6gI6jPndgUXXe24OKSFAK4zsoSVA+G6uAGaC758/oBrIs+Zb6rbg9up35Xpa1jffpUqEEldezysbJ0VPLjhHADOpEfUiw2gtuUtAKDiGtYNXeqDWJ7zveYQnqM3V3nqx1s2s97xmRoLzzWqMgkLLaTVQJa0ZoJe+hXjRmaMYKVlslr2dlp5wgu4PsiTyszmg5qgVr0CqvoZW2WFlKxhV5gxJsdIMKtYH+Eew6yksoNLy0soJeFzqR+vEI9gx6h9wFzFoPSlA+25g3SlChnnUNU3grkWmxRg0n+ihBnUR5w9j2bCbPGjzzR3sgbc+6gL66TV4zkTHHEqSfZSzr+94V0mbzKUF1GkSWknG5QktGyoj7qBdVeZo2S1Ch2yUNXOMVUcEJyrcQjOeP4vzQCu9BpBtOck5T70HybN4w1iJcR7ouem9QPjhfG+On7EBPUNrKhrYLWp7+FS1FCjtdKvJ6VvM/Q9o2uWC1AHq60QB6hELh0voJ+im6iHReF+FZwe5HP/g8lrXNzuEfeeFu9C9Kg8nSrr9lBZ9ljK/v37xjL5qRFSytf3K15KXy9EH0D/JN3ui2Qj1rC5AAq4FnJvoDPUSNBnTnUy4YQF1maFHlCOAYuouJFN6PkWtEo+ryrH5sL2TPVi5UFXAMrfDegxrtae3ZfWh6paFFffYCx9BKZLtQo/a0YLXIhSUo3yKlAsfQ8vSBBkALtrCjxwdqbTWBY2glst9REee0Lw/ULUEZpFuOChxD1yuRybNbUV0SlAtq9SDgGFp7ushEJlhdKuqWoAzSLYOBHeidGPkc+cIztE2wA6iuCcoFtXom4Bha4f0nGmv2FqyOnoaFscFG9rsfQusYq0T2G8qayASrbdEdOlfR/TJ72AzAaHla5/QD9BnVCucvfK/fjZXtx8WzZneu/+WBf53XOb0G6XetHjQXyfv2vKLyH7qLLqMhJn5DOW5PLmBZDfRUilloGUoD/ovvXgIrT4/rkxt4XK0fw+TtYxhT6iEt4FK7L8D4locDFqnUXSadh78Bx5bEl2CLG+8AAAAASUVORK5CYII=');
+}
+
+/* line 43, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/../_mixins.scss */
+.x-tab .x-button-icon.delete1,
+.x-button .x-button-icon.x-icon-mask.delete1 {
+  -webkit-mask-image: url('data:image/png;base64,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');
+}
+
 @CHARSET "UTF-8";
 /* Style for product tab header */
-/* line 37, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 39, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productlist-header {
   border-style: solid solid none solid;
   border-color: #DDD;
@@ -6807,28 +6819,28 @@ input[type="search"]::-webkit-search-cancel-button {
   /*}*/
 }
 
-/* line 58, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 60, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productListItem h2.title {
   font-size: 1em;
 }
-/* line 62, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 64, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productListItem h2.price {
   font-size: 1em;
   white-space: nowrap;
 }
-/* line 67, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 69, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productListItem div p {
   font-size: 0.6em;
 }
 
-/* line 72, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 74, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .panel-floating {
   border-radius: 0.1em !important;
   padding: 0.1em !important;
   background-color: #990033 !important;
 }
 
-/* line 78, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 80, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productDetailPanel {
   background: #d3d3d3;
   padding: 0.5em;
@@ -6837,7 +6849,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* Set background for product description and amount spinner */
-/* line 86, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 88, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
   background: #d3d3d3;
   color: black;
@@ -6845,19 +6857,19 @@ input[type="search"]::-webkit-search-cancel-button {
   border-radius: 0 !important;
 }
 
-/* line 93, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 95, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productDetail {
   font-size: 0.8em;
   padding-right: 0.5em;
 }
 
-/* line 99, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 101, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productdetail-spinner-label {
   padding: 0;
   margin: 0;
 }
 
-/* line 104, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 106, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productdetail-spinner-input {
   border: solid 1px gray;
   background: white;
@@ -6869,7 +6881,7 @@ input[type="search"]::-webkit-search-cancel-button {
   min-height: 0em;
 }
 
-/* line 115, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 117, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productdetail-spinner-down {
   position: relative;
   top: 25px;
@@ -6878,7 +6890,7 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 45px;
 }
 
-/* line 123, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 125, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productdetail-spinner-up {
   position: relative;
   top: -2px;
@@ -6888,7 +6900,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 108, app-default.scss */
-/* line 132, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 134, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productPrice {
   font-size: 1.5em;
 }
@@ -6896,11 +6908,11 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Choices and Options
 */
-/* line 140, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 142, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel {
   padding: 5px;
 }
-/* line 143, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 145, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel .choice {
   font-size: 1em;
   color: white;
@@ -6909,17 +6921,17 @@ input[type="search"]::-webkit-search-cancel-button {
   padding: 3px 3px 3px 7px;
   border-radius: 0.3em;
 }
-/* line 152, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 154, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel .option {
   white-space: normal;
 }
-/* line 156, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 158, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel .option-label {
   background-color: white;
   color: black;
   white-space: normal;
 }
-/* line 162, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 164, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel .comment {
   font-size: 1em;
   color: white;
@@ -6930,18 +6942,18 @@ input[type="search"]::-webkit-search-cancel-button {
   border-radius: 0.3em;
   /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
 }
-/* line 173, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 175, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel .comment-input {
   border: 1px dashed gray;
   padding-top: 3px;
 }
-/* line 178, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 180, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel .option-panel {
   padding: 5px 0px;
   white-space: normal;
 }
 
-/* line 186, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 188, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .choice-panel-title {
   text-align: center;
 }
@@ -6949,26 +6961,26 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Orderlist
 */
-/* line 194, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 196, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .myorders-panel {
   /*background: #917D64; */
 }
 
-/* line 198, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 200, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem {
   color: #000000;
 }
-/* line 201, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 203, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem .order-title {
   margin-bottom: 7px;
 }
-/* line 205, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 207, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem h2.title {
   color: #000000;
   font-size: 1em;
   padding-right: 3px;
 }
-/* line 211, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 213, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem h2.price {
   color: #000000;
   font-size: 1em;
@@ -6976,42 +6988,42 @@ input[type="search"]::-webkit-search-cancel-button {
   text-align: right;
   padding-right: 25px;
 }
-/* line 219, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 221, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem li, .orderListItem p {
   color: #000000;
   margin-left: 15px;
   font-size: 0.7em;
 }
-/* line 225, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 227, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem h4 {
   font-size: 0.7em;
   color: #000000;
 }
-/* line 230, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 232, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem h3 {
   font-size: 0.9em;
   color: #000000;
 }
-/* line 235, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 237, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem .canceled {
   text-decoration: line-through;
 }
-/* line 239, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 241, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem .canceled h2 {
   text-decoration: line-through;
 }
 
-/* line 245, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 247, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cart-panel .x-list-round .x-scroll-view {
   background: #cccccc;
 }
 
-/* line 249, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 251, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverview {
   padding: 0.3em 0em;
 }
 
-/* line 253, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 255, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartTotal {
   text-align: center;
   font-size: 1.5em;
@@ -7019,27 +7031,27 @@ input[type="search"]::-webkit-search-cancel-button {
   /*background: #917D64; */
 }
 
-/* line 260, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 262, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem {
   padding: 5px;
   margin: 5px;
   border-radius: 0.3em;
   background-color: #fff;
 }
-/* line 266, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 268, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem .name {
   width: 50%;
 }
-/* line 270, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 272, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem .name h2.title {
   color: #000000;
   font-size: 1em;
 }
-/* line 275, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 277, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem .name div.amount {
   float: left;
 }
-/* line 279, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 281, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem .name h2.price {
   color: #000000;
   font-size: 1em;
@@ -7047,7 +7059,7 @@ input[type="search"]::-webkit-search-cancel-button {
   text-align: right;
   padding-right: 5px;
 }
-/* line 287, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 289, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem .name h2.price {
   color: #000000;
   font-size: 1em;
@@ -7055,52 +7067,52 @@ input[type="search"]::-webkit-search-cancel-button {
   text-align: right;
   padding-right: 5px;
 }
-/* line 295, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 297, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem .edit {
   top: 0;
   margin-right: 10px;
 }
-/* line 300, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 302, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem .cancel {
   top: 0;
   margin-right: 5px;
 }
 
-/* line 307, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 309, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem-name {
   width: 70%;
   margin-bottom: 20px;
 }
 
-/* line 312, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 314, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem-edit {
   top: 0;
 }
 
-/* line 316, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 318, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .cartoverviewitem-cancel {
   top: 0;
   margin-right: 5px;
 }
 
-/* line 321, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 323, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .menuCategoryItem {
   float: left;
   width: 15%;
 }
 
 /* MyOders View */
-/* line 327, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 329, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .myorders-description {
   text-align: center;
   color: white;
 }
-/* line 331, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 333, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .myorders-description h2 {
   font-size: 1.6em;
   font-style: bold;
 }
-/* line 336, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 338, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .myorders-description p {
   font-size: 0.8em;
   padding: 0 0.5em 0 0.5em;
@@ -7109,38 +7121,38 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Dashboard
 */
-/* line 346, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 348, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard {
   background: #FFF;
 }
 
-/* line 350, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 352, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-header {
   margin: 0 0 7px 0;
 }
-/* line 351, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 353, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-header img {
   width: 100%;
   height: auto;
   -webkit-box-shadow: 0px 0px 10px 2px gray;
 }
 
-/* line 359, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 361, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-description {
   color: #1e4776;
 }
-/* line 362, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 364, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-description h2 {
   font-size: 1.6em;
   font-style: bold;
 }
-/* line 367, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 369, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-description p {
   font-size: 0.8em;
   padding: 0 0.5em 0 0.5em;
 }
 
-/* line 373, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 375, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button {
   margin: 0.3em;
   background-repeat: no-repeat;
@@ -7154,7 +7166,7 @@ input[type="search"]::-webkit-search-cancel-button {
   /* Landscape phones and down */
 }
 @media only screen and (min-width: 768px) {
-  /* line 373, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+  /* line 375, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
   .dashboard-button {
     background-size: 110px 110px;
     height: 140px;
@@ -7162,7 +7174,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 373, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+  /* line 375, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
   .dashboard-button {
     background-size: 80px 80px;
     height: 110px;
@@ -7170,7 +7182,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 @media only screen and (max-width: 320px) {
-  /* line 373, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+  /* line 375, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
   .dashboard-button {
     background-size: 60px 60px;
     height: 90px;
@@ -7178,7 +7190,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-/* line 405, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 407, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button-label {
   text-align: center;
   position: absolute;
@@ -7188,25 +7200,25 @@ input[type="search"]::-webkit-search-cancel-button {
   /* Landscape phones and down */
 }
 @media (min-width: 768px) {
-  /* line 405, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+  /* line 407, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
   .dashboard-button-label {
     width: 140px;
   }
 }
 @media (max-width: 767px) {
-  /* line 405, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+  /* line 407, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
   .dashboard-button-label {
     width: 110px;
   }
 }
 @media (max-width: 320px) {
-  /* line 405, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+  /* line 407, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
   .dashboard-button-label {
     width: 90px;
   }
 }
 
-/* line 426, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 428, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button-pressed {
   -webkit-box-shadow: 0px 0px 15px 5px #1e4776;
   box-shadow: 0px 0px 15px 5px #1e4776;
@@ -7215,31 +7227,31 @@ input[type="search"]::-webkit-search-cancel-button {
   border: 1px solid #C3C3C3;
 }
 
-/* line 434, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 436, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button-checkin {
   background-image: url("../images/dashboard/checkin.png");
   margin-right: 0.6em;
 }
 
-/* line 439, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 441, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button-history {
   background-image: url("../images/dashboard/history.png");
   margin-left: 0.6em;
 }
 
-/* line 444, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 446, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button-login {
   background-image: url("../images/dashboard/login.png");
   margin-left: 0.6em;
 }
 
-/* line 449, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 451, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button-facebook {
   background-image: url("../images/dashboard/facebook.png");
   margin-right: 0.6em;
 }
 
-/* line 454, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 456, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .dashboard-button-badge {
   margin-left: 34px;
   top: 17px;
@@ -7273,23 +7285,21 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* Club Dashboard */
-/* line 488, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 490, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .club-dashboard {
   background: #FFF;
 }
 
-/* line 492, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 494, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .club-dashboard-header {
   margin: 0 0 7px 0;
 }
-/* line 494, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 496, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .club-dashboard-header img.header {
   width: 100%;
   height: auto;
   max-height: 150px;
   -webkit-box-shadow: 0px 0px 10px 2px gray;
-  /*mask image with triangles*/
-  /*-webkit-mask-box-image: url("../images/club/header_bg_mask.png") 0 0 10 0 repeat repeat;*/
 }
 /* line 503, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .club-dashboard-header img.logo {
@@ -7327,11 +7337,11 @@ input[type="search"]::-webkit-search-cancel-button {
 /* line 539, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .club-dashboard-description h2 {
   font-size: 1.2em;
-  font-style: bold;
+  font-weight: bold;
 }
 /* line 544, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .club-dashboard-description p {
-  font-size: 0.8em;
+  font-size: 1.1em;
   padding: 0 0.5em 0 0.5em;
 }
 
@@ -7340,7 +7350,7 @@ input[type="search"]::-webkit-search-cancel-button {
   margin: 0.3em;
   background-repeat: no-repeat;
   background-position: center 5px;
-  font-size: 0.95em;
+  font-size: 0.9em;
   color: #1e4776;
   /* Landscape phone to portrait tablet */
   /* Landscape phones and down */
