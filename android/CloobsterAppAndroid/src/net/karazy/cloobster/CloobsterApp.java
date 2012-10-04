@@ -9,6 +9,7 @@ public class CloobsterApp extends DroidGap {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+//		super.onCreateOptionsMenu(menu)
 		super.setIntegerProperty("splashscreen", R.drawable.splash);
 		super.loadUrl("file:///android_asset/www/index.html",10000);
 	}
