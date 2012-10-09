@@ -70,6 +70,7 @@ Ext.application({
   		//timeout for requests
   		Ext.Ajax.timeout = 1200000;
 
+      //On some devices. Sometimes MsgBoxes disappear behind other floating panels.
       //Give the message box a high zIndex to prevent hidden alerts!
       Ext.Msg.defaultAllowedConfig.zIndex = 100;
 

@@ -46,7 +46,7 @@ Ext.define('EatSense.model.Choice', {
 			//radio button mandatory field
 			validationError += i10n.translate('choiceValErrMandatory', this.get('text')) + "<br/>";
 		}
-		else if(minOccurence > maxOccurence) {
+		else if(minOccurence > maxOccurence && maxOccurence !== 0) {
 			//Wrong product data. Do nothing!
 		}
 		else if(counter < minOccurence) {
