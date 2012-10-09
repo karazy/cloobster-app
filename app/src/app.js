@@ -66,8 +66,14 @@ Ext.application({
         //default ajax headers
         defaultHeaders = {}; 
 
+      //start set some app defaults
   		//timeout for requests
   		Ext.Ajax.timeout = 1200000;
+
+      //Give the message box a high zIndex to prevent hidden alerts!
+      Ext.Msg.defaultAllowedConfig.zIndex = 100;
+
+      //end set some app defaults
 
       //set Default headers object
       Ext.Ajax.setDefaultHeaders(defaultHeaders);

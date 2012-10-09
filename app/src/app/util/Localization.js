@@ -9,7 +9,7 @@ Ext.define('EatSense.util.Localization', {
 	/**
 	 * default language.
 	 */
-	defaultLang : "DE",
+	defaultLang : "EN",
 
 	appConfig: null,
 
