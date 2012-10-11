@@ -20,13 +20,31 @@ Ext.define('EatSense.controller.Facebook', {
 	* Calls the fb login method.
 	*/
 	signupFbButtonHandler: function() {
+		var me = this,
+			accountCtr = this.getApplication().getController('Account'),
+			authResponse;
+
 		console.log('Facebook.signupFbButtonHandler');
 		FB.login(function(response) {
             if (response.authResponse) {
                 // Fb login success.
                 // Now get user data.
+                authResponse = response.authResponse;
+
                 FB.api('/me', function(response) {
-                	Ext.Msg.alert('Facebook', 'Hello ' + response.name);
+                	console.log('Facebook.signupFbButtonHandler > retrieved fb user with id='+response.id);
+
+                	//add access token from authResponse
+                	response.accessToken = authResponse.accessToken;
+
+                	accountCtr.showSignupConfimDialog(response);
+
+                	//Ext.Msg.alert('Facebook', 'Hello ' + response.name);
+                	//get data 
+                	//POST auf Tokens und prüfen ob dieser user schon existiert.
+                	//ask user if he wants to get a fb account
+                	//if confirm
+                	//POST auf accounts mit fbUserId und access token
                 });
             } else {
                 console.log('Facebook.signupFbButtonHandler > Fb login failed.')

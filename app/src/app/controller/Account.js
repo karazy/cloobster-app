@@ -45,7 +45,7 @@ Ext.define('EatSense.controller.Account', {
 				tap: 'loginViewBackButtonHandler'
 			},
 			signupButton : {
-				tap: 'showSignupConfimDialog'
+				tap: 'signupButtonHandler'
 			},
 			loginButton : {
 				tap: 'login'
@@ -158,14 +158,25 @@ Ext.define('EatSense.controller.Account', {
 		//make sure never to store password
 		this.getPasswordField().setValue('');	
 	},
-
-	showSignupConfimDialog: function(button) {
+	/**
+	* Tap event handler for signupButton.
+	*/
+	signupButtonHandler: function() {
+		this.showSignupConfimDialog();
+	},
+	/**
+	* Shows a confirm signup dialog. If user confirms a cloobster account will be created.
+	* @param fbdata
+	*	(optional) indicates if this is a login/signup via facebook. If present will use fb data instead of the email/pw fields.
+	*/
+	showSignupConfimDialog: function(fbdata) {
 		var me = this,
-			loginView = this.getLoginView();
+			loginView = this.getLoginView(),
+			confirmMessage = (!fbdata) ? i10n.translate('account.signup.confirm.message') : i10n.translate('account.signupfb.confirm.message');
 
 	    Ext.Msg.show({
-            title: i10n.translate('account.signup.confirm.title'),
-            message: i10n.translate('account.signup.confirm.message'),
+            title:  i10n.translate('account.signup.confirm.title') ,
+            message:  confirmMessage,
             buttons: [{
                 text: i10n.translate('yes'),
                 itemId: 'yes',
@@ -182,7 +193,7 @@ Ext.define('EatSense.controller.Account', {
                 		xtype: 'loadmask',
                 		message: i10n.translate('general.processing')
                 	});
-                	this.signup(callback);
+                	this.signup(callback, fbdata);
                 }
             }
         }); 
@@ -204,8 +215,12 @@ Ext.define('EatSense.controller.Account', {
 	},
 	/**
 	* Signup for a cloubster account.
+	* @param callback
+	*	executed after request completes
+	* @param fbdata
+	* 	facebook data is set on a signup with facebook
 	*/
-	signup: function(callback) {
+	signup: function(callback, fbdata) {
 		var me = this,
 			form = this.getLoginForm(),
 			formValues = form.getValues(),
@@ -216,42 +231,54 @@ Ext.define('EatSense.controller.Account', {
 			responseError,
 			responseErrorKey;
 
-		//Bgufix on some devices textfield overlaps alert window on error message
+		//Bugfix on some devices textfield overlaps alert window on error message
 		this.getPasswordField().blur();
 
-		//validate for password length and match regex
-		//validate email
-		newAccount.setData(formValues);
+		if(!fbdata) {
+			//validate for password length and match regex
+			//validate email
+			newAccount.setData(formValues);
 
-		//validate record
-        errors = newAccount.validate();
+			//validate record
+	        errors = newAccount.validate();
 
-        if(!errors.isValid()) {
-        	if(errors.getByField('email').length > 0) {
-        		errMsg = i10n.translate('error.account.email');
-        	}
-        	if(errors.getByField('password').length > 0) {
-        		if(errMsg.length > 0) {
-        			errMsg += '<br/>'
-        		};
-        		errMsg += i10n.translate('error.account.password');
-        	}
-        	callback(false);
-            Ext.Msg.alert(i10n.translate('error'), errMsg);
-            return;
-        }
+	        if(!errors.isValid()) {
+	        	if(errors.getByField('email').length > 0) {
+	        		errMsg = i10n.translate('error.account.email');
+	        	}
+	        	if(errors.getByField('password').length > 0) {
+	        		if(errMsg.length > 0) {
+	        			errMsg += '<br/>'
+	        		};
+	        		errMsg += i10n.translate('error.account.password');
+	        	}
+	        	callback(false);
+	            Ext.Msg.alert(i10n.translate('error'), errMsg);
+	            return;
+	        }
 
-        if(formValues.password.length < 6) {
-        	callback(false);
-        	Ext.Msg.alert(i10n.translate('error'), i10n.translate('error.account.password'));
-            return;
-        }
+	        if(formValues.password.length < 6) {
+	        	callback(false);
+	        	Ext.Msg.alert(i10n.translate('error'), i10n.translate('error.account.password'));
+	            return;
+	        }
+		} else {
+			console.log('Account.signup > fb user with data id='+fbdata.id+' email='+fbdata.email+' token='+fbdata.access_token);
+			newAccount.set('email', fbdata.email);
+			newAccount.set('fbUserId', fbdata.id);
+			newAccount.set('fbAccessToken', fbdata.accessToken);
+		}
+
 
         if(appState.get('nickname')) {
         	//save nickname in profile
 
         	appState.set('nickname', null);
         }
+
+        //set generated sencha ID to null
+        newAccount.id = null;
+        newAccount.set('id',null);
 
         //do a post to create an account
 		///POST /c/accounts
