@@ -21,5 +21,19 @@ Ext.define('EatSense.controller.Facebook', {
 	*/
 	signupFbButtonHandler: function() {
 		console.log('Facebook.signupFbButtonHandler');
+		FB.login(function(response) {
+            if (response.authResponse) {
+                // Fb login success.
+                // Now get user data.
+                FB.api('/me', function(response) {
+                	Ext.Msg.alert('Facebook', 'Hello ' + response.name);
+                });
+            } else {
+                console.log('Facebook.signupFbButtonHandler > Fb login failed.')
+                // handle failed fb login here.
+            }
+            },
+                { scope: "email" }
+            );
 	}
 });

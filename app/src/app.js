@@ -55,7 +55,7 @@ Ext.application({
 		if (cordovaInit == false || !this.launched) {
      	return;
     }
-
+		
 		console.log('App -> mainLaunch');
 		
 		var me = this,
