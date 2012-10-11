@@ -631,8 +631,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Sign-up"
 		},
 		"login.button.signupfb" : {
-			"DE" :  "Signup mit Facebook",
-			"EN" :  "Sign-up using Facebook"
+			"DE" :  "Login mit Facebook",
+			"EN" :  "Login using Facebook"
 		},
 		"login.label.notamember" : {
 			"DE" :  "Kein Mitglied?",
