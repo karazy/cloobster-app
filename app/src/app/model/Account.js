@@ -28,6 +28,12 @@ Ext.define('EatSense.model.Account', {
 		},
 		{	//id of account profile
 			name: 'profileId'
+		},
+		{	//facebook user id
+			name: 'fbUserId'
+		},
+		{	//facebook access token
+			name: 'fbAccessToken'
 		}
 		],
 		validations: [
