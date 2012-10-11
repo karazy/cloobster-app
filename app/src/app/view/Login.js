@@ -94,6 +94,19 @@ Ext.define('EatSense.view.Login', {
 				width: '90%'
 			},
 			{
+				xtype: 'label',
+				html: '- '+i10n.translate('or')+' -'
+			},
+			{
+				xtype: 'button',
+				text: i10n.translate('login.button.signupfb'),
+				ui: 'action',
+				action: 'signup-fb',
+				width: '90%',
+				iconCls: 'fb-signup',
+				iconMask: true
+			},
+			{
 				xtype: 'toolbar',
 				docked: 'bottom',
 				items: [
