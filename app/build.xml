@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="CloobsterApp" default="default" basedir=".">
+<project name="CloobsterApp" default="desktop-production" basedir=".">
     <!-- Path to src dir -->
 	<property name="appDir" value="src/" />
 	<!-- 	Path to production dir -->
