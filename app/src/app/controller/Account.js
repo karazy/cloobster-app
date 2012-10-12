@@ -499,6 +499,12 @@ Ext.define('EatSense.controller.Account', {
 		headerUtil.resetHeaders(['X-Auth']);
 		checkInCtr.getAppState().set('accessToken', null);
 		checkInCtr.getAppState().set('accountId', null);
+
+		//do facebook logout if it is a facebook user
+		if(this.getAccount() && this.getAccount().get('fbUserId')) {
+			this.getApplication().getController('Facebook').fbLogout();
+		}
+
 		this.setAccount(null);
 		this.showDashboardLoginButton();
 	},
