@@ -37,14 +37,15 @@ Ext.define('EatSense.controller.Facebook', {
                 	//add access token from authResponse
                 	response.accessToken = authResponse.accessToken;
 
-                	accountCtr.showSignupConfimDialog(response);
+                	accountCtr.login(response, callback);
 
-                	//Ext.Msg.alert('Facebook', 'Hello ' + response.name);
-                	//get data 
-                	//POST auf Tokens und prüfen ob dieser user schon existiert.
-                	//ask user if he wants to get a fb account
-                	//if confirm
-                	//POST auf accounts mit fbUserId und access token
+                	function callback() {
+                		//user does not exist, ask user to create account
+	                	if(!accountCtr.getAccount()) {
+	                		accountCtr.showSignupConfimDialog(response);	
+	                	}
+                	}
+                	
                 });
             } else {
                 console.log('Facebook.signupFbButtonHandler > Fb login failed.')
@@ -58,7 +59,7 @@ Ext.define('EatSense.controller.Facebook', {
 	* Does a simple facebook wall post for the logged in user.
 	*/
 	postOnWall: function(text) {
-		
+
 	},
 	/**
 	*
