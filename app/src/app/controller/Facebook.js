@@ -65,5 +65,6 @@ Ext.define('EatSense.controller.Facebook', {
 	*/
 	fbLogout: function() {
 		console.log('Facebook.fbLogout');
+		FB.logout();
 	}
 });
