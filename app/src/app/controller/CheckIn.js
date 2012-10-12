@@ -414,7 +414,8 @@ Ext.define('EatSense.controller.CheckIn', {
           requestCtr = this.getApplication().getController('Request'),
           androidCtr = this.getApplication().getController('Android'),
           feedbackCtr = this.getApplication().getController('Feedback'),
-          loungeCtr = this.getApplication().getController('Lounge');
+          loungeCtr = this.getApplication().getController('Lounge'),
+          accountCtr = this.getApplication().getController('Account');
 
         loungeCtr.initDashboard();
         menuCtr.showMenu();
@@ -422,6 +423,9 @@ Ext.define('EatSense.controller.CheckIn', {
             //load feedback from server
         feedbackCtr.loadFeedbackTemplate();
         // androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());
+        if(accountCtr.getAccount() && accountCtr.getAccount().get('fbUserId')) {
+          this.getApplication().getController('Facebook').postOnWall(i10n.translate('social.checkin', this.getActiveCheckIn().get('businessName')));
+        }
 	},
   /**
   * Shows an about screen.

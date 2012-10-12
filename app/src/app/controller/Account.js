@@ -153,7 +153,7 @@ Ext.define('EatSense.controller.Account', {
 	/**
 	* Hide loginview.
 	*/
-	hideLoginView: function(button) {		
+	hideLoginView: function(button) {
 		this.getLoginView().hide();
 		//make sure never to store password
 		this.getPasswordField().setValue('');	
@@ -371,74 +371,6 @@ Ext.define('EatSense.controller.Account', {
 
 			this.getAccessTokenFb(fbdata.id, fbdata.accessToken, onSuccess, onFailure);
 		}
-
-		// //POST /c/accounts with credentials to get access token
-		// //for convenience the complete account object is transferred
-		// Ext.Ajax.request({
-  //   	    url: appConfig.serviceUrl+'/c/accounts/tokens',
-  //   	    method: 'POST',
-  //   	    headers: {
-		// 		//provide credentials, they will be added to request header
-		// 		'login': formValues.email,
-		// 		'password': formValues.password				
-		// 	},
-		// 	//submit a timestamp to prevent iOS6 from caching the POST request
-		// 	jsonData: timestamp,
-  //   	    scope: this,
-  //   	    success: function(response) {
-  //   	    	console.log('Account.login > success ' + response.status);
-  //   	    	loginView.setMasked(false);
-
-  //   	    	//parse account, currently we only need the access token
-  //   	    	account = Ext.create('EatSense.model.Account', Ext.decode(response.responseText));
-  //   	    	//set account to make it accesible for the application
-  //   	    	me.setAccount(account);
-		// 		//Set default headers so that always credentials are send
-		// 		headerUtil.addHeader('X-Auth', account.get('accessToken'));
-
-		// 		checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
-		// 		checkInCtr.getAppState().set('accountId', account.get('id'));
-				
-		// 		me.hideDashboardLoginButton();
-		// 		me.hideLoginView();
-		// 		this.getApplication().getController('Android').removeLastBackHandler();
-
-		// 		me.loadProfile(account.get('profileId'));
-
-		// 		//delete nicknames in localstorage
-		//         if(appState.get('nickname')) {
-  //       			appState.set('nickname', null);
-  //       		};
-
-  //       		//reset fields
-  //       		form.reset();
-  //   	    },
-  //   	    failure: function(response) {
-  //   	    	console.log('Account.login > failure ' + response.status);
-  //   	    	loginView.setMasked(false);
-
-		// 		if(response.status) {
-		// 			//not authorized
-		// 			if(response.status == "401" || response.status == "403") {
-		// 				errorMessage = i10n.translate('general.credentials.invalid');
-		// 			} else if (response.status == "404") {
-		// 				errorMessage = i10n.translate('resourceNotAvailable');
-		// 			}
-		// 		};
-
-		// 		// (!errorMessage || errorMessage == "") ?	errorMessage = i10n.translate('general.credentials.invalid') : errorMessage;
-
-  //   	    	me.getApplication().handleServerError({
-		// 				'error': {
-		// 					'status': response.status,
-		// 					'statusText': response.statusText
-		// 				}, 
-		// 				'forceLogout': false, 
-		// 				'hideMessage':false,
-		// 				'message': errorMessage || null
-		// 		});
-	 //   	    }
-		// });
 		
 		//success handler for ajax request
 		function onSuccess(accountData) {

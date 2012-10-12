@@ -691,6 +691,11 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Hier werden Ihre besuchten Orte aufgelistet. Sie haben noch keine Orte besucht.",
 			"EN" :  "Places you have visited. No hits."
 		},
+		//social
+		"social.checkin" : {
+			"DE" :  "Hat gerade eingecheckt bei {0}.",
+			"EN" : "Has just checked in at {0}."
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

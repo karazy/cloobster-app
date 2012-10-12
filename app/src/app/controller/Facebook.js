@@ -59,7 +59,21 @@ Ext.define('EatSense.controller.Facebook', {
 	* Does a simple facebook wall post for the logged in user.
 	*/
 	postOnWall: function(text) {
+  		 // calling the API ...
+        var obj = {
+          method: 'feed',
+          link: 'http://www.cloobster.com',
+          // picture: 'http://fbrell.com/f8.jpg',
+          name: 'cloobster CheckIn',
+          caption: 'Service at its peak.',
+          description: text
+        };
 
+        function callback(response) {
+          // document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+        }
+
+        FB.ui(obj, callback);
 	},
 	/**
 	*
