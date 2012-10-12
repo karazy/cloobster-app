@@ -348,10 +348,15 @@ Ext.define('EatSense.controller.Account', {
 		//Bgufix on some devices textfield overlaps alert window on error message
 		this.getPasswordField().blur();
 
-		// if(headerUtil.getHeaderValue('X-Auth')) {
-		// 	//already logged in, skip			
-		// 	return;
-		// };
+		if(headerUtil.getHeaderValue('X-Auth')) {
+			//already logged in, skip			
+			return;
+		};
+
+		loginView.setMasked({
+	    		xtype: 'loadmask',
+	    		message: i10n.translate('general.processing')
+	    });
 
 		if(!fbdata) {		
 
@@ -359,12 +364,7 @@ Ext.define('EatSense.controller.Account', {
 				//no credentials provided
 				Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.account.nocredentials'));
 				return;
-			}
-
-			loginView.setMasked({
-	    		xtype: 'loadmask',
-	    		message: i10n.translate('general.processing')
-	    	});
+			}			
 
 	    	this.getAccessToken(formValues.email, formValues.password, onSuccess, onFailure);
 		} else {
