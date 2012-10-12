@@ -53,5 +53,11 @@ Ext.define('EatSense.controller.Facebook', {
             },
                 { scope: "email" }
             );
+	},
+	/**
+	* Does a simple facebook wall post for the logged in user.
+	*/
+	postOnWall: function(text) {
+
 	}
 });
