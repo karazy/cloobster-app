@@ -48,7 +48,7 @@ Ext.define('EatSense.controller.Account', {
 				tap: 'signupButtonHandler'
 			},
 			loginButton : {
-				tap: 'login'
+				tap: 'loginButtonHandler'
 			}
 		},
 		//user account if logged in
@@ -218,7 +218,7 @@ Ext.define('EatSense.controller.Account', {
 	* @param callback
 	*	executed after request completes
 	* @param fbdata
-	* 	facebook data is set on a signup with facebook
+	* 	facebook data is set on a signup with facebook, otherwise it is a standard signup
 	*/
 	signup: function(callback, fbdata) {
 		var me = this,
@@ -320,8 +320,18 @@ Ext.define('EatSense.controller.Account', {
         	}
         });
 	},
-
-	login: function(button) {
+	/**
+	* Tap event handler for loginButton.
+	* Calls Account.login()
+	*/
+	loginButtonHandler: function() {
+		this.login();
+	},
+	/**
+	* Tries to login the user.
+	* 
+	*/
+	login: function() {
 		var me = this,
 			form = this.getLoginForm(),
 			formValues = form.getValues(),
