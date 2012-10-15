@@ -5,8 +5,7 @@ Ext.define('EatSense.view.EmailSetting', {
 	config: {
 		title: i10n.translate('emailsetting.title'),
 		layout: {
-			type: 'vbox',
-			align: 'center'
+			type: 'fit'
 		},
 		items: [
 			{
@@ -21,14 +20,15 @@ Ext.define('EatSense.view.EmailSetting', {
 			},
 			{
 			xtype: 'formpanel',
-			//Prevents also that the panel has a wrong size. Bug?
-			scrollable: false,
-			width: '90%',
-			margin: '10 0 0 0',
+			layout: {
+				type: 'vbox',
+				align: 'stretch',
+				pack: 'center'
+			},
 			items: [
 				{
 					xtype: 'label',
-					html: i10n.translate('emailsetting.description'),
+					html: '<p class="small">'+i10n.translate('emailsetting.description')+'</p>',
 					cls: 'general-label'
 				},
 				{

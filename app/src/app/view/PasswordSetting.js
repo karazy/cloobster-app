@@ -5,8 +5,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 	config: {
 		title: i10n.translate('passwordsetting.title'),
 		layout: {
-			type: 'vbox',
-			align: 'center'
+			type: 'fit',
 		},
 		items: [
 			{
@@ -21,10 +20,11 @@ Ext.define('EatSense.view.PasswordSetting', {
 			},
 			{
 			xtype: 'formpanel',
-			//Prevents also that the panel has a wrong size. Bug?
-			scrollable: false,
-			width: '90%',
-			margin: '10 0 0 0',
+			layout: {
+				type: 'vbox',
+				align: 'stretch',
+				pack: 'center'
+			},
 			items: [
 				{
 					xtype: 'label',

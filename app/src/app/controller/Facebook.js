@@ -128,7 +128,7 @@ Ext.define('EatSense.controller.Facebook', {
                 		success: function(record, operation) {
                 			//unmask settings
                 			Ext.Viewport.unmask();
-                			Ext.MSg.alert(i10n.translate('success'), i10n.translate('facebook.connect.success'));
+                			Ext.Msg.alert(i10n.translate('success'), i10n.translate('facebook.connect.success'));
                 		},
                 		failure: function(record, operation) {
 							//unmask settings
