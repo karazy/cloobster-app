@@ -26,6 +26,11 @@ Ext.define('EatSense.view.PasswordSetting', {
 			width: '90%',
 			margin: '10 0 0 0',
 			items: [
+				{
+					xtype: 'label',
+					html: '<p class="small">'+i10n.translate('passwordsetting.description')+'</p>',
+					cls: 'general-label'
+				},
 				{	//old password field
 					xtype: 'passwordfield',
 					itemId: 'oldPassword',

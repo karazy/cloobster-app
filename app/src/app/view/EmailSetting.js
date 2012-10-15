@@ -27,6 +27,11 @@ Ext.define('EatSense.view.EmailSetting', {
 			margin: '10 0 0 0',
 			items: [
 				{
+					xtype: 'label',
+					html: i10n.translate('emailsetting.description'),
+					cls: 'general-label'
+				},
+				{
 					//new email field
 					xtype: 'emailfield',
 					itemId: 'newMail',

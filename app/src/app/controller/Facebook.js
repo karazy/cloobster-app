@@ -89,7 +89,7 @@ Ext.define('EatSense.controller.Facebook', {
 	},
 	/**
 	* Connects an existing account with facebook.
-	* 
+	* Tries to login user to facebook and saves account with retrieved userId.
 	*/
 	connectWithFacebook: function() {
 		var me = this,

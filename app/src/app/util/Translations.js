@@ -475,6 +475,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "E-Mail ändern",
 			"EN" :  "Change email address"
 		},
+		"emailsetting.description" : {
+			"DE" :  "Ändern Sie die E-Mail für Ihren cloobster Account. Dies hat keine Auswirkung auf ein verknüpfte Facebook Konto.",
+			"EN" :  "Change email for your cloobster account. This does not affect a connected Facebook account."
+		},
 		"emailsetting.password.field" : {
 			"DE" :  "Passwort",
 			"EN" :  "Password"
@@ -509,7 +513,11 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"passwordsetting.title" : {
 			"DE" :  "Passwort ändern",
-			"EN" :  "Change Pasword"
+			"EN" :  "Change Password"
+		},
+		"passwordsetting.description" : {
+			"DE" :  "Ändern Sie das Passwort für Ihren cloobster Account. Dies hat keine Auswirkung auf verknüpfte Facebook Konten.",
+			"EN" :  "Change password for your cloobster account. This does not affect your connected Facebook account."
 		},
 		"passwordsetting.oldpassword.field" : {
 			"DE" :  "Altes Passwort",
@@ -705,6 +713,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Sie sind nicht eingeloggt.",
 			"EN" : "You are not logged in."
 		},
+		"facebook.connect.confirm" : {
+			"DE" : "cloobster Account mit Facebook verbinden?",
+			"EN" : "connect cloobster account with Facebook?"
+		},		
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
