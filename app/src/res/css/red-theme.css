@@ -7542,7 +7542,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* line 721, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button-icon.fb-signup {
-  -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAMAAACZHrEMAAAAWlBMVEUAAAA7W5k7W5k7W5k7W5k7W5mSpMfb4exthbRIZqA+Xpt1jLjR2ef///+drczO1uY7W5lshLNHZZ/z9fmFmb9UcKa2wtnn6/Kpt9JgeqyRo8Z4jrnCzN/a4Oyzuvb+AAAABnRSTlMAv2DPIO/41WVhAAABTElEQVR42u3c2WrDMBRFUQ9JG7e9GuzEdqb//82SFkpLhElCkE5h7y9YL4L7olNdaupQuLqpvlu1QaB29WVZB4nWF00bRGqrqgkyNVWtg6mrIBQYMGDAgAEDpjAmbt3ofxqdczHuSmD2zlsqnx3THyYzk8D0bjATwcTJTAUz22JjRkzvbTmXD9OfTQfjTQczmw4mmhBmEsI4E8JMQpitCWFOdkvHLJjebipmwRyVMLMlG07uT3kuPZ+kbMvcwIMl2ocymPQ7FsLshDBDKISJCYwHAwYMGDBgwIDRxnh7IA8GzJ2NShgHBsydHZQwEQyY/4wJYDJjZv+rs103+Os4yMGAAQMGDBgwYMCAAQMGDBgwEpi37hm9JzAf3WIpTLd5Ri8JzOtmMTBgwIABAwYMGDBgMmD4rw3m8aTGcKRmgpQGlKSmpbRGt6TmyD4BW3thMbMGyXwAAAAASUVORK5CYII=');
+  -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAA8CAYAAADYIMILAAAABmJLR0QATQBPAFRO4HiXAAAACXBIWXMAAB7CAAAewgFu0HU+AAAAB3RJTUUH3AoLCjcMoL+AnQAABB9JREFUaN7tW01rE0EYfp5tYpvaxkOIiiB+IYJU8AMqLYoHUdESenBvCl79G/4Rf0E8lP4F0YsHz97Ug4IIBaEfKd3Xg0m62czHO5tNmqQObHZnd2Z23nm/n50AU16evXxzt+fGtVtPtgFI+0hS1657Ic+1R1Jg2+7zSzceCQDg8vVVzSATTSwAWVpeE6ZudAqnSIp76IraK8DUYetgO5uuXXXbZOAZFwFjpBlHACQjYYrYTkemBmDACjJ1zk6ElrrtnZpx6CG2r38pByE2wqAgKA9nCRAkAUJ4yC2RVGsRASB0cZoKUdEQKw7uuaTEtAii7GughgIRa9tIM4TnbNMTKIye7b4sVk8BAGu1Omu1ulKZxLkopTG0njI7OxfdvrOCanVB3XFzo+ltMw46270/MzMjAKL7Dx6iUqlgc6PJwIXylsTgiJPMteucdeS+vomtfb1++qCxHu+aJvntx5ZR5RYWFsoZF2eaW+cdQ498vFERGQmAg8Z6vJVD9E3E2o5CiM19dAidP1mVtgspA8Dbd5/UIiwiV0dJbG7OlstlAdB68ep1V+c+f/k9F2TVRB5riS1CZxOHziYunV1crLbWGs87XJ0d1JK7dLaUsZI+H6rxyeKp95RWax9RxHZMwL2CXJjRz0eWwFu0ptxj/sWy+qEeAwCwsnpP5hbPWkXU997IMAlRTF48/dT1vb1dFbWN9Vg+fniP3T8/Q8W6L1ykRYSpCB3paauth0qPWPRVbGHrketsDkLpSPecOhxhsspAi1VSWAgakmoxcM2WYPencIw62WgOO0jpkxpSIIktZWU2eacCNdDks6LIQdmeWF5J7hff7sK5k5QjEOP5TL1eKlCkvfnsMA2UoWxn6r+iEeg2Oz/DBNwKNzI581nRYlChLgFjSKxaZzW4MZQ48ZH7rWPFWV8iEMJZGVPO+kHlcYyCxkFnZRJ0dlQgOQDgzLmL4yHPCgxJA8uYoBcDyEYBIDPliqB8QRrrsVcS2m1sgJ3q0BioEM6Ki7MpgAwAcLC/A+x/beXUyzZulfhy3R6kwhYusiDjI0MybqZPli4ggaMKKiSvBR21gZqacqyILTmS8DwBgBZhLBKLsqlD3/Njx1lf8h7iemhJNLRw60DJua/9pFljGZSz2UUQkhBzkpDVad9mEfeeJgmeP0HCNzb/wY1pIM5IrABCOdx0Y9sNQ4/hKcoQ9S/PIQH0NKIvn2XgtS34D4nATqhJrZzXjm1ihpQwSXsVd74PZND6xDiO45ETv7evaxfHcdC4zWbTGUFN045UNQY1bcWos9PK2Yn8ZPk/6/lPrIXYZIoNU9dAkVT9IWJYm6vTfRKllJnauT699P4hYml5LR2CuT7T58WNqUgHI6XriwKAgDTSyTadwNLy2lT/r+fKzaeC41b+Aqs4OcItb5ZWAAAAAElFTkSuQmCC');
 }
 
 /* line 725, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
@@ -7598,48 +7598,52 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 1em;
   font-weight: bold;
 }
+/* line 774, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.general-label p.small {
+  font-size: 0.6em;
+}
 
-/* line 776, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 780, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
 }
 
-/* line 782, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 786, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 787, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 791, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 792, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 796, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 796, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 800, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 801, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 805, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 807, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 811, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .hidden {
   display: none;
 }
 
-/* line 812, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 816, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -7647,7 +7651,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 819, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 823, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -7655,7 +7659,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 826, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 830, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .visible {
   display: block;
 }
@@ -7663,7 +7667,7 @@ h9 {
 /*
 * Menu- and Productlist
 */
-/* line 835, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 839, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .menu-panel, .menu-panel .x-list-round .x-scroll-view {
   background: #cccccc;
 }
@@ -7671,42 +7675,42 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 843, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 847, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 847, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 851, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-label {
   color: white;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
-/* line 853, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 857, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 5px;
 }
 
-/* line 858, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 862, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 862, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 866, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 867, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 871, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 3px;
 }
 
-/* line 872, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 876, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -7714,29 +7718,29 @@ h9 {
 /*
 * History
 */
-/* line 879, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 883, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-wrapper {
   padding: 1em;
 }
 
-/* line 883, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 887, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header {
   background: url(../images/history/header-bg-2.png) repeat-x;
   height: 2.2em;
   text-align: center;
   height: 100%;
 }
-/* line 889, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 893, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header h1 {
   padding-top: 0.8em;
   font-size: 1em;
 }
-/* line 893, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 897, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header p {
   font-size: 0.8em;
 }
 
-/* line 898, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 902, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-footer {
   /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
   /*background-position: left bottom;*/
@@ -7744,22 +7748,22 @@ h9 {
   /*height: 2em;*/
   text-align: center;
 }
-/* line 906, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 910, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-footer h1 {
   font-size: 1em;
 }
 
-/* line 912, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 916, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-list {
   background-color: #f3e8d5;
 }
 
-/* line 916, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 920, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-item {
   background: url(../images/history/item-bg.png) repeat-x;
   height: 40px;
 }
-/* line 920, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 924, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-item .x-list-item-label {
   border: none !important;
 }
@@ -7770,7 +7774,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 932, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 936, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -7778,13 +7782,13 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 939, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 943, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Perf. optimization for android. */
-/* line 944, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 948, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
 }
@@ -7793,7 +7797,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 952, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 956, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -7801,7 +7805,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 959, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 963, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -7809,19 +7813,19 @@ h9 {
 }
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
-/* line 966, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 970, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-round .x-scroll-view {
   background-color: #cccccc !important;
 }
 
 /* Override needed because ui-round already has a white background. */
-/* line 971, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 975, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-round .x-list-item.x-item-pressed .x-list-item-label {
   border-top-color: #d9e6f2;
   background-color: #d9e6f2;
 }
 
-/* line 976, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 980, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -7829,16 +7833,16 @@ h9 {
   color: white !important;
 }
 
-/* line 983, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 987, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #6699cc !important;
 }
-/* line 986, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 990, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #6699cc !important;
 }
 
-/* line 992, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 996, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   background-color: #6699cc;
   background-image: none;
@@ -7846,32 +7850,32 @@ h9 {
   box-shadow: black 0 0 0.25em inset;
 }
 
-/* line 999, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1003, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
 }
 
-/* line 1003, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1007, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
 }
 
 /* Override background color of icons. */
-/* line 1009, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1013, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button .x-button-icon {
   background-color: white !important;
   background-image: none !important;
 }
 
 /* Force action button to have white text color. */
-/* line 1015, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1019, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: white;
 }
 
 /* Force color of disclosure item instead of beeing calculated. */
-/* line 1020, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1024, /Users/frederikreifschneider/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-round .x-list-disclosure {
   background-image: none;
   background-color: #6699cc;

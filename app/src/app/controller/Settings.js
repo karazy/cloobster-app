@@ -425,10 +425,11 @@ Ext.define('EatSense.controller.Settings', {
             }
         };
 
-        if(!password.getValue()) {
-            Ext.Msg.alert(i10n.translate('error'), i10n.translate('passwordsetting.error.nopassword'));
-            return;
-        };
+        //Don't check old password. Users with an fb account may not have one
+        // if(!password.getValue()) {
+        //     Ext.Msg.alert(i10n.translate('error'), i10n.translate('passwordsetting.error.nopassword'));
+        //     return;
+        // };
 
         Ext.Viewport.setMasked({
             xtype: 'loadmask',

@@ -96,6 +96,16 @@ Ext.define('EatSense.view.Settings', {
 						margin: '7 0 5 0',
 						width: '80%',
 						text: i10n.translate('settings.button.logout')
+					},
+					{
+						xtype: 'button',
+						text: i10n.translate('settings.button.connectfb'),
+						ui: 'action',
+						action: 'connect-fb',
+						width: '80%',
+						margin: '7 0 5 0',
+						iconCls: 'fb-signup',
+						iconMask: true
 					}
 				]
 			},
