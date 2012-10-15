@@ -539,6 +539,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Passwort erfolgreich geändert.",
 			"EN" :  "Password has been changed."
 		},
+		"settings.button.connectfb" : {
+			"DE" :  "Verbinden mit Facebook",
+			"EN" :  "Connect with Facebook"
+		},
 		//Request
 		"errorRequest" : {
 			"DE" :  "Anfrage konnte leider nicht bearbeitet werden.",
@@ -695,6 +699,11 @@ Ext.define('EatSense.util.Translations',{
 		"social.checkin" : {
 			"DE" :  "Hat gerade eingecheckt bei {0}.",
 			"EN" : "Has just checked in at {0}."
+		},
+		//facebook
+		"facebook.connect.notlogin" : {
+			"DE" :  "Sie sind nicht eingeloggt.",
+			"EN" : "You are not logged in."
 		},
 		//errors
 		"error" : {
