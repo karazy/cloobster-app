@@ -48,8 +48,8 @@ Ext.define('EatSense.controller.Facebook', {
                 	
                 });
             } else {
-                console.log('Facebook.signupFbButtonHandler > Fb login failed.')
-                // handle failed fb login here.
+            	//no further interaction needed since the sdk does all the stuff
+                console.log('Facebook.signupFbButtonHandler > user canceled or did not finish.')
             }
             },
                 { scope: "email" }
