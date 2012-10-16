@@ -109,7 +109,10 @@ Ext.define('EatSense.controller.Settings', {
             emailLabel = null,
             accountPanel = null; 
 
-        //TODO check view xtype
+        if(!view.down('settings')) {
+            console.log('Settings.loadSettings > Abort! calling view has no settings panel');
+            return;
+        }
 
         this.setCallingView(view);
         callingView = this.getCallingView();
@@ -117,17 +120,25 @@ Ext.define('EatSense.controller.Settings', {
         nicknameField = callingView.down('settings #nickname');
         emailLabel = callingView.down('settings #accountEmail');
         accountPanel = callingView.down('settings #accountPanel');
+        connectWithFbButton = callingView.down('settings button[action=connect-fb]');
 
 
         if(accountCtr.isLoggedIn()) {
             accountPanel.setHidden(false);
             //TODO check if account is loaded correctly!
             if(account) {
-                emailLabel.getTpl().overwrite(emailLabel.element, account.getData());     
+                emailLabel.getTpl().overwrite(emailLabel.element, account.getData());
+                if(account.get('fbUserId')) {
+                    this.toggleEmailAndPwButtons(false);
+                    connectWithFbButton.disable();
+                    connectWithFbButton.hide();
+                } else {
+                    this.toggleEmailAndPwButtons(true);
+                }
             };
             if(profile) {
                 nicknameField.setValue(profile.get('nickname'));    
-            } ;
+            };
         } else {
             nicknameField.setValue(appState.get('nickname'));
             //hide account settings
@@ -147,20 +158,25 @@ Ext.define('EatSense.controller.Settings', {
     		appState = checkInCtr.getAppState();
 
         if(accountCtr.isLoggedIn()) {
-            accountCtr.getProfile().set('nickname', newData);
-            //TODO error handling?
-            accountCtr.getProfile().save({
 
-                failure: function(record, operation) {
-                    me.getApplication().handleServerError({
-                        'error': operation.error, 
-                        'forceLogout': false,
-                        'userLogout' : false,
-                        'message' : {403: i10n.translate('general.credentials.invalid')}
-                    });     
-                }
-            });
-            appState.set('nickname', null);
+            if(accountCtr.getProfile()) {
+                accountCtr.getProfile().set('nickname', newData);            
+                accountCtr.getProfile().save({
+
+                    failure: function(record, operation) {
+                        me.getApplication().handleServerError({
+                            'error': operation.error, 
+                            'forceLogout': false,
+                            'userLogout' : false,
+                            'message' : {403: i10n.translate('general.credentials.invalid')}
+                        });     
+                    }
+                });
+                appState.set('nickname', null);
+            } else {
+                console.log('Settings.saveNickname > no profile found!');
+            }
+            
         } else {
             appState.set('nickname', newData);
         }		
@@ -426,10 +442,10 @@ Ext.define('EatSense.controller.Settings', {
         };
 
         //Don't check old password. Users with an fb account may not have one
-        // if(!password.getValue()) {
-        //     Ext.Msg.alert(i10n.translate('error'), i10n.translate('passwordsetting.error.nopassword'));
-        //     return;
-        // };
+        if(!password.getValue()) {
+            Ext.Msg.alert(i10n.translate('error'), i10n.translate('passwordsetting.error.nopassword'));
+            return;
+        };
 
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
@@ -506,6 +522,27 @@ Ext.define('EatSense.controller.Settings', {
     backButtonHandler: function(button) {
         this.backToSettings();
         this.getApplication().getController('Android').removeLastBackHandler();
+    },
+    /**
+    * Show or hide email and pw change buttons.
+    * This is useful when the account auth is handled via facebook or google.
+    * @param show
+    *   true to show, false to hide
+    */
+    toggleEmailAndPwButtons: function(show) {
+        var emailChangeDashboardBt = this.getEmailChangeDashboardBt(),
+            emailChangeClubBt = this.getEmailChangeClubBt(),
+            passwordChangeDashboardBt = this.getPasswordChangeDashboardBt(),
+            passwordChangeClubBt = this.getPasswordChangeClubBt();
+
+        emailChangeDashboardBt.setDisabled(!show);
+        emailChangeClubBt.setDisabled(!show);
+        passwordChangeDashboardBt.setDisabled(!show);
+        passwordChangeClubBt.setDisabled(!show);
+        emailChangeDashboardBt.setHidden(!show);
+        emailChangeClubBt.setHidden(!show);
+        passwordChangeDashboardBt.setHidden(!show);
+        passwordChangeClubBt.setHidden(!show);
     },
     /**
     * Switches back to settings and removes inserted passwords.

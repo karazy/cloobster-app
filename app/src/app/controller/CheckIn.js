@@ -422,10 +422,7 @@ Ext.define('EatSense.controller.CheckIn', {
         requestCtr.refreshAccountLabel();
             //load feedback from server
         feedbackCtr.loadFeedbackTemplate();
-        // androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());
-        if(accountCtr.getAccount() && accountCtr.getAccount().get('fbUserId')) {
-          this.getApplication().getController('Facebook').postOnWall(i10n.translate('social.checkin', this.getActiveCheckIn().get('businessName')));
-        }
+        // androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());        
 	},
   /**
   * Shows an about screen.

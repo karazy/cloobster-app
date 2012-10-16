@@ -6,6 +6,8 @@ Ext.define('EatSense.controller.Facebook', {
 	requires: ['EatSense.view.Login', 'EatSense.model.Account'],
 	config: {
 		refs: {
+			settingsview: 'settingsview',
+			settingstab: 'lounge settingstab',
 			signupFbButton : 'login button[action=signup-fb]',
 			connectFbDashboardButton : 'settingsview settings button[action=connect-fb]',
 			connectFbClubButton : 'lounge settings button[action=connect-fb]',
@@ -15,10 +17,10 @@ Ext.define('EatSense.controller.Facebook', {
 				tap: 'signupFbButtonHandler'
 			},
 			connectFbDashboardButton: {
-				tap: 'connectFbButtonHandler'
+				tap: 'connectFbDashboardButtonHandler'
 			},
 			connectFbClubButton: {
-				tap: 'connectFbButtonHandler'
+				tap: 'connectFbClubButtonHandler'
 			}
 		}
 	},
@@ -64,9 +66,21 @@ Ext.define('EatSense.controller.Facebook', {
         );
 	},
 	/**
-	* Tap event handler for connect fb button in settingstab.
+	* Tap event handler for connectFbClubButton in settingstab.
 	*/
-	connectFbButtonHandler: function() {
+	connectFbClubButtonHandler: function() {
+		this.showConfirmConnectFbMsgBox(this.getSettingsTab());
+	},
+	/**
+	* Tap event handler for connectFbClubButton in settingsview.
+	*/
+	connectFbDashboardButtonHandler: function() {
+		this.showConfirmConnectFbMsgBox(this.getSettingsview());
+	},
+	/**
+	* Show a confirmation and ask user to connect a fb account. 
+	*/
+	showConfirmConnectFbMsgBox: function(callingview) {
 		Ext.Msg.show({
 			title: i10n.translate('hint'),
 			message: i10n.translate('facebook.connect.confirm'),
@@ -82,7 +96,7 @@ Ext.define('EatSense.controller.Facebook', {
 			scope: this,
 			fn: function(btnId, value, opt) {
 				if(btnId == "yes") {
-					this.connectWithFacebook();
+					this.connectWithFacebook(callingview);
 				}
 			}
 		});
@@ -91,15 +105,18 @@ Ext.define('EatSense.controller.Facebook', {
 	* Connects an existing account with facebook.
 	* Tries to login user to facebook and saves account with retrieved userId.
 	*/
-	connectWithFacebook: function() {
+	connectWithFacebook: function(callingview) {
 		var me = this,
 			accountCtr = this.getApplication().getController('Account'),
+			settingsCtr = this.getApplication().getController('Settings'),
 			account = accountCtr.getAccount(),
-			authResponse;
+			authResponse,
+			connectFbDashboardButton = this.getConnectFbDashboardButton(),
+			connectFbClubButton = this.getConnectFbClubButton();
 
 		if(!account) {
 			//show message that user is not logged in
-			Ext.MSg.alert(i10n.translate('error'), i10n.translate('facebook.connect.notlogin'));
+			Ext.Msg.alert(i10n.translate('error'), i10n.translate('facebook.connect.notlogin'));
 			return;
 		};
 
@@ -129,6 +146,11 @@ Ext.define('EatSense.controller.Facebook', {
                 			//unmask settings
                 			Ext.Viewport.unmask();
                 			Ext.Msg.alert(i10n.translate('success'), i10n.translate('facebook.connect.success'));
+                			connectFbDashboardButton.hide();
+                			connectFbDashboardButton.disable();
+                			connectFbClubButton.hide();
+                			connectFbClubButton.disable();
+                			settingsCtr.loadSettings(callingview);
                 		},
                 		failure: function(record, operation) {
 							//unmask settings
@@ -151,6 +173,12 @@ Ext.define('EatSense.controller.Facebook', {
         );
 	},
 	/**
+	* 
+	*/
+	testLogin: function() {
+		
+	},
+	/**
 	* Does a simple facebook wall post for the logged in user.
 	*/
 	postOnWall: function(text) {
@@ -171,9 +199,17 @@ Ext.define('EatSense.controller.Facebook', {
         FB.ui(obj, callback);
 	},
 	/**
-	*
+	* Call FB.logout.
+	* Reanable fb connect buttons.
 	*/
 	fbLogout: function() {
+		var connectFbDashboardButton = this.getConnectFbDashboardButton(),
+			connectFbClubButton = this.getConnectFbClubButton();
+
+		connectFbDashboardButton.hide();
+		connectFbDashboardButton.disable();
+		connectFbClubButton.hide();
+		connectFbClubButton.disable();
 		console.log('Facebook.fbLogout');
 		FB.logout();
 	}

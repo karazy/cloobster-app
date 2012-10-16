@@ -292,6 +292,7 @@ Ext.define('EatSense.controller.Account', {
 				headerUtil.addHeader('X-Auth', record.get('accessToken'));
 				//set account to make it accesible for the application
 				me.setAccount(record);
+				me.loadProfile(me.getAccount().get('profileId'));
 				//reset fields
         		form.reset();
         		callback(true);
