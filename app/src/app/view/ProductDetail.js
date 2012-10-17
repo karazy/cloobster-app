@@ -133,6 +133,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					text: i10n.translate('close'),
 					ui: 'action',
 					iconCls: 'delete1',
+					iconAlign: 'right',
 					iconMask: true,
 					flex: 1
 				}

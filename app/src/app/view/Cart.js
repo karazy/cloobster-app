@@ -45,6 +45,7 @@ Ext.define('EatSense.view.Cart', {
 				xtype: 'button',
 				action: 'order',
 				iconCls: 'action',
+				iconAlign: 'right',
 			    iconMask: true,
 			    text: i10n.translate('submitButton'),
 			    ui: 'action',

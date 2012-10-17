@@ -7,7 +7,7 @@ Ext.define('EatSense.controller.Facebook', {
 	config: {
 		refs: {
 			settingsview: 'settingsview',
-			settingstab: 'lounge settingstab',
+			settingsTab: 'lounge settingstab',
 			signupFbButton : 'login button[action=signup-fb]',
 			connectFbDashboardButton : 'settingsview settings button[action=connect-fb]',
 			connectFbClubButton : 'lounge settings button[action=connect-fb]',

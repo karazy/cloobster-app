@@ -8,9 +8,11 @@ Ext.define('EatSense.view.Settings', {
 		layout: {
 			type: 'vbox',
 			pack: 'center',
-			align: 'middle'
+			align: 'stretch'
 		},
 		scrollable: 'vertical',
+		padding: 20,
+		width: '100%',
 		/**
          * @cfg {Boolean} If true adds a back button to the components titlebar.
          * @accessor
@@ -27,13 +29,19 @@ Ext.define('EatSense.view.Settings', {
 				title: i10n.translate('settingsButton'),
 				docked: 'top',
 			},
-			{
-			xtype: 'formpanel',
+			// {
+			// 	xtype: 'panel',
 			//prevents also that the panel has a wrong size. Bug?
-			scrollable: false,			
-			margin: '10 0 0 0',
-			width: '80%',
-			items: [
+			// scrollable: false,
+			// layout: {
+			// 		type: 'vbox',
+			// 		pack: 'center',
+			// 		align: 'stretch'
+			// },
+			// margin: '10 0 0 0',
+			// padding: 10,
+			// width: '80%',
+			// items: [
 				{
 					xtype: 'label',
 					cls: 'general-label',
@@ -44,41 +52,55 @@ Ext.define('EatSense.view.Settings', {
 					xtype : 'textfield',
 					label : i10n.translate('nickname'),
 					labelWidth: '40%',
+					labelAlign: 'top',
 					itemId : 'nickname',
 					maxLength: 25,
 					cls: 'general-textfield',
-					labelCls: 'general-field-label-horizontal'
+					labelCls: 'general-field-label-vertical'
 				}
-				]
-			},
+			// ]
+			// }
+			,
 			{
 				xtype: 'panel',
 				layout: {
 					type: 'vbox',
 					pack: 'center',
-					align: 'middle'
+					align: 'stretch'
 				},
-				width: '100%',
-				itemId: 'accountPanel',
+				// width: '100%',
+				itemId: 'accountPanel',				
 				items: [
-					{
-						xtype: 'label',
-						cls: 'general-label',
-						style: 'margin-top: 1em; font-weight: bold;',
-						html: '<h1>' + i10n.translate('settings.section.account') + '</h1>'						
-					},
+					// {
+					// 	xtype: 'label',
+					// 	cls: 'general-label',
+					// 	style: 'margin-top: 1em; font-weight: bold;',
+					// 	// width: '80%',
+					// 	html: '<h1>' + i10n.translate('settings.section.account') + '</h1>'						
+					// },
 					{
 						xtype: 'label',
 						itemId: 'accountEmail',
 						cls: 'general-label',
-						tpl: i10n.translate('settings.account.email')						
+						// width: '80%',
+						// style: 'text-align: left;',
+						tpl: '<h1>'+i10n.translate('settings.account.email')+'</h1>'						
+					},
+					{
+						xtype: 'label',
+						itemId: 'accountFbStatus',
+						cls: 'general-label',
+						// width: '80%',
+						// style: 'text-align: left;',
+						html: i10n.translate('settings.account.fbconnected'),
+						hidden: true
 					},
 					{
 						xtype: 'button',
 						ui: 'action',
 						margin: '7 0 5 0',
 						action: 'email-change',
-						width: '80%',
+						// width: '60%',
 						text: i10n.translate('settings.account.button.email')
 					},
 					{
@@ -86,7 +108,7 @@ Ext.define('EatSense.view.Settings', {
 						ui: 'action',
 						action: 'password-change',
 						margin: '7 0 5 0',
-						width: '80%',
+						// width: '60%',
 						text: i10n.translate('settings.account.button.password')
 					},
 					{
@@ -94,7 +116,7 @@ Ext.define('EatSense.view.Settings', {
 						ui: 'action',
 						action: 'logout',
 						margin: '7 0 5 0',
-						width: '80%',
+						// width: '60%',
 						text: i10n.translate('settings.button.logout')
 					},
 					{
@@ -102,7 +124,7 @@ Ext.define('EatSense.view.Settings', {
 						text: i10n.translate('settings.button.connectfb'),
 						ui: 'action',
 						action: 'connect-fb',
-						width: '80%',
+						// width: '60%',
 						margin: '7 0 5 0',
 						iconCls: 'fb-signup',
 						iconMask: true
@@ -115,14 +137,14 @@ Ext.define('EatSense.view.Settings', {
 				ui: 'action',
 				action: 'about',
 				style: 'margin-top: 1em;',
-				width: '80%'
+				// width: '60%'
 			},
 			{
 				xtype: 'label',
 				html: 'Cloobster App Version: ' + appConfig.version,
 				style: 'text-align: right; font-size: 0.6em; color: black;',
 				margin: '10 0 0 0',
-				width: '80%'
+				// width: '80%'
 			}
 		]
 	},

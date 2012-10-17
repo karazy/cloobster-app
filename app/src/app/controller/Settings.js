@@ -107,6 +107,7 @@ Ext.define('EatSense.controller.Settings', {
             nicknameField = null,
             emailChangeBt = null,
             emailLabel = null,
+            fbConnectedLabel = null,
             accountPanel = null; 
 
         if(!view.down('settings')) {
@@ -120,7 +121,8 @@ Ext.define('EatSense.controller.Settings', {
         nicknameField = callingView.down('settings #nickname');
         emailLabel = callingView.down('settings #accountEmail');
         accountPanel = callingView.down('settings #accountPanel');
-        connectWithFbButton = callingView.down('settings button[action=connect-fb]');
+        connectWithFbButton = callingView.down('settings button[action=connect-fb]');        
+        fbConnectedLabel = callingView.down('settings #accountFbStatus');
 
 
         if(accountCtr.isLoggedIn()) {
@@ -132,8 +134,10 @@ Ext.define('EatSense.controller.Settings', {
                     this.toggleEmailAndPwButtons(false);
                     connectWithFbButton.disable();
                     connectWithFbButton.hide();
+                    fbConnectedLabel.show();
                 } else {
                     this.toggleEmailAndPwButtons(true);
+                    fbConnectedLabel.hide();
                 }
             };
             if(profile) {

@@ -129,6 +129,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					action: 'undo',
 					ui: 'action',
 					iconCls: 'delete1',
+					iconAlign: 'right',
 					iconMask: true,
 					flex: 1
 				}

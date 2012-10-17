@@ -396,8 +396,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Profile"
 		},
 		"nicknameDesc" : {
-			"DE" :  "Der Spitzname ist der Anzeigename für das Servicepersonal.</br>Änderungen wirken sich erst beim nächsten Check-In aus.",
-			"EN" :  "Alias is used to identify your order.</br>Change will take effect after you have checked in again."
+			"DE" :  "Der Spitzname ist der Anzeigename für das Servicepersonal. Änderungen wirken sich erst beim nächsten Check-In aus.",
+			"EN" :  "Alias is used to identify your order. Change will take effect after you have checked in again."
 		},
 		"newsletterRegisterBt" : {
 			"DE" :  "Registrieren",
@@ -459,13 +459,17 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Passwort ändern",
 			"EN" :  "Change password"
 		},
-		"settings.section.account" : {
-			"DE" :  "Account-Daten",
-			"EN" :  "Account data"
-		},
+		// "settings.section.account" : {
+		// 	"DE" :  "Account-Daten",
+		// 	"EN" :  "Account data"
+		// },
 		"settings.account.email" : {
-			"DE" :  "E-Mail: {email}",
-			"EN" :  "Email: {email}"
+			"DE" :  "Account: {email}",
+			"EN" :  "Account: {email}"
+		},
+		"settings.account.fbconnected" : {
+			"DE" :  "Account mit Facebook verknüpft.",
+			"EN" : "Account linked with Facebook."
 		},
 		"settings.section.infos" : {
 			"DE" :  "Weitere Infos",
