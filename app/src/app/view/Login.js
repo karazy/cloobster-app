@@ -18,6 +18,7 @@ Ext.define('EatSense.view.Login', {
 			direction: 'right'
 		},
 		padding: '0 10 0 10',
+		scrollable: 'vertical',
 		//BUG: has to be set otherwise an error gets trown
 		//http://www.sencha.com/forum/showthread.php?192847-Animating-panels-throws-Cannot-call-method-getPageBox-of-null/page2
 		hidden: true,
@@ -103,8 +104,20 @@ Ext.define('EatSense.view.Login', {
 				ui: 'action',
 				action: 'signup-fb',
 				width: '90%',
+				// margin: '0 0 10 0',
 				iconCls: 'fb-signup',
 				iconMask: true
+			},
+			{
+				xtype: 'label',
+				html: '-'
+			},
+			{
+				xtype: 'button',
+				text: i10n.translate('login.button.pwforgot'),
+				ui: 'action',
+				action: 'request-password',
+				width: '90%'
 			},
 			{
 				xtype: 'toolbar',

@@ -650,6 +650,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Login mit Facebook",
 			"EN" :  "Login using Facebook"
 		},
+		"login.button.pwforgot" : {
+			"DE" :  "Passwort vergessen?",
+			"EN" : "Password forgotten?"
+		},
 		"login.label.notamember" : {
 			"DE" :  "Kein Mitglied?",
 			"EN" :  "Not a member?"
@@ -681,6 +685,18 @@ Ext.define('EatSense.util.Translations',{
 		"account.logout.confirm.message" : {
 			"DE" :  "Möchten Sie sich abmelden?<br/>Zukünftige Check-ins tauchen nicht unter \"My Places auf\"!",
 			"EN" :  "Do you want to log out? Future Check-ins won't show up under \"My Places auf\"!"
+		},
+		"account.passwordrequest.message" : {
+			"DE" :  "Bitte geben Sie Ihre<br/>cloobster Account E-Mail ein.",
+			"EN" : "Please enter your<br/>cloobster account email."
+		},
+		"account.passwordrequest.notexisting" : {
+			"DE" :  "Zu dieser E-Mail existiert kein Account.",
+			"EN" : "No account exists for this email."
+		},
+		"account.passwordrequest.success" : {
+			"DE" :  "Link zum zurücksetzen des Passworts verschickt.",
+			"EN" : "Link to reset password send. "
 		},
 		//history
 		"history.title" : {
@@ -724,6 +740,10 @@ Ext.define('EatSense.util.Translations',{
 		"facebook.connect.success" : {
 			"DE" : "cloobster Account erfolgreich verbunden.",
 			"EN" : "cloobster account successfully linked."
+		},
+		"facebook.action.nologin" : {
+			"DE" :  "Um bei Facebook zu posten brauchen Sie einen cloobster Account, der mit Facebook verknüpft ist.",
+			"EN" : "To post at your Facebook wall you'll need a cloobster account linked with Facebook."
 		},
 		//errors
 		"error" : {

@@ -27,7 +27,7 @@ Ext.define('EatSense.controller.Settings', {
             emailChangeClubBt: 'lounge settings button[action=email-change]',
             emailBackClubBt: 'lounge emailsetting button[action=back]',
             passwordChangeClubBt: 'lounge settings button[action=password-change]',
-            passwordBackClubBt: 'lounge passwordsetting button[action=back]',
+            passwordBackClubBt: 'lounge passwordsetting button[action=back]',            
 
             emailLabel: 'settings #accountEmail',
             saveEmailBt: 'emailsetting button[action=save]',

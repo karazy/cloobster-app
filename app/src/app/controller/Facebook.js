@@ -28,7 +28,6 @@ Ext.define('EatSense.controller.Facebook', {
 			}
 		}
 	},
-
 	/**
 	* Tap event handler for signupFb button.
 	* Calls the fb login method.
@@ -177,34 +176,40 @@ Ext.define('EatSense.controller.Facebook', {
         );
 	},
 	/**
-	* 
-	*/
-	testLogin: function() {
-		
-	},
-	/**
-	* Do a post for the location (business) user has checkedin.
+	* Do a post for the location (business) user has checked in.
+	* No account needed for this action.
 	*/
 	postCheckIn: function(text) {
 		var me = this,			
 			business = this.getApplication().getController('CheckIn').getActiveBusiness(),
+			// account = this.getApplication().getController('Account').getAccount(),
 			logo,
 			logoUrl;
+
+		// if(!account || !account.get('fbUserId')) {
+		// 	Ext.Msg.alert(i10n.translate('hint'), i10n.translate('facebook.action.nologin'));
+		// 	return;
+		// }
 
 		if(!business) {
 			console.log('Facebook.postCheckIn > Fail! No active business. ');
 			return;
 		}
+		try {
+			logo = business.raw.images.fbwallpost.url || '';	
+		} catch(e) {
+			console.log('Facebook.postCheckIn > error business.raw.images.fbwallpost ' + e);
+			logo = '';
+		}
+		
 
-		logo = business.images().getById('fbwallpost') || '';
-
-		logoUrl = (logo && logo.get('url')) ? logo.get('url') : '';
+		// logoUrl = (logo && logo.get('url')) ? logo.get('url') : '';
 
   		 // calling the API ...
         var obj = {
           method: 'feed',
           link: business.get('url') || 'http://www.cloobster.com', //link to business
-          picture: logoUrl || 'http://www.cloobster.com/images/Logo_cloobster_big.png', //FB Business logo
+          picture: logo || 'http://www.cloobster.com/images/Logo_cloobster_big.png', //FB Business logo
           name: business.get('name'), //business name
           caption: business.get('slogan'), //slogan
           description: business.get('description')

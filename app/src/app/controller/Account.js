@@ -22,6 +22,7 @@ Ext.define('EatSense.controller.Account', {
 			loginViewBackButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
+			requestPwButton : 'login button[action=request-password]',
 			loginForm : 'login formpanel',
 			passwordField: 'login passwordfield'
 		},
@@ -35,9 +36,9 @@ Ext.define('EatSense.controller.Account', {
 			settingsViewBackButton: {
 				tap: 'settingsViewBackButtonHandler'
 			},
-			// logoutClubButton : {
-			// 	tap: 'confirmUserLogout'
-			// },
+			requestPwButton : {
+				tap: 'requestPwButtonHandler'
+			},
 			logoutDashboardButton : {
 				tap: 'logoutDashboardButtonHandler'
 			},
@@ -554,6 +555,59 @@ Ext.define('EatSense.controller.Account', {
                 }
             }
         }); 
+	},
+	/**
+	* Tap event handler for requestPwButton.
+	*/
+	requestPwButtonHandler: function() {
+		this.requestNewPassword();
+	},
+	/**
+	* Shows a prompt dialog and asks for users email.
+	* Send a reset link to user.
+	*/
+	requestNewPassword: function() {
+		var me = this;
+
+		Ext.Msg.show({
+            title: i10n.translate('login.button.pwforgot'),
+            message: i10n.translate('account.passwordrequest.message'),
+            prompt: true,
+            buttons: [{
+                text: i10n.translate('yes'),
+                itemId: 'yes',
+                ui: 'action'
+            }, {
+                text: i10n.translate('no'),
+                itemId: 'no',
+                ui: 'action'
+            }],
+            scope: this,
+            fn: function(btnId, value, opt) {
+                if(btnId=='yes') {
+                	Ext.Ajax.request({
+                		url: appConfig.serviceUrl+'/accounts/password-reset',
+                		method: 'POST',
+                		jsonData: { 'email' : value },
+                		success: function(response) {
+                			Ext.Msg.alert(i10n.translate('success'), i10n.translate('account.passwordrequest.success'));
+                		},
+                		failure: function(response) {
+                			me.getApplication().handleServerError({
+                				'error': {
+									'status': response.status,
+									'statusText': response.statusText
+								},
+								message: {
+									400: i10n.translate('account.passwordrequest.notexisting')
+								}
+                			});
+                		}                		
+                	});
+                	me.hideLoginView();
+                }               
+            }
+        });        
 	},
 	/**
 	* Do a logout.
