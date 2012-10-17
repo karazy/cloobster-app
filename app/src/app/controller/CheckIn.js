@@ -83,7 +83,9 @@ Ext.define('EatSense.controller.CheckIn', {
         /**
         *   The spot the activeCheckIn is assigned to.
         */
-        activeSpot: null
+        activeSpot: null,
+        /* The active business. */
+        activeBusiness: null
     },
     init: function() {
     	var messageCtr = this.getApplication().getController('Message');
@@ -407,7 +409,8 @@ Ext.define('EatSense.controller.CheckIn', {
    },
    /**
     *
-    * Show menu to user 
+    * Show club dashboard aka lounge. 
+    * Does several initialisation tasks.
     */
 	showLounge: function() {
     	var menuCtr = this.getApplication().getController('Menu'),
@@ -418,6 +421,7 @@ Ext.define('EatSense.controller.CheckIn', {
           accountCtr = this.getApplication().getController('Account');
 
         loungeCtr.initDashboard();
+        this.loadBusiness();
         menuCtr.showMenu();
         requestCtr.refreshAccountLabel();
             //load feedback from server
@@ -528,7 +532,7 @@ Ext.define('EatSense.controller.CheckIn', {
    						orderCtr.refreshCart();
               orderCtr.refreshMyOrdersList();
    					}
-   				}						
+   				}
    			});
 
          //open a channel for push messags
@@ -559,6 +563,32 @@ Ext.define('EatSense.controller.CheckIn', {
     
     
 	},
+  /**
+  * @private
+  * Loads the business by businessId of activeSpot.
+  * Called during checkin.
+  */
+  loadBusiness: function() {
+    var me = this,
+        spot = this.getActiveSpot(),
+        business;
+
+    if(!spot) {
+      console.log('CheckIn.loadBusiness > no active spot! Load business failed.');
+      return;
+    }
+
+    business = EatSense.model.Business.load(spot.get('businessId'), {
+      success: function(record) {
+        me.setActiveBusiness(record);
+      },
+      failure: function(record, operation) {
+        me.handleServerError({
+          'error': operation.error
+        });
+      }
+    });    
+  },
   /**
   * Show a loading mask on the viewport or remove it.
   * @param messageKey

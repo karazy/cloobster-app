@@ -11,6 +11,7 @@ Ext.define('EatSense.controller.Facebook', {
 			signupFbButton : 'login button[action=signup-fb]',
 			connectFbDashboardButton : 'settingsview settings button[action=connect-fb]',
 			connectFbClubButton : 'lounge settings button[action=connect-fb]',
+			fbWallpostClubButton: 'clubarea clubdashboard button[action="fb-wallpost"]'
 		},
 		control: {
 			signupFbButton: {
@@ -21,6 +22,9 @@ Ext.define('EatSense.controller.Facebook', {
 			},
 			connectFbClubButton: {
 				tap: 'connectFbClubButtonHandler'
+			},
+			fbWallpostClubButton: {
+				tap: 'postCheckIn'
 			}
 		}
 	},
@@ -179,17 +183,31 @@ Ext.define('EatSense.controller.Facebook', {
 		
 	},
 	/**
-	* Does a simple facebook wall post for the logged in user.
+	* Do a post for the location (business) user has checkedin.
 	*/
-	postOnWall: function(text) {
+	postCheckIn: function(text) {
+		var me = this,			
+			business = this.getApplication().getController('CheckIn').getActiveBusiness(),
+			logo,
+			logoUrl;
+
+		if(!business) {
+			console.log('Facebook.postCheckIn > Fail! No active business. ');
+			return;
+		}
+
+		logo = business.images().getById('fbwallpost') || '';
+
+		logoUrl = (logo && logo.get('url')) ? logo.get('url') : '';
+
   		 // calling the API ...
         var obj = {
           method: 'feed',
-          link: 'http://www.cloobster.com',
-          // picture: 'http://fbrell.com/f8.jpg',
-          name: 'cloobster CheckIn',
-          caption: 'Service at its peak.',
-          description: text
+          link: business.get('url') || 'http://www.cloobster.com', //link to business
+          picture: logoUrl || 'http://www.cloobster.com/images/Logo_cloobster_big.png', //FB Business logo
+          name: business.get('name'), //business name
+          caption: business.get('slogan'), //slogan
+          description: business.get('description')
         };
 
         function callback(response) {

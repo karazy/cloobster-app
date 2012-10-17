@@ -19,15 +19,32 @@ Ext.define('EatSense.view.ClubDashboard', {
 			cls: 'club-dashboard-header',
 			docked: 'top',
 			layout: 'fit'
-		},		
-		{
-			xtype: 'label',
-			itemId: 'description',
-			cls: 'club-dashboard-description',
-			docked: 'top',
-			style: 'text-align: center;',
-			html: i10n.translate('clubdashboard.label.description')
 		},
+		{
+			xtype: 'panel',
+			docked: 'top',
+			items: [
+				{
+					xtype: 'label',
+					itemId: 'description',
+					cls: 'club-dashboard-description',
+					// docked: 'top',
+					style: 'text-align: center;',
+					html: i10n.translate('clubdashboard.label.description')
+				},
+				{
+					xtype: 'button',
+					iconCls: 'fb-signup',
+					iconMask: true,
+					iconAlign: 'top',
+					ui: 'action',
+					action: 'fb-wallpost',
+					text: 'Post!',
+					top: 0,
+					right: 10
+				},
+			]
+		},		
 		{
 			xtype: 'panel',
 			width: '100%',
