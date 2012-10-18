@@ -81,7 +81,9 @@ Ext.define('EatSense.controller.Facebook', {
 		this.showConfirmConnectFbMsgBox(this.getSettingsview());
 	},
 	/**
-	* Show a confirmation and ask user to connect a fb account. 
+	* Show a confirmation and ask user to connect a fb account.
+	* @callingview
+	*	Settingsview from which this method was called
 	*/
 	showConfirmConnectFbMsgBox: function(callingview) {
 		Ext.Msg.show({
@@ -107,6 +109,8 @@ Ext.define('EatSense.controller.Facebook', {
 	/**
 	* Connects an existing account with facebook.
 	* Tries to login user to facebook and saves account with retrieved userId.
+	* @callingview
+	*	Settingsview from which this method was called
 	*/
 	connectWithFacebook: function(callingview) {
 		var me = this,
@@ -186,16 +190,12 @@ Ext.define('EatSense.controller.Facebook', {
 			logo,
 			logoUrl;
 
-		// if(!account || !account.get('fbUserId')) {
-		// 	Ext.Msg.alert(i10n.translate('hint'), i10n.translate('facebook.action.nologin'));
-		// 	return;
-		// }
-
 		if(!business) {
 			console.log('Facebook.postCheckIn > Fail! No active business. ');
 			return;
 		}
 		try {
+			//access raw data because images are submitted as a map
 			logo = business.raw.images.fbwallpost.url || '';	
 		} catch(e) {
 			console.log('Facebook.postCheckIn > error business.raw.images.fbwallpost ' + e);
@@ -209,7 +209,7 @@ Ext.define('EatSense.controller.Facebook', {
         var obj = {
           method: 'feed',
           link: business.get('url') || 'http://www.cloobster.com', //link to business
-          picture: logo || 'http://www.cloobster.com/images/Logo_cloobster_big.png', //FB Business logo
+          picture: logo || (business.get('url')) ? '' : 'http://www.cloobster.com/images/empty.png', //FB Business logo, as fallback don't include an image
           name: business.get('name'), //business name
           caption: business.get('slogan'), //slogan
           description: business.get('description')
