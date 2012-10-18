@@ -71,8 +71,9 @@ Ext.define('EatSense.util.Helper', {
 				matcher = appConstants.Currency[appConfig.currencyFormat],
 				formattedPrice = "";
 
-		if(!price && price == null) {
-			return;
+		//don't show a price of 0 && price == null
+		if(!price) { 
+			return "";
 		}		
 
 		try {

@@ -232,7 +232,11 @@ Ext.define('EatSense.controller.Menu', {
 			 	 //render all main choices
 			 	 order.choices().each(function(choice) {
 						var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
-							choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
+							choicePriceLabel = "";
+
+						if(choice.get('price') > 0) {
+							choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';	
+						}						
 
 						optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
 						//recalculate when selection changes
