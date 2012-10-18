@@ -794,6 +794,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Gespeicherte Zugangsdaten ungültig. Bitte neu einloggen.",
 			"EN" :  "Login data invalid. Please log in again."
 		},
+		"error.account.facebook.exists" : {
+			"DE" :  "Dieser Facebook Account ist mit einem andere cloobster Account verknüpft.",
+			"EN" : "This Facebook account is linked with another cloobster Account."
+		},
 		
 	}
 	}

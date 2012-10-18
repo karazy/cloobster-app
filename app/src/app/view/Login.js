@@ -39,34 +39,27 @@ Ext.define('EatSense.view.Login', {
 				//prevents also that the panel has a wrong size. Bug?
 				scrollable: false,
 				width: '90%',
-				// defaults: {
-					// width: '80%',
-				// 	margin: '5 0'
-				// },
 				items: [
-				// {
-				// 	xtype: 'fieldset',
-				// 	items: [
-						{	
-							xtype: 'emailfield',
-							name: 'email',
-							required: true,
-							label: i10n.translate('login.field.email.placeholder'),
-							labelAlign: 'top',
-							cls: 'general-textfield',
-							labelCls: 'general-field-label-vertical'
-						},
-						{	
-							xtype: 'passwordfield',
-							name: 'password',
-							required: true,
-							label: i10n.translate('login.field.password.placeholder'),
-							labelAlign: 'top',
-							cls: 'general-textfield',
-							labelCls: 'general-field-label-vertical'
-						}
-				// 	]
-				// }
+
+					{	
+						xtype: 'emailfield',
+						name: 'email',
+						required: true,
+						label: i10n.translate('login.field.email.placeholder'),
+						labelAlign: 'top',
+						cls: 'general-textfield',
+						labelCls: 'general-field-label-vertical'
+					},
+					{	
+						xtype: 'passwordfield',
+						name: 'password',
+						required: true,
+						label: i10n.translate('login.field.password.placeholder'),
+						labelAlign: 'top',
+						cls: 'general-textfield',
+						labelCls: 'general-field-label-vertical'
+					}
+
 				]
 			},
 			{
@@ -77,11 +70,6 @@ Ext.define('EatSense.view.Login', {
 				margin: '7 0 10 0',
 				width: '90%'
 			},
-			// {
-			// 	xtype: 'button',
-			// 	text: i10n.translate('login.button.login'),
-			// 	action: 'login-fb'
-			// },
 			{
 				xtype: 'label',
 				html: i10n.translate('login.label.notamember'),
