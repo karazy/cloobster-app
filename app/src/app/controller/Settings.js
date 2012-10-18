@@ -418,6 +418,7 @@ Ext.define('EatSense.controller.Settings', {
             errors,
             errMsg,
             responseError,
+            responseErrorKey,
             email = account.get('email'),
             xauth = headerUtil.getHeaderValue('X-Auth'),
             checkInId = headerUtil.getHeaderValue('checkInId');
@@ -504,9 +505,12 @@ Ext.define('EatSense.controller.Settings', {
                     responseErrorKey = responseError.errorKey;
                     if(responseErrorKey == "validationError") {
                         responseErrorKey = "error.account.password";
-                    };
+                    } else if(!responseErrorKey) {
+                        responseErrorKey = 'errorMsg';
+                    }
                 } catch(e) {
-                    console.log("Could not parse error response.")
+                    console.log("Could not parse error response.");
+                    responseErrorKey = errorMsg;
                 };
 
                 me.getApplication().handleServerError({
