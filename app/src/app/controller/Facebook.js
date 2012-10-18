@@ -185,7 +185,7 @@ Ext.define('EatSense.controller.Facebook', {
 			business = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			// account = this.getApplication().getController('Account').getAccount(),
 			logo,
-			logoUrl;
+			obj;
 
 		if(!business) {
 			console.log('Facebook.postCheckIn > Fail! No active business. ');
@@ -193,7 +193,7 @@ Ext.define('EatSense.controller.Facebook', {
 		}
 		try {
 			//access raw data because images are submitted as a map
-			logo = business.raw.images.fbwallpost.url || '';	
+			logo = business.raw.images.fbwallpost.url || '';
 		} catch(e) {
 			console.log('Facebook.postCheckIn > error business.raw.images.fbwallpost ' + e);
 			logo = '';
@@ -207,10 +207,8 @@ Ext.define('EatSense.controller.Facebook', {
 		
 		console.log('Facebook.postCheckIn > logo = ' + logo);
 
-		// logoUrl = (logo && logo.get('url')) ? logo.get('url') : '';
-
-  		 // calling the API ...
-        var obj = {
+		// calling the API ...
+        obj = {
           method: 'feed',
           link: business.get('fbUrl') || business.get('url') || 'http://www.cloobster.com', //link to business
           picture: logo, //FB Business logo, as fallback don't include an image
@@ -219,11 +217,32 @@ Ext.define('EatSense.controller.Facebook', {
           description: business.get('description')
         };
 
+		FB.getLoginStatus(function(response) {
+			console.log('Facebook.postCheckIn > FB.getLoginStatus response = ' + response.status);
+		  if (response.status === 'connected') {
+		   		post();
+		  } else {
+			FB.login(function(response) {
+		            if (response.authResponse) {
+		            	post();
+		            } else {
+		                console.log('Facebook.postCheckIn > Fb login failed.')
+		            }
+	            },
+	            { 
+	            	scope: "email" 
+	            }
+		    );
+			}
+		});
+
         function callback(response) {
-          // document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
         }
 
-        FB.ui(obj, callback);
+        function post() {
+        	FB.ui(obj, callback);	
+        }
+        
 	},
 	/**
     * Show or hide connect with fb buttons.
