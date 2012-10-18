@@ -110,35 +110,44 @@ Ext.define('EatSense.controller.Lounge', {
        };
        //a switch to change classes for business logo
        //waits for panel to be drawn
-       header.on('painted', function(panel, eOpts){       		
-       		//get width and height of logo
-       		try {
-       			//get hold of the logo img element
-       			domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('logo')[0];
-       			//wait for logo to be fully loaded, only then we can get the real width and height
-       			domLogo.onload = function() {
-       				       			realLogoWidth = domLogo.width;
-       			realLogoHeight = domLogo.height;
+       header.on('painted', function(panel, eOpts) {
 
-       			//if image is taller then wide remove calss logo and add class logo-vertical
-       			if((realLogoWidth/realLogoHeight) < (3/2)) {
-       				//add class vertical, than adjust dynamic properties
-       				domLogo.setAttribute('class', 'logo-vertical');
-       				domLogo.style.left = '50%';
-       				domLogo.style.marginLeft = -domLogo.width/2 + "px";
-       			};
+        Ext.defer(function() {
+          //get width and height of logo
+          try {
+            //get hold of the logo img element
+            domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('logo');
 
-       			};
+            if(domLogo && domLogo[0]) {
+              domLogo = domLogo[0];
+              //wait for logo to be fully loaded, only then we can get the real width and height
+              domLogo.onload = function() {
+                realLogoWidth = domLogo.width;
+                realLogoHeight = domLogo.height;
 
-       		} catch(e) {
-       			console.log('Lounge.initDashboard > something went fucking wrong ' + e);
-       			//restore default on error
-       			header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
-       		}
-       		
+                //if image is taller then wide remove calss logo and add class logo-vertical
+                if((realLogoWidth/realLogoHeight) < (3/2)) {
+                  //add class vertical, than adjust dynamic properties
+                  domLogo.setAttribute('class', 'logo-vertical');
+                  domLogo.style.left = '50%';
+                  domLogo.style.marginLeft = -domLogo.width/2 + "px";
+                }
+              }
+            } else {
+              console.log('Lounge.initDashboard > no domLogo found');
+            }
+
+          } catch(e) {
+            console.log('Lounge.initDashboard > something went fucking wrong ' + e);
+            //restore default on error
+            header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
+          }
+
+        }, 100, this);
+          
        }, this, {
         //only execute on first load
-       	single: true
+        single: true
        });
 
         //always show dashboard first
