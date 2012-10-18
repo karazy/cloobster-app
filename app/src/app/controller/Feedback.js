@@ -80,7 +80,7 @@ Ext.define('EatSense.controller.Feedback', {
 		clubArea.setActiveItem(1);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
-            clubArea.setActiveItem(0);
+            me.backToDashboard();
         });
 	},
 
