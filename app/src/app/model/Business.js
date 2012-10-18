@@ -24,6 +24,9 @@ Ext.define('EatSense.model.Business', {
 				name: 'url'
 			},
 			{
+				name: 'fbUrl'
+			},
+			{
 				name: 'city'
 			},
 			{
