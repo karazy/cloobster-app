@@ -171,7 +171,7 @@
 
 	<target name="androidConfigLocal" depends="">
 		<echo message="Setting config values" />
-		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'http://192.168.2.135:8888'," byline="true">
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'http://192.168.2.133:8888'," byline="true">
 		</replaceregexp>
 		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 false," byline="true">
 		</replaceregexp>
@@ -225,7 +225,7 @@
 	
 	<target name="iOSConfigLocal" depends="">
 		<echo message="Setting config values" />
-		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'http://192.168.2.135:8888'," byline="true">
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 'http://192.168.2.133:8888'," byline="true">
 		</replaceregexp>
 	</target>
 	
