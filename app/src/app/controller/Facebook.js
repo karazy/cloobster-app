@@ -208,7 +208,7 @@ Ext.define('EatSense.controller.Facebook', {
           link: business.get('fbUrl') || business.get('url') || 'http://www.cloobster.com', //link to business
           picture: logo || (business.get('url')) ? '' : 'http://www.cloobster.com/images/empty.png', //FB Business logo, as fallback don't include an image
           name: business.get('name'), //business name
-          caption: business.get('slogan'), //slogan
+          caption: business.get('slogan') || '', //slogan
           description: business.get('description')
         };
 
