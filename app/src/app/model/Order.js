@@ -100,6 +100,7 @@ Ext.define('EatSense.model.Order', {
 			newOrder.set('productPrice', product.get('price'));
 			newOrder.set('productShortDesc', product.get('shortDesc'));
 			newOrder.set('productLongDesc', product.get('longDesc'));
+			newOrder.set('id', "");
 
 			product.choices().each(function(choice) {
 				//create phantom copy
@@ -166,7 +167,7 @@ Ext.define('EatSense.model.Order', {
 			choicesCount = this.choices().getCount(),
 			index = 0;
 		
-		rawJson.id = (this.phantom === true) ? this.get('genuineId') : this.get('id');
+		rawJson.id = this.get('id');
 		rawJson.status = this.get('status');
 		rawJson.amount = this.get('amount');
 		rawJson.comment = this.get('comment');
@@ -183,7 +184,6 @@ Ext.define('EatSense.model.Order', {
 			rawJson.choices[index] = this.choices().getAt(index).getRawJsonData();
 		}
 
-		console.log('Order id: ' + this.get('id') +' genuineId: '+this.get('genuineId')+ ' getRawJsonData id: ' + rawJson.id);
 		return rawJson;
 	},
 	/**
@@ -205,13 +205,14 @@ Ext.define('EatSense.model.Order', {
 		if(!shallow) {
 			for( ; index < choicesCount; index++) {
 				//check if an option with given id exists
-				choice = this.choices().getById(rawData.choices[index].id);
+				// choice = this.choices().getById(rawData.choices[index].id);
+				choice = this.choices().findRecord('originalChoiceId', rawData.choices[index].originalChoiceId, false, false, true);
 				if(choice) {
-					console.log('option with id ' + rawData.choices[index].id);
+					console.log('choice with originalChoiceId ' + rawData.choices[index].originalChoiceId);
 					if(!choice.setRawJsonData(rawData.choices[index])) {
 						return false;
 					}
-				} 
+				}
 			}
 		};
 

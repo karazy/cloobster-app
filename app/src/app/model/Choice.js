@@ -7,7 +7,6 @@ Ext.define('EatSense.model.Choice', {
 	config : {
 		idProperty: 'id',
 		fields: [
-			{name : 'genuineId', type : 'string'},
 		    {name: 'id', type: 'string'},
 			{name: 'text', type: 'string'},
 			{name: 'minOccurence', type: 'number'},
@@ -158,9 +157,9 @@ Ext.define('EatSense.model.Choice', {
 	getRawJsonData: function() {
 		var rawJson = {},
 			optionsLength = this.options().getCount(),
-			index = 0;		
+			index = 0;
 		
-		rawJson.id = (this.phantom === true) ? this.get('genuineId') : this.get('id');
+		// rawJson.id = (this.phantom === true) ? "" : this.get('id');
 		rawJson.text = this.get('text');
 		rawJson.maxOccurence = this.get('maxOccurence');
 		rawJson.minOccurence = this.get('minOccurence');
@@ -194,7 +193,7 @@ Ext.define('EatSense.model.Choice', {
 			}
 		}
 		
-		this.set('id', rawData.id);
+		// this.set('id', rawData.id);
 		this.set('text', rawData.text);
 		this.set('maxOccurence', rawData.maxOccurence);
 		this.set('minOccurence', rawData.minOccurence);
