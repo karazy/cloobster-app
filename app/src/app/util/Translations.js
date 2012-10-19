@@ -629,14 +629,17 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Login
 		"login.title" : {
-			"DE" :  "User Login",
-			"EN" :  "User login"
+			"DE" :  "My cloobster",
+			"EN" :  "My cloobster"
 		},
 		"login.description" : {
-			"DE" :  "Im cloobster Mitgliederbereich findest Du<br/>"+
+			"DE" :  "Im cloobster Mitgliederbereich findest Du:<br/>"+
 			"<ul><li>My Places - Alle besuchten Locations</li><li>Ich war hier - teilen wo man ist</li></ul>"+
 			"Du willst dir kein weiteres Passwort merken?<br/>Melde dich einfach mit deinem Facebook Konto an.",
-			"EN" : ""
+			"EN" : "In the cloobster members area you find:<br/>"+
+				"<ul><li>My places - Business a history of locations visited</li>"+
+				"<li>I was here - Post where you are</li></ul>"+
+				"If you do not want to remember yet another password, you can use your Facebook account to login"
 		},
 		"login.field.email.placeholder" : {
 			"DE" :  "E-Mail",

@@ -36,9 +36,11 @@ Ext.define('EatSense.view.Login', {
 			{
 				xtype: 'label',
 				html: i10n.translate('login.description'),
-				width: '90%',
+				width: '100%',
+				cls: 'login-description'
+				// padding: '5px',
 				// margin: '0 0 15 0',
-				styleHtmlContent: true
+				// styleHtmlContent: true
 			},
 			{
 				xtype: 'formpanel',
@@ -113,22 +115,22 @@ Ext.define('EatSense.view.Login', {
 				text: i10n.translate('login.button.signupfb'),
 				ui: 'action',
 				action: 'signup-fb',
-				width: '50%',
-				margin: '0 0 10 0',
+				width: '60%',
+				margin: '0 0 7 0',
 				iconCls: 'fb-signup',
 				iconMask: true
 			},
 			{
 				xtype: 'label',
 				html: i10n.translate('login.label.pwforgot'),
-				width: '50%'
+				width: '60%'
 			},
 			{
 				xtype: 'button',
 				text: i10n.translate('login.button.pwforgot'),
 				ui: 'action',
 				action: 'request-password',
-				width: '50%'
+				width: '60%'
 			},
 			{
 				xtype: 'toolbar',

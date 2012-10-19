@@ -365,6 +365,7 @@ Ext.define('EatSense.controller.Account', {
 			if(!formValues.email || Ext.String.trim(formValues.email).length == 0 || !formValues.password || Ext.String.trim(formValues.password).length == 0) {
 				//no credentials provided
 				Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.account.nocredentials'));
+				loginView.setMasked(false);
 				return;
 			}			
 
