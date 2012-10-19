@@ -4,7 +4,8 @@ Ext.define('EatSense.util.Configuration', {
 		serviceUrl : '',
 		msgboxHideTimeout: 1000,
 		msgboxHideLongTimeout: 1500,
-		currencyFormat: 'EURO',
+		//default format is EUR, can be changed during runtime depending on business
+		currencyFormat: 'EUR',
 		version: "1.5-beta3",
 		//true means caching is disabled
 		disableCaching: false,

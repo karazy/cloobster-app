@@ -34,6 +34,10 @@ Ext.define('EatSense.model.Spot', {
 				persist: false
 			},
 			{
+				name: 'currency',
+				type: 'string'
+			},
+			{
 				name: 'theme',
 				type: 'string',
 				defaultValue: 'default'

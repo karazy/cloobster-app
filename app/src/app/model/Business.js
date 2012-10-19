@@ -39,6 +39,10 @@ Ext.define('EatSense.model.Business', {
 				name: 'phone'
 			},
 			{
+				name: 'currency',
+				type: 'string'
+			},
+			{
 				name: 'theme',
 				type: 'string',
 				defaultValue: 'default'

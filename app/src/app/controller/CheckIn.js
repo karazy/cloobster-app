@@ -567,6 +567,7 @@ Ext.define('EatSense.controller.CheckIn', {
   * @private
   * Loads the business by businessId of activeSpot.
   * Called during checkin.
+  * Sets business related configuration like currency.
   */
   loadBusiness: function() {
     var me = this,
@@ -581,6 +582,17 @@ Ext.define('EatSense.controller.CheckIn', {
     business = EatSense.model.Business.load(spot.get('businessId'), {
       success: function(record) {
         me.setActiveBusiness(record);
+
+        try {
+          if(appConstants.Currency[me.getActiveBusiness().get('currency')]) {
+            //if the business currency is available in app set it
+            appConfig.currencyFormat = me.getActiveBusiness().get('currency');
+          }          
+        } catch(e) {
+          console.log('CheckIn.loadBusiness > failed setting currency');
+        }
+
+
       },
       failure: function(record, operation) {
         me.handleServerError({
