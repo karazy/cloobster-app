@@ -916,5 +916,19 @@
 			//show a message 
 			Ext.Msg.alert(i10n.translate('hint'), i10n.translate('myorders.messages.billnew.message', bill.get('paymentMethod')));
 		}
+	},
+	/**
+	* Close windows, reset fields and so on...
+	* E. g. used after a FORCE_LOGOUT
+	*/
+	cleanup: function() {
+		var detail = this.getProductdetail();		
+		
+		//close product detail
+		detail.hide();
+		detail.destroy();
+
+		this.updateCartButtons(true);
+      	this.refreshMyOrdersBadgeText(true);		
 	}
 });

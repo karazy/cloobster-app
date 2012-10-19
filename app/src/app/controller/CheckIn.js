@@ -646,12 +646,13 @@ Ext.define('EatSense.controller.CheckIn', {
 			// this.getCartTab().enable();
       this.getSettingsTab().enable();
       this.getHomeTab().enable();			
-			this.getLoungeview().setActiveItem(this.getMenuTab());
-      menuCtr.backToMenu();
+			this.getLoungeview().setActiveItem(this.getMenuTab());      
+      menuCtr.cleanup();
     	//remove menu to prevent problems on reload
       menuStore.removeAll();
-      orderCtr.updateCartButtons(true);
-      orderCtr.refreshMyOrdersBadgeText(true);
+
+      orderCtr.cleanup();
+
       //clear checkInId
       this.getAppState().set('checkInId', null);
       //clear feedbackId

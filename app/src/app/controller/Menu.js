@@ -511,6 +511,20 @@ Ext.define('EatSense.controller.Menu', {
 		this.recalculate(this.getActiveOrder());
 	},
 
+	/**
+	* Close windows, reset fields and so on...
+	* E. g. used after a FORCE_LOGOUT
+	*/
+	cleanup: function() {
+		var detail = this.getProductdetail();		
+		
+		//close product detail
+		detail.hide();
+		detail.destroy();
+		//show menu first level
+		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
+	}
+
      	
 });
 
