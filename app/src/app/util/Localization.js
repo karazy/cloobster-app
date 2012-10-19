@@ -4,18 +4,10 @@ Ext.define('EatSense.util.Localization', {
 	requires: ['Ext.String','EatSense.util.Constants', 'EatSense.util.Translations', 'EatSense.util.Configuration'],
 	singleton: true,
 	config: {
-		lang: null
+		lang: null		
 	},
-	/**
-	 * default language.
-	 */
-	defaultLang : "EN",
-
-	appConfig: null,
-
 
 	constructor: function() {
-		this.appConfig = EatSense.util.Configuration;
 		//get browser/system locale 
 		this.setLang(this.getLanguage());		
 	},
@@ -32,8 +24,8 @@ Ext.define('EatSense.util.Localization', {
 	 */
 	getLanguage: function() {
 		// Gets called from constructor so getters/setters don't exist at this point
-		//if a language is configured use it otherwise use browser language		
-		var lang = (this.appConfig && this.appConfig.language) ? this.appConfig.language : null; 
+		//if a language is configured use it otherwise use browser language
+		var lang;
 		//(navigator.language) ? navigator.language : navigator.userLanguage; 
 		//http://stackoverflow.com/questions/10642737/detecting-and-applying-current-system-language-on-html-5-app-on-android
 	    if (navigator && navigator.userAgent && (lang = navigator.userAgent.match(/android.*\W(\w\w)-(\w\w)\W/i))) {
@@ -53,15 +45,23 @@ Ext.define('EatSense.util.Localization', {
 	        lang = lang.substr(0, 2);
 	    }
 
-		console.log('browser language: '+lang);
-		if(lang === 'undefined'|| lang.length == 0) {
-			//use default language
-			lang = defaultLang;
-		}
-		//set language to make it available in the rest of the app
-		this.appConfig.language = lang.toUpperCase();
+	   	lang = lang.toUpperCase();
 
-		return lang.toUpperCase();
+		console.log('browser language: '+lang);
+
+		//check if this language is configured
+		if(Ext.Array.indexOf(EatSense.util.Translations.available, lang) == -1) {
+			console.log(lang + " not available using default " + appConfig.defaultLanguage);
+			lang = appConfig.defaultLanguage;
+		} else if(lang === 'undefined'|| lang.length == 0) {
+			//use default language
+			lang = appConfig.defaultLanguage;
+		}
+
+		//set language to make it available in the rest of the app
+		appConfig.language = lang;
+
+		return lang;
 	},
 
 	/**

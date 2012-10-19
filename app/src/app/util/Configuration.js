@@ -5,11 +5,12 @@ Ext.define('EatSense.util.Configuration', {
 		msgboxHideTimeout: 1000,
 		msgboxHideLongTimeout: 1500,
 		currencyFormat: 'EURO',
-		version: "1.5-beta2",
+		version: "1.5-beta3",
 		//true means caching is disabled
 		disableCaching: false,
-		//if language is configured it will be used. otherwise system language
-		// language: 'EN',
+		//contains the language during runtime used througout the application
+		language: null,
+		defaultLanguage: 'EN',
 		channelReconnectTimeout: 10000,
 		channelReconnectTries: 20,
 		heartbeatInterval: 10000,

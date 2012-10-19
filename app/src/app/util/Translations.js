@@ -1,5 +1,7 @@
 Ext.define('EatSense.util.Translations',{
 	statics: {
+		//list all translated languages
+		available: ["EN", "DE"],
 		data: {
 	
 		// General translations

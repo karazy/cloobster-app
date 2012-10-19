@@ -360,7 +360,7 @@ Ext.define('EatSense.controller.Account', {
 	    		message: i10n.translate('general.processing')
 	    });
 
-		if(!fbdata) {		
+		if(!fbdata) {
 
 			if(!formValues.email || Ext.String.trim(formValues.email).length == 0 || !formValues.password || Ext.String.trim(formValues.password).length == 0) {
 				//no credentials provided
