@@ -697,7 +697,7 @@
 
 }
 
-/* Tabbar icons */
+/* Tabbar and button icons */
 .x-button-icon.about {
   -webkit-mask-image: inline-image('buttons/about.png');
 }
@@ -728,6 +728,10 @@
 
 .x-button-icon.fb-signup {
   -webkit-mask-image: inline-image('/buttons/f_logo.png');
+}
+
+.x-button-icon.cash {
+  -webkit-mask-image: inline-image('/buttons/kasse.png');
 }
 
 .newsletter-floating {

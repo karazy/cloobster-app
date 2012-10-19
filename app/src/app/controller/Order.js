@@ -608,15 +608,16 @@
 			
 		return total;
 	},
-	showMyOrderDetail: function(list, index, dataitem) {
-		var panel = Ext.create('Ext.Panel');
-		panel.setWidth(200);
-		panel.setHeight(200);
-		panel.setModal(true);
-		panel.setHideOnMaskTap(true);
+	//TODO remove dead code 19.10.2012
+	// showMyOrderDetail: function(list, index, dataitem) {
+	// 	var panel = Ext.create('Ext.Panel');
+	// 	panel.setWidth(200);
+	// 	panel.setHeight(200);
+	// 	panel.setModal(true);
+	// 	panel.setHideOnMaskTap(true);
 
-		panel.showBy(dataitem);
-	},
+	// 	panel.showBy(dataitem);
+	// },
 	/**
 	 * Choose a payment method to issue the paymentRequest.
 	 */

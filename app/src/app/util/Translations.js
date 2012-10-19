@@ -122,8 +122,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "1. Check in<br/>2. Order<br/>3. Enjoy"
 		},
 		"dashboard.button.settings" : {
-			"DE" : "Profil",
-			"EN" : "Profile"
+			"DE" : "My cloobster",
+			"EN" : "My cloobster"
 		},
 		// Checkin
 		"checkInTitle" : {
@@ -212,7 +212,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Please choose"
 		},
 		"putIntoCartButton" : {
-			"DE" :  "Bestellzettel",
+			"DE" :  "Warenkorb",
 			"EN" :  "Add to cart"
 		},
 		"choiceValErrMandatory" : {
@@ -245,7 +245,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "No existing order."
 		},
 		"productPutIntoCardMsg" : {
-			"DE" :  "{0} auf Bestellzettel geparkt.",
+			"DE" :  "{0} auf Warenkorb geparkt.",
 			"EN" :  "{0} added to cart."
 		},
 		"orderRemoved" : {
@@ -269,7 +269,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Order sent ...<br/>Enjoy your meal!"
 		},
 		"productCartBt" : {
-			"DE" :  "Bestellzettel",
+			"DE" :  "Warenkorb",
 			"EN" :  "Add to cart"
 		},
 		"orderCanceled" : {
@@ -282,11 +282,11 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Order"
 		},
 		"cartTabBt" : {
-			"DE" :  "Bestellzettel",
+			"DE" :  "Warenkorb",
 			"EN" :  "Cart"
 		},
 		"dumpCart" : {
-			"DE" :  "Bestellzettel leeren?",
+			"DE" :  "Warenkorb leeren?",
 			"EN" :  "Empty cart?"
 		},
 		"dumpItem" : {

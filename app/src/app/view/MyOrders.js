@@ -22,7 +22,7 @@ Ext.define('EatSense.view.MyOrders', {
 							docked: 'top',
 							layout: {
 								type: 'vbox',
-								align: 'stretch',
+								align: 'center',
 								pack: 'center'
 							},
 							margin: '5',
@@ -32,6 +32,9 @@ Ext.define('EatSense.view.MyOrders', {
 								text: i10n.translate('payRequestButton'),
 								ui: 'action',
 								action: 'pay',
+								width: '80%',
+								iconCls: 'cash',
+								iconMask: true
 							}
 							]
 							
