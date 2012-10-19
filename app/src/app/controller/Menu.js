@@ -486,9 +486,7 @@ Ext.define('EatSense.controller.Menu', {
 	 */
 	switchView: function(view, title, labelBackBt, direction) {
 		var menu = this.getMenuview();
-
-		// this.getTopToolbar().setTitle(title);
-    	// (labelBackBt == null || labelBackBt.length == 0) ? menu.hideBackButton() : menu.showBackButton(labelBackBt);
+		
     	menu.switchMenuview(view,direction);
 	},
 	/**

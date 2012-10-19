@@ -129,6 +129,14 @@
 		lounge.setActiveItem(menu);
 	},
 	/**
+	* Show my orders
+	*/
+	showMyorders: function() {
+		//TODO not used
+		var lounge = this.getLoungeview(), view = this.getMyordersview();		
+		lounge.setActiveItem(view);
+	},
+	/**
 	 * Remove all orders from cart and switch back to menu.
 	 */
 	dumpCart: function() {
@@ -225,8 +233,12 @@
 							me.refreshCart();
 							me.refreshMyOrdersList();
 
+							//show my ordes view
+							me.showMyorders();
+							//switch back to menu and remove previous backhandler
 							menuCtr.backToMenu();
-							me.getLoungeview().switchTab(me.getMenutab() ,'left');
+
+							// me.getLoungeview().switchTab(me.getMenutab() ,'left');
 
 							//show success message
 							Ext.Msg.show({

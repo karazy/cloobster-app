@@ -122,8 +122,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "1. Check in<br/>2. Order<br/>3. Enjoy"
 		},
 		"dashboard.button.settings" : {
-			"DE" : "My cloobster",
-			"EN" : "My cloobster"
+			"DE" : "MyCloob",
+			"EN" : "MyCloob"
 		},
 		// Checkin
 		"checkInTitle" : {
@@ -339,8 +339,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Around me"
 		},
 		"clubdashboard.button.exit" : {
-			"DE" :  "Check-out",
-			"EN" :  "Check-out"
+			"DE" :  "Verlassen",
+			"EN" :  "Leave"
 		},
 		"clubdashboard.leave.message" : {
 			"DE" :  "Wirklich verlassen?",
@@ -352,12 +352,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Order"
 		},
 		"myOrdersTabBt" : {
-			"DE" :  "Check-out",
-			"EN" :  "Check-out"
+			"DE" :  "Verlassen",
+			"EN" :  "Leave"
 		},
 		"myOrdersTabLeaveBt" : {
-			"DE" :  "Check-out",
-			"EN" :  "Check-out"
+			"DE" :  "Verlassen",
+			"EN" :  "Leave"
 		},
 		"payRequestButton" : {
 			"DE" :  "Bezahlen",
@@ -629,8 +629,8 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Login
 		"login.title" : {
-			"DE" :  "My cloobster",
-			"EN" :  "My cloobster"
+			"DE" :  "MyCloob",
+			"EN" :  "MyCloob"
 		},
 		"login.description" : {
 			"DE" :  "Im cloobster Mitgliederbereich findest Du:<br/>"+
@@ -658,8 +658,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Sign-up"
 		},
 		"login.button.signupfb" : {
-			"DE" :  "Facebook Login",
-			"EN" :  "Facebook Login"
+			"DE" :  "Facebook",
+			"EN" :  "Facebook"
 		},
 		"login.button.pwforgot" : {
 			"DE" :  "Neues Passwort",
