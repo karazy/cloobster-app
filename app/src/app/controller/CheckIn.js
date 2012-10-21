@@ -254,9 +254,12 @@ Ext.define('EatSense.controller.CheckIn', {
 			checkIn.set('deviceId',options.deviceId);
 		}			
 		this.setActiveCheckIn(checkIn);
+
+    //prepare custom header in advance to avoid longer loading times
+    this.getApplication().getController('Lounge').drawCustomHeader();
 		
 		main.switchAnim('left');
-		main.setActiveItem(checkInDialog);	  			
+		main.setActiveItem(checkInDialog);			
    },
    /**
     * CheckIn Process
