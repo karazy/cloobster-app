@@ -355,7 +355,7 @@ Ext.define('EatSense.controller.Account', {
 			return;
 		};
 
-		loginView.setMasked({
+		Ext.Viewport.setMasked({
 	    		xtype: 'loadmask',
 	    		message: i10n.translate('general.processing')
 	    });
@@ -365,7 +365,7 @@ Ext.define('EatSense.controller.Account', {
 			if(!formValues.email || Ext.String.trim(formValues.email).length == 0 || !formValues.password || Ext.String.trim(formValues.password).length == 0) {
 				//no credentials provided
 				Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.account.nocredentials'));
-				loginView.setMasked(false);
+				Ext.Viewport.setMasked(false);
 				return;
 			}			
 
@@ -381,7 +381,7 @@ Ext.define('EatSense.controller.Account', {
 				console.log('Account.login > success found existing fb user ' + fbdata.id);	
 			}
 			
-	    	loginView.setMasked(false);
+	    	Ext.Viewport.setMasked(false);
 
 	    	//parse account, currently we only need the access token
 	    	account = Ext.create('EatSense.model.Account', Ext.decode(accountData.responseText));
@@ -415,7 +415,7 @@ Ext.define('EatSense.controller.Account', {
 		//error handler for ajax request
 		function onFailure(accountData) {
 			console.log('Account.login > failure ' + accountData.status);
-	    	loginView.setMasked(false);
+	    	Ext.Viewport.setMasked(false);
 
 			if(accountData.status) {
 				//not authorized

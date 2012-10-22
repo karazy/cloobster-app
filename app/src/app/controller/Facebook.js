@@ -37,6 +37,11 @@ Ext.define('EatSense.controller.Facebook', {
 			accountCtr = this.getApplication().getController('Account'),
 			authResponse;
 
+		Ext.Viewport.setMasked({
+	    		xtype: 'loadmask',
+	    		message: i10n.translate('general.processing')
+	    });
+
 		console.log('Facebook.signupFbButtonHandler');
 		FB.login(function(response) {
             if (response.authResponse) {
@@ -51,7 +56,7 @@ Ext.define('EatSense.controller.Facebook', {
                 	response.accessToken = authResponse.accessToken;
 
                 	accountCtr.login(response, callback);
-
+                	//unmask will be called from login method
                 	function callback() {
                 		//user does not exist, ask user to create account
 	                	if(!accountCtr.getAccount()) {
@@ -63,6 +68,7 @@ Ext.define('EatSense.controller.Facebook', {
             } else {
             	//no further interaction needed since the sdk does all the stuff
                 console.log('Facebook.signupFbButtonHandler > user canceled or did not finish.')
+                Ext.Viewport.unmask();
             }
             },
                 { scope: "email" }
