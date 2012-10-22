@@ -11,6 +11,19 @@ Ext.define('EatSense.view.MyOrders', {
 			{
 				xtype: 'navigationview',
 				defaultBackButtonText: i10n.translate('back'),
+				navigationBar: {
+					items: [
+					{
+						xtype: 'button',
+						action: 'show-cart',
+						align: 'right',
+						iconCls : 'shop1',
+						iconMask : true,
+						// hidden: true,
+						ui: 'action'
+					}
+					]
+				},
 				items: [ {
 					title : i10n.translate('myOrdersTitle'),
 					layout: {
