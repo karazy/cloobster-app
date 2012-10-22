@@ -56,7 +56,7 @@ Ext.define('EatSense.controller.Facebook', {
                 	response.accessToken = authResponse.accessToken;
 
                 	accountCtr.login(response, callback);
-                	//unmask will be called from login method
+                	//unmask will be called from login method!
                 	function callback() {
                 		//user does not exist, ask user to create account
 	                	if(!accountCtr.getAccount()) {
