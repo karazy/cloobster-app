@@ -500,12 +500,16 @@
       -webkit-box-shadow: 0px 0px 10px 2px gray;
     }
 
-    img.logo {
+    img.header-logo {
       position: absolute;
       z-index: 10;
       border-width: 1px;
       border-color: #C3C3C3;
       border-style: solid;
+    }
+
+    img.logo-horizontal {
+
       /*background-color: white;*/
 
       height: auto;
@@ -517,13 +521,6 @@
     }
 
     img.logo-vertical {
-      position: absolute;
-      z-index: 10;
-      border-width: 2px;
-      border-color: #C3C3C3;
-      border-style: solid;
-      background-color: white;
-
       height: 80px;
       top: 20px;
       /* no width because we calculate it dynamically*/

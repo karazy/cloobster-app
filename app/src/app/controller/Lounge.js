@@ -87,7 +87,9 @@ Ext.define('EatSense.controller.Lounge', {
       };
 
      descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
-    
+      
+      this.drawCustomHeader();
+
       //always show dashboard first
       this.getClubArea().setActiveItem(0);
       lounge.setActiveItem(0);
@@ -120,7 +122,7 @@ Ext.define('EatSense.controller.Lounge', {
                 headerHtml = '<img class="header" src="'+headerUrl+'=s720" />';
             };
             if(logoUrl) {
-                headerHtml +='<img class="logo" src="'+logoUrl+'=s180" />';
+                headerHtml +='<img class="header-logo logo-horizontal" src="'+logoUrl+'=s180" />';
             };
             //TODO testing purpose
             // headerHtml = '<img class="header" src="res/images/club/banner_test.png" />';
@@ -140,7 +142,7 @@ Ext.define('EatSense.controller.Lounge', {
           //get width and height of logo
           try {
             //get hold of the logo img element
-            domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('logo');
+            domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('header-logo');
 
             if(domLogo && domLogo[0]) {
               domLogo = domLogo[0];
@@ -150,40 +152,30 @@ Ext.define('EatSense.controller.Lounge', {
                 calculateHeaderLogoSize(domLogo); 
               } else {
                 console.log('Lounge.initDashboard > domLogo.onload');
-                domLogo.onload = calculateHeaderLogoSize;  
+                domLogo.onload = function() {
+                  calculateHeaderLogoSize(domLogo);  
+                }                
               }
-              // domLogo.onload = function() {
-              //   realLogoWidth = domLogo.width;
-              //   realLogoHeight = domLogo.height;
-
-              //   //if image is taller then wide remove calss logo and add class logo-vertical
-              //   if((realLogoWidth/realLogoHeight) < (3/2)) {
-              //     //add class vertical, than adjust dynamic properties
-              //     domLogo.setAttribute('class', 'logo-vertical');
-              //     domLogo.style.left = '50%';
-              //     domLogo.style.marginLeft = -domLogo.width/2 + "px";
-              //   }
-              // }
             } else {
               console.log('Lounge.initDashboard > no domLogo found');
             }
 
 
-            function calculateHeaderLogoSize(logo) {              
+            function calculateHeaderLogoSize(logo) {      
                 realLogoWidth = logo.width;
                 realLogoHeight = logo.height;
 
                 //if image is taller then wide remove calss logo and add class logo-vertical
                 if((realLogoWidth/realLogoHeight) < (3/2)) {
                   //add class vertical, than adjust dynamic properties
-                  logo.setAttribute('class', 'logo-vertical');
+                  logo.setAttribute('class', 'header-logo logo-vertical');
                   logo.style.left = '50%';
                   logo.style.marginLeft = -logo.width/2 + "px";
                 }
             }
 
           } catch(e) {
-            console.log('Lounge.initDashboard > something went fucking wrong ' + e);
+            console.log('Lounge.initDashboard > something went wrong ' + e);
             //restore default on error
             header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
           }

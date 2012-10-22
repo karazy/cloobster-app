@@ -256,7 +256,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		this.setActiveCheckIn(checkIn);
 
     //prepare custom header in advance to avoid longer loading times
-    this.getApplication().getController('Lounge').drawCustomHeader();
+    // this.getApplication().getController('Lounge').drawCustomHeader();
 		
 		main.switchAnim('left');
 		main.setActiveItem(checkInDialog);			
