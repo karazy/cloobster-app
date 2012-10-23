@@ -29,37 +29,23 @@ Ext.define('EatSense.view.Settings', {
 				title: i10n.translate('settingsButton'),
 				docked: 'top',
 			},
-			// {
-			// 	xtype: 'panel',
-			//prevents also that the panel has a wrong size. Bug?
-			// scrollable: false,
-			// layout: {
-			// 		type: 'vbox',
-			// 		pack: 'center',
-			// 		align: 'stretch'
-			// },
-			// margin: '10 0 0 0',
-			// padding: 10,
-			// width: '80%',
-			// items: [
-				{
-					xtype: 'label',
-					cls: 'general-label',
-					margin: '7 0 5 0',
-					html: i10n.translate('nicknameDesc')
-				},
-				{
-					xtype : 'textfield',
-					label : i10n.translate('nickname'),
-					labelWidth: '40%',
-					labelAlign: 'top',
-					itemId : 'nickname',
-					maxLength: 25,
-					cls: 'general-textfield',
-					labelCls: 'general-field-label-vertical'
-				}
-			// ]
-			// }
+			{
+				xtype: 'label',
+				// cls: 'general-label',
+				cls: 'login-description',
+				margin: '7 0 5 0',
+				html: i10n.translate('nicknameDesc')
+			},
+			{
+				xtype : 'textfield',
+				placeHolder : i10n.translate('nickname'),
+				labelWidth: '40%',
+				labelAlign: 'top',
+				itemId : 'nickname',
+				maxLength: 25,
+				cls: 'general-textfield',
+				labelCls: 'general-field-label-vertical'
+			}
 			,
 			{
 				xtype: 'panel',
@@ -71,13 +57,6 @@ Ext.define('EatSense.view.Settings', {
 				// width: '100%',
 				itemId: 'accountPanel',				
 				items: [
-					// {
-					// 	xtype: 'label',
-					// 	cls: 'general-label',
-					// 	style: 'margin-top: 1em; font-weight: bold;',
-					// 	// width: '80%',
-					// 	html: '<h1>' + i10n.translate('settings.section.account') + '</h1>'						
-					// },
 					{
 						xtype: 'label',
 						itemId: 'accountEmail',
@@ -96,29 +75,39 @@ Ext.define('EatSense.view.Settings', {
 						hidden: true
 					},
 					{
-						xtype: 'button',
-						ui: 'action',
-						margin: '7 0 5 0',
-						action: 'email-change',
-						// width: '60%',
-						text: i10n.translate('settings.account.button.email')
+						xtype: 'label',
+						cls: 'general-label',
+						margin: '5 0 0 0',
+						html: "- "+i10n.translate('change')+" -"
 					},
 					{
-						xtype: 'button',
-						ui: 'action',
-						action: 'password-change',
-						margin: '7 0 5 0',
-						// width: '60%',
-						text: i10n.translate('settings.account.button.password')
-					},
-					{
-						xtype: 'button',
-						ui: 'action',
-						action: 'logout',
-						margin: '7 0 5 0',
-						// width: '60%',
-						text: i10n.translate('settings.button.logout')
-					},
+						xtype: 'panel',
+						layout: {
+							type: 'hbox',
+							pack: 'center',
+							align: 'stretch'
+						},
+						items: [
+						{
+							xtype: 'button',
+							ui: 'action',
+							margin: '0 5 0 0',
+							action: 'email-change',
+							// width: '60%',
+							text: i10n.translate('settings.account.button.email'),
+							flex: 1
+						},
+						{
+							xtype: 'button',
+							ui: 'action',
+							action: 'password-change',
+							margin: '0 0 0 5',
+							// width: '60%',
+							text: i10n.translate('settings.account.button.password'),
+							flex: 1
+						}
+						]
+					},					
 					{
 						xtype: 'button',
 						text: i10n.translate('settings.button.connectfb'),
@@ -128,6 +117,14 @@ Ext.define('EatSense.view.Settings', {
 						margin: '7 0 5 0',
 						iconCls: 'fb-signup',
 						iconMask: true
+					},
+					{
+						xtype: 'button',
+						ui: 'action',
+						action: 'logout',
+						margin: '10 0 5 0',
+						// width: '60%',
+						text: i10n.translate('settings.button.logout')
 					}
 				]
 			},

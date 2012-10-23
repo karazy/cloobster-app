@@ -446,8 +446,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Email address"
 		},
 		"settings.account.button.email" : {
-			"DE" :  "E-Mail ändern",
-			"EN" :  "Change email address"
+			"DE" :  "E-Mail",
+			"EN" :  "Email"
 		},
 		"settings.account.label.password" : {
 			"DE" :  "Account Passwort",
@@ -458,8 +458,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Password"
 		},
 		"settings.account.button.password" : {
-			"DE" :  "Passwort ändern",
-			"EN" :  "Change password"
+			"DE" :  "Passwort",
+			"EN" :  "Password"
 		},
 		// "settings.section.account" : {
 		// 	"DE" :  "Account-Daten",
