@@ -656,21 +656,6 @@
   margin-right: 0.6em;
 }
 
-/* Login view */
-
-.login-description {
-  font-size: 0.8em;
-  margin-left: 5%;
-  margin-bottom: 10px;
-
-  ul {
-    margin-left: 10px;
-    margin-bottom: 5px;
-    li {
-      list-style: circle;
-    }
-  }
-}
 
 /* Facebook wallpost button */
 .fb-wimpel-button {
@@ -786,6 +771,21 @@
 /*
 * General styles
 */
+
+.general-text {
+  font-size: 0.8em;
+  /*margin-left: 5%;*/
+  margin-bottom: 10px;
+
+  ul {
+    margin-left: 20px;
+    margin-bottom: 5px;
+    li {
+      list-style: circle;
+    }
+  }
+}
+
 .general-label {
   color: $label-color; 
   font-size: 1em;

@@ -541,7 +541,8 @@ Ext.define('EatSense.controller.Settings', {
         var emailChangeDashboardBt = this.getEmailChangeDashboardBt(),
             emailChangeClubBt = this.getEmailChangeClubBt(),
             passwordChangeDashboardBt = this.getPasswordChangeDashboardBt(),
-            passwordChangeClubBt = this.getPasswordChangeClubBt();
+            passwordChangeClubBt = this.getPasswordChangeClubBt(),
+            changeSectionLabel = this.getCallingView().down('#changeSectionLabel');
 
         emailChangeDashboardBt.setDisabled(!show);
         emailChangeClubBt.setDisabled(!show);
@@ -551,6 +552,10 @@ Ext.define('EatSense.controller.Settings', {
         emailChangeClubBt.setHidden(!show);
         passwordChangeDashboardBt.setHidden(!show);
         passwordChangeClubBt.setHidden(!show);
+
+        if(changeSectionLabel) {
+            changeSectionLabel.setHidden(!show);
+        }
     },
     /**
     * Switches back to settings and removes inserted passwords.
