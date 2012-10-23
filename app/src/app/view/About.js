@@ -42,8 +42,7 @@ Ext.define('EatSense.view.About', {
 				'Sirko Polster, Helge Wiemann, Frederik Reifschneider'+
 
 				'<h2>Kontakt:</h2>'+		
-				'<p>Telefon:	+49.176.8319.2088<br/>'+
-				'Telefax:<br/>'+
+				'<p>Telefon:	+49 (0)221 26062723<br/>'+
 				'E-Mail:	info@cloobster.com</p>'+
 		
 				'<h2>Registereintrag:</h2>'+
