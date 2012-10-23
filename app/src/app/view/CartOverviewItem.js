@@ -22,7 +22,6 @@ Ext.define('EatSense.view.CartOverviewItem', {
 			cls: 'name',
 			flex: 4
 		},
-
 		editButton : {
 			iconCls : 'compose',
 			iconMask : true,
