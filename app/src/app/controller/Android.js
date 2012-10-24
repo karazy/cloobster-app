@@ -13,7 +13,7 @@ Ext.define('EatSense.controller.Android', {
 	},
 	launch: function() {
 		// var keepHandler = false;
-
+		
 		Ext.Viewport.element.on('tap', function() {
 			this.setExitOnBack(false);
 		},

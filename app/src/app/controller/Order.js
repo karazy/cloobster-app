@@ -498,8 +498,9 @@
 	 *	true to set badge text to empty string
 	 */
 	updateCartButtons: function(clear) {
-		var cartButtons = this.getMenutab().query('button[action=show-cart]'),
+		var cartButtons = this.getLoungeview().query('button[action=show-cart]'),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
+			menuCtr = this.getApplication().getController('Menu'),
 			badgeText;
 		
 		if(clear == true) {
@@ -507,14 +508,14 @@
 				button.setBadgeText("");	
 			});
 
-			this.getMenutab().showCartButtons(false);		
+			menuCtr.showCartButtons(false);		
 		} else {
 			if(!checkIn || checkIn.orders().getCount() == 0 ) {
 				badgeText = "";
-				this.getMenutab().showCartButtons(false);				
+				menuCtr.showCartButtons(false);				
 			} else {
 				badgeText = checkIn.orders().getCount();
-				this.getMenutab().showCartButtons(true);
+				menuCtr.showCartButtons(true);
 			}
 			
 			Ext.Array.each(cartButtons, function(button) {

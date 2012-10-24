@@ -364,7 +364,7 @@ Ext.define('EatSense.controller.Menu', {
 			order,
 			validationError = "",
 			validationResult = null,
-			cartButtons = this.getMenuview().query('button[action=show-cart]'),
+			cartButtons = this.getLoungeview().query('button[action=show-cart]'),
 			productIsValid = true,
 			appState = this.getApplication().getController('CheckIn').getAppState(),
 			appStateStore = Ext.StoreManager.lookup('appStateStore'),
@@ -402,7 +402,7 @@ Ext.define('EatSense.controller.Menu', {
 						button.setBadgeText(activeCheckIn.orders().data.length);						
 					});
 
-					me.getMenuview().showCartButtons(true);
+					me.showCartButtons(true);
 	    	    },
 	    	    failure: function(response, operation) {
 	    	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
@@ -472,6 +472,21 @@ Ext.define('EatSense.controller.Menu', {
 			me.backToPreviousView();
 		});
     	menuview.switchMenuview(cartView, "left");
+	},
+	/**
+	* Shows or hides the product cart button.
+	* @param show
+	* 		true = show | false = hide
+	*/
+	showCartButtons: function(show) {
+		var lounge = this.getLoungeview(),
+			cartButtons;
+
+		cartButtons = lounge.query('button[action=show-cart]');
+
+		Ext.Array.each(cartButtons, function(button) {
+			button.setHidden(!show);
+		});
 	},
 	/**
 	 * Switches to another view

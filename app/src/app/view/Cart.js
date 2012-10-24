@@ -14,10 +14,7 @@ Ext.define('EatSense.view.Cart', {
 			title : i10n.translate('cartviewTitle'),
 			items : [ 
 			{
-				action: 'back',
-				text : i10n.translate('back'),
-				ui : 'back',
-				align: 'left'
+				xtype: 'backbutton'
 			},
 			]
 		},

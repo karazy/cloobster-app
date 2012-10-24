@@ -1,6 +1,7 @@
 Ext.define('EatSense.view.MyOrders', {
 	extend : 'Ext.Panel',
-	xtype: 'myorderstab',	
+	requires: ['EatSense.view.CartButton'],
+	xtype: 'myorderstab',
 	config: {
 		iconCls : 'cash',
 		title: i10n.translate('myOrdersTabLeaveBt'),
@@ -14,13 +15,7 @@ Ext.define('EatSense.view.MyOrders', {
 				navigationBar: {
 					items: [
 					{
-						xtype: 'button',
-						action: 'show-cart',
-						align: 'right',
-						iconCls : 'shop1',
-						iconMask : true,
-						// hidden: true,
-						ui: 'action'
+						xtype: 'cartbutton'
 					}
 					]
 				},

@@ -50,11 +50,14 @@ Ext.define('EatSense.view.Menu', {
 		cardpanel.setActiveItem(view);		
 	},
 	/**
+	 * @Deprecated
 	 * Shows or hides the product cart button.
 	 * @param show
 	 * 		true = show | false = hide
 	 */
 	showCartButtons: function(show) {
+		alert('showCartButtons');
+		console.error('EatSense.view.Menu.showCartButtons > DEPRECATED CALL');
 		this.down('menuoverview button[action=show-cart]').setHidden(!show);
 		this.down('productoverview button[action=show-cart]').setHidden(!show);
 	}

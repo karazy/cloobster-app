@@ -3,6 +3,7 @@
  */
 Ext.define('EatSense.view.ProductOverview', {
 	extend : 'Ext.Container',
+	requires: ['EatSense.view.CartButton'],
 	xtype : 'productoverview',
 	config : {
 		items : [ 
@@ -19,13 +20,7 @@ Ext.define('EatSense.view.ProductOverview', {
 				ui : 'back',
 				align: 'left'
 			},{
-				xtype: 'button',				
-				action: 'show-cart',
-				align: 'right',
-				iconCls : 'shop1',
-				iconMask : true,
-				hidden: true,
-				ui: 'action'
+				xtype: 'cartbutton'
 			}
 			]
 		},

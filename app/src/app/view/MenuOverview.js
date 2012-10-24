@@ -6,6 +6,7 @@
  */
 Ext.define('EatSense.view.MenuOverview', {
 	extend : 'Ext.Container',
+	requires: ['EatSense.view.CartButton'],
 	xtype : 'menuoverview',
 	config : {
 		items : [ 
@@ -16,13 +17,7 @@ Ext.define('EatSense.view.MenuOverview', {
 				title : i10n.translate('menuTitle'),
 				items : [ 
 				{
-					xtype: 'button',
-					action: 'show-cart',
-					align: 'right',
-					iconCls : 'shop1',
-					iconMask : true,
-					hidden: true,
-					ui: 'action'
+					xtype: 'cartbutton'
 				}
 				]
 			},
