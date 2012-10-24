@@ -36,8 +36,8 @@ Ext.define('EatSense.view.Login', {
 			{
 				xtype: 'label',
 				html: i10n.translate('login.description'),
-				width: '100%',
-				cls: 'login-description'
+				width: '90%',
+				cls: 'general-text'
 				// padding: '5px',
 				// margin: '0 0 15 0',
 				// styleHtmlContent: true

@@ -437,6 +437,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" : "Logout",
 			"EN" : "Logout"
 		},
+		"settings.account.label.edit" : {
+			"DE" :  "Ändern Sie:",
+			"EN" :  "Change:"
+		},
 		"settings.account.label.email" : {
 			"DE" :  "Account E-Mail",
 			"EN" :  "Account email address"
@@ -446,8 +450,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Email address"
 		},
 		"settings.account.button.email" : {
-			"DE" :  "E-Mail ändern",
-			"EN" :  "Change email address"
+			"DE" :  "E-Mail",
+			"EN" :  "Email"
 		},
 		"settings.account.label.password" : {
 			"DE" :  "Account Passwort",
@@ -458,16 +462,16 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Password"
 		},
 		"settings.account.button.password" : {
-			"DE" :  "Passwort ändern",
-			"EN" :  "Change password"
+			"DE" :  "Passwort",
+			"EN" :  "Password"
 		},
 		// "settings.section.account" : {
 		// 	"DE" :  "Account-Daten",
 		// 	"EN" :  "Account data"
 		// },
 		"settings.account.email" : {
-			"DE" :  "Account: {email}",
-			"EN" :  "Account: {email}"
+			"DE" :  "Ihr cloobster Konto:<br/>{email}",
+			"EN" :  "Your cloobster account:<br/>{email}"
 		},
 		"settings.account.fbconnected" : {
 			"DE" :  "Account mit Facebook verknüpft.",
@@ -482,7 +486,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Change email address"
 		},
 		"emailsetting.description" : {
-			"DE" :  "Ändern Sie die E-Mail für Ihren cloobster Account.",
+			"DE" :  "E-Mail für cloobster Account ändern",
 			"EN" :  "Change email for your cloobster account."
 		},
 		"emailsetting.password.field" : {
@@ -522,7 +526,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Change Password"
 		},
 		"passwordsetting.description" : {
-			"DE" :  "Ändern Sie das Passwort für Ihren cloobster Account.",
+			"DE" :  "Passwort für cloobster Account ändern",
 			"EN" :  "Change password for your cloobster account."
 		},
 		"passwordsetting.oldpassword.field" : {
@@ -633,9 +637,9 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "MyCloob"
 		},
 		"login.description" : {
-			"DE" :  "Im cloobster Mitgliederbereich findest Du:<br/>"+
+			"DE" :  "cloobster Mitglied sein heißt:<br/>"+
 			"<ul><li>My Places - Alle besuchten Locations</li><li>Ich war hier - teilen wo man ist</li></ul>"+
-			"Du willst dir kein weiteres Passwort merken?<br/>Melde dich einfach mit deinem Facebook Konto an.",
+			"Du willst dir kein weiteres Passwort merken? Melde dich einfach mit deinem Facebook Konto an.",
 			"EN" : "In the cloobster members area you find:<br/>"+
 				"<ul><li>My places - Business a history of locations visited</li>"+
 				"<li>I was here - Post where you are</li></ul>"+
