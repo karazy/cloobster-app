@@ -99,6 +99,17 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		if(oldItem) {
 			this.remove(oldItem);
 		}
+	},
+
+	updateRecord: function(newRecord) {
+		if(!newRecord) {
+			return;
+		};
+
+		this.getSliderValue().setSrc('res/images/feedback/'+this.getSmilies()[newRecord.get('rating')]);
+		this.getSlider().setValue(newRecord.get('rating'));
+
+		this.callParent([newRecord]);	
 	}
 
 });

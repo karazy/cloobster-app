@@ -24,24 +24,7 @@ Ext.define('EatSense.view.ClubArea', {
 					xtype: 'clubdashboard'
 				},
 				{
-					xtype: 'panel',
-					itemId: 'feedback',
-					layout: 'fit',
-					items: [
-						{
-							xtype: 'titlebar',
-							title: i10n.translate('feedback'),
-							docked: 'top',
-							items: [
-							{
-								xtype: 'backbutton'
-							}
-							]
-						},
-						{
-							xtype: 'feedbackform'
-						}
-					]
+					xtype: 'feedbackform'
 				},
 				{
 					xtype: 'requeststab'

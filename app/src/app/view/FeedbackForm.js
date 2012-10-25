@@ -7,15 +7,24 @@ Ext.define('EatSense.view.FeedbackForm', {
 	requires: ['EatSense.view.FeedbackQuestion'],
 	config: {
 		//used innavigation view
-		title: i10n.translate('feedback'),
+		// title: i10n.translate('feedback'),
 		layout: {
 			type: 'vbox',
 			align: 'center',
 			pack: 'center'
 		},
 		scrollable: 'vertical',
-		// cls: 'feedback-panel',
 		items: [
+		{
+			xtype: 'titlebar',
+			title: i10n.translate('feedback'),
+			docked: 'top',
+			items: [
+				{
+					xtype: 'backbutton'
+				}
+			]
+		},
 		{
 			xtype: 'label',
 			cls: 'general-label',

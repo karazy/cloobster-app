@@ -29,7 +29,7 @@
 			loungeview : 'lounge',
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
-			myordersview: 'myorderstab',
+			myordersview: 'lounge myorderstab',
 			// myordersTabBt: 'lounge button[title='+i10n.translate('myOrdersTabBt')+']',
 			//TODO find a better way to select tab
 			myordersTabBt: 'lounge #ext-tab-3',
@@ -39,7 +39,9 @@
 			confirmEditButton: 'orderdetail button[action="edit"]',
 			undoEditButton: 'orderdetail button[action="undo"]',
 			clubarea: 'clubarea',
-			checkoutDescription: 'myorderstab #description'
+			checkoutDescription: 'myorderstab #description',
+			myordersShowCartButton: 'myorderstab button[action=show-cart]',
+			myordersCartBackButton: 'myorderstab carttab button[action=back]'
 		},
 		control: {
 			cancelAllOrdersBt : {
@@ -77,6 +79,15 @@
              }, 
              myorderlist: {
              	itemtap: 'toggleOrderDetail'
+             },
+             myordersview: {
+             	activate: 'myordersviewActivated'
+             },
+             myordersShowCartButton: {
+             	tap: 'myordersShowCartButtonHandler'
+             },
+             myordersCartBackButton : {
+             	tap: 'myordersCartBackButtonHandler'
              }
 		},
 		/**
@@ -98,24 +109,43 @@
     	messageCtr.on('eatSense.bill', this.handleBillMessage, this);
 	},
 	/**
+    * Activate event handler for myordersview.
+    */
+	myordersviewActivated: function(tab, options) {
+		tab.setActiveItem(0);
+	},
+	/**
 	 * Load cart orders.
 	 * @return
 	 * 		<code>false</code> if cart is empty, <code>true</code> otherwise
 	 */
 	refreshCart: function() {
 		console.log('Cart Controller -> showCart');
-		var cartview = this.getCartview(), 
+		var 
+			// cartview = this.getCartview(), 
+			cartviews = this.getLoungeview().query('carttab'),
+			orderlists = this.getLoungeview().query('carttab #orderlist'),
 			orderlist = this.getOrderlist(),
 			orders = this.getApplication().getController('CheckIn').getActiveCheckIn().orders(),
-			total = 0;
+			total = 0,
+			currentList,
+			currentTotal;
     	
-		orderlist.setStore(orders);	
-		this.setActiveOrder(null);
-		orderlist.refresh();
+    	total = this.calculateOrdersTotal(orders);	
 
+		// orderlist.setStore(orders);
+		Ext.Array.each(cartviews, function(view) {
+			currentList = view.down('#orderlist');
+			currentList.setStore(orders);
+			currentList.refresh();
+			currentTotal = view.down('#carttotalpanel label');
+			currentTotal.getTpl().overwrite(currentTotal.element, {'price':total});
+		});
 		
-		total = this.calculateOrdersTotal(orders);			
-		this.getCartoverviewTotal().getTpl().overwrite(this.getCartoverviewTotal().element, {'price':total});
+
+		this.setActiveOrder(null);
+			
+		// this.getCartoverviewTotal().getTpl().overwrite(this.getCartoverviewTotal().element, {'price':total});
 		this.updateCartButtons();
 		// this.toggleCartButtons();
 		return true;
@@ -129,12 +159,50 @@
 		lounge.setActiveItem(menu);
 	},
 	/**
+	* 
+	*/
+	myordersShowCartButtonHandler: function(button) {
+		var me = this,
+			myordersview = this.getMyordersview(),
+			cartview = myordersview.down('carttab');
+
+		this.getApplication().getController('Order').refreshCart();
+		myordersview.setActiveItem(cartview);
+		// this.setActiveNavview(myordersNavview);
+
+		this.getApplication().getController('Android').addBackHandler(function() {
+            // myordersNavview.pop();
+            me.backToMyorders();
+        });
+	},
+	/**
 	* Show my orders
 	*/
 	showMyorders: function() {
-		//TODO not used
-		var lounge = this.getLoungeview(), view = this.getMyordersview();		
+		var lounge = this.getLoungeview(), 
+			view = this.getMyordersview();
+
 		lounge.setActiveItem(view);
+
+		//
+		this.backToMyorders();
+	},
+	/**
+	* Set Myordersview active in myorders tab cart layout.
+	*/
+	backToMyorders: function() {
+		var myordersview = this.getMyordersview();
+
+		myordersview.switchAnim('right');
+		myordersview.setActiveItem(0);
+		myordersview.switchAnim('left');
+	},
+	/**
+	* Tap event handler for cart back button in myorders view.
+	*/
+	myordersCartBackButtonHandler: function(button) {
+		this.getApplication().getController('Android').removeLastBackHandler();
+		this.backToMyorders();
 	},
 	/**
 	 * Remove all orders from cart and switch back to menu.
@@ -702,6 +770,7 @@
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			myordersComplete = this.getMyordersComplete(),
 			payButton = this.getPaymentButton(),
+			menuCtr = this.getApplication().getController('Menu'),
 			me = this;		
 
 		bill.set('paymentMethod', paymentMethod);
@@ -717,6 +786,7 @@
 					payButton.hide();
 					myordersComplete.show();
 					me.refreshMyOrdersBadgeText(true);
+					menuCtr.showCartButtons(false);		
 					me.getApplication().getController('Android').removeLastBackHandler();		
 			},
 			failure: function(record, operation) {

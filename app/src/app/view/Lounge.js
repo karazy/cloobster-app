@@ -32,18 +32,10 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'menutab',
 				tabName: 'menu'	
 			},
-			// {
-			// 	xtype: 'carttab',
-			// 	tabName: 'cart'
-			// },
 			{
 				xtype: 'myorderstab',
 				tabName: 'myorders'
 			},
-			// {
-			// 	xtype: 'requeststab',
-			// 	tabName: 'requests'
-			// },
 			{
 				xtype: 'settingstab',
 				tabName: 'settings'

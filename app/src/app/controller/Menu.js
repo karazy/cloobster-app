@@ -11,9 +11,9 @@ Ext.define('EatSense.controller.Menu', {
 	        main : 'mainview', 
         	menulist :'menuoverview list',        	
         	productlist :'#menuCardPanel #productlist',        	
-        	productoverview :'productoverview' ,	     
+        	productoverview :'productoverview' ,
         	menuoverview :'menuoverview' ,	       
-        	productdetail :{
+        	productdetail : {
                 selector: 'tabpanel panel[name=menu] productdetail',
                 xtype: 'productdetail',
                 autoCreate: true

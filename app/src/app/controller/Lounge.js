@@ -32,7 +32,7 @@ Ext.define('EatSense.controller.Lounge', {
     				} else if (value.tabName === 'myorders') {
     					this.getApplication().getController('Order').refreshMyOrdersList();
     					//reset navigation view
-    					this.getApplication().getController('Feedback').getMyordersNavview().pop();
+    					// this.getApplication().getController('Feedback').getMyordersNavview().pop();
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getCartNavigationFunctions());
     				} else if(value.tabName === 'menu') {
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Menu').getMenuNavigationFunctions());

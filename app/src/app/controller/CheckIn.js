@@ -25,16 +25,16 @@ Ext.define('EatSense.controller.CheckIn', {
         	checkInDlg1Label1: 'checkinconfirmation #checkInDlg1Label1',    	       
         	           	
         	checkInBtn: 'dashboard button[action=checkin]',
-            //confirm checkn view
-            cancelCheckInBt: 'checkinconfirmation button[action=cancel-checkin]',           
+          //confirm checkn view
+          cancelCheckInBt: 'checkinconfirmation button[action=cancel-checkin]',           
         	confirmCheckInBt : 'checkinconfirmation button[action=confirm-checkin]',
-            regenerateNicknameBt : 'checkinconfirmation button[action=regenerate-nickname]',
-            //checkIn w/ others
-            userlist: '#checkinDlg2Userlist',
+          regenerateNicknameBt : 'checkinconfirmation button[action=regenerate-nickname]',
+          //checkIn w/ others
+          userlist: '#checkinDlg2Userlist',
         	checkinDlg2Userlist: '#checkinDlg2Userlist',
         	checkinDlg2CancelBt : '#checkinDlg2CancelBt',
-            //loungeview and tabs
-            loungeview : 'lounge',
+          //loungeview and tabs
+          loungeview : 'lounge',
         	menuTab: 'menutab',
         	cartTab: 'carttab',
           settingsTab: 'settingstab',
