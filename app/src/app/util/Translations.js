@@ -790,8 +790,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Session is invalid."
 		},
 		"errorCommunication" : {
-			"DE" :  "Es kann keine Verbindung zum Server hergestellt werden.<br/>Bitte probiere es noch einmal.",
-			"EN" :  "Connection to server failed.<br/ Please try again."
+			"DE" :  "Es kann momentan keine Verbindung hergestellt werden.<br/>Bitte probiere es noch einmal.",
+			"EN" :  "Connection temporarily not available.<br/ Please try again."
 		},
 		"error.menu.needsrefresh" : {
 			"DE" :  "Auswahl nicht mehr aktuell. Bitte führen Sie die Bestellung nochmals durch.",
