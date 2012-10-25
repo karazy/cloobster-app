@@ -176,7 +176,7 @@ Ext.define('EatSense.model.Order', {
 		rawJson.productPrice = this.get('productPrice');
 		rawJson.productShortDesc = this.get('productShortDesc');
 		rawJson.productLongDesc = this.get('productLongDesc');
-		rawJson.orderTime = (this.get('orderTime')) ? this.get('orderTime').getTime() : null;		
+		rawJson.orderTime = (this.get('orderTime')) ? this.get('orderTime').getTime() : null;
 
 		rawJson.choices = new Array(this.choices().data.length);
 		

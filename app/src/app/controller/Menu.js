@@ -424,9 +424,7 @@ Ext.define('EatSense.controller.Menu', {
 	                        	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
 	                        	'forceLogout': {403:true}
 	                    });	
-	    	    	}
-
-	    	    	
+	    	    	}	
 	    	    }
 	    	});
 									
@@ -458,7 +456,7 @@ Ext.define('EatSense.controller.Menu', {
 	/**
 	 * Switches to card view.
 	 */
-	showCart: function(button){		
+	showCart: function(button) {
 		var me = this,
 			menuview = this.getMenuview(),
 			cartView = this.getCartView(),
