@@ -135,7 +135,7 @@
 		<echo message="Setting config values" />
 		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 ''," byline="true">
 		</replaceregexp>
-		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 true" byline="true">
+		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 true," byline="true">
 		</replaceregexp>
 	</target>
 	
@@ -146,6 +146,17 @@
 		        <exclude name="*.scss"></exclude>
 		    </fileset>
 		</copy>
+	</target>
+	
+	<target name="setversion">
+		<echo message="Setting version number" />
+		<exec executable="${git.cmd}" dir="${basedir}" outputproperty="build.commit" vmlauncher="${git.vmlauncher}">
+		    <arg value="describe"/>
+		    <arg value="--always"/>
+		</exec>
+		<echo message="Commit version: ${build.commit}" />
+		<replaceregexp file="${basedir}/src/app/util/Configuration.js" match="(version:) .*" replace="\1 '${build.commit}'," byline="true">
+		</replaceregexp>
 	</target>
 	
 	<!-- Android -->
@@ -249,15 +260,15 @@
 	
 	
 <!-- 	<target name="default" depends="buildDesktop, buildAndroid, buildIOS,cleanUpProductionFiles"></target> -->
-	<target name="android-local" depends="androidConfigLocal, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
-	<target name="android-test" depends="androidConfigTest, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
-	<target name="android-quality" depends="androidConfigQuality, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
-	<target name="android-production" depends="androidConfigProduction, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="android-local" depends="setversion, androidConfigLocal, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="android-test" depends="setversion, androidConfigTest, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="android-quality" depends="setversion, androidConfigQuality, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="android-production" depends="setversion, androidConfigProduction, copyAppAndroid, cleanUpProductionFiles, resetDefaultConfig"/>
 	
-	<target name="ios-local" depends="iOSConfigLocal, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
-	<target name="ios-test" depends="iOSConfigTest, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
-	<target name="ios-quality" depends="iOSConfigQuality, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="ios-local" depends="setversion, iOSConfigLocal, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="ios-test" depends="setversion, iOSConfigTest, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="ios-quality" depends="setversion, iOSConfigQuality, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
 	<target name="ios-production" depends="iOSConfigProduction, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
 	
-	<target name="desktop-production" depends="buildDesktop, cleanUpProductionFiles"/>	
+	<target name="desktop-production" depends="setversion, buildDesktop, cleanUpProductionFiles"/>	
 </project>
