@@ -10,18 +10,8 @@ Ext.define('EatSense.controller.Feedback', {
 			lounge: 'lounge',
 			clubArea: 'clubarea',
 			showFeedbackButton: 'clubarea clubdashboard button[action=show-feedback]',
-			// feedbackLabel: 'clubdashboard #feedbackLabel',
-			//feedback button in myorders tab
 			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
-			// requestNavview: 'requeststab navigationview',
-			// myordersNavview: 'myorderstab navigationview',
 			myordersview: 'lounge myorderstab',
-			// feedback: {
-			// 	xtype: 'feedbackform',
-			// 	selector: 'feedbackform',
-			// 	autoCreate: true
-			// },
-			// questionsList: 'feedbackform dataview',
 			emailField: 'feedbackform emailfield',
 			commentField: 'feedbackform textareafield',
 			submitFeedBackButton: 'feedbackform button[action=submit]',
@@ -46,9 +36,6 @@ Ext.define('EatSense.controller.Feedback', {
 			commentField: {
 				change: 'saveComment'
 			},
-			// myordersNavview : {
-			// 	back: 'navBackButtonTap'
-			// },
 			backButton : {
 				tap: 'backButtonHandler'
 			},
@@ -80,7 +67,6 @@ Ext.define('EatSense.controller.Feedback', {
 		this.setFeedbackOrigin('home');
 		this.setActiveFeedbackView(feedbackform);
 		//make sure feedback form exists
-		// this.getFeedback();
 		this.propateFeedbackForm();
 
 		//show feedback form
@@ -107,12 +93,9 @@ Ext.define('EatSense.controller.Feedback', {
 		this.propateFeedbackForm();
 
 		//show feedback form
-		// myordersNavview.push(feedback);
 		myordersview.setActiveItem(1);
-		// this.setActiveNavview(myordersNavview);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
-            // myordersNavview.pop();
             me.backToMyOrders();
         });
 	},
@@ -187,10 +170,6 @@ Ext.define('EatSense.controller.Feedback', {
 			Ext.Array.each(textareafields, function(field) {
 				field.setValue(me.getActiveFeedback().get('comment') || "");
 			});
-			//feedback exists, simply set the store
-			// this.getQuestionsList().setStore(this.getActiveFeedback().answers());
-			// this.getEmailField().setValue(this.getActiveFeedback().get('email'));
-			// this.getCommentField().setValue(this.getActiveFeedback().get('comment'));
 		}
 	},
 	/**
@@ -378,14 +357,6 @@ Ext.define('EatSense.controller.Feedback', {
 
 		checkInCtr.getAppState().set('feedbackId', id);
 	},
-	/**
-	* 
-	*/
-	// navBackButtonTap: function(button) {
- //        console.log('SettingsController.navBackButtonTap');
- //        this.setFeedbackOrigin(null);
- //        this.getApplication().getController('Android').removeLastBackHandler();
- //    },
     /**
 	* Tap handler for backbutton.
 	*/
