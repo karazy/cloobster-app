@@ -42,7 +42,8 @@ Ext.application({
 		'EatSense.override.RadioOverride',
     'EatSense.override.CustomSpinner',
 		'EatSense.model.AppState',
-    'EatSense.override.CustomJsonWriter'
+    'EatSense.override.CustomJsonWriter',
+    'EatSense.override.MessageBox'
 	],
 	launch : function() {
 		console.log('App -> launch');		

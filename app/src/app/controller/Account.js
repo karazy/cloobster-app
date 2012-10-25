@@ -173,7 +173,8 @@ Ext.define('EatSense.controller.Account', {
 	showSignupConfimDialog: function(fbdata) {
 		var me = this,
 			loginView = this.getLoginView(),
-			confirmMessage = (!fbdata) ? i10n.translate('account.signup.confirm.message') : i10n.translate('account.signupfb.confirm.message');
+			confirmMessage = (!fbdata) ? i10n.translate('account.signup.confirm.message') : i10n.translate('account.signupfb.confirm.message'),
+			about;
 
 	    Ext.Msg.show({
             title:  i10n.translate('account.signup.confirm.title') ,
@@ -186,15 +187,27 @@ Ext.define('EatSense.controller.Account', {
                 text: i10n.translate('no'),
                 itemId: 'no',
                 ui: 'action'
+            },
+            {
+                text: i10n.translate('terms'),
+                itemId: 'terms',
+                ui: 'action',
+                nohide: true
             }],
             scope: this,
-            fn: function(btnId, value, opt) {
-                if(btnId=='yes') {
-                	loginView.setMasked({
+			fn: function(btnId, value, opt) {
+				if(btnId=='yes') {
+					loginView.setMasked({
                 		xtype: 'loadmask',
                 		message: i10n.translate('general.processing')
                 	});
                 	this.signup(callback, fbdata);
+                } else if(btnId=='terms') {
+                	about = Ext.create('EatSense.view.About', {
+                		zIndex: 100
+                	});
+
+    				Ext.Viewport.add(about);
                 }
             }
         }); 

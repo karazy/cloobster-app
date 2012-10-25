@@ -89,6 +89,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Nochmal drücken, um zu beenden.",
 			"EN" :  "Please confirm to close."
 		},
+		"terms" : {
+			"DE" :  "AGB",
+			"EN" : "Terms"
+		},
 		// main menu
 		"checkInButton" : {
 			"DE" :  "Check-in",
@@ -682,8 +686,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Register ..."
 		},
 		"account.signup.confirm.message" : {
-			"DE" :  "Bei Cloobster registrieren?",
-			"EN" :  "Register?"
+			"DE" :  "Bei cloobster registrieren und unsere AGB akzeptieren?",
+			"EN" :  "Register for cloobster and accept our terms of use?"
 		},
 		"account.signupfb.confirm.message" : {
 			"DE" :  "Cloobster Account mit Facebook Daten anlegen?",
