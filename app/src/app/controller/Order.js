@@ -890,7 +890,7 @@
     // Get hold of the div with details class and animate
     	var el = htmlElement.select('div.myorder-detail'),
     		convert = Ext.get(el.elements[0]),
-    		priceDiv = htmlElement.select('h2.price');
+    		priceDiv = htmlElement.select('td.arrow');
     	
     	convert.toggleCls('hidden');
     	priceDiv.toggleCls('collapsed-arrow');
