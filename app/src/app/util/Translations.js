@@ -768,6 +768,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Um bei Facebook zu posten brauchen Sie einen cloobster Account, der mit Facebook verknüpft ist.",
 			"EN" : "To post at your Facebook wall you'll need a cloobster account linked with Facebook."
 		},
+		"facebook.connect.canceled" : {
+			"DE" :  "Facebook login nicht erfolgreich.",
+			"EN" : "Facebook login failed."
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

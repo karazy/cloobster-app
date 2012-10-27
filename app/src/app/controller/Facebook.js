@@ -45,12 +45,24 @@ Ext.define('EatSense.controller.Facebook', {
 		console.log('Facebook.signupFbButtonHandler');
 		FB.login(function(response) {
             if (response.authResponse) {
+
+
                 // Fb login success.
                 // Now get user data.
                 authResponse = response.authResponse;
 
                 FB.api('/me', function(response) {
                 	console.log('Facebook.signupFbButtonHandler > retrieved fb user with id='+response.id);
+
+                	//code: 190
+					// error_subcode: 467
+					// message: "Error validating access token: The session is invalid because the user logged out."
+					// type: "OAuthException"
+                	if(response.error) {
+                		Ext.Viewport.unmask();
+                		Ext.Msg.alert(i10n.translate('hint'), i10n.translate('facebook.connect.canceled'));
+                		return;
+					}
 
                 	//add access token from authResponse
                 	response.accessToken = authResponse.accessToken;
@@ -73,6 +85,13 @@ Ext.define('EatSense.controller.Facebook', {
             },
                 { scope: "email" }
         );
+		
+		Ext.Msg.alert(i10n.translate('hint'), i10n.translate('facebook.connect.canceled'));
+		
+		//to prevent a locked screen after unforseeable error hide the mask
+		Ext.defer((function() {
+			Ext.Viewport.unmask();
+		}), appConfig.msgboxHideTimeout, this);
 	},
 	/**
 	* Tap event handler for connectFbClubButton in settingstab.
@@ -148,6 +167,16 @@ Ext.define('EatSense.controller.Facebook', {
                 FB.api('/me', function(response) {
                 	console.log('Facebook.connectWithFacebook > retrieved fb user with id='+response.id);
 
+                	//code: 190
+					// error_subcode: 467
+					// message: "Error validating access token: The session is invalid because the user logged out."
+					// type: "OAuthException"
+                	if(response.error) {
+                		Ext.Viewport.unmask();
+                		Ext.Msg.alert(i10n.translate('hint'), i10n.translate('facebook.connect.canceled'));
+                		return;
+					}
+
                 	//add access token from authResponse
                 	response.accessToken = authResponse.accessToken;
 
@@ -181,6 +210,11 @@ Ext.define('EatSense.controller.Facebook', {
             },
                 { scope: "email" }
         );
+	
+		//to prevent a locked screen after unforseeable error hide the mask
+		Ext.defer((function() {
+			Ext.Viewport.unmask();
+		}), appConfig.msgboxHideTimeout, this);
 	},
 	/**
 	* Do a post for the location (business) user has checked in.
