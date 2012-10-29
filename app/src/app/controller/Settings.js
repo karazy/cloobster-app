@@ -520,7 +520,7 @@ Ext.define('EatSense.controller.Settings', {
                     }
                 } catch(e) {
                     console.log("Could not parse error response.");
-                    responseErrorKey = errorMsg;
+                    responseErrorKey = 'errorMsg';
                 };
 
                 me.getApplication().handleServerError({
