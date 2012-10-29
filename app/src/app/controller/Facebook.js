@@ -86,8 +86,6 @@ Ext.define('EatSense.controller.Facebook', {
                 { scope: "email" }
         );
 		
-		Ext.Msg.alert(i10n.translate('hint'), i10n.translate('facebook.connect.canceled'));
-		
 		//to prevent a locked screen after unforseeable error hide the mask
 		Ext.defer((function() {
 			Ext.Viewport.unmask();
@@ -259,7 +257,10 @@ Ext.define('EatSense.controller.Facebook', {
 
 		FB.getLoginStatus(function(response) {
 			console.log('Facebook.postCheckIn > FB.getLoginStatus response = ' + response.status);
-		  if (response.status === 'connected') {
+		  if (response.status === 'connected' && response.authResponse && response.authResponse.userID) {
+		  		// var uid = response.authResponse.userID;
+    			// var accessToken = response.authResponse.accessToken;
+    			// console.log('Facebook.postCheckIn > uid = ' + uid + ' accessToken='+accessToken);
 		   		post();
 		  } else {
 			FB.login(function(response) {
