@@ -36,23 +36,31 @@ CDV.FB = {
         localStorage.setItem('cdv_fb_session', JSON.stringify(e.authResponse));
         FB.Auth.setAuthResponse(e.authResponse, 'connected');
         if (cb) cb(e);
-    }, (fail?fail:null), 'org.apache.cordova.facebook.Connect', 'login', params.scope.split(',') );
+    }, function(e) {
+      console.log("CDV.FB.login fail: " + e);
+    }, 'org.apache.cordova.facebook.Connect', 'login', params.scope.split(',') );
   },
   logout: function(cb, fail) {
     cordova.exec(function(e) {
       localStorage.removeItem('cdv_fb_session');
       FB.Auth.setAuthResponse(null, 'notConnected');
       if (cb) cb(e);
-    }, (fail?fail:null), 'org.apache.cordova.facebook.Connect', 'logout', []);
+    },  function(e) {
+      console.log("CDV.FB.logout fail: " + e);
+    }, 'org.apache.cordova.facebook.Connect', 'logout', []);
   },
   getLoginStatus: function(cb, fail) {
     cordova.exec(function(e) {
       if (cb) cb(e);
-    }, (fail?fail:null), 'org.apache.cordova.facebook.Connect', 'getLoginStatus', []);
+    },  function(e) {
+      console.log("CDV.FB.getLoginStatus fail: " + e);
+    }, 'org.apache.cordova.facebook.Connect', 'getLoginStatus', []);
   },
   dialog: function(params, cb, fail) {
     cordova.exec(function(e) { // login
       if (cb) cb(e);
-                  }, (fail?fail:null), 'org.apache.cordova.facebook.Connect', 'showDialog', [params] );
+    },  function(e) {
+      console.log("CDV.FB.dialog fail: " + e);
+    }, 'org.apache.cordova.facebook.Connect', 'showDialog', [params] );
   }
 };
