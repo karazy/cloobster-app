@@ -614,7 +614,7 @@ Ext.define('EatSense.controller.Account', {
                 			});
                 		}                		
                 	});
-                	me.hideLoginView();
+                	// me.hideLoginView();
                 }               
             }
         });        
