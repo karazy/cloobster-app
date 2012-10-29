@@ -114,6 +114,11 @@ Ext.define('EatSense.controller.Settings', {
             fbConnectedLabel = null,
             accountPanel = null; 
 
+        if(!view) {
+            console.log('Settings.loadSettings > Abort! no view given');
+            return;
+        }
+
         if(!view.down('settings')) {
             console.log('Settings.loadSettings > Abort! calling view has no settings panel');
             return;
@@ -362,7 +367,7 @@ Ext.define('EatSense.controller.Settings', {
 
                 headerUtil.resetHeaders(['login', 'password']);
                 Ext.Viewport.setMasked(false);
-                me.loadSettings();
+                me.loadSettings(callingView);
 
                 //switch back to settings
                 me.backToSettings();
