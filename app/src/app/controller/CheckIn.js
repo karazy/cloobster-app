@@ -435,10 +435,10 @@ Ext.define('EatSense.controller.CheckIn', {
   * Shows an about screen.
   */
   showAbout: function() {
-    var about = Ext.create('EatSense.view.About');
+    // var about = Ext.create('EatSense.view.About');
 
-    Ext.Viewport.add(about);
-
+    // Ext.Viewport.add(about);
+    this.getApplication().getController('Settings').showAbout();
   },
 	/**
 	 * Show settings screen.

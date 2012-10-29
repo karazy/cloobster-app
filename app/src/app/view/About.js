@@ -24,11 +24,12 @@ Ext.define('EatSense.view.About', {
 			docked: 'bottom',
 			ui: 'action',
 			text: i10n.translate('close'),
-			listeners: {
-				tap: function(button) {
-					Ext.Viewport.remove(button.getParent());
-				}
-			}
+			action: 'close',
+			// listeners: {
+			// 	tap: function(button) {
+			// 		Ext.Viewport.remove(button.getParent());
+			// 	}
+			// }
 		}
 		],
 		html: 
