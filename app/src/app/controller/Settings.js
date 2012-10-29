@@ -31,7 +31,8 @@ Ext.define('EatSense.controller.Settings', {
 
             emailLabel: 'settings #accountEmail',
             saveEmailBt: 'emailsetting button[action=save]',
-            savePasswordBt: 'passwordsetting button[action=save]'
+            savePasswordBt: 'passwordsetting button[action=save]',
+            aboutCloseBt: 'about button[action=close]'
     	},
 
     	control: {
@@ -79,6 +80,9 @@ Ext.define('EatSense.controller.Settings', {
             },
             settingsNavView: {
                 back: 'navBackButtonTap'
+            },
+            aboutCloseBt: {
+                tap: 'aboutCloseBtHandler'
             }
     	},
         //android back handler
@@ -261,7 +265,13 @@ Ext.define('EatSense.controller.Settings', {
     * Shows an about screen.
     */
     showAbout: function() {
-        var about = Ext.create('EatSense.view.About');
+        var about = Ext.create('EatSense.view.About', {
+                    zIndex: 100
+                });
+                    
+        this.getApplication().getController('Android').addBackHandler(function() {
+            Ext.Viewport.remove(about);
+        });
 
         Ext.Viewport.add(about);
     },
@@ -582,5 +592,12 @@ Ext.define('EatSense.controller.Settings', {
             type: 'slide',
             direction: 'left'
         });
+    },
+    /**
+    * Tap event handler for close button in about panel.
+    */
+    aboutCloseBtHandler: function(button) {
+        Ext.Viewport.remove(button.getParent());
+        this.getApplication().getController('Android').removeLastBackHandler();
     }
 });
