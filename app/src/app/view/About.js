@@ -4,11 +4,10 @@ Ext.define('EatSense.view.About', {
 	config: {
 		scrollable : 'vertical',
     	modal: true,
-    	hideOnMaskTap: true,
-		top: '10%',
-		left: '5%',
-		right: '5%',
-		bottom: '5%',
+		top: '5%',
+		left: 5,
+		right: 5,
+		bottom: 10,
 		floatingCls: 'panel-floating',
 		styleHtmlCls: 'about-text',
 		styleHtmlContent: true,
@@ -16,7 +15,7 @@ Ext.define('EatSense.view.About', {
 		items: [
 		{
 			xtype: 'titlebar',
-			title: i10n.translate('general.legalnotice'),
+			title: i10n.translate('general.about'),
 			docked: 'top'
 		},
 		{

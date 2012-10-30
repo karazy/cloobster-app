@@ -45,8 +45,12 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Demnächst",
 			"EN" :  "Coming soon"
 		},
-		"general.legalnotice" : {
+		"general.about" : {
 			"DE" : "Impressum",
+			"EN" : "Legal Notice"
+		},
+		"general.legalnotice" : {
+			"DE" : "AGB",
 			"EN" : "Legal Notice"
 		},
 		"save" : {

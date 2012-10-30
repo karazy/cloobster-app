@@ -32,7 +32,8 @@ Ext.define('EatSense.controller.Settings', {
             emailLabel: 'settings #accountEmail',
             saveEmailBt: 'emailsetting button[action=save]',
             savePasswordBt: 'passwordsetting button[action=save]',
-            aboutCloseBt: 'about button[action=close]'
+            aboutCloseBt: 'about button[action=close]',
+            privacyCloseBt: 'privacy button[action=close]'
     	},
 
     	control: {
@@ -83,6 +84,9 @@ Ext.define('EatSense.controller.Settings', {
             },
             aboutCloseBt: {
                 tap: 'aboutCloseBtHandler'
+            },
+            privacyCloseBt: {
+                tap: 'privacyCloseBtHandler'
             }
     	},
         //android back handler
@@ -279,6 +283,34 @@ Ext.define('EatSense.controller.Settings', {
         });
 
         Ext.Viewport.add(about);
+    },
+    /**
+    * Tap event handler for close button in about panel.
+    */
+    aboutCloseBtHandler: function(button) {
+        Ext.Viewport.remove(button.getParent());
+        this.getApplication().getController('Android').removeLastBackHandler();
+    },
+    /**
+    * Shows a privacy screen.
+    */
+    showPrivacy: function() {
+        var privacy = Ext.create('EatSense.view.Privacy', {
+                    zIndex: 100
+                });
+                    
+        this.getApplication().getController('Android').addBackHandler(function() {
+            Ext.Viewport.remove(privacy);
+        });
+
+        Ext.Viewport.add(privacy);
+    },    
+    /**
+    * Tap event handler for close button in privacy panel.
+    */
+    privacyCloseBtHandler: function(button) {
+        Ext.Viewport.remove(button.getParent());
+        this.getApplication().getController('Android').removeLastBackHandler();
     },
 
     //Account actions start
@@ -597,12 +629,5 @@ Ext.define('EatSense.controller.Settings', {
             type: 'slide',
             direction: 'left'
         });
-    },
-    /**
-    * Tap event handler for close button in about panel.
-    */
-    aboutCloseBtHandler: function(button) {
-        Ext.Viewport.remove(button.getParent());
-        this.getApplication().getController('Android').removeLastBackHandler();
     }
 });

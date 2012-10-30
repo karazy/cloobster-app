@@ -203,7 +203,7 @@ Ext.define('EatSense.controller.Account', {
                 	});
                 	this.signup(callback, fbdata);
                 } else if(btnId=='terms') {
-                	me.getApplication().getController('Settings').showAbout();
+                	me.getApplication().getController('Settings').showPrivacy();
                 }
             }
         }); 
