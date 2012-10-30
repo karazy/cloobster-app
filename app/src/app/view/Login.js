@@ -48,7 +48,7 @@ Ext.define('EatSense.view.Login', {
 				width: '90%',
 				cls: 'general-label',
 				// padding: '5px',
-				margin: '0 0 20 0',
+				margin: '0 0 10 0',
 				// styleHtmlContent: true
 			},
 			{
@@ -57,7 +57,7 @@ Ext.define('EatSense.view.Login', {
 				//prevents also that the panel has a wrong size. Bug?
 				scrollable: false,
 				width: '90%',
-				margin: '0 0 7 0',
+				margin: '0 0 5 0',
 				items: [
 
 					{	
@@ -89,7 +89,7 @@ Ext.define('EatSense.view.Login', {
 					align: 'stretch'
 				},
 				width: '90%',
-				margin: '10 0 8 0',
+				margin: '8 0 5 0',
 				items: [
 					{
 						xtype: 'button',
@@ -126,7 +126,7 @@ Ext.define('EatSense.view.Login', {
 				ui: 'action',
 				action: 'signup-fb',
 				width: '60%',
-				margin: '8 0 0 0',
+				margin: '5 0 0 0',
 				iconCls: 'fb-signup',
 				iconMask: true
 			},
@@ -137,21 +137,10 @@ Ext.define('EatSense.view.Login', {
 				action: 'request-password',
 				width: '90%',
 				baseCls: 'link-button',
-				margin: '25 0 0 0',
+				margin: '15 0 0 0',
 				style: 'text-align: right; color: blue; font-size: .8em; margin-right:.5em; text-decoration:underline;'
 			},
-			// {
-			// 	xtype: 'label',
-			// 	html: i10n.translate('login.label.pwforgot'),
-			// 	width: '60%'
-			// },
-			// {
-			// 	xtype: 'button',
-			// 	text: i10n.translate('login.button.pwforgot'),
-			// 	ui: 'action',
-			// 	action: 'request-password',
-			// 	width: '60%'
-			// },
+
 			{
 				xtype: 'toolbar',
 				docked: 'bottom',

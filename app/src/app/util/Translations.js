@@ -120,18 +120,18 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Check-in"
 		},
 		"dashboardLabel1" : {
-			"DE" :  "<h2>Service At Its Peak</h2><p>cloobster, your personal concierge.<br/>"+
-			"Check in and enjoy our service.</p>",
-			"EN" : "<h2>Service At Its Peak</h2><p>cloobster, your personal concierge.<br/>"+
-			"Check in and enjoy our service.</p>",
+			"DE" :  "<h2>Service At Its Peak</h2><p>You are guest and you are mobile.<br/>"+
+			"Check-in and enjoy the service.</p>",
+			"EN" : "<h2>Service At Its Peak</h2><p>You are guest and you are mobile.<br/>"+
+			"Check-in and enjoy the service.</p>",
 		},
 		"dashboardLabel2" : {
 			"DE" :  "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
 			"EN" :  "1. Check in<br/>2. Order<br/>3. Enjoy"
 		},
 		"dashboard.button.settings" : {
-			"DE" : "MyCloob",
-			"EN" : "MyCloob"
+			"DE" : "MyCloobster",
+			"EN" : "MyCloobster"
 		},
 		// Checkin
 		"checkInTitle" : {
@@ -641,18 +641,12 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Login
 		"login.title" : {
-			"DE" :  "MyCloob",
-			"EN" :  "MyCloob"
+			"DE" :  "MyCloobster",
+			"EN" :  "MyCloobster"
 		},
 		"login.description" : {
 			"DE" : "Erinnere dich, wo Du warst<br/>und teile, wo Du bist",
-			// "DE" :  "cloobster Mitglied sein heißt:<br/>"+
-			// "<ul><li>My Places - Alle besuchten Locations</li><li>Ich war hier - teilen wo man ist</li></ul>"+
-			// "Du willst dir kein weiteres Passwort merken? Melde dich einfach mit deinem Facebook Konto an.",
-			"EN" : "In the cloobster members area you find:<br/>"+
-				"<ul><li>My places - Business a history of locations visited</li>"+
-				"<li>I was here - Post where you are</li></ul>"+
-				"If you do not want to remember yet another password, you can use your Facebook account to login"
+			"EN" : "Remember where you have been<br/>and share where you are"
 		},
 		"login.field.email.placeholder" : {
 			"DE" :  "E-Mail",
@@ -711,8 +705,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Log-out"
 		},
 		"account.logout.confirm.message" : {
-			"DE" :  "Möchten Sie sich abmelden?<br/>Zukünftige Check-ins tauchen nicht unter \"My Places auf\"!",
-			"EN" :  "Do you want to log out? Future Check-ins won't show up under \"My Places auf\"!"
+			"DE" :  "Möchten Sie sich abmelden?<br/>Zukünftige Check-ins tauchen nicht unter \"MyPlaces auf\"!",
+			"EN" :  "Do you want to log out? Future Check-ins won't show up under \"MyPlaces auf\"!"
 		},
 		"account.passwordrequest.message" : {
 			"DE" :  "Bitte geben Sie Ihre<br/>cloobster Account E-Mail ein.",
@@ -728,12 +722,12 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//history
 		"history.title" : {
-			"DE" :  "My Places",
-			"EN" :  "My places"
+			"DE" :  "MyPlaces",
+			"EN" :  "Myplaces"
 		},
 		"dashboard.button.history" : {
-			"DE" :  "My Places",
-			"EN" :  "My places"
+			"DE" :  "MyPlaces",
+			"EN" :  "Myplaces"
 		},
 		"history.detail.title" : {
 			"DE" :  "Rechnung",

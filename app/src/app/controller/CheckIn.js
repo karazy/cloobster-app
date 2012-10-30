@@ -6,7 +6,7 @@
  */
 Ext.define('EatSense.controller.CheckIn', {
     extend: 'Ext.app.Controller',
-    requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message', 'EatSense.view.About'],
+    requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message'],
     config: {
         profile: Ext.os.deviceType.toLowerCase(),
     	refs: {
@@ -435,9 +435,6 @@ Ext.define('EatSense.controller.CheckIn', {
   * Shows an about screen.
   */
   showAbout: function() {
-    // var about = Ext.create('EatSense.view.About');
-
-    // Ext.Viewport.add(about);
     this.getApplication().getController('Settings').showAbout();
   },
 	/**
