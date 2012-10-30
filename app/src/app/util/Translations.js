@@ -641,9 +641,10 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "MyCloob"
 		},
 		"login.description" : {
-			"DE" :  "cloobster Mitglied sein heißt:<br/>"+
-			"<ul><li>My Places - Alle besuchten Locations</li><li>Ich war hier - teilen wo man ist</li></ul>"+
-			"Du willst dir kein weiteres Passwort merken? Melde dich einfach mit deinem Facebook Konto an.",
+			"DE" : "Erinnere dich, wo Du warst<br/>und teile, wo Du bist",
+			// "DE" :  "cloobster Mitglied sein heißt:<br/>"+
+			// "<ul><li>My Places - Alle besuchten Locations</li><li>Ich war hier - teilen wo man ist</li></ul>"+
+			// "Du willst dir kein weiteres Passwort merken? Melde dich einfach mit deinem Facebook Konto an.",
 			"EN" : "In the cloobster members area you find:<br/>"+
 				"<ul><li>My places - Business a history of locations visited</li>"+
 				"<li>I was here - Post where you are</li></ul>"+
