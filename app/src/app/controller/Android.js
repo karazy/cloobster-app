@@ -56,6 +56,17 @@ Ext.define('EatSense.controller.Android', {
 		}		
 	},
 
+	removeAllBackHandlers: function() {
+		var handlers = this.getAndroidBackHandler();
+
+		if(appHelper.isArray(handlers)) {
+			console.log('Android Controller -> removeLastBackHandler');
+			while(handlers.length > 0) {
+				handlers.pop();
+			}
+		}
+	},
+
 	executeBackHandler: function() {
 		var handler,
 			msgBox;

@@ -161,9 +161,9 @@ Ext.define('EatSense.controller.Menu', {
 		var androidCtr = this.getApplication().getController('Android');
 
 		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
-		//directly remove handler, because this function can be called from another controller
+		//directly remove handlers, because this function can be called from another controller
 		//so the wrong context is set
-		this.getMenuNavigationFunctions().pop();
+		this.setMenuNavigationFunctions(new Array());
 	},
 	/**
 	* Tap event handler for cart back button.
@@ -463,13 +463,19 @@ Ext.define('EatSense.controller.Menu', {
 			activePanel = menuview.down('#menuCardPanel').getActiveItem(),
 			androidCtr = this.getApplication().getController('Android');
 
+		
+		button.setDisabled(true);
+		Ext.defer((function() {
+			button.setDisabled(false);
+		}), 50, this);
+
+		menuview.switchMenuview(cartView, "left");
 		this.setViewCallingCart(activePanel);
 		this.getApplication().getController('Order').refreshCart();
 
 		androidCtr.addBackHandler(function() {
 			me.backToPreviousView();
-		});
-    	menuview.switchMenuview(cartView, "left");
+		});    	
 	},
 	/**
 	* Shows or hides the product cart button.

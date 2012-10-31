@@ -27,23 +27,19 @@ Ext.define('EatSense.controller.Lounge', {
      				androidCtr.setExitOnBack(false);
 
     				if(value.tabName === 'cart') {
+              //TODO remove dead code
     					status = this.getApplication().getController('Order').refreshCart();
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
     				} else if (value.tabName === 'myorders') {
     					this.getApplication().getController('Order').refreshMyOrdersList();
     					//reset navigation view
     					// this.getApplication().getController('Feedback').getMyordersNavview().pop();
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getCartNavigationFunctions());
+    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
     				} else if(value.tabName === 'menu') {
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Menu').getMenuNavigationFunctions());
     				} else if(value.tabName === 'settings') {
     					androidCtr.setAndroidBackHandler(this.getApplication().getController('Settings').getSettingsNavigationFunctions());
-    				} 
-        //             else if(value.tabName === 'requests') {
-    				// 	androidCtr.setAndroidBackHandler(this.getApplication().getController('Request').getRequestNavigationFunctions());
-    				// 	//reset navigation view
-    				// 	this.getApplication().getController('Feedback').getRequestNavview().pop();
-    				// } 
+    				}
             else if(value.tabName === 'home') {
                  //always jump to dashboard on home tab pressed
                  this.getClubArea().setActiveItem(0);

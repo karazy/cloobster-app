@@ -98,6 +98,7 @@
 		*	Current active bill.
 		*/
 		activeBill: null,
+		//TODO remove
 		cartNavigationFunctions : new Array(),
 		myordersNavigationFunctions : new Array()
 	},
@@ -265,6 +266,7 @@
 			ajaxOrderCount = 0,
 			ordersCount = orders.getCount(),
 			menuCtr = this.getApplication().getController('Menu'),
+			androidCtr = this.getApplication().getController('Android'),
 			me = this;
 		
 		if(ordersCount > 0) {
@@ -301,6 +303,9 @@
 							me.refreshCart();
 							me.refreshMyOrdersList();
 
+							//initial view and no backhandlers left
+							// me.setMyordersNavigationFunctions(new Array());
+							androidCtr.removeAllBackHandlers();
 							//show my ordes view
 							me.showMyorders();
 							//switch back to menu and remove previous backhandler
