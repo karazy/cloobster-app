@@ -127,18 +127,18 @@ Ext.define('EatSense.view.Settings', {
 			},
 			{
 				xtype: 'button',
-				text: i10n.translate('general.about'),
+				text: i10n.translate('general.companydetail'),
 				ui: 'action',
 				action: 'about',
 				margin: '7 0 5 0',
 				width: '90%'
-			},
-			{
-				xtype: 'label',
-				html: 'Cloobster App Version: ' + appConfig.version,
-				style: 'text-align: right; font-size: 0.6em; color: black;',
-				width: '90%'
 			}
+			// {
+			// 	xtype: 'label',
+			// 	html: 'cloobster App Version: ' + appConfig.version,
+			// 	style: 'text-align: right; font-size: 0.6em; color: black;',
+			// 	width: '90%'
+			// }
 		]
 	},
 	constructor: function(config) {

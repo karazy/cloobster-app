@@ -126,7 +126,9 @@ Ext.define('EatSense.controller.Lounge', {
             // headerUrl = true;
             //only show if header exists!
             if(headerUrl) {
-                header.setHtml(headerHtml);
+              header.setHtml(headerHtml);
+            } else {
+              header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
             };
        };
        //a switch to change classes for business logo

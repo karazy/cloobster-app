@@ -24,14 +24,12 @@ Ext.define('EatSense.view.About', {
 			ui: 'action',
 			text: i10n.translate('close'),
 			action: 'close',
-			// listeners: {
-			// 	tap: function(button) {
-			// 		Ext.Viewport.remove(button.getParent());
-			// 	}
-			// }
 		}
 		],
-		html: 
+		html: 	
+				'<h1>'+i10n.translate('general.about')+'</h1>'+
+				'<p>Version: ' + appConfig.version +'</p>'+
+				'<h1>'+i10n.translate('general.companydetail')+'</h1>'+
 				'<h2>Angaben gemäß § 5 TMG:</h2>'+
 		
 				'<p>Karazy GmbH<br/>'+
