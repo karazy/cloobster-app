@@ -646,7 +646,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"login.description" : {
 			"DE" : "Erinnere dich, wo Du warst<br/>und teile, wo Du bist",
-			"EN" : "Remember where you have been<br/>and share where you are"
+			"EN" : "Remember where you were<br/>and share where you are"
 		},
 		"login.field.email.placeholder" : {
 			"DE" :  "E-Mail",
