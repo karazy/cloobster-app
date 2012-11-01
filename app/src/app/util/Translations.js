@@ -134,8 +134,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "1. Check in<br/>2. Order<br/>3. Enjoy"
 		},
 		"dashboard.button.settings" : {
-			"DE" : "MyCloobster",
-			"EN" : "MyCloobster"
+			"DE" : "Account",
+			"EN" : "Account"
 		},
 		// Checkin
 		"checkInTitle" : {
@@ -645,8 +645,8 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Login
 		"login.title" : {
-			"DE" :  "MyCloobster",
-			"EN" :  "MyCloobster"
+			"DE" :  "Account",
+			"EN" :  "Account"
 		},
 		"login.description" : {
 			"DE" : "Erinnere dich, wo Du warst<br/>und teile, wo Du bist",
@@ -742,8 +742,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Show more ..."
 		},
 		"history.noaccount" : {
-			"DE" :  "Bitte loggen Sie sich ein oder registrieren Sie sich, um diese Funktion zu nutzen.",
-			"EN" :  "You need to register/login to use this function."
+			"DE" :  "Erinnere dich, wo Du warst! Dieses Feature benötigt einen cloobster Account.",
+			"EN" :  "Remember where you were! This feature requires a cloobster account."
 		},
 		"history.list.description" : {
 			"DE" :  "Hier werden Ihre besuchten Orte aufgelistet. Sie haben noch keine Orte besucht.",
