@@ -632,7 +632,7 @@
 				myorderlist = me.getMyorderlist(),
 				myordersStore = Ext.data.StoreManager.lookup('orderStore'),
 				activeCheckIn = me.getApplication().getController('CheckIn').getActiveCheckIn(),
-				payButton = me.getPaymentButton();
+				payButton = me.getPaymentButton(),
 				leaveButton = me.getLeaveButton();
 		
 		//remove all orders and reload to have a fresh state
@@ -1011,8 +1011,12 @@
 	* E. g. used after a FORCE_LOGOUT
 	*/
 	cleanup: function() {
-		var detail = this.getProductdetail();		
+		var detail = this.getProductdetail(),
+			myordersStore = Ext.data.StoreManager.lookup('orderStore');
 		
+		//clear orders
+		myordersStore.removeAll();
+
 		//close product detail
 		detail.hide();
 		detail.destroy();
