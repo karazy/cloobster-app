@@ -47,7 +47,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"general.about" : {
 			"DE" :  "Information",
-			"EN" : "About"
+			"EN" :  "About"
 		},
 		"general.companydetail" : {
 			"DE" : "Impressum",
@@ -55,7 +55,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"general.legalnotice" : {
 			"DE" : "AGB",
-			"EN" : "Legal Notice"
+			"EN" : "Terms and conditions"
 		},
 		"save" : {
 			"DE" :  "Speichern",
@@ -91,7 +91,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"channelTokenError" : {
 			"DE" :  "Updates im Hintergrund nicht funktionsfähig.",
-			"EN" :  "Updates have been successful."
+			"EN" :  "Updates have not been successful."
 		},
 		"android.backbutton.exit" : {
 			"DE" :  "Nochmal drücken, um zu beenden.",
@@ -124,10 +124,10 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Check-in"
 		},
 		"dashboardLabel1" : {
-			"DE" :  "<h2>Service At Its Peak</h2><p>You are guest and you are mobile.<br/>"+
-			"Check-in and enjoy the service.</p>",
-			"EN" : "<h2>Service At Its Peak</h2><p>You are guest and you are mobile.<br/>"+
-			"Check-in and enjoy the service.</p>",
+			"DE" :  "<h2>Service At Its Peak</h2><p>Your guests are mobile.<br/>"+
+			"Check in and enjoy our service.</p>",
+			"EN" : "<h2>Service At Its Peak</h2><p>You guests are mobile.<br/>"+
+			"Check in and enjoy our service.</p>",
 		},
 		"dashboardLabel2" : {
 			"DE" :  "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
@@ -241,7 +241,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"menu.product.detail.loading" : {
 			"DE" :  "Lade Produktdaten...",
-			"EN" :  "Loading products"
+			"EN" :  "Loading product information"
 		},
 		//Order
 		"orderInvalid" : {
@@ -254,7 +254,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"cartEmpty" : {
 			"DE" :  "Noch keine Bestellung getätigt.",
-			"EN" :  "No existing order."
+			"EN" :  "No current order."
 		},
 		"productPutIntoCardMsg" : {
 			"DE" :  "{0} auf Warenkorb geparkt.",
@@ -327,8 +327,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>Guten Tag {0}</h2><p>Herzlich Willkommen im</p><p>\"{1}\"</p>",
-			"EN" :  "<h2>Welcome {0}</h2><p>You have checked into</p><p>\"{1}\"</p>"
+			"DE" :  "<h2>Guten Tag, {0}!</h2><p>Herzlich Willkommen im</p><p>\"{1}\".</p>",
+			"EN" :  "<h2>Welcome, {0}!</h2><p>You have checked into</p><p>\"{1}\".</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",
@@ -348,7 +348,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"clubdashboard.button.aroundme" : {
 			"DE" :  "Around me",
-			"EN" : "Around me"
+			"EN" :  "Around me"
 		},
 		"clubdashboard.button.exit" : {
 			"DE" :  "Verlassen",
@@ -398,7 +398,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"paymentRequestSend" : {
 			"DE" :  "Bitte einen Moment warten,</br>die Rechnung wird vorbereitet ...",
-			"EN" :  "One moment please,</br>bill is on the way ..."
+			"EN" :  "One moment please,</br>bill is being prepared ..."
 		},
 		"myorders.messages.billnew.message" : {
 		 	"DE" :  "Ihre Rechnung ({0}) wurde erstellt.",
@@ -431,7 +431,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"newsletterDuplicateEmail" : {
 			"DE" :  "Diese E-Mail Adresse ist bereits registriert.",
-			"EN" :  "This email already exists."
+			"EN" :  "Email already exists."
 		},
 		"newsletterPopupTitle" : {
 			"DE" :  "Newsletter abonnieren?",
@@ -487,7 +487,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"settings.account.fbconnected" : {
 			"DE" :  "Account mit Facebook verknüpft.",
-			"EN" : "Account linked with Facebook."
+			"EN" :  "Account linked with Facebook."
 		},
 		"settings.section.infos" : {
 			"DE" :  "Weitere Infos",
@@ -511,11 +511,11 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"emailsetting.repeat.field" : {
 			"DE" :  "E-Mail wiederholen",
-			"EN" :  "Repeast email address"
+			"EN" :  "Repeat email address"
 		},
 		"emailsetting.error.noemail" : {
 			"DE" :  "Neue E-Mail darf nicht leer sein.",
-			"EN" :  "New email address cannot be empty."
+			"EN" :  "Email address cannot be empty."
 		},
 		"emailsetting.error.invalidmail" : {
 			"DE" :  "Ungültige E-Mail.",
@@ -535,7 +535,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"passwordsetting.title" : {
 			"DE" :  "Passwort ändern",
-			"EN" :  "Change Password"
+			"EN" :  "Change password"
 		},
 		"passwordsetting.description" : {
 			"DE" :  "Passwort für cloobster Account ändern",
@@ -543,11 +543,11 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"passwordsetting.oldpassword.field" : {
 			"DE" :  "Altes Passwort",
-			"EN" :  "Old Password"
+			"EN" :  "Old password"
 		},
 		"passwordsetting.newpassword.field" : {
 			"DE" :  "Neues Passwort",
-			"EN" :  "New Password"
+			"EN" :  "New password"
 		},
 		"passwordsetting.repeatpassword.field" : {
 			"DE" :  "Passwort wiederholen",
@@ -588,7 +588,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"requestCallWaiterSendMsd" : {
 			"DE" :  "Bitte einen Moment Geduld!<br>Es wird gleich jemand kommen.",
-			"EN" :  "One moment please!<br>We'll be serving you any minute."
+			"EN" :  "One moment please!<br>We'll be serving you soon."
 		},
 		"callWaiterButton" : {
 			"DE" :  "VIP Call",
@@ -596,7 +596,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"callWaiterRequestBadge" : {
 			"DE" :  "Sie haben uns gerufen.",
-			"EN" :  "We'll be service you any minute."
+			"EN" :  "We'll be at your service soon."
 		},
 		"cancelCallWaiterRequest" : {
 			"DE" :  "Danke, hat sich erledigt",
@@ -608,7 +608,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"callWaiterCancelHint" : {
 			"DE" :  "Wir wurden gerufen und <br/>kommen so schnell wie möglich!",
-			"EN" :  "We have been notified!<br>We'll be serving you any minute."
+			"EN" :  "We have been notified!<br>We'll be serving you soon."
 		},
 		"vipGreetingMessage" : {
 			"DE" :  "Willkommen <span style='font-weight:bold;'>{0}</span><br/>in Ihrem persönlichen VIP-Bereich!",
@@ -690,7 +690,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"account.signup.confirm.message" : {
 			"DE" :  "Bei cloobster registrieren und unsere AGB akzeptieren?",
-			"EN" :  "Register for cloobster and accept our terms of use?"
+			"EN" :  "Register and accept our terms of use?"
 		},
 		"account.signupfb.confirm.message" : {
 			"DE" :  "Cloobster Account mit Facebook Daten anlegen?",
@@ -710,28 +710,28 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"account.logout.confirm.message" : {
 			"DE" :  "Möchten Sie sich abmelden?<br/>Zukünftige Check-ins tauchen nicht unter \"MyPlaces auf\"!",
-			"EN" :  "Do you want to log out? Future Check-ins won't show up under \"MyPlaces auf\"!"
+			"EN" :  "Do you want to log out? Future check-ins will not show under \"MyPlaces auf\"!"
 		},
 		"account.passwordrequest.message" : {
 			"DE" :  "Bitte geben Sie Ihre<br/>cloobster Account E-Mail ein.",
-			"EN" : "Please enter your<br/>cloobster account email."
+			"EN" :  "Please enter your<br/>cloobster email address."
 		},
 		"account.passwordrequest.notexisting" : {
 			"DE" :  "Zu dieser E-Mail existiert kein Account.",
-			"EN" : "No account exists for this email."
+			"EN" :  "No account exists for this email address."
 		},
 		"account.passwordrequest.success" : {
 			"DE" :  "Link zum zurücksetzen des Passworts verschickt.",
-			"EN" : "Link to reset password send. "
+			"EN" :  "Link for resetting password has been sent. "
 		},
 		//history
 		"history.title" : {
 			"DE" :  "MyPlaces",
-			"EN" :  "Myplaces"
+			"EN" :  "MyPlaces"
 		},
 		"dashboard.button.history" : {
 			"DE" :  "MyPlaces",
-			"EN" :  "Myplaces"
+			"EN" :  "MyPlaces"
 		},
 		"history.detail.title" : {
 			"DE" :  "Rechnung",
@@ -757,11 +757,11 @@ Ext.define('EatSense.util.Translations',{
 		//facebook
 		"facebook.connect.notlogin" : {
 			"DE" :  "Sie sind nicht eingeloggt.",
-			"EN" : "You are not logged in."
+			"EN" :  "You are not logged in."
 		},
 		"facebook.connect.confirm" : {
 			"DE" : "cloobster Account mit Facebook verbinden?",
-			"EN" : "connect cloobster account with Facebook?"
+			"EN" : "Connect cloobster account with Facebook?"
 		},		
 		"facebook.connect.success" : {
 			"DE" : "cloobster Account erfolgreich verbunden.",
@@ -769,11 +769,11 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"facebook.action.nologin" : {
 			"DE" :  "Um bei Facebook zu posten brauchen Sie einen cloobster Account, der mit Facebook verknüpft ist.",
-			"EN" : "To post at your Facebook wall you'll need a cloobster account linked with Facebook."
+			"EN" :  "To post on your Facebook wall, you need a cloobster account linked with Facebook."
 		},
 		"facebook.connect.canceled" : {
 			"DE" :  "Facebook login nicht erfolgreich.",
-			"EN" : "Facebook login failed."
+			"EN" :  "Facebook login failed."
 		},
 		//errors
 		"error" : {

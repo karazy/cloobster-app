@@ -268,7 +268,7 @@
 	<target name="ios-local" depends="setversion, iOSConfigLocal, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
 	<target name="ios-test" depends="setversion, iOSConfigTest, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
 	<target name="ios-quality" depends="setversion, iOSConfigQuality, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
-	<target name="ios-production" depends="iOSConfigProduction, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
+	<target name="ios-production" depends="setversion, iOSConfigProduction, copyAppiOS, cleanUpProductionFiles, resetDefaultConfig"/>
 	
 	<target name="desktop-production" depends="setversion, buildDesktop, cleanUpProductionFiles"/>	
 </project>
