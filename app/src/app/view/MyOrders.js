@@ -129,7 +129,7 @@ Ext.define('EatSense.view.MyOrders', {
 							tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.price)]}</h1>',
 								{
 									formatPrice: function(price) {
-										return appHelper.formatPrice(price);
+										return appHelper.formatPrice(price, true);
 									}
 								}
 							)

@@ -64,15 +64,17 @@ Ext.define('EatSense.util.Helper', {
 	*	Takes a price and formats it in the configured currency
 	*	@param price
 	*		price to format
+	*	@param returnZero
+	*		True to return a zero formatted string when price is 0 = 0,00-€
 	*/
-	formatPrice: function(price) {
+	formatPrice: function(price, returnZero) {
 		var 	priceRegExp = /([0123456789]+)\.([0123456789]*)/,
 				fixedPrice,
 				matcher = appConstants.Currency[appConfig.currencyFormat],
 				formattedPrice = "";
 
 		//don't show a price of 0 && price == null
-		if(!price) { 
+		if(!price && !returnZero) { 
 			return "";
 		}		
 
