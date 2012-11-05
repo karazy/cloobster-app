@@ -21,13 +21,13 @@ Ext.define('EatSense.model.InfoPage', {
 			name: 'html'
 		},
 		{
-			name: 'image'
+			name: 'imageUrl'
 		}
 		],
 		proxy: {
 			type: 'rest',
 			enablePagingParams: false,
-	 		url : '/c/businesses/{pathId}/feedback',
+	 		url : '/c/businesses/{pathId}/infopages',
 		}
 	}
 });

@@ -356,6 +356,33 @@
   }
 }
 
+/* InfoPage View */
+
+.infopage-list-item {
+
+  div.thumbnail {
+    float: left;
+    margin-right: 5px;
+  }
+
+  div.info {
+    margin-right: 8px; 
+  }
+
+  img {
+    width: 25px;
+    height: auto;
+  }
+  
+  h3 {
+    font-size: 1em;  
+  }
+
+  p {
+    font-size: 0.6em;
+  }
+}
+
 /*
 * Dashboard
 */
