@@ -5,7 +5,7 @@
 */
 Ext.define('EatSense.view.ClubArea', {
 	extend: 'Ext.Panel',
-	requires: ['EatSense.view.ClubDashboard', 'EatSense.view.FeedbackForm'],
+	requires: ['EatSense.view.ClubDashboard', 'EatSense.view.FeedbackForm', 'EatSense.view.InfoPageOverview'],
 	xtype: 'clubarea',
 	config: {
 		iconCls : 'home',
@@ -20,15 +20,18 @@ Ext.define('EatSense.view.ClubArea', {
 		},
 		activeItem: 0,
 		items: [
-				{
-					xtype: 'clubdashboard'
-				},
-				{
-					xtype: 'feedbackform'
-				},
-				{
-					xtype: 'requeststab'
-				}
+			{
+				xtype: 'clubdashboard'
+			},
+			{
+				xtype: 'feedbackform'
+			},
+			{
+				xtype: 'requeststab'
+			},
+			{
+				xtype: 'infopageoverview'
+			}
 		]
 	},
 	/**

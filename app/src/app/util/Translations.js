@@ -338,6 +338,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Feedback",
 			"EN" :  "Feedback"
 		},
+		"clubdashboard.button.infopage" : {
+			"DE" :  "Hotel",
+			"EN" : "Hotel"
+		},
 		"clubdashboard.button.info" : {
 			"DE" :  "Info",
 			"EN" :  "Info"
@@ -357,6 +361,11 @@ Ext.define('EatSense.util.Translations',{
 		"clubdashboard.leave.message" : {
 			"DE" :  "Wirklich verlassen?",
 			"EN" :  "Do you want to quit?"
+		},
+		//Info Pages
+		"infopage.overview.title" : {
+			"DE" :  "Information",
+			"EN" : "Information"
 		},
 		//MyOrders
 		"myOrdersTitle" : {

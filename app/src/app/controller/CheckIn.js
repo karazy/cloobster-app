@@ -642,7 +642,7 @@ Ext.define('EatSense.controller.CheckIn', {
     appState.set('prevStatus', appState.get('status'));
     appState.set('status', status);
 
-		//TODO check status transitions, refactor
+		//TODO check status transitions, refactorshowInfoPagesButtonHandler
 		if(status == appConstants.CHECKEDIN) {
 
     }

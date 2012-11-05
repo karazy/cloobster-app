@@ -76,15 +76,15 @@ Ext.define('EatSense.view.ClubDashboard', {
 					pressedCls: 'club-dashboard-button-pressed',
 					labelCls: 'club-dashboard-button-label'
 				},
-				// {
-				// 	xtype : 'button',
-				// 	action: 'show-feedback',
-				// 	text: i10n.translate('clubdashboard.button.feedback'),
-				// 	baseCls: 'club-dashboard-button',
-				// 	cls: 'club-dashboard-button-feedback',
-				// 	pressedCls: 'club-dashboard-button-pressed',
-				// 	labelCls: 'club-dashboard-button-label'
-				// }
+				{
+					xtype : 'button',
+					action: 'show-infopage',
+					text: i10n.translate('clubdashboard.button.infopage'),
+					baseCls: 'club-dashboard-button',
+					cls: 'club-dashboard-button-infopage',
+					pressedCls: 'club-dashboard-button-pressed',
+					labelCls: 'club-dashboard-button-label'
+				}
 				]
 			},
 			{
