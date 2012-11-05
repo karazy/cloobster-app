@@ -15,6 +15,10 @@ Ext.define('EatSense.model.Menu', {
 			{
 				name: 'order',
 				type: 'number'
+			},
+			{
+				name: 'description',
+				type: 'string'
 			}
 		],
 		proxy: {

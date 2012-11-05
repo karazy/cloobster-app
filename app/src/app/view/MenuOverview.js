@@ -26,7 +26,10 @@ Ext.define('EatSense.view.MenuOverview', {
 			ui: 'round',
 			onItemDisclosure: true,
 			allowDeselect: true,
-			itemTpl : '{title}',
+			itemCls: 'menulist-item',
+			itemTpl : new Ext.XTemplate(
+				'<h3>{title}</h3><tpl if="description"><p>{description}</p></tpl>'
+			),
 			store: 'menuStore',
 			listeners: {
 				select : function(dv, index, target, record, e, eOpts) {	
