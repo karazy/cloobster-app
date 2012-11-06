@@ -89,19 +89,26 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		clubArea.setActiveItem(ipcarousel);	
 
-		carousel.on('activeitemchange', setListIndex);
+		carousel.on('activeitemchange', this.setListIndex, this);
+		
 
-		function setListIndex(container, newIndex, oldIndex) {
-			if(newIndex != oldIndex) {
-				infoPageList.setActiveItem(container.getActiveIndex());
-			}	
-		}
-
-		androidCtr.addBackHandler(function() {
-			carousel.un('activeitemchange', setListIndex);
+		androidCtr.addBackHandler(function() {			
             me.backToOverview();
         });
 
+	},
+	/**
+	* @private
+	* Event handler for activeitemchange. Sets the selected item in infoPageList
+	* based on the current selected carousel item.
+	*/
+	setListIndex: function(container, newIndex, oldIndex) {
+		var infoPageList = this.getInfoPageList(),
+			store = Ext.StoreManager.lookup('infopageStore');
+
+		if(newIndex != oldIndex) {
+			infoPageList.select(store.getAt(container.getActiveIndex()));
+		}	
 	},
 
 	/**
@@ -159,7 +166,10 @@ Ext.define('EatSense.controller.InfoPage', {
     backToOverview: function(button) {
     	var me = this,
     		infopageOverview = this.getInfoPageOverview(),
+    		carousel = this.getInfoPageCarousel().down('carousel'),
 			clubArea = this.getClubArea();
+
+		carousel.un('activeitemchange', this.setListIndex, this);
 
 		clubArea.switchAnim('right');
 		clubArea.setActiveItem(infopageOverview);
@@ -171,24 +181,41 @@ Ext.define('EatSense.controller.InfoPage', {
     filterInfoPages: function(textfield) {
     	var filterValue = textfield.getValue(),
     		store = Ext.StoreManager.lookup('infopageStore'),
-    		filter = [
-    		{
-    			property: 'title',
-    			value: filterValue
-    		}, 
-    		{
-    			property: 'shortText',
-    			value: filterValue,
-    			anyMatch: true
-    		}],
-    		noFilter = (filterValue) ? true : false;
+    		// filter = [
+    		// {
+    		// 	property: 'title',
+    		// 	value: filterValue
+    		// }, 
+    		// {
+    		// 	property: 'shortText',
+    		// 	value: filterValue,
+    		// 	anyMatch: true
+    		// }],
+    		filterExists = (filterValue) ? true : false;
 
     		//TODO filter by a function
 
-    		store.clearFilter(noFilter);
-    		if(noFilter) {
-    			store.filter(filter);	
-    		}    		
+    		store.clearFilter(filterExists);
+    		if(filterExists) {
+    			// store.filter(filter);	
+    			store.filterBy(function(record) {
+    				var title = record.get('title'),
+    					shortText = record.get('shortText'),
+    					regEx = new RegExp("^"+filterValue);
+
+    				if(title.match(regEx)) {
+    					return true;
+    				}
+
+    				regEx = new RegExp(filterValue);
+
+    				if(shortText.match(regEx)) {
+    					return true;
+    				}
+
+    				return false;
+    			});
+    		}
     },
     clearInfoPageFilter: function() {
     	var store = Ext.StoreManager.lookup('infopageStore');
