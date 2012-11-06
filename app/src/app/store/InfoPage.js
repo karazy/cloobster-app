@@ -6,7 +6,7 @@ Ext.define('EatSense.store.InfoPage', {
 		model: 'EatSense.model.InfoPage',
 		//TODO Dummy Data remove
 		data : [
-        {title: 'A',    shortText: 'A wie Ameise'},
+        {title: 'A',    shortText: 'A wie Ameise', html: ' "" <<>> // { test: TEST}'},
         {title: 'B', shortText: 'B wie Bmeise'},
         {title: 'C', shortText: 'C wie Caesar'},
         {title: 'Z', shortText: 'Z wie Z'},

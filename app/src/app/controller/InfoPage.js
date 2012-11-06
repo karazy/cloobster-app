@@ -79,7 +79,8 @@ Ext.define('EatSense.controller.InfoPage', {
 	* Shows details for selected InfoPage element.
   	*/
 	showInfoPageDetail: function(dataview, record) {
-		var ipcarousel = this.getInfoPageCarousel(),
+		var me = this,
+			ipcarousel = this.getInfoPageCarousel(),
 			carousel = ipcarousel.down('carousel'),
 			clubArea = this.getClubArea(),
 			androidCtr = this.getApplication().getController('Android'),
@@ -202,13 +203,13 @@ Ext.define('EatSense.controller.InfoPage', {
     			store.filterBy(function(record) {
     				var title = record.get('title'),
     					shortText = record.get('shortText'),
-    					regEx = new RegExp("^"+filterValue);
+    					regEx = new RegExp("^"+filterValue, 'i');
 
     				if(title.match(regEx)) {
     					return true;
     				}
 
-    				regEx = new RegExp(filterValue);
+    				regEx = new RegExp(filterValue, 'i');
 
     				if(shortText.match(regEx)) {
     					return true;
@@ -218,6 +219,9 @@ Ext.define('EatSense.controller.InfoPage', {
     			});
     		}
     },
+    /**
+    * Remove filters from infoPageStore.
+    */
     clearInfoPageFilter: function() {
     	var store = Ext.StoreManager.lookup('infopageStore');
 

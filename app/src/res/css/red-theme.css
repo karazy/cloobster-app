@@ -7165,8 +7165,8 @@ input[type="search"]::-webkit-search-cancel-button {
 /* line 386, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .infopage-detail {
   display: block;
-  margin: 5px;
-  width: auto;
+  padding: 5px;
+  /*width: auto;*/
 }
 /* line 391, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .infopage-detail h1 {
