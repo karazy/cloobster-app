@@ -128,7 +128,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			store = Ext.StoreManager.lookup('infopageStore');
 
 		if(newIndex != oldIndex) {
-			infoPageList.select(store.getAt(container.getActiveIndex()));
+			infoPageList.select(store.getAt(container.getActiveIndex()), false, true);
 		}	
 	},
 
