@@ -38,11 +38,21 @@ Ext.define('EatSense.controller.InfoPage', {
 		//true when all carousel panels have been created
 		panelsCreated : false
 	},
+
+	init: function() {		
+		this.getApplication().getController('CheckIn').on('statusChanged', function(status) {
+			if(status == appConstants.CHECKEDIN) {
+				this.loadInfoPages();
+			}
+		}, this);
+	},
 	/**
 	* Load infopages into infopageStore.
 	*/
 	loadInfoPages: function() {
 		var store = Ext.StoreManager.lookup('infopageStore');
+
+		console.log('InfoPage.loadInfoPages');
 
 		store.load();
 
