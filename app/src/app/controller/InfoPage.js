@@ -47,7 +47,9 @@ Ext.define('EatSense.controller.InfoPage', {
 		store.load();
 
 	},
-
+	/**
+	* Create a panel for each entry in infoPageStore.
+	*/
 	createCarouselPanels: function() {
 		var me = this,
 			store = Ext.StoreManager.lookup('infopageStore'),
@@ -60,7 +62,8 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
-			//TODO ignore filter
+			//make sure to create panels before store gets filtered
+			//alternative clear filter
 			store.each(function(record) {
 				currentPanel = Ext.create('IPDetail');
 				currentPanel.getTpl().overwrite(currentPanel.element, record.getData());
@@ -71,7 +74,10 @@ Ext.define('EatSense.controller.InfoPage', {
 			this.setPanelsCreated(true);		
 
 	},
-
+	/**
+ 	* Event handler for select of infoPageList.
+	* Shows details for selected InfoPage element.
+  	*/
 	showInfoPageDetail: function(dataview, record) {
 		var ipcarousel = this.getInfoPageCarousel(),
 			carousel = ipcarousel.down('carousel'),
@@ -79,9 +85,13 @@ Ext.define('EatSense.controller.InfoPage', {
 			androidCtr = this.getApplication().getController('Android'),
 			infoPageList = this.getInfoPageList(),
 			store = Ext.StoreManager.lookup('infopageStore'),
+			filters = store.getFilters(),
 			index;
 
+		//clear filters to get the real index
+		store.clearFilter(true);
 		index = store.indexOf(record);
+		store.setFilters(filters);
 
 		if(index >= 0) {
 			carousel.setActiveItem(index);
@@ -177,23 +187,14 @@ Ext.define('EatSense.controller.InfoPage', {
     },
 
 
-
+    /**
+    * Filters the info pages based on the value of textfield.
+    *
+    */
     filterInfoPages: function(textfield) {
     	var filterValue = textfield.getValue(),
     		store = Ext.StoreManager.lookup('infopageStore'),
-    		// filter = [
-    		// {
-    		// 	property: 'title',
-    		// 	value: filterValue
-    		// }, 
-    		// {
-    		// 	property: 'shortText',
-    		// 	value: filterValue,
-    		// 	anyMatch: true
-    		// }],
     		filterExists = (filterValue) ? true : false;
-
-    		//TODO filter by a function
 
     		store.clearFilter(filterExists);
     		if(filterExists) {

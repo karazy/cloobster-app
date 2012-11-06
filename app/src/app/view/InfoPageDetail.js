@@ -3,10 +3,12 @@ Ext.define('EatSense.view.InfoPageDetail', {
 	xtype: 'infopagedetail',
 	alternateClassName: 'IPDetail',
 	config: {
-		styleHtmlContent: true,
+		layout: 'fit',
+		// styleHtmlContent: true,
 		//TODO really use a tpl?
+		cls: 'infopage-detail',
 		tpl: new Ext.XTemplate(
-			'<img src="{imageUrl}"/><h1>{title}</h1><pre>{shortText}</pre>'
+			'<h1>{title}</h1><img src="{imageUrl}"/>{html}'
 			)
 	}
 });
