@@ -188,13 +188,28 @@ Ext.define('EatSense.controller.InfoPage', {
     	var me = this,
     		infopageOverview = this.getInfoPageOverview(),
     		carousel = this.getInfoPageCarousel().down('carousel'),
-			clubArea = this.getClubArea();
+			clubArea = this.getClubArea(),
+			list = this.getInfoPageList();
+
+		
 
 		carousel.un('activeitemchange', this.setListIndex, this);
 
 		clubArea.switchAnim('right');
 		clubArea.setActiveItem(infopageOverview);
-		clubArea.switchAnim('left');		
+		clubArea.switchAnim('left');	
+
+		//TEST
+		//scroll to selected element
+		 // var store = Ext.StoreManager.lookup('infopageStore'),
+   //      selected = list.getSelection()[0],
+   //      idx = store.indexOf(selected),
+   //      els = list.container.getViewItems(),
+   //      el = els[idx],
+   //      offset = Ext.get(el).dom.offsetTop;
+
+
+   //     list.getScrollable().getScroller().scrollTo(0, offset-25);	
     },
 
 
