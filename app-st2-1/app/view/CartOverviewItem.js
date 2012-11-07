@@ -1,0 +1,105 @@
+/**
+*	A single order item displayed in cart overview.
+*	Item displays the name of the order. As well
+*	as a button to edit and delete (remove) the order.
+*/
+Ext.define('EatSense.view.CartOverviewItem', {
+	extend: 'Ext.dataview.component.DataItem',
+	xtype: 'cartoverviewitem',
+	config: {
+
+		name : {
+			tpl: new Ext.XTemplate(
+				"<table style='width:100%;'>"+
+					"<td align='left'><h2 class='title'>{amount} x {productName}</h2></td><td align='right'><h2 class='price'>{[this.formatPrice(values.price_calculated)]}</td></h2>"+
+				"</table>",					
+				{
+					formatPrice: function(price) {
+						return appHelper.formatPrice(price);
+					}
+				}
+				),
+			cls: 'name',
+			flex: 4
+		},
+		editButton : {
+			iconCls : 'compose',
+			iconMask : true,
+			action : 'edit',
+			ui: 'action',
+			cls: 'edit'
+		},
+
+		cancelButton : {
+			iconCls : 'trash',
+			iconMask : true,
+			action : 'cancel',
+			ui: 'action',
+			cls: 'cancel'
+		},
+
+		 cls: 'cartoverviewitem',
+		layout: {
+			type: 'hbox',
+			pack: 'end',
+			align: 'center'
+		}
+	},
+
+	applyName: function(config) {
+		return Ext.factory(config, Ext.Label, this.getName());
+	},
+
+	updateName: function(newItem, oldItem) {
+		if(newItem) {
+			this.add(newItem);
+		}
+
+		if(oldItem) {
+			this.remove(oldItem);
+		}
+	},
+
+	applyEditButton: function(config) {
+		return Ext.factory(config, Ext.Button, this.getEditButton());
+	},
+
+	updateEditButton: function(newItem, oldItem) {
+		if(newItem) {
+			this.add(newItem);
+		}
+
+		if(oldItem) {
+			this.remove(oldItem);
+		}
+	},
+
+	applyCancelButton: function(config) {
+		return Ext.factory(config, Ext.Button, this.getCancelButton());
+	},
+
+	updateCancelButton: function(newItem, oldItem) {
+		if(newItem) {
+			this.add(newItem);
+		}
+
+		if(oldItem) {
+			this.remove(oldItem);
+		}
+	},
+
+	updateRecord: function(newRecord) {
+		console.log('CartOverviewItem --> updateRecord');
+		if(!newRecord) {
+			return;
+		};
+
+		var		name = this.getName();
+
+		name.getTpl().overwrite(name.element, newRecord.getData(true));
+
+		this.callParent([newRecord]);	
+	}
+
+
+})
