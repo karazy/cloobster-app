@@ -6,7 +6,7 @@ Ext.define('EatSense.util.Configuration', {
 		msgboxHideLongTimeout: 1500,
 		//default format is EUR, can be changed during runtime depending on business
 		currencyFormat: 'EUR',
-		version: 'v1.5-9-g0b29708',
+		version: 'v1.5-10-g5d35219',
 		//true means caching is disabled
 		disableCaching: false,
 		//contains the language during runtime used througout the application

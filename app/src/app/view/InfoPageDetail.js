@@ -7,10 +7,14 @@ Ext.define('EatSense.view.InfoPageDetail', {
 	alternateClassName: 'IPDetail',
 	config: {
 		layout: 'fit',
+		scrollable: {
+		    direction: 'vertical',
+		    directionLock: true
+		},
 		cls: 'infopage-detail',
-		// padding: '5 5 5 5',
 		tpl: new Ext.XTemplate(
 			'<h1>{title}</h1><img src="{imageUrl}"/><div>{html}</div>'
-			)
+		)
+		
 	}
 });

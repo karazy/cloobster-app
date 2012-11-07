@@ -17,6 +17,10 @@ Ext.define('EatSense.view.InfoPageCarousel', {
 			},
 			{
 				xtype: 'carousel',
+				scrollable: {
+				    direction: 'horizontal',
+				    // directionLock: true
+				},
 				indicator: false
 			}
 		]

@@ -28,7 +28,7 @@ Ext.define('EatSense.controller.InfoPage', {
 				select: 'showInfoPageDetail'
 			},
 			infoPageSearchField: {
-				keyup: 'filterInfoPages',
+				keyup: 'infoPageSearchFieldHandler',
 				clearicontap: 'clearInfoPageFilter'
 			},
 			infoPageCarouselBackButton: {
@@ -36,7 +36,9 @@ Ext.define('EatSense.controller.InfoPage', {
 			}
 		},
 		//true when all carousel panels have been created
-		panelsCreated : false
+		panelsCreated: false,
+		currentFilterValue: null,
+		userTypes: false
 	},
 
 	init: function() {		
@@ -53,7 +55,8 @@ Ext.define('EatSense.controller.InfoPage', {
 		var store = Ext.StoreManager.lookup('infopageStore');
 
 		console.log('InfoPage.loadInfoPages');
-
+		this.setCurrentFilterValue(null);
+		store.clearFilter();
 		store.load();
 
 	},
@@ -64,19 +67,27 @@ Ext.define('EatSense.controller.InfoPage', {
 		var me = this,
 			store = Ext.StoreManager.lookup('infopageStore'),
 			infoPageCarousel = this.getInfoPageCarousel(),
-			carousel = infoPageCarousel.down('carousel'),			
-			currentPanel = null;
+			carousel = infoPageCarousel.down('carousel'),
+			searchfield = this.getInfoPageSearchField(),		
+			currentPanel = null,
+			html;
 
 			//skip if panels already exist
 			if(this.getPanelsCreated()) {
 				return;
 			}
 
+			// searchfield.on('keyup', this.infoPageSearchFieldHandler, this, {
+			// 	delay: 200
+			// });
+
 			//make sure to create panels before store gets filtered
 			//alternative clear filter
 			store.each(function(record) {
 				currentPanel = Ext.create('IPDetail');
-				currentPanel.getTpl().overwrite(currentPanel.element, record.getData());
+				html = currentPanel.getTpl().apply(record.getData());
+				currentPanel.setHtml(html);
+
 				carousel.add(currentPanel);
 			});
 		
@@ -142,11 +153,15 @@ Ext.define('EatSense.controller.InfoPage', {
 			androidCtr = this.getApplication().getController('Android');
 
 		clubArea.setActiveItem(infopageOverview);
-		this.createCarouselPanels();
-
+		
 		androidCtr.addBackHandler(function() {
             me.backToDashboard();
         });
+
+		Ext.defer(function() {
+			this.createCarouselPanels();	
+		}, 500, this);
+				
 	},
 	/**
 	* Tap event handler for infoPageBackButton.
@@ -212,15 +227,44 @@ Ext.define('EatSense.controller.InfoPage', {
    //     list.getScrollable().getScroller().scrollTo(0, offset-25);	
     },
 
+    /**
+    * Keyup event handler for search field.
+    */
+    infoPageSearchFieldHandler: function(field) {
+    	var timeout;
+
+    	if(this.getUserTypes()) {
+    		window.clearTimeout(this.getUserTypes());
+    	}
+    	
+
+    	timeout = Ext.defer(function() {
+    		this.setUserTypes(null);
+    		this.filterInfoPages(field.getValue());	
+    	}, 1000, this);
+
+    	this.setUserTypes(timeout);
+    	
+    },
 
     /**
     * Filters the info pages based on the value of textfield.
     *
     */
-    filterInfoPages: function(textfield) {
-    	var filterValue = textfield.getValue(),
-    		store = Ext.StoreManager.lookup('infopageStore'),
-    		filterExists = (filterValue) ? true : false;
+    filterInfoPages: function(filterValue) {
+    	var store = Ext.StoreManager.lookup('infopageStore'),    		
+    		filterExists = (filterValue) ? true : false,
+    		searchfield = this.getInfoPageSearchField(),
+    		list = this.getInfoPageList();
+
+    		console.log('InfoPage.filterInfoPages');
+
+    		if(this.getCurrentFilterValue() == filterValue) {
+    			//nothing changed
+    			return;
+    		}
+
+    		this.setCurrentFilterValue(filterValue);
 
     		store.clearFilter(filterExists);
     		if(filterExists) {
@@ -243,13 +287,18 @@ Ext.define('EatSense.controller.InfoPage', {
     				return false;
     			});
     		}
+
+    		list.refresh();    		
     },
     /**
     * Remove filters from infoPageStore.
     */
     clearInfoPageFilter: function() {
-    	var store = Ext.StoreManager.lookup('infopageStore');
+    	var store = Ext.StoreManager.lookup('infopageStore'),
+    		list = this.getInfoPageList();
 
+    	this.setCurrentFilterValue(null);
     	store.clearFilter();
+    	list.refresh();
     }
 });
