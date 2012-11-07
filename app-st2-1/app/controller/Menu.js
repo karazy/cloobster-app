@@ -5,7 +5,7 @@
  * - configuring products e.g. choosing options
  */
 Ext.define('EatSense.controller.Menu', {
-    extend: 'Ext.app.Controller',    
+    extend: 'Ext.app.Controller',
     config: {
 		refs: {
 	        main : 'mainview', 
@@ -13,8 +13,8 @@ Ext.define('EatSense.controller.Menu', {
         	productlist :'#menuCardPanel #productlist',        	
         	productoverview :'productoverview' ,
         	menuoverview :'menuoverview' ,	       
-        	productdetail : { //tabpanel panel[name=menu] 
-                selector: 'productdetail',
+        	productdetail : {
+                selector: ' productdetail',
                 xtype: 'productdetail',
                 autoCreate: true
             },

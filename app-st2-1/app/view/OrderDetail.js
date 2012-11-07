@@ -5,10 +5,10 @@
 Ext.define('EatSense.view.OrderDetail', {
 	extend : 'Ext.Panel',
 	xtype : 'orderdetail',	
-	layout : {
-		type : 'vbox',
-		align : 'stretch',
-	},	
+	// layout : {
+	// 	type : 'vbox',
+	// 	align : 'stretch',
+	// },	
 	config : {
     	scrollable : {
 		  direction: 'vertical',
@@ -39,9 +39,9 @@ Ext.define('EatSense.view.OrderDetail', {
 		{
 			xtype : 'panel',
 			cls: 'productDetailPanel',
-			layout : {
-				type : 'vbox',
-			},
+			// layout : {
+			// 	type : 'vbox',
+			// },
 			items : [ 
 			{
 				xtype : 'label',
@@ -52,11 +52,11 @@ Ext.define('EatSense.view.OrderDetail', {
 				xtype : 'panel',
 				docked: 'right',
 				width: 110,
-				layout : {
-					type : 'vbox',
-					align : 'stretch',
-					pack: 'center'
-				},
+				// layout : {
+				// 	type : 'vbox',
+				// 	align : 'stretch',
+				// 	pack: 'center'
+				// },
 				items : [ {
 					xtype : 'spinnerfield',
 					label: i10n.translate('amountspinnerLabel'),
@@ -90,7 +90,7 @@ Ext.define('EatSense.view.OrderDetail', {
 			xtype : 'formpanel',
 			itemId : 'choicesPanel',
 			cls: 'choice-panel',
-			layout: 'vbox',
+			// layout: 'vbox',
 			// minHeight: '200px',
 			scrollable : false,
 			items: [
@@ -105,11 +105,11 @@ Ext.define('EatSense.view.OrderDetail', {
 		{
 			xtype: 'toolbar',
 			docked: 'bottom',
-			layout: {
-   				type: 'hbox',
-   				align: 'middle',
-   				pack: 'center'
-			},
+			// layout: {
+   // 				type: 'hbox',
+   // 				align: 'middle',
+   // 				pack: 'center'
+			// },
 			items: [
 				{
 					xtype: 'button',

@@ -93,7 +93,8 @@ Ext.define('EatSense.model.Order', {
 		*/
 		createOrder: function(product) {
 			var newOrder = Ext.create('EatSense.model.Order'),
-				tmpChoice;
+				tmpChoice,
+				tmpOption;
 
 			newOrder.set('productName', product.get('name'));
 			newOrder.set('productId', product.get('id'));
@@ -105,13 +106,17 @@ Ext.define('EatSense.model.Order', {
 			product.choices().each(function(choice) {
 				//create phantom copy
 				tmpChoice = choice.copy();
-				tmpChoice.options().each(function(option) {
+				tmpChoice.options().removeAll();
+
+				choice.options().each(function(option) {
 					var idProperty = option.getIdProperty();
+
+					tmpOption = option.copy();
 
 	       			delete option.raw[idProperty];
 	        		delete option.data[idProperty];
 
-	        		option.phantom = true;
+	        		tmpChoice.options().add(tmpOption);
 				});
 				
 				newOrder.choices().add(tmpChoice);
