@@ -17,10 +17,30 @@ Ext.define('EatSense.model.Choice', {
 			{name : 'active', type: 'boolean', persist: false, defaultValue: false},
 			{name: 'originalChoiceId', type: 'number'}
 		],
-		hasMany : {
-			model : 'EatSense.model.Option',
-			name : 'options'
-		}
+		// hasMany : {
+		// 	model : 'EatSense.model.Option',
+		// 	name : 'options'
+		// }
+
+			associations: [{
+	            type: 'hasMany',
+	            model: 'EatSense.model.Option',
+	            primaryKey: 'id',
+	            name: 'options',
+	            store: {
+	            	storeId: 'optionsStore',
+	            	syncRemovedRecords: false,
+	            	listeners: {
+	            		beforeload: function(store) {
+	            			console.log('Choice.beforeload');
+	            		},
+	            		load: function() {
+	            			console.log('Choice.load');	
+	            		}
+	            	}
+	            }
+	            // associationKey: 'choices', // read child data from child_groups,
+	    }],
 	},	
 	/**
 	 * Validates the choice based on min- maxOccurence etc.
@@ -153,8 +173,10 @@ Ext.define('EatSense.model.Choice', {
 	},
 	/**
 	*	Returns a raw json representation of this objects data.
+	*	@shallow
+	*		true, to only get a shallow copy
 	*/
-	getRawJsonData: function() {
+	getRawJsonData: function(shallow) {
 		var rawJson = {},
 			optionsLength = this.options().getCount(),
 			index = 0;
@@ -168,10 +190,13 @@ Ext.define('EatSense.model.Choice', {
 		rawJson.overridePrice = this.get('overridePrice');
 		rawJson.originalChoiceId = this.get('originalChoiceId');
 		
-		rawJson.options = new Array(this.options().data.length);
-		for ( ; index < optionsLength; index++) {
-			rawJson.options[index] = this.options().getAt(index).getRawJsonData();
+		if(!shallow) {
+			rawJson.options = new Array(this.options().data.length);
+			for ( ; index < optionsLength; index++) {
+				rawJson.options[index] = this.options().getAt(index).getRawJsonData();
+			}			
 		}
+
 		return rawJson;
 	},
 	/**

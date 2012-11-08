@@ -414,8 +414,9 @@ Ext.define('EatSense.controller.Menu', {
 								appHelper.toggleAlertActive(false);
 						});
 	    	    		//clear the menu store, don't send clear event
-	    	    		Ext.StoreManager.lookup('menuStore').removeAll();
-	    	    		Ext.StoreManager.lookup('productStore').removeAll();
+	    	    		// Ext.StoreManager.lookup('menuStore').removeAll();
+	    	    		// Ext.StoreManager.lookup('productStore').removeAll();
+	    	    		me.clearMenuStores();
 	    	    		//refresh menu
 	    	    		me.showMenu();
 
@@ -533,13 +534,35 @@ Ext.define('EatSense.controller.Menu', {
 	* E. g. used after a FORCE_LOGOUT
 	*/
 	cleanup: function() {
-		var detail = this.getProductdetail();		
+		var detail = this.getProductdetail();
+
+		this.clearMenuStores();
 		
 		//close product detail
 		detail.hide();
 		detail.destroy();
 		//show menu first level
 		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
+	},
+	/**
+	* Clear Menu store and nested stores (product, choices, options).
+	*/
+	clearMenuStores: function() {
+		var menuStore = Ext.StoreManager.lookup('menuStore');
+
+
+		menuStore.each(function(menu) {
+        menu.products().each(function(product) {
+	        product.choices().each(function(choice) {
+	            choice.options().removeAll(true);
+	        });  
+	    	    product.choices().removeAll(true);
+	        });
+	       	menu.products().removeAll(true);
+	    });
+
+	    //remove menu to prevent problems on reload
+	    menuStore.removeAll(true);
 	}
 
      	

@@ -631,7 +631,6 @@ Ext.define('EatSense.controller.CheckIn', {
                 settingsCtr = this.getApplication().getController('Settings'),
                 androidCtr = this.getApplication().getController('Android'),
                 requestCtr = this.getApplication().getController('Request'),
-                menuStore = Ext.StoreManager.lookup('menuStore'),
                 feedbackCtr = this.getApplication().getController('Feedback'),
                 accountCtr = this.getApplication().getController('Account'),
                 appState = this.getAppState();
@@ -657,8 +656,6 @@ Ext.define('EatSense.controller.CheckIn', {
       this.getHomeTab().enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());      
       menuCtr.cleanup();
-    	//remove menu to prevent problems on reload
-      menuStore.removeAll();
 
       orderCtr.cleanup();
 

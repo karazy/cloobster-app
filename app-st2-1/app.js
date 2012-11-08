@@ -38,7 +38,7 @@ Ext.application({
     'EatSense.util.Channel',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
-		'EatSense.override.OperationImprovement',
+		// 'EatSense.override.OperationImprovement',
 		'EatSense.override.RadioOverride',
     'EatSense.override.CustomSpinner',
 		'EatSense.model.AppState',
@@ -192,11 +192,17 @@ Ext.application({
                invalidAccessToken = options.userLogout,
                hideMessage = options.hideMessage,
                message = options.message,
-               code = error.status,
+               code,
                defaultErrorKey = null;
 
         if(error && typeof error.status == 'number') {
-        	console.log('handle error: '+ error.status + ' ' + error.statusText);
+          code = error.status || 500;
+        } else {
+          code = 500;
+        }
+
+        if(code) {
+        	console.log('handle error: '+ code + ' ');
         	if(!hideMessage) {
         		appHelper.toggleAlertActive(true);
         	}
