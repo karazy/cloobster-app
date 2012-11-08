@@ -296,7 +296,7 @@ Ext.define('EatSense.controller.Settings', {
     */
     showPrivacy: function() {
         var privacy = Ext.create('EatSense.view.Privacy', {
-                    zIndex: 100
+                    zIndex: 110
                 });
                     
         this.getApplication().getController('Android').addBackHandler(function() {
