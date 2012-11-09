@@ -83,29 +83,29 @@
      *      }
      */
     "css": [     
-        {
-            "path": "res/css/green-theme.css",
-            "update": "delta",
-            "id" : "green",            
-            "disabled" : true
-        },
-        {
-            "path": "res/css/orange-theme.css",
-            "update": "delta",
-            "id" : "orange",
-            "disabled" : true
-        },
-        {
-            "path": "res/css/red-theme.css",
-            "update": "delta",
-            "id" : "red",
-            "disabled" : true
-        },
-        {
-            "path": "res/css/app-default.css",
-            "id" : "default",
-            "update": "delta"
-        }
+        // {
+        //     "path": "res/css/green-theme.css",
+        //     "update": "delta",
+        //     "id" : "green",            
+        //     "disabled" : true
+        // },
+        // {
+        //     "path": "res/css/orange-theme.css",
+        //     "update": "delta",
+        //     "id" : "orange",
+        //     "disabled" : true
+        // },
+        // {
+        //     "path": "res/css/red-theme.css",
+        //     "update": "delta",
+        //     "id" : "red",
+        //     "disabled" : true
+        // },
+        // {
+        //     "path": "res/css/app-default.css",
+        //     "id" : "default",
+        //     "update": "delta"
+        // }
     ],
 
     /**
@@ -134,9 +134,6 @@
      * Extra resources to be copied along when build
      */
     "resources": [
-        // "resources/images",
-        // "resources/icons",
-        // "resources/startup"
         "res/images",
         "res/css/fonts",
         //since we specified the libs as remote we have to copy them over

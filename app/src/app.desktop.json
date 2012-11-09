@@ -36,7 +36,18 @@
      */
     "js": [
         {
-            "path": "touch/sencha-touch.js"
+            "path": "touch/sencha-touch-debug.js"
+        },
+        {
+            "path" : "/_ah/channel/jsapi",
+            "remote" : true
+        },
+        {
+            "path" : "lib/facebook_js_sdk.js",
+            "remote" : true
+        },
+        {
+
         },
         {
             "path": "app.js",
@@ -109,7 +120,10 @@
         // "resources/images",
         // "resources/icons",
         // "resources/startup"
-        "res/images"
+        "res/images",
+        "res/css/fonts",
+        //since we specified the libs as remote we have to copy them over
+        "lib"
     ],
 
     /**
