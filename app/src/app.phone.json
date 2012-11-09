@@ -36,7 +36,8 @@
      */
     "js": [
 		{
-            "path": "touch/sencha-touch.js"
+            "path": "touch/sencha-touch.js",
+            "update" : "full"
         },
         {
             "path": "lib/cordova-2.1.0.js",
@@ -137,7 +138,9 @@
         // "resources/icons",
         // "resources/startup"
         "res/images",
-        "res/css/fonts"
+        "res/css/fonts",
+        //since we specified the libs as remote we have to copy them over
+        "lib"
     ],
 
     /**
