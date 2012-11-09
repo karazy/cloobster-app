@@ -18,7 +18,7 @@
     var options = eval("(" + xhr.responseText + ")"),
         scripts = options.js || [],
         styleSheets = options.css || [],
-        i, ln, path;
+        i, ln, path, disabled;
 
     meta('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no');
     meta('apple-mobile-web-app-capable', 'yes');
@@ -31,7 +31,13 @@
             path = path.path;
         }
 
-        write('<link rel="stylesheet" href="'+path+'">');
+        if(styleSheets[i].disabled == true) {
+            disabled = 'disabled="true"';
+        } else {
+            disabled = "";
+        }
+
+        write('<link rel="stylesheet" href="'+path+'" '+disabled+' id='+styleSheets[i].id+'>');
     }
 
     for (i = 0,ln = scripts.length; i < ln; i++) {
