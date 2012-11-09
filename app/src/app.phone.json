@@ -135,7 +135,7 @@
      */
     "resources": [
         "res/images",
-        "res/css/fonts",
+        "res/css/",
         //since we specified the libs as remote we have to copy them over
         "lib"
     ],
