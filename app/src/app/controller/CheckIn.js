@@ -525,7 +525,7 @@ Ext.define('EatSense.controller.CheckIn', {
    					'status': appConstants.Order.CART,
    				},
    				callback: function(records, operation, success) {
-   					if(success == true) {
+   					if(!operation.error) {
    						orderCtr.refreshCart();
               orderCtr.refreshMyOrdersList();
    					}

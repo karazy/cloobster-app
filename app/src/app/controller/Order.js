@@ -307,10 +307,12 @@
 						       	order.choices().removeAll(true);
 						    });
 
-						    orders.removeAll();
+						    orders.removeAll(true);
 
 							me.refreshCart();
-							me.refreshMyOrdersList();
+							//FR 20121109 DON'T refresh list. since we show myorders gets called automatically
+							//otherwise will load orders two times, since options don't have an id they are duplicated
+							//me.refreshMyOrdersList();
 
 							//initial view and no backhandlers left
 							// me.setMyordersNavigationFunctions(new Array());
