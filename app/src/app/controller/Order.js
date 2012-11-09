@@ -113,7 +113,14 @@
     * Activate event handler for myordersview.
     */
 	myordersviewActivated: function(tab, options) {
+		var androidCtr = this.getApplication().getController('Android');
+
 		tab.setActiveItem(0);
+		
+		// this.getApplication().getController('Order').refreshCart();
+		this.getApplication().getController('Order').refreshMyOrdersList();
+		androidCtr.getController('Android').setExitOnBack(false);
+    	androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
 	},
 	/**
 	 * Load cart orders.

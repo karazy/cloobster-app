@@ -64,11 +64,7 @@ Ext.define('EatSense.override.CustomRestProxy', {
 	                responseText: response.responseText
 	            });
 	        }
-	    },
-
-	    afterRequest: function(request, success) {
-	   			console.log('EatSense.model.Menu.Proxy.afterRequest');
-	   	},	   	
+	    },   	
 
 	    doRequest: function(operation, callback, scope) {
 	    	var me = this,

@@ -59,6 +59,9 @@ Ext.define('EatSense.controller.Menu', {
              },
              showCartButton: {
              	tap: 'showCart'
+             },
+             menuview: {
+             	activate: 'menuTabActivated'
              }
 		},
 		/**
@@ -73,6 +76,13 @@ Ext.define('EatSense.controller.Menu', {
 		viewCallingCart: null,
 		/* Android Back handlers */
 		menuNavigationFunctions : new Array()
+    },
+
+    menuTabActivated: function(tab) {
+    	var androidCtr = this.getApplication().getController('Android');
+    	
+    	androidCtr.setExitOnBack(false);
+    	androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
     },
     /**
      * Shows the products of a menuitem

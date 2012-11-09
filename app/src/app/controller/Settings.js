@@ -8,7 +8,7 @@ Ext.define('EatSense.controller.Settings', {
     config: {
     	refs: {
             //settings accessed from lounge when checked-in
-    		settingsTab: 'lounge settingstab[tabName=settings]',
+    		settingsTab: 'lounge settingstab',
             //settings accessed from mainview
             settingsView: 'mainview settingsview',
             // settingsNavView: 'settingstab navigationview',
@@ -97,8 +97,13 @@ Ext.define('EatSense.controller.Settings', {
     /**
     * Activate event handler for settingstab.
     */
-    settingsTabActivated: function(tab, options) {        
+    settingsTabActivated: function(tab, options) {
+        var androidCtr = this.getApplication().getController('Android');
+                
         this.loadSettings(tab.down('#settingCards'));
+
+        androidCtr.setExitOnBack(false);    
+        androidCtr.setAndroidBackHandler(this.getSettingsNavigationFunctions());
     },
     /**
     *	Loads the settings and sets the corresponding fields.

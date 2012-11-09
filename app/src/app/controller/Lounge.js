@@ -20,41 +20,22 @@ Ext.define('EatSense.controller.Lounge', {
 			menuDashboardButton : {
 				tap: 'showMenu'
 			},
-			loungeview : {
-     			activeitemchange : function(container, value, oldValue, opts) {
-     				var androidCtr = this.getApplication().getController('Android');
-     				//prevent false exit!
-     				androidCtr.setExitOnBack(false);
-
-    				if(value.tabName === 'cart') {
-              //TODO remove dead code
-    					status = this.getApplication().getController('Order').refreshCart();
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
-    				} else if (value.tabName === 'myorders') {
-    					this.getApplication().getController('Order').refreshMyOrdersList();
-    					//reset navigation view
-    					// this.getApplication().getController('Feedback').getMyordersNavview().pop();
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
-    				} else if(value.tabName === 'menu') {
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Menu').getMenuNavigationFunctions());
-    				} else if(value.tabName === 'settings') {
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Settings').getSettingsNavigationFunctions());
-    				}
-            else if(value.tabName === 'home') {
-                 //always jump to dashboard on home tab pressed
-                 this.getClubArea().setActiveItem(0);
-                 androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
-            }	else {    				
-    					androidCtr.setAndroidBackHandler(null);
-    				}
-
-    				return status;
-    			}
-    		}
+      clubArea: {
+        activate: 'clubAreaActivated'
+      }
 		},
 		/* Android Back handlers */
 		navigationFunctions : new Array()
 	},
+
+  clubAreaActivated: function(tab, options) {
+      var androidCtr = this.getApplication().getController('Android');
+
+     //always jump to dashboard on home tab pressed
+     tab.setActiveItem(0);
+     androidCtr.setExitOnBack(false); 
+     androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
+  },
   /**
   * Initialize and show dashboard upon checkin.
   */
