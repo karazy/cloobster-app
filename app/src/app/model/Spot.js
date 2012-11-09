@@ -51,6 +51,7 @@ Ext.define('EatSense.model.Spot', {
 	            //autoLoad: true,
 	            associationKey: 'payments', // read child data from child_groups
 	            store: {
+	            	syncRemovedRecords: false,
 	            	sorters: [
 						{
 							property: 'order',

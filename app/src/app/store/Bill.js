@@ -4,5 +4,6 @@ Ext.define('EatSense.store.Bill', {
 	config: {
 		storeId: 'billStore',
 		model: 'EatSense.model.Order',
+		syncRemovedRecords: false
 	}
 })

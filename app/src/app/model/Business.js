@@ -48,13 +48,6 @@ Ext.define('EatSense.model.Business', {
 				defaultValue: 'default'
 			}			
 		],
-		// associations: [{
-	 //            type: 'hasMany',
-	 //            model: 'EatSense.model.Image',
-	 //            primaryKey: 'id',
-	 //            name: 'images',
-	 //            autoLoad: true
-	 //    }],
 	    proxy: {
 			type: 'rest',
 			enablePagingParams: false,

@@ -743,8 +743,13 @@
 					text: i10n.translate('ok'),
 					listeners: {
 						tap: function() {
-							//TODO investigate if bug
+							//FR 20121109 this is weird behaviour of picker component
 							choosenMethod = picker.getValue()['null'];
+							//Since ST2.1 if user does not select anything no value is set
+							//so we chosse the first value in the store
+							if(!choosenMethod) {
+								choosenMethod = availableMethods.getAt(0).get('name');
+							}
 							picker.hide();						
 							me.paymentRequest(choosenMethod);
 						}
@@ -760,9 +765,10 @@
 				},
 			    slots: [
 			        {
+
 			        	align: 'center',
-			        	 valueField: 'name',
-			             displayField: 'name',
+			        	valueField: 'name',
+			            displayField: 'name',
 			            title: i10n.translate('paymentPickerTitle'),
 			            store: availableMethods
 			        }
