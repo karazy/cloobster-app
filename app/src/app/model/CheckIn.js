@@ -43,7 +43,10 @@ Ext.define('EatSense.model.CheckIn', {
 		},
 		hasMany : {
 			model : 'EatSense.model.Order',
-			name : 'orders'
+			name : 'orders',
+			store: {
+            	syncRemovedRecords: false
+            }
 		}
 	}
 

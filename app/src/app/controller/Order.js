@@ -297,7 +297,18 @@
 			    	    	appHelper.toggleMask(false);
 			    	    	me.getSubmitOrderBt().enable();
 			    	    	me.getCancelOrderBt().enable();
-							orders.removeAll();
+							
+
+							//remove all orders and nested objects and reload to have a fresh state
+							orders.each(function(order) {
+					        order.choices().each(function(choice) {
+						    	    choice.options().removeAll(true);
+						        });
+						       	order.choices().removeAll(true);
+						    });
+
+						    orders.removeAll();
+
 							me.refreshCart();
 							me.refreshMyOrdersList();
 
@@ -633,8 +644,15 @@
 				payButton = me.getPaymentButton(),
 				leaveButton = me.getLeaveButton();
 		
-		//remove all orders and reload to have a fresh state
-		myordersStore.removeAll();
+		//remove all orders and nested objects and reload to have a fresh state
+		myordersStore.each(function(order) {
+        order.choices().each(function(choice) {
+	    	    choice.options().removeAll(true);
+	        });
+	       	order.choices().removeAll(true);
+	    });
+
+	    myordersStore.removeAll(true);
 		
 		myordersStore.load({
 			scope   : this,			

@@ -26,6 +26,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				grouped     : true,
    				indexBar    : true,
    				allowDeselect: true,
+   				scrollToTopOnRefresh: true,
    				store: 'infopageStore',
 				itemCls: 'infopage-list-item',
 				itemTpl: '<div class="thumbnail"><img src="{imageUrl}"/></div><div class="info"><h3>{title}</h3><p>{shortText}</p></div>'

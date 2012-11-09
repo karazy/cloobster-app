@@ -264,6 +264,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
     		store.clearFilter(filterExists);
     		if(filterExists) {
+    			list.getScrollable().getScroller().scrollToTop();
     			// store.filter(filter);	
     			store.filterBy(function(record) {
     				var title = record.get('title'),
