@@ -119,8 +119,8 @@
 		
 		// this.getApplication().getController('Order').refreshCart();
 		this.getApplication().getController('Order').refreshMyOrdersList();
-		androidCtr.getController('Android').setExitOnBack(false);
-    	androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
+		androidCtr.setExitOnBack(false);
+    	androidCtr.setAndroidBackHandler(this.getMyordersNavigationFunctions());
 	},
 	/**
 	 * Load cart orders.
