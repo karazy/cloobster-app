@@ -55,9 +55,9 @@ Ext.define('EatSense.model.Order', {
 			type: 'rest',
 			enablePagingParams: false,
 			url : '/c/businesses/{pathId}/orders',
-			reader: {
-				type: 'json'
-		   	}
+			// reader: {
+			// 	type: 'json'
+		 //   	}
 	 	},
 	 	// current state of this order. used for store and restore
 	 	state: null

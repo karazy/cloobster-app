@@ -41,8 +41,8 @@
   border-style: solid solid none solid;
   border-color: #DDD;
   border-width: 1px;
-  border-top-left-radius: 0.4em;
-  border-top-right-radius: 0.4em;
+  border-bottom-left-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
   background-color: $active-color;
   margin-right: 20px;
   margin-left: 20px;
@@ -1130,4 +1130,8 @@ h9 {
   background-image: none;
   background-color: $active-color;
 }*/
+
+.x-list-item > .x-dock-horizontal > .x-dock-body {
+  /*margin: 10px;*/
+}
 

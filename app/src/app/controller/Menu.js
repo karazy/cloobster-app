@@ -84,7 +84,8 @@ Ext.define('EatSense.controller.Menu', {
     		pov = this.getProductoverview(),
     		prodStore = record.productsStore,
     		firstItem,
-    		oldHeader = null;
+    		oldHeader = null,
+    		titleLabel;
 
 		//Android: return to menu on backbutton
 		this.getApplication().getController('Android').addBackHandler(function() {
@@ -102,8 +103,7 @@ Ext.define('EatSense.controller.Menu', {
     	// if(oldHeader) {
     	// 	oldHeader.destroy();
     	// 	oldHeader = null;
-    	// };
-
+    	// };    	
 
     	this.getProductlist().setStore(prodStore);  
 		this.getProductlist().refresh();
@@ -114,6 +114,11 @@ Ext.define('EatSense.controller.Menu', {
 		// 	this.getProductlist().getTpl().insertBefore(firstItem, record.getData());	
 		// };
     	
+    	titleLabel = pov.down('#titleLabel');
+
+    	if(titleLabel) {
+    		titleLabel.getTpl().overwrite(titleLabel.element, record.getData());
+    	}
 
     	this.switchView(pov, "", "", 'left');
     },

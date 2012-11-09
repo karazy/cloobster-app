@@ -46,7 +46,7 @@ Ext.define('EatSense.override.CustomRestProxy', {
 	        	
 	        request.setUrl(_serviceUrl + url);
 
-	        console.log('CustomRestProxy.buildUrl -> ' + _serviceUrl + url);
+	        //console.log('CustomRestProxy.buildUrl -> ' + _serviceUrl + url);
 
 	        return me.callParent([request]);
 	    },
@@ -57,41 +57,49 @@ Ext.define('EatSense.override.CustomRestProxy', {
 	     * @param {Object} response The response
 	     */
 	    setException: function(operation, response) {
-	        operation.setException({
-	            status: response.status,
-	            statusText: response.statusText,
-	            responseText: response.responseText
-	        });
+	        if (Ext.isObject(response)) {
+	            operation.setException({
+	                status: response.status,
+	                statusText: response.statusText,
+	                responseText: response.responseText
+	            });
+	        }
 	    },
 
+	    afterRequest: function(request, success) {
+	   			console.log('EatSense.model.Menu.Proxy.afterRequest');
+	   	},	   	
+
 	    doRequest: function(operation, callback, scope) {
-	    	var writer  = this.getWriter(),
-	           	request = this.buildRequest(operation);
+	    	var me = this,
+            	writer  = me.getWriter(),
+            	request = me.buildRequest(operation);
 
 	        request.setConfig({
-	            headers        : this.getHeaders(),
-	            timeout        : this.getTimeout(),
-	            method         : this.getMethod(request),
-	            callback       : this.createRequestCallback(request, operation, callback, scope),
-	            scope          : this
+	            headers  : me.getHeaders(),
+	            timeout  : me.getTimeout(),
+	            method   : me.getMethod(request),
+	            callback : me.createRequestCallback(request, operation, callback, scope),
+	            scope    : me,
+	            proxy    : me
 	        });
 
-	        if (operation.getWithCredentials() || this.getWithCredentials()) {
+	        if (operation.getWithCredentials() || me.getWithCredentials()) {
 	            request.setWithCredentials(true);
+	            request.setUsername(me.getUsername());
+	            request.setPassword(me.getPassword());
 	        }
 
 	        // We now always have the writer prepare the request
 	        request = writer.write(request);
 
-	       
-	        
 	        if(request.getMethod().toUpperCase() === 'DELETE') {
-	        	//prevent Sencha from sending payload to avoid BAD REQUEST on appengine
-	        	 delete request._jsonData;	        	
-	        }
-	        
+		        	//prevent Sencha from sending payload to avoid BAD REQUEST on appengine
+		        	 delete request._jsonData;	        	
+		        }
+
 	        Ext.Ajax.request(request.getCurrentConfig());
-	        
+
 	        return request;
 	    }
 });
