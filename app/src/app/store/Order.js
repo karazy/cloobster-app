@@ -4,6 +4,7 @@ Ext.define('EatSense.store.Order', {
 	config: {
 		storeId: 'orderStore',
 		model: 'EatSense.model.Order',
+		syncRemovedRecords: false,
 		filters: [
 			{ 
 				filterFn: function(record, id) {

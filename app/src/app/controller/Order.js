@@ -640,7 +640,7 @@
 			scope   : this,			
 			callback: function(records, operation, success) {
 				try {
-					if(success == true) {
+					if(!operation.error) {
 						payButton.enable();
 						me.toggleMyordersButtons();
 

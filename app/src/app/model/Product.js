@@ -33,7 +33,6 @@ Ext.define('EatSense.model.Product', {
 	            // autoLoad: true,
 	            associationKey: 'choices', // read child data from child_groups,
 	            store: {
-	            	// storeId: 'productChoicesStore',
 	            	syncRemovedRecords: false,
 	            	// sorters: [
 	            	// {

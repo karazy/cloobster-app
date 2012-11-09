@@ -154,7 +154,7 @@ Ext.define('EatSense.controller.Request',{
 
 		requestStore.load({
 			callback: function(records, operation, success) {
-			   	if(!success) { 
+			   	if(operation.error) { 
                     me.getApplication().handleServerError({
                        	'error': operation.error, 
                      	'forceLogout': {403:true}

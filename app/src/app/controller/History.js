@@ -85,7 +85,7 @@ Ext.define('EatSense.controller.History', {
 
    		historyStore.loadPage(1, {
    			callback: function(records, operation, success) {
-   				if(!success) {
+   				if(operation.error) {
    					me.getApplication().handleServerError({
 							'error': operation.error,
 							//accessToken invalid

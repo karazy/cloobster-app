@@ -115,7 +115,7 @@ Ext.define('EatSense.controller.Feedback', {
 
 			feedbackStore.load({
 			    callback: function(records, operation, success) {
-			    	if(success) {
+			    	if(!operation.error) {
 			    		me.enableFeedback();
 
 						me.setFeedbackTemplate(feedbackStore.getAt(0));
