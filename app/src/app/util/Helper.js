@@ -33,8 +33,9 @@ Ext.define('EatSense.util.Helper', {
 	*
 	*/
 	isFunction: function(functionToCheck) {
-	 	var getType = {};
-	 	return functionToCheck && getType.toString.call(functionToCheck) == '[object Function]';
+	 	// var getType = {};
+	 	// return functionToCheck && getType.toString.call(functionToCheck) == '[object Function]';
+	 	return functionToCheck && typeof functionToCheck === 'function';
 	},
 	/**
 	*	Checks if the given argument is of type Array.

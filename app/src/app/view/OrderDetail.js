@@ -72,7 +72,7 @@ Ext.define('EatSense.view.OrderDetail', {
 				{
 					xtype: 'label',
 					cls: 'productPrice',
-					margin: '5 0 0 0',
+					padding: '5 0 0 0',
 					itemId : 'prodPriceLabel',
 					tpl: new Ext.XTemplate(
 					'{[this.formatPrice(values.order.calculate())]}',

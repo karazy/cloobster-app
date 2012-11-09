@@ -69,7 +69,7 @@ Ext.define('EatSense.view.MyOrders', {
 							"<table style='width:100%;'>"+				
 							"<td align='left' class='title'>{amount} x {productName}</td><td align='right' class='price'>{[this.formatPrice(values.price_calculated)]}</td><td class='arrow collapsed-arrow'></td>"+
 							"</table>"+
-							"<div class='myorder-detail hidden'>"+
+							"<div class='myorder-detail '>"+
 							"<h4>"+i10n.translate('orderTime')+": {[values.orderTime.toLocaleTimeString()]}</h4>"+
 							"<div class='choices'>"+
 								"<tpl for='choices'>" +				

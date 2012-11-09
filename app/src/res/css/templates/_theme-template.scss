@@ -38,9 +38,9 @@
 
 /* Style for product tab header */
 .productlist-header {
-  border-style: solid solid none solid;
+/*  border-style: solid;
   border-color: #DDD;
-  border-width: 1px;
+  border-width: 1px;*/
   border-bottom-left-radius: 0.4em;
   border-bottom-right-radius: 0.4em;
   background-color: $active-color;
@@ -50,11 +50,6 @@
   text-align: center;
   padding: 2px;
   font-weight: bold;
-
-  /*+ div.x-list-item-label {*/
-      /*-webkit-border-top-left-radius: 0 !important;*/
-      /*border-top-left-radius: 0 !important;*/
-  /*}*/
 }
 
 .productListItem {
@@ -89,7 +84,7 @@
 }
 
 /* Set background for product description and amount spinner */
-.productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
+.productDetailPanel > .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
   background: $product-sub-bg;
   color: black;
   /* To prevent rounded corners on form label. */
@@ -99,6 +94,7 @@
 .productDetail {
   font-size: 0.8em;
   padding-right: 0.5em;
+  background: $product-sub-bg;
 }
 
 
@@ -137,6 +133,7 @@
 /* line 108, app-default.scss */
 .productPrice {
   font-size: 1.5em;
+  background: $product-sub-bg;
 }
 
 /*
@@ -1131,7 +1128,10 @@ h9 {
   background-color: $active-color;
 }*/
 
+/**
+* Override look and feel of list elements.
+*/
 .x-list-item > .x-dock-horizontal > .x-dock-body {
-  /*margin: 10px;*/
+  
 }
 
