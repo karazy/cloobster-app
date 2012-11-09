@@ -643,17 +643,17 @@ Ext.define('EatSense.controller.CheckIn', {
 
     }
 		else if(status == appConstants.PAYMENT_REQUEST) {
-			this.getMenuTab().disable();
+			this.getMenuTab().tab.disable();
 			// this.getCartTab().disable();
-      this.getSettingsTab().disable();
-      this.getHomeTab().disable();			
+      this.getSettingsTab().tab.disable();
+      this.getHomeTab().tab.disable();			
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 			this.showDashboard();
-      this.getMenuTab().enable();
+      this.getMenuTab().tab.enable();
 			// this.getCartTab().enable();
-      this.getSettingsTab().enable();
-      this.getHomeTab().enable();			
+      this.getSettingsTab().tab.enable();
+      this.getHomeTab().tab.enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());      
       menuCtr.cleanup();
 
