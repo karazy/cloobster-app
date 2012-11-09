@@ -8,7 +8,6 @@ Ext.define('EatSense.view.Privacy', {
 		left: 5,
 		right: 5,
 		bottom: 10,
-		floatingCls: 'panel-floating',
 		styleHtmlCls: 'about-text',
 		styleHtmlContent: true,
 		autoDestroy: true,

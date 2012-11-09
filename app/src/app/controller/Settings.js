@@ -296,7 +296,7 @@ Ext.define('EatSense.controller.Settings', {
     */
     showPrivacy: function() {
         var privacy = Ext.create('EatSense.view.Privacy', {
-                    zIndex: 100
+                    zIndex: 110
                 });
                     
         this.getApplication().getController('Android').addBackHandler(function() {
@@ -618,16 +618,6 @@ Ext.define('EatSense.controller.Settings', {
             return true;
         });
 
-        this.getCallingView().getLayout().setAnimation({
-            type: 'slide',
-            direction: 'right'
-        });
-        
-        this.getCallingView().setActiveItem(0);
-
-        this.getCallingView().getLayout().setAnimation({
-            type: 'slide',
-            direction: 'left'
-        });
+        this.getCallingView().animateActiveItem(0, {type: 'slide', direction: 'right'});
     }
 });

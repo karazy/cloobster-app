@@ -230,8 +230,6 @@ Ext.define('EatSense.controller.Request',{
     	var me = this,
 			clubArea = this.getClubArea();
 
-		clubArea.switchAnim('right');
-		clubArea.setActiveItem(0);
-		clubArea.switchAnim('left');		
+		clubArea.switchTo(0, 'right');
     }
 });

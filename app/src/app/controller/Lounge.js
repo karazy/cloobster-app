@@ -90,8 +90,7 @@ Ext.define('EatSense.controller.Lounge', {
       this.getClubArea().setActiveItem(0);
       lounge.setActiveItem(0);
 
-      main.switchAnim('left');
-      main.setActiveItem(lounge);
+      main.switchTo(lounge, 'left');
   },
   /**
   * Draws custom business header in club dashboard if it exists.

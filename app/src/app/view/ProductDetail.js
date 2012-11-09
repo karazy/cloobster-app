@@ -4,11 +4,11 @@
 Ext.define('EatSense.view.ProductDetail', {
 	extend : 'Ext.Panel',
 	requires: ['Ext.field.Spinner', 'Ext.field.Radio', 'Ext.form.Panel', 'Ext.field.Checkbox'],
-	xtype : 'productdetail',	
-	layout : {
-		type : 'vbox',
-		align : 'stretch',
-	},	
+	xtype : 'productdetail',
+	// layout : {
+	// 	type : 'fit',
+	// 	align : 'stretch',
+	// },	
 	config : {
 		scrollable : {
 		  direction: 'vertical',
@@ -26,14 +26,13 @@ Ext.define('EatSense.view.ProductDetail', {
 		  },
 		  outOfBoundRestrictFactor: 0	
 		 },
-    	// scrollable : 'vertical',
-    	// fullscreen: true,
+    	scrollable : 'vertical',
+    	fullscreen: true,
     	modal: true,
 		top: '3%',
 		left: '2%',
 		right: '2%',
 		bottom: '2%',
-		floatingCls: 'panel-floating',
 		items : [
 		{
 			xtype: 'titlebar',
@@ -42,9 +41,9 @@ Ext.define('EatSense.view.ProductDetail', {
 		{
 			xtype : 'panel',
 			cls: 'productDetailPanel',
-			layout : {
-				type : 'vbox',
-			},
+			// layout : {
+			// 	type : 'vbox',
+			// },
 			items : [ 
 			{
 				xtype : 'label',
@@ -56,11 +55,11 @@ Ext.define('EatSense.view.ProductDetail', {
 				xtype : 'panel',
 				docked: 'right',
 				width: 110,
-				layout : {
-					type : 'vbox',
-					align : 'stretch',
-					pack: 'center'
-				},
+				// layout : {
+				// 	type : 'vbox',
+				// 	align : 'stretch',
+				// 	pack: 'center'
+				// },
 				items : [
 				{
 					xtype : 'spinnerfield',
@@ -97,7 +96,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			xtype : 'formpanel',
 			itemId : 'choicesPanel',
 			cls: 'choice-panel',
-			layout: 'vbox',
+			// layout: 'vbox',
 			// minHeight: '200px',
 			scrollable : false,
 			items: [
@@ -112,11 +111,11 @@ Ext.define('EatSense.view.ProductDetail', {
 		{
 			xtype: 'toolbar',
 			docked: 'bottom',
-			layout: {
-   				type: 'hbox',
-   				align: 'middle',
-   				pack: 'center'
-			},
+			// layout: {
+   // 				type: 'hbox',
+   // 				align: 'middle',
+   // 				pack: 'center'
+			// },
 			items: [
 				{
 					xtype: 'button',
@@ -139,6 +138,6 @@ Ext.define('EatSense.view.ProductDetail', {
 				}
 			]
 		}
-		]		
+		]	
 	}
 });

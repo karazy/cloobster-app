@@ -61,7 +61,7 @@ Ext.define('EatSense.view.MyOrders', {
 					{
 						xtype: 'list',
 						store: 'orderStore',
-						ui: 'round',
+						// ui: 'round',
 						allowDeselect: true,
 						onItemDisclosure: this.removeItem,
 						itemCls: 'orderListItem',
@@ -188,16 +188,15 @@ Ext.define('EatSense.view.MyOrders', {
     		this.setMasked(false);
     	}
     },
-    	/**
-	* Change the direction of the slide animation.
-	* 
-	* @param direction
-	*            left or right
-	*/
-	switchAnim : function(direction) {
-		this.getLayout().setAnimation({
-			type : 'slide',
-			direction : direction
-		});
+	/**
+	 * Switch to given item.
+	 * 
+	 * @param item
+	 *	The item the view should switch to.
+	 * @param dir
+	 *  animation. left or right 
+	 */
+	switchTo: function(item, dir) {
+		this.animateActiveItem(item, {type: 'slide', direction: dir});
 	}
 });

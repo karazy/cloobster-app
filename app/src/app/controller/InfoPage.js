@@ -191,9 +191,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			list = this.getInfoPageList();
 
 		list.deselectAll();
-		clubArea.switchAnim('right');
-		clubArea.setActiveItem(0);
-		clubArea.switchAnim('left');
+		clubArea.animateActiveItem(0, {type: 'slide', direction: 'right'});
     },
 
     /**
@@ -210,9 +208,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		carousel.un('activeitemchange', this.setListIndex, this);
 
-		clubArea.switchAnim('right');
-		clubArea.setActiveItem(infopageOverview);
-		clubArea.switchAnim('left');	
+		clubArea.animateActiveItem(infopageOverview, {type: 'slide', direction: 'right'});
 
 		//TEST
 		//scroll to selected element

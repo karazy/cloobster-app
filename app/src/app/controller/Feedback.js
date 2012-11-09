@@ -372,9 +372,7 @@ Ext.define('EatSense.controller.Feedback', {
 			clubArea = this.getClubArea();
 
 		this.setFeedbackOrigin(null);
-		clubArea.switchAnim('right');
-		clubArea.setActiveItem(0);
-		clubArea.switchAnim('left');
+		clubArea.switchTo(0, 'right');
     },
      /**
 	* Tap handler for backbutton.
@@ -391,8 +389,6 @@ Ext.define('EatSense.controller.Feedback', {
 			myordersview = this.getMyordersview();
 
 		this.setFeedbackOrigin(null);
-		myordersview.switchAnim('right');
-		myordersview.setActiveItem(0);
-		myordersview.switchAnim('left');
+		myordersview.switchTo(0, 'right');
     }
 });

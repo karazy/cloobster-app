@@ -47,29 +47,30 @@ Ext.define('EatSense.model.Order', {
             name: 'choices',
             autoLoad: true,
             associationKey: 'choices', // read child data from child_groups
-            store: {
-            	sorters: [
-            	{
-            		sorterFn: function(record1, record2){
-            			// console.log('sort choices id1: %s parent1: %s and id2: %s parent2: %s', record1.get('id'), record1.get('parent'), record2.get('id'), record2.get('parent'));
-            			var parent1 = record1.get('parent'),
-            				parent2 = record1.get('parent');
-            			if(parent1) {
-            				if(parent1 == record2.get('id')) {
-            					return 1;
-            				}
-            			}
+            // store: {
+            // 	storeId: 'orderChoicesStore',
+            // 	sorters: [
+            // 	{
+            // 		sorterFn: function(record1, record2){
+            // 			// console.log('sort choices id1: %s parent1: %s and id2: %s parent2: %s', record1.get('id'), record1.get('parent'), record2.get('id'), record2.get('parent'));
+            // 			var parent1 = record1.get('parent'),
+            // 				parent2 = record1.get('parent');
+            // 			if(parent1) {
+            // 				if(parent1 == record2.get('id')) {
+            // 					return 1;
+            // 				}
+            // 			}
 
-            			if(parent2) {
-            				if(parent2 == record1.get('id')) {
-            					return 1;
-            				}
-            			}
+            // 			if(parent2) {
+            // 				if(parent2 == record1.get('id')) {
+            // 					return 1;
+            // 				}
+            // 			}
 
-            			return 0;
-            		}
-            	}]
-            }
+            // 			return 0;
+            // 		}
+            // 	}]
+            // }
 	    }],
 		proxy: {
 			type: 'rest',
@@ -93,7 +94,8 @@ Ext.define('EatSense.model.Order', {
 		*/
 		createOrder: function(product) {
 			var newOrder = Ext.create('EatSense.model.Order'),
-				tmpChoice;
+				tmpChoice,
+				tmpOption;
 
 			newOrder.set('productName', product.get('name'));
 			newOrder.set('productId', product.get('id'));
@@ -103,19 +105,37 @@ Ext.define('EatSense.model.Order', {
 			newOrder.set('id', "");
 
 			product.choices().each(function(choice) {
-				//create phantom copy
-				tmpChoice = choice.copy();
-				tmpChoice.options().each(function(option) {
-					var idProperty = option.getIdProperty();
+				//create a shallow copy
+				tmpChoice = Ext.create('EatSense.model.Choice', choice.getRawJsonData(true));
+				// tmpChoice = choice.copy();
+				choice.options().each(function(option) {
+					// var idProperty = option.getIdProperty();
 
-	       			delete option.raw[idProperty];
-	        		delete option.data[idProperty];
+					tmpOption = Ext.create('EatSense.model.Option', option.getRawJsonData());
 
-	        		option.phantom = true;
+	       			// delete tmpOption.raw[idProperty];
+	        		// delete tmpOption.data[idProperty];
+
+	        		tmpChoice.options().add(tmpOption);
 				});
 				
 				newOrder.choices().add(tmpChoice);
 			});
+
+			// product.choices().each(function(choice) {
+			// 	// create phantom copy
+			// 	tmpChoice = choice.copy();
+			// 	tmpChoice.options().each(function(option) {
+			// 		var idProperty = option.getIdProperty();
+
+	  //      			delete option.raw[idProperty];
+	  //       		delete option.data[idProperty];
+
+	  //       		option.phantom = true;
+			// 	});
+				
+			// 	newOrder.choices().add(tmpChoice);
+			// });
 
 			return newOrder;
 		}

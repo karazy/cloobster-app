@@ -17,7 +17,7 @@ Ext.define('EatSense.controller.CheckIn', {
         	dashboard: 'dashboard',
         	settingsBt: 'dashboard button[action=settings]',
           aboutBt: 'dashboard button[action=about]',
-        	settingsBackBt: 'settings button[action=back]',
+        	// settingsBackBt: 'settings button[action=back]',
         	nicknameTogglefield: 'checkinconfirmation togglefield[action=toggle-nickname]',
         	nicknameSettingsField: 'settings #nicknameSetting',
         	settingsview: 'settings',
@@ -65,9 +65,9 @@ Ext.define('EatSense.controller.CheckIn', {
             settingsBt: {
             	tap: 'showSettings'
             },
-            settingsBackBt: {
-            	tap: 'showDashboard'            	
-            },
+            // settingsBackBt: {
+            // 	tap: 'showDashboard'            	
+            // },
             nicknameSettingsField: {            	
             	change: 'saveNickname'
             }
@@ -258,8 +258,7 @@ Ext.define('EatSense.controller.CheckIn', {
     //prepare custom header in advance to avoid longer loading times
     // this.getApplication().getController('Lounge').drawCustomHeader();
 		
-		main.switchAnim('left');
-		main.setActiveItem(checkInDialog);			
+		main.switchTo(checkInDialog, 'left');
    },
    /**
     * CheckIn Process
@@ -338,8 +337,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	   
 	   this.setActiveCheckIn(null);
 	   	   
-	   main.switchAnim('right');
-	   main.setActiveItem(dashboardView);
+	   main.switchTo(dashboardView, 'right');
 	   nicknameToggle.reset();
 		
 	   //ensure that main is only added once to viewport
@@ -374,9 +372,9 @@ Ext.define('EatSense.controller.CheckIn', {
 	  	 this.getUserlist().getStore().load({
 	  	     scope   : this,
 	  	     callback: function(records, operation, success) {	  	    	 
-			  	   main.switchAnim('left');
+			  	  
 				  	if(records.length > 0) {
-				  		main.setActiveItem(checkinwithothersDlg);
+				  		main.switchTo(checkinwithothersDlg, 'left');
 				  	} else {
 				  		this.showLounge();
 				  	}
@@ -447,8 +445,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		
 		this.getNicknameSettingsField().setValue(this.getAppState().get('nickname'));
 		
-		main.switchAnim('left');
-   	 	main.setActiveItem(settings);
+		main.switchTo(settings, 'left');
 	},
 	/**
 	 * Saves the application state in local store.
@@ -634,7 +631,6 @@ Ext.define('EatSense.controller.CheckIn', {
                 settingsCtr = this.getApplication().getController('Settings'),
                 androidCtr = this.getApplication().getController('Android'),
                 requestCtr = this.getApplication().getController('Request'),
-                menuStore = Ext.StoreManager.lookup('menuStore'),
                 feedbackCtr = this.getApplication().getController('Feedback'),
                 accountCtr = this.getApplication().getController('Account'),
                 appState = this.getAppState();
@@ -660,8 +656,6 @@ Ext.define('EatSense.controller.CheckIn', {
       this.getHomeTab().enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());      
       menuCtr.cleanup();
-    	//remove menu to prevent problems on reload
-      menuStore.removeAll();
 
       orderCtr.cleanup();
 

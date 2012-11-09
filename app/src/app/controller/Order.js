@@ -194,9 +194,7 @@
 	backToMyorders: function() {
 		var myordersview = this.getMyordersview();
 
-		myordersview.switchAnim('right');
-		myordersview.setActiveItem(0);
-		myordersview.switchAnim('left');
+		myordersview.switchTo(0, 'right');
 	},
 	/**
 	* Tap event handler for cart back button in myorders view.
@@ -776,9 +774,13 @@
 			myordersComplete = this.getMyordersComplete(),
 			payButton = this.getPaymentButton(),
 			menuCtr = this.getApplication().getController('Menu'),
-			me = this;		
+			me = this,
+			date = new Date();		
 
 		bill.set('paymentMethod', paymentMethod);
+
+		//FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
+		bill.set('time', date);
 		//workaround to prevent sencha from sending phantom id
 		bill.setId('');
 		//TODO show load mask to prevent users from issuing orders?!
@@ -893,9 +895,9 @@
 	toggleOrderDetail: function(view, index, htmlElement, order) {		
     // change the div plus to minu..
     // Get hold of the div with details class and animate
-    	var el = htmlElement.select('div.myorder-detail'),
+    	var el = htmlElement.element.select('div.myorder-detail'),
     		convert = Ext.get(el.elements[0]),
-    		priceDiv = htmlElement.select('td.arrow');
+    		priceDiv = htmlElement.element.select('td.arrow');
     	
     	convert.toggleCls('hidden');
     	priceDiv.toggleCls('collapsed-arrow');

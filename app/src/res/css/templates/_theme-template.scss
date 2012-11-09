@@ -81,12 +81,6 @@
   }
 }
 
-.panel-floating {
-  border-radius: 0.1em !important;
-  padding: 0.1em !important;
-  background-color: $base-color !important;
-}
-
 .productDetailPanel {
   background: $product-sub-bg;
   padding: 0.5em;
@@ -259,9 +253,9 @@
 
 }
 
-.cart-panel .x-list-round .x-scroll-view {
+/*.cart-panel .x-list-round .x-scroll-view {
  background: $page-bg-color;  
-}
+}*/
 
 .cartoverview {
   padding: 0.3em 0em;
@@ -941,9 +935,9 @@ h9 {
 * Menu- and Productlist
 */
 
-.menu-panel, .menu-panel .x-list-round .x-scroll-view {
+/*.menu-panel, .menu-panel .x-list-round .x-scroll-view {
  background: $page-bg-color;
-}
+}*/
 
 /*
 * CheckIn confirmation view
@@ -1049,9 +1043,15 @@ h9 {
   border-radius: 1em;
 }
 
-/* Perf. optimization for android. */
+/* Perf. optimization for android. And tweak of laf.*/
 .x-panel.x-floating {
   -webkit-box-shadow: none;
+  border-radius: 0.1em !important;
+  background-color: $base-color !important;
+
+  > .x-dock.x-sized {
+    margin: 2px;
+  }
 }
 
 /*
@@ -1072,15 +1072,15 @@ h9 {
 }
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
-.x-list-round .x-scroll-view {
+/*.x-list-round .x-scroll-view {
   background-color: $page-bg-color !important;
-}
+}*/
 
 /* Override needed because ui-round already has a white background. */
-.x-list-round .x-list-item.x-item-pressed .x-list-item-label {
+/*.x-list-round .x-list-item.x-item-pressed .x-list-item-label {
   border-top-color: lighten($active-color, 30%);
   background-color: lighten($active-color, 30%);
-}
+}*/
 
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
@@ -1126,8 +1126,8 @@ h9 {
 }
 
 /* Force color of disclosure item instead of beeing calculated. */
-.x-list-round .x-list-disclosure {
+/*.x-list-round .x-list-disclosure {
   background-image: none;
   background-color: $active-color;
-}
+}*/
 

@@ -50,8 +50,7 @@ Ext.define('EatSense.controller.History', {
             Ext.Msg.alert(i10n.translate('hint'), i10n.translate('history.noaccount'));
          } else {
             //show history view
-            mainView.switchAnim('left');
-            mainView.setActiveItem(historyView);
+            mainView.switchTo(historyView, 'left');
             androidCtr.addBackHandler(function(){
                me.showDashboard();
             });
@@ -70,8 +69,7 @@ Ext.define('EatSense.controller.History', {
 	     
          //also this method can be called from different points, we can savely remove the handler it is always the last
          this.getApplication().getController('Android').removeLastBackHandler();
-	   	mainView.switchAnim('right');
-	   	mainView.setActiveItem(dashboardView);
+	   	mainView.switchTo(dashboardView, 'right');
 
          historyList.deselectAll();
    },
@@ -135,8 +133,7 @@ Ext.define('EatSense.controller.History', {
          androidCtr.addBackHandler(function(){
             me.backToHistory();
          });
-   		mainView.switchAnim('left');
-		   mainView.setActiveItem(historyDetailView);
+   		mainView.switchTo(historyDetailView, 'left');
    },
    /**
    * Event handler for back button tap in history detail view.
@@ -151,9 +148,8 @@ Ext.define('EatSense.controller.History', {
    backToHistory: function() {
    	var mainView = this.getMainView(),
    		historyView = this.getHistoryView();
-   		mainView.switchAnim('right');
+   		mainView.switchTo(historyView, 'right');
 		      
-      mainView.setActiveItem(historyView);
    },
    /**
    * Loads all orders for given history.
