@@ -925,22 +925,18 @@
 
 		(activeCheckIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() > 0) ? payButton.show() : payButton.hide();
 	},
-	toggleOrderDetail: function(view, index, htmlElement, order) {		
-    // change the div plus to minu..
-    // Get hold of the div with details class and animate
-    	var el = htmlElement.element.select('div.myorder-detail'),
-    		convert = Ext.get(el.elements[0]),
-    		priceDiv = htmlElement.element.select('td.arrow');
-    	
-    	convert.toggleCls('hidden');
-    	priceDiv.toggleCls('collapsed-arrow');
-    	priceDiv.toggleCls('expanded-arrow');
+	/**
+	* Itemtap event handler for myorders list.
+	* Show/hide details in myordes view.
+	*/
+	toggleOrderDetail: function(view, index, htmlElement, order) {
+    	order.set('showDetail', !order.get('showDetail'));
 	},
 	//Utility methods
 	/**
 	 * Returns number of orders in cart.
 	 */
-	cartCount: function() {
+	cartCount: function() { 
 		var orders = this.getApplication().getController('CheckIn').getActiveCheckIn().orders();
 		
 		if(orders == null) {

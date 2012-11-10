@@ -67,9 +67,10 @@ Ext.define('EatSense.view.MyOrders', {
 						itemCls: 'orderListItem',
 						itemTpl:  new Ext.XTemplate(
 							"<table style='width:100%;'>"+				
-							"<td align='left' class='title'>{amount} x {productName}</td><td align='right' class='price'>{[this.formatPrice(values.price_calculated)]}</td><td class='arrow collapsed-arrow'></td>"+
+							"<td align='left' class='title'>{amount} x {productName}</td><td align='right' class='price'>{[this.formatPrice(values.price_calculated)]}</td>"+
+							"<tpl if='showDetail'><td class='arrow expanded-arrow'></td><tpl else><td class='arrow collapsed-arrow'></td></tpl>"+
 							"</table>"+
-							"<div class='myorder-detail '>"+
+							"<tpl if='showDetail'><div class='myorder-detail'>"+
 							"<h4>"+i10n.translate('orderTime')+": {[values.orderTime.toLocaleTimeString()]}</h4>"+
 							"<div class='choices'>"+
 								"<tpl for='choices'>" +				
@@ -89,7 +90,7 @@ Ext.define('EatSense.view.MyOrders', {
 								"<p>{comment}</p>" +
 								"</tpl>" +
 							"</div>"+
-							"</div>"
+							"</div></tpl>"
 							, {
 							//checks if the current choice has selections. If not it will not be shown.
 							//we need to pass the product as the choices object in this context is raw data

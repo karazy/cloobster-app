@@ -35,6 +35,11 @@ Ext.define('EatSense.model.Order', {
 		{
 			name: 'productShortDesc'
 		},
+		{	//flag indicating if all order details are shown in myorders view
+			name: 'showDetails',
+			defaultValue: false,
+			persist: false
+		},
 		{//dont change, gets set automatically
 			name: 'price_calculated',
 			type: 'number',

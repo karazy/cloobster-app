@@ -861,14 +861,17 @@
   color: $label-color; 
   font-size: 1em;
   text-align: center;
+  width: 100%;
 
   h1 {
     font-size: 1em;
     font-weight: bold;
+    width: 100%;
   }
 
   p.small {
     font-size: 0.8em;
+    width: 100%;
   }  
 
 }
