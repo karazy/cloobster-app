@@ -160,7 +160,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		Ext.defer(function() {
 			this.createCarouselPanels();	
-		}, 500, this);
+		}, 200, this);
 				
 	},
 	/**
@@ -271,13 +271,13 @@ Ext.define('EatSense.controller.InfoPage', {
     					shortText = record.get('shortText'),
     					regEx = new RegExp("^"+filterValue, 'i');
 
-    				if(title.match(regEx)) {
+    				if(title && title.match(regEx)) {
     					return true;
     				}
 
     				regEx = new RegExp(filterValue, 'i');
 
-    				if(shortText.match(regEx)) {
+    				if(shortText && shortText.match(regEx)) {
     					return true;
     				}
 

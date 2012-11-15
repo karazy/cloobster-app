@@ -163,6 +163,7 @@ Ext.define('EatSense.model.Order', {
 		rawJson.productName = this.get('productName');
 		rawJson.productId = this.get('productId');
 		rawJson.productPrice = this.get('productPrice');
+		rawJson.checkin_id = this.get('checkin_id');
 		rawJson.productShortDesc = this.get('productShortDesc');
 		rawJson.productLongDesc = this.get('productLongDesc');
 		rawJson.orderTime = (this.get('orderTime')) ? this.get('orderTime').getTime() : null;
@@ -216,6 +217,7 @@ Ext.define('EatSense.model.Order', {
 		this.set('productPrice', rawData.productPrice);
 		this.set('productShortDesc', rawData.productShortDesc);
 		this.set('productLongDesc', rawData.productLongDesc);
+		this.set('checkin_id', rawData.checkin_id);
 
 		return true;	
 	},

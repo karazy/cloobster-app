@@ -980,14 +980,14 @@ h9 {
 * History
 */
 .history-detail-wrapper {
-  padding: 1em;
+  margin: 1em;
 }
 
 .history-detail-header {
-    background: url(../images/history/header-bg-2.png) repeat-x;
-    height: 2.2em;
+    /*background: url(../images/history/header-bg-2.png) repeat-x;*/
+    /*height: 2.2em;*/
     text-align: center;
-    height: 100%;
+    /*height: 100%;*/
 
     h1 {      
       padding-top: 0.8em;
@@ -1001,7 +1001,7 @@ h9 {
 .history-detail-footer {
    /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
    /*background-position: left bottom;*/
-   background-color: #f3e8d5;
+   /*background-color: #f3e8d5;*/
    /*height: 2em;*/
 
   text-align: center;
@@ -1013,11 +1013,11 @@ h9 {
 }
 
 .history-detail-list {
-  background-color: #f3e8d5;
+  /*background-color: #f3e8d5;*/
 }
 
 .history-detail-item {
-  background: url(../images/history/item-bg.png) repeat-x;
+  /*background: url(../images/history/item-bg.png) repeat-x;*/
   height: 40px;
 
   .x-list-item-label {

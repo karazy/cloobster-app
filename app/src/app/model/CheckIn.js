@@ -41,13 +41,14 @@ Ext.define('EatSense.model.CheckIn', {
 				type : 'json',
 			}
 		},
-		hasMany : {
-			model : 'EatSense.model.Order',
-			name : 'orders',
-			store: {
-            	syncRemovedRecords: false
-            }
-		}
+		associations: [{
+	            type: 'hasMany',
+	            model: 'EatSense.model.Order',
+	            name: 'orders',
+	            store: {
+	            	syncRemovedRecords: false,
+	            }
+	    }]
 	}
 
 });

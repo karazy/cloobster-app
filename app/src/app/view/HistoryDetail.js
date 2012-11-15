@@ -4,8 +4,7 @@ Ext.define('EatSense.view.HistoryDetail', {
 	xtype: 'historydetail',
 	config: {
 		layout: {
-			type: 'fit',
-			align: 'stretch'
+			type: 'fit'
 		},
 		items: [
 			{
@@ -41,6 +40,7 @@ Ext.define('EatSense.view.HistoryDetail', {
 				},
 				{	//orders
 					xtype: 'list',
+					layout: 'fit',
 					itemId: 'historyOrders',
 					cls: 'history-detail-list',
 					itemCls: 'history-detail-item',
@@ -71,7 +71,7 @@ Ext.define('EatSense.view.HistoryDetail', {
 							return appHelper.formatPrice(price);
 						}
 					})
-				}
+				},
 
 				]
 			},

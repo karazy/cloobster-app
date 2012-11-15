@@ -508,9 +508,12 @@
 	cancelOrder: function(button, eventObj, eOpts) {
 		var 	order = button.getParent().getRecord(),
 				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
-				productName = order.get('productName');
+				productName = order.get('productName'),
+				index;
 			//delete item
 			activeCheckIn.orders().remove(order);
+			// index = activeCheckIn.orders().indexOf(order);
+			// activeCheckIn.orders().removeAt(index);
 			
 			Ext.Ajax.request({
 	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
