@@ -11,7 +11,7 @@ Ext.define('EatSense.model.User', {
 		 		url: '/user/',
 		 		enablePagingParams: false,
 		 		reader: {
-		 			type: 'json',
+		 			type: 'json'
 		 		}
 		 	}
 	}

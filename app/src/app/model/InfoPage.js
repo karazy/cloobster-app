@@ -27,7 +27,7 @@ Ext.define('EatSense.model.InfoPage', {
 		proxy: {
 			type: 'rest',
 			enablePagingParams: false,
-	 		url : '/c/businesses/{pathId}/infopages',
+	 		url : '/c/businesses/{pathId}/infopages'
 		}
 	}
 });

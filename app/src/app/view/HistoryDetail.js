@@ -17,7 +17,7 @@ Ext.define('EatSense.view.HistoryDetail', {
 						action: 'back',
 						text : i10n.translate('back'),
 						ui : 'back'
-					}, 
+					}
 				]
 			},
 			{
@@ -71,8 +71,7 @@ Ext.define('EatSense.view.HistoryDetail', {
 							return appHelper.formatPrice(price);
 						}
 					})
-				},
-
+				}
 				]
 			},
 			{

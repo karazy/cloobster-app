@@ -103,7 +103,7 @@ Ext.define('EatSense.controller.Account', {
 					'hideMessage':false,
 					'message': {
                        	403: i10n.translate('error.account.credentials.invalid')
-                    },
+                    }
 				});
 			}
 		});

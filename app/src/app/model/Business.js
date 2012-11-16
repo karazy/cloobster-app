@@ -8,7 +8,7 @@ Ext.define('EatSense.model.Business', {
 	config: {
 		fields: [
 			{
-				name : 'id',
+				name : 'id'
 			}, 
 			{
 				name : 'name',

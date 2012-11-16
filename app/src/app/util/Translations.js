@@ -127,7 +127,7 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "<h2>Service At Its Peak</h2><p>Your guests are mobile.<br/>"+
 			"Check in and enjoy our service.</p>",
 			"EN" : "<h2>Service At Its Peak</h2><p>You guests are mobile.<br/>"+
-			"Check in and enjoy our service.</p>",
+			"Check in and enjoy our service.</p>"
 		},
 		"dashboardLabel2" : {
 			"DE" :  "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
@@ -840,8 +840,7 @@ Ext.define('EatSense.util.Translations',{
 		"error.account.facebook.exists" : {
 			"DE" :  "Dieser Facebook Account ist mit einem andere cloobster Account verknüpft.",
 			"EN" : "This Facebook account is linked with another cloobster Account."
-		},
-		
+		}
 	}
 	}
 });

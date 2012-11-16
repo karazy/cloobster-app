@@ -15,7 +15,7 @@ Ext.define('EatSense.view.Cart', {
 			items : [ 
 			{
 				xtype: 'backbutton'
-			},
+			}
 			]
 		},
 		{

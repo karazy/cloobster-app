@@ -14,8 +14,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageCarouselBackButton: 'clubarea infopagecarousel button[action=back]',
 			infoPageBackButton: 'clubarea infopageoverview button[action=back]',
 			infoPageList: 'clubarea infopageoverview list',
-			infoPageSearchField: 'clubarea infopageoverview searchfield',			
-
+			infoPageSearchField: 'clubarea infopageoverview searchfield'
 		},
 		control: {
 			showInfoPageButton: {

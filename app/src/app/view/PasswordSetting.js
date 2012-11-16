@@ -5,7 +5,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 	config: {
 		title: i10n.translate('passwordsetting.title'),
 		layout: {
-			type: 'fit',
+			type: 'fit'
 		},
 		items: [
 			{
@@ -14,7 +14,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 				title : i10n.translate('passwordsetting.title'),
 				items : [
 					{
-						xtype : 'backbutton',
+						xtype : 'backbutton'
 					}
 				]
 			},
@@ -65,7 +65,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 					text: i10n.translate('save')
 				}
 			]
-			},
+			}
 		]
 	}
 });

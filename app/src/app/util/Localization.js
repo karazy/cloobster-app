@@ -105,8 +105,5 @@ Ext.define('EatSense.util.Localization', {
 			 }
 		 }
 		 return (value == "") ? key : value;
-	 },
-
-
-
+	 }
 });

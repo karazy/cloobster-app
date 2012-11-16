@@ -38,7 +38,7 @@ Ext.define('EatSense.controller.CheckIn', {
         	menuTab: 'menutab',
         	cartTab: 'carttab',
           settingsTab: 'settingstab',
-          homeTab: 'clubarea',
+          homeTab: 'clubarea'
     	},
     	control: {
     		checkInBtn: {
@@ -522,7 +522,7 @@ Ext.define('EatSense.controller.CheckIn', {
    			this.getActiveCheckIn().orders().load({
    				scope: this,
    				params: {
-   					'status': appConstants.Order.CART,
+   					'status': appConstants.Order.CART
    				},
    				callback: function(records, operation, success) {
    					if(!operation.error) {

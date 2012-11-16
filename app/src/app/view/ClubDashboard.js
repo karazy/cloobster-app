@@ -113,7 +113,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						cls: 'club-dashboard-button-exit',
 						pressedCls: 'club-dashboard-button-pressed',
 						labelCls: 'club-dashboard-button-label'
-					},
+					}
 					// {
 					// 	xtype : 'button',
 					// 	action: 'show-info',
@@ -143,7 +143,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					// 	labelCls: 'club-dashboard-button-label'
 					// }
 				]
-			},
+			}
 			// {
 			// 	xtype: 'panel',
 			// 	width: '100%',

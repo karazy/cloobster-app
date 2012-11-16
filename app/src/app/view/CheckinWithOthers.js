@@ -24,8 +24,7 @@ Ext.define('EatSense.view.CheckinWithOthers', {
 			},
 			defaults : {
 				margin : 5,
-				type: 'fit',
-				
+				type: 'fit'
 			},
 			items : [
 			{

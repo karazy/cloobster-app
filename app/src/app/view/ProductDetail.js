@@ -20,7 +20,7 @@ Ext.define('EatSense.view.ProductDetail', {
 		     },
 		     bounce: {
 		        acceleration: 0.0001,
-		        springTension: 0.9999,
+		        springTension: 0.9999
 		     },
 		     minVelocity: 5
 		  },
@@ -36,7 +36,7 @@ Ext.define('EatSense.view.ProductDetail', {
 		items : [
 		{
 			xtype: 'titlebar',
-			docked: 'top',
+			docked: 'top'
 		},
 		{
 			xtype : 'panel',

@@ -22,7 +22,7 @@ Ext.define('EatSense.view.About', {
 			docked: 'bottom',
 			ui: 'action',
 			text: i10n.translate('close'),
-			action: 'close',
+			action: 'close'
 		}
 		],
 		html: 	

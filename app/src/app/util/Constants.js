@@ -36,7 +36,7 @@ Ext.define('EatSense.util.Constants', {
 		//Client side 
 		FORCE_LOGOUT : 'FORCE_LOGOUT',
 		USER_LOGGED_IN : 'USER_LOGGED_IN',
-		USER_LOGGED_OUT : 'USER_LOGGED_OUT',
+		USER_LOGGED_OUT : 'USER_LOGGED_OUT'
 	}
 });
 

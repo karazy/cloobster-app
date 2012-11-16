@@ -65,7 +65,7 @@ Ext.define('EatSense.model.Spot', {
 			url : '/spots/',
 			enablePagingParams: false,
 			reader : {
-				type : 'json',
+				type : 'json'
 			}
 		}
 	}

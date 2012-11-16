@@ -17,30 +17,25 @@ Ext.define('EatSense.model.Choice', {
 			{name : 'active', type: 'boolean', persist: false, defaultValue: false},
 			{name: 'originalChoiceId', type: 'number'}
 		],
-		// hasMany : {
-		// 	model : 'EatSense.model.Option',
-		// 	name : 'options'
-		// }
-
-			associations: [{
-	            type: 'hasMany',
-	            model: 'EatSense.model.Option',
-	            primaryKey: 'id',
-	            name: 'options',
-	            store: {
-	            	storeId: 'optionsStore',
-	            	syncRemovedRecords: false,
-	            	listeners: {
-	            		beforeload: function(store) {
-	            			console.log('Choice.beforeload');
-	            		},
-	            		load: function() {
-	            			console.log('Choice.load');	
-	            		}
-	            	}
-	            }
-	            // associationKey: 'choices', // read child data from child_groups,
-	    }],
+		associations: [{
+            type: 'hasMany',
+            model: 'EatSense.model.Option',
+            primaryKey: 'id',
+            name: 'options',
+            store: {
+            	storeId: 'optionsStore',
+            	syncRemovedRecords: false,
+            	listeners: {
+            		beforeload: function(store) {
+            			console.log('Choice.beforeload');
+            		},
+            		load: function() {
+            			console.log('Choice.load');	
+            		}
+            	}
+            }
+            // associationKey: 'choices', // read child data from child_groups,
+   		 }]
 	},	
 	/**
 	 * Validates the choice based on min- maxOccurence etc.

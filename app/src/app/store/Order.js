@@ -24,6 +24,6 @@ Ext.define('EatSense.store.Order', {
             property : "orderTime",
             direction: "DESC"
         }
-    ],
+    ]
 	}
 })

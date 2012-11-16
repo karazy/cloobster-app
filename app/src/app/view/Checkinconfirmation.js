@@ -16,12 +16,12 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			docked : 'top',
 			xtype : 'toolbar',
 			title : i10n.translate('nickname'),
-			items : [ {
+			items : [{
 				xtype : 'button',
 				action: 'cancel-checkin',
 				text : i10n.translate('back'),
 				ui : 'back'
-			}, ]
+			}]
 		}, 
 		{
 			xtype : 'label',
@@ -40,7 +40,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 		{
 			xtype : 'panel',
 			layout : {
-				type : 'hbox',
+				type : 'hbox'
 			},
 			width : '80%',
 			items : [ {

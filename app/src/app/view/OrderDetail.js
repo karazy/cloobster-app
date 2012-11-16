@@ -20,7 +20,7 @@ Ext.define('EatSense.view.OrderDetail', {
 		     },
 		     bounce: {
 		        acceleration: 0.0001,
-		        springTension: 0.9999,
+		        springTension: 0.9999
 		     },
 		     minVelocity: 5
 		  },
@@ -67,7 +67,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					value : 1,
 					minValue : '1',
 					maxValue : '10',
-					cycle : true,
+					cycle : true
 				},
 				{
 					xtype: 'label',

@@ -38,7 +38,7 @@ Ext.define('EatSense.model.CheckIn', {
 			url : '/c/checkins/',
 			enablePagingParams: false,
 			reader : {
-				type : 'json',
+				type : 'json'
 			}
 		},
 		associations: [{

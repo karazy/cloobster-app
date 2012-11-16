@@ -217,6 +217,5 @@ Ext.define('EatSense.model.Order', {
 		// this.set('checkin_id', rawData.checkin_id);
 
 		return true;	
-	},
-
+	}
 });

@@ -118,11 +118,11 @@ Ext.define('EatSense.view.Dashboard', {
 				xtype: 'spacer'
 			},
 			{
-			xtype: 'button',
-			action: 'about',
-			iconCls: 'about',
-			iconMask: true,
-			styleHtmlContent: true,
+				xtype: 'button',
+				action: 'about',
+				iconCls: 'about',
+				iconMask: true,
+				styleHtmlContent: true
 			}
 			]
 		}
