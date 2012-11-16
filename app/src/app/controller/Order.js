@@ -512,8 +512,8 @@
 				index;
 			//delete item
 			activeCheckIn.orders().remove(order);
-			// index = activeCheckIn.orders().indexOf(order);
-			// activeCheckIn.orders().removeAt(index);
+			//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+			order.destroy();
 			
 			Ext.Ajax.request({
 	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
