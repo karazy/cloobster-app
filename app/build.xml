@@ -106,7 +106,7 @@
 				<exclude name="**/*.ignore.*" />
 			</fileset>
 		</copy>
-		<antcall target="copyCSS">
+		build.xmlbuild.xmlbuild.xml<antcall target="copyCSS">
 		    <param name="cssDestDir" value="${prodDir}/ios/res/css"></param>
 		</antcall>
 		<move todir="${prodDir}/ios/lib" includeemptydirs="false" overwrite="true">

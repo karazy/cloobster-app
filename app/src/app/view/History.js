@@ -30,8 +30,7 @@ Ext.define('EatSense.view.History',{
 			hidden: true,
 		},
 		{
-			xtype: 'list',
-			ui: 'round',					
+			xtype: 'list',				
 			store: 'historyStore',				
 			itemTpl: new Ext.XTemplate('<strong>{businessName}</strong><br/>{[this.formatDate(values.billTime)]} | {[this.formatPrice(values.billTotal)]}',
 				{
