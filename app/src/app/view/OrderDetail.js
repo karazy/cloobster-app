@@ -63,7 +63,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					labelCls: 'productdetail-spinner-label',
 					inputCls: 'productdetail-spinner-input',
 					labelAlign: 'top',
-					increment : 1,
+					stepValue : 1,
 					value : 1,
 					minValue : '1',
 					maxValue : '10',
