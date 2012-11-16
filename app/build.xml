@@ -14,13 +14,13 @@
 	
 	<target name="buildDesktop">
 		<echo message="Executing buildDesktop task from build.xml" />
-		<exec executable="${sencha.cmd}" >
+		<exec executable="${sencha.2.0.cmd}" >
 		
 			<arg line="create jsb -a ${appDir}index.desktop.html -p ${appDir}app.desktop.jsb3" />
 		</exec>
 		<echo message="Disable debug mode" />
 		<replaceregexp file="${appDir}app.desktop.jsb3" match='"debug": true' replace='"debug": false' byline="true" />
-		<exec executable="${sencha.cmd}">
+		<exec executable="${sencha.2.0.cmdcmd}">
 			
 			<arg line="build -p ${appDir}app.desktop.jsb3 -d ${appDir}" />
 		</exec>
@@ -49,13 +49,13 @@
 	
 	<target name="buildAndroid">
 		<echo message="Executing buildAndroid task from build.xml" />
-		<exec executable="${sencha.cmd}" >	
+		<exec executable="${sencha.2.0.cmd}" >	
 			
 			<arg line="create jsb -a ${appDir}index.desktop.html -p ${appDir}app.android.jsb3" />
 		</exec>
 		<echo message="Disable debug mode" />
 		<replaceregexp file="${appDir}app.android.jsb3" match='"debug": true' replace='"debug": false' byline="true" />
-		<exec executable="${sencha.cmd}">	
+		<exec executable="${sencha.2.0.cmd}">	
 			<arg line="build -p ${appDir}app.android.jsb3 -d ${appDir}" />
 		</exec>
 		<antcall target="deleteOldProdFiles">
@@ -84,12 +84,12 @@
 
 	<target name="buildIOS">
 		<echo message="Executing buildIOS task from build.xml" />
-		<exec executable="${sencha.cmd}" >		
+		<exec executable="${sencha.2.0.cmd}" >		
 			<arg line="create jsb -a ${appDir}index.desktop.html -p ${appDir}app.ios.jsb3" />
 		</exec>
 		<echo message="Disable debug mode" />
 		<replaceregexp file="${appDir}app.ios.jsb3" match='"debug": true' replace='"debug": false' byline="true" />
-		<exec executable="${sencha.cmd}">
+		<exec executable="${sencha.2.0.cmd}">
 			
 			<arg line="build -p ${appDir}app.ios.jsb3 -d ${appDir}" />
 		</exec>
