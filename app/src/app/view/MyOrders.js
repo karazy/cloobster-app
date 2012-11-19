@@ -47,6 +47,13 @@ Ext.define('EatSense.view.MyOrders', {
 							width: '50%',
 							iconCls: 'cash',
 							iconMask: true
+						},
+						{
+							xtype: 'button',
+							text: i10n.translate('leave'),
+							ui: 'action',
+							action: 'exit',
+							width: '50%'						
 						}
 					]							
 					},
@@ -61,7 +68,6 @@ Ext.define('EatSense.view.MyOrders', {
 					{
 						xtype: 'list',
 						store: 'orderStore',
-						// ui: 'round',
 						allowDeselect: true,
 						onItemDisclosure: this.removeItem,
 						itemCls: 'orderListItem',

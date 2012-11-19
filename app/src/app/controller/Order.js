@@ -35,7 +35,8 @@
 			myordersTabBt: 'lounge #ext-tab-3',
 			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
-			leaveButton: 'clubarea clubdashboard button[action="exit"]',
+			// leaveButton: 'clubarea clubdashboard button[action="exit"]',
+			leaveButton: 'lounge button[action="exit"]',
 			confirmEditButton: 'orderdetail button[action="edit"]',
 			undoEditButton: 'orderdetail button[action="undo"]',
 			clubarea: 'clubarea',
@@ -67,7 +68,7 @@
              },
              leaveButton : {
             	 tap: 'leave'
-             }, 
+             },
              closeOrderDetailBt: {
              	tap: 'closeOrderDetailButtonHandler'
              },
@@ -117,8 +118,7 @@
 
 		tab.setActiveItem(0);
 		
-		// this.getApplication().getController('Order').refreshCart();
-		this.getApplication().getController('Order').refreshMyOrdersList();
+		this.refreshMyOrdersList();
 		androidCtr.setExitOnBack(false);
     	androidCtr.setAndroidBackHandler(this.getMyordersNavigationFunctions());
 	},
@@ -150,19 +150,16 @@
 			currentTotal.getTpl().overwrite(currentTotal.element, {'price':total});
 		});
 		
-
 		this.setActiveOrder(null);
 			
-		// this.getCartoverviewTotal().getTpl().overwrite(this.getCartoverviewTotal().element, {'price':total});
 		this.updateCartButtons();
-		// this.toggleCartButtons();
 		return true;
 	},
 	/**
+	 * @DEPRECATED
 	 * Show menu.
 	 */
 	showMenu: function() {
-		//TODO not used
 		var lounge = this.getLoungeview(), menu = this.getMenutab();		
 		lounge.setActiveItem(menu);
 	},
@@ -176,10 +173,8 @@
 
 		this.getApplication().getController('Order').refreshCart();
 		myordersview.setActiveItem(cartview);
-		// this.setActiveNavview(myordersNavview);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
-            // myordersNavview.pop();
             me.backToMyorders();
         });
 	},
@@ -192,7 +187,6 @@
 
 		lounge.setActiveItem(view);
 
-		//
 		this.backToMyorders();
 	},
 	/**
@@ -670,21 +664,29 @@
 	 */
 	refreshMyOrdersList: function() {
 		var 	me = this,
-				myorderlist = me.getMyorderlist(),
+				myorderlist = this.getMyorderlist(),
 				myordersStore = Ext.data.StoreManager.lookup('orderStore'),
-				activeCheckIn = me.getApplication().getController('CheckIn').getActiveCheckIn(),
-				payButton = me.getPaymentButton(),
-				leaveButton = me.getLeaveButton();
+				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
+				payButton = this.getPaymentButton(),
+				myordersview = this.getMyordersview(),
+				leaveButton;
 		
+		if(myordersview) {
+			leaveButton = myordersview.down('button[action=exit]');
+		} else {
+			console.log('Order.refreshMyOrdersList > no leaveButton found.');
+		}
+
 		//remove all orders and nested objects and reload to have a fresh state
 		myordersStore.each(function(order) {
         order.choices().each(function(choice) {
-	    	    choice.options().removeAll(true);
+	    	    choice.options().removeAll(false);
 	        });
-	       	order.choices().removeAll(true);
+	       	order.choices().removeAll(false);
 	    });
 
-	    myordersStore.removeAll(true);
+		//fire clear event so the list updates correctly
+	    myordersStore.removeAll(false);
 		
 		myordersStore.load({
 			scope   : this,			
@@ -705,6 +707,18 @@
 						myorderlist.refresh();
 						me.getMyordersTotal().getTpl().overwrite(me.getMyordersTotal().element, {'price': total});
 						me.refreshMyOrdersBadgeText();
+
+						if(leaveButton) {
+							if(records && records.length > 0) {
+								leaveButton.setDisabled(true);
+								leaveButton.setHidden(true);
+							} else {
+								leaveButton.setDisabled(false);
+								leaveButton.setHidden(false);
+							}
+						}
+						
+
 					} else {
 						payButton.disable();			
 						me.getApplication().handleServerError({
@@ -926,7 +940,7 @@
 	//UI Actions
 	/**
 	 * @DEPRECATED
-	 * Since cart only shows when not empty, since function is unecessary.
+	 * Since cart only shows when not empty, function is unecessary.
 	 * Shows (cart is not empty) or hides (cart is empty) cart buttons (trash, order).
 	 */
 	toggleCartButtons: function() {
