@@ -37,7 +37,7 @@
     "js": [
 		{
             "path": "touch/sencha-touch.js",
-            "update" : "full"
+            "remote" : true
         },
         {
             "path": "lib/cordova-2.1.0.js",
@@ -62,7 +62,8 @@
         {
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
-            "update": "full"
+            "update" : "full"
+            // "remote" : true
         }
     ],
 
@@ -116,7 +117,7 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            //"index.html"
+            "index.html"
         ],
         /**
          * List of items in the NETWORK section
