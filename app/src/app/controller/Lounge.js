@@ -100,10 +100,11 @@ Ext.define('EatSense.controller.Lounge', {
             if(logoUrl) {
                 headerHtml +='<img class="header-logo logo-horizontal" src="'+logoUrl+'=s180" />';
             };
-            //TODO testing purpose
-            // headerHtml = '<img class="header" src="res/images/club/banner_test.png" />';
-            // headerHtml +='<img class="logo" src="res/images/club/logo_test.png" />';
+            //Testing purpose start
+            // headerHtml = '<img class="header" src="res/images/banner_test.png" />';
+            // headerHtml +='<img class="header-logo logo-horizontal" src="res/images/logo_test.png" />';
             // headerUrl = true;
+            //Testing purpose end
             //only show if header exists!
             if(headerUrl) {
               header.setHtml(headerHtml);
@@ -119,8 +120,8 @@ Ext.define('EatSense.controller.Lounge', {
           
           //get width and height of logo
           try {
-            //get hold of the logo img element
-            domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('header-logo');
+            //get hold of the logo img element (since ST 2.1 we dont need to call panel.getInnerHtmlItems())
+            domLogo = panel.dom.getElementsByClassName('header-logo');
 
             if(domLogo && domLogo[0]) {
               domLogo = domLogo[0];
