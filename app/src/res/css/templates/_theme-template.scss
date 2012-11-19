@@ -158,6 +158,8 @@
     font-weight: bold;
     padding: 3px 3px 3px 7px;
     border-radius: 0.3em;
+    overflow: hidden;
+    word-break: break-word;
   }
 
   .option {
@@ -168,6 +170,7 @@
     background-color: white;
     color: black;
     white-space: normal;
+    word-break: break-word;
   }
 
   .comment {
