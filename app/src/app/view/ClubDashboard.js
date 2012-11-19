@@ -65,7 +65,8 @@ Ext.define('EatSense.view.ClubDashboard', {
 					baseCls: 'club-dashboard-button',
 					cls: 'club-dashboard-button-menu',
 					pressedCls: 'club-dashboard-button-pressed',
-					labelCls: 'club-dashboard-button-label'
+					labelCls: 'club-dashboard-button-label',
+					badgeCls: 'club-dashboard-button-badge'
 				},
 				{
 					xtype : 'button',

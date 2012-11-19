@@ -593,16 +593,31 @@
 	 */
 	updateCartButtons: function(clear) {
 		var cartButtons = this.getLoungeview().query('button[action=show-cart]'),
+			clubarea = this.getClubarea(),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			menuCtr = this.getApplication().getController('Menu'),
-			badgeText;
+			badgeText,
+			dashboardMenuButton;
+
+		if(clubarea) {
+			dashboardMenuButton = clubarea.down('clubdashboard button[action="show-menu"]');
+			if(!dashboardMenuButton) {
+				console.log('Order.updateCartButtons > dashboardMenuButton not found');	
+			}
+		} else {
+			console.log('Order.updateCartButtons > clubarea null');
+		}
 		
 		if(clear == true) {
 			Ext.Array.each(cartButtons, function(button) {
 				button.setBadgeText("");	
 			});
 
-			menuCtr.showCartButtons(false);		
+			menuCtr.showCartButtons(false);	
+			//clear dashboard menu button
+			if(dashboardMenuButton) {
+				dashboardMenuButton.setBadgeText("");
+			}	
 		} else {
 			if(!checkIn || checkIn.orders().getCount() == 0 ) {
 				badgeText = "";
@@ -615,6 +630,11 @@
 			Ext.Array.each(cartButtons, function(button) {
 				button.setBadgeText(badgeText);	
 			});
+
+			//set dashboard menu button
+			if(dashboardMenuButton) {
+				dashboardMenuButton.setBadgeText(badgeText);
+			}
 		}
 	},
 	/**

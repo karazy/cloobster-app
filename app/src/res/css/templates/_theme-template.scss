@@ -50,11 +50,14 @@
   text-align: center;
   padding: 2px;
   font-weight: bold;
+  overflow: hidden;
 }
 
 .productListItem {
   h2.title {
-    font-size: 1em;  
+    font-size: 1em;
+    word-break: break-word;
+    overflow: hidden;
   }
 
   h2.price {
@@ -64,15 +67,19 @@
 
   div p {
     font-size: 0.6em;
+    word-break: break-word;
   }
 }
 
 .menulist-item {
   h3 {
-    font-size: 1em;  
+    font-size: 1em;
+    white-space:nowrap;
+    overflow: hidden;
   }
   p {
     font-size: 0.6em;
+    word-break: break-word;
   }
 }
 
@@ -95,6 +102,7 @@
   font-size: 0.8em;
   padding-right: 0.5em;
   background: $product-sub-bg;
+  word-break: break-word;
 }
 
 
@@ -608,6 +616,7 @@
   background-position: center 5px;
   font-size: 0.9em;
   color: $dashboard-color;
+  position: relative;
 
   @media only screen and (min-width: 768px) {
     background-size: 110px 110px;
@@ -677,6 +686,36 @@
   border-radius: 0.5em;
   color: $base-color;
   border: 1px solid $base-color;
+}
+
+.club-dashboard-button-badge {
+  right: 15px;
+  top: 8px;
+  /*  sencha copy paste, some adjustments */
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.2em;
+  border-radius: 0.2em;
+  padding: .1em .3em;
+  /* To prevent overlapping in login window. */
+  /*z-index: 2;*/
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  overflow: hidden;
+  color: #FCC;
+  border: 1px solid #900;
+  position: absolute;
+  width: auto;
+  min-width: 2em;
+  line-height: 1.2em;
+  font-size: .8em;
+  max-width: 95%;
+  background-color: #C00;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F66), color-stop(2%, #F00000), color-stop(100%, #A80000));
+  background-image: -webkit-linear-gradient(#F66, #F00000 2%, #A80000);
+  background-image: linear-gradient(#F66, #F00000 2%, #A80000);
+  display: inline-block;
 }
 
 .club-dashboard-button-menu {

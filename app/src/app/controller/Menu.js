@@ -386,7 +386,8 @@ Ext.define('EatSense.controller.Menu', {
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			detail = this.getProductdetail(),
 			message,
-			androidCtr = this.getApplication().getController('Android');
+			androidCtr = this.getApplication().getController('Android'),
+			orderCtr = this.getApplication().getController('Order');
 		
 		//validate choices 
 		order.choices().each(function(choice) {
@@ -412,12 +413,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	    	order.setId(response.responseText);
 	    	    	order.phantom = false;	    	    	
 					activeCheckIn.orders().add(order);
-					// cartButtons.setBadgeText(activeCheckIn.orders().data.length);
-					Ext.Array.each(cartButtons, function(button) {
-						button.setBadgeText(activeCheckIn.orders().data.length);						
-					});
-
-					me.showCartButtons(true);
+					orderCtr.updateCartButtons();
 	    	    },
 	    	    failure: function(response, operation) {
 	    	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
