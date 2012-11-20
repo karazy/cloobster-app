@@ -117,8 +117,9 @@
 		var androidCtr = this.getApplication().getController('Android');
 
 		tab.setActiveItem(0);
-		
 		this.refreshMyOrdersList();
+		
+		
 		androidCtr.setExitOnBack(false);
     	androidCtr.setAndroidBackHandler(this.getMyordersNavigationFunctions());
 	},
@@ -299,27 +300,33 @@
 			    	    	me.getSubmitOrderBt().enable();
 			    	    	me.getCancelOrderBt().enable();
 							
-
+			    	    	//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+							//because of that we manually have to call destroy
 							//remove all orders and nested objects and reload to have a fresh state
 							orders.each(function(order) {
 					        order.choices().each(function(choice) {
 						    	    choice.options().removeAll(true);
-						        });
+						    	    choice.destroy();
+						        });					        	
 						       	order.choices().removeAll(true);
+						       	order.destroy();
 						    });
 
-						    orders.removeAll(true);
+						    orders.removeAll(false);
 
 							me.refreshCart();
 							//FR 20121109 DON'T refresh list. since we show myorders gets called automatically
 							//otherwise will load orders two times, since options don't have an id they are duplicated
-							//me.refreshMyOrdersList();
+							// me.refreshMyOrdersList();
 
 							//initial view and no backhandlers left
 							// me.setMyordersNavigationFunctions(new Array());
 							androidCtr.removeAllBackHandlers();
 							//show my ordes view
-							me.showMyorders();
+							Ext.defer(function() {
+								me.showMyorders();	
+							}, 500);
+							
 							//switch back to menu and remove previous backhandler
 							menuCtr.backToMenu();
 
@@ -677,12 +684,18 @@
 			console.log('Order.refreshMyOrdersList > no leaveButton found.');
 		}
 
+		me.getMyordersview().showLoadScreen(true);
+
+		//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+		//because of that we manually have to call destroy
 		//remove all orders and nested objects and reload to have a fresh state
 		myordersStore.each(function(order) {
         order.choices().each(function(choice) {
 	    	    choice.options().removeAll(false);
+	    	    choice.destroy();
 	        });
 	       	order.choices().removeAll(false);
+	       	order.destroy();
 	    });
 
 		//fire clear event so the list updates correctly
@@ -727,7 +740,7 @@
 						});
 					}	
 				} catch(e) {
-					
+					console.log('Order.refreshMyOrdersList > error ' + e);
 				}
 				
 				me.getMyordersview().showLoadScreen(false);

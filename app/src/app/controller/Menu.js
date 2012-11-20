@@ -488,7 +488,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		androidCtr.addBackHandler(function() {
 			me.backToPreviousView();
-		});    	
+		}); 	
 	},
 	/**
 	* Shows or hides the product cart button.
