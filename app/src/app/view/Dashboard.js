@@ -54,16 +54,7 @@ Ext.define('EatSense.view.Dashboard', {
 					cls: 'dashboard-button-checkin',
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label'
-				},
-				{
-					xtype : 'button',
-					action: 'history',
-					text: i10n.translate('dashboard.button.history'),
-					baseCls: 'dashboard-button',
-					cls: 'dashboard-button-history',
-					pressedCls: 'dashboard-button-pressed',
-					labelCls: 'dashboard-button-label'
-				}
+				}				
 				]
 			},
 			{
@@ -75,17 +66,26 @@ Ext.define('EatSense.view.Dashboard', {
 					pack: 'center'
 				},
 				items: [
+					// {
+					// 	xtype : 'button',
+					// 	action: 'facebook',
+					// 	text: 'Facebook',
+					// 	baseCls: 'dashboard-button',
+					// 	cls: 'dashboard-button-facebook',
+					// 	pressedCls: 'dashboard-button-pressed',
+					// 	labelCls: 'dashboard-button-label',
+					// 	badgeCls: 'dashboard-button-badge',
+					// 	badgeText: i10n.translate('general.comingsoon'),
+					// 	disabled: true
+					// },
 					{
-						xtype : 'button',
-						action: 'facebook',
-						text: 'Facebook',
-						baseCls: 'dashboard-button',
-						cls: 'dashboard-button-facebook',
-						pressedCls: 'dashboard-button-pressed',
-						labelCls: 'dashboard-button-label',
-						badgeCls: 'dashboard-button-badge',
-						badgeText: i10n.translate('general.comingsoon'),
-						disabled: true
+					xtype : 'button',
+					action: 'history',
+					text: i10n.translate('dashboard.button.history'),
+					baseCls: 'dashboard-button',
+					cls: 'dashboard-button-history',
+					pressedCls: 'dashboard-button-pressed',
+					labelCls: 'dashboard-button-label'
 					},
 					{
 						xtype : 'button',
