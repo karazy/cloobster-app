@@ -56,7 +56,7 @@
 	    <x-sencha-command>
 	        app
 	        	build
-	        		production		    	
+	        		package		    	
 		</x-sencha-command>
 	</target>
 	
@@ -89,7 +89,7 @@
 		<delete dir="${androidDir}"></delete>
 		<echo message="Copy App" />
 		<copy todir="${androidDir}" overwrite="true">
-			<fileset dir="build/EatSense/production">
+			<fileset dir="build/EatSense/package">
 			</fileset>
 		</copy>
 	</target>

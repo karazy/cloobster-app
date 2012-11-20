@@ -53,9 +53,9 @@ Ext.application({
 	mainLaunch : function() {
 		
     //Wait for phonegap to launch
-		if (cordovaInit == false || !this.launched) {
-     	return;
-    }
+		// if (cordovaInit == false || !this.launched) {
+  //    	return;
+  //   }
 		
 		console.log('App -> mainLaunch');
 		

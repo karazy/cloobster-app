@@ -120,7 +120,7 @@ Ext.define('EatSense.controller.Lounge', {
           
           //get width and height of logo
           try {
-            //get hold of the logo img element (since ST 2.1 we dont need to call panel.getInnerHtmlItems())
+            //get hold of the logo img element (since ST 2.1 we dont need to call panel.getInnerHtmlElement())
             domLogo = panel.dom.getElementsByClassName('header-logo');
 
             if(domLogo && domLogo[0]) {

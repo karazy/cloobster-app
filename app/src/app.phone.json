@@ -35,25 +35,26 @@
      *      }
      */
     "js": [
-		{
-            "path": "touch/sencha-touch.js",
-            "remote" : true
-        },
         {
             "path": "lib/cordova-2.1.0.js",
-            "remote" : true
-		},
+            // "remote" : true
+        },
+		{
+            "path": "touch/sencha-touch.js",
+            // "update" : "full"
+            // "remote" : true
+        },
         {
             "path": "lib/barcodescanner.js",
-            "remote" : true
+            // "remote" : true
         },
         {
             "path": "lib/cdv-plugin-fb-connect.js",
-            "remote" : true
+            // "remote" : true
         },
         {
             "path": "lib/facebook_js_sdk.js",
-            "remote" : true
+            // "remote" : true
         },
         {
             "path": "https://karazy-cloobster.appspot.com/_ah/channel/jsapi",
@@ -63,7 +64,6 @@
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update" : "full"
-            // "remote" : true
         }
     ],
 
