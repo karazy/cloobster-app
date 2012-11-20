@@ -24,7 +24,6 @@ Ext.define('EatSense.view.InfoPageOverview', {
 			{
 				xtype: 'list',
 				grouped     : true,
-   				// indexBar    : true,
    				allowDeselect: true,
    				scrollToTopOnRefresh: true,
    				store: 'infopageStore',

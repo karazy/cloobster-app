@@ -76,17 +76,15 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
-			// searchfield.on('keyup', this.infoPageSearchFieldHandler, this, {
-			// 	delay: 200
-			// });
+			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
 
 			//make sure to create panels before store gets filtered
 			//alternative clear filter
 			store.each(function(record) {
-				currentPanel = Ext.create('IPDetail');
+				currentPanel = Ext.create('EatSense.view.InfoPageDetail');
+				//get template and create html representation
 				html = currentPanel.getTpl().apply(record.getData());
 				currentPanel.setHtml(html);
-
 				carousel.add(currentPanel);
 			});
 		
@@ -118,10 +116,9 @@ Ext.define('EatSense.controller.InfoPage', {
 			carousel.setActiveItem(index);
 		}
 
-		clubArea.setActiveItem(ipcarousel);	
+		clubArea.setActiveItem(ipcarousel);
 
 		carousel.on('activeitemchange', this.setListIndex, this);
-		
 
 		androidCtr.addBackHandler(function() {			
             me.backToOverview();
@@ -211,15 +208,13 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		//TEST
 		//scroll to selected element
-		 // var store = Ext.StoreManager.lookup('infopageStore'),
-   //      selected = list.getSelection()[0],
-   //      idx = store.indexOf(selected),
-   //      els = list.container.getViewItems(),
-   //      el = els[idx],
-   //      offset = Ext.get(el).dom.offsetTop;
-
-
-   //     list.getScrollable().getScroller().scrollTo(0, offset-25);	
+		// var store = Ext.StoreManager.lookup('infopageStore'),
+	    //      selected = list.getSelection()[0],
+	    //      idx = store.indexOf(selected),
+	    //      els = list.container.getViewItems(),
+	    //      el = els[idx],
+	    //      offset = Ext.get(el).dom.offsetTop;
+	    //     list.getScrollable().getScroller().scrollTo(0, offset-25);	
     },
 
     /**

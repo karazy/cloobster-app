@@ -19,11 +19,11 @@ Ext.define('EatSense.store.Order', {
                 return record.get('status');
             }
         },
-          sorters: [
-        {
-            property : "orderTime",
-            direction: "DESC"
-        }
-    ]
+        sorters: [
+	        {
+	            property : "orderTime",
+	            direction: "DESC"
+	        }
+	    ]
 	}
 })

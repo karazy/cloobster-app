@@ -146,8 +146,7 @@ Ext.define('EatSense.controller.Menu', {
     		areaId = checkInCtr.getActiveSpot().get('areaId'),
     		menuStore = Ext.StoreManager.lookup('menuStore');
 		
-
-		if(businessId.toString().length != 0) {
+		if(businessId && businessId.toString().length != 0) {
 			menuStore.load({
 				scope   : this,
 				params: {
@@ -167,6 +166,8 @@ Ext.define('EatSense.controller.Menu', {
 
             //always show menuoverview on first access
             menu.getComponent('menuCardPanel').setActiveItem(0);       
+		} else {
+			console.log('Order.showMenu > no businessId in active checkInFound found! Was ' + businessId);
 		}
     },
     /**
