@@ -22,8 +22,15 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				style: 'border-radius: .3em;'
 			},
 			{
+				xtype: 'label',
+				docked: 'top',
+				itemId: 'hotelInfo',
+				cls: 'infopage-hotel-info',
+				tpl: '<img src="{imageUrl}" /><h2>{name}</h2><p>{slogan}</p><p>{description}</p>'
+			},
+			{
 				xtype: 'list',
-				grouped     : true,
+				// grouped     : true,
    				allowDeselect: true,
    				scrollToTopOnRefresh: true,
    				store: 'infopageStore',

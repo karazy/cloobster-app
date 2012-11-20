@@ -4,18 +4,18 @@ Ext.define('EatSense.store.InfoPage', {
 	config: {
 		storeId: 'infopageStore',
 		model: 'EatSense.model.InfoPage',
-		grouper: {
-            groupFn: function(record) {
-            	var title = record.get('title') || '';
+		// grouper: {
+  //           groupFn: function(record) {
+  //           	var title = record.get('title') || '';
 
-            	if(title) {
-            		title = title.substr(0, 1)
-            	}
+  //           	if(title) {
+  //           		title = title.substr(0, 1)
+  //           	}
 
-                return title;
-            },
-            sortProperty: 'title'
-    },
+  //               return title;
+  //           },
+  //           sortProperty: 'title'
+  //   },
     sorters: [
       {
           property : "title",

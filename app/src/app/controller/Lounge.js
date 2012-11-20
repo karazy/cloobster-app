@@ -45,6 +45,7 @@ Ext.define('EatSense.controller.Lounge', {
           checkInCtr = this.getApplication().getController('CheckIn'),
           nickname = "",
           business = "",
+          spotName = "",
           header = this.getDashboardHeader(),
           main = this.getMainview(),
           lounge = this.getLoungeview(),
@@ -61,9 +62,10 @@ Ext.define('EatSense.controller.Lounge', {
       if(checkInCtr.getActiveCheckIn()){
           nickname = checkInCtr.getActiveCheckIn().get('nickname');
           business = checkInCtr.getActiveCheckIn().get('businessName');
+          spotName = checkInCtr.getActiveSpot().get('name');
       };
 
-     descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
+     descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business, spotName));
       
       this.drawCustomHeader();
 

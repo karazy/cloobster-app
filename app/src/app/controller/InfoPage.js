@@ -40,7 +40,8 @@ Ext.define('EatSense.controller.InfoPage', {
 		userTypes: false
 	},
 
-	init: function() {		
+	init: function() {			
+
 		this.getApplication().getController('CheckIn').on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.loadInfoPages();
@@ -58,6 +59,44 @@ Ext.define('EatSense.controller.InfoPage', {
 		store.clearFilter();
 		store.load();
 
+		// obj = {
+  //         method: 'feed',
+  //         link: business.get('fbUrl') || business.get('url') || 'http://www.cloobster.com', //link to business
+  //         picture: logo, //FB Business logo, as fallback don't include an image
+  //         name: business.get('name'), //business name
+  //         caption: business.get('slogan') || '', //slogan
+  //         description: business.get('description')
+  //       };
+
+	},
+	/**
+	* Show hotel information above info page items in overview.
+	*/
+	showHotelInfoHeader: function() {
+		var infopageoverview = this.getInfoPageOverview(),
+			business = this.getApplication().getController('CheckIn').getActiveBusiness(),
+			infoHeader,
+			tpl,
+			html,
+			imageUrl;
+
+			//get the label
+			infoHeader = infopageoverview.down('#hotelInfo');
+
+			if(business && business.raw && business.raw.images && business.raw.images.fbwallpost) {
+				imageUrl = business.raw.images.fbwallpost.url || '';
+			}
+
+			if(infoHeader && business) {
+				tpl = infoHeader.getTpl();
+				html = tpl.apply({
+					'imageUrl' : imageUrl,
+					'name' : business.get('name'),
+					'slogan' : business.get('slogan'),
+					'description' : business.get('description')
+				});
+				infoHeader.setHtml(html);
+			}
 	},
 	/**
 	* Create a panel for each entry in infoPageStore.
@@ -75,6 +114,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			if(this.getPanelsCreated()) {
 				return;
 			}
+
+			this.showHotelInfoHeader();
 
 			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
 
@@ -146,9 +187,15 @@ Ext.define('EatSense.controller.InfoPage', {
 		var me = this,
 			infopageOverview = this.getInfoPageOverview(),
 			clubArea = this.getClubArea(),
-			androidCtr = this.getApplication().getController('Android');
+			androidCtr = this.getApplication().getController('Android'),
+			store = Ext.StoreManager.lookup('infopageStore'),
+			searchfield = this.getInfoPageSearchField();
 
 		clubArea.setActiveItem(infopageOverview);
+
+		//reset search field
+		searchfield.setValue("");
+		store.clearFilter();		
 		
 		androidCtr.addBackHandler(function() {
             me.backToDashboard();
@@ -156,7 +203,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		Ext.defer(function() {
 			this.createCarouselPanels();	
-		}, 200, this);
+		}, 150, this);
 				
 	},
 	/**
