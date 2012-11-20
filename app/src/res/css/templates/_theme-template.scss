@@ -390,11 +390,12 @@
 .infopage-detail {
   display: block;
   padding: 5px;
+  font-size: 100%;
 
   h1 {
     font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 7px 0px;
+    margin: 7px 0px;
   }
 
   h2 {
@@ -403,8 +404,13 @@
     margin: 4px 0px;
   }
 
+  h3, h4, h5, h6 {
+    font-size: 1em;
+    margin: 4px 0px;
+  }
+
   img {
-    width: 75px;
+    max-width: 75px;
     margin: 0px 5px 5px 0px;
     height: auto;
     float: left;
@@ -412,6 +418,28 @@
 
   p {
     font-size: 0.8em;
+  }
+
+  ul {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    list-style-type: circle;
+    li {
+      list-style: circle;
+    }
+  }
+
+  ol {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    list-style-type: decimal;
+    li {
+      list-style: decimal;
+    }
+  }
+
+  strong {
+    font-weight: bold;
   }
 }
 
@@ -627,12 +655,12 @@
   margin: 0 0 7px 0;
 
   h2 {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: bold;
   }
 
   p {
-    font-size: 1.1em;
+    font-size: 1em;
     padding: 0 0.5em 0 0.5em;
   }
 }

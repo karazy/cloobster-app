@@ -79,13 +79,13 @@ Ext.define('EatSense.view.Dashboard', {
 					// 	disabled: true
 					// },
 					{
-					xtype : 'button',
-					action: 'history',
-					text: i10n.translate('dashboard.button.history'),
-					baseCls: 'dashboard-button',
-					cls: 'dashboard-button-history',
-					pressedCls: 'dashboard-button-pressed',
-					labelCls: 'dashboard-button-label'
+						xtype : 'button',
+						action: 'history',
+						text: i10n.translate('dashboard.button.history'),
+						baseCls: 'dashboard-button',
+						cls: 'dashboard-button-history',
+						pressedCls: 'dashboard-button-pressed',
+						labelCls: 'dashboard-button-label'
 					},
 					{
 						xtype : 'button',

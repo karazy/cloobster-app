@@ -16,17 +16,17 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				]
 			},
 			{
-				xtype: 'searchfield',
-				docked: 'top',
-				margin: '5 5 10 5',
-				style: 'border-radius: .3em;'
-			},
-			{
 				xtype: 'label',
 				docked: 'top',
 				itemId: 'hotelInfo',
 				cls: 'infopage-hotel-info',
 				tpl: '<img src="{imageUrl}" /><h2>{name}</h2><p>{slogan}</p><p>{description}</p>'
+			},
+			{
+				xtype: 'searchfield',
+				docked: 'top',
+				margin: '5 5 10 5',
+				style: 'border-radius: .3em;'
 			},
 			{
 				xtype: 'list',
