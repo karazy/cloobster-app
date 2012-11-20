@@ -14,43 +14,11 @@
 	
 	<taskdef resource="com/sencha/ant/antlib.xml" 
          classpath="${sencha.cmd}/sencha.jar"/>
-
-    <!--
-    The following targets can be provided to inject logic before and/or after key steps
-    of the build process:
-
-        The "init-local" target is used to initialize properties that may be personalized
-        for the local machine.
-
-            <target name="-before-init-local"/>
-            <target name="-after-init-local"/>
-
-        The "clean" target is used to clean build output from the build.dir.
-
-            <target name="-before-clean"/>
-            <target name="-after-clean"/>
-
-        The general "init" target is used to initialize all other properties, including
-        those provided by Sencha Cmd.
-
-            <target name="-before-init"/>
-            <target name="-after-init"/>
-            
-        The "page" target performs the call to Sencha Cmd to build the 'all-classes.js' file.
-
-            <target name="-before-page"/>
-            <target name="-after-page"/>
-
-        The "build" target performs the call to Sencha Cmd to build the application.
-
-            <target name="-before-build"/>
-            <target name="-after-build"/>
-    -->
     
    	<target name="compile" depends="setConfig">
 	    <!-- 	Load config from sencha.cfg -->
 		<x-sencha-init/>
-	    <echo message="call sencha app build production" />
+	    <echo message="call sencha app build package" />
 	    <x-sencha-command>
 	        app
 	        	build
@@ -69,7 +37,7 @@
 		<copy todir="." overwrite="true">
 			<fileset dir="${appDir}">
 				<exclude name="**/*.desktop.*" />
-				<exclude name="**/*.iphone.*" />
+				<exclude name="**/*.phone.*" />
 				<exclude name="**/*.ignore.*" />
 				<exclude name="**/.sass-cache/**" />
 			</fileset>
@@ -78,7 +46,7 @@
 		<move todir="." includeemptydirs="false">
 			<fileset dir=".">
 			</fileset>
-			<regexpmapper from="^(.+)\.phone\.(.+)$$" to="\1.\2" />
+			<regexpmapper from="^(.+)\.iphone\.(.+)$$" to="\1.\2" />
 		</move>
 	</target>
 	
@@ -95,8 +63,6 @@
 	<target name="setConfig" depends="setVersion">
 		<echo message="Setting config values" />
 		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 '${serviceUrl}'," byline="true">
-		</replaceregexp>
-		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 false," byline="true">
 		</replaceregexp>
 	</target>
 	

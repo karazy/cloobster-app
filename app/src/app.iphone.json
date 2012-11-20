@@ -36,12 +36,12 @@
      * 20.11.2012 Inclusion ORDER DOES ABSOLUTELY MATTER. We build the app with app build package. production wont work
      * as it tries to cache in local storage which makes no sense on a native build!
      */
-    "js": [
-        {
-            "path": "lib/cordova-2.1.0.js",
-        },
+    "js": [        
 		{
             "path": "touch/sencha-touch.js",
+        },
+        {
+            "path": "lib/cordova-2.1.0.js",
         },
         {
             "path": "lib/barcodescanner.js",
