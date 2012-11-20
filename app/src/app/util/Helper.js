@@ -33,7 +33,6 @@ Ext.define('EatSense.util.Helper', {
 	*
 	*/
 	isFunction: function(functionToCheck) {
-		return true;
 	 	var getType = {};
 	 	return functionToCheck && getType.toString.call(functionToCheck) == '[object Function]';
 	},
@@ -42,7 +41,6 @@ Ext.define('EatSense.util.Helper', {
 	*
 	*/
 	isArray: function(functionToCheck) {
-		return true;
 	 	var getType = {};
 	 	return functionToCheck && getType.toString.call(functionToCheck) == '[object Array]';
 	},

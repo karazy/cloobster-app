@@ -127,7 +127,7 @@ Ext.define('EatSense.controller.Feedback', {
 							me.getActiveFeedback().answers().add(question.copy(question.get('id')));
 						});
 
-						if(appHelper.isFunction(callbackFn)) {
+						if(callbackFn && appHelper.isFunction(callbackFn)) {
 							callbackFn();	
 						}
 			    	}
