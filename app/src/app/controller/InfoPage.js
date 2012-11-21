@@ -204,7 +204,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		Ext.defer(function() {
 			this.createCarouselPanels();	
 		}, 150, this);
-				
 	},
 	/**
 	* Tap event handler for infoPageBackButton.

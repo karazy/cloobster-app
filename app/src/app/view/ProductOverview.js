@@ -34,10 +34,8 @@ Ext.define('EatSense.view.ProductOverview', {
 		{
 			xtype : 'list',
 			itemId : 'productlist',
-			// ui: 'round',
 			allowDeselect : true,
 			cls: 'productlist',
-			tpl: new Ext.XTemplate('<div class="productlist-header">{title}</div>'),
 			itemCls: 'productListItem',
 			itemTpl : new Ext.XTemplate(
 					"<table style='width:100%;'>"+

@@ -97,14 +97,9 @@ Ext.define('EatSense.controller.Menu', {
     		oldHeader = null,
     		titleLabel;
 
-		//Android: return to menu on backbutton
 		this.getApplication().getController('Android').addBackHandler(function() {
 			me.backToMenu();
 		});
-
-		//set title of titlebar
-		//DEPRECATED, set title directly above list
-		// pov.down('titlebar').setTitle(record.get('title'));
 
     	this.setActiveMenu(record);
     	
@@ -242,7 +237,7 @@ Ext.define('EatSense.controller.Menu', {
 			message: i10n.translate('menu.product.detail.loading')
 		});
 
-		Ext.defer((function() {		
+		Ext.defer((function() {
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices

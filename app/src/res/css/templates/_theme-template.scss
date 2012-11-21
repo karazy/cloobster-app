@@ -36,23 +36,6 @@
 @CHARSET "UTF-8";
 
 
-/* Style for product tab header */
-.productlist-header {
-/*  border-style: solid;
-  border-color: #DDD;
-  border-width: 1px;*/
-  border-bottom-left-radius: 0.4em;
-  border-bottom-right-radius: 0.4em;
-  background-color: $active-color;
-  margin-right: 20px;
-  margin-left: 20px;
-  color: white;
-  text-align: center;
-  padding: 2px;
-  font-weight: bold;
-  overflow: hidden;
-}
-
 .productListItem {
   h2.title {
     font-size: 1em;
@@ -70,6 +53,19 @@
     word-break: break-word;
   }
 }
+
+.productlist-header {
+  background-color: $active-color;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin: 0 20px 5px 20px;
+  color: white;
+  text-align: center;
+  padding: 2px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
 
 .menulist-item {
   h3 {
