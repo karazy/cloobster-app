@@ -339,12 +339,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Feedback"
 		},
 		"clubdashboard.button.infopage" : {
-			"DE" :  "Info",
-			"EN" : "Info"
+			"DE" :  "A-Z",
+			"EN" : "A-Z"
 		},
 		"clubdashboard.button.info" : {
-			"DE" :  "A-Z",
-			"EN" :  "A-Z"
+			"DE" :  "Info",
+			"EN" :  "Info"
 		},
 		"clubdashboard.button.events" : {
 			"DE" :  "Events",
