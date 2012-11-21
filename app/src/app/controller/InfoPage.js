@@ -203,7 +203,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		Ext.defer(function() {
 			this.createCarouselPanels();	
-		}, 150, this);
+		}, 0, this);
 				
 	},
 	/**
@@ -278,7 +278,7 @@ Ext.define('EatSense.controller.InfoPage', {
     	timeout = Ext.defer(function() {
     		this.setUserTypes(null);
     		this.filterInfoPages(field.getValue());	
-    	}, 1000, this);
+    	}, 50, this);
 
     	this.setUserTypes(timeout);
     	
