@@ -104,6 +104,39 @@ Ext.define('EatSense.model.Order', {
 			});
 
 			return newOrder;
+		},
+		/**
+		* Destroys an order. Iterates over all nested stores (choices, options) and removes, destroys them.
+		* @param order
+		*	Order to destroy.
+		*/
+		destroyOrder: function(order) {
+			var typeToCheck = 'EatSense.model.Order';
+
+			if(!order) {
+				console.log('EatSense.model.Order.destroyOrder > No order provided!');
+				return;
+			}
+
+			try {
+				if(Ext.ClassManager.getName(order) != typeToCheck) {
+					console.log('EatSense.model.Order.destroyOrder > Wrong type ' + Ext.ClassManager.getName(order));
+					return;
+				}
+			} catch(e) {
+				console.log('EatSense.model.Order.destroyOrder > error checking type ' + e);
+				return;
+			}
+			
+
+			order.choices().each(function(choice) {
+	    	    choice.options().removeAll(false);
+	        });
+
+	        order.choices().removeAll();
+
+	    	order.destroy();
+
 		}
 	},
 	/**
