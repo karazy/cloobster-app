@@ -69,14 +69,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 					badgeCls: 'club-dashboard-button-badge'
 				},
 				{
-					xtype : 'button',
-					action: 'show-requests',
-					text: i10n.translate('clubdashboard.button.vip'),
-					baseCls: 'club-dashboard-button',
-					cls: 'club-dashboard-button-vip',
-					pressedCls: 'club-dashboard-button-pressed',
-					labelCls: 'club-dashboard-button-label'
-				}				
+						xtype : 'button',
+						action: 'show-infopage',
+						text: i10n.translate('clubdashboard.button.infopage'),
+						baseCls: 'club-dashboard-button',
+						cls: 'club-dashboard-button-infopage',
+						pressedCls: 'club-dashboard-button-pressed',
+						labelCls: 'club-dashboard-button-label'
+				}							
 				]
 			},
 			{
@@ -90,22 +90,22 @@ Ext.define('EatSense.view.ClubDashboard', {
 				items: [
 					{
 						xtype : 'button',
+						action: 'show-requests',
+						text: i10n.translate('clubdashboard.button.vip'),
+						baseCls: 'club-dashboard-button',
+						cls: 'club-dashboard-button-vip',
+						pressedCls: 'club-dashboard-button-pressed',
+						labelCls: 'club-dashboard-button-label'
+					},
+					{
+						xtype : 'button',
 						action: 'show-feedback',
 						text: i10n.translate('clubdashboard.button.feedback'),
 						baseCls: 'club-dashboard-button',
 						cls: 'club-dashboard-button-feedback',
 						pressedCls: 'club-dashboard-button-pressed',
 						labelCls: 'club-dashboard-button-label'
-					},
-					{
-						xtype : 'button',
-						action: 'show-infopage',
-						text: i10n.translate('clubdashboard.button.infopage'),
-						baseCls: 'club-dashboard-button',
-						cls: 'club-dashboard-button-infopage',
-						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label'
-					}
+					}					
 					// {
 					// 	xtype : 'button',
 					// 	action: 'exit',

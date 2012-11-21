@@ -99,14 +99,14 @@ Ext.define('EatSense.view.ProductDetail', {
 			// layout: 'vbox',
 			// minHeight: '200px',
 			scrollable : false,
-			items: [
-				{
-					xtype: 'label',
-					docked: 'top',
-					cls: 'choice-panel-title',
-					html: i10n.translate('choicesPanelTitle')
-				}
-			]
+			// items: [
+			// 	{
+			// 		xtype: 'label',
+			// 		docked: 'top',
+			// 		cls: 'choice-panel-title',
+			// 		html: i10n.translate('choicesPanelTitle')
+			// 	}
+			// ]
 		},
 		{
 			xtype: 'toolbar',

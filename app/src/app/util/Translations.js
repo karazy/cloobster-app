@@ -327,8 +327,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>Guten Tag, {0}!</h2><p>Herzlich Willkommen im</p><p>\"{1}\" am Spot \"{2}\".</p>",
-			"EN" :  "<h2>Welcome, {0}!</h2><p>You have checked into</p><p>\"{1}\" at spot \"{2}\".</p>"
+			"DE" :  "<h2>{0},</h2><p>Herzlich Willkommen im<br>{1}</p>",
+			"EN" :  "<h2>{0},</h2><p>Welcome at<br/>{1}</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",
@@ -339,12 +339,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Feedback"
 		},
 		"clubdashboard.button.infopage" : {
-			"DE" :  "Hotel",
-			"EN" : "Hotel"
+			"DE" :  "Info",
+			"EN" : "Info"
 		},
 		"clubdashboard.button.info" : {
-			"DE" :  "Info",
-			"EN" :  "Info"
+			"DE" :  "A-Z",
+			"EN" :  "A-Z"
 		},
 		"clubdashboard.button.events" : {
 			"DE" :  "Events",
@@ -364,12 +364,8 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Info Pages
 		"infopage.overview.title" : {
-			"DE" :  "Information",
+			"DE" :  "Wissenswertes",
 			"EN" : "Information"
-		},
-		"infopage.overview.detail" : {
-			"DE" :  "Infoseite",
-			"EN" : "Infoseite"
 		},
 		//MyOrders
 		"myOrdersTitle" : {

@@ -8,7 +8,6 @@ Ext.define('EatSense.view.InfoPageCarousel', {
 			{
 				xtype: 'titlebar',
 				docked: 'top',
-				title: i10n.translate('infopage.overview.detail'),
 				items: [
 					{
 						xtype: 'backbutton'						

@@ -28,7 +28,7 @@ Ext.define('EatSense.view.ProductOverview', {
 			xtype: 'label',
 			itemId: 'titleLabel',
 			docked: 'top',
-			margin: '0 0 5 0',
+			margin: '0 0 15 0',
 			tpl: new Ext.XTemplate('<div class="productlist-header">{title}</div>')
 		},
 		{
