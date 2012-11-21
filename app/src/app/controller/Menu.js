@@ -360,14 +360,21 @@ Ext.define('EatSense.controller.Menu', {
 		});
 	},
 	/**
-	*	Hides Product detail.
+	* Hides Product detail. Destroys the active order!! Only call this method
+	* from close button of product detail.
 	*/
 	closeProductDetail: function() {
-		var detail = this.getProductdetail();		
+		var detail = this.getProductdetail();
 		
 		detail.hide();
 		detail.destroy();
 		this.getApplication().getController('Android').removeLastBackHandler();
+
+		//destroy the active order
+		if(this.getActiveOrder()) {
+			EatSense.model.Order.destroyOrder(this.getActiveOrder());
+			this.setActiveOrder(null);
+		}
 	},
 	/**
 	 * Adds the current product to card.
@@ -442,6 +449,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	});
 									
 			detail.hide();
+			detail.destroy();
 			message = i10n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
 			this.setActiveOrder(null);
 			
