@@ -19,8 +19,8 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				xtype: 'label',
 				docked: 'top',
 				itemId: 'hotelInfo',
-				cls: 'infopage-hotel-info', //{imageUrl}
-				tpl: '<img src="http://robohash.org/fred" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
+				cls: 'infopage-hotel-info',
+				tpl: '<img src="{imageUrl}" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
 			},
 			{
 				xtype: 'searchfield',

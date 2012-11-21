@@ -150,7 +150,7 @@ Ext.define('EatSense.controller.Menu', {
 					'areaId' : areaId
 				},
 			    callback: function(records, operation, success) {
-			    	if(!success) { 
+			    	if(operation.error) { 
                         me.getApplication().handleServerError({
                         	'error': operation.error, 
                         	'forceLogout': {403:true}

@@ -269,7 +269,7 @@
   text-align: center;
   font-size: 1.5em;
   color: $label-color;
-  /*background: #917D64; */
+  margin-bottom: 5px;
 }
 
 .cartoverviewitem {
@@ -500,82 +500,97 @@
 .dashboard-button {
   margin: 0.3em;
   background-repeat: no-repeat;
-  background-position: center 5px;
+  background-position: 2% center;
   font-size: 0.95em;
   color: $dashboard-color;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  width: 80%;
+  position: relative;
+/*  -webkit-box-shadow: 2px 2px 4px 2px lightgray;
+  box-shadow: 2px 2px 4px 2px lightgray;*/
 
   /* http://twitter.github.com/bootstrap/scaffolding.html#responsive */
   /* Portrait tablet to landscape and desktop */
   /*and (max-width: 979px)*/
   @media only screen and (min-width: 768px) {
-    background-size: 110px 110px;
-    height: 140px;
-    width: 140px;
+    background-size: 100px 100px;
+    height: 115px;
+    /*width: 140px;*/
   }
 
   /* Landscape phone to portrait tablet */
   @media only screen and (max-width: 767px) { 
-    background-size: 80px 80px;
-    height: 110px;
-    width: 110px;
+    background-size: 70px 70px;
+    height: 85px;
+    /*width: 110px;*/
   }
 
   /* Landscape phones and down */
   @media only screen and (max-width: 320px) { 
-    background-size: 60px 60px;
-    height: 90px;
-    width: 90px;
+    background-size: 50px 50px;
+    height: 65px;
+    /*width: 90px;*/
   }
 
 }
 
 .dashboard-button-label {
-  text-align: center;
+  left: 35%;
   position: absolute;
-  bottom: 10px; 
-  font-size: 1em; 
+  top: 25%;
+
+  h2 {
+    font-size: 1.2em;     
+  }
+
+  p {
+    font-size: .8em; 
+  }
 
   @media (min-width: 768px) { 
-    width: 140px;
+    /*width: 140px;*/
   }
  
   /* Landscape phone to portrait tablet */
   @media (max-width: 767px) { 
-    width: 110px;
+    /*width: 110px;*/
   }
  
   /* Landscape phones and down */
   @media (max-width: 320px) { 
-    width: 90px;
+    /*width: 90px;*/
   }
 }
 
 .dashboard-button-pressed {
-  -webkit-box-shadow: 0px 0px 15px 5px $dashboard-color;
+/*  -webkit-box-shadow: 0px 0px 15px 5px $dashboard-color;
   box-shadow: 0px 0px 15px 5px $dashboard-color;
-  border-radius: 0.5em;
+  border-radius: 10px;
   color: #C3C3C3;
-  border: 1px solid #C3C3C3;
+  border: 1px solid #C3C3C3;*/
+  color: #FFF;
+  background-color: #DDD;
 }
 
 .dashboard-button-checkin {
   background-image: url('../images/dashboard/checkin.png');
-  margin-right: 0.6em;
+  /*margin-right: 0.6em;*/
 }
 
 .dashboard-button-history {
   background-image: url('../images/dashboard/history.png');
-  margin-left: 0.6em;
+  /*margin-left: 0.6em;*/
 }
 
 .dashboard-button-login {
   background-image: url('../images/dashboard/login.png');
-  margin-left: 0.6em;
+  /*margin-left: 0.6em;*/
 }
 
 .dashboard-button-facebook {
   background-image: url('../images/dashboard/facebook.png');
-  margin-right: 0.6em;
+  /*margin-right: 0.6em;*/
 }
 
 .dashboard-button-badge {
