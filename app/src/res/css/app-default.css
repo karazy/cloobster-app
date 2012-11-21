@@ -8854,17 +8854,13 @@ audio {
   padding: 0.2em 1.02em;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
 }
-/* line 188, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
+/* line 202, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-item .x-dock-horizontal {
-  border-top: 1px solid transparent;
+  border-top: 1px solid #e2dbc9;
 }
-/* line 192, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
-.x-list-normal .x-list-item:nth-child(even) .x-dock-horizontal {
-  background-color: #ebe6d9;
-}
-/* line 196, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
-.x-list-normal .x-list-item.x-list-footer-wrap:nth-child(odd) .x-dock-horizontal {
-  border-bottom: 1px solid #ebe6d9;
+/* line 206, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
+.x-list-normal .x-list-item.x-list-footer-wrap .x-dock-horizontal {
+  border-bottom: 1px solid #e2dbc9;
 }
 /* line 214, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_list.scss */
 .x-list-normal .x-list-item.x-item-pressed .x-dock-horizontal {
@@ -11080,8 +11076,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* Set background for product description and amount spinner */
 /* line 90, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
-.productDetailPanel > .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
-  background: #d3d3d3;
+.productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
+  background: #d3d3d3 !important;
   color: black;
   /* To prevent rounded corners on form label. */
   border-radius: 0 !important;
@@ -12305,3 +12301,11 @@ h9 {
 /**
 * Override look and feel of list elements.
 */
+/**
+* Same functionality as $list-zebrastribe: true; Since this doesn't work on Android 2.x we still have 
+* seperator between list items.
+*/
+/* line 1236, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-list-normal .x-list-item:nth-child(even) .x-dock-horizontal {
+  background-color: #ebe6d9;
+}
