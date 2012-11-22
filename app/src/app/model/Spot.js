@@ -19,7 +19,15 @@ Ext.define('EatSense.model.Spot', {
 			{
 				name : 'name',
 				type : 'string'
-			},		
+			},
+			{
+				name: 'areaName',
+				type : 'string'
+			},
+			{
+				name: 'areaDescription',
+				type : 'string'
+			},	
 			{
 				name: 'areaId'
 			},

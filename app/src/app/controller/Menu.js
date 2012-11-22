@@ -139,7 +139,9 @@ Ext.define('EatSense.controller.Menu', {
     		checkInCtr = this.getApplication().getController('CheckIn'),
     		businessId = Ext.String.trim(checkInCtr.getActiveCheckIn().get('businessId')),
     		areaId = checkInCtr.getActiveSpot().get('areaId'),
-    		menuStore = Ext.StoreManager.lookup('menuStore');
+    		menuStore = Ext.StoreManager.lookup('menuStore'),
+    		titleLabel,
+    		titleLabelTpl;
 		
 		if(businessId && businessId.toString().length != 0) {
 			menuStore.load({
@@ -158,6 +160,15 @@ Ext.define('EatSense.controller.Menu', {
                     }
 			    }
 			 });
+
+			try {
+				titleLabel = menu.down('#titleLabel');
+
+				titleLabel.getTpl().overwrite(titleLabel.element, checkInCtr.getActiveSpot().getData());
+			} catch(e) {
+				console.log('Menu.showMenu > failed to set up titleLabel');
+			}
+			
 
             //always show menuoverview on first access
             menu.getComponent('menuCardPanel').setActiveItem(0);       

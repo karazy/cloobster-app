@@ -21,9 +21,15 @@ Ext.define('EatSense.view.MenuOverview', {
 				}
 				]
 			},
+			{
+				xtype: 'label',
+				itemId: 'titleLabel',
+				docked: 'top',
+				margin: '0 0 15 0',
+				tpl: new Ext.XTemplate('<div class="productlist-header">{areaName}</div>')
+			},
 		   {
 			xtype : 'list',
-			// ui: 'round',
 			onItemDisclosure: true,
 			allowDeselect: true,
 			itemCls: 'menulist-item',
@@ -40,6 +46,6 @@ Ext.define('EatSense.view.MenuOverview', {
 				}
 			}
 			
-		} ]
+		}]
 	}
 });
