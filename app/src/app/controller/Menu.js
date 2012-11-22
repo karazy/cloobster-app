@@ -262,6 +262,7 @@ Ext.define('EatSense.controller.Menu', {
 
 						optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
 						//recalculate when selection changes
+						choice.clearListeners();
 						choice.on('recalculate', function() {
 							me.recalculate(order);
 						});
@@ -539,7 +540,7 @@ Ext.define('EatSense.controller.Menu', {
 	 * Recalculates the total price for the active product.
 	 */
 	recalculate: function(order) {
-		console.log('Menu Controller -> recalculate');
+		console.log('Menu.recalculate');
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order});
 	},
 	/**

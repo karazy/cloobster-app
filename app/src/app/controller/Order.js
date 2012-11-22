@@ -399,33 +399,18 @@
 		 //dynamically add choices if present		 
 		 if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 
-		 	//render all main choices
-		 	order.choices().queryBy(function(rec) {
-		 	 	if(!rec.get('parent')) {
-		 	 		return true;
-		 	 	}}).each(function(choice) {
+		 	order.choices().each(function(choice) {
 					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
 
 					optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
-					menuCtr.createOptions(choice, optionsDetailPanel);
+					//recalculate when selection changes
+					choice.clearListeners();
 					choice.on('recalculate', function() {
 						me.recalculate(order);
 					});
-					// menuCtr.createOptions.apply(me, [choice, optionsDetailPanel, null, order]);
-					//process choices assigned to a this choice
-					order.choices().queryBy(function(rec) {
-						if(rec.get('parent') == choice.get('id')) {
-							return true;
-						}
-					}).each(function(memberChoice) {
-						memberChoice.setParentChoice(choice);
-						menuCtr.createOptions(memberChoice, optionsDetailPanel, choice);
-						choice.on('recalculate', function() {
-							me.recalculate(order);
-						});
-						// menuCtr.createOptions.apply(me, [memberChoice, optionsDetailPanel, choice, order]);
-					});
+
+					menuCtr.createOptions.apply(me, [choice, optionsDetailPanel]);
 
 					choicesPanel.add(optionsDetailPanel);
 		 	 });
@@ -582,7 +567,7 @@
 	 * Recalculates the total price for the active product.
 	 */
 	recalculate: function(order) {
-		console.log('Cart Controller -> recalculate');
+		console.log('Cart.recalculate');
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: order.get('amount')});
 	},
 	/**
