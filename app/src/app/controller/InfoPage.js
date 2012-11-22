@@ -40,11 +40,18 @@ Ext.define('EatSense.controller.InfoPage', {
 		userTypes: false
 	},
 
-	init: function() {			
+	init: function() {
+		var store = Ext.StoreManager.lookup('infopageStore');
 
 		this.getApplication().getController('CheckIn').on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
+				this.setPanelsCreated(false);
 				this.loadInfoPages();
+			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				//clean up
+				this.setPanelsCreated(false);
+				this.removeInfoPageDetailPanels();
+				store.removeAll();
 			}
 		}, this);
 	},
@@ -57,17 +64,12 @@ Ext.define('EatSense.controller.InfoPage', {
 		console.log('InfoPage.loadInfoPages');
 		this.setCurrentFilterValue(null);
 		store.clearFilter();
+		//do cleanup. Just for safety! Normally a cleanup is performed upon status change.
+		//clear carousel
+		this.removeInfoPageDetailPanels();
+		//make sure that store is empty!
+		store.removeAll();
 		store.load();
-
-		// obj = {
-  //         method: 'feed',
-  //         link: business.get('fbUrl') || business.get('url') || 'http://www.cloobster.com', //link to business
-  //         picture: logo, //FB Business logo, as fallback don't include an image
-  //         name: business.get('name'), //business name
-  //         caption: business.get('slogan') || '', //slogan
-  //         description: business.get('description')
-  //       };
-
 	},
 	/**
 	* Show hotel information above info page items in overview.
@@ -132,6 +134,15 @@ Ext.define('EatSense.controller.InfoPage', {
 
 			this.setPanelsCreated(true);		
 
+	},
+	/**
+	* Removes all panels from info page carousel.
+	*/
+	removeInfoPageDetailPanels: function() {
+		var infoPageCarousel = this.getInfoPageCarousel(),
+			carousel = infoPageCarousel.down('carousel');
+
+		carousel.removeAll(true);
 	},
 	/**
  	* Event handler for select of infoPageList.

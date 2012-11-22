@@ -327,8 +327,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>{0},</h2><p>Herzlich Willkommen im<br>{1}</p>",
-			"EN" :  "<h2>{0},</h2><p>Welcome at<br/>{1}</p>"
+			"DE" :  "<h2>{0},</h2><p>herzlich willkommen im<br>{1}</p>",
+			"EN" :  "<h2>{0},</h2><p>welcome to<br/>{1}</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",
