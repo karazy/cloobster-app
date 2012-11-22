@@ -442,6 +442,7 @@
 			validationResult = null,
 			productIsValid = true,
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
+			androidCtr = this.getApplication().getController('Android'),
 			detail = this.getProductdetail();
 		
 		order.getData(true);
@@ -471,6 +472,7 @@
 				}
 			});
 
+			androidCtr.removeLastBackHandler();
 			detail.hide();
 			this.refreshCart();
 			return true;
