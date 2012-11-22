@@ -267,7 +267,9 @@
 			ordersCount = orders.getCount(),
 			menuCtr = this.getApplication().getController('Menu'),
 			androidCtr = this.getApplication().getController('Android'),
-			me = this;
+			me = this,
+			loungeview = this.getLoungeview(),
+			myordersview = this.getMyordersview();
 		
 		if(ordersCount > 0) {
 			Ext.Msg.show({
@@ -315,17 +317,20 @@
 						    orders.removeAll(false);
 
 							me.refreshCart();
-							//FR 20121109 DON'T refresh list. since we show myorders gets called automatically
+							//FR 20121109 Only refresh list when called from myordersview. since we show myorders gets called automatically
 							//otherwise will load orders two times, since options don't have an id they are duplicated
-							// me.refreshMyOrdersList();
+							if(loungeview.getActiveItem() == myordersview) {
+								me.refreshMyOrdersList();	
+							}
+							
 
 							//initial view and no backhandlers left
 							// me.setMyordersNavigationFunctions(new Array());
 							androidCtr.removeAllBackHandlers();
-							//show my ordes view
-							Ext.defer(function() {
+							//show my orders view
+							// Ext.defer(function() {
 								me.showMyorders();	
-							}, 500);
+							// }, 500);
 							
 							//switch back to menu and remove previous backhandler
 							menuCtr.backToMenu();
