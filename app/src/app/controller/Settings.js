@@ -372,6 +372,8 @@ Ext.define('EatSense.controller.Settings', {
 
         if(!errors.isValid()) {
             if(errors.getByField('email').length > 0) {
+                //restore old mail
+                account.set('email', oldMail);
                 errMsg = i10n.translate('emailsetting.error.invalidmail');
                 Ext.Msg.alert(i10n.translate('error'), errMsg);
                 return;
@@ -379,6 +381,8 @@ Ext.define('EatSense.controller.Settings', {
         };
 
         if(!password.getValue()) {
+            //restore old mail
+            account.set('email', oldMail);
             Ext.Msg.alert(i10n.translate('error'), i10n.translate('emailsetting.error.nopassword'));
             return;
         };
@@ -430,8 +434,9 @@ Ext.define('EatSense.controller.Settings', {
                     'X-Auth': xauth,
                     'checkInId' : checkInId
                 });
-                headerUtil.resetHeaders(['login', 'password']);
+                //restore old mail
                 account.set('email', oldMail);
+                headerUtil.resetHeaders(['login', 'password']);
 
                 Ext.Viewport.setMasked(false);
                 me.getApplication().handleServerError({
