@@ -231,7 +231,15 @@ Ext.application({
             } else {
               try {
                 nestedError = Ext.JSON.decode(error.responseText);
-                errMsg = i10n.translate(nestedError.errorKey, nestedError.substitutions) || i10n.translate(defaultErrorKey);
+                errMsg = i10n.translate(nestedError.errorKey, nestedError.substitutions);
+
+                if(!errMsg) {
+                  if(typeof message == "string") {
+                    errMsg = message;
+                  } else {
+                    errMsg = i10n.translate(defaultErrorKey);
+                  }  
+                }
               } catch (e) {
                   errMsg = (typeof message == "string") ? message : i10n.translate(defaultErrorKey);
               }
