@@ -111,11 +111,5 @@ Ext.define('EatSense.util.Helper', {
 	    } else {
 	      Ext.Viewport.setMasked(false);
 	    };
-  },
-	// /**
-	// * Get status of alertActive.
-	// */
-	// getAlertActive: function() {
-	// 	return alertActive;
-	// }
+  }
 });

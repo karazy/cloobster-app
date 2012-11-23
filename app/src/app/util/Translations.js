@@ -120,22 +120,22 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "Check-in",
-			"EN" :  "Check-in"
+			"DE" :  "<h2>Check-in</h2><p>Barcode einscannen</p>",
+			"EN" :  "<h2>Check-in</h2><p>Scan QR code</p>"
 		},
 		"dashboardLabel1" : {
 			"DE" :  "<h2>Service At Its Peak</h2><p>Your guests are mobile.<br/>"+
 			"Check in and enjoy our service.</p>",
 			"EN" : "<h2>Service At Its Peak</h2><p>You guests are mobile.<br/>"+
-			"Check in and enjoy our service.</p>",
+			"Check in and enjoy our service.</p>"
 		},
 		"dashboardLabel2" : {
 			"DE" :  "1. Einchecken<br/>2. Bestellen<br/>3. Genießen",
 			"EN" :  "1. Check in<br/>2. Order<br/>3. Enjoy"
 		},
 		"dashboard.button.settings" : {
-			"DE" : "Account",
-			"EN" : "Account"
+			"DE" : "<h2>Account</h2><p>Profil, Facebook, E-Mail</p>",
+			"EN" : "<h2>Account</h2><p>Profile, Facebook, e-mail</p>"
 		},
 		// Checkin
 		"checkInTitle" : {
@@ -327,8 +327,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>Guten Tag, {0}!</h2><p>Herzlich Willkommen im</p><p>\"{1}\".</p>",
-			"EN" :  "<h2>Welcome, {0}!</h2><p>You have checked into</p><p>\"{1}\".</p>"
+			"DE" :  "<h2>Guten Tag, {0}.</h2><p>Herzlich Willkommen im</p><p>\"{1}\"</p>",
+			"EN" :  "<h2>Welcome, {0}.</h2><p>You have checked into</p><p>\"{1}\"</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",
@@ -337,6 +337,10 @@ Ext.define('EatSense.util.Translations',{
 		"clubdashboard.button.feedback" : {
 			"DE" :  "Feedback",
 			"EN" :  "Feedback"
+		},
+		"clubdashboard.button.infopage" : {
+			"DE" :  "A bis Z",
+			"EN" : "A to Z"
 		},
 		"clubdashboard.button.info" : {
 			"DE" :  "Info",
@@ -357,6 +361,11 @@ Ext.define('EatSense.util.Translations',{
 		"clubdashboard.leave.message" : {
 			"DE" :  "Wirklich verlassen?",
 			"EN" :  "Do you want to quit?"
+		},
+		//Info Pages
+		"infopage.overview.title" : {
+			"DE" :  "Wissenswertes",
+			"EN" : "Information"
 		},
 		//MyOrders
 		"myOrdersTitle" : {
@@ -730,8 +739,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "MyPlaces"
 		},
 		"dashboard.button.history" : {
-			"DE" :  "MyPlaces",
-			"EN" :  "MyPlaces"
+			"DE" :  "<h2>MyPlaces</h2><p>Besuchte Locations</p>",
+			"EN" :  "<h2>MyPlaces</h2><p>Locations visited</p>"
 		},
 		"history.detail.title" : {
 			"DE" :  "Rechnung",
@@ -827,8 +836,7 @@ Ext.define('EatSense.util.Translations',{
 		"error.account.facebook.exists" : {
 			"DE" :  "Dieser Facebook Account ist mit einem andere cloobster Account verknüpft.",
 			"EN" : "This Facebook account is linked with another cloobster Account."
-		},
-		
+		}
 	}
 	}
 });

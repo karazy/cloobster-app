@@ -5,7 +5,7 @@
  * - configuring products e.g. choosing options
  */
 Ext.define('EatSense.controller.Menu', {
-    extend: 'Ext.app.Controller',    
+    extend: 'Ext.app.Controller',
     config: {
 		refs: {
 	        main : 'mainview', 
@@ -14,7 +14,7 @@ Ext.define('EatSense.controller.Menu', {
         	productoverview :'productoverview' ,
         	menuoverview :'menuoverview' ,	       
         	productdetail : {
-                selector: 'tabpanel panel[name=menu] productdetail',
+                selector: ' productdetail',
                 xtype: 'productdetail',
                 autoCreate: true
             },
@@ -59,6 +59,9 @@ Ext.define('EatSense.controller.Menu', {
              },
              showCartButton: {
              	tap: 'showCart'
+             },
+             menuview: {
+             	activate: 'menuTabActivated'
              }
 		},
 		/**
@@ -74,6 +77,13 @@ Ext.define('EatSense.controller.Menu', {
 		/* Android Back handlers */
 		menuNavigationFunctions : new Array()
     },
+
+    menuTabActivated: function(tab) {
+    	var androidCtr = this.getApplication().getController('Android');
+    	
+    	androidCtr.setExitOnBack(false);
+    	androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
+    },
     /**
      * Shows the products of a menuitem
      * e. g. Beverages, Drinks, Burgers
@@ -84,36 +94,36 @@ Ext.define('EatSense.controller.Menu', {
     		pov = this.getProductoverview(),
     		prodStore = record.productsStore,
     		firstItem,
-    		oldHeader = null;
+    		oldHeader = null,
+    		titleLabel;
 
-		//Android: return to menu on backbutton
 		this.getApplication().getController('Android').addBackHandler(function() {
 			me.backToMenu();
 		});
 
-		//set title of titlebar
-		//DEPRECATED, set title directly above list
-		// pov.down('titlebar').setTitle(record.get('title'));
-
     	this.setActiveMenu(record);
     	
     	//remove custom HTML title tab otherwise an "Uncaught TypeError: Cannot set property 'innerHTML' of undefined " gets thrown
-    	oldHeader = this.getProductlist().element.down('div[class="productlist-header"]');
-    	if(oldHeader) {
-    		oldHeader.destroy();
-    		oldHeader = null;
-    	};
-
+    	// oldHeader = this.getProductlist().element.down('div[class="productlist-header"]');
+    	// if(oldHeader) {
+    	// 	oldHeader.destroy();
+    	// 	oldHeader = null;
+    	// };    	
 
     	this.getProductlist().setStore(prodStore);  
 		this.getProductlist().refresh();
 		//inject a dynamic title tab directly above the list
-		firstItem = this.getProductlist().element.down('div[class="x-list-item-label"]');
+		// firstItem = this.getProductlist().element.down('div[class="x-list-item-label"]');
 
-		if(firstItem) {
-			this.getProductlist().getTpl().insertBefore(firstItem, record.getData());	
-		};
+		// if(firstItem) {
+		// 	this.getProductlist().getTpl().insertBefore(firstItem, record.getData());	
+		// };
     	
+    	titleLabel = pov.down('#titleLabel');
+
+    	if(titleLabel) {
+    		titleLabel.getTpl().overwrite(titleLabel.element, record.getData());
+    	}
 
     	this.switchView(pov, "", "", 'left');
     },
@@ -129,10 +139,11 @@ Ext.define('EatSense.controller.Menu', {
     		checkInCtr = this.getApplication().getController('CheckIn'),
     		businessId = Ext.String.trim(checkInCtr.getActiveCheckIn().get('businessId')),
     		areaId = checkInCtr.getActiveSpot().get('areaId'),
-    		menuStore = Ext.StoreManager.lookup('menuStore');
+    		menuStore = Ext.StoreManager.lookup('menuStore'),
+    		titleLabel,
+    		titleLabelTpl;
 		
-
-		if(businessId.toString().length != 0) {
+		if(businessId && businessId.toString().length != 0) {
 			menuStore.load({
 				scope   : this,
 				params: {
@@ -141,7 +152,7 @@ Ext.define('EatSense.controller.Menu', {
 					'areaId' : areaId
 				},
 			    callback: function(records, operation, success) {
-			    	if(!success) { 
+			    	if(operation.error) { 
                         me.getApplication().handleServerError({
                         	'error': operation.error, 
                         	'forceLogout': {403:true}
@@ -150,8 +161,19 @@ Ext.define('EatSense.controller.Menu', {
 			    }
 			 });
 
+			try {
+				titleLabel = menu.down('#titleLabel');
+
+				titleLabel.getTpl().overwrite(titleLabel.element, checkInCtr.getActiveSpot().getData());
+			} catch(e) {
+				console.log('Menu.showMenu > failed to set up titleLabel');
+			}
+			
+
             //always show menuoverview on first access
             menu.getComponent('menuCardPanel').setActiveItem(0);       
+		} else {
+			console.log('Order.showMenu > no businessId in active checkInFound found! Was ' + businessId);
 		}
     },
     /**
@@ -226,7 +248,7 @@ Ext.define('EatSense.controller.Menu', {
 			message: i10n.translate('menu.product.detail.loading')
 		});
 
-		Ext.defer((function() {		
+		Ext.defer((function() {
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices
@@ -240,6 +262,7 @@ Ext.define('EatSense.controller.Menu', {
 
 						optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
 						//recalculate when selection changes
+						choice.clearListeners();
 						choice.on('recalculate', function() {
 							me.recalculate(order);
 						});
@@ -344,14 +367,21 @@ Ext.define('EatSense.controller.Menu', {
 		});
 	},
 	/**
-	*	Hides Product detail.
+	* Hides Product detail. Destroys the active order!! Only call this method
+	* from close button of product detail.
 	*/
 	closeProductDetail: function() {
-		var detail = this.getProductdetail();		
+		var detail = this.getProductdetail();
 		
 		detail.hide();
 		detail.destroy();
 		this.getApplication().getController('Android').removeLastBackHandler();
+
+		//destroy the active order
+		if(this.getActiveOrder()) {
+			EatSense.model.Order.destroyOrder(this.getActiveOrder());
+			this.setActiveOrder(null);
+		}
 	},
 	/**
 	 * Adds the current product to card.
@@ -371,7 +401,8 @@ Ext.define('EatSense.controller.Menu', {
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			detail = this.getProductdetail(),
 			message,
-			androidCtr = this.getApplication().getController('Android');
+			androidCtr = this.getApplication().getController('Android'),
+			orderCtr = this.getApplication().getController('Order');
 		
 		//validate choices 
 		order.choices().each(function(choice) {
@@ -397,12 +428,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	    	order.setId(response.responseText);
 	    	    	order.phantom = false;	    	    	
 					activeCheckIn.orders().add(order);
-					// cartButtons.setBadgeText(activeCheckIn.orders().data.length);
-					Ext.Array.each(cartButtons, function(button) {
-						button.setBadgeText(activeCheckIn.orders().data.length);						
-					});
-
-					me.showCartButtons(true);
+					orderCtr.updateCartButtons();
 	    	    },
 	    	    failure: function(response, operation) {
 	    	    	//409 happens when e. g. product choices get deleted and a refresh of the menu is necessary
@@ -414,8 +440,9 @@ Ext.define('EatSense.controller.Menu', {
 								appHelper.toggleAlertActive(false);
 						});
 	    	    		//clear the menu store, don't send clear event
-	    	    		Ext.StoreManager.lookup('menuStore').removeAll();
-	    	    		Ext.StoreManager.lookup('productStore').removeAll();
+	    	    		// Ext.StoreManager.lookup('menuStore').removeAll();
+	    	    		// Ext.StoreManager.lookup('productStore').removeAll();
+	    	    		me.clearMenuStores();
 	    	    		//refresh menu
 	    	    		me.showMenu();
 
@@ -429,6 +456,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	});
 									
 			detail.hide();
+			detail.destroy();
 			message = i10n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
 			this.setActiveOrder(null);
 			
@@ -475,7 +503,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		androidCtr.addBackHandler(function() {
 			me.backToPreviousView();
-		});    	
+		}); 	
 	},
 	/**
 	* Shows or hides the product cart button.
@@ -512,7 +540,7 @@ Ext.define('EatSense.controller.Menu', {
 	 * Recalculates the total price for the active product.
 	 */
 	recalculate: function(order) {
-		console.log('Menu Controller -> recalculate');
+		console.log('Menu.recalculate');
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order});
 	},
 	/**
@@ -533,13 +561,35 @@ Ext.define('EatSense.controller.Menu', {
 	* E. g. used after a FORCE_LOGOUT
 	*/
 	cleanup: function() {
-		var detail = this.getProductdetail();		
+		var detail = this.getProductdetail();
+
+		this.clearMenuStores();
 		
 		//close product detail
 		detail.hide();
 		detail.destroy();
 		//show menu first level
 		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
+	},
+	/**
+	* Clear Menu store and nested stores (product, choices, options).
+	*/
+	clearMenuStores: function() {
+		var menuStore = Ext.StoreManager.lookup('menuStore');
+
+
+		menuStore.each(function(menu) {
+        menu.products().each(function(product) {
+	        product.choices().each(function(choice) {
+	            choice.options().removeAll(true);
+	        });  
+	    	    product.choices().removeAll(true);
+	        });
+	       	menu.products().removeAll(true);
+	    });
+
+	    //remove menu to prevent problems on reload
+	    menuStore.removeAll(true);
 	}
 
      	

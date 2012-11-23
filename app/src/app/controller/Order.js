@@ -35,7 +35,8 @@
 			myordersTabBt: 'lounge #ext-tab-3',
 			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
-			leaveButton: 'clubarea clubdashboard button[action="exit"]',
+			// leaveButton: 'clubarea clubdashboard button[action="exit"]',
+			leaveButton: 'lounge button[action="exit"]',
 			confirmEditButton: 'orderdetail button[action="edit"]',
 			undoEditButton: 'orderdetail button[action="undo"]',
 			clubarea: 'clubarea',
@@ -67,7 +68,7 @@
              },
              leaveButton : {
             	 tap: 'leave'
-             }, 
+             },
              closeOrderDetailBt: {
              	tap: 'closeOrderDetailButtonHandler'
              },
@@ -113,7 +114,14 @@
     * Activate event handler for myordersview.
     */
 	myordersviewActivated: function(tab, options) {
+		var androidCtr = this.getApplication().getController('Android');
+
 		tab.setActiveItem(0);
+		this.refreshMyOrdersList();
+		
+		
+		androidCtr.setExitOnBack(false);
+    	androidCtr.setAndroidBackHandler(this.getMyordersNavigationFunctions());
 	},
 	/**
 	 * Load cart orders.
@@ -143,19 +151,16 @@
 			currentTotal.getTpl().overwrite(currentTotal.element, {'price':total});
 		});
 		
-
 		this.setActiveOrder(null);
 			
-		// this.getCartoverviewTotal().getTpl().overwrite(this.getCartoverviewTotal().element, {'price':total});
 		this.updateCartButtons();
-		// this.toggleCartButtons();
 		return true;
 	},
 	/**
+	 * @DEPRECATED
 	 * Show menu.
 	 */
 	showMenu: function() {
-		//TODO not used
 		var lounge = this.getLoungeview(), menu = this.getMenutab();		
 		lounge.setActiveItem(menu);
 	},
@@ -169,10 +174,8 @@
 
 		this.getApplication().getController('Order').refreshCart();
 		myordersview.setActiveItem(cartview);
-		// this.setActiveNavview(myordersNavview);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
-            // myordersNavview.pop();
             me.backToMyorders();
         });
 	},
@@ -185,7 +188,6 @@
 
 		lounge.setActiveItem(view);
 
-		//
 		this.backToMyorders();
 	},
 	/**
@@ -194,9 +196,7 @@
 	backToMyorders: function() {
 		var myordersview = this.getMyordersview();
 
-		myordersview.switchAnim('right');
-		myordersview.setActiveItem(0);
-		myordersview.switchAnim('left');
+		myordersview.switchTo(0, 'right');
 	},
 	/**
 	* Tap event handler for cart back button in myorders view.
@@ -267,7 +267,9 @@
 			ordersCount = orders.getCount(),
 			menuCtr = this.getApplication().getController('Menu'),
 			androidCtr = this.getApplication().getController('Android'),
-			me = this;
+			me = this,
+			loungeview = this.getLoungeview(),
+			myordersview = this.getMyordersview();
 		
 		if(ordersCount > 0) {
 			Ext.Msg.show({
@@ -299,15 +301,37 @@
 			    	    	appHelper.toggleMask(false);
 			    	    	me.getSubmitOrderBt().enable();
 			    	    	me.getCancelOrderBt().enable();
-							orders.removeAll();
+							
+			    	    	//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+							//because of that we manually have to call destroy
+							//remove all orders and nested objects and reload to have a fresh state
+							orders.each(function(order) {
+					        order.choices().each(function(choice) {
+						    	    choice.options().removeAll(true);
+						    	    choice.destroy();
+						        });					        	
+						       	order.choices().removeAll(true);
+						       	order.destroy();
+						    });
+
+						    orders.removeAll(false);
+
 							me.refreshCart();
-							me.refreshMyOrdersList();
+							//FR 20121109 Only refresh list when called from myordersview. since we show myorders gets called automatically
+							//otherwise will load orders two times, since options don't have an id they are duplicated
+							if(loungeview.getActiveItem() == myordersview) {
+								me.refreshMyOrdersList();	
+							}
+							
 
 							//initial view and no backhandlers left
 							// me.setMyordersNavigationFunctions(new Array());
 							androidCtr.removeAllBackHandlers();
-							//show my ordes view
-							me.showMyorders();
+							//show my orders view
+							// Ext.defer(function() {
+								me.showMyorders();	
+							// }, 500);
+							
 							//switch back to menu and remove previous backhandler
 							menuCtr.backToMenu();
 
@@ -380,33 +404,18 @@
 		 //dynamically add choices if present		 
 		 if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 
-		 	//render all main choices
-		 	order.choices().queryBy(function(rec) {
-		 	 	if(!rec.get('parent')) {
-		 	 		return true;
-		 	 	}}).each(function(choice) {
+		 	order.choices().each(function(choice) {
 					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
 
 					optionsDetailPanel.getComponent('choiceTextLbl').setHtml(choice.data.text + choicePriceLabel);
-					menuCtr.createOptions(choice, optionsDetailPanel);
+					//recalculate when selection changes
+					choice.clearListeners();
 					choice.on('recalculate', function() {
 						me.recalculate(order);
 					});
-					// menuCtr.createOptions.apply(me, [choice, optionsDetailPanel, null, order]);
-					//process choices assigned to a this choice
-					order.choices().queryBy(function(rec) {
-						if(rec.get('parent') == choice.get('id')) {
-							return true;
-						}
-					}).each(function(memberChoice) {
-						memberChoice.setParentChoice(choice);
-						menuCtr.createOptions(memberChoice, optionsDetailPanel, choice);
-						choice.on('recalculate', function() {
-							me.recalculate(order);
-						});
-						// menuCtr.createOptions.apply(me, [memberChoice, optionsDetailPanel, choice, order]);
-					});
+
+					menuCtr.createOptions.apply(me, [choice, optionsDetailPanel]);
 
 					choicesPanel.add(optionsDetailPanel);
 		 	 });
@@ -438,6 +447,7 @@
 			validationResult = null,
 			productIsValid = true,
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
+			androidCtr = this.getApplication().getController('Android'),
 			detail = this.getProductdetail();
 		
 		order.getData(true);
@@ -467,6 +477,7 @@
 				}
 			});
 
+			androidCtr.removeLastBackHandler();
 			detail.hide();
 			this.refreshCart();
 			return true;
@@ -490,9 +501,12 @@
 	cancelOrder: function(button, eventObj, eOpts) {
 		var 	order = button.getParent().getRecord(),
 				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
-				productName = order.get('productName');
+				productName = order.get('productName'),
+				index;
 			//delete item
 			activeCheckIn.orders().remove(order);
+			//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+			order.destroy();
 			
 			Ext.Ajax.request({
 	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
@@ -560,7 +574,7 @@
 	 * Recalculates the total price for the active product.
 	 */
 	recalculate: function(order) {
-		console.log('Cart Controller -> recalculate');
+		console.log('Cart.recalculate');
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: order.get('amount')});
 	},
 	/**
@@ -572,16 +586,31 @@
 	 */
 	updateCartButtons: function(clear) {
 		var cartButtons = this.getLoungeview().query('button[action=show-cart]'),
+			clubarea = this.getClubarea(),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			menuCtr = this.getApplication().getController('Menu'),
-			badgeText;
+			badgeText,
+			dashboardMenuButton;
+
+		if(clubarea) {
+			dashboardMenuButton = clubarea.down('clubdashboard button[action="show-menu"]');
+			if(!dashboardMenuButton) {
+				console.log('Order.updateCartButtons > dashboardMenuButton not found');	
+			}
+		} else {
+			console.log('Order.updateCartButtons > clubarea null');
+		}
 		
 		if(clear == true) {
 			Ext.Array.each(cartButtons, function(button) {
 				button.setBadgeText("");	
 			});
 
-			menuCtr.showCartButtons(false);		
+			menuCtr.showCartButtons(false);	
+			//clear dashboard menu button
+			if(dashboardMenuButton) {
+				dashboardMenuButton.setBadgeText("");
+			}	
 		} else {
 			if(!checkIn || checkIn.orders().getCount() == 0 ) {
 				badgeText = "";
@@ -594,6 +623,11 @@
 			Ext.Array.each(cartButtons, function(button) {
 				button.setBadgeText(badgeText);	
 			});
+
+			//set dashboard menu button
+			if(dashboardMenuButton) {
+				dashboardMenuButton.setBadgeText(badgeText);
+			}
 		}
 	},
 	/**
@@ -629,20 +663,41 @@
 	 */
 	refreshMyOrdersList: function() {
 		var 	me = this,
-				myorderlist = me.getMyorderlist(),
+				myorderlist = this.getMyorderlist(),
 				myordersStore = Ext.data.StoreManager.lookup('orderStore'),
-				activeCheckIn = me.getApplication().getController('CheckIn').getActiveCheckIn(),
-				payButton = me.getPaymentButton(),
-				leaveButton = me.getLeaveButton();
+				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
+				payButton = this.getPaymentButton(),
+				myordersview = this.getMyordersview(),
+				leaveButton;
 		
-		//remove all orders and reload to have a fresh state
-		myordersStore.removeAll();
+		if(myordersview) {
+			leaveButton = myordersview.down('button[action=exit]');
+		} else {
+			console.log('Order.refreshMyOrdersList > no leaveButton found.');
+		}
+
+		me.getMyordersview().showLoadScreen(true);
+
+		//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+		//because of that we manually have to call destroy
+		//remove all orders and nested objects and reload to have a fresh state
+		myordersStore.each(function(order) {
+        order.choices().each(function(choice) {
+	    	    choice.options().removeAll(false);
+	    	    choice.destroy();
+	        });
+	       	order.choices().removeAll(false);
+	       	order.destroy();
+	    });
+
+		//fire clear event so the list updates correctly
+	    myordersStore.removeAll(false);
 		
 		myordersStore.load({
 			scope   : this,			
 			callback: function(records, operation, success) {
 				try {
-					if(success == true) {
+					if(!operation.error) {
 						payButton.enable();
 						me.toggleMyordersButtons();
 
@@ -657,6 +712,18 @@
 						myorderlist.refresh();
 						me.getMyordersTotal().getTpl().overwrite(me.getMyordersTotal().element, {'price': total});
 						me.refreshMyOrdersBadgeText();
+
+						if(leaveButton) {
+							if(records && records.length > 0) {
+								leaveButton.setDisabled(true);
+								leaveButton.setHidden(true);
+							} else {
+								leaveButton.setDisabled(false);
+								leaveButton.setHidden(false);
+							}
+						}
+						
+
 					} else {
 						payButton.disable();			
 						me.getApplication().handleServerError({
@@ -665,7 +732,7 @@
 						});
 					}	
 				} catch(e) {
-					
+					console.log('Order.refreshMyOrdersList > error ' + e);
 				}
 				
 				me.getMyordersview().showLoadScreen(false);
@@ -725,8 +792,13 @@
 					text: i10n.translate('ok'),
 					listeners: {
 						tap: function() {
-							//TODO investigate if bug
+							//FR 20121109 this is weird behaviour of picker component
 							choosenMethod = picker.getValue()['null'];
+							//Since ST2.1 if user does not select anything no value is set
+							//so we chosse the first value in the store
+							if(!choosenMethod) {
+								choosenMethod = availableMethods.getAt(0).get('name');
+							}
 							picker.hide();						
 							me.paymentRequest(choosenMethod);
 						}
@@ -742,9 +814,10 @@
 				},
 			    slots: [
 			        {
+
 			        	align: 'center',
-			        	 valueField: 'name',
-			             displayField: 'name',
+			        	valueField: 'name',
+			            displayField: 'name',
 			            title: i10n.translate('paymentPickerTitle'),
 			            store: availableMethods
 			        }
@@ -776,9 +849,13 @@
 			myordersComplete = this.getMyordersComplete(),
 			payButton = this.getPaymentButton(),
 			menuCtr = this.getApplication().getController('Menu'),
-			me = this;		
+			me = this,
+			date = new Date();		
 
 		bill.set('paymentMethod', paymentMethod);
+
+		//FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
+		bill.set('time', date);
 		//workaround to prevent sencha from sending phantom id
 		bill.setId('');
 		//TODO show load mask to prevent users from issuing orders?!
@@ -868,7 +945,7 @@
 	//UI Actions
 	/**
 	 * @DEPRECATED
-	 * Since cart only shows when not empty, since function is unecessary.
+	 * Since cart only shows when not empty, function is unecessary.
 	 * Shows (cart is not empty) or hides (cart is empty) cart buttons (trash, order).
 	 */
 	toggleCartButtons: function() {
@@ -890,22 +967,18 @@
 
 		(activeCheckIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() > 0) ? payButton.show() : payButton.hide();
 	},
-	toggleOrderDetail: function(view, index, htmlElement, order) {		
-    // change the div plus to minu..
-    // Get hold of the div with details class and animate
-    	var el = htmlElement.select('div.myorder-detail'),
-    		convert = Ext.get(el.elements[0]),
-    		priceDiv = htmlElement.select('td.arrow');
-    	
-    	convert.toggleCls('hidden');
-    	priceDiv.toggleCls('collapsed-arrow');
-    	priceDiv.toggleCls('expanded-arrow');
+	/**
+	* Itemtap event handler for myorders list.
+	* Show/hide details in myordes view.
+	*/
+	toggleOrderDetail: function(view, index, htmlElement, order) {
+    	order.set('showDetail', !order.get('showDetail'));
 	},
 	//Utility methods
 	/**
 	 * Returns number of orders in cart.
 	 */
-	cartCount: function() {
+	cartCount: function() { 
 		var orders = this.getApplication().getController('CheckIn').getActiveCheckIn().orders();
 		
 		if(orders == null) {

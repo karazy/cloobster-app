@@ -7,6 +7,6 @@ Ext.define('EatSense.store.Feedback', {
     requires: ['EatSense.model.FeedbackForm'],
     config : {
     	model   : 'EatSense.model.FeedbackForm',
-    	storeId: 'feedbackStore',
+    	storeId: 'feedbackStore'
     }
 });

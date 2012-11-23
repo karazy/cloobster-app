@@ -47,6 +47,13 @@ Ext.define('EatSense.view.MyOrders', {
 							width: '50%',
 							iconCls: 'cash',
 							iconMask: true
+						},
+						{
+							xtype: 'button',
+							text: i10n.translate('leave'),
+							ui: 'action',
+							action: 'exit',
+							width: '50%'						
 						}
 					]							
 					},
@@ -61,15 +68,15 @@ Ext.define('EatSense.view.MyOrders', {
 					{
 						xtype: 'list',
 						store: 'orderStore',
-						ui: 'round',
 						allowDeselect: true,
 						onItemDisclosure: this.removeItem,
 						itemCls: 'orderListItem',
 						itemTpl:  new Ext.XTemplate(
 							"<table style='width:100%;'>"+				
-							"<td align='left' class='title'>{amount} x {productName}</td><td align='right' class='price'>{[this.formatPrice(values.price_calculated)]}</td><td class='arrow collapsed-arrow'></td>"+
+							"<td align='left' class='title'>{amount} x {productName}</td><td align='right' class='price'>{[this.formatPrice(values.price_calculated)]}</td>"+
+							"<tpl if='showDetail'><td class='arrow expanded-arrow'></td><tpl else><td class='arrow collapsed-arrow'></td></tpl>"+
 							"</table>"+
-							"<div class='myorder-detail hidden'>"+
+							"<tpl if='showDetail'><div class='myorder-detail'>"+
 							"<h4>"+i10n.translate('orderTime')+": {[values.orderTime.toLocaleTimeString()]}</h4>"+
 							"<div class='choices'>"+
 								"<tpl for='choices'>" +				
@@ -89,7 +96,7 @@ Ext.define('EatSense.view.MyOrders', {
 								"<p>{comment}</p>" +
 								"</tpl>" +
 							"</div>"+
-							"</div>"
+							"</div></tpl>"
 							, {
 							//checks if the current choice has selections. If not it will not be shown.
 							//we need to pass the product as the choices object in this context is raw data
@@ -188,16 +195,15 @@ Ext.define('EatSense.view.MyOrders', {
     		this.setMasked(false);
     	}
     },
-    	/**
-	* Change the direction of the slide animation.
-	* 
-	* @param direction
-	*            left or right
-	*/
-	switchAnim : function(direction) {
-		this.getLayout().setAnimation({
-			type : 'slide',
-			direction : direction
-		});
+	/**
+	 * Switch to given item.
+	 * 
+	 * @param item
+	 *	The item the view should switch to.
+	 * @param dir
+	 *  animation. left or right 
+	 */
+	switchTo: function(item, dir) {
+		this.animateActiveItem(item, {type: 'slide', direction: dir});
 	}
 });

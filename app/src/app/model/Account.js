@@ -55,7 +55,7 @@ Ext.define('EatSense.model.Account', {
 			enablePagingParams: false,
 			url : '/c/accounts/',
 			reader : {
-				type : 'json',
+				type : 'json'
 			}
 		}
 	}

@@ -33,7 +33,7 @@ Ext.define('EatSense.view.Newsletter', {
 			ui: 'action',
 			cls: 'newsletter-button',
 			text: i10n.translate('newsletterRegisterBt'),
-			cls: 'newsletter-register-button',			
+			cls: 'newsletter-register-button'
 		}
 		]
 	}

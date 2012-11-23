@@ -40,7 +40,7 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'settingstab',
 				tabName: 'settings'
 			}
-		],
+		]
 	},
 	/**
 	 * Switch the tab.

@@ -3,6 +3,7 @@ Ext.define('EatSense.model.Menu', {
 	requires: ['EatSense.model.Product','EatSense.model.Choice','EatSense.model.Option'],
 	config : {
 		idProperty: 'id',
+		syncRemovedRecords: false,
 		fields: [
 		    {	
 		    	name: 'id', 
@@ -15,6 +16,10 @@ Ext.define('EatSense.model.Menu', {
 			{
 				name: 'order',
 				type: 'number'
+			},
+			{
+				name: 'description',
+				type: 'string'
 			}
 		],
 		proxy: {
@@ -29,6 +34,7 @@ Ext.define('EatSense.model.Menu', {
 			model: 'EatSense.model.Product',
 			name: 'products',
 			store: {
+				syncRemovedRecords: false,
 				sorters: [
 			     			{
 			    				property: 'order',

@@ -15,7 +15,7 @@ Ext.define('EatSense.model.Cart', {
 		proxy: {
 			type: 'rest',
 			url: '/c/checkins/{checkInId}/cart',
-			enablePagingParams: false,
+			enablePagingParams: false
 		}
 	}
 });

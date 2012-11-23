@@ -16,7 +16,7 @@ Ext.define('EatSense.view.History',{
 					action: 'back',
 					text : i10n.translate('back'),
 					ui : 'back'
-				},
+				}
 			]
 		},
 		{
@@ -27,11 +27,10 @@ Ext.define('EatSense.view.History',{
 			html: i10n.translate('history.list.description'),
 			style: 'text-align: center;',
 			styleHtmlContent: true,
-			hidden: true,
+			hidden: true
 		},
 		{
-			xtype: 'list',
-			ui: 'round',					
+			xtype: 'list',				
 			store: 'historyStore',				
 			itemTpl: new Ext.XTemplate('<strong>{businessName}</strong><br/>{[this.formatDate(values.billTime)]} | {[this.formatPrice(values.billTotal)]}',
 				{

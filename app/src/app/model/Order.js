@@ -35,6 +35,11 @@ Ext.define('EatSense.model.Order', {
 		{
 			name: 'productShortDesc'
 		},
+		{	//flag indicating if all order details are shown in myorders view
+			name: 'showDetails',
+			defaultValue: false,
+			persist: false
+		},
 		{//dont change, gets set automatically
 			name: 'price_calculated',
 			type: 'number',
@@ -48,36 +53,13 @@ Ext.define('EatSense.model.Order', {
             autoLoad: true,
             associationKey: 'choices', // read child data from child_groups
             store: {
-            	sorters: [
-            	{
-            		sorterFn: function(record1, record2){
-            			// console.log('sort choices id1: %s parent1: %s and id2: %s parent2: %s', record1.get('id'), record1.get('parent'), record2.get('id'), record2.get('parent'));
-            			var parent1 = record1.get('parent'),
-            				parent2 = record1.get('parent');
-            			if(parent1) {
-            				if(parent1 == record2.get('id')) {
-            					return 1;
-            				}
-            			}
-
-            			if(parent2) {
-            				if(parent2 == record1.get('id')) {
-            					return 1;
-            				}
-            			}
-
-            			return 0;
-            		}
-            	}]
+            	syncRemovedRecords: false
             }
 	    }],
 		proxy: {
 			type: 'rest',
 			enablePagingParams: false,
-			url : '/c/businesses/{pathId}/orders',
-			reader: {
-				type: 'json'
-		   	}
+			url : '/c/businesses/{pathId}/orders'
 	 	},
 	 	// current state of this order. used for store and restore
 	 	state: null
@@ -93,7 +75,8 @@ Ext.define('EatSense.model.Order', {
 		*/
 		createOrder: function(product) {
 			var newOrder = Ext.create('EatSense.model.Order'),
-				tmpChoice;
+				tmpChoice,
+				tmpOption;
 
 			newOrder.set('productName', product.get('name'));
 			newOrder.set('productId', product.get('id'));
@@ -103,21 +86,57 @@ Ext.define('EatSense.model.Order', {
 			newOrder.set('id', "");
 
 			product.choices().each(function(choice) {
-				//create phantom copy
-				tmpChoice = choice.copy();
-				tmpChoice.options().each(function(option) {
-					var idProperty = option.getIdProperty();
+				//create a shallow copy
+				tmpChoice = Ext.create('EatSense.model.Choice', choice.getRawJsonData(true));
+				// tmpChoice = choice.copy();
+				choice.options().each(function(option) {
+					// var idProperty = option.getIdProperty();
 
-	       			delete option.raw[idProperty];
-	        		delete option.data[idProperty];
+					tmpOption = Ext.create('EatSense.model.Option', option.getRawJsonData());
 
-	        		option.phantom = true;
+	       			// delete tmpOption.raw[idProperty];
+	        		// delete tmpOption.data[idProperty];
+
+	        		tmpChoice.options().add(tmpOption);
 				});
 				
 				newOrder.choices().add(tmpChoice);
 			});
 
 			return newOrder;
+		},
+		/**
+		* Destroys an order. Iterates over all nested stores (choices, options) and removes, destroys them.
+		* @param order
+		*	Order to destroy.
+		*/
+		destroyOrder: function(order) {
+			var typeToCheck = 'EatSense.model.Order';
+
+			if(!order) {
+				console.log('EatSense.model.Order.destroyOrder > No order provided!');
+				return;
+			}
+
+			try {
+				if(Ext.ClassManager.getName(order) != typeToCheck) {
+					console.log('EatSense.model.Order.destroyOrder > Wrong type ' + Ext.ClassManager.getName(order));
+					return;
+				}
+			} catch(e) {
+				console.log('EatSense.model.Order.destroyOrder > error checking type ' + e);
+				return;
+			}
+			
+
+			order.choices().each(function(choice) {
+	    	    choice.options().removeAll(false);
+	        });
+
+	        order.choices().removeAll();
+
+	    	order.destroy();
+
 		}
 	},
 	/**
@@ -174,6 +193,7 @@ Ext.define('EatSense.model.Order', {
 		rawJson.productName = this.get('productName');
 		rawJson.productId = this.get('productId');
 		rawJson.productPrice = this.get('productPrice');
+		// rawJson.checkin_id = this.get('checkin_id');
 		rawJson.productShortDesc = this.get('productShortDesc');
 		rawJson.productLongDesc = this.get('productLongDesc');
 		rawJson.orderTime = (this.get('orderTime')) ? this.get('orderTime').getTime() : null;
@@ -227,8 +247,8 @@ Ext.define('EatSense.model.Order', {
 		this.set('productPrice', rawData.productPrice);
 		this.set('productShortDesc', rawData.productShortDesc);
 		this.set('productLongDesc', rawData.productLongDesc);
+		// this.set('checkin_id', rawData.checkin_id);
 
 		return true;	
-	},
-
+	}
 });

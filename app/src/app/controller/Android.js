@@ -39,12 +39,17 @@ Ext.define('EatSense.controller.Android', {
 	},
 
 	addBackHandler: function(handler) {
+		var _array = this.getAndroidBackHandler();
 		// this.setExitOnBack(false);
-		if(appHelper.isFunction(handler) && appHelper.isArray(this.getAndroidBackHandler())) {
-			console.log('Android Controller -> addBackHandler');
-			this.getAndroidBackHandler().push(handler);	
+		if(!appHelper.isArray(_array)) {
+			console.log('Android.addBackHandler >  androidBackHandler container is not of type array');
+			return;
+		}
+
+		if(appHelper.isFunction(handler)) {
+			_array.push(handler);
 		} else {
-			console.log('handler is not of type function');
+			console.log('Android.addBackHandler > handler is not of type function');
 		};
 	},
 

@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html manifest="">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cloobster</title>
+
 <link rel="stylesheet" id="default" href="res/css/app-default.css" type="text/css">
 <link rel="stylesheet" id="red" href="res/css/red-theme.css" type="text/css" disabled="true">
 <link rel="stylesheet" id="green" href="res/css/green-theme.css" type="text/css" disabled="true">
 <link rel="stylesheet" id="orange" href="res/css/orange-theme.css" type="text/css" disabled="true">
-<script type="text/javascript" charset="utf-8" src="lib/sencha-touch.js"></script>
-<script type="text/javascript" charset="utf-8" src="/_ah/channel/jsapi"></script>
-<script type="text/javascript" charset="utf-8" src="lib/facebook_js_sdk.js"></script>
-<script type="text/javascript" charset="utf-8" src="app-all.js"></script>
+<script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
 </head>
-<body style="background: #FFF;">
+<body>
+	<div id="fb-root"></div>
 	<script type="text/javascript">
 	//used for desktop development. normally indicates if Cordova (Phonegap) is ready
+	// Init FB here because we have a different init for desktop.
+	// Try to init Facebook SDK
+	FB.init({ appId: "359215437471990", useCachedDialogs: false });
 	var cordovaInit = true;
-	FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });
 	</script>
 </body>
 </html>

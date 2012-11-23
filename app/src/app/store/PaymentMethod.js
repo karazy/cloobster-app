@@ -4,6 +4,7 @@ Ext.define('EatSense.store.PaymentMethod', {
     config : {
     	model   : 'EatSense.model.PaymentMethod',
     	storeId: 'paymentMethodStore',
+        syncRemovedRecords: false,
   		data: [{
 			   id: '1',
 			   name: 'EC'

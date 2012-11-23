@@ -29,10 +29,6 @@ Ext.define('EatSense.view.Main', {
 		{
 			xtype: 'historydetail'
 		},
-		// {
-		// 	layout : 'fit',
-		// 	xtype : 'checkinwithothers'
-		// },
 		{
 			xtype : 'lounge'
 		},
@@ -42,15 +38,14 @@ Ext.define('EatSense.view.Main', {
 		]
 	},
 	/**
-	 * Change the direction of the slide animation.
+	 * Switch to given item.
 	 * 
-	 * @param direction
-	 *            left or right
+	 * @param item
+	 *	The item the view should switch to.
+	 * @param dir
+	 *  animation. left or right 
 	 */
-	switchAnim : function(direction) {
-		this.getLayout().setAnimation({
-			type : 'slide',
-			direction : direction
-		});
+	switchTo: function(item, dir) {
+		this.animateActiveItem(item, {type: 'slide', direction: dir});
 	}
 });

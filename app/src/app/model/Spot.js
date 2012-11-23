@@ -19,7 +19,15 @@ Ext.define('EatSense.model.Spot', {
 			{
 				name : 'name',
 				type : 'string'
-			},		
+			},
+			{
+				name: 'areaName',
+				type : 'string'
+			},
+			{
+				name: 'areaDescription',
+				type : 'string'
+			},	
 			{
 				name: 'areaId'
 			},
@@ -51,6 +59,7 @@ Ext.define('EatSense.model.Spot', {
 	            //autoLoad: true,
 	            associationKey: 'payments', // read child data from child_groups
 	            store: {
+	            	syncRemovedRecords: false,
 	            	sorters: [
 						{
 							property: 'order',
@@ -64,7 +73,7 @@ Ext.define('EatSense.model.Spot', {
 			url : '/spots/',
 			enablePagingParams: false,
 			reader : {
-				type : 'json',
+				type : 'json'
 			}
 		}
 	}

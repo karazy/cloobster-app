@@ -20,41 +20,22 @@ Ext.define('EatSense.controller.Lounge', {
 			menuDashboardButton : {
 				tap: 'showMenu'
 			},
-			loungeview : {
-     			activeitemchange : function(container, value, oldValue, opts) {
-     				var androidCtr = this.getApplication().getController('Android');
-     				//prevent false exit!
-     				androidCtr.setExitOnBack(false);
-
-    				if(value.tabName === 'cart') {
-              //TODO remove dead code
-    					status = this.getApplication().getController('Order').refreshCart();
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
-    				} else if (value.tabName === 'myorders') {
-    					this.getApplication().getController('Order').refreshMyOrdersList();
-    					//reset navigation view
-    					// this.getApplication().getController('Feedback').getMyordersNavview().pop();
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Order').getMyordersNavigationFunctions());
-    				} else if(value.tabName === 'menu') {
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Menu').getMenuNavigationFunctions());
-    				} else if(value.tabName === 'settings') {
-    					androidCtr.setAndroidBackHandler(this.getApplication().getController('Settings').getSettingsNavigationFunctions());
-    				}
-            else if(value.tabName === 'home') {
-                 //always jump to dashboard on home tab pressed
-                 this.getClubArea().setActiveItem(0);
-                 androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
-            }	else {    				
-    					androidCtr.setAndroidBackHandler(null);
-    				}
-
-    				return status;
-    			}
-    		}
+      clubArea: {
+        activate: 'clubAreaActivated'
+      }
 		},
 		/* Android Back handlers */
 		navigationFunctions : new Array()
 	},
+
+  clubAreaActivated: function(tab, options) {
+      var androidCtr = this.getApplication().getController('Android');
+
+     //always jump to dashboard on home tab pressed
+     tab.setActiveItem(0);
+     androidCtr.setExitOnBack(false); 
+     androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
+  },
   /**
   * Initialize and show dashboard upon checkin.
   */
@@ -64,6 +45,7 @@ Ext.define('EatSense.controller.Lounge', {
           checkInCtr = this.getApplication().getController('CheckIn'),
           nickname = "",
           business = "",
+          spotName = "",
           header = this.getDashboardHeader(),
           main = this.getMainview(),
           lounge = this.getLoungeview(),
@@ -80,9 +62,10 @@ Ext.define('EatSense.controller.Lounge', {
       if(checkInCtr.getActiveCheckIn()){
           nickname = checkInCtr.getActiveCheckIn().get('nickname');
           business = checkInCtr.getActiveCheckIn().get('businessName');
+          spotName = checkInCtr.getActiveSpot().get('name');
       };
 
-     descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business));
+     descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business, spotName));
       
       this.drawCustomHeader();
 
@@ -90,8 +73,7 @@ Ext.define('EatSense.controller.Lounge', {
       this.getClubArea().setActiveItem(0);
       lounge.setActiveItem(0);
 
-      main.switchAnim('left');
-      main.setActiveItem(lounge);
+      main.switchTo(lounge, 'left');
   },
   /**
   * Draws custom business header in club dashboard if it exists.
@@ -120,10 +102,11 @@ Ext.define('EatSense.controller.Lounge', {
             if(logoUrl) {
                 headerHtml +='<img class="header-logo logo-horizontal" src="'+logoUrl+'=s180" />';
             };
-            //TODO testing purpose
-            // headerHtml = '<img class="header" src="res/images/club/banner_test.png" />';
-            // headerHtml +='<img class="logo" src="res/images/club/logo_test.png" />';
+            //Testing purpose start
+            // headerHtml = '<img class="header" src="res/images/banner_test.png" />';
+            // headerHtml +='<img class="header-logo logo-horizontal" src="res/images/logo_test.png" />';
             // headerUrl = true;
+            //Testing purpose end
             //only show if header exists!
             if(headerUrl) {
               header.setHtml(headerHtml);
@@ -139,8 +122,8 @@ Ext.define('EatSense.controller.Lounge', {
           
           //get width and height of logo
           try {
-            //get hold of the logo img element
-            domLogo = panel.getInnerHtmlElement().dom.getElementsByClassName('header-logo');
+            //get hold of the logo img element (since ST 2.1 we dont need to call panel.getInnerHtmlElement())
+            domLogo = panel.dom.getElementsByClassName('header-logo');
 
             if(domLogo && domLogo[0]) {
               domLogo = domLogo[0];

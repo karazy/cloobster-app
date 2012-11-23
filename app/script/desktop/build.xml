@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="CloobsterAppDesktop" default="buildDesktop" basedir=".">    
+    
+    <!-- Path to src dir -->
+	<property name="appDir" value="../../src/" />
+	<!-- 	Apllication file -->
+	<property name="appFile" value="app.js" />
+	<!-- 	Configuration file -->
+	<property name="configFile" value="app/util/Configuration.js" />
+	
+	<import file="${appDir}/.sencha/app/build-impl.xml"/>
+	
+	<taskdef resource="com/sencha/ant/antlib.xml" 
+         classpath="${sencha.cmd}/sencha.jar"/>
+
+    <!--
+    The following targets can be provided to inject logic before and/or after key steps
+    of the build process:
+
+        The "init-local" target is used to initialize properties that may be personalized
+        for the local machine.
+
+            <target name="-before-init-local"/>
+            <target name="-after-init-local"/>
+
+        The "clean" target is used to clean build output from the build.dir.
+
+            <target name="-before-clean"/>
+            <target name="-after-clean"/>
+
+        The general "init" target is used to initialize all other properties, including
+        those provided by Sencha Cmd.
+
+            <target name="-before-init"/>
+            <target name="-after-init"/>
+            
+        The "page" target performs the call to Sencha Cmd to build the 'all-classes.js' file.
+
+            <target name="-before-page"/>
+            <target name="-after-page"/>
+
+        The "build" target performs the call to Sencha Cmd to build the application.
+
+            <target name="-before-build"/>
+            <target name="-after-build"/>
+    -->
+    
+   	<target name="compile" depends="setVersion">
+	    <!-- 	Load config from sencha.cfg -->
+		<x-sencha-init/>
+	    <echo message="call sencha app build production" />
+	    <x-sencha-command>
+	        app
+	        	build
+	        		package		    	
+		</x-sencha-command>
+	</target>
+	
+	<target name="copySource" depends="">
+	     <delete>
+    		<fileset dir=".">    		    
+				<exclude name="build.xml" />
+				<exclude name="build/*" />
+			</fileset>
+  		</delete>
+		<echo message="Copy App" />
+		<copy todir="." overwrite="true">
+			<fileset dir="${appDir}">
+				<exclude name="**/*.phone.*" />
+				<exclude name="**/*.iphone.*" />
+				<exclude name="**/*.ignore.*" />
+				<exclude name="**/.sass-cache/**" />
+			</fileset>
+		</copy>
+		<echo message="Rename files" />
+		<move todir="." includeemptydirs="false">
+			<fileset dir=".">
+			</fileset>
+			<regexpmapper from="^(.+)\.desktop\.(.+)$$" to="\1.\2" />
+		</move>
+	</target>
+	
+<!-- 	<target name="copyProduction" depends="compile"> -->
+<!-- 		<echo message="Delete old files" /> -->
+<!-- 		<delete dir="${androidDir}"></delete> -->
+<!-- 		<echo message="Copy App" /> -->
+<!-- 		<copy todir="${androidDir}" overwrite="true"> -->
+<!-- 			<fileset dir="build/EatSense/production"> -->
+<!-- 			</fileset> -->
+<!-- 		</copy> -->
+<!-- 	</target> -->
+	
+	<target name="setVersion" depends="copySource">
+		<echo message="Setting version number" />
+		<exec executable="${git.cmd}" dir="${basedir}" outputproperty="build.commit" vmlauncher="${git.vmlauncher}">
+		    <arg value="describe"/>
+		    <arg value="--always"/>
+		</exec>
+		<echo message="Commit version: ${build.commit}" />
+		<replaceregexp file="${configFile}" match="(version:) .*" replace="\1 '${build.commit}'," byline="true">
+		</replaceregexp>
+	</target>
+	
+	<!-- Build configurations -->
+	<target name="buildDesktop">
+		<antcall target="compile">
+		</antcall>
+	</target>
+
+</project>

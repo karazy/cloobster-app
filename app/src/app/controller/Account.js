@@ -103,7 +103,7 @@ Ext.define('EatSense.controller.Account', {
 					'hideMessage':false,
 					'message': {
                        	403: i10n.translate('error.account.credentials.invalid')
-                    },
+                    }
 				});
 			}
 		});
@@ -513,8 +513,7 @@ Ext.define('EatSense.controller.Account', {
 		var me = this;
 
 		this.getApplication().getController('Settings').loadSettings(this.getSettingsView().down('#settingCards'));
-		this.getMainView().switchAnim('left');
-		this.getMainView().setActiveItem(this.getSettingsView());
+		this.getMainView().switchTo(this.getSettingsView(), 'left');
 
 		this.getApplication().getController('Android').addBackHandler(function() {
 			me.hideSettingsView();
@@ -531,9 +530,7 @@ Ext.define('EatSense.controller.Account', {
 	* Hide settingsview.
 	*/
 	hideSettingsView: function(button) {
-		this.getMainView().switchAnim('right');
-		//back to dashboard
-		this.getMainView().setActiveItem(0);
+		this.getMainView().switchTo(0, 'right');
 	},
 	/**
 	* Tap event for logout button in dashboard settingsview.

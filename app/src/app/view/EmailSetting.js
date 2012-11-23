@@ -14,8 +14,8 @@ Ext.define('EatSense.view.EmailSetting', {
 				title : i10n.translate('emailsetting.title'),
 				items : [
 					{
-						xtype : 'backbutton',
-					}, 
+						xtype : 'backbutton'
+					}
 				]
 			},
 			{
@@ -65,7 +65,7 @@ Ext.define('EatSense.view.EmailSetting', {
 					text: i10n.translate('save')
 				}
 			]
-			},
+			}
 		]
 	}
 });

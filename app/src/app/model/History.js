@@ -27,7 +27,7 @@ Ext.define('EatSense.model.History', {
 		proxy: {
 			type: 'rest',
 	 		enablePagingParams: true,
-	 		url : '/c/checkins/history',
+	 		url : '/c/checkins/history'
 		}
 	}
 

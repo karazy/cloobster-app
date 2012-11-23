@@ -42,7 +42,7 @@ Ext.define('EatSense.model.Feedback', {
 	 			type: 'json'
 	 		},
 	 		writer: new EatSense.override.CustomJsonWriter({
-				writeAllFields: true,
+				writeAllFields: true
 				// root: 'answers' //Optional
 			})
 		}

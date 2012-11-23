@@ -5,7 +5,7 @@
 */
 Ext.define('EatSense.view.ClubArea', {
 	extend: 'Ext.Panel',
-	requires: ['EatSense.view.ClubDashboard', 'EatSense.view.FeedbackForm'],
+	requires: ['EatSense.view.ClubDashboard', 'EatSense.view.FeedbackForm', 'EatSense.view.InfoPageOverview', 'EatSense.view.InfoPageCarousel'],
 	xtype: 'clubarea',
 	config: {
 		iconCls : 'home',
@@ -20,28 +20,33 @@ Ext.define('EatSense.view.ClubArea', {
 		},
 		activeItem: 0,
 		items: [
-				{
-					xtype: 'clubdashboard'
-				},
-				{
-					xtype: 'feedbackform'
-				},
-				{
-					xtype: 'requeststab'
-				}
+			{
+				xtype: 'clubdashboard'
+			},
+			{
+				xtype: 'feedbackform'
+			},
+			{
+				xtype: 'requeststab'
+			},
+			{
+				xtype: 'infopageoverview'
+			},
+			{
+				xtype: 'infopagecarousel'
+			}
 		]
 	},
 	/**
-	* Change the direction of the slide animation.
-	* 
-	* @param direction
-	*            left or right
-	*/
-	switchAnim : function(direction) {
-		this.getLayout().setAnimation({
-			type : 'slide',
-			direction : direction
-		});
+	 * Switch to given item.
+	 * 
+	 * @param item
+	 *	The item the view should switch to.
+	 * @param dir
+	 *  animation. left or right 
+	 */
+	switchTo: function(item, dir) {
+		this.animateActiveItem(item, {type: 'slide', direction: dir});
 	}
 	
 });

@@ -1,17 +1,3 @@
-/*
-
-This file is part of Sencha Touch 2
-
-Copyright (c) 2012 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-Commercial Usage
-Licensees holding valid commercial licenses may use this file in accordance with the Commercial Software License Agreement provided with the Software or, alternatively, in accordance with the terms contained in a written agreement between you and Sencha.
-
-If you are unsure which license is appropriate for your use, please contact the sales department at http://www.sencha.com/contact.
-
-*/
 /**
  * Sencha Blink - Development
  * @author Jacky Nguyen <jacky@sencha.com>
@@ -32,7 +18,7 @@ If you are unsure which license is appropriate for your use, please contact the 
     var options = eval("(" + xhr.responseText + ")"),
         scripts = options.js || [],
         styleSheets = options.css || [],
-        i, ln, path;
+        i, ln, path, disabled;
 
     meta('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no');
     meta('apple-mobile-web-app-capable', 'yes');
@@ -45,7 +31,13 @@ If you are unsure which license is appropriate for your use, please contact the 
             path = path.path;
         }
 
-        write('<link rel="stylesheet" href="'+path+'">');
+        if(styleSheets[i].disabled == true) {
+            disabled = 'disabled="true"';
+        } else {
+            disabled = "";
+        }
+
+        write('<link rel="stylesheet" href="'+path+'" '+disabled+' id='+styleSheets[i].id+'>');
     }
 
     for (i = 0,ln = scripts.length; i < ln; i++) {
@@ -59,6 +51,3 @@ If you are unsure which license is appropriate for your use, please contact the 
     }
 
 })();
-
-
-

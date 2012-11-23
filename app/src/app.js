@@ -9,13 +9,13 @@ Ext.Loader.setPath('EatSense', 'app');
 Ext.application({
 	name : 'EatSense',
 	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
-  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Lounge', 'Facebook' ],
+  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Lounge', 'Facebook', 'InfoPage' ],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
-  'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile'],
+  'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage'],
 	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
     'EatSense.view.BackButton', 'EatSense.view.SettingsView', 'About', 'Privacy'], 
-	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles', 'History'],
+	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [
@@ -38,7 +38,7 @@ Ext.application({
     'EatSense.util.Channel',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
-		'EatSense.override.OperationImprovement',
+		// 'EatSense.override.OperationImprovement',
 		'EatSense.override.RadioOverride',
     'EatSense.override.CustomSpinner',
 		'EatSense.model.AppState',
@@ -192,11 +192,17 @@ Ext.application({
                invalidAccessToken = options.userLogout,
                hideMessage = options.hideMessage,
                message = options.message,
-               code = error.status,
+               code,
                defaultErrorKey = null;
 
         if(error && typeof error.status == 'number') {
-        	console.log('handle error: '+ error.status + ' ' + error.statusText);
+          code = error.status || 500;
+        } else {
+          code = 500;
+        }
+
+        if(code) {
+        	console.log('handle error: '+ code + ' ');
         	if(!hideMessage) {
         		appHelper.toggleAlertActive(true);
         	}
@@ -225,7 +231,15 @@ Ext.application({
             } else {
               try {
                 nestedError = Ext.JSON.decode(error.responseText);
-                errMsg = i10n.translate(nestedError.errorKey, nestedError.substitutions) || i10n.translate(defaultErrorKey);
+                errMsg = i10n.translate(nestedError.errorKey, nestedError.substitutions);
+
+                if(!errMsg) {
+                  if(typeof message == "string") {
+                    errMsg = message;
+                  } else {
+                    errMsg = i10n.translate(defaultErrorKey);
+                  }  
+                }
               } catch (e) {
                   errMsg = (typeof message == "string") ? message : i10n.translate(defaultErrorKey);
               }

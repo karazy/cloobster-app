@@ -1,7 +1,7 @@
 Ext.define('EatSense.util.Localization', {
 	//used as a shorthand
 	alternateClassName: ['i10n'],
-	requires: ['Ext.String','EatSense.util.Constants', 'EatSense.util.Translations', 'EatSense.util.Configuration'],
+	requires: ['Ext.String','EatSense.util.Constants', 'EatSense.util.Translations', 'EatSense.util.Configuration', 'EatSense.util.AjaxHeaderHelper'],
 	singleton: true,
 	config: {
 		lang: null		
@@ -19,8 +19,8 @@ Ext.define('EatSense.util.Localization', {
 
 	/**
 	* @private
-	 * returns the browser language 
-	 * e.g. de, en
+	 * returns the browser language e.g. de, en
+	 * Also sets the language in Ajax Headers.
 	 */
 	getLanguage: function() {
 		// Gets called from constructor so getters/setters don't exist at this point
@@ -60,6 +60,8 @@ Ext.define('EatSense.util.Localization', {
 
 		//set language to make it available in the rest of the app
 		appConfig.language = lang;
+
+		headerUtil.addHeader('Accept-Language', lang);
 
 		return lang;
 	},
@@ -103,8 +105,5 @@ Ext.define('EatSense.util.Localization', {
 			 }
 		 }
 		 return (value == "") ? key : value;
-	 },
-
-
-
+	 }
 });

@@ -27,7 +27,7 @@ Ext.define('EatSense.view.Settings', {
 			{
 				xtype: 'titlebar',
 				title: i10n.translate('settingsButton'),
-				docked: 'top',
+				docked: 'top'
 			},
 			{
 						xtype: 'label',

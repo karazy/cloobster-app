@@ -8,7 +8,7 @@ Ext.define('EatSense.controller.Settings', {
     config: {
     	refs: {
             //settings accessed from lounge when checked-in
-    		settingsTab: 'lounge settingstab[tabName=settings]',
+    		settingsTab: 'lounge settingstab',
             //settings accessed from mainview
             settingsView: 'mainview settingsview',
             // settingsNavView: 'settingstab navigationview',
@@ -97,8 +97,13 @@ Ext.define('EatSense.controller.Settings', {
     /**
     * Activate event handler for settingstab.
     */
-    settingsTabActivated: function(tab, options) {        
+    settingsTabActivated: function(tab, options) {
+        var androidCtr = this.getApplication().getController('Android');
+                
         this.loadSettings(tab.down('#settingCards'));
+
+        androidCtr.setExitOnBack(false);    
+        androidCtr.setAndroidBackHandler(this.getSettingsNavigationFunctions());
     },
     /**
     *	Loads the settings and sets the corresponding fields.
@@ -296,7 +301,7 @@ Ext.define('EatSense.controller.Settings', {
     */
     showPrivacy: function() {
         var privacy = Ext.create('EatSense.view.Privacy', {
-                    zIndex: 100
+                    zIndex: 110
                 });
                     
         this.getApplication().getController('Android').addBackHandler(function() {
@@ -367,6 +372,8 @@ Ext.define('EatSense.controller.Settings', {
 
         if(!errors.isValid()) {
             if(errors.getByField('email').length > 0) {
+                //restore old mail
+                account.set('email', oldMail);
                 errMsg = i10n.translate('emailsetting.error.invalidmail');
                 Ext.Msg.alert(i10n.translate('error'), errMsg);
                 return;
@@ -374,6 +381,8 @@ Ext.define('EatSense.controller.Settings', {
         };
 
         if(!password.getValue()) {
+            //restore old mail
+            account.set('email', oldMail);
             Ext.Msg.alert(i10n.translate('error'), i10n.translate('emailsetting.error.nopassword'));
             return;
         };
@@ -425,8 +434,9 @@ Ext.define('EatSense.controller.Settings', {
                     'X-Auth': xauth,
                     'checkInId' : checkInId
                 });
-                headerUtil.resetHeaders(['login', 'password']);
+                //restore old mail
                 account.set('email', oldMail);
+                headerUtil.resetHeaders(['login', 'password']);
 
                 Ext.Viewport.setMasked(false);
                 me.getApplication().handleServerError({
@@ -618,16 +628,6 @@ Ext.define('EatSense.controller.Settings', {
             return true;
         });
 
-        this.getCallingView().getLayout().setAnimation({
-            type: 'slide',
-            direction: 'right'
-        });
-        
-        this.getCallingView().setActiveItem(0);
-
-        this.getCallingView().getLayout().setAnimation({
-            type: 'slide',
-            direction: 'left'
-        });
+        this.getCallingView().animateActiveItem(0, {type: 'slide', direction: 'right'});
     }
 });

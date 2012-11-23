@@ -38,13 +38,19 @@ Ext.define('EatSense.model.CheckIn', {
 			url : '/c/checkins/',
 			enablePagingParams: false,
 			reader : {
-				type : 'json',
+				type : 'json'
 			}
 		},
-		hasMany : {
-			model : 'EatSense.model.Order',
-			name : 'orders'
-		}
+		associations: [{
+	            type: 'hasMany',
+	            model: 'EatSense.model.Order',
+	            name: 'orders',
+	            store: {
+	            	syncRemovedRecords: false,
+            		//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+            		destroyRemovedRecords: false
+	            }
+	    }]
 	}
 
 });

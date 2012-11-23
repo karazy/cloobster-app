@@ -34,7 +34,8 @@
 
     <application
         android:icon="@drawable/icon"
-        android:label="@string/eatsense_app_name" >
+        android:label="@string/eatsense_app_name"
+        android:hardwareAccelerated="true" >
         <activity
             android:name=".CloobsterApp"
             android:configChanges="orientation|keyboardHidden"

@@ -1,0 +1,181 @@
+{
+    /**
+     * The application's namespace, used by Sencha Command to generate classes
+     */
+    "name": "EatSense",
+
+    /**
+     * The file path to this application's front HTML document, relative to this app.json file
+     */
+    "indexHtmlPath": "index.html",
+
+    /**
+     * The absolute URL to this application in development environment, i.e: the URL to run this application
+     * on your web browser during development, e.g: "http://localhost/myapp/index.html".
+     *
+     * This value is needed when build to resolve your application's dependencies if it requires server-side resources
+     * that are not accessible via file system protocol.
+     */
+    "url": null,
+
+    /**
+     * List of all JavaScript assets in the right execution order.
+     * Each item is an object with the following format:
+     *      {
+     *          "path": "path/to/script.js" // Path to file, if local file it must be relative to this app.json file
+     *          "remote": true              // (Optional)
+     *                                      // - Defaults to undefined (falsey) to signal a local file which will be copied
+     *                                      // - Specify true if this file is a remote file which will not to be copied
+     *          "update": "delta"           // (Optional)
+     *                                      //  - If not specified, this file will only be loaded once, and
+     *                                      //    cached inside localStorage until this value is changed.
+     *                                      //  - "delta" to enable over-the-air delta update for this file
+     *                                      //  - "full" means full update will be made when this file changes
+     *
+     *      }
+     * 20.11.2012 Inclusion ORDER DOES ABSOLUTELY MATTER. We build the app with app build package. production wont work
+     * as it tries to cache in local storage which makes no sense on a native build!
+     */
+    "js": [
+        {
+            "path": "lib/cordova-2.1.0.js",
+        },
+		{
+            "path": "touch/sencha-touch.js",
+        },
+        {
+            "path": "lib/barcodescanner.js",
+        },
+        {
+            "path": "lib/cdv-plugin-fb-connect.js",
+        },
+        {
+            "path": "lib/facebook_js_sdk.js",
+        },
+        {
+            "path": "https://karazy-cloobster.appspot.com/_ah/channel/jsapi",
+            "remote" : true
+        },
+        {
+            "path": "app.js",
+            "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
+            "update" : "full"
+        }
+    ],
+
+    /**
+     * List of all CSS assets in the right inclusion order.
+     * Each item is an object with the following format:
+     *      {
+     *          "path": "path/to/item.css" // Path to file, if local file it must be relative to this app.json file
+     *          "remote": true             // (Optional)
+     *                                     // - Defaults to undefined (falsey) to signal a local file which will be copied
+     *                                     // - Specify true if this file is a remote file which will not to be copied
+     *          "update": "delta"          // (Optional)
+     *                                     //  - If not specified, this file will only be loaded once, and
+     *                                     //    cached inside localStorage until this value is changed to either one below
+     *                                     //  - "delta" to enable over-the-air delta update for this file
+     *                                     //  - "full" means full update will be made when this file changes
+     *
+     *      }
+     */
+    "css": [     
+        // {
+        //     "path": "res/css/green-theme.css",
+        //     "update": "delta",
+        //     "id" : "green",            
+        //     "disabled" : true
+        // },
+        // {
+        //     "path": "res/css/orange-theme.css",
+        //     "update": "delta",
+        //     "id" : "orange",
+        //     "disabled" : true
+        // },
+        // {
+        //     "path": "res/css/red-theme.css",
+        //     "update": "delta",
+        //     "id" : "red",
+        //     "disabled" : true
+        // },
+        // {
+        //     "path": "res/css/app-default.css",
+        //     "id" : "default",
+        //     "update": "delta"
+        // }
+    ],
+
+    /**
+     * Used to automatically generate cache.manifest (HTML 5 application cache manifest) file when you build
+     */
+    "appCache": {
+        /**
+         * List of items in the CACHE MANIFEST section
+         */
+        "cache": [
+            "index.html"
+        ],
+        /**
+         * List of items in the NETWORK section
+         */
+        "network": [
+            "*"
+        ],
+        /**
+         * List of items in the FALLBACK section
+         */
+        "fallback": []
+    },
+
+    /**
+     * Extra resources to be copied along when build
+     */
+    "resources": [
+        "res/images",
+        "res/css/",
+        //since we specified the libs as remote we have to copy them over
+        "lib"
+    ],
+
+    /**
+     * File / directory name matchers to ignore when copying to the builds, must be valid regular expressions
+     */
+    "ignore": [
+        "\.svn$",
+        ".*\.scss$",
+        ".*\.rb$",
+        "templates"
+    ],
+
+    /**
+     * Directory path to store all previous production builds. Note that the content generated inside this directory
+     * must be kept intact for proper generation of deltas between updates
+     */
+    "archivePath": "build/archive",
+
+    /**
+     * Default paths to build this application to for each environment
+     */
+    "buildPaths": {
+        "testing": "build/testing",
+        "production": "build/production",
+        "package": "build/package",
+        "native": "build/native"
+    },
+
+    /**
+     * Build options
+     */
+    "buildOptions": {
+        "product": "touch",
+        "minVersion": 3,
+        "debug": false,
+        "logger": false
+    },
+
+    /**
+     * Uniquely generated id for this application, used as prefix for localStorage keys.
+     * Normally you should never change this value.
+     */
+    "id": "fcd7a63f-e8a5-4e91-a345-cd15060f8170"
+}

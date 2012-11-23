@@ -13,7 +13,7 @@ Ext.define('EatSense.override.MessageBox', {
             prompt = this.getPrompt();
 
             //if this is a nohide button execute the function
-            if(button.nohide) {
+            if(button.config.nohide) {
                 nohide = true;
                 config.fn.call(
                     config.scope || null,

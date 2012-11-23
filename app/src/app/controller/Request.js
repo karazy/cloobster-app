@@ -154,7 +154,7 @@ Ext.define('EatSense.controller.Request',{
 
 		requestStore.load({
 			callback: function(records, operation, success) {
-			   	if(!success) { 
+			   	if(operation.error) { 
                     me.getApplication().handleServerError({
                        	'error': operation.error, 
                      	'forceLogout': {403:true}
@@ -230,8 +230,6 @@ Ext.define('EatSense.controller.Request',{
     	var me = this,
 			clubArea = this.getClubArea();
 
-		clubArea.switchAnim('right');
-		clubArea.setActiveItem(0);
-		clubArea.switchAnim('left');		
+		clubArea.switchTo(0, 'right');
     }
 });

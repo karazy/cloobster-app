@@ -8,7 +8,6 @@ Ext.define('EatSense.view.About', {
 		left: 5,
 		right: 5,
 		bottom: 10,
-		floatingCls: 'panel-floating',
 		styleHtmlCls: 'about-text',
 		styleHtmlContent: true,
 		autoDestroy: true,
@@ -23,7 +22,7 @@ Ext.define('EatSense.view.About', {
 			docked: 'bottom',
 			ui: 'action',
 			text: i10n.translate('close'),
-			action: 'close',
+			action: 'close'
 		}
 		],
 		html: 	

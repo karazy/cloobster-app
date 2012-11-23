@@ -5,10 +5,6 @@ Ext.define('EatSense.model.Product', {
 		fields : [ {
 			name : 'id',
 			type : 'string'
-		},
-		{
-			name : 'genuineId',
-			type : 'string'
 		}, {
 			name : 'name',
 			type : 'string'
@@ -34,30 +30,10 @@ Ext.define('EatSense.model.Product', {
 	            model: 'EatSense.model.Choice',
 	            primaryKey: 'id',
 	            name: 'choices',
-	            autoLoad: true,
+	            // autoLoad: true,
 	            associationKey: 'choices', // read child data from child_groups,
 	            store: {
-	            	sorters: [
-	            	{
-	            		sorterFn: function(record1, record2){
-	            			// console.log('sort choices id1: %s parent1: %s and id2: %s parent2: %s', record1.get('id'), record1.get('parent'), record2.get('id'), record2.get('parent'));
-	            			var parent1 = record1.get('parent'),
-	            				parent2 = record1.get('parent');
-	            			if(parent1) {
-	            				if(parent1 == record2.get('id')) {
-	            					return 1;
-	            				}
-	            			}
-
-	            			if(parent2) {
-	            				if(parent2 == record1.get('id')) {
-	            					return 1;
-	            				}
-	            			}
-
-	            			return 0;
-	            		}
-	            	}]
+	            	syncRemovedRecords: false
 	            }
 	    }],
 	    proxy: {
@@ -106,7 +82,7 @@ Ext.define('EatSense.model.Product', {
 			choicesCount = this.choices().getCount(),
 			index = 0;
 		
-		rawJson.id = (this.phantom === true) ? this.get('genuineId') : this.get('id');
+		rawJson.id = this.get('id');
 		rawJson.name = this.get('name');
 		rawJson.shortDesc = this.get('shortDesc');
 		rawJson.longDesc = this.get('longDesc');
