@@ -25,7 +25,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 			{
 				xtype: 'searchfield',
 				docked: 'top',
-				margin: '5 10 10 10',
+				margin: '0 15 10 10',
 				style: 'border-radius: .3em;'
 			},
 			{
@@ -34,7 +34,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
    				scrollToTopOnRefresh: true,
    				store: 'infopageStore',
 				itemCls: 'infopage-list-item',
-				itemTpl: '<div class="thumbnail"><img src="{imageUrl}"/></div><div class="info"><h3>{title}</h3><p>{shortText}</p></div>'
+				itemTpl: '<div class="info"><h3>{title}</h3><div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div></div>'
 			}
 		]
 	}

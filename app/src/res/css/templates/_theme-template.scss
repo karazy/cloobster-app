@@ -364,7 +364,7 @@
 
   div.thumbnail {
     float: right;
-    margin-right: 5px;
+    /*margin-right: 5px;*/
   }
 
   div.info {
@@ -373,9 +373,9 @@
 
   img {
     /*float: left;*/
-    max-width: 40px;
+    max-width: 45px;
     height: auto;
-    margin-right: 5px; 
+    margin-left: 5px; 
   }
   
   h3 {
@@ -410,7 +410,7 @@
   }
 
   img {
-    max-width: 100px;
+    max-width: 50%;
     margin: 0px 5px 5px 0px;
     height: auto;
     float: left;
@@ -444,7 +444,7 @@
 }
 
 .infopage-hotel-info {
-  margin: 3px 10px;
+  margin: 10px;
   /*border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   -webkit-box-shadow: 0px 0px 10px 2px gray;
@@ -458,6 +458,7 @@
 
   h2 {
     font-size: .8em;
+    font-weight: bold;
   }
 
   h3 {
@@ -756,8 +757,8 @@
 }
 
 .club-dashboard-button-pressed {
-  -webkit-box-shadow: 0px 0px 15px 5px $base-color;
-  box-shadow: 0px 0px 15px 5px $base-color;
+  -webkit-box-shadow: 0px 0px 10px 2px $base-color;
+  box-shadow: 0px 0px 10px 2px $base-color;
   border-radius: 0.5em;
   color: $base-color;
   border: 1px solid $base-color;
