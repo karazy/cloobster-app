@@ -6,11 +6,11 @@ Ext.define('EatSense.view.InfoPageDetail', {
 	xtype: 'infopagedetail',
 	alternateClassName: 'IPDetail',
 	config: {
-		// layout: 'fit',
 		scrollable: {
 		    direction: 'vertical',
 		    directionLock: true
 		},
+		styleHtmlContent: false,
 		cls: 'infopage-detail',
 		tpl: new Ext.XTemplate(
 			'<h1>{title}</h1><img src="{imageUrl}"/><div>{html}</div>'

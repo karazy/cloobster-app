@@ -391,22 +391,27 @@
   display: block;
   padding: 5px 15px;
   font-size: 100%;
+  color: black;
 
   h1 {
     font-size: 1.2em;
     font-weight: bold;
     margin: 7px 0px;
+    color: black;
   }
 
   h2 {
-    font-size: 1em;
+    font-size: 1.1em;
     font-weight: bold;
     margin: 4px 0px;
+    color: black;
   }
 
   h3, h4, h5, h6 {
     font-size: 1em;
+    font-weight: bold;
     margin: 4px 0px;
+    color: black;
   }
 
   img {
@@ -417,15 +422,15 @@
   }
 
   p {
-    font-size: 0.8em;
+    font-size: 1em;
   }
 
   ul {
     margin-left: 10px;
     margin-bottom: 5px;
-    list-style-type: circle;
+    list-style-type: disc;
     li {
-      list-style: circle;
+      list-style: disc;
     }
   }
 

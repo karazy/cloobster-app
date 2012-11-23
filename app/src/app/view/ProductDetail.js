@@ -98,7 +98,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			cls: 'choice-panel',
 			// layout: 'vbox',
 			// minHeight: '200px',
-			scrollable : false,
+			scrollable : false
 			// items: [
 			// 	{
 			// 		xtype: 'label',
