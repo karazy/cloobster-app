@@ -65,12 +65,19 @@ Ext.define('EatSense.controller.Feedback', {
 			feedbackform = clubArea.down('feedbackform');
 
 		this.setFeedbackOrigin('home');
+		//make sure feedback form exists		
 		this.setActiveFeedbackView(feedbackform);
-		//make sure feedback form exists
-		this.propateFeedbackForm();
 
-		//show feedback form
-		clubArea.setActiveItem(1);
+		//TODO FR 23.11.2012 Workaorund because Feedback sliders get drawn at random positions
+		//this doesn't really fix the problem only improves it
+		clubArea.switchTo(1, 'left');
+					
+		Ext.defer(function() {
+			me.propateFeedbackForm();	
+		}, 200);
+
+		
+
 
 		this.getApplication().getController('Android').addBackHandler(function() {
             me.backToDashboard();
@@ -90,10 +97,13 @@ Ext.define('EatSense.controller.Feedback', {
 		
 		this.setFeedbackOrigin('checkout');
 		this.setActiveFeedbackView(feedbackform);
-		this.propateFeedbackForm();
 
 		//show feedback form
 		myordersview.setActiveItem(1);
+
+		Ext.defer(function() {
+			me.propateFeedbackForm();
+		}, 200);
 
 		this.getApplication().getController('Android').addBackHandler(function() {
             me.backToMyOrders();
@@ -343,8 +353,18 @@ Ext.define('EatSense.controller.Feedback', {
 		Ext.Array.each(textareafields, function(field) {
 			field.setValue("");
 		});
-		//override with new empty feedback object
-		this.setActiveFeedback(null);
+		
+		try {
+			if(this.getActiveFeedback()) {
+				this.getActiveFeedback().removeAll();
+			}
+
+			this.getActiveFeedback().destroy();
+			this.setActiveFeedback(null);
+		} catch(e) {
+			console.log('Feedback.clearFeedback > error ' + e);
+		}
+
 		this.getShowFeedbackLeaveButton().setHidden(false);
 	},
 	/**

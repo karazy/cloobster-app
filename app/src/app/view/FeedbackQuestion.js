@@ -14,7 +14,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		},
 		/** An Ext.field.Slider used to rate.*/
 		slider: {
-			// increment: 1,
+			increment: 1,
 			minValue: 0,
 			maxValue: 4,
 			flex: 5,
@@ -86,7 +86,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 			newItem.on('change', function(me, slider, thumb, newVal, oldVal) {
 					var val = me.getValue()[0];
 
-					// console.log('FeedbackQuestion.updateSlider -> setting new rating to ' + me.getValue());
+					// console.log('EatSense.view.FeedbackQuestion.updateSlider -> setting new rating to ' + me.getValue());
 					this.getRecord().set('rating', val);
 
 					this.getSliderValue().setSrc('res/images/feedback/'+this.getSmilies()[val]);					
@@ -106,8 +106,10 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 			return;
 		};
 
-		this.getSliderValue().setSrc('res/images/feedback/'+this.getSmilies()[newRecord.get('rating')]);
+		// console.log('EatSense.view.FeedbackQuestion.updateRecord > rating=' + newRecord.get('rating'));
 		this.getSlider().setValue(newRecord.get('rating'));		
+		this.getSliderValue().setSrc('res/images/feedback/'+this.getSmilies()[newRecord.get('rating')]);
+		
 
 		this.callParent([newRecord]);	
 	}
