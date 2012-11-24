@@ -3,30 +3,17 @@
 */
 Ext.define('EatSense.view.FeedbackQuestion', {
 	extend: 'Ext.dataview.component.DataItem',
+	requires: ['EatSense.view.StarsInput'],
 	xtype: 'feedbackquestion',
 	config: {
 
 		/** An Ext.Label displaying question text. */
 		question: {
-			flex: 4,
-			cls: 'feedback-label',
-			margin: '-10 0 0 0'
+			// flex: 1,
+			cls: 'feedback-label'
 		},
-		/** An Ext.field.Slider used to rate.*/
-		slider: {
-			increment: 1,
-			minValue: 0,
-			maxValue: 4,
-			flex: 5,
-			cls: 'feedback-slider',
-			value: 3
-		},
-		sliderValue: {
-			flex: 1,
-			height: 27,
-			width: 27,
-			src: 'res/images/feedback/smilie_happy_27px.png',
-			margin: '-5 0 0 0'
+		stars: {
+			// flex: 1
 		},
 		dataMap: {
 			getQuestion: {
@@ -34,12 +21,10 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 			}
 	 	},
 	 	layout: {
-			type: 'hbox',
-			align: 'center'
+			type: 'vbox',
+			align: 'center',
+			pack: 'start'
 		},
-
-		//holds filenames for the smilie graphics used for rating
-		smilies: ['smilie_xsad_27px.png', 'smilie_sad_27px.png', 'smilie_neutral_27px.png', 'smilie_happy_27px.png', 'smilie_xhappy_27px.png']
 	},
 
 	applyQuestion: function(config) {
@@ -56,43 +41,20 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		}
 	},
 
-	applySliderValue: function(config) {
-		return Ext.factory(config, Ext.Img, this.getSliderValue());
+	applyStars: function(config) {
+		return Ext.factory(config, EatSense.view.StarsInput, this.getStars());
 	},
 
-	updateSliderValue: function(newItem, oldItem) {
+	updateStars: function(newItem, oldItem) {
 		if(newItem) {
-			//set smilie based on rating
-			// newItem.setSrc('res/images/feedback/'+this.getSmilies()[this.getRecord().get('rating')]);
-			this.add(newItem);			
-		}
+			
 
-		if(oldItem) {
-			this.remove(oldItem);
-		}
-	},
+			newItem.on('starvaluechanged', function(button, rating) {
+					// console.log('EatSense.view.FeedbackQuestion.updateStars -> setting new rating to ' + rating);
+					this.getRecord().set('rating', rating);
 
-	applySlider: function(config) {
-		return Ext.factory(config, Ext.field.Slider, this.getSlider());
-	},
-
-	updateSlider: function(newItem, oldItem) {
-		if(newItem) {
-			// var smilies = ['smilie_xsad.png', 'smilie_sad.png', 'smilie_neutral.png', 'smilie_happy.png', 'smilie_xhappy.png'];
-
-			// //set value of slider to value of record and corresponding smilie
-			// newItem.setValue(this.getRecord().get('rating'));				
-
-			newItem.on('change', function(me, slider, thumb, newVal, oldVal) {
-					var val = me.getValue()[0];
-
-					// console.log('EatSense.view.FeedbackQuestion.updateSlider -> setting new rating to ' + me.getValue());
-					this.getRecord().set('rating', val);
-
-					this.getSliderValue().setSrc('res/images/feedback/'+this.getSmilies()[val]);					
 				},
 			this);
-
 			this.add(newItem);
 		}
 
@@ -107,9 +69,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 		};
 
 		// console.log('EatSense.view.FeedbackQuestion.updateRecord > rating=' + newRecord.get('rating'));
-		this.getSlider().setValue(newRecord.get('rating'));		
-		this.getSliderValue().setSrc('res/images/feedback/'+this.getSmilies()[newRecord.get('rating')]);
-		
+		this.getStars().letTheStarsShine(newRecord.get('rating'));
 
 		this.callParent([newRecord]);	
 	}

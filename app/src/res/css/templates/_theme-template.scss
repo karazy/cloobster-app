@@ -940,9 +940,27 @@
 * Feedback
 */
 
+.star-button {
+  height: 45px;
+  width: 45px;
+  background-image: inline-image('feedback/star_empty_small.png');
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.star-button-shining {
+  height: 45px;
+  width: 45px;
+  background-image: inline-image('feedback/star_shining_small.png');
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 .feedback-label {
   color: $label-color; 
-  font-size: 1em;
+  font-size: 1.2em;
   word-break: break-word;
 }
 
