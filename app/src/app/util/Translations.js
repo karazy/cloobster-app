@@ -397,8 +397,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "My order"
 		},
 		"myorders.description" : {
-			"DE" :  "Hier werden Ihre abgeschickten Bestellungen angezeigt. Zur Zeit haben Sie nichts bestellt.",
-			"EN" :  "Your ordered items are listed here. There are no recent orders."
+			"DE" :  "Hier werden Ihre abgeschickten Bestellungen angezeigt.<br/>Zur Zeit haben Sie nichts bestellt.",
+			"EN" :  "Your ordered items are listed here.<br/>There are no recent orders."
 		},
 		//Payment Request
 		"paymentPickerTitle" : {
@@ -627,6 +627,10 @@ Ext.define('EatSense.util.Translations',{
 		"feedback" : {
 			"DE" :  "Feedback",
 			"EN" :  "Feedback"
+		},
+		"feedback.button.send" : {
+			"DE" :  "Senden",
+			"EN" : "Send"
 		},
 		"feedbackLabel" : {
 			"DE" :  "Sagen Sie uns Ihre Meinung.",
