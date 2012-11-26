@@ -22,7 +22,7 @@ Ext.define('EatSense.view.StarsInput', {
 		},
 		defaults: {
 			xtype: 'button',
-			baseCls: 'star-button',
+			baseCls: 'star-button'
 			// margin: '0 5 0 5'
 		},
 		items: [
