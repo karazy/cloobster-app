@@ -12,7 +12,7 @@ Ext.define('EatSense.view.Dashboard', {
 				align: 'center',
 				pack: 'center'
 		},
-		cls: 'dashboard',
+		cls: 'dashboard',		
 		items : [
 		{
 			xtype : 'panel',
@@ -30,68 +30,57 @@ Ext.define('EatSense.view.Dashboard', {
 			style: 'text-align: center;',
 			html: i10n.translate('dashboardLabel1')
 		},
-		// {
-		// 	xtype: 'panel',
-		// 	width: '100%',
-		// 	layout: {
-		// 		type: 'vbox',
-		// 		align: 'center',
-		// 		pack: 'center'
-		// 	},
-		// 	items: [
-			{
-				xtype : 'button',
-				action: 'checkin',
-				html: i10n.translate('dashboard.button.checkin'),
-				baseCls: 'dashboard-button',
-				cls: 'dashboard-button-checkin',
-				pressedCls: 'dashboard-button-pressed',
-				labelCls: 'dashboard-button-label'
-			},
-			{
-				xtype : 'button',
-				action: 'history',
-				text: i10n.translate('dashboard.button.history'),
-				baseCls: 'dashboard-button',
-				cls: 'dashboard-button-history',
-				pressedCls: 'dashboard-button-pressed',
-				labelCls: 'dashboard-button-label'
-			},
-			{
-				xtype : 'button',
-				action: 'show-login',
-				text: i10n.translate('dashboard.button.settings'),
-				baseCls: 'dashboard-button',
-				cls: 'dashboard-button-login',
-				pressedCls: 'dashboard-button-pressed',
-				labelCls: 'dashboard-button-label'
-			},
-			{
-				xtype : 'button',
-				action: 'profile',
-				text: i10n.translate('dashboard.button.settings'),
-				hidden: true,
-				baseCls: 'dashboard-button',
-				cls: 'dashboard-button-login',
-				pressedCls: 'dashboard-button-pressed',
-				labelCls: 'dashboard-button-label'
-			},
-		// 	]
-		// },
+		{
+			xtype : 'button',
+			action: 'checkin',
+			html: i10n.translate('dashboard.button.checkin'),
+			baseCls: 'dashboard-button',
+			cls: 'dashboard-button-checkin',
+			pressedCls: 'dashboard-button-pressed',
+			labelCls: 'dashboard-button-label'
+		},
+		{
+			xtype : 'button',
+			action: 'history',
+			text: i10n.translate('dashboard.button.history'),
+			baseCls: 'dashboard-button',
+			cls: 'dashboard-button-history',
+			pressedCls: 'dashboard-button-pressed',
+			labelCls: 'dashboard-button-label'
+		},
+		{
+			xtype : 'button',
+			action: 'show-login',
+			text: i10n.translate('dashboard.button.settings'),
+			baseCls: 'dashboard-button',
+			cls: 'dashboard-button-login',
+			pressedCls: 'dashboard-button-pressed',
+			labelCls: 'dashboard-button-label'
+		},
+		{
+			xtype : 'button',
+			action: 'profile',
+			text: i10n.translate('dashboard.button.settings'),
+			hidden: true,
+			baseCls: 'dashboard-button',
+			cls: 'dashboard-button-login',
+			pressedCls: 'dashboard-button-pressed',
+			labelCls: 'dashboard-button-label'
+		},
 		{
 			xtype: 'toolbar',
 			docked: 'bottom',
 			items: [
-			{
-				xtype: 'spacer'
-			},
-			{
-				xtype: 'button',
-				action: 'about',
-				iconCls: 'about',
-				iconMask: true,
-				styleHtmlContent: true
-			}
+				{
+					xtype: 'spacer'
+				},
+				{
+					xtype: 'button',
+					action: 'about',
+					iconCls: 'about',
+					iconMask: true,
+					styleHtmlContent: true
+				}
 			]
 		}
 		]
