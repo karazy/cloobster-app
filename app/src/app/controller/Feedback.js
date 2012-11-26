@@ -71,14 +71,8 @@ Ext.define('EatSense.controller.Feedback', {
 		//TODO FR 23.11.2012 Workaorund because Feedback sliders get drawn at random positions
 		//this doesn't really fix the problem only improves it
 		clubArea.switchTo(1, 'left');
+		me.propateFeedbackForm();
 					
-		Ext.defer(function() {
-			me.propateFeedbackForm();	
-		}, 200);
-
-		
-
-
 		this.getApplication().getController('Android').addBackHandler(function() {
             me.backToDashboard();
         });
@@ -100,10 +94,7 @@ Ext.define('EatSense.controller.Feedback', {
 
 		//show feedback form
 		myordersview.setActiveItem(1);
-
-		Ext.defer(function() {
-			me.propateFeedbackForm();
-		}, 200);
+		me.propateFeedbackForm();
 
 		this.getApplication().getController('Android').addBackHandler(function() {
             me.backToMyOrders();

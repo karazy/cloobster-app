@@ -24,7 +24,7 @@ Ext.define('EatSense.view.FeedbackQuestion', {
 			type: 'vbox',
 			align: 'center',
 			pack: 'start'
-		},
+		}
 	},
 
 	applyQuestion: function(config) {

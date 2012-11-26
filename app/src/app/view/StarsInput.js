@@ -1,7 +1,19 @@
+/**
+* This component represents a 5 - Star Input used in @see EatSense.view.FeedbackQuest.
+* Everytime an star is tapped this component throws a starvaluechanged event.
+*/
 Ext.define('EatSense.view.StarsInput', {
 	extend: 'Ext.Panel',
 	requires: ['Ext.Button'],
 	xtype: 'starsinput',
+
+	 /**
+     * @event starvaluechanged
+     * Fires whenever a star is tapped.
+     * @param {Ext.Button} this The item added to the Container.
+     * @param {Number} A number indicating the rating (value) of the star.
+     */
+
 	config: {
 		layout: {
 			type: 'hbox',
@@ -10,7 +22,8 @@ Ext.define('EatSense.view.StarsInput', {
 		},
 		defaults: {
 			xtype: 'button',
-			baseCls: 'star-button'
+			baseCls: 'star-button',
+			// margin: '0 5 0 5'
 		},
 		items: [
 			{
@@ -43,6 +56,13 @@ Ext.define('EatSense.view.StarsInput', {
 		});
 	},
 
+	/**
+	* @private
+	* Swaps css class of star buttons depending on the rating.
+	* All stars with a rating value equal or less than the given rating are marked blue, otherwise they appear gray.
+	* @param rating
+	*	The rating to set this component to.
+	*/
 	letTheStarsShine: function(rating) {
 		var buttons = this.query('button');
 
