@@ -6,8 +6,6 @@ Ext.define('EatSense.view.FeedbackForm', {
 	xtype: 'feedbackform',
 	requires: ['EatSense.view.FeedbackQuestion'],
 	config: {
-		//used innavigation view
-		// title: i10n.translate('feedback'),
 		layout: {
 			type: 'vbox',
 			align: 'center',
@@ -22,6 +20,13 @@ Ext.define('EatSense.view.FeedbackForm', {
 			items: [
 				{
 					xtype: 'backbutton'
+				},
+				{
+					xtype: 'button',
+					ui: 'action',
+					action: 'submit',
+					align: 'right',
+					text: i10n.translate('feedback.button.send')
 				}
 			]
 		},
@@ -38,7 +43,7 @@ Ext.define('EatSense.view.FeedbackForm', {
 			defaultType: 'feedbackquestion',
 			scrollable: false,
 			width: '95%',
-			margin: '10 0 10 0'
+			margin: '20 0 20 0'
 		},
 		{
 			xtype: 'textareafield',
@@ -54,27 +59,28 @@ Ext.define('EatSense.view.FeedbackForm', {
 			width: '95%',
 			placeHolder: i10n.translate('feedbackEmail')
 		},
-		{
-			xtype: 'panel',
-			layout: {
-				type: 'vbox',
-				align: 'center',
-				pack: 'center'
-			},
-			docked: 'bottom',
-			margin: '5 0 0 0',
-			padding: '10 0 5 0',
-			items: [
-			{
-				xtype: 'button',
-				ui: 'action',
-				action: 'submit',
-				text: i10n.translate('feedback'),
-				// height: '50px',
-				width: '80%'
-			}
-			]
-		}
+		// {
+		// 	xtype: 'panel',
+		// 	layout: {
+		// 		type: 'vbox',
+		// 		align: 'center',
+		// 		pack: 'center'
+		// 	},
+		// 	docked: 'bottom',
+		// 	height: 50,
+		// 	// margin: '5 0 0 0',
+		// 	// padding: '10 0 5 0',
+		// 	items: [
+		// 	{
+		// 		xtype: 'button',
+		// 		ui: 'action',
+		// 		action: 'submit',
+		// 		text: i10n.translate('feedback'),
+		// 		// height: '50px',
+		// 		width: '250px'
+		// 	}
+		// 	]
+		// }
 		]
 	}
 });
