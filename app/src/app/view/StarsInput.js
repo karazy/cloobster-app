@@ -23,9 +23,11 @@ Ext.define('EatSense.view.StarsInput', {
 		defaults: {
 			xtype: 'button',
 			baseCls: 'star-button'
-			// margin: '0 5 0 5'
 		},
 		items: [
+			{
+				rating: '0'
+			},
 			{
 				rating: '1'
 			},
@@ -37,9 +39,6 @@ Ext.define('EatSense.view.StarsInput', {
 			},
 			{
 				rating: '4'
-			},
-			{
-				rating: '5'
 			}
 		]
 	},
