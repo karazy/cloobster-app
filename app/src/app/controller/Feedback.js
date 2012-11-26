@@ -346,8 +346,13 @@ Ext.define('EatSense.controller.Feedback', {
 		});
 		
 		try {
-			if(this.getActiveFeedback()) {
-				this.getActiveFeedback().removeAll();
+
+			if(this.getActiveFeedback() && this.getActiveFeedback().answers()) {
+				//destroy all answers otherwise they reappear in fucking sencha store with old values
+				this.getActiveFeedback().answers().each(function(answer) {
+					answer.destroy();
+				});
+				this.getActiveFeedback().answers().removeAll();
 			}
 
 			this.getActiveFeedback().destroy();

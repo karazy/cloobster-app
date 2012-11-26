@@ -32,7 +32,10 @@ Ext.define('EatSense.model.Feedback', {
             primaryKey: 'id',
             name: 'answers',
             // autoLoad: true,
-            associationKey: 'answers'
+            associationKey: 'answers',
+            store: {
+            	syncRemovedRecords: false
+            }
 	    }],
 		proxy: {
 			type: 'rest',
