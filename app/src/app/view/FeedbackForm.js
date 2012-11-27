@@ -58,7 +58,7 @@ Ext.define('EatSense.view.FeedbackForm', {
 			cls: 'general-textfield',
 			width: '95%',
 			placeHolder: i10n.translate('feedbackEmail')
-		},
+		}
 		// {
 		// 	xtype: 'panel',
 		// 	layout: {

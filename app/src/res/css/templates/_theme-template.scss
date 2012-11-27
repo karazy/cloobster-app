@@ -450,10 +450,8 @@
 
 .infopage-hotel-info {
   margin: 10px;
-  /*border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  -webkit-box-shadow: 0px 0px 10px 2px gray;
-  box-shadow: 0px 0px 10px 2px gray;*/
+  max-height: 25%;
+  overflow: hidden;
 
   img {
     float: left;
@@ -490,7 +488,7 @@
       height: auto;
       -webkit-box-shadow: 0px 0px 10px 2px gray;
     }
-    margin: 0 0 7px 0;
+    margin: 0 0 5px 0;
 }
 
 .dashboard-description {
@@ -526,21 +524,18 @@
   @media only screen and (min-width: 768px) {
     background-size: 100px 100px;
     height: 115px;
-    /*width: 140px;*/
   }
 
   /* Landscape phone to portrait tablet */
   @media only screen and (max-width: 767px) { 
     background-size: 70px 70px;
     height: 85px;
-    /*width: 110px;*/
   }
 
   /* Landscape phones and down */
   @media only screen and (max-width: 320px) { 
-    background-size: 50px 50px;
-    height: 65px;
-    /*width: 90px;*/
+    background-size: 45px 45px;
+    height: 60px;
   }
 
 }
@@ -548,7 +543,7 @@
 .dashboard-button-label {
   left: 35%;
   position: absolute;
-  top: 25%;
+  
 
   h2 {
     font-size: 1.2em;     
@@ -559,17 +554,18 @@
   }
 
   @media (min-width: 768px) { 
-    /*width: 140px;*/
+    top: 25%;
   }
  
   /* Landscape phone to portrait tablet */
   @media (max-width: 767px) { 
-    /*width: 110px;*/
+    /*top: 25%;*/
+    bottom: 10px;
   }
  
   /* Landscape phones and down */
   @media (max-width: 320px) { 
-    /*width: 90px;*/
+    bottom: 10px;
   }
 }
 

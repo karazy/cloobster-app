@@ -49,6 +49,7 @@ Ext.define('EatSense.controller.InfoPage', {
 				this.loadInfoPages();
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				//clean up
+				store.clearFilter();
 				this.setPanelsCreated(false);
 				this.removeInfoPageDetailPanels();
 				store.removeAll();
@@ -59,7 +60,9 @@ Ext.define('EatSense.controller.InfoPage', {
 	* Load infopages into infopageStore.
 	*/
 	loadInfoPages: function() {
-		var store = Ext.StoreManager.lookup('infopageStore');
+		var me = this,
+			store = Ext.StoreManager.lookup('infopageStore'),
+			infoPageList = this.getInfoPageList();
 
 		console.log('InfoPage.loadInfoPages');
 		this.setCurrentFilterValue(null);
@@ -69,7 +72,20 @@ Ext.define('EatSense.controller.InfoPage', {
 		this.removeInfoPageDetailPanels();
 		//make sure that store is empty!
 		store.removeAll();
-		store.load();
+		store.load({
+				callback: function(records, operation, success) {
+			    	if(!operation.error) {
+			    		infoPageList.refresh();
+			    	}
+			    	else {
+		    			me.getApplication().handleServerError({
+                    		'error': operation.error, 
+                    		'forceLogout': {403:true}
+                    	});
+	                }
+			    }
+
+		});
 	},
 	/**
 	* Show hotel information above info page items in overview.
