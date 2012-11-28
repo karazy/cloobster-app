@@ -1,0 +1,140 @@
+[0.000][INFO]:      ChromeDriver 23.0.1240.0 /Users/fred/bin/ChromeDriver/chromedriver
+[0.581][FINE]:      Initializing session with capabilities {
+   "browserName": "chrome",
+   "chrome.switches": [  ],
+   "chromeOptions": {
+      "args": [  ],
+      "extensions": [  ]
+   },
+   "platform": "ANY",
+   "version": ""
+}
+
+[0.581][INFO]:      Launching chrome: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --enable-logging --log-level=1 --disable-hang-monitor --disable-prompt-on-repost --dom-automation --full-memory-crash-report --no-default-browser-check --no-first-run --disable-background-networking --disable-sync --disable-translate --disable-web-resources --safebrowsing-disable-auto-update --safebrowsing-disable-download-protection --disable-client-side-phishing-detection --disable-component-update --disable-default-apps --use-mock-keychain --ignore-certificate-errors about:blank
+[1.070][INFO]:      Connected to Chrome successfully. Version: 23.0.1271.91
+[1.080][FINE]:      Command received (/session/81050ea75cf34fcab1ee584a00da18c7)
+[1.080][FINE]:      Command finished (/session/81050ea75cf34fcab1ee584a00da18c7) with response {
+   "sessionId": "81050ea75cf34fcab1ee584a00da18c7",
+   "status": 0,
+   "value": {
+      "acceptSslCerts": false,
+      "applicationCacheEnabled": false,
+      "browserConnectionEnabled": false,
+      "browserName": "chrome",
+      "chrome.chromedriverVersion": "23.0.1240.0",
+      "chrome.nativeEvents": false,
+      "cssSelectorsEnabled": true,
+      "databaseEnabled": false,
+      "handlesAlerts": true,
+      "javascriptEnabled": true,
+      "locationContextEnabled": false,
+      "nativeEvents": true,
+      "platform": "mac",
+      "rotatable": false,
+      "takesScreenshot": true,
+      "version": "23.0.1271.91",
+      "webStorageEnabled": true
+   }
+}
+
+[1.099][FINE]:      Command received (/session/81050ea75cf34fcab1ee584a00da18c7/timeouts/implicit_wait) with params {
+   "ms": 10000
+}
+
+[1.099][FINER]:     Waiting for all views to stop loading...
+[1.099][FINER]:     Done waiting for all views to stop loading
+[1.099][FINER]:     Waiting for all views to stop loading...
+[1.099][FINER]:     Done waiting for all views to stop loading
+[1.099][FINE]:      Command finished (/session/81050ea75cf34fcab1ee584a00da18c7/timeouts/implicit_wait) with response {
+   "sessionId": "81050ea75cf34fcab1ee584a00da18c7",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1.101][FINE]:      Command received (/session/81050ea75cf34fcab1ee584a00da18c7/url) with params {
+   "url": "http://localhost:8888/app"
+}
+
+[1.101][FINER]:     Waiting for all views to stop loading...
+[1.101][FINER]:     Done waiting for all views to stop loading
+[2.259][FINER]:     Waiting for all views to stop loading...
+[2.259][FINER]:     Done waiting for all views to stop loading
+[2.259][FINE]:      Command finished (/session/81050ea75cf34fcab1ee584a00da18c7/url) with response {
+   "sessionId": "81050ea75cf34fcab1ee584a00da18c7",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[2.264][FINE]:      Command received (/session/81050ea75cf34fcab1ee584a00da18c7/execute) with params {
+   "args": [  ],
+   "script": "var chkInBt = Ext.ComponentQuery.query('dashboard button[action=checkin]')[0]; chkInBt.fireEvent(..."
+}
+
+[2.264][FINER]:     Waiting for all views to stop loading...
+[2.264][FINER]:     Done waiting for all views to stop loading
+[2.849][FINER]:     Waiting for all views to stop loading...
+[2.849][FINER]:     Done waiting for all views to stop loading
+[2.849][FINE]:      Command finished (/session/81050ea75cf34fcab1ee584a00da18c7/execute) with response {
+   "sessionId": "81050ea75cf34fcab1ee584a00da18c7",
+   "status": 0,
+   "value": null
+}
+
+[7.468][FINE]:      Command received (/session/81050ea75cf34fcab1ee584a00da18c7/elements) with params {
+   "using": "class name",
+   "value": "x-msgbox"
+}
+
+[7.468][FINER]:     Waiting for all views to stop loading...
+[7.468][FINER]:     Done waiting for all views to stop loading
+[7.478][FINER]:     Waiting for all views to stop loading...
+[7.479][FINER]:     Done waiting for all views to stop loading
+[7.479][FINE]:      Command finished (/session/81050ea75cf34fcab1ee584a00da18c7/elements) with response {
+   "sessionId": "81050ea75cf34fcab1ee584a00da18c7",
+   "status": 0,
+   "value": [ {
+      "ELEMENT": ":wdc:1354030062259"
+   } ]
+}
+
+[7.485][FINE]:      Command received (/session/81050ea75cf34fcab1ee584a00da18c7/element/:wdc:1354030062259/element) with params {
+   "id": ":wdc:1354030062259",
+   "using": "tag name",
+   "value": "input"
+}
+
+[7.485][FINER]:     Waiting for all views to stop loading...
+[7.485][FINER]:     Done waiting for all views to stop loading
+[7.494][FINER]:     Waiting for all views to stop loading...
+[7.494][FINER]:     Done waiting for all views to stop loading
+[7.494][FINE]:      Command finished (/session/81050ea75cf34fcab1ee584a00da18c7/element/:wdc:1354030062259/element) with response {
+   "sessionId": "81050ea75cf34fcab1ee584a00da18c7",
+   "status": 0,
+   "value": {
+      "ELEMENT": ":wdc:1354030062260"
+   }
+}
+
+[7.496][FINE]:      Command received (/session/81050ea75cf34fcab1ee584a00da18c7/element/:wdc:1354030062260/value) with params {
+   "id": ":wdc:1354030062260",
+   "value": [ "tst001" ]
+}
+
+[7.496][FINER]:     Waiting for all views to stop loading...
+[7.496][FINER]:     Done waiting for all views to stop loading
+[7.659][FINER]:     Waiting for all views to stop loading...
+[7.659][FINER]:     Done waiting for all views to stop loading
+[7.659][FINE]:      Command finished (/session/81050ea75cf34fcab1ee584a00da18c7/element/:wdc:1354030062260/value) with response {
+   "sessionId": "81050ea75cf34fcab1ee584a00da18c7",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[4522.187][FINE]:   Command received (/session/81050ea75cf34fcab1ee584a00da18c7)
+[4522.270][INFO]:   Chrome shutdown
