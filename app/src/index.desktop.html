@@ -17,7 +17,11 @@
 	//used for desktop development. normally indicates if Cordova (Phonegap) is ready
 	// Init FB here because we have a different init for desktop.
 	// Try to init Facebook SDK
-	FB.init({ appId: "359215437471990", useCachedDialogs: false });
+	try {
+		//FB.init({ appId: "359215437471990", useCachedDialogs: false });
+	} catch(e) {
+		console.log('FB Init failed! ' + e);
+	}
 	var cordovaInit = true;
 	</script>
 </body>
