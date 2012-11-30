@@ -29,6 +29,9 @@ public class CheckInTest {
 		 WebElement msgbox = elements.get(0);
 		 WebElement input = msgbox.findElement(By.tagName("input"));
 		 input.sendKeys("tst001");
+		 elements = msgbox.findElements(By.className("x-button"));
+		 //yes button is the left, no the right one
+		 WebElement yesButton = elements.get(0);
 		 
 		 
 		 //close browser
