@@ -22,9 +22,8 @@ Harness.on('testsuitestart', function (event, harness) {
 
 Harness.start(
     {
-        group: 'Check-in and order suite' ,
+        group: 'Order' ,
         items: [
-            'test/010_checkin/001_checkin.t.js',
             'test/010_checkin/002_simple_order.t.js'
         ]
     }

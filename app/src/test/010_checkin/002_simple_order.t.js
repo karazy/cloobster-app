@@ -138,6 +138,9 @@ StartTest(function(t) {
     	//wait until productdetail is destroyed
     	t.waitForComponentQueryNotFound('productdetail', next, this, 3000);
     },
+    {	//wait a moment otherwise the next tap happens to early and productdetail won't show
+    	waitFor: 1000
+    },
     function(next) {
     	var list,
     		product;
@@ -183,7 +186,7 @@ StartTest(function(t) {
     	t.waitForContentLike(productPrice, '8,95 €', next, this, 1000);
     },
     function(next) {
-    	t.diag('place order')
+    	t.diag('put order into cart');
     	t.tap(t.cq1('productdetail button[action=cart]'));
 
     	t.waitForCQVisible('lounge menutab productoverview cartbutton', next, this, 1000);
@@ -199,7 +202,128 @@ StartTest(function(t) {
 
     	t.tap(cartbutton);
 
-    	t.waitForCQVisible('lounge menutab carttab', next, this, 1000);
+    	t.waitForComponentVisible(t.cq1('lounge menutab carttab'), next, this, 1000);
+    },
+    {
+    	waitFor: 300
+    },
+    function(next) {
+    	var orderEditButton;
+
+    	t.diag('alter order | undo change');
+
+    	orderEditButton = t.cq1('lounge carttab cartoverviewitem button[action=edit]');
+    	t.tap(orderEditButton);
+    	t.waitForComponentVisible(t.cq1('orderdetail'), next, this, 1000);
+    },
+    {
+    	waitFor: 500
+    },
+    function(next) {
+    	var orderdetail,
+    		choicesPanel,
+    		optionPanels,
+    		option,
+    		optionLabel,
+    		productPrice;
+    	
+    	orderdetail = t.cq1('orderdetail');
+    	//check product price
+    	productPrice = orderdetail.element.down('.productPrice');    	
+    	t.contentLike(productPrice, '8,95 €', 'product price is 8,95 €');
+
+    	choicesPanel = t.cq1('orderdetail #choicesPanel');    	
+    	//use short timeouts, to show clicks
+    	checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(1)', null);
+    	t.waitFor(100, function() {
+    		checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(3)', null);
+    		t.waitFor(100, function() {
+    			t.waitForContentLike(productPrice, '5,95 €', next, this, 1000);
+    		});
+    	});
+    	    	
+    },
+    function(next) {
+    	var undoButton;
+
+    	undoButton = t.cq1('orderdetail button[action=undo]');
+    	t.tap(undoButton);
+    	//wait until orderdetail not visible. Does not get destroyed like productdetail
+    	t.waitForComponentNotVisible('orderdetail', next, this, 3000);
+    },
+    function(next) {
+    	var orderEditButton;
+
+    	t.diag('alter order');
+
+    	orderEditButton = t.cq1('lounge carttab cartoverviewitem button[action=edit]');
+    	t.tap(orderEditButton);
+    	t.waitForComponentVisible(t.cq1('orderdetail'), next, this, 1000);
+    },
+    {
+    	waitFor: 200
+    },
+    function(next) {
+    	var orderdetail,
+    		choicesPanel,
+    		optionPanels,
+    		option,
+    		optionLabel,
+    		productPrice;
+    	
+    	orderdetail = t.cq1('orderdetail');
+    	//check product price
+    	productPrice = orderdetail.element.down('.productPrice');    	
+    	t.contentLike(productPrice, '8,95 €', 'product price is unchanged at 8,95 €');
+
+    	choicesPanel = t.cq1('orderdetail #choicesPanel');
+    	optionPanels = choicesPanel.query('optiondetail');
+
+    	checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(1)', null);
+    	t.waitFor(100, function() {
+    		checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(4)', null);
+    		t.waitFor(100, function() {
+    			checkAndTapOption(t, optionPanels[2],'.x-field-radio:nth-child(2)', 'Coca-Cola light');
+    		});
+    	})		
+    	
+    	//scrolling seems to be broken
+    	// t.scrollUntilElementVisible(orderdetail.element, 'down', optionPanels[2].element.down('.x-field-checkbox:nth-child(2)'), function() {
+    		
+    	// });
+		t.waitForContentLike(productPrice, '10,25 €', next, this, 2000);
+    	
+    },
+    function(next) {
+    	var editButton;
+
+    	editButton = t.cq1('orderdetail button[action=edit]');
+    	t.tap(editButton);
+    	//wait until orderdetail not visible. Does not get destroyed like productdetail
+    	t.waitForComponentNotVisible('orderdetail', next, this, 3000);
+    },
+    {
+    	waitFor: 200
+    },
+    function(next) {
+    	var submitButton;
+
+		t.diag('submit order');
+
+		submitButton = t.cq1('lounge menutab carttab button[action=order]');
+		t.tap(submitButton, next);		
+    },
+    {	//wait for popup to be visible
+        waitFor: 1500
+    },
+    {
+        action      : 'tap',
+        target      : function () {
+            return Ext.Msg.down('button[itemId=yes]');
+        } 
+    },
+    function(next) {
+    	t.waitForComponentVisible(t.cq1('lounge myorderstab'), next, this, 3000);
     },
     function() {
     	t.done();
