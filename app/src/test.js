@@ -11,16 +11,23 @@ Harness.configure({
         // "/_ah/channel/jsapi",
         // "lib/facebook_js_sdk.js",
         // "app.js"
-    ]
+    ],
 });
 
 Harness.on('testsuitestart', function (event, harness) {
+    console.log('Deleting app local storage ...');
     window.localStorage.removeItem('eatSense_app_store');
     window.localStorage.removeItem('eatSense_app_store-1');
-}, this, { single : true });
+}, this);
 
 Harness.start(
-    'test/010_checkin/001_checkin.t.js'
+    {
+        group: 'Check-in and order suite' ,
+        items: [
+            'test/010_checkin/001_checkin.t.js',
+            'test/010_checkin/002_simple_order.t.js'
+        ]
+    }
     // {
     //     group : 'Check-in Suite',
 

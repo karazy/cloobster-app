@@ -7,7 +7,6 @@ StartTest(function(t) {
     t.ok(appConstants, 'appConstants exists');
     t.ok(appHelper, 'appHelper exists');
     t.ok(appChannel, 'appChannel exists');
-    t.ok(i10n, 'i10n exists');
 
     t.chain(
         {
@@ -15,27 +14,31 @@ StartTest(function(t) {
             target : Ext.ComponentQuery.query('dashboard button[action=checkin]')[0]
         },
         {
-            waitFor: 2000
+            waitFor: 1500
         },
         { action : 'click', target : Ext.Msg.down('textfield')},
-        { action : 'type', target : Ext.Msg.down('textfield'), text : 'tst001'},
-        { waitFor: 2000 },
+        { action : 'type', target : Ext.Msg.down('textfield'), text : 'tst001'},        
         {
             action      : 'tap',
             target      : function () {
                 return Ext.Msg.down('button[itemId=yes]');
             } 
         },
-        { waitFor: 1500 },
+        function(next) {
+            t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
+        },
         {
             action : 'tap',
             target : function() {
-                return Ext.ComponentQuery.query('checkinconfirmation button[action=confirm-checkin]')[0];
+                return t.cq1('checkinconfirmation button[action=confirm-checkin]');
             }
+        },
+        function(next) {
+            t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard'), next, this, 3000);
+        },
+        function() {
+            t.done();
         }
-
     );
-
-    t.done();
 
 });
