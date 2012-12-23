@@ -1,4 +1,4 @@
-Ext.define('EatSense.view.components.DashboardButton', {
+Ext.define('EatSense.view.components.BasicButton', {
 	extend: 'Ext.Button',
 	xtype: 'basicbutton',
 	requires: [],
@@ -14,12 +14,13 @@ Ext.define('EatSense.view.components.DashboardButton', {
 		welcome: false,
 		basicFn: null,
 		welcomeFn: null,
-		baseCls: 'club-dashboard-button',
-		pressedCls: 'club-dashboard-button-pressed',
-		labelCls: 'club-dashboard-button-label'
 	},
 
-	onTap:function(me, e) {
+	/**
+	* @override
+	*
+	*/
+	onTap: function(me, e) {
 		if(this.getBasic() === true) {
 			if(appHelper.isFunction(this.getBasicFn())) {
 				//execute basic function
@@ -35,6 +36,18 @@ Ext.define('EatSense.view.components.DashboardButton', {
 			this.callParent([me, e]);
 		}	
 
+	},
+	/**
+	* @override
+	*
+	*/
+	setHidden: function(hidden) {
+		if(this.getBasic()) {
+			console.log('BasicButton.setHidden ' + hidden);
+			hidden = true;
+		}
+
+		this.callParent([hidden]);
 	},
 
 	activateBasicMode: function(basic) {

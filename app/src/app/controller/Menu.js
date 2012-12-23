@@ -232,7 +232,9 @@ Ext.define('EatSense.controller.Menu', {
 
 		choicesPanel.removeAll(false);
 
-		titlebar.setTitle(order.get('productName'));		
+		titlebar.setTitle(order.get('productName'));
+
+		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
 
 		//reset product spinner
 		this.getAmountSpinner().setValue(1);
@@ -286,7 +288,7 @@ Ext.define('EatSense.controller.Menu', {
 
 			detail.setMasked(false);
 		}), 10, this);
-
+	
 
 		
 		

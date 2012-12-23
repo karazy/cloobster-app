@@ -5,7 +5,7 @@
 Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
 	xtype : 'clubdashboard',
-	requires: ['Ext.Img', 'EatSense.view.components.DashboardButton'],
+	requires: ['Ext.Img', 'EatSense.view.components.BasicButton'],
 	config : {
 		layout : {
 			type : 'fit'
@@ -92,13 +92,13 @@ Ext.define('EatSense.view.ClubDashboard', {
 						xtype : 'basicbutton',
 						action: 'show-requests',
 						text: i10n.translate('clubdashboard.button.vip'),
-						// baseCls: 'club-dashboard-button',
+						baseCls: 'club-dashboard-button',
+						pressedCls: 'club-dashboard-button-pressed',
+						labelCls: 'club-dashboard-button-label',
 						cls: 'club-dashboard-button-vip',
 						welcomeFn: function() {
 							Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 						}
-						// pressedCls: 'club-dashboard-button-pressed',
-						// labelCls: 'club-dashboard-button-label'
 					},
 					{
 						xtype : 'basicbutton',

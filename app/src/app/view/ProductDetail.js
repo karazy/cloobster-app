@@ -118,13 +118,16 @@ Ext.define('EatSense.view.ProductDetail', {
 			// },
 			items: [
 				{
-					xtype: 'button',
+					xtype: 'basicbutton',
 					text: i10n.translate('putIntoCartButton'),
 					action: 'cart',
 					ui: 'action',
 					iconCls: 'shop1',
 					iconMask: true,
-					flex: 1
+					flex: 1,
+					welcomeFn: function() {
+						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+					}
 				}, 
 				{
 					xtype: 'button',

@@ -736,15 +736,34 @@ Ext.define('EatSense.controller.CheckIn', {
         }
     },
     //start welcome and basic mode logic
-    activateWelcomeMode: function(welcome) {
+
+    /**
+     * Convenvience method. Reads welcome and basic mode from spot and business
+     * and sets it on given view or loungeview
+     * @param {Ext.Component} view (optional)
+     *  If present, uses this view instead of loungeview
+     */
+    activateWelcomeAndBasicMode: function(view) {
+       var viewToSetMode = view || this.getLoungeview();
+
+       this.activateWelcomeMode(this.getActiveSpot().get('welcome'), viewToSetMode);
+       this.activateBasicMode(this.getActiveBusiness().get('basic'), viewToSetMode);
+           
+    },
+
+    /**
+     * Sets welcome mode on {EatSense.view.component.BasicButton} elements.
+     * Searches for all basicButtons in loungeview
+     * @param {Boolean} welcome
+     *    true or false
+     * @param {Ext.Component} view (optional)
+     *  If present, uses this view instead of loungeview
+     */
+    activateWelcomeMode: function(welcome, view) {
         var me = this,
-            loungeview = this.getLoungeview(),
+            loungeview = view || this.getLoungeview(),
             basicButtons;
 
-        // if(!welcome) {
-        //   //no welcome mode
-        //   return;
-        // }
         console.log('CheckIn.activateWelcomeMode: ' + welcome);
 
         basicButtons = loungeview.query('basicbutton');
@@ -753,22 +772,26 @@ Ext.define('EatSense.controller.CheckIn', {
             button.setWelcome(welcome);
         });
     },
-
-    activateBasicMode: function(basic) {
+    /**
+     * Sets basic mode on {EatSense.view.component.BasicButton} elements.
+     * Searches for all basicButtons in loungeview
+     * @param {Boolean} basic
+     *    true or false
+     * @param {Ext.Component} view (optional)
+     *  If present, uses this view instead of loungeview
+     */
+    activateBasicMode: function(basic, view) {
         var me = this,
-            loungeview = this.getLoungeview(),
+            loungeview = view || this.getLoungeview(),
             basicButtons;
 
-        // if(!welcome) {
-        //   //no welcome mode
-        //   return;
-        // }
         console.log('CheckIn.activateBasicMode: ' + basic);
 
         basicButtons = loungeview.query('basicbutton');
 
         Ext.Array.each(basicButtons, function(button, index) {
             button.setBasic(basic);
+            button.activateBasicMode(basic);
         });
     }
 
