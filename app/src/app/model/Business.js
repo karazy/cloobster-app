@@ -46,6 +46,10 @@ Ext.define('EatSense.model.Business', {
 				name: 'theme',
 				type: 'string',
 				defaultValue: 'default'
+			},
+			{
+				name: 'basic',
+				type: 'bool'
 			}			
 		],
 	    proxy: {

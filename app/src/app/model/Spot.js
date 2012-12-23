@@ -49,6 +49,10 @@ Ext.define('EatSense.model.Spot', {
 				name: 'theme',
 				type: 'string',
 				defaultValue: 'default'
+			},
+			{
+				name: 'welcome',
+				type: 'bool'
 			}
 		],
 		 associations: [{
