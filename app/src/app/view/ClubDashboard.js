@@ -5,7 +5,7 @@
 Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
 	xtype : 'clubdashboard',
-	requires: ['Ext.Img', 'EatSense.view.components.BasicButton'],
+	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser'],
 	config : {
 		layout : {
 			type : 'fit'
@@ -150,7 +150,28 @@ Ext.define('EatSense.view.ClubDashboard', {
 					// 	labelCls: 'club-dashboard-button-label'
 					// }
 				]
+			},
+
+			//InfoPageTeaser start
+			{
+				xtype: 'panel',
+				width: '100%',
+				layout: {
+					type: 'hbox',
+					align: 'center',
+					pack: 'center'
+				},
+				items: [
+					{
+						xtype : 'infopageteaser',
+						hidden: true,
+						pageStore : 'infopageStore'
+					}
+				]
 			}
+
+			//InfoPageTeaser end
+
 			// {
 			// 	xtype: 'panel',
 			// 	width: '100%',

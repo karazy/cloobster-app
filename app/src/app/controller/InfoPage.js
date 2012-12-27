@@ -56,6 +56,21 @@ Ext.define('EatSense.controller.InfoPage', {
 			}
 		}, this);
 	},
+	registerInfoPageTeaser: function() {
+		var me = this,
+			clubArea = this.getClubArea(),
+			teaser = clubArea.down('infopageteaser');
+
+		if(teaser) {
+			teaser.on('teasertapped', function(page) {
+				if(!me.getPanelsCreated()) {
+					me.createCarouselPanels();
+				}
+				me.showInfoPageDetail(null, page);
+			});
+		}
+
+	},
 	/**
 	* Load infopages into infopageStore.
 	*/
@@ -76,6 +91,7 @@ Ext.define('EatSense.controller.InfoPage', {
 				callback: function(records, operation, success) {
 			    	if(!operation.error) {
 			    		infoPageList.refresh();
+			    		me.registerInfoPageTeaser();
 			    	}
 			    	else {
 		    			me.getApplication().handleServerError({

@@ -30,6 +30,7 @@
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
 			myordersview: 'lounge myorderstab',
+			myordersviewButton: 'lounge myorderstab tab',
 			// myordersTabBt: 'lounge button[title='+i10n.translate('myOrdersTabBt')+']',
 			//TODO find a better way to select tab
 			myordersTabBt: 'lounge #ext-tab-3',
@@ -82,7 +83,7 @@
              	itemtap: 'toggleOrderDetail'
              },
              myordersview: {
-             	activate: 'myordersviewActivated'
+             	activate: 'myordersviewActivated'             	
              },
              myordersShowCartButton: {
              	tap: 'myordersShowCartButtonHandler'
