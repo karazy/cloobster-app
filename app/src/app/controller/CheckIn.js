@@ -288,7 +288,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		}			
 		this.setActiveCheckIn(checkIn);
 
-    this.activateWelcomeMode(options.model.get('welcome')); 
+    this.activateWelcomeMode(options.model.get('welcome'));
 
     //prepare custom header in advance to avoid longer loading times
     // this.getApplication().getController('Lounge').drawCustomHeader();
@@ -615,6 +615,7 @@ Ext.define('EatSense.controller.CheckIn', {
       success: function(record) {
         me.setActiveBusiness(record);
         me.activateBasicMode(record.get('basic'));
+        me.fireEvent('basicmode',record.get('basic'));
 
         try {
           if(appConstants.Currency[me.getActiveBusiness().get('currency')]) {

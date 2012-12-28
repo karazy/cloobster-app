@@ -55,6 +55,8 @@ Ext.define('EatSense.controller.InfoPage', {
 				store.removeAll();
 			}
 		}, this);
+
+		this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
 	},
 	registerInfoPageTeaser: function() {
 		var me = this,
@@ -381,5 +383,13 @@ Ext.define('EatSense.controller.InfoPage', {
     	this.setCurrentFilterValue(null);
     	store.clearFilter();
     	list.refresh();
+    },
+
+    toggleInfoPageTeasers: function(hide) {
+    	var me = this,
+			clubArea = this.getClubArea(),
+			teaser = clubArea.down('infopageteaser');
+
+		teaser.setHidden(!hide);		
     }
 });
