@@ -221,6 +221,7 @@ Ext.define('EatSense.controller.Menu', {
 			choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
 			titlebar = detail.down('titlebar'),
 			activeProduct,
+			activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			order;
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
@@ -240,6 +241,8 @@ Ext.define('EatSense.controller.Menu', {
 		this.getAmountSpinner().setValue(1);
 		this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: order, amount: this.getAmountSpinner().getValue()});
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
+		//if basic mode is active, hide amount spinner
+		this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
 
 		Ext.Viewport.add(detail);
 		detail.getScrollable().getScroller().scrollToTop();

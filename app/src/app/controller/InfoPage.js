@@ -390,6 +390,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			clubArea = this.getClubArea(),
 			teaser = clubArea.down('infopageteaser');
 
-		teaser.setHidden(!hide);		
+		if(teaser) {
+			teaser.setHidden(!hide);	
+		}
     }
 });
