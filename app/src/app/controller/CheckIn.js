@@ -786,7 +786,7 @@ Ext.define('EatSense.controller.CheckIn', {
             loungeview = view || this.getLoungeview(),
             basicButtons;
 
-        console.log('CheckIn.activateBasicMode: ' + basic);
+        // console.log('CheckIn.activateBasicMode: ' + basic);
 
         basicButtons = loungeview.query('basicbutton');
 
