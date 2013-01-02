@@ -90,6 +90,9 @@
              },
              myordersCartBackButton : {
              	tap: 'myordersCartBackButtonHandler'
+             },
+             loungeview: {
+             	activeitemchange: 'toggleQuickLeaveMode'
              }
 		},
 		/**
@@ -104,12 +107,27 @@
 		cartNavigationFunctions : new Array(),
 		myordersNavigationFunctions : new Array()
 	},
+	toggleQuickLeaveMode: function(panel, tab, old, e) {
+		var me = this,
+			checkInCtr = this.getApplication().getController('CheckIn'),
+			activeBusiness = checkInCtr.getActiveBusiness(),
+			activeCheckIn = checkInCtr.getActiveCheckIn();
+
+		if((activeBusiness && activeBusiness.get('basic') == true) || (activeCheckIn && activeCheckIn.orders().getCount() == 0)) {							
+				if(tab.tabName == 'myorders') {					
+					me.leave();
+					return false;
+				}
+		}
+	},
 	init: function() {
 		//store retrieved models
 		var	messageCtr = this.getApplication().getController('Message');
 
     	messageCtr.on('eatSense.order', this.handleOrderMessage, this);
     	messageCtr.on('eatSense.bill', this.handleBillMessage, this);
+
+    	// this.getApplication().getController('CheckIn').on('basicmode', this.toggleQuickLeaveMode, this);
 	},
 	/**
     * Activate event handler for myordersview.
