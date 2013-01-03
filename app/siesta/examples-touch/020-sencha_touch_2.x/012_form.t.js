@@ -44,11 +44,12 @@ StartTest(function(t) {
     });
 
     t.chain(
-        { action : 'click', target : nameFld },
+        { waitFor : 'event', args : [nameFld, 'painted']},
+        { action : 'tap', target : nameFld },
         { action : 'type',  target : nameFld, text : 'foo' }, 
-        { action : 'click', target : passwordFld },
+        { action : 'tap', target : passwordFld },
         { action : 'type',  target : passwordFld, text : 'bar' },
-        { action : 'click', target : emailFld },
+        { action : 'tap', target : emailFld },
         { action : 'type',  target : emailFld, text : 'foo@bar.nu' },
 
         function(next) {
@@ -58,7 +59,7 @@ StartTest(function(t) {
             next();
         },
 
-        { action : 'click', target : passwordFld.element.down('.x-clear-icon') },
+        { action : 'tap', target : passwordFld.element.down('.x-clear-icon') },
     
         function() {
             t.is(passwordFld.getValue(), '', 'Found empty email field');

@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -47,6 +47,8 @@ In the latter case, this action will perform a call to the one of the `waitFor*`
 The name of the method is computed by prepending the uppercased value of `waitFor` config with the string "waitFor" 
 (unless it doesn't already starts with "waitFor").
 The arguments for method call can be provided as the "args" array. Any non-array value for "args" will be converted to an array with one element.
+* **Note**, that this action will provide a `callback`, `scope`, and `timeout` arguments for `waitFor*` methods - you should not specify them. 
+
 
 As a special case, the value of `waitFor` config can be a Number or Function - that will trigger the call to {@link Siesta.Test#waitFor} method with provided value:
 
@@ -133,18 +135,31 @@ Class('Siesta.Test.Action.Wait', {
                 waitFor     = '';
             }
             
-            if (this.test.typeOf(this.args) !== "Array") {
+            if (test.typeOf(this.args) !== "Array") {
                 this.args = [ this.args ];
             }
 
             // also allow full method names
-            waitFor     = waitFor.replace(/^waitFor/, '')
-            var methodName = 'waitFor' + Joose.S.uppercaseFirst(waitFor);
+            waitFor         = waitFor.replace(/^waitFor/, '')
+            var methodName  = 'waitFor' + Joose.S.uppercaseFirst(waitFor);
             
             if (!test[methodName]){
                 throw 'Could not find a waitFor method named ' + methodName;
             }
-            test[methodName].apply(test, this.args.concat(this.next, test, this.timeout || test.waitForTimeout));
+
+            // If using simple waitFor statement, use the object notation to be able to pass a description
+            // which gives better debugging help than "Waited too long for condition to be fulfilled".
+            if (methodName === 'waitFor') {
+                test[methodName]({
+                    method          : this.args[ 0 ],
+                    callback        : this.next,
+                    scope           : test,
+                    timeout         : this.timeout || test.waitForTimeout,
+                    description     : this.desc || ''
+                });
+            } else {
+                test[methodName].apply(test, this.args.concat(this.next, test, this.timeout || test.waitForTimeout));
+            }
         }
     }
 });

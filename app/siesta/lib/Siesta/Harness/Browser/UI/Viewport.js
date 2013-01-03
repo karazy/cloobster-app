@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -132,7 +132,11 @@ Ext.define('Siesta.Harness.Browser.UI.Viewport', {
                         
                         'filter-group-change'   : this.saveState,
                             
-                        scope                   : this
+                        scope                   : this,
+                        resize : function() {
+                            // Make sure the minWidth of the assertion grid is respected
+                            this.slots.resultPanel.ensureLayout();
+                        }
                     },
                         
                     store       : testsStore
@@ -234,8 +238,9 @@ Ext.define('Siesta.Harness.Browser.UI.Viewport', {
                         O.capture(this, function(name) {
                             return name !== 'datachanged';
                         });
-                        this.self.prototype.insert.apply(this, arguments);
+                        var result = this.self.prototype.insert.apply(this, arguments);
                         O.releaseCapture(this);
+                        return result;
                     }
                 })
             })
@@ -366,8 +371,10 @@ Ext.define('Siesta.Harness.Browser.UI.Viewport', {
     
     onTestSuiteEnd : function (descriptors) {
         this.updateStatusIndicator()
-        
-        Ext.select('.ghost-cursor-click-indicator').each(function(el) { el.destroy(); });
+
+        setTimeout(function() {
+            Ext.select('.ghost-cursor-click-indicator').each(function(el) { el.destroy(); });
+        }, 3000);
     },
     
     
@@ -539,7 +546,7 @@ Ext.define('Siesta.Harness.Browser.UI.Viewport', {
             
         var assertionStore  = testRecord.get('assertionsStore');
 
-        var data = {
+        var data            = {
             index               : result.index,
             passed              : result.passed,
             
@@ -560,10 +567,16 @@ Ext.define('Siesta.Harness.Browser.UI.Viewport', {
             eventType           : result.type
         };
         
-        if (typeof result.index === 'number' && assertionStore.getById(result.index)) {
-            assertionStore.getById(result.index).set(data)
+        var alreadyHaveIndex    = assertionStore.findBy(function (assertion) {
+            return assertion.__result__ == result
+        })
+        
+        if (alreadyHaveIndex != -1) {
+            assertionStore.getAt(alreadyHaveIndex).set(data)
         } else {
-            assertionStore.add(data)
+            var newAssertion    = assertionStore.add(data);
+            
+            newAssertion[ 0 ].__result__ = result
         }
         
         if (failCount > 0 && this.getOption('breakOnFail')) {
@@ -836,10 +849,21 @@ Ext.define('Siesta.Harness.Browser.UI.Viewport', {
 
 
     onTestFileDoubleClick : function (view, testFile) {
-        // don't launch groups when filtered - will be confusing for user
-        if (this.testsStore.isTreeFiltered() && !testFile.isLeaf()) return 
-        
-        this.launchTest(testFile);
+        if (this.testsStore.isTreeFiltered() && !testFile.isLeaf()) {
+            var childDesc       = []
+            var nodeStore       = this.testsStore.nodeStore
+            
+            for (var i = nodeStore.indexOf(testFile) + 1; i < nodeStore.getCount(); i++) {
+                var currentNode     = nodeStore.getAt(i)
+                
+                if (!currentNode.isAncestor(testFile)) break 
+                
+                if (currentNode.isLeaf()) childDesc.push(currentNode.get('descriptor'))
+            }
+            
+            this.harness.launch(childDesc);
+        } else 
+            this.launchTest(testFile);
     },
 
     

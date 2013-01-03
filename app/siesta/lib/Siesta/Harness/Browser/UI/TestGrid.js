@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -98,7 +98,9 @@ Ext.define('Siesta.Harness.Browser.UI.TestGrid', {
                     listeners   : {
                         change          : this.onFilterChange,
                         specialkey      : this.onFilterSpecialKey,
-                        scope           : this
+                        scope           : this,
+                        
+                        buffer          : 400
                     }
                 }
             ]
@@ -108,11 +110,15 @@ Ext.define('Siesta.Harness.Browser.UI.TestGrid', {
         
         var me      = this
         
-        this.getView().on('refresh', function () {
+        this.getView().on('beforerefresh', function () {
             var trigger     = me.down('trigger')
             
             if (me.filterGroups)    trigger.triggerEl.item(1).addCls('tr-filter-trigger-group')
             if (me.filter)          trigger.setValue(me.filter)
+            
+            // cancel refresh if there's a filter - in this case an additional refresh will be triggered by 
+            // the filtering which will be already not canceled since this is 1 time listener
+            return !me.filter
         }, null, { single : true })
     },
     
@@ -150,7 +156,7 @@ Ext.define('Siesta.Harness.Browser.UI.TestGrid', {
                         
                     return true
                 },
-                onlyParents     : this.filterGroups
+                fullMathchingParents    : this.filterGroups
             })
             
             header.down('[type="down"]').disable()

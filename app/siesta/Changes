@@ -1,5 +1,48 @@
 Release history for Siesta:
 
+1.1.7     2012-12-13 14:43
+
+    [KNOWN ISSUES]
+    - Selenium Safari driver requires compilation from source
+
+    [FEATURES / ENHANCEMENTS]
+    - TODO describe the changes with normalization methods
+
+    [API CHANGES]
+    - All user simulated interactions now correctly targets up the top-most DOM element from the position where the action was supposed to happen
+      (previously this was only happening in the "click*" methods)
+
+    [BUG FIXES]
+    - added a workaround for bug in PhantomJS, which was causing error message about Siesta
+      not found on harness page
+    - Fixed #541: Not use `getEl` which is deprecated in SenchaTouch 2.1.0
+    - harness UI made compatible with ExtJS 4.1.3 
+    - Fixed #545: [Siesta] Sencha Touch 2.1 issues
+
+1.1.6     2012-12-03 10:44
+
+    [KNOWN ISSUES]
+    - Selenium Safari driver requires compilation from source
+
+    [FEATURES / ENHANCEMENTS]
+    - Filtering in groups now includes full sub-tree starting from matching group name
+    - One can now launch groups of tests in filtered mode
+    - Added "--version" command line options for PhantomJS/WebDriver launchers
+    - Added meaningful error message when automation launcher is targeting harness page, that
+      contains Siesta Lite version
+
+    [API CHANGES]
+    - The threshold provided for the "isApprox" assertion is now inclusive (i.e. checking <=, previously used <)
+
+    [BUG FIXES]
+    - PhantomJS version downgraded back to 1.6.0, since 1.7.0 seems to have critical regression: http://code.google.com/p/phantomjs/issues/detail?id=444
+    - Fixed #455: Siesta UI can be broken easily if the space for the DOM container is too small
+    - Fixed #428: keyboard typing simulation
+    - Fixed #515: [Siesta] willFireNTimes misbehaving in MVC example
+    - Fixed #501: lastCellInRow not working
+    - Fixed #504: waitFor step should use 'desc' as its description message if provided
+    - Fixed #529: Typing in Search field does not work (SenchaTouch)
+
 1.1.5     2012-11-05 11:31
     [KNOWN ISSUES]
     - Selenium Safari driver requires compilation from source

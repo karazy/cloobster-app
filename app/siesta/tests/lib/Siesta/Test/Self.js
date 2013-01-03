@@ -5,9 +5,6 @@ Role('Siesta.Test.Self', {
     has        : {
     },
 
-    does        : [ Siesta.Test.Self.ExtJS ],
-    
-    
     methods : {
         
         getSelfTest : function (meta, config, doNotTranslate) {
@@ -141,6 +138,22 @@ Role('Siesta.Test.Self', {
         },
         
         
+        testSenchaTouch : function (config, runFunc, callback) {
+            if (this.typeOf(config) == 'Function') {
+                callback    = runFunc
+                runFunc     = config
+                config      = null
+            }
+            
+            this.testSelf(this.global.Siesta.Test.SenchaTouch, config, { 
+                transparentEx       : true, 
+                suppressEventsLog   : true,
+                performSetup        : false,
+                actionDelay         : 1
+            }, runFunc, callback)
+        },
+
+        
         expectPass : function (func, meta, config) {
             var me      = this
             var Siesta  = this.global.Siesta
@@ -160,6 +173,8 @@ Role('Siesta.Test.Self', {
             
             if (!meta || meta == Siesta.Test.ExtJS)
                 this.testExtJS(config, func, check)
+            else if (meta == Siesta.Test.SenchaTouch)
+                this.testSenchaTouch(config, func, check)
             else if (meta == Siesta.Test.Browser)
                 this.testBrowser(config, func, check)
             else if (meta == Siesta.Test.jQuery)
@@ -185,6 +200,8 @@ Role('Siesta.Test.Self', {
             
             if (!meta || meta == Siesta.Test.ExtJS)
                 this.testExtJS(config, func, check)
+            else if (meta == Siesta.Test.SenchaTouch)
+                this.testSenchaTouch(config, func, check)
             else if (meta == Siesta.Test.Browser)
                 this.testBrowser(config, func, check)
             else if (meta == Siesta.Test.jQuery)
@@ -212,13 +229,37 @@ Role('Siesta.Test.Self', {
             Harness.start.apply(Harness, tests || [
                 '601_siesta_ui_failing.t.js',
                 '601_siesta_ui_passing.t.js'
-            ])
+            ]);
+
+            return Harness;
+        },
+
+        getTouchHarness : function(config, tests){
+            var Siesta      = this.global.Siesta;
+            var Harness     = this.global.Harness = Siesta.Harness.Browser.SenchaTouch
+
+            if (arguments.length === 1) {
+                tests = config;
+                config = null;
+            }
+
+            Harness.configure(config || {
+                title           : 'Siesta Foo suite',
+                viewDOM         : true,
+                transparentEx   : true,
+                autoCheckGlobals : false
+            })
+
+            Harness.start.apply(Harness, tests || [
+            ]);
+
+            return Harness;
         },
 
         waitForHarnessEvent : function(eventName, callback, scope, timeout) {
             var eventFired      = false
             
-            this.global.Harness.on(eventName, function () { eventFired = true });
+            this.global.Harness.on(eventName, function () { eventFired = true }, null, { single : true });
             
             this.waitFor({
                 method          : function() { return eventFired; }, 

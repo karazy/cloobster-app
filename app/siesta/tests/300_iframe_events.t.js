@@ -3,6 +3,9 @@ StartTest(function(t) {
     //==================================================================================================================================================================================
     t.diag("Clicking on the elements inside of the iframe");
     
+    // seems in IE, iframes are added to global scope under index
+    t.expectGlobal('0')
+    
     t.testExtJS(function (t) {
         
         var iframe          = document.createElement('iframe')

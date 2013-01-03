@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -9,6 +9,7 @@ http://bryntum.com/products/siesta/license
 /**
 
 @class Siesta.Harness
+@mixin Siesta.Role.CanStyleOutput
 
 `Siesta.Harness` is an abstract base harness class in Siesta hierarchy. This class provides no UI, 
 you should use one of it subclasses, for example {@link Siesta.Harness.Browser}

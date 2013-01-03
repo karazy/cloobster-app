@@ -27,4 +27,31 @@ StartTest(function(t) {
         
         panel2.render(Ext.getBody());
     });
+
+
+    t.expectPass(function(t2) {
+        var obs = new Ext.util.Observable();
+        
+        obs.on('foo', function() {});
+        
+        t.hasListener(obs, 'foo', 'Found "foo" listener');
+    })
+    
+
+    t.expectFail(function(t2) {
+        var obs = new Ext.util.Observable();
+        
+        t2.hasListener(obs, 'bar', 'Did not find "bar" listener');
+    });
+
+
+    t.expectFail(function(t2) {
+        var obs2 = new Ext.util.Observable();
+        
+        t2.wontFire(obs2, 'foo', 'Should not fire');
+        t2.firesAtLeastNTimes(obs2, 'foo', 3);
+        
+        obs2.fireEvent('foo');
+        obs2.fireEvent('foo');
+    });
 });

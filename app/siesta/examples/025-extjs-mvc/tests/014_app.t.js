@@ -1,28 +1,36 @@
 StartTest(function(t) {
-    t.waitForCQ('gridpanel', function(grids) {
-        var userGrid = grids[0];
+    t.chain(
+        { waitFor : 'CQ', args : 'gridpanel' },
 
-        t.willFireNTimes(userGrid.store, 'write', 1);
+        function(next, grids) {
+            var userGrid = grids[0];
 
-        t.waitForRowsVisible(userGrid, function() {
-        
-            t.doubleClick(t.getCell(userGrid, 0, 0), function() {
+            t.willFireNTimes(userGrid.store, 'write', 1);
+            next();
+        },
 
-                t.waitForCQ('button[text=Save]', function(buttons) {
-                    var saveButton = buttons[0],
-                        editWin = saveButton.up('window'),
-                        nameField = editWin.down('field[name=firstname]');
+        { waitFor : 'rowsVisible', args : 'gridpanel' },
 
-                    t.click(nameField);
-                    nameField.setValue();
+        { action : 'doubleclick', target : 'gridpanel => .x-grid-cell' },
 
-                    t.type(nameField, 'foo', function() {
-                        t.click(saveButton, function() {
-                            t.matchGridCellContent(userGrid, 0, 0, 'foo Spencer', 'Updated name found in grid');
-                        });
-                    });
-                });
-            });
-        });
-    });
+        // waiting for popup window to appear
+        { waitFor : 'CQ', args : 'useredit' },
+
+        // When using target, >> specifies a Component Query
+        { action : 'click', target : '>>field[name=firstname]'},
+
+        function(next) {
+            // Manually clear text field
+            t.cq1('field[name=firstname]').setValue();
+            next();
+        },
+
+        { action : 'type', target : '>>field[name=firstname]', text : 'foo' },
+
+        { action : 'click', target : '>>useredit button[text=Save]'},
+
+        function(next) {
+            t.matchGridCellContent(t.cq1('gridpanel'), 0, 0, 'foo Spencer', 'Updated name found in grid');
+        }
+    );
 })    

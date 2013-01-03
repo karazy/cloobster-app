@@ -13,6 +13,6 @@ StartTest(function(t) {
 
     $('p.foo').css('background', 'lightgreen').css('height', '30px');
     
-    t.monkeyTest(document.body, 15, 'Wild monkeys could not produce any exceptions.', function () {
+    t.monkeyTest(document.body, 5, 'Wild monkeys could not produce any exceptions.', function () {
     });
 });

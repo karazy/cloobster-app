@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -5725,7 +5725,7 @@ Class('Siesta.Util.Queue', {
         // which should be called manually
         // `interval` - the delay after step (except for asynchronous)
         steps                   : Joose.I.Array,
-        
+
         interval                : 100,
         callbackDelay           : 0,
         // setTimeout
@@ -5741,7 +5741,9 @@ Class('Siesta.Util.Queue', {
         scope                   : null,
         isAborted               : false,
         
-        observeTest             : null
+        observeTest             : null,
+
+        currentDelayStepId      : null
     },
     
     
@@ -5769,6 +5771,17 @@ Class('Siesta.Util.Queue', {
             
             this.steps.push(stepData)
         },
+
+        addDelayStep : function (delayMs) {
+            var origSetTimeout = this.deferer;
+            var me = this;
+
+            this.addAsyncStep({
+                processor : function(data) {
+                    me.currentDelayStepId = origSetTimeout(data.next, delayMs || 500);
+                }
+            });
+        },
         
         
         run : function (callback, scope) {
@@ -5788,7 +5801,8 @@ Class('Siesta.Util.Queue', {
             var deferClearer    = this.deferClearer
             
             if (!deferClearer) throw "Need `deferClearer` to be able to `abort` the queue"
-            
+
+            deferClearer(this.currentDelayStepId);
             deferClearer(this.currentTimeout)
             
             if (!ignoreCallback) this.callback.call(this.scope || this)
@@ -6343,6 +6357,79 @@ Role('Siesta.Test.Function', {
             for (var o in host) {
                 if (host[o] === obj) return o;
             }
+        },
+
+        /**
+         * This assertion passes when the supplied function is called exactly (n) times during the test life span.
+         * The `className` parameter can be supplied as a class constructor function or as a string, representing the class
+         * name. In the latter case the `class` will be eval'ed to get a reference to the class constructor.
+         *
+         * This assertion is useful when testing for example an Ext JS class where event listeners are added during
+         * class instantiation time, which means you need to observe the prototype method before instantiation.
+         *
+         * @param {Function/String} fn The function itself or the name of the function on the class (2nd argument)
+         * @param {Function/String} className The constructor function or the name of the class that contains the method
+         * @param {Number} n The expected number of calls
+         * @param {String} desc The description of the assertion
+         */
+        methodIsCalledNTimes: function(fn, className, n, desc, isGreaterEqual){
+            var me = this,
+                prop,
+                obj,
+                counter = 0;
+
+            desc = desc ? (desc + ' ') : '';
+            try {
+                if (me.typeOf(className) == 'String') className = me.global.eval(className)
+            } catch (e) {
+                me.fail(desc, {
+                    assertionName       : 'isMethodCalled',
+                    annotation          : "Exception [" + e + "] caught, while evaluating the class name [" + className + "]"
+                })
+
+                return
+            }
+
+            obj = className.prototype;
+            prop = typeof fn === "string" ? fn : me.getPropertyName(obj, fn);
+
+            me.on('beforetestfinalizeearly', function () {
+                if (counter === n || (isGreaterEqual && counter > n)) {
+                    me.pass(desc || (prop + ' method was called exactly ' + n + ' times'));
+                } else {
+                    me.fail(desc || prop, {
+                        assertionName       : 'isCalledNTimes ' + prop,
+                        got                 : counter,
+                        need                : n ,
+                        needDesc            : ("Need " + (isGreaterEqual ? 'at least ' : 'exactly '))
+                    });
+                }
+            });
+
+            fn = obj[prop];
+            obj[prop] = function () { counter++; fn.apply(obj, arguments); };
+        },
+
+        /**
+         * This assertion passes if the class method is called at least one time during the test life span.
+         *
+         * @param {Function/String} fn The function itself or the name of the function on the class (2nd argument)
+         * @param {Function/String} className The class constructor function or name of the class that contains the method
+         * @param {String} desc The description of the assertion.
+         */
+        methodIsCalled : function(fn, className, desc) {
+            this.methodIsCalledNTimes(fn, className, 1, desc, true);
+        },
+
+        /**
+         * This assertion passes if the class method is not called during the test life span.
+         *
+         * @param {Function/String} fn The function itself or the name of the function on the class (2nd argument)
+         * @param {Function/String} className The class constructor function or name of the class that contains the method
+         * @param {String} desc The description of the assertion.
+         */
+        methodIsntCalled : function(fn, className, desc) {
+            this.methodIsCalledNTimes(fn, className, 0, desc);
         }
     }
 });
@@ -6419,7 +6506,9 @@ Role('Siesta.Test.More', {
                 'startTest',
                 // will be reported in IE8 after overriding
                 'setTimeout',
-                'clearTimeout'
+                'clearTimeout',
+                'requestAnimationFrame',
+                'cancelAnimationFrame'
             ]
         },
         
@@ -6437,8 +6526,8 @@ Role('Siesta.Test.More', {
         /**
          * This assertion passes, when the comparison of 1st with 2nd, using `>` operator will return `true` and fails otherwise. 
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isGreater : function (value1, value2, desc) {
@@ -6459,8 +6548,8 @@ Role('Siesta.Test.More', {
         /**
          * This assertion passes, when the comparison of 1st with 2nd, using `<` operator will return `true` and fails otherwise. 
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isLess : function (value1, value2, desc) {
@@ -6487,8 +6576,8 @@ Role('Siesta.Test.More', {
          * 
          * It has a synonym - `isGE`.
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isGreaterOrEqual : function (value1, value2, desc) {
@@ -6516,8 +6605,8 @@ Role('Siesta.Test.More', {
          * 
          * It has a synonym - `isLE`.
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isLessOrEqual : function (value1, value2, desc) {
@@ -6551,7 +6640,7 @@ Role('Siesta.Test.More', {
                 threshHold  = Math.abs(value1 * 0.05)
             }
             
-            if (Math.abs(value2 - value1) < threshHold)
+            if (Math.abs(value2 - value1) <= threshHold)
                 this.pass(desc, value2 == value1 ? 'Exact match' : 'Match within treshhold: ' + threshHold)
             else
                 this.fail(desc, {
@@ -6749,7 +6838,7 @@ Role('Siesta.Test.More', {
          */
         isaOk : function (value, className, desc) {
             try {
-                if (this.typeOf(className) == 'String') className = eval(className)
+                if (this.typeOf(className) == 'String') className = this.global.eval(className)
             } catch (e) {
                 this.fail(desc, {
                     assertionName       : 'isa_ok', 
@@ -6993,14 +7082,17 @@ Role('Siesta.Test.More', {
         },
         
         
-        finalizeWaiting : function (result, passed, desc, annotation) {
+        finalizeWaiting : function (result, passed, desc, annotation, errback) {
             // Treat this is an ordinary assertion from now on
             result.completed = true;
             
             if (passed)
                 this.pass(desc, annotation, result)
-            else
+            else {
                 this.fail(desc, annotation, result);
+                
+                errback && errback()
+            }
         },
         
         
@@ -7019,6 +7111,7 @@ Role('Siesta.Test.More', {
         waitFor : function (method, callback, scope, timeout, interval)  {
             var description         = this.typeOf(method) == 'Number' ? (method + ' ms') : ' condition to be fullfilled';
             var assertionName       = 'waitFor';
+            var errback
 
             if (arguments.length === 1) {
                 var options     = method;
@@ -7029,16 +7122,14 @@ Role('Siesta.Test.More', {
                 timeout         = options.timeout;
                 interval        = options.interval
                 
-                description     = options.description;
+                description     = options.description || description;
                 assertionName   = options.assertionName || assertionName;
                 
+                // errback is called in case "waitFor" has failed (used in Apple integration for example)
+                errback         = options.errback
             }
-            
-            interval        = interval || this.waitForPollInterval
-            timeout         = timeout || this.waitForTimeout
-            
-            var async       = this.beginAsync(timeout + 2 * interval),
-                me          = this;
+
+            var me                      = this;
             
             var sourceLine              = me.getSourceLine();
             var originalSetTimeout      = me.originalSetTimeout;
@@ -7047,6 +7138,25 @@ Role('Siesta.Test.More', {
             
             // early notification about the started "waitFor" operation
             var waitAssertion           = me.startWaiting('Waiting for ' + description);
+            
+            interval        = interval || this.waitForPollInterval
+            timeout         = timeout || this.waitForTimeout
+            
+            // this async frame not supposed to fail, because its delayed to `timeout + 3 * interval`
+            // failure supposed to be generated in the "pollFunc" and this async frame to be closed
+            // however, in IE it happens that async frame may end earlier than failure from "pollFunc"
+            // in such case we report same error as in "pollFunc"
+            var async       = this.beginAsync(timeout + 3 * interval, function () {
+                originalClearTimeout(pollTimeout)
+                
+                me.finalizeWaiting(waitAssertion, false, 'Waited too long for: ' + description, {
+                    assertionName       : assertionName,
+                    sourceLine          : sourceLine,
+                    annotation          : 'Condition was not fullfilled during ' + timeout + 'ms'
+                }, errback)
+                
+                return true
+            })
 
             // stop polling, if this test instance has finalized (probably because of exception)
             this.on('testfinalize', function () {
@@ -7054,13 +7164,12 @@ Role('Siesta.Test.More', {
             }, null, { single : true })
 
             if (this.typeOf(method) == 'Number') {
-                pollTimeout = originalSetTimeout(function() { 
+                pollTimeout = originalSetTimeout(function() {
+                    me.finalizeWaiting(waitAssertion, true, 'Waited ' + method + ' ms');
                     me.endAsync(async); 
                     me.processCallbackFromTest(callback, [], scope || me)
-                    
                 }, method);
                 
-                me.finalizeWaiting(waitAssertion, true, 'Waited ' + method + ' ms');
             } else {
             
                 var startDate   = new Date()
@@ -7075,7 +7184,7 @@ Role('Siesta.Test.More', {
                             assertionName       : assertionName,
                             sourceLine          : sourceLine,
                             annotation          : 'Condition was not fullfilled during ' + timeout + 'ms'
-                        })
+                        }, errback)
                     
                         return
                     }
@@ -7089,7 +7198,7 @@ Role('Siesta.Test.More', {
                             assertionName       : assertionName,
                             got                 : e.toString(),
                             gotDesc             : "Exception"
-                        })
+                        }, errback)
                     
                         return
                     }
@@ -7684,6 +7793,10 @@ Class('Siesta.Test', {
                 description : desc
             }))
 
+            if (this.harness.activateDebuggerOnFail) {
+                debugger;
+            }
+
             if (this.harness.breakOnFail) {
                 this.finalize(true);
                 throw 'Assertion failed, test execution aborted';
@@ -7733,7 +7846,9 @@ Class('Siesta.Test', {
         
         processCallbackFromTest : function (callback, args, scope) {
             var me      = this
-            
+
+            if (!callback) return true;
+
             if (this.transparentEx) {
                 callback.apply(scope || this.global, args || [])
             } else {
@@ -8817,6 +8932,8 @@ In the latter case, this action will perform a call to the one of the `waitFor*`
 The name of the method is computed by prepending the uppercased value of `waitFor` config with the string "waitFor" 
 (unless it doesn't already starts with "waitFor").
 The arguments for method call can be provided as the "args" array. Any non-array value for "args" will be converted to an array with one element.
+* **Note**, that this action will provide a `callback`, `scope`, and `timeout` arguments for `waitFor*` methods - you should not specify them. 
+
 
 As a special case, the value of `waitFor` config can be a Number or Function - that will trigger the call to {@link Siesta.Test#waitFor} method with provided value:
 
@@ -8903,18 +9020,31 @@ Class('Siesta.Test.Action.Wait', {
                 waitFor     = '';
             }
             
-            if (this.test.typeOf(this.args) !== "Array") {
+            if (test.typeOf(this.args) !== "Array") {
                 this.args = [ this.args ];
             }
 
             // also allow full method names
-            waitFor     = waitFor.replace(/^waitFor/, '')
-            var methodName = 'waitFor' + Joose.S.uppercaseFirst(waitFor);
+            waitFor         = waitFor.replace(/^waitFor/, '')
+            var methodName  = 'waitFor' + Joose.S.uppercaseFirst(waitFor);
             
             if (!test[methodName]){
                 throw 'Could not find a waitFor method named ' + methodName;
             }
-            test[methodName].apply(test, this.args.concat(this.next, test, this.timeout || test.waitForTimeout));
+
+            // If using simple waitFor statement, use the object notation to be able to pass a description
+            // which gives better debugging help than "Waited too long for condition to be fulfilled".
+            if (methodName === 'waitFor') {
+                test[methodName]({
+                    method          : this.args[ 0 ],
+                    callback        : this.next,
+                    scope           : test,
+                    timeout         : this.timeout || test.waitForTimeout,
+                    description     : this.desc || ''
+                });
+            } else {
+                test[methodName].apply(test, this.args.concat(this.next, test, this.timeout || test.waitForTimeout));
+            }
         }
     }
 });
@@ -9034,6 +9164,7 @@ Class('Siesta.Test.Action.Eval', {
 /**
 
 @class Siesta.Harness
+@mixin Siesta.Role.CanStyleOutput
 
 `Siesta.Harness` is an abstract base harness class in Siesta hierarchy. This class provides no UI, 
 you should use one of it subclasses, for example {@link Siesta.Harness.Browser}
@@ -10207,10 +10338,21 @@ Class('Siesta.Harness', {
 })
 //eof Siesta.Harness
 ;
-;
+/**
+@class Siesta.Role.CanStyleOutput
+@private
+
+A role, providing output coloring functionality
+
+*/
 Role('Siesta.Role.CanStyleOutput', {
     
     has         : {
+        /**
+         * @cfg {Boolean} disableColoring When set to `true` will disable the colors in the console output in automation launchers / NodeJS launcher
+         */
+        disableColoring : false,
+        
         style               : {
             is          : 'rwc',
             lazy        : 'this.buildStyle'
@@ -10264,6 +10406,8 @@ Role('Siesta.Role.CanStyleOutput', {
         
         
         styled : function (text, style) {
+            if (this.disableColoring) return text
+            
             var styles = this.styles
             
             return '\033[' + styles[ style ][ 0 ] + 'm' + text + '\033[' + styles[ style ][ 1 ] + 'm'
@@ -10372,6 +10516,7 @@ Role('Siesta.Role.ConsoleReporter', {
 })
 
 
+;
 ;
 Class('Siesta.Content.Manager.NodeJS', {
     
@@ -10543,7 +10688,7 @@ Class('Siesta.Harness.NodeJS', {
 ;
 ;
 Class('Siesta', {
-    /*PKGVERSION*/VERSION : '1.1.5',
+    /*PKGVERSION*/VERSION : '1.1.7',
 
     // "my" should been named "static"
     my : {

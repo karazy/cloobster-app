@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -217,12 +217,12 @@ Role('Siesta.Test.ExtJSCore', {
                 comp = comp.getComponent();
             }
 
-            //                     Ext JS             vs Sencha Touch
-            return comp.getEl ? comp.getEl() : (comp.el || comp.element);
+            //                                          Ext JS         vs Sencha Touch
+            return Ext.getVersion('extjs') ? comp.getEl() || comp.el : comp.element;
         },
 
         // Accept Ext.Element and Ext.Component
-        normalizeElement : function(el) {
+        normalizeElement : function(el, allowMissing) {
             if (!el) return null
             
             var Ext = this.getExt();
@@ -238,10 +238,10 @@ Role('Siesta.Test.ExtJSCore', {
                     el = this.cq1(el.substring(2))
                 } else {
                     // string in  unknown format, guessing its a DOM query
-                    return this.SUPER(el)
+                    return this.SUPER(el, allowMissing)
                 }
 
-                if (!el) {
+                if (!allowMissing && !el) {
                     throw 'No component found found for CQ: ' + origEl;
                 }
             }
@@ -253,11 +253,11 @@ Role('Siesta.Test.ExtJSCore', {
                 el = this.elementFromPoint(center[0], center[1]) || el;
             }
 
-        // ExtJS Element
+            // ExtJS Element
             if (el && el.dom) return el.dom
                 
             // will also handle the case of conversion of array with coordinates to el 
-            return this.SUPER(el);
+            return this.SUPER(el, allowMissing);
         },
         
         

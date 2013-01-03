@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -5725,7 +5725,7 @@ Class('Siesta.Util.Queue', {
         // which should be called manually
         // `interval` - the delay after step (except for asynchronous)
         steps                   : Joose.I.Array,
-        
+
         interval                : 100,
         callbackDelay           : 0,
         // setTimeout
@@ -5741,7 +5741,9 @@ Class('Siesta.Util.Queue', {
         scope                   : null,
         isAborted               : false,
         
-        observeTest             : null
+        observeTest             : null,
+
+        currentDelayStepId      : null
     },
     
     
@@ -5769,6 +5771,17 @@ Class('Siesta.Util.Queue', {
             
             this.steps.push(stepData)
         },
+
+        addDelayStep : function (delayMs) {
+            var origSetTimeout = this.deferer;
+            var me = this;
+
+            this.addAsyncStep({
+                processor : function(data) {
+                    me.currentDelayStepId = origSetTimeout(data.next, delayMs || 500);
+                }
+            });
+        },
         
         
         run : function (callback, scope) {
@@ -5788,7 +5801,8 @@ Class('Siesta.Util.Queue', {
             var deferClearer    = this.deferClearer
             
             if (!deferClearer) throw "Need `deferClearer` to be able to `abort` the queue"
-            
+
+            deferClearer(this.currentDelayStepId);
             deferClearer(this.currentTimeout)
             
             if (!ignoreCallback) this.callback.call(this.scope || this)
@@ -6343,6 +6357,79 @@ Role('Siesta.Test.Function', {
             for (var o in host) {
                 if (host[o] === obj) return o;
             }
+        },
+
+        /**
+         * This assertion passes when the supplied function is called exactly (n) times during the test life span.
+         * The `className` parameter can be supplied as a class constructor function or as a string, representing the class
+         * name. In the latter case the `class` will be eval'ed to get a reference to the class constructor.
+         *
+         * This assertion is useful when testing for example an Ext JS class where event listeners are added during
+         * class instantiation time, which means you need to observe the prototype method before instantiation.
+         *
+         * @param {Function/String} fn The function itself or the name of the function on the class (2nd argument)
+         * @param {Function/String} className The constructor function or the name of the class that contains the method
+         * @param {Number} n The expected number of calls
+         * @param {String} desc The description of the assertion
+         */
+        methodIsCalledNTimes: function(fn, className, n, desc, isGreaterEqual){
+            var me = this,
+                prop,
+                obj,
+                counter = 0;
+
+            desc = desc ? (desc + ' ') : '';
+            try {
+                if (me.typeOf(className) == 'String') className = me.global.eval(className)
+            } catch (e) {
+                me.fail(desc, {
+                    assertionName       : 'isMethodCalled',
+                    annotation          : "Exception [" + e + "] caught, while evaluating the class name [" + className + "]"
+                })
+
+                return
+            }
+
+            obj = className.prototype;
+            prop = typeof fn === "string" ? fn : me.getPropertyName(obj, fn);
+
+            me.on('beforetestfinalizeearly', function () {
+                if (counter === n || (isGreaterEqual && counter > n)) {
+                    me.pass(desc || (prop + ' method was called exactly ' + n + ' times'));
+                } else {
+                    me.fail(desc || prop, {
+                        assertionName       : 'isCalledNTimes ' + prop,
+                        got                 : counter,
+                        need                : n ,
+                        needDesc            : ("Need " + (isGreaterEqual ? 'at least ' : 'exactly '))
+                    });
+                }
+            });
+
+            fn = obj[prop];
+            obj[prop] = function () { counter++; fn.apply(obj, arguments); };
+        },
+
+        /**
+         * This assertion passes if the class method is called at least one time during the test life span.
+         *
+         * @param {Function/String} fn The function itself or the name of the function on the class (2nd argument)
+         * @param {Function/String} className The class constructor function or name of the class that contains the method
+         * @param {String} desc The description of the assertion.
+         */
+        methodIsCalled : function(fn, className, desc) {
+            this.methodIsCalledNTimes(fn, className, 1, desc, true);
+        },
+
+        /**
+         * This assertion passes if the class method is not called during the test life span.
+         *
+         * @param {Function/String} fn The function itself or the name of the function on the class (2nd argument)
+         * @param {Function/String} className The class constructor function or name of the class that contains the method
+         * @param {String} desc The description of the assertion.
+         */
+        methodIsntCalled : function(fn, className, desc) {
+            this.methodIsCalledNTimes(fn, className, 0, desc);
         }
     }
 });
@@ -6419,7 +6506,9 @@ Role('Siesta.Test.More', {
                 'startTest',
                 // will be reported in IE8 after overriding
                 'setTimeout',
-                'clearTimeout'
+                'clearTimeout',
+                'requestAnimationFrame',
+                'cancelAnimationFrame'
             ]
         },
         
@@ -6437,8 +6526,8 @@ Role('Siesta.Test.More', {
         /**
          * This assertion passes, when the comparison of 1st with 2nd, using `>` operator will return `true` and fails otherwise. 
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isGreater : function (value1, value2, desc) {
@@ -6459,8 +6548,8 @@ Role('Siesta.Test.More', {
         /**
          * This assertion passes, when the comparison of 1st with 2nd, using `<` operator will return `true` and fails otherwise. 
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isLess : function (value1, value2, desc) {
@@ -6487,8 +6576,8 @@ Role('Siesta.Test.More', {
          * 
          * It has a synonym - `isGE`.
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isGreaterOrEqual : function (value1, value2, desc) {
@@ -6516,8 +6605,8 @@ Role('Siesta.Test.More', {
          * 
          * It has a synonym - `isLE`.
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isLessOrEqual : function (value1, value2, desc) {
@@ -6551,7 +6640,7 @@ Role('Siesta.Test.More', {
                 threshHold  = Math.abs(value1 * 0.05)
             }
             
-            if (Math.abs(value2 - value1) < threshHold)
+            if (Math.abs(value2 - value1) <= threshHold)
                 this.pass(desc, value2 == value1 ? 'Exact match' : 'Match within treshhold: ' + threshHold)
             else
                 this.fail(desc, {
@@ -6749,7 +6838,7 @@ Role('Siesta.Test.More', {
          */
         isaOk : function (value, className, desc) {
             try {
-                if (this.typeOf(className) == 'String') className = eval(className)
+                if (this.typeOf(className) == 'String') className = this.global.eval(className)
             } catch (e) {
                 this.fail(desc, {
                     assertionName       : 'isa_ok', 
@@ -6993,14 +7082,17 @@ Role('Siesta.Test.More', {
         },
         
         
-        finalizeWaiting : function (result, passed, desc, annotation) {
+        finalizeWaiting : function (result, passed, desc, annotation, errback) {
             // Treat this is an ordinary assertion from now on
             result.completed = true;
             
             if (passed)
                 this.pass(desc, annotation, result)
-            else
+            else {
                 this.fail(desc, annotation, result);
+                
+                errback && errback()
+            }
         },
         
         
@@ -7019,6 +7111,7 @@ Role('Siesta.Test.More', {
         waitFor : function (method, callback, scope, timeout, interval)  {
             var description         = this.typeOf(method) == 'Number' ? (method + ' ms') : ' condition to be fullfilled';
             var assertionName       = 'waitFor';
+            var errback
 
             if (arguments.length === 1) {
                 var options     = method;
@@ -7029,16 +7122,14 @@ Role('Siesta.Test.More', {
                 timeout         = options.timeout;
                 interval        = options.interval
                 
-                description     = options.description;
+                description     = options.description || description;
                 assertionName   = options.assertionName || assertionName;
                 
+                // errback is called in case "waitFor" has failed (used in Apple integration for example)
+                errback         = options.errback
             }
-            
-            interval        = interval || this.waitForPollInterval
-            timeout         = timeout || this.waitForTimeout
-            
-            var async       = this.beginAsync(timeout + 2 * interval),
-                me          = this;
+
+            var me                      = this;
             
             var sourceLine              = me.getSourceLine();
             var originalSetTimeout      = me.originalSetTimeout;
@@ -7047,6 +7138,25 @@ Role('Siesta.Test.More', {
             
             // early notification about the started "waitFor" operation
             var waitAssertion           = me.startWaiting('Waiting for ' + description);
+            
+            interval        = interval || this.waitForPollInterval
+            timeout         = timeout || this.waitForTimeout
+            
+            // this async frame not supposed to fail, because its delayed to `timeout + 3 * interval`
+            // failure supposed to be generated in the "pollFunc" and this async frame to be closed
+            // however, in IE it happens that async frame may end earlier than failure from "pollFunc"
+            // in such case we report same error as in "pollFunc"
+            var async       = this.beginAsync(timeout + 3 * interval, function () {
+                originalClearTimeout(pollTimeout)
+                
+                me.finalizeWaiting(waitAssertion, false, 'Waited too long for: ' + description, {
+                    assertionName       : assertionName,
+                    sourceLine          : sourceLine,
+                    annotation          : 'Condition was not fullfilled during ' + timeout + 'ms'
+                }, errback)
+                
+                return true
+            })
 
             // stop polling, if this test instance has finalized (probably because of exception)
             this.on('testfinalize', function () {
@@ -7054,13 +7164,12 @@ Role('Siesta.Test.More', {
             }, null, { single : true })
 
             if (this.typeOf(method) == 'Number') {
-                pollTimeout = originalSetTimeout(function() { 
+                pollTimeout = originalSetTimeout(function() {
+                    me.finalizeWaiting(waitAssertion, true, 'Waited ' + method + ' ms');
                     me.endAsync(async); 
                     me.processCallbackFromTest(callback, [], scope || me)
-                    
                 }, method);
                 
-                me.finalizeWaiting(waitAssertion, true, 'Waited ' + method + ' ms');
             } else {
             
                 var startDate   = new Date()
@@ -7075,7 +7184,7 @@ Role('Siesta.Test.More', {
                             assertionName       : assertionName,
                             sourceLine          : sourceLine,
                             annotation          : 'Condition was not fullfilled during ' + timeout + 'ms'
-                        })
+                        }, errback)
                     
                         return
                     }
@@ -7089,7 +7198,7 @@ Role('Siesta.Test.More', {
                             assertionName       : assertionName,
                             got                 : e.toString(),
                             gotDesc             : "Exception"
-                        })
+                        }, errback)
                     
                         return
                     }
@@ -7684,6 +7793,10 @@ Class('Siesta.Test', {
                 description : desc
             }))
 
+            if (this.harness.activateDebuggerOnFail) {
+                debugger;
+            }
+
             if (this.harness.breakOnFail) {
                 this.finalize(true);
                 throw 'Assertion failed, test execution aborted';
@@ -7733,7 +7846,9 @@ Class('Siesta.Test', {
         
         processCallbackFromTest : function (callback, args, scope) {
             var me      = this
-            
+
+            if (!callback) return true;
+
             if (this.transparentEx) {
                 callback.apply(scope || this.global, args || [])
             } else {
@@ -8817,6 +8932,8 @@ In the latter case, this action will perform a call to the one of the `waitFor*`
 The name of the method is computed by prepending the uppercased value of `waitFor` config with the string "waitFor" 
 (unless it doesn't already starts with "waitFor").
 The arguments for method call can be provided as the "args" array. Any non-array value for "args" will be converted to an array with one element.
+* **Note**, that this action will provide a `callback`, `scope`, and `timeout` arguments for `waitFor*` methods - you should not specify them. 
+
 
 As a special case, the value of `waitFor` config can be a Number or Function - that will trigger the call to {@link Siesta.Test#waitFor} method with provided value:
 
@@ -8903,18 +9020,31 @@ Class('Siesta.Test.Action.Wait', {
                 waitFor     = '';
             }
             
-            if (this.test.typeOf(this.args) !== "Array") {
+            if (test.typeOf(this.args) !== "Array") {
                 this.args = [ this.args ];
             }
 
             // also allow full method names
-            waitFor     = waitFor.replace(/^waitFor/, '')
-            var methodName = 'waitFor' + Joose.S.uppercaseFirst(waitFor);
+            waitFor         = waitFor.replace(/^waitFor/, '')
+            var methodName  = 'waitFor' + Joose.S.uppercaseFirst(waitFor);
             
             if (!test[methodName]){
                 throw 'Could not find a waitFor method named ' + methodName;
             }
-            test[methodName].apply(test, this.args.concat(this.next, test, this.timeout || test.waitForTimeout));
+
+            // If using simple waitFor statement, use the object notation to be able to pass a description
+            // which gives better debugging help than "Waited too long for condition to be fulfilled".
+            if (methodName === 'waitFor') {
+                test[methodName]({
+                    method          : this.args[ 0 ],
+                    callback        : this.next,
+                    scope           : test,
+                    timeout         : this.timeout || test.waitForTimeout,
+                    description     : this.desc || ''
+                });
+            } else {
+                test[methodName].apply(test, this.args.concat(this.next, test, this.timeout || test.waitForTimeout));
+            }
         }
     }
 });
@@ -9034,6 +9164,7 @@ Class('Siesta.Test.Action.Eval', {
 /**
 
 @class Siesta.Harness
+@mixin Siesta.Role.CanStyleOutput
 
 `Siesta.Harness` is an abstract base harness class in Siesta hierarchy. This class provides no UI, 
 you should use one of it subclasses, for example {@link Siesta.Harness.Browser}
@@ -10206,6 +10337,185 @@ Class('Siesta.Harness', {
     // eof methods
 })
 //eof Siesta.Harness
+;
+/**
+@class Siesta.Role.CanStyleOutput
+@private
+
+A role, providing output coloring functionality
+
+*/
+Role('Siesta.Role.CanStyleOutput', {
+    
+    has         : {
+        /**
+         * @cfg {Boolean} disableColoring When set to `true` will disable the colors in the console output in automation launchers / NodeJS launcher
+         */
+        disableColoring : false,
+        
+        style               : {
+            is          : 'rwc',
+            lazy        : 'this.buildStyle'
+        },
+        
+        styles              : { 
+            init    : {
+                'bold'      : [1, 22],
+                'italic'    : [3, 23],
+                'underline' : [4, 24],
+                
+                'black '    : [30, 39],
+                'yellow'    : [33, 39],
+                'cyan'      : [36, 39],
+                'white'     : [37, 39],
+                'green'     : [32, 39],
+                'red'       : [31, 39],
+                'grey'      : [90, 39],
+                'blue'      : [34, 39],
+                'magenta'   : [35, 39],
+                
+                'bgblack '  : [40, 49],
+                'bgyellow'  : [43, 49],
+                'bgcyan'    : [46, 49],
+                'bgwhite'   : [47, 49],
+                'bggreen'   : [42, 49],
+                'bgred'     : [41, 49],
+                'bggrey'    : [100, 49],
+                'bgblue'    : [44, 49],
+                'bgmagenta' : [45, 49],
+                
+                'inverse'   : [7, 27]
+            }
+        }
+    },
+    
+    
+    methods : {
+        
+        buildStyle : function () {
+            var me          = this
+            var style       = {}
+            
+            Joose.O.each(this.styles, function (value, name) {
+                
+                style[ name ] = function (text) { return me.styled(text, name) }
+            })
+            
+            return style
+        },
+        
+        
+        styled : function (text, style) {
+            if (this.disableColoring) return text
+            
+            var styles = this.styles
+            
+            return '\033[' + styles[ style ][ 0 ] + 'm' + text + '\033[' + styles[ style ][ 1 ] + 'm'
+        }
+    }
+})
+;
+// consuming harness need to use `sequential` run core
+
+Role('Siesta.Role.ConsoleReporter', {
+    
+    requires    : [ 'log', 'exit', 'allPassed' ],
+    
+    
+    does        : Siesta.Role.CanStyleOutput,
+    
+    has : {
+        // special flag which will be used by automation launchers to prevent the summary message
+        // after every page
+        needSummaryMessage      : true
+    },
+    
+    
+    after : {
+        
+        markMissingFile : function (desc) {
+            this.warn("Test file [" + desc.url + "] not found.")
+        },
+        
+        
+        onTestSuiteStart : function () {
+        },
+        
+        
+        onTestSuiteEnd : function () {
+            if (this.needSummaryMessage) this.log(this.getSummaryMessage())
+            
+            this.exit(this.getExitCode())
+        },
+        
+        
+        onTestEnd : function (test) {
+            this.log('[' + (test.isPassed() ? this.style().green('PASS') : this.style().red('FAIL')) + ']  ' + test.url) 
+        },
+        
+        
+        onTestFail : function (test, exception, stack) {
+            var text = stack ? stack.join('\n') : exception + ''
+                
+            this.log(this.style().bold(this.style().red(text)))
+        },
+        
+        
+        onTestUpdate : function (test, result) {
+            var text            = result + ''
+            var needToShow      = this.verbosity > 0
+            
+            if ((result instanceof Siesta.Result.Assertion) || result.meta.name == 'Siesta.Result.Assertion') {
+                if (result.isWaitFor && !result.completed) return;
+
+                if (result.isTodo) {
+                    text = this.styled(text, result.passed ? 'magenta' : 'yellow')
+                    
+                    if (result.passed) needToShow = true
+                    
+                } else {
+                    text = this.styled(text, result.passed ? 'green' : 'red')
+                    
+                    if (!result.passed) needToShow = true
+                }
+            }
+            
+            if (result instanceof Siesta.Result.Diagnostic) {
+                text = this.styled(text, 'bold')
+                
+                if (result.isWarning) {
+                    this.warn(text)
+                    return
+                }
+            }
+            
+            if (needToShow) this.log(text)
+        }            
+    },
+    
+    
+    methods : {
+        
+        warn : function (text) {
+            this.log(this.styled('[WARN] ', 'red') + text)
+        },
+        
+        
+        getSummaryMessage : function (allPassed) {
+            allPassed = allPassed != null ? allPassed : this.allPassed()
+            
+            return allPassed ? this.style().bold(this.style().green('All tests passed')) : this.style().bold(this.style().red('There are failures'))
+        },
+        
+        
+        getExitCode : function () {
+            return this.allPassed() ? 0 : 1
+        }
+    }
+    
+})
+
+
 ;
 ;
 /*!
@@ -20289,22 +20599,29 @@ Role('Siesta.Test.Simulate.Mouse', {
                 throw 'Trying to call moveMouseTo without a target';
             }
 
-            // Normalize target
-            if (!this.isArray(target)) {
-                target = this.detectCenter(this.normalizeElement(target), 'moveMouseTo');
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
-            this.moveMouse(this.currentPosition, target, callback, scope);
+
+            // TODO this method should also accept an options object, so user can for example hold CTRL key during mouse operation
+//            options.clientX = options.clientX != null ? options.clientX : data.xy[0];
+//            options.clientY = options.clientY != null ? options.clientY : data.xy[1];
+
+            this.moveMouse(this.currentPosition, context.xy, callback, scope);
         },
 
         /**
         * This method will simulate a mouse move from current position relative by the x and y distances provided.
         * 
-        * @param {Siesta.Test.ActionTarget} target Target point to move the mouse to.
+        * @param {Array} delta The array from 2 elements: [ dx, dy ], indicating the offset. 
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
         * @param {Object} scope (optional) the scope for the callback
         */
         moveMouseBy : function(delta, callback, scope) {
-            if (!by) {
+            if (!delta) {
                 throw 'Trying to call moveMouseBy without relative distances';
             }
 
@@ -20330,6 +20647,16 @@ Role('Siesta.Test.Simulate.Mouse', {
         * @param {Object} scope (optional) the scope for the callback
         */
         moveMouseBy : function(delta, callback, scope) {
+            this.moveCursorBy.apply(this, arguments);
+        },
+
+        /**
+         * This method will simulate a mouse move by an x a y delta amount
+         * @param {Array} delta The delta x and y distance to move, e.g. [20, 20] for 20px down/right, or [0, 10] for just 10px down.
+         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
+         * @param {Object} scope (optional) the scope for the callback
+         */
+        moveCursorBy : function(delta, callback, scope) {
             // Normalize target
             var target = [this.currentPosition[0] + delta[0], this.currentPosition[1] + delta[1]];
 
@@ -20348,6 +20675,8 @@ Role('Siesta.Test.Simulate.Mouse', {
             options         = options || {};
             
             var path        = this.getPathBetweenPoints(xy, xy2).concat([xy2]);
+            
+            var supports    = Siesta.Harness.Browser.FeatureSupport().supports
 
             var queue       = new Siesta.Util.Queue({
                 deferer         : this.originalSetTimeout,
@@ -20367,7 +20696,7 @@ Role('Siesta.Test.Simulate.Mouse', {
                         var targetEl    = document.elementFromPoint(point[0], point[1]) || document.body;
                         
                         if (targetEl !== lastOverEl) {
-                            if (Siesta.supports.mouseEnterLeave) {
+                            if (supports.mouseEnterLeave) {
                                 for (var i = overEls.length - 1; i >= 0; i--) {
                                     var el = overEls[i];
                                     if (el !== targetEl && me.$(el).has(targetEl).length === 0) {
@@ -20379,7 +20708,7 @@ Role('Siesta.Test.Simulate.Mouse', {
                             if (lastOverEl) {
                                 me.simulateEvent(lastOverEl, "mouseout", $.extend({ clientX: point[0], clientY: point[1], relatedTarget : targetEl}, options));
                             }
-                            if (Siesta.supports.mouseEnterLeave && jQuery.inArray(targetEl, overEls) < 0) {
+                            if (supports.mouseEnterLeave && jQuery.inArray(targetEl, overEls) < 0) {
                                 me.simulateEvent(targetEl, "mouseenter", $.extend({ clientX: point[0], clientY: point[1], relatedTarget : lastOverEl}, options));
                             
                                 overEls.push(targetEl);
@@ -20403,58 +20732,36 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(a);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
         
         
-        normalizeClickTarget : function (el, clickMethod) {
-            var doc         = this.global.document
-            var xy
-            
-            el              = el || this.currentPosition;
-            
-            if (this.isArray(el)) {
-                xy          = el;
-                el          = doc.elementFromPoint(xy[0], xy[1]) || doc.body;
-            } else {
-                el          = this.normalizeElement(el)
-                doc         = el.ownerDocument
-                xy          = this.detectCenter(el, clickMethod);
-                el          = doc.elementFromPoint(xy[0], xy[1]) || doc.body;
-                el && this.$(el).is(':visible');
-            }
-
-            if (!el) {
-                throw 'Found no click target for: ' + arguments[0];
-            }
-            
-            return {
-                el          : el,
-                xy          : xy,
-                options     : { clientX : xy[0], clientY : xy[1] }
-            }
-        },
-        
-
-        genericMouseClick : function (el, callback, scope, options, clickMethod) {
+        genericMouseClick : function (el, callback, scope, options, method) {
             if (jQuery.isFunction(el)) {
                 scope       = callback;
                 callback    = el; 
                 el          = null;
             } 
-            
-            var data        = this.normalizeClickTarget(el, clickMethod);
-            
-            data.options    = data.options || {};
 
-            $.extend(data.options, options);
+            options = options || {};
+
+            var data        = this.getNormalizedTopElementInfo(el, false, method);
+
+            if (!data) {
+                // No point in continuing
+                callback && callback.call(scope || this);
+                return;
+            }
+
+            options.clientX = options.clientX != null ? options.clientX : data.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : data.xy[1];
 
             // the asynchronous case
             if (this.moveCursorBetweenPoints && callback) {
-                this.syncCursor(data.xy, this[ clickMethod ], [ data.el, callback, scope, data.options ]);
+                this.syncCursor(data.xy, this[ method ], [ data.el, callback, scope, options ]);
             } else {
-                this[ clickMethod ](data.el, callback, scope, data.options);
+                this[ method ](data.el, callback, scope, options);
             }
         },
         
@@ -20548,13 +20855,16 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */
         mouseDown: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
             
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+            el = el || info.el;
+
             this.simulateEvent(el, 'mousedown', options);
         },
 
@@ -20564,13 +20874,16 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */
         mouseUp: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
             
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+            el = el || info.el;
+
             this.simulateEvent(el, 'mouseup', options);
         },
 
@@ -20580,12 +20893,15 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */
         mouseOver: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
+            
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+
             this.simulateEvent(el, 'mouseover', options);
         },
 
@@ -20595,12 +20911,15 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */        
         mouseOut: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
+            
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+
             this.simulateEvent(el, 'mouseout', options);
         },
 
@@ -20639,7 +20958,7 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         }, 
 
@@ -20678,7 +20997,7 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)  
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -20721,7 +21040,7 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)  
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         }, 
 
@@ -20731,11 +21050,9 @@ Role('Siesta.Test.Simulate.Mouse', {
             var fromXY      = this.currentPosition;
             
             if (toXY[0] !== fromXY[0] || toXY[1] !== fromXY[1]) {
-                var async = this.beginAsync();
-                
+
                 this.moveMouse(fromXY, toXY, function() { 
-                    me.endAsync(async); 
-                    callback && callback.apply(me, args); 
+                    callback && callback.apply(me, args);
                 });
             } else 
                 // already aligned
@@ -20786,28 +21103,22 @@ Role('Siesta.Test.Simulate.Mouse', {
             if (!target) {
                 throw 'No drag target defined';
             }
-            var sourceXY, targetXY;
-            
             options = options || {};
-            
-            // Normalize source
-            if (this.isArray(source)) {
-                sourceXY = source;
-            } else {
-                sourceXY = this.detectCenter(this.normalizeElement(source), 'dragTo');
+
+            // normalize source and target
+            var sourceContext = this.getNormalizedTopElementInfo(source, false, 'dragTo: Source');
+            var targetContext = this.getNormalizedTopElementInfo(target, false, 'dragTo: Target');
+
+            if (!sourceContext || !targetContext) {
+                // No point in continuing
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
 
-            // Normalize target
-            if (this.isArray(target)) {
-                targetXY = target;
-            } else {
-                targetXY = this.findCenter(this.normalizeElement(target));
-            }
-
-            var args = [sourceXY, targetXY, callback, scope, options, dragOnly];
+            var args = [sourceContext.xy, targetContext.xy, callback, scope, options, dragOnly];
             
             if (this.moveCursorBetweenPoints && callback) {
-                this.syncCursor(sourceXY, this.simulateDrag, args);
+                this.syncCursor(sourceContext.xy, this.simulateDrag, args);
             } else {
                 this.simulateDrag.apply(this, args)
             }
@@ -20831,14 +21142,15 @@ Role('Siesta.Test.Simulate.Mouse', {
             if (!delta) {
                 throw 'No drag delta defined';
             }
-            var sourceXY, targetXY;
 
-            // Normalize source
-            if (this.isArray(source)) {
-                sourceXY = source;
-            } else {
-                sourceXY = this.detectCenter(this.normalizeElement(source), 'dragBy');
+            var sourceContext = this.getNormalizedTopElementInfo(source, false, 'dragBy: Source');
+
+            if (!sourceContext) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
+
+            var sourceXY = sourceContext.xy;
             targetXY = [ sourceXY[0] + delta[0], sourceXY[1] + delta[1] ];
             
             var args = [ sourceXY, targetXY, callback, scope, options, dragOnly ];
@@ -20931,28 +21243,8 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async)
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             });
-        },
-        
-        detectCenter : function (el, actionName, skipWarning) {
-            var hidden = !this.isElementVisible(el);
-
-            // Trigger mouseover in case source is hidden, possibly shown only when hovering over it (its x/y cannot be determined if display:none)
-            if (hidden) {
-                this.simulateEvent(el, "mouseover", { clientX: 0, clientY: 0 });
-                
-                if (!skipWarning && !this.isElementVisible(el)) this.fail(
-                    (actionName ? "Target element of action [" + actionName + "]" : "Target element of some action") + 
-                    " is not visible: " + (el.id ? '#' + el.id : el)
-                )
-            }
-            var center = this.findCenter(el);
-            if (hidden) {
-                this.simulateEvent(el, "mouseout", { clientX: 0, clientY: 0});
-            }
-
-            return center;
         }
     }
 });
@@ -21181,7 +21473,7 @@ Singleton('Siesta.Test.Simulate.KeyCodes', {
 
 This is a mixin, providing the keyboard events simulation functionality.
 
-  
+
 */
 
 //        Copyright (c) 2011 John Resig, http://jquery.com/
@@ -21207,7 +21499,7 @@ This is a mixin, providing the keyboard events simulation functionality.
 
 
 Role('Siesta.Test.Simulate.Keyboard', {
-    
+
     requires        : [ 'simulateEvent', 'getSimulateEventsWith', 'getElementAtCursor' ],
 
     methods: {
@@ -21270,18 +21562,18 @@ Role('Siesta.Test.Simulate.Keyboard', {
 
         /**
         * This method will simulate text typing, on a specified DOM element. Simulation of certain advanced keys is supported.
-        * You can include the name of such key in the square brackets into the 2nd argument. See {@link Siesta.Test.Simulate.KeyCodes} for a list 
+        * You can include the name of such key in the square brackets into the 2nd argument. See {@link Siesta.Test.Simulate.KeyCodes} for a list
         * of key names.
-        * 
+        *
         * For example:
-        * 
+        *
 
     t.type(el, 'Foo bar[ENTER]', function () {
         ...
     })
-        *  
+        *
         * The following events will be fired, in order: `keydown`, `keypress`, `keyup`
-        *   
+        *
         * @param {Siesta.Test.ActionTarget} el The element to type into
         * @param {String} text The text to type, including any names of special keys in square brackets.
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the type operation is completed.
@@ -21289,39 +21581,39 @@ Role('Siesta.Test.Simulate.Keyboard', {
         */
         type: function (el, text, callback, scope) {
             el      = this.normalizeElement(el || this.global.document.activeElement);
-            
+
             // Some browsers (IE/FF) do not overwrite selected text, do it manually.
             var selText = this.getSelectedText(el);
-            
+
             if (selText) {
                 el.value = el.value.replace(selText, '');
             }
 
             var me          = this
-            
+
             if (el.readOnly || el.disabled) {
-                callback && me.processCallbackFromTest(callback, null, scope || me)
-                
+                me.processCallbackFromTest(callback, null, scope || me)
+
                 return;
             }
 
             // Extract normal chars, or special keys in brackets such as [TAB], [RIGHT] or [ENTER]			
             var keys        = (text + '').match(/\[([^\])]+\])|([^\[])/g) || [];
-            
+
             var queue       = new Siesta.Util.Queue({
-                
+
                 deferer         : this.originalSetTimeout,
                 deferClearer    : this.originalClearTimeout,
-                
+
                 interval        : this.actionDelay,
                 callbackDelay   : this.afterActionDelay,
-                
+
                 observeTest     : this,
-                
+
                 processor       : function (data, index) {
-                    
+
                     var focusedEl = el.ownerDocument.activeElement;
-                    
+
                     if (focusedEl === el.ownerDocument.body) {
                         // If user clicks around in the harness during ongoing test, the activeElement will be reset to BODY
                         // If this happens, reuse the original el and hope all is well
@@ -21341,19 +21633,19 @@ Role('Siesta.Test.Simulate.Keyboard', {
                     }
                 }
             })
-            
+
             jQuery.each(keys, function (index, key) {
                 queue.addStep({
                     key     : key.length == 1 ? key : key.substring(1, key.length - 1)
                 })
             });
-            
+
             var async       = this.beginAsync();
-            
+
             queue.run(function () {
                 me.endAsync(async)
-                
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -21361,19 +21653,19 @@ Role('Siesta.Test.Simulate.Keyboard', {
         * @param {Siesta.Test.ActionTarget} el
         * @param {String} key
         * @param {Object} options any extra options used to configure the DOM event
-        * 
+        *
         * This method will simluate the key press, translated to the specified DOM element.
-        * The following events will be fired, in order: `keydown`, `keypress`, `textInput`(webkit only currently), `keyup`  
+        * The following events will be fired, in order: `keydown`, `keypress`, `textInput`(webkit only currently), `keyup`
         */
         keyPress: function (el, key, options) {
             el = this.normalizeElement(el);
-            
+
             var KeyCodes = Siesta.Test.Simulate.KeyCodes().keys,
                 keyCode,
                 charCode;
 
             options = options || {};
-            
+
             options.readableKey = key;
             keyCode = KeyCodes[key.toUpperCase()] || 0;
 
@@ -21381,22 +21673,26 @@ Role('Siesta.Test.Simulate.Keyboard', {
                 charCode = key.charCodeAt(0);
             } else {
                 charCode = 0;
-            } 
+            }
 
             var me              = this,
                 originalLength  = -1,
                 isReadableKey   = me.isReadableKey(keyCode),
                 isTextInput     = me.isTextInput(el);
-            
+
             if (isTextInput) {
                 originalLength = el.value.length;
             }
-            
+
             me.simulateEvent(el, 'keydown', $.extend({ charCode : 0, keyCode : keyCode }, options), true);
-            me.simulateEvent(el, 'keypress', $.extend({ charCode : charCode, keyCode : this.isReadableKey(keyCode) ? 0 : keyCode }, options), false);
+
+            var event           = me.simulateEvent(el, 'keypress', $.extend({ charCode : charCode, keyCode : this.isReadableKey(keyCode) ? 0 : keyCode }, options), false);
+            var prevented       = typeof event.defaultPrevented === 'boolean' ? event.defaultPrevented : event.returnValue === false;
+
+            var supports        = Siesta.Harness.Browser.FeatureSupport().supports
             
-            if (isTextInput) {
-                if (isReadableKey) {    
+            if (isTextInput && !prevented) {
+                if (isReadableKey) {
                     // PhantomJS does not simulate the "textInput" event correctly if target element is inside an iframe 
                     // (at least not as of 1.6), only the last character is shown.
                     if (!this.harness.isPhantomJS) {
@@ -21405,18 +21701,18 @@ Role('Siesta.Test.Simulate.Keyboard', {
                     }
 
                     // If the entered char had no impact on the textfield - manually put it there
-                    if (!Siesta.supports.canSimulateKeyCharacters || (originalLength === el.value.length)) {
+                    if (!supports.canSimulateKeyCharacters || (originalLength === el.value.length)) {
                         el.value = el.value + options.readableKey;
                     }
                 }
-                
+
                 // Manually delete one char off the end if backspace simulation is not supported by the browser
-                if (keyCode === KeyCodes.BACKSPACE && !Siesta.supports.canSimulateBackspace && el.value.length > 0) {
+                if (keyCode === KeyCodes.BACKSPACE && !supports.canSimulateBackspace && el.value.length > 0) {
                     el.value = el.value.substring(0, el.value.length - 1);
                 }
             }
-            
-            if (keyCode === KeyCodes.ENTER && !Siesta.supports.enterOnAnchorTriggersClick) {
+
+            if (keyCode === KeyCodes.ENTER && !supports.enterOnAnchorTriggersClick) {
                 me.simulateEvent(el, 'click');
             }
             me.simulateEvent(el, 'keyup', $.extend({ charCode : 0, keyCode : keyCode }, options), true);
@@ -21426,10 +21722,11 @@ Role('Siesta.Test.Simulate.Keyboard', {
             var name = node.nodeName.toLowerCase(),
                 type = node.type && node.type.toLowerCase();
 
-            return name === 'textarea' || 
-                   (name === 'input' && (type === 'password'    || 
-                                         type === 'number'      || 
-                                         type === 'text'        || 
+            return name === 'textarea' ||
+                   (name === 'input' && (type === 'password'    ||
+                                         type === 'number'      ||
+                                         type === 'search'      ||
+                                         type === 'text'        ||
                                          type === 'email'));
         },
 
@@ -21801,12 +22098,12 @@ Role('Siesta.Test.ExtJSCore', {
                 comp = comp.getComponent();
             }
 
-            //                     Ext JS             vs Sencha Touch
-            return comp.getEl ? comp.getEl() : (comp.el || comp.element);
+            //                                          Ext JS         vs Sencha Touch
+            return Ext.getVersion('extjs') ? comp.getEl() || comp.el : comp.element;
         },
 
         // Accept Ext.Element and Ext.Component
-        normalizeElement : function(el) {
+        normalizeElement : function(el, allowMissing) {
             if (!el) return null
             
             var Ext = this.getExt();
@@ -21822,10 +22119,10 @@ Role('Siesta.Test.ExtJSCore', {
                     el = this.cq1(el.substring(2))
                 } else {
                     // string in  unknown format, guessing its a DOM query
-                    return this.SUPER(el)
+                    return this.SUPER(el, allowMissing)
                 }
 
-                if (!el) {
+                if (!allowMissing && !el) {
                     throw 'No component found found for CQ: ' + origEl;
                 }
             }
@@ -21837,11 +22134,11 @@ Role('Siesta.Test.ExtJSCore', {
                 el = this.elementFromPoint(center[0], center[1]) || el;
             }
 
-        // ExtJS Element
+            // ExtJS Element
             if (el && el.dom) return el.dom
                 
             // will also handle the case of conversion of array with coordinates to el 
-            return this.SUPER(el);
+            return this.SUPER(el, allowMissing);
         },
         
         
@@ -22235,8 +22532,10 @@ Role('Siesta.Test.ExtJS.Store', {
                     proxy.un('exception', exceptionFailure);
                 }, null, { single : true });
 
-                var exceptionFailure = function () {
-                    me.fail("Failed to load the store", "Store [READ] URL: " + proxy.url);
+                var exceptionFailure = function (proxy, response, operation) {
+                    var url     = proxy.api && proxy.api.read || proxy.url
+                    
+                    me.fail("Failed to load the store", "Store [READ] URL: " + url);
                 };
 
                 proxy.on('exception', exceptionFailure);
@@ -22360,8 +22659,8 @@ Role('Siesta.Test.ExtJS.Observable', {
             var Ext = this.Ext();
             
             var sourceLine      = me.getSourceLine();
-            
-            if (observable instanceof Ext.Element || observable.fireEvent && observable.fireEvent === Ext.util.Observable.prototype.fireEvent) {
+
+            if (observable.on && observable.un) {
             
                 this.on('beforetestfinalizeearly', function () {
                     observable.un(event, countFunc);
@@ -22393,6 +22692,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {String} event The name of event
          * @param {String} desc The description of the assertion.
          */
+        wontFire : function(observable, event, desc) {
+            this.willFireNTimes(observable, event, 0, desc);
+        },
 
         /**
          * This assertion passes if the observable fires the specified event exactly once after calling this method.
@@ -22401,6 +22703,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {String} event The name of event
          * @param {String} desc The description of the assertion.
          */
+        firesOnce : function (observable, event, desc) {
+            this.willFireNTimes(observable, event, 1, desc);
+        },
 
         /**
          * Alias for {@link #wontFire} method
@@ -22409,6 +22714,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {String} event The name of event
          * @param {String} desc The description of the assertion.
          */
+        isntFired : function() {
+            this.wontFire.apply(this, arguments);
+        },
 
         /**
          * This assertion passes if the observable does not fire the specified event through the duration of the entire test.
@@ -22418,6 +22726,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {Number} n The minimum number of events to be fired
          * @param {String} desc The description of the assertion.
          */
+        firesAtLeastNTimes : function(observable, event, n, desc) {
+            this.willFireNTimes(observable, event, n, desc, true);
+        },
         
         
         /**
@@ -23138,7 +23449,7 @@ Role('Siesta.Test.TextSelection', {
         },
 
         /**
-         * Utility method which selects text in the passed element
+         * Utility method which selects text in the passed element (should be an input element).
          * @param {Siesta.Test.ActionTarget} The element
          * @param {Int} start (optional) The selection start index
          * @param {Int} end (optional) The selection end index
@@ -23146,7 +23457,7 @@ Role('Siesta.Test.TextSelection', {
         selectText : function(el, start, end){
             el = this.normalizeElement(el);
 
-            var v = el.value,
+            var v = el.value || el.innerHTML,
                 doFocus = true;
 
             if (v.length > 0) {
@@ -24191,12 +24502,12 @@ Class('Siesta.Test.Browser', {
         
         // Normalizes the element to an HTML element. Every 'framework layer' will need to provide its own implementation
         // This implementation accepts either a CSS selector or an Array with xy coordinates.
-        normalizeElement : function (el) {
+        normalizeElement : function (el, allowMissing) {
             if (typeof el === 'string') {
                 // DOM query
                 var origEl = el;
                 el = this.$(el)[ 0 ];
-                if (!el) {
+                if (!allowMissing && !el) {
                     throw 'No DOM element found found for CSS selector: ' + origEl;
                 }
             }
@@ -24452,6 +24763,55 @@ Class('Siesta.Test.Browser', {
          */
         firesAtLeastNTimes : function(observable, event, n, desc) {
             this.willFireNTimes(observable, event, n, desc, true);
+        },
+
+
+        // This method accepts actionTargets as input (Dom node, string, CQ etc) and does a first normalization pass to get a DOM element.
+        // After initial normalization it also tries to locate, the 'top' DOM node at the center of the first pass resulting DOM node.
+        // This is the only element we can truly interact with in a real browser.
+        // returns an object containing the element plus coordinates
+        getNormalizedTopElementInfo : function (actionTarget, skipWarning, actionName) {
+            var doc         = this.global.document;
+            var xy, el;
+
+            actionTarget = actionTarget || this.currentPosition;
+
+            // First lets get a normal DOM element to work with
+            if (this.isArray(actionTarget)) {
+                // If the actionTarget is an array, we just resolve the element at that position and that's it
+                xy = actionTarget;
+                el = doc.elementFromPoint(actionTarget[0], actionTarget[1]);
+            } else {
+                el = this.normalizeElement(actionTarget);
+            }
+
+            // IE returns null for elementFromPoint in some cases
+            el = el || doc.body;
+
+            // If this element is not visible, something is wrong
+            if (!skipWarning && !this.isElementVisible(el)) {
+                this.fail('findTopDomElement: ' + (actionName ? "Target element of action [" + actionName + "]" : "Target element of some action") +
+                        " is not visible: " + (el.id ? '#' + el.id : el)
+                );
+
+                return; // No point going further
+            }
+
+            if (!this.isArray(actionTarget)) {
+                doc         = el.ownerDocument;
+                xy          = this.findCenter(el);
+                el          = doc.elementFromPoint(xy[0], xy[1]);
+
+                if (!el) {
+                    this.fail('findTopDomElement: Could not find any element at [' + xy + ']');
+                    return; // No point going further
+                }
+            }
+
+            return {
+                el          : el,
+                xy          : xy
+            }
         }
     }
 });
@@ -24577,10 +24937,14 @@ Class('Siesta.Test.SenchaTouch', {
          * @param {Object} scope (optional) The scope for the callback 
          */
         tap: function (target, callback, scope) {
-            var me          = this;
-            
-            target = this.normalizeElement(target);
-            
+            var me      = this;
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
+            }
+
             var queue       = new Siesta.Util.Queue({
                 deferer         : this.originalSetTimeout,
                 deferClearer    : this.originalClearTimeout,
@@ -24594,15 +24958,15 @@ Class('Siesta.Test.SenchaTouch', {
                 }
             })
             
-            queue.addStep([ target, "mousedown", {}, false ])
-            queue.addStep([ target, "mouseup", {}, true ])
-            
+            queue.addStep([ context.xy, "mousedown", {}, false ])
+            queue.addStep([ context.xy, "mouseup", {}, true ])
+
             var async   = me.beginAsync();
             
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -24615,9 +24979,16 @@ Class('Siesta.Test.SenchaTouch', {
          */
         doubleTap: function (target, callback, scope) {
             var me          = this;
-            
-            target = this.normalizeElement(target);
-            
+
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
+            }
+
+            target = context.xy;
+
             var queue       = new Siesta.Util.Queue({
                 deferer         : this.originalSetTimeout,
                 deferClearer    : this.originalClearTimeout,
@@ -24642,7 +25013,7 @@ Class('Siesta.Test.SenchaTouch', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)  
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -24657,15 +25028,40 @@ Class('Siesta.Test.SenchaTouch', {
             var Ext = this.Ext();
             var me = this;
 
-            this.simulateEvent(target, 'mousedown');
-            
-            var amount = Ext.event.recognizer.LongPress.prototype.config.minDuration;
-            
-            this.waitFor(amount, function() {
-                me.simulateEvent(target, 'mouseup');
-                
-                callback.call(scope || me);
-            });
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
+            }
+            target = context.xy;
+
+            var amount = Ext.event.recognizer.LongPress.prototype.config.minDuration + 50;
+
+            var queue       = new Siesta.Util.Queue({
+                deferer         : this.originalSetTimeout,
+                deferClearer    : this.originalClearTimeout,
+
+                interval        : callback ? 30 : 0,
+
+                observeTest     : this,
+
+                processor       : function (data) {
+                    me.simulateEvent.apply(me, data);
+                }
+            })
+
+            queue.addStep([ target, "mousedown", {}, true ])
+            queue.addDelayStep(amount);
+            queue.addStep([ target, "mouseup", {}, true ])
+
+            var async   = me.beginAsync();
+
+            queue.run(function () {
+                me.endAsync(async);
+
+                me.processCallbackFromTest(callback, null, scope || me)
+            })
         },
 
         /**
@@ -24731,7 +25127,7 @@ Class('Siesta.Test.SenchaTouch', {
         /**
         * This method will simulate a finger move to an xy-coordinate or an element (the center of it)
         * 
-        * @param {Siesta.Test.ActionTarget} target Target point to move the mouse to.
+        * @param {Siesta.Test.ActionTarget} target Target point to move the finger to.
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
         * @param {Object} scope (optional) the scope for the callback
         */
@@ -24740,17 +25136,20 @@ Class('Siesta.Test.SenchaTouch', {
                 throw 'Trying to call moveFingerTo without a target';
             }
 
-            // Normalize target
-            if (!this.isArray(target)) {
-                target = this.detectCenter(this.normalizeElement(target), 'moveFingerTo');
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
-            this.moveMouse(this.currentPosition, target, callback, scope);
+
+            this.moveCursorTo(context.xy, callback, scope);
         },
 
         /**
         * This method will simulate a finger move from current position relative by the x and y distances provided.
         * 
-        * @param {Siesta.Test.ActionTarget} target Target point to move the mouse to.
+        * @param {Array} delta The delta offset to move the finger by.
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
         * @param {Object} scope (optional) the scope for the callback
         */
@@ -24759,9 +25158,7 @@ Class('Siesta.Test.SenchaTouch', {
                 throw 'Trying to call moveFingerBy without relative distances';
             }
 
-            var targetXY = [ this.currentPosition[0] + delta[0], this.currentPosition[1] + delta[1] ];
-
-            this.moveMouseTo(targetXY, callback, scope);
+            this.moveCursorBy.apply(this, arguments);
         },
 
 //        /**
@@ -24824,15 +25221,15 @@ Class('Siesta.Test.SenchaTouch', {
                     me.processCallbackFromTest(callback, null, scope || me)
                 } else {
                     me.swipe(target, direction, function() { 
-                        var as = me.beginAsync(); 
-                        
+
                         if (new Date() - startDate < this.waitForTimeout) {
-                            setTimeout(function() { 
+                            var as = me.beginAsync();
+                            setTimeout(function() {
                                 me.endAsync(as); 
                                 inner(); 
                             }, 1000); 
                         } else {
-                            t.fail('scrollUntil failed to achieve its mission');
+                            me.fail('scrollUntil failed to achieve its mission');
                         }
                     });
                 }
@@ -24841,19 +25238,27 @@ Class('Siesta.Test.SenchaTouch', {
             inner();
         },
 
-//        /**
-//        * This method will do something
-//        *   
-//        * @param {Ext.Component/String/HTMLElement/Array} scrollable Either an Ext.Component, a Component Query selector, an element, or [x,y] as the drag end point
-//        * @param {Ext.Component/String/HTMLElement/Array} target Either an Ext.Component, a Component Query selector, an element, or [x,y] as the drag end point
-//        * @param {String} direction Either 'left', 'right', 'up' or 'down'
-//        * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the drag operation is completed.
-//        * @param {Object} scope (optional) the scope for the callback
-//        */
-        scrollUntilElementVisible : function(scrollable, direction, target, callback, scope) {
+        /**
+         * Waits until the supplied x&y scroll property has the passed value. You can test for either x or y, or both.
+         *
+         * @param {Ext.scroller.Scroller} scrollable The scroller instance
+         * @param {String} direction 'up', 'down', 'left' or 'right'
+         * @param {Siesta.Test.ActionTarget} actionTarget The target, either an element or a CSS selector normally.
+         * @param {Function} callback The callback to call
+         * @param {Object} scope The scope for the callback
+         */
+        scrollUntilElementVisible : function(scrollable, direction, actionTarget, callback, scope) {
             var me = this;
-            
-            this.scrollUntil(scrollable, direction, function() { return me.elementIsInView(target); }, callback, scope);
+            if (!actionTarget || !scrollable) {
+                this.fail('scrollUntilElementVisible: target or scrollable not provided');
+                return;
+            }
+
+            this.scrollUntil(scrollable, direction, function() {
+                var element = me.normalizeElement(actionTarget, true);
+                return me.elementIsInView(element);
+            },
+            callback, scope);
         },
 
         
@@ -25051,7 +25456,7 @@ Class('Siesta.Harness.Browser', {
         isa         : Siesta.Harness,
         
         has : {
-            id : null,
+            id                  : null,
             
             /**
              * @cfg {Class} testClass The test class which will be used for creating test instances, defaults to {@link Siesta.Test.Browser}.
@@ -25090,6 +25495,7 @@ Class('Siesta.Harness.Browser', {
              * improving the speed of test. Default value is `false`.   
              */
             breakOnFail         : false,
+            activateDebuggerOnFail : false,
 
             contentManagerClass : Siesta.Content.Manager.Browser,
             scopeProvider       : 'Scope.Provider.IFrame',
@@ -25389,13 +25795,15 @@ Class('Siesta.Harness.Browser', {
                 // delay the super setup until dom ready
                 if (!this.isAutomated) {
                     Ext.onReady(function () {
-                        Siesta.supports.init();
+                        // init the singletone
+                        Siesta.Harness.Browser.FeatureSupport();
                     
                         sup.call(me, callback);
                     });
                 } else {
                     $(function () {
-                        Siesta.supports.init();
+                        // init the singletone
+                        Siesta.Harness.Browser.FeatureSupport();
                     
                         sup.call(me, callback);
                     });
@@ -25559,119 +25967,127 @@ Class('Siesta.Harness.Browser', {
 
 
 ;
-Siesta.supports = {
+Singleton('Siesta.Harness.Browser.FeatureSupport', {
     
-    results : {},
-
-    init : function() {
-        var emptyFn = function() {},
-            foo = Class({
-                does    : [
-                    Siesta.Test.Simulate.Event,
-                    Siesta.Test.Simulate.Mouse,
-                    Siesta.Test.Simulate.Keyboard
-                ],
-            
-                has     : {
-                    global      : null
+    has     : {
+        supports    : Joose.I.Object,
+        
+        tests       : {
+            init        : [
+                {
+                    id : "mouseEnterLeave",
+                    fn : function() {
+                        var el = document.createElement("div");
+                        return 'onmouseenter' in el && 'onmouseleave' in el;
+                    }
                 },
-            
-                methods : {
-                    getElementAtCursor  : emptyFn,
-                    fireEvent           : emptyFn,
-                    addResult           : emptyFn,
-                    normalizeElement    : function(a) { return a[0]; },
-                    findCenter          : function() { return [0,0]; }
+        
+                {
+                    id : "enterOnAnchorTriggersClick",
+                    fn : function() {
+                        var sim     = this.simulator,
+                            E       = Siesta.Test.Simulate.KeyCodes().keys.ENTER,
+                            result  = false;
+                            
+                        var anchor = $('<a href="foo" style="display:none">test me</a>');
+                        $('body').append(anchor);
+        
+                        anchor.focus();
+                        anchor.click(function(e) {
+                            result = true;
+                            return false;
+                        });
+                
+                        sim.simulateEvent(anchor, 'keypress', { keyCode : E, charCode : 0 }, true);
+                 
+                        anchor.remove();
+                        return result;
+                    }
+                },
+        
+                {
+                    id : "canSimulateKeyCharacters",
+                    fn : function() {
+                
+                        var sim = this.simulator;
+                        
+                        var input = $('<input class="siesta-hidden" type="text" />'),
+                            A = Siesta.Test.Simulate.KeyCodes().keys.A;
+                        $('body').append(input);
+                        
+                        input.focus();
+                        sim.simulateEvent(input, 'keypress', { keyCode : A, charCode : A }, true);
+                        sim.simulateEvent(input, 'textInput', { text : "A" }, true);
+                
+                        var result = input.val() === 'A';
+                        input.remove();
+                        return result;
+                    }
+                },
+        
+                {
+                    id : "canSimulateBackspace",
+                    fn : function() {
+                        var sim = this.simulator;
+                        
+                        var input = $('<input class="siesta-hidden" type="text" />'),
+                            BS = Siesta.Test.Simulate.KeyCodes().keys.BACKSPACE,
+                            A = Siesta.Test.Simulate.KeyCodes().keys.A;
+                        $('body').append(input);
+                        
+                        input.focus();
+                        sim.simulateEvent(input, 'keypress', { keyCode : A, charCode : A }, true);
+                        sim.simulateEvent(input, 'keypress', { keyCode : A, charCode : A }, true);
+                        sim.simulateEvent(input, 'keypress', { keyCode : BS, charCode : BS }, true);
+                        var result = input.val() === 'A';
+                 
+                        input.remove();
+                        return result;
+                    }
                 }
-            });
-        
-        this.simulator = new foo({ global : window });
-
-        for (var i = 0; i < this.tests.length; i++) {
-            var test            = this.tests[i];
-            var testId          = test.id;
-            var detectorFn      = test.fn;
-            
-            // also save the results to "results" property - we'll use this in out own test suite
-            // where we copy the feature testing results from the outer scope to inner
-            this.results[ testId ] = this[ testId ] = detectorFn.call(this);
+            ]
         }
+        
     },
-
-    tests : [
-        {
-            id : "mouseEnterLeave",
-            fn : function() {
-                var el = document.createElement("div");
-                return 'onmouseenter' in el && 'onmouseleave' in el;
-            }
-        },
-
-        {
-            id : "enterOnAnchorTriggersClick",
-            fn : function() {
-                var sim     = this.simulator,
-                    E       = Siesta.Test.Simulate.KeyCodes().keys.ENTER,
-                    result  = false;
-                    
-                var anchor = $('<a href="foo" style="display:none">test me</a>');
-                $('body').append(anchor);
-
-                anchor.focus();
-                anchor.click(function(e) {
-                    result = true;
-                    return false;
+    
+    methods     : {
+        
+        initialize : function() {
+            var emptyFn = function() {},
+                foo = Class({
+                    does    : [
+                        Siesta.Test.Simulate.Event,
+                        Siesta.Test.Simulate.Mouse,
+                        Siesta.Test.Simulate.Keyboard
+                    ],
+                
+                    has     : {
+                        global      : null
+                    },
+                
+                    methods : {
+                        getElementAtCursor  : emptyFn,
+                        fireEvent           : emptyFn,
+                        addResult           : emptyFn,
+                        normalizeElement    : function(a) { return a[0]; },
+                        findCenter          : function() { return [0,0]; }
+                    }
                 });
-        
-                sim.simulateEvent(anchor, 'keypress', { keyCode : E, charCode : 0 }, true);
-         
-                anchor.remove();
-                return result;
-            }
-        },
-
-        {
-            id : "canSimulateKeyCharacters",
-            fn : function() {
-        
-                var sim = this.simulator;
+            
+            this.simulator = new foo({ global : window });
+    
+            for (var i = 0; i < this.tests.length; i++) {
+                var test            = this.tests[i];
+                var testId          = test.id;
+                var detectorFn      = test.fn;
                 
-                var input = $('<input class="siesta-hidden" type="text" />'),
-                    A = Siesta.Test.Simulate.KeyCodes().keys.A;
-                $('body').append(input);
-                
-                input.focus();
-                sim.simulateEvent(input, 'keypress', { keyCode : A, charCode : A }, true);
-                sim.simulateEvent(input, 'textInput', { text : "A" }, true);
-        
-                var result = input.val() === 'A';
-                input.remove();
-                return result;
-            }
-        },
-
-        {
-            id : "canSimulateBackspace",
-            fn : function() {
-                var sim = this.simulator;
-                
-                var input = $('<input class="siesta-hidden" type="text" />'),
-                    BS = Siesta.Test.Simulate.KeyCodes().keys.BACKSPACE,
-                    A = Siesta.Test.Simulate.KeyCodes().keys.A;
-                $('body').append(input);
-                
-                input.focus();
-                sim.simulateEvent(input, 'keypress', { keyCode : A, charCode : A }, true);
-                sim.simulateEvent(input, 'keypress', { keyCode : A, charCode : A }, true);
-                sim.simulateEvent(input, 'keypress', { keyCode : BS, charCode : BS }, true);
-                var result = input.val() === 'A';
-         
-                input.remove();
-                return result;
+                // also save the results to "results" property - we'll use this in out own test suite
+                // where we copy the feature testing results from the outer scope to inner
+                this.supports[ testId ] = detectorFn.call(this);
             }
         }
-    ]
-};
+    }
+})
 ;
 if (typeof Ext !== "undefined") {;
 Ext.Component.override({
@@ -26060,7 +26476,9 @@ Ext.define('Siesta.Harness.Browser.UI.MouseVisualizer', {
         });
         
         // need to a delay to make it work in FF
-        Ext.Function.defer(clickCircle.addCls, 50, clickCircle, ['ghost-cursor-click-indicator-big']);
+        setTimeout(function() {
+                clickCircle.addCls('ghost-cursor-click-indicator-big');
+        }, 5);
     },
 
     /*
@@ -27001,6 +27419,8 @@ Class('Siesta.Harness.Browser.SenchaTouch', {
              * @cfg {Boolean} performSetup When set to `true`, Siesta will perform a `Ext.setup()` call, so you can safely assume there's a viewport for example.
              * If, however your test code, performs `Ext.setup()` itself, you need to disable this option.
              * 
+             * If this option is not explicitly specified in the test descritor, but instead inherited, it will be automatically disabled if test has {@link #hostPageUrl} value.
+             * 
              * This option can be also specified in the test file descriptor.
              */
             performSetup        : true,
@@ -27034,18 +27454,24 @@ Class('Siesta.Harness.Browser.SenchaTouch', {
                 
                 this.SUPERARG(arguments)
             },
-            
+
 
             getNewTestConfiguration: function (desc, scopeProvider, contentManager, options, runFunc) {
                 var config = this.SUPERARG(arguments)
 
-                config.performSetup         = this.getDescriptorConfig(desc, 'performSetup')
-                config.loaderPath           = this.getDescriptorConfig(desc, 'loaderPath')
+                var hostPageUrl = this.getDescriptorConfig(desc, 'hostPageUrl');
+                if (!desc.hasOwnProperty('performSetup') && hostPageUrl) {
+                    config.performSetup = false;
+                } else {
+                    config.performSetup = this.getDescriptorConfig(desc, 'performSetup')
+                }
+                config.loaderPath       = this.getDescriptorConfig(desc, 'loaderPath')
 
                 return config
             },
 
-            
+
+
             createViewport: function (config) {
                 if (!this.isRunningOnMobile && this.useExtJSUI) return Ext.create("Siesta.Harness.Browser.UI.ExtViewport", config);
                 
@@ -27155,7 +27581,7 @@ Class('Siesta.Harness.Browser.SenchaTouch', {
 ;
 ;
 Class('Siesta', {
-    /*PKGVERSION*/VERSION : '1.1.5',
+    /*PKGVERSION*/VERSION : '1.1.7',
 
     // "my" should been named "static"
     my : {

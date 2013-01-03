@@ -13,8 +13,8 @@ Harness.start(
 
         // Load these files for each ST 2.0 test
         preload : [
-            "../touch/resources/css/sencha-touch.css",
-            "../touch/sencha-touch-all-debug.js"
+            "../../sencha-touch-2.1.0/resources/css/sencha-touch.css",
+            "../../sencha-touch-2.1.0/sencha-touch-all-debug.js"
         ],
         items : [
             {
@@ -23,9 +23,9 @@ Harness.start(
                 performSetup : false,       // This is done by the maps example itself
                 alsoPreload : [
                     "http://maps.google.com/maps/api/js?sensor=true",
-                    "../touch/examples/map/app.js",
-                    "../touch/examples/map/lib/plugin/google/Tracker.js",
-                    "../touch/examples/map/lib/plugin/google/Traffic.js",
+                    "../../sencha-touch-2.1.0/examples/map/app.js",
+                    "../../sencha-touch-2.1.0/examples/map/lib/plugin/google/Tracker.js",
+                    "../../sencha-touch-2.1.0/examples/map/lib/plugin/google/Traffic.js"
                 ]
             },
             {

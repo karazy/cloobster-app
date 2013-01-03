@@ -4,13 +4,13 @@ StartTest(function(t) {
     
     // Use a convenience method to generate the grid, keeping the test as small as possible
     var grid = t.getGrid({
-        width : 400,
+        style:'margin:20px',
+        width : 450,
         renderTo : document.body
     });
 
     var view = grid.getView(),
-        store = grid.store,
-        selModel = grid.getSelectionModel();
+        store = grid.store;
 
     t.willFireNTimes(grid.headerCt, 'headerclick', 4);
     var hdr = 1;
@@ -54,7 +54,7 @@ StartTest(function(t) {
         verifyStep,
         { action : 'click' },
 
-        { action : 'moveCursorTo', target : [410, 10] }, 
+        { action : 'moveCursorTo', target : [400, 10] }, 
         
         function(next, targetEl) {
             t.is(Ext.select('.x-column-header-over').getCount(), 0, 'No header cells in hover over state');

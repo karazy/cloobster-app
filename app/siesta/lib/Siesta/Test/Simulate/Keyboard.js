@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -11,7 +11,7 @@ http://bryntum.com/products/siesta/license
 
 This is a mixin, providing the keyboard events simulation functionality.
 
-  
+
 */
 
 //        Copyright (c) 2011 John Resig, http://jquery.com/
@@ -37,7 +37,7 @@ This is a mixin, providing the keyboard events simulation functionality.
 
 
 Role('Siesta.Test.Simulate.Keyboard', {
-    
+
     requires        : [ 'simulateEvent', 'getSimulateEventsWith', 'getElementAtCursor' ],
 
     methods: {
@@ -100,18 +100,18 @@ Role('Siesta.Test.Simulate.Keyboard', {
 
         /**
         * This method will simulate text typing, on a specified DOM element. Simulation of certain advanced keys is supported.
-        * You can include the name of such key in the square brackets into the 2nd argument. See {@link Siesta.Test.Simulate.KeyCodes} for a list 
+        * You can include the name of such key in the square brackets into the 2nd argument. See {@link Siesta.Test.Simulate.KeyCodes} for a list
         * of key names.
-        * 
+        *
         * For example:
-        * 
+        *
 
     t.type(el, 'Foo bar[ENTER]', function () {
         ...
     })
-        *  
+        *
         * The following events will be fired, in order: `keydown`, `keypress`, `keyup`
-        *   
+        *
         * @param {Siesta.Test.ActionTarget} el The element to type into
         * @param {String} text The text to type, including any names of special keys in square brackets.
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the type operation is completed.
@@ -119,39 +119,39 @@ Role('Siesta.Test.Simulate.Keyboard', {
         */
         type: function (el, text, callback, scope) {
             el      = this.normalizeElement(el || this.global.document.activeElement);
-            
+
             // Some browsers (IE/FF) do not overwrite selected text, do it manually.
             var selText = this.getSelectedText(el);
-            
+
             if (selText) {
                 el.value = el.value.replace(selText, '');
             }
 
             var me          = this
-            
+
             if (el.readOnly || el.disabled) {
-                callback && me.processCallbackFromTest(callback, null, scope || me)
-                
+                me.processCallbackFromTest(callback, null, scope || me)
+
                 return;
             }
 
             // Extract normal chars, or special keys in brackets such as [TAB], [RIGHT] or [ENTER]			
             var keys        = (text + '').match(/\[([^\])]+\])|([^\[])/g) || [];
-            
+
             var queue       = new Siesta.Util.Queue({
-                
+
                 deferer         : this.originalSetTimeout,
                 deferClearer    : this.originalClearTimeout,
-                
+
                 interval        : this.actionDelay,
                 callbackDelay   : this.afterActionDelay,
-                
+
                 observeTest     : this,
-                
+
                 processor       : function (data, index) {
-                    
+
                     var focusedEl = el.ownerDocument.activeElement;
-                    
+
                     if (focusedEl === el.ownerDocument.body) {
                         // If user clicks around in the harness during ongoing test, the activeElement will be reset to BODY
                         // If this happens, reuse the original el and hope all is well
@@ -171,19 +171,19 @@ Role('Siesta.Test.Simulate.Keyboard', {
                     }
                 }
             })
-            
+
             jQuery.each(keys, function (index, key) {
                 queue.addStep({
                     key     : key.length == 1 ? key : key.substring(1, key.length - 1)
                 })
             });
-            
+
             var async       = this.beginAsync();
-            
+
             queue.run(function () {
                 me.endAsync(async)
-                
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -191,19 +191,19 @@ Role('Siesta.Test.Simulate.Keyboard', {
         * @param {Siesta.Test.ActionTarget} el
         * @param {String} key
         * @param {Object} options any extra options used to configure the DOM event
-        * 
+        *
         * This method will simluate the key press, translated to the specified DOM element.
-        * The following events will be fired, in order: `keydown`, `keypress`, `textInput`(webkit only currently), `keyup`  
+        * The following events will be fired, in order: `keydown`, `keypress`, `textInput`(webkit only currently), `keyup`
         */
         keyPress: function (el, key, options) {
             el = this.normalizeElement(el);
-            
+
             var KeyCodes = Siesta.Test.Simulate.KeyCodes().keys,
                 keyCode,
                 charCode;
 
             options = options || {};
-            
+
             options.readableKey = key;
             keyCode = KeyCodes[key.toUpperCase()] || 0;
 
@@ -211,22 +211,26 @@ Role('Siesta.Test.Simulate.Keyboard', {
                 charCode = key.charCodeAt(0);
             } else {
                 charCode = 0;
-            } 
+            }
 
             var me              = this,
                 originalLength  = -1,
                 isReadableKey   = me.isReadableKey(keyCode),
                 isTextInput     = me.isTextInput(el);
-            
+
             if (isTextInput) {
                 originalLength = el.value.length;
             }
-            
+
             me.simulateEvent(el, 'keydown', $.extend({ charCode : 0, keyCode : keyCode }, options), true);
-            me.simulateEvent(el, 'keypress', $.extend({ charCode : charCode, keyCode : this.isReadableKey(keyCode) ? 0 : keyCode }, options), false);
+
+            var event           = me.simulateEvent(el, 'keypress', $.extend({ charCode : charCode, keyCode : this.isReadableKey(keyCode) ? 0 : keyCode }, options), false);
+            var prevented       = typeof event.defaultPrevented === 'boolean' ? event.defaultPrevented : event.returnValue === false;
+
+            var supports        = Siesta.Harness.Browser.FeatureSupport().supports
             
-            if (isTextInput) {
-                if (isReadableKey) {    
+            if (isTextInput && !prevented) {
+                if (isReadableKey) {
                     // PhantomJS does not simulate the "textInput" event correctly if target element is inside an iframe 
                     // (at least not as of 1.6), only the last character is shown.
                     if (!this.harness.isPhantomJS) {
@@ -235,18 +239,18 @@ Role('Siesta.Test.Simulate.Keyboard', {
                     }
 
                     // If the entered char had no impact on the textfield - manually put it there
-                    if (!Siesta.supports.canSimulateKeyCharacters || (originalLength === el.value.length)) {
+                    if (!supports.canSimulateKeyCharacters || (originalLength === el.value.length)) {
                         el.value = el.value + options.readableKey;
                     }
                 }
-                
+
                 // Manually delete one char off the end if backspace simulation is not supported by the browser
-                if (keyCode === KeyCodes.BACKSPACE && !Siesta.supports.canSimulateBackspace && el.value.length > 0) {
+                if (keyCode === KeyCodes.BACKSPACE && !supports.canSimulateBackspace && el.value.length > 0) {
                     el.value = el.value.substring(0, el.value.length - 1);
                 }
             }
-            
-            if (keyCode === KeyCodes.ENTER && !Siesta.supports.enterOnAnchorTriggersClick) {
+
+            if (keyCode === KeyCodes.ENTER && !supports.enterOnAnchorTriggersClick) {
                 me.simulateEvent(el, 'click');
             }
             me.simulateEvent(el, 'keyup', $.extend({ charCode : 0, keyCode : keyCode }, options), true);
@@ -256,10 +260,11 @@ Role('Siesta.Test.Simulate.Keyboard', {
             var name = node.nodeName.toLowerCase(),
                 type = node.type && node.type.toLowerCase();
 
-            return name === 'textarea' || 
-                   (name === 'input' && (type === 'password'    || 
-                                         type === 'number'      || 
-                                         type === 'text'        || 
+            return name === 'textarea' ||
+                   (name === 'input' && (type === 'password'    ||
+                                         type === 'number'      ||
+                                         type === 'search'      ||
+                                         type === 'text'        ||
                                          type === 'email'));
         },
 

@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -135,22 +135,29 @@ Role('Siesta.Test.Simulate.Mouse', {
                 throw 'Trying to call moveMouseTo without a target';
             }
 
-            // Normalize target
-            if (!this.isArray(target)) {
-                target = this.detectCenter(this.normalizeElement(target), 'moveMouseTo');
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
-            this.moveMouse(this.currentPosition, target, callback, scope);
+
+            // TODO this method should also accept an options object, so user can for example hold CTRL key during mouse operation
+//            options.clientX = options.clientX != null ? options.clientX : data.xy[0];
+//            options.clientY = options.clientY != null ? options.clientY : data.xy[1];
+
+            this.moveMouse(this.currentPosition, context.xy, callback, scope);
         },
 
         /**
         * This method will simulate a mouse move from current position relative by the x and y distances provided.
         * 
-        * @param {Siesta.Test.ActionTarget} target Target point to move the mouse to.
+        * @param {Array} delta The array from 2 elements: [ dx, dy ], indicating the offset. 
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
         * @param {Object} scope (optional) the scope for the callback
         */
         moveMouseBy : function(delta, callback, scope) {
-            if (!by) {
+            if (!delta) {
                 throw 'Trying to call moveMouseBy without relative distances';
             }
 
@@ -176,6 +183,16 @@ Role('Siesta.Test.Simulate.Mouse', {
         * @param {Object} scope (optional) the scope for the callback
         */
         moveMouseBy : function(delta, callback, scope) {
+            this.moveCursorBy.apply(this, arguments);
+        },
+
+        /**
+         * This method will simulate a mouse move by an x a y delta amount
+         * @param {Array} delta The delta x and y distance to move, e.g. [20, 20] for 20px down/right, or [0, 10] for just 10px down.
+         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
+         * @param {Object} scope (optional) the scope for the callback
+         */
+        moveCursorBy : function(delta, callback, scope) {
             // Normalize target
             var target = [this.currentPosition[0] + delta[0], this.currentPosition[1] + delta[1]];
 
@@ -194,6 +211,8 @@ Role('Siesta.Test.Simulate.Mouse', {
             options         = options || {};
             
             var path        = this.getPathBetweenPoints(xy, xy2).concat([xy2]);
+            
+            var supports    = Siesta.Harness.Browser.FeatureSupport().supports
 
             var queue       = new Siesta.Util.Queue({
                 deferer         : this.originalSetTimeout,
@@ -213,7 +232,7 @@ Role('Siesta.Test.Simulate.Mouse', {
                         var targetEl    = document.elementFromPoint(point[0], point[1]) || document.body;
                         
                         if (targetEl !== lastOverEl) {
-                            if (Siesta.supports.mouseEnterLeave) {
+                            if (supports.mouseEnterLeave) {
                                 for (var i = overEls.length - 1; i >= 0; i--) {
                                     var el = overEls[i];
                                     if (el !== targetEl && me.$(el).has(targetEl).length === 0) {
@@ -225,7 +244,7 @@ Role('Siesta.Test.Simulate.Mouse', {
                             if (lastOverEl) {
                                 me.simulateEvent(lastOverEl, "mouseout", $.extend({ clientX: point[0], clientY: point[1], relatedTarget : targetEl}, options));
                             }
-                            if (Siesta.supports.mouseEnterLeave && jQuery.inArray(targetEl, overEls) < 0) {
+                            if (supports.mouseEnterLeave && jQuery.inArray(targetEl, overEls) < 0) {
                                 me.simulateEvent(targetEl, "mouseenter", $.extend({ clientX: point[0], clientY: point[1], relatedTarget : lastOverEl}, options));
                             
                                 overEls.push(targetEl);
@@ -249,58 +268,36 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(a);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
         
         
-        normalizeClickTarget : function (el, clickMethod) {
-            var doc         = this.global.document
-            var xy
-            
-            el              = el || this.currentPosition;
-            
-            if (this.isArray(el)) {
-                xy          = el;
-                el          = doc.elementFromPoint(xy[0], xy[1]) || doc.body;
-            } else {
-                el          = this.normalizeElement(el)
-                doc         = el.ownerDocument
-                xy          = this.detectCenter(el, clickMethod);
-                el          = doc.elementFromPoint(xy[0], xy[1]) || doc.body;
-                el && this.$(el).is(':visible');
-            }
-
-            if (!el) {
-                throw 'Found no click target for: ' + arguments[0];
-            }
-            
-            return {
-                el          : el,
-                xy          : xy,
-                options     : { clientX : xy[0], clientY : xy[1] }
-            }
-        },
-        
-
-        genericMouseClick : function (el, callback, scope, options, clickMethod) {
+        genericMouseClick : function (el, callback, scope, options, method) {
             if (jQuery.isFunction(el)) {
                 scope       = callback;
                 callback    = el; 
                 el          = null;
             } 
-            
-            var data        = this.normalizeClickTarget(el, clickMethod);
-            
-            data.options    = data.options || {};
 
-            $.extend(data.options, options);
+            options = options || {};
+
+            var data        = this.getNormalizedTopElementInfo(el, false, method);
+
+            if (!data) {
+                // No point in continuing
+                callback && callback.call(scope || this);
+                return;
+            }
+
+            options.clientX = options.clientX != null ? options.clientX : data.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : data.xy[1];
 
             // the asynchronous case
             if (this.moveCursorBetweenPoints && callback) {
-                this.syncCursor(data.xy, this[ clickMethod ], [ data.el, callback, scope, data.options ]);
+                this.syncCursor(data.xy, this[ method ], [ data.el, callback, scope, options ]);
             } else {
-                this[ clickMethod ](data.el, callback, scope, data.options);
+                this[ method ](data.el, callback, scope, options);
             }
         },
         
@@ -394,13 +391,16 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */
         mouseDown: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
             
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+            el = el || info.el;
+
             this.simulateEvent(el, 'mousedown', options);
         },
 
@@ -410,13 +410,16 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */
         mouseUp: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
             
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+            el = el || info.el;
+
             this.simulateEvent(el, 'mouseup', options);
         },
 
@@ -426,12 +429,15 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */
         mouseOver: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
+            
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+
             this.simulateEvent(el, 'mouseover', options);
         },
 
@@ -441,12 +447,15 @@ Role('Siesta.Test.Simulate.Mouse', {
          * @param {Object} options any extra options used to configure the DOM event
          */        
         mouseOut: function (el, options) {
-            if (el)
-                el          = this.normalizeElement(el)
-            else {
-                el          = this.getElementAtCursor();
-                options     = $.extend({ clientX: this.currentPosition[0], clientY: this.currentPosition[1]}, options);
-            }
+            var info        = this.getNormalizedTopElementInfo(el);
+
+            if (!info) return;
+            
+            options         = options || {}
+
+            options.clientX = options.clientX != null ? options.clientX : info.xy[0];
+            options.clientY = options.clientY != null ? options.clientY : info.xy[1];
+
             this.simulateEvent(el, 'mouseout', options);
         },
 
@@ -485,7 +494,7 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         }, 
 
@@ -524,7 +533,7 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)  
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -567,7 +576,7 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)  
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         }, 
 
@@ -577,11 +586,9 @@ Role('Siesta.Test.Simulate.Mouse', {
             var fromXY      = this.currentPosition;
             
             if (toXY[0] !== fromXY[0] || toXY[1] !== fromXY[1]) {
-                var async = this.beginAsync();
-                
+
                 this.moveMouse(fromXY, toXY, function() { 
-                    me.endAsync(async); 
-                    callback && callback.apply(me, args); 
+                    callback && callback.apply(me, args);
                 });
             } else 
                 // already aligned
@@ -632,28 +639,22 @@ Role('Siesta.Test.Simulate.Mouse', {
             if (!target) {
                 throw 'No drag target defined';
             }
-            var sourceXY, targetXY;
-            
             options = options || {};
-            
-            // Normalize source
-            if (this.isArray(source)) {
-                sourceXY = source;
-            } else {
-                sourceXY = this.detectCenter(this.normalizeElement(source), 'dragTo');
+
+            // normalize source and target
+            var sourceContext = this.getNormalizedTopElementInfo(source, false, 'dragTo: Source');
+            var targetContext = this.getNormalizedTopElementInfo(target, false, 'dragTo: Target');
+
+            if (!sourceContext || !targetContext) {
+                // No point in continuing
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
 
-            // Normalize target
-            if (this.isArray(target)) {
-                targetXY = target;
-            } else {
-                targetXY = this.findCenter(this.normalizeElement(target));
-            }
-
-            var args = [sourceXY, targetXY, callback, scope, options, dragOnly];
+            var args = [sourceContext.xy, targetContext.xy, callback, scope, options, dragOnly];
             
             if (this.moveCursorBetweenPoints && callback) {
-                this.syncCursor(sourceXY, this.simulateDrag, args);
+                this.syncCursor(sourceContext.xy, this.simulateDrag, args);
             } else {
                 this.simulateDrag.apply(this, args)
             }
@@ -677,14 +678,15 @@ Role('Siesta.Test.Simulate.Mouse', {
             if (!delta) {
                 throw 'No drag delta defined';
             }
-            var sourceXY, targetXY;
 
-            // Normalize source
-            if (this.isArray(source)) {
-                sourceXY = source;
-            } else {
-                sourceXY = this.detectCenter(this.normalizeElement(source), 'dragBy');
+            var sourceContext = this.getNormalizedTopElementInfo(source, false, 'dragBy: Source');
+
+            if (!sourceContext) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
+
+            var sourceXY = sourceContext.xy;
             targetXY = [ sourceXY[0] + delta[0], sourceXY[1] + delta[1] ];
             
             var args = [ sourceXY, targetXY, callback, scope, options, dragOnly ];
@@ -777,28 +779,8 @@ Role('Siesta.Test.Simulate.Mouse', {
             queue.run(function () {
                 me.endAsync(async)
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             });
-        },
-        
-        detectCenter : function (el, actionName, skipWarning) {
-            var hidden = !this.isElementVisible(el);
-
-            // Trigger mouseover in case source is hidden, possibly shown only when hovering over it (its x/y cannot be determined if display:none)
-            if (hidden) {
-                this.simulateEvent(el, "mouseover", { clientX: 0, clientY: 0 });
-                
-                if (!skipWarning && !this.isElementVisible(el)) this.fail(
-                    (actionName ? "Target element of action [" + actionName + "]" : "Target element of some action") + 
-                    " is not visible: " + (el.id ? '#' + el.id : el)
-                )
-            }
-            var center = this.findCenter(el);
-            if (hidden) {
-                this.simulateEvent(el, "mouseout", { clientX: 0, clientY: 0});
-            }
-
-            return center;
         }
     }
 });

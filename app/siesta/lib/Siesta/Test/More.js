@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -37,7 +37,9 @@ Role('Siesta.Test.More', {
                 'startTest',
                 // will be reported in IE8 after overriding
                 'setTimeout',
-                'clearTimeout'
+                'clearTimeout',
+                'requestAnimationFrame',
+                'cancelAnimationFrame'
             ]
         },
         
@@ -55,8 +57,8 @@ Role('Siesta.Test.More', {
         /**
          * This assertion passes, when the comparison of 1st with 2nd, using `>` operator will return `true` and fails otherwise. 
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isGreater : function (value1, value2, desc) {
@@ -77,8 +79,8 @@ Role('Siesta.Test.More', {
         /**
          * This assertion passes, when the comparison of 1st with 2nd, using `<` operator will return `true` and fails otherwise. 
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isLess : function (value1, value2, desc) {
@@ -105,8 +107,8 @@ Role('Siesta.Test.More', {
          * 
          * It has a synonym - `isGE`.
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isGreaterOrEqual : function (value1, value2, desc) {
@@ -134,8 +136,8 @@ Role('Siesta.Test.More', {
          * 
          * It has a synonym - `isLE`.
          * 
-         * @param {Number} value1 The 1st value to compare
-         * @param {Number} value2 The 2nd value to compare
+         * @param {Number/Date} value1 The 1st value to compare
+         * @param {Number/Date} value2 The 2nd value to compare
          * @param {String} desc The description of the assertion
          */
         isLessOrEqual : function (value1, value2, desc) {
@@ -169,7 +171,7 @@ Role('Siesta.Test.More', {
                 threshHold  = Math.abs(value1 * 0.05)
             }
             
-            if (Math.abs(value2 - value1) < threshHold)
+            if (Math.abs(value2 - value1) <= threshHold)
                 this.pass(desc, value2 == value1 ? 'Exact match' : 'Match within treshhold: ' + threshHold)
             else
                 this.fail(desc, {
@@ -367,7 +369,7 @@ Role('Siesta.Test.More', {
          */
         isaOk : function (value, className, desc) {
             try {
-                if (this.typeOf(className) == 'String') className = eval(className)
+                if (this.typeOf(className) == 'String') className = this.global.eval(className)
             } catch (e) {
                 this.fail(desc, {
                     assertionName       : 'isa_ok', 
@@ -611,14 +613,17 @@ Role('Siesta.Test.More', {
         },
         
         
-        finalizeWaiting : function (result, passed, desc, annotation) {
+        finalizeWaiting : function (result, passed, desc, annotation, errback) {
             // Treat this is an ordinary assertion from now on
             result.completed = true;
             
             if (passed)
                 this.pass(desc, annotation, result)
-            else
+            else {
                 this.fail(desc, annotation, result);
+                
+                errback && errback()
+            }
         },
         
         
@@ -637,6 +642,7 @@ Role('Siesta.Test.More', {
         waitFor : function (method, callback, scope, timeout, interval)  {
             var description         = this.typeOf(method) == 'Number' ? (method + ' ms') : ' condition to be fullfilled';
             var assertionName       = 'waitFor';
+            var errback
 
             if (arguments.length === 1) {
                 var options     = method;
@@ -647,16 +653,14 @@ Role('Siesta.Test.More', {
                 timeout         = options.timeout;
                 interval        = options.interval
                 
-                description     = options.description;
+                description     = options.description || description;
                 assertionName   = options.assertionName || assertionName;
                 
+                // errback is called in case "waitFor" has failed (used in Apple integration for example)
+                errback         = options.errback
             }
-            
-            interval        = interval || this.waitForPollInterval
-            timeout         = timeout || this.waitForTimeout
-            
-            var async       = this.beginAsync(timeout + 2 * interval),
-                me          = this;
+
+            var me                      = this;
             
             var sourceLine              = me.getSourceLine();
             var originalSetTimeout      = me.originalSetTimeout;
@@ -665,6 +669,25 @@ Role('Siesta.Test.More', {
             
             // early notification about the started "waitFor" operation
             var waitAssertion           = me.startWaiting('Waiting for ' + description);
+            
+            interval        = interval || this.waitForPollInterval
+            timeout         = timeout || this.waitForTimeout
+            
+            // this async frame not supposed to fail, because its delayed to `timeout + 3 * interval`
+            // failure supposed to be generated in the "pollFunc" and this async frame to be closed
+            // however, in IE it happens that async frame may end earlier than failure from "pollFunc"
+            // in such case we report same error as in "pollFunc"
+            var async       = this.beginAsync(timeout + 3 * interval, function () {
+                originalClearTimeout(pollTimeout)
+                
+                me.finalizeWaiting(waitAssertion, false, 'Waited too long for: ' + description, {
+                    assertionName       : assertionName,
+                    sourceLine          : sourceLine,
+                    annotation          : 'Condition was not fullfilled during ' + timeout + 'ms'
+                }, errback)
+                
+                return true
+            })
 
             // stop polling, if this test instance has finalized (probably because of exception)
             this.on('testfinalize', function () {
@@ -672,13 +695,12 @@ Role('Siesta.Test.More', {
             }, null, { single : true })
 
             if (this.typeOf(method) == 'Number') {
-                pollTimeout = originalSetTimeout(function() { 
+                pollTimeout = originalSetTimeout(function() {
+                    me.finalizeWaiting(waitAssertion, true, 'Waited ' + method + ' ms');
                     me.endAsync(async); 
                     me.processCallbackFromTest(callback, [], scope || me)
-                    
                 }, method);
                 
-                me.finalizeWaiting(waitAssertion, true, 'Waited ' + method + ' ms');
             } else {
             
                 var startDate   = new Date()
@@ -693,7 +715,7 @@ Role('Siesta.Test.More', {
                             assertionName       : assertionName,
                             sourceLine          : sourceLine,
                             annotation          : 'Condition was not fullfilled during ' + timeout + 'ms'
-                        })
+                        }, errback)
                     
                         return
                     }
@@ -707,7 +729,7 @@ Role('Siesta.Test.More', {
                             assertionName       : assertionName,
                             got                 : e.toString(),
                             gotDesc             : "Exception"
-                        })
+                        }, errback)
                     
                         return
                     }

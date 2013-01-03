@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -84,7 +84,7 @@ Class('Siesta.Harness.Browser', {
         isa         : Siesta.Harness,
         
         has : {
-            id : null,
+            id                  : null,
             
             /**
              * @cfg {Class} testClass The test class which will be used for creating test instances, defaults to {@link Siesta.Test.Browser}.
@@ -123,6 +123,7 @@ Class('Siesta.Harness.Browser', {
              * improving the speed of test. Default value is `false`.   
              */
             breakOnFail         : false,
+            activateDebuggerOnFail : false,
 
             contentManagerClass : Siesta.Content.Manager.Browser,
             scopeProvider       : 'Scope.Provider.IFrame',
@@ -422,13 +423,15 @@ Class('Siesta.Harness.Browser', {
                 // delay the super setup until dom ready
                 if (!this.isAutomated) {
                     Ext.onReady(function () {
-                        Siesta.supports.init();
+                        // init the singletone
+                        Siesta.Harness.Browser.FeatureSupport();
                     
                         sup.call(me, callback);
                     });
                 } else {
                     $(function () {
-                        Siesta.supports.init();
+                        // init the singletone
+                        Siesta.Harness.Browser.FeatureSupport();
                     
                         sup.call(me, callback);
                     });

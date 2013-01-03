@@ -93,20 +93,18 @@ StartTest(function (t) {
         root : data
     });
 
-    var nestedList = Ext.create('Ext.NestedList', {
+    var list = Ext.create('Ext.NestedList', {
         fullscreen : true,
         title : 'Groceries',
         displayField : 'text',
         store : store
     });
 
-    t.waitForCQ("nestedlist[rendered=true]", function (lists) {
-        var list = lists[0];
+    t.waitForSelector(".x-list-item", function () {
         var tapFirst = {
             action : 'tap',
-            target : function () {
-                return list.getActiveItem().element.down('.x-list-item')
-            }
+            // Click first item in a list that is not hidden (inactive cards are hidden)
+            target : '.x-list:not(.x-item-hidden) .x-list-item-first'
         };
 
         t.chain(
@@ -119,6 +117,7 @@ StartTest(function (t) {
 
             function (next) {
                 var sel = list.getActiveItem().selected;
+
                 t.is(sel.getCount(), 1, '1 item selected');
                 t.is(sel.first().get('text'), 'Sparkling', 'Found Sparkling text on selected item');
 
@@ -126,7 +125,7 @@ StartTest(function (t) {
             },
 
             { action : 'tap', target : '>>[ui=back]' },
-            { action : 'tap', target : '>>[ui=back]' },
+            { action : 'tap' }, // Not specifying target, we're already at the right place
 
             function () {
                 var sel = list.getActiveItem().selected;

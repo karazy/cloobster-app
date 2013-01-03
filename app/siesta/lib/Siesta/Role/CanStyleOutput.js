@@ -1,14 +1,26 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
 
 */
+/**
+@class Siesta.Role.CanStyleOutput
+@private
+
+A role, providing output coloring functionality
+
+*/
 Role('Siesta.Role.CanStyleOutput', {
     
     has         : {
+        /**
+         * @cfg {Boolean} disableColoring When set to `true` will disable the colors in the console output in automation launchers / NodeJS launcher
+         */
+        disableColoring : false,
+        
         style               : {
             is          : 'rwc',
             lazy        : 'this.buildStyle'
@@ -62,6 +74,8 @@ Role('Siesta.Role.CanStyleOutput', {
         
         
         styled : function (text, style) {
+            if (this.disableColoring) return text
+            
             var styles = this.styles
             
             return '\033[' + styles[ style ][ 0 ] + 'm' + text + '\033[' + styles[ style ][ 1 ] + 'm'

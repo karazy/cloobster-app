@@ -23,23 +23,26 @@ Harness.configure({
         'Harness',
         '__REFADR__'
     ],
+    activateDebuggerOnFail : false,
 
     testClass   : Class({
-        
         isa     : Siesta.Test.ExtJS,
-        
-        does    : Siesta.Test.Self
+        does    : [
+            Siesta.Test.Self,
+            Siesta.Test.Self.ExtJS
+        ]
     }),
     
     preload : [
         '../../extjs-4.1.0/resources/css/ext-all.css',
         '../../extjs-4.1.0/ext-all-debug.js',
         '../siesta-all.js',
-        'lib/Siesta/Test/AssertionsTranslator.js',
-        {
-            // copy the feature test results from the harness
-            text        : 'Siesta.supports = JSON.parse(JSON.stringify((window.opener || window.parent).Siesta.supports.results))'
-        }
+        'lib/Siesta/Test/AssertionsTranslator.js'
+//        ,
+//        {
+//            // copy the feature test results from the harness
+//            text        : 'Siesta.supports = JSON.parse(JSON.stringify((window.opener || window.parent).Siesta.supports.results))'
+//        }
     ],
     
     overrideSetTimeout  : false
@@ -48,6 +51,7 @@ Harness.configure({
 
 Harness.start(
     '010_sanity.t.js',
+    '011_function.t.js',
     '020_test.t.js',
     '021_begin_async.t.js',
     '021_assertions_1.t.js',
@@ -58,12 +62,14 @@ Harness.start(
     '042_keyevent_simulation3.t.js',
     '043_special_keys.t.js',
     '044_text_selection.t.js',
+    '045_cancel_keypress.t.js',
     '201_function.t.js',
     {
         group               : 'Visual tests',
         
         items               : [
             '050_mouse_click.t.js',
+            '050_targeting_normalization.t.js',
             '050_mouse_click_jquery.t.js',
             '051_mouse_overout.t.js',
             '051_mouse_overout_with_span.t.js',
@@ -101,6 +107,11 @@ Harness.start(
         items               : [
             '500_extjs_observable.t.js?Ext4',
             {
+                preload             : [],
+                hostPageUrl     : '500_extjs_observable_hostpage.html',
+                url             : '500_extjs_observable_hostpage.t.js'
+            },
+            {
                 url         : '501_extjs_combo_autocomplete.t.js?Ext4',
                 speedRun    : false
             },
@@ -126,11 +137,12 @@ Harness.start(
             "../../ext-3.4.0/adapter/ext/ext-base-debug.js",
             "../../ext-3.4.0/ext-all-debug.js",
             '../siesta-all.js',
-            'lib/Siesta/Test/AssertionsTranslator.js',
-            {
-                // copy the feature test results from the harness
-                text        : 'Siesta.supports = jQuery.extend({}, (window.opener || window.parent).Siesta.supports.results)'
-            }
+            'lib/Siesta/Test/AssertionsTranslator.js'
+//            ,
+//            {
+//                // copy the feature test results from the harness
+//                text        : 'Siesta.supports = jQuery.extend({}, (window.opener || window.parent).Siesta.supports.results)'
+//            }
         ],
         
         items               : [
@@ -162,19 +174,39 @@ Harness.start(
         ]
     },
     '300_iframe_events.t.js',
-    // only show sencha touch tests in Chrome
-    /chrome/i.test(navigator.userAgent) ?
+    // only show/launch sencha touch tests in Webkit
+    /webkit/i.test(navigator.userAgent) ?
         {
             group               : 'Sencha Touch Tests',
-            testClass           : Siesta.Test.SenchaTouch,
+            testClass           : Class({
+                isa     : Siesta.Test.SenchaTouch,
+                does    : Siesta.Test.Self
+            }),
             // XXX this test group does not preload siesta - need to refresh the harness page 
             // every time for this tests
             preload : [
-                "../../sencha-touch-2.0.1/resources/css/sencha-touch.css",
-                "../../sencha-touch-2.0.1/sencha-touch-all-debug.js"
+                "../../sencha-touch-2.1.0/resources/css/sencha-touch.css",
+                "../../sencha-touch-2.1.0/sencha-touch-all-debug.js",
+                "../siesta-touch-all.js",
+                'lib/Siesta/Test/AssertionsTranslator.js'
+//                ,
+//                {
+//                    // copy the feature test results from the harness
+//                    text        : 'Siesta.supports = jQuery.extend({}, (window.opener || window.parent).Siesta.supports.results)'
+//                }
             ],
             items               :  [
-                '701_sencha_touch_form.t.js'
+                'senchatouch/001_tap.js',
+                'senchatouch/701_sencha_touch_form.t.js'
+//                ,
+//                {
+//                    testClass           : testClass,
+//                    preload : [
+//                        '../../extjs-4.1.0/ext-all-debug.js',
+//                        '../siesta-all.js'
+//                    ],
+//                    url : 'senchatouch/010_performsetup.t.js'
+//                }
             ]
         }
     : 

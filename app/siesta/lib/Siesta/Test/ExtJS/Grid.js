@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -39,7 +39,7 @@ Role('Siesta.Test.ExtJS.Grid', {
 
                 // Handle case of locking grid
                 if(cmp.normalGrid) {
-                    var selector = cmp.normalGrid.getView().rowSelector;
+                    var selector = cmp.normalGrid.getView().itemSelector;
                     checkerFn = function() {
                         if (!cmp.rendered || !cmp.normalGrid.rendered || !cmp.lockedGrid.rendered) return;
                          
@@ -54,7 +54,7 @@ Role('Siesta.Test.ExtJS.Grid', {
                         }
                     }
                 } else {
-                    var selector = cmp.getView().rowSelector;
+                    var selector = cmp.getView().itemSelector;
                     checkerFn = function() {
                         if (!cmp.rendered) return;
                          
@@ -87,7 +87,7 @@ Role('Siesta.Test.ExtJS.Grid', {
         getFirstRow : function(grid) {
             grid = this.normalizeComponent(grid);
             var Ext = this.getExt();
-            return grid.el.select(grid.getView().rowSelector).item(0);
+            return grid.el.select(grid.getView().itemSelector).item(0);
         },
 
         /**
@@ -111,7 +111,7 @@ Role('Siesta.Test.ExtJS.Grid', {
         getRow : function(grid, index) {
             grid = this.normalizeComponent(grid);
             var Ext = this.global.Ext;
-            return grid.el.select(grid.getView().rowSelector).item(index);
+            return grid.el.select(grid.getView().itemSelector).item(index);
         },
 
         /**
@@ -139,7 +139,7 @@ Role('Siesta.Test.ExtJS.Grid', {
          */
         getLastCellInRow : function(grid, row) {
             grid = this.normalizeComponent(grid);
-            return this.getCell(grid, grid.headerCt.getColumnCount() - 1);
+            return this.getCell(grid, row, grid.headerCt.getColumnCount() - 1);
         },
 
         /**

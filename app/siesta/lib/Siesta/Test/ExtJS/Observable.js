@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -79,8 +79,8 @@ Role('Siesta.Test.ExtJS.Observable', {
             var Ext = this.Ext();
             
             var sourceLine      = me.getSourceLine();
-            
-            if (observable instanceof Ext.Element || observable.fireEvent && observable.fireEvent === Ext.util.Observable.prototype.fireEvent) {
+
+            if (observable.on && observable.un) {
             
                 this.on('beforetestfinalizeearly', function () {
                     observable.un(event, countFunc);
@@ -112,6 +112,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {String} event The name of event
          * @param {String} desc The description of the assertion.
          */
+        wontFire : function(observable, event, desc) {
+            this.willFireNTimes(observable, event, 0, desc);
+        },
 
         /**
          * This assertion passes if the observable fires the specified event exactly once after calling this method.
@@ -120,6 +123,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {String} event The name of event
          * @param {String} desc The description of the assertion.
          */
+        firesOnce : function (observable, event, desc) {
+            this.willFireNTimes(observable, event, 1, desc);
+        },
 
         /**
          * Alias for {@link #wontFire} method
@@ -128,6 +134,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {String} event The name of event
          * @param {String} desc The description of the assertion.
          */
+        isntFired : function() {
+            this.wontFire.apply(this, arguments);
+        },
 
         /**
          * This assertion passes if the observable does not fire the specified event through the duration of the entire test.
@@ -137,6 +146,9 @@ Role('Siesta.Test.ExtJS.Observable', {
          * @param {Number} n The minimum number of events to be fired
          * @param {String} desc The description of the assertion.
          */
+        firesAtLeastNTimes : function(observable, event, n, desc) {
+            this.willFireNTimes(observable, event, n, desc, true);
+        },
         
         
         /**

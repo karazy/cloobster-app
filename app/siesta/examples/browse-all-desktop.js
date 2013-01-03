@@ -47,8 +47,8 @@ Harness.start(
         
         testClass   : Siesta.Test.ExtJS,
         preload : [
-            "http://cdn.sencha.io/ext-4.1.0-gpl/resources/css/ext-all.css",
-            "http://cdn.sencha.io/ext-4.1.0-gpl/ext-all.js"
+            "http://cdn.sencha.io/ext-4.1.1-gpl/resources/css/ext-all.css",
+            "http://cdn.sencha.io/ext-4.1.1-gpl/ext-all.js"
         ],
 
         items       : [
@@ -60,18 +60,16 @@ Harness.start(
                     '020-extjs-general/015_ext-combo.t.js',
                     {
                         url : '020-extjs-general/020_ext-custom-combo.t.js',
-                        useStrictMode   : false,        // You can also use quirks mode for tests
-                        alsoPreload : [
-                            'http://cdn.sencha.io/ext-4.1.0-gpl/examples/form/forum-search.js'
-                        ]
+                        useStrictMode   : false        // You can also use quirks mode for tests
                     },
                     {
                         url : '020-extjs-general/030_ext-resize.t.js',
                         alsoPreload : [
-                            'http://cdn.sencha.io/ext-4.1.0-gpl/examples/draw/Sencha.js'
+                            'http://cdn.sencha.io/ext-4.1.1-gpl/examples/draw/Sencha.js'
                         ]
                     },
-                    '020-extjs-general/040_ext-window.t.js'
+                    '020-extjs-general/040_ext-window.t.js',
+                    '020-extjs-general/060_extjs_targeting_buttons.t.js'
                 ]
             },
             {

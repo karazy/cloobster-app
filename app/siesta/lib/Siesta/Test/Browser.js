@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -46,12 +46,12 @@ Class('Siesta.Test.Browser', {
         
         // Normalizes the element to an HTML element. Every 'framework layer' will need to provide its own implementation
         // This implementation accepts either a CSS selector or an Array with xy coordinates.
-        normalizeElement : function (el) {
+        normalizeElement : function (el, allowMissing) {
             if (typeof el === 'string') {
                 // DOM query
                 var origEl = el;
                 el = this.$(el)[ 0 ];
-                if (!el) {
+                if (!allowMissing && !el) {
                     throw 'No DOM element found found for CSS selector: ' + origEl;
                 }
             }
@@ -307,6 +307,55 @@ Class('Siesta.Test.Browser', {
          */
         firesAtLeastNTimes : function(observable, event, n, desc) {
             this.willFireNTimes(observable, event, n, desc, true);
+        },
+
+
+        // This method accepts actionTargets as input (Dom node, string, CQ etc) and does a first normalization pass to get a DOM element.
+        // After initial normalization it also tries to locate, the 'top' DOM node at the center of the first pass resulting DOM node.
+        // This is the only element we can truly interact with in a real browser.
+        // returns an object containing the element plus coordinates
+        getNormalizedTopElementInfo : function (actionTarget, skipWarning, actionName) {
+            var doc         = this.global.document;
+            var xy, el;
+
+            actionTarget = actionTarget || this.currentPosition;
+
+            // First lets get a normal DOM element to work with
+            if (this.isArray(actionTarget)) {
+                // If the actionTarget is an array, we just resolve the element at that position and that's it
+                xy = actionTarget;
+                el = doc.elementFromPoint(actionTarget[0], actionTarget[1]);
+            } else {
+                el = this.normalizeElement(actionTarget);
+            }
+
+            // IE returns null for elementFromPoint in some cases
+            el = el || doc.body;
+
+            // If this element is not visible, something is wrong
+            if (!skipWarning && !this.isElementVisible(el)) {
+                this.fail('findTopDomElement: ' + (actionName ? "Target element of action [" + actionName + "]" : "Target element of some action") +
+                        " is not visible: " + (el.id ? '#' + el.id : el)
+                );
+
+                return; // No point going further
+            }
+
+            if (!this.isArray(actionTarget)) {
+                doc         = el.ownerDocument;
+                xy          = this.findCenter(el);
+                el          = doc.elementFromPoint(xy[0], xy[1]);
+
+                if (!el) {
+                    this.fail('findTopDomElement: Could not find any element at [' + xy + ']');
+                    return; // No point going further
+                }
+            }
+
+            return {
+                el          : el,
+                xy          : xy
+            }
         }
     }
 });

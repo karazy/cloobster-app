@@ -37,24 +37,31 @@ StartTest(function (t) {
     });
 
     var list = Ext.create('Ext.List', {
-        fullscreen: true,
-        itemTpl: '<div class="contact">{firstName} <strong>{lastName}</strong></div>',
-        store: store,
-        grouped: true
+        fullscreen      : true,
+        itemTpl         : '<div class="contact">{firstName} <strong>{lastName}</strong></div>',
+        store           : store,
+        grouped         : true
     });
 
-    var last = list.element.down('.x-list-item:last-child .contact');
-        
-    t.scrollUntilElementVisible(list.element, 'down', last, function() {
-        t.pass('Scrolled last item into view');
+    t.chain(
+        function(next) {
+            t.scrollUntilElementVisible(list.element, 'down', '.x-list-item-last .contact', next);
+        },
 
-        t.tap(last);
+        function(next) {
+            t.pass('Scrolled last item into view');
+            next();
+        },
 
-        var sel = list.getSelection();
-        t.is(sel.length, 1, '1 item is selected');
-        t.is(sel[0].get('firstName'), 'Nigel', 'The might Sir Animal is selected');
+        { action : 'tap', target : '.x-list-item-last .contact' },
 
-        // Let's go back up
-        t.scrollUntilElementVisible(list.element, 'up', list.element.down('.x-list-item:first-child .contact'), function() {});
-    });
+        function(next) {
+            var sel = list.getSelection();
+            t.is(sel.length, 1, '1 item is selected');
+            t.is(sel[0].get('firstName'), 'Nigel', 'The might Sir Animal is selected');
+
+            // Let's go back up
+            t.scrollUntilElementVisible(list.element, 'up', list.element.down('.x-list-item-first .contact'), next);
+        }
+    );
 });

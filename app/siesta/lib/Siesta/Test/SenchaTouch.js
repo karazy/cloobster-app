@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -127,10 +127,14 @@ Class('Siesta.Test.SenchaTouch', {
          * @param {Object} scope (optional) The scope for the callback 
          */
         tap: function (target, callback, scope) {
-            var me          = this;
-            
-            target = this.normalizeElement(target);
-            
+            var me      = this;
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
+            }
+
             var queue       = new Siesta.Util.Queue({
                 deferer         : this.originalSetTimeout,
                 deferClearer    : this.originalClearTimeout,
@@ -144,15 +148,15 @@ Class('Siesta.Test.SenchaTouch', {
                 }
             })
             
-            queue.addStep([ target, "mousedown", {}, false ])
-            queue.addStep([ target, "mouseup", {}, true ])
-            
+            queue.addStep([ context.xy, "mousedown", {}, false ])
+            queue.addStep([ context.xy, "mouseup", {}, true ])
+
             var async   = me.beginAsync();
             
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -165,9 +169,16 @@ Class('Siesta.Test.SenchaTouch', {
          */
         doubleTap: function (target, callback, scope) {
             var me          = this;
-            
-            target = this.normalizeElement(target);
-            
+
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
+            }
+
+            target = context.xy;
+
             var queue       = new Siesta.Util.Queue({
                 deferer         : this.originalSetTimeout,
                 deferClearer    : this.originalClearTimeout,
@@ -192,7 +203,7 @@ Class('Siesta.Test.SenchaTouch', {
             queue.run(function () {
                 me.endAsync(async);
                 
-                callback && me.processCallbackFromTest(callback, null, scope || me)  
+                me.processCallbackFromTest(callback, null, scope || me)
             })
         },
 
@@ -207,15 +218,40 @@ Class('Siesta.Test.SenchaTouch', {
             var Ext = this.Ext();
             var me = this;
 
-            this.simulateEvent(target, 'mousedown');
-            
-            var amount = Ext.event.recognizer.LongPress.prototype.config.minDuration;
-            
-            this.waitFor(amount, function() {
-                me.simulateEvent(target, 'mouseup');
-                
-                callback.call(scope || me);
-            });
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
+            }
+            target = context.xy;
+
+            var amount = Ext.event.recognizer.LongPress.prototype.config.minDuration + 50;
+
+            var queue       = new Siesta.Util.Queue({
+                deferer         : this.originalSetTimeout,
+                deferClearer    : this.originalClearTimeout,
+
+                interval        : callback ? 30 : 0,
+
+                observeTest     : this,
+
+                processor       : function (data) {
+                    me.simulateEvent.apply(me, data);
+                }
+            })
+
+            queue.addStep([ target, "mousedown", {}, true ])
+            queue.addDelayStep(amount);
+            queue.addStep([ target, "mouseup", {}, true ])
+
+            var async   = me.beginAsync();
+
+            queue.run(function () {
+                me.endAsync(async);
+
+                me.processCallbackFromTest(callback, null, scope || me)
+            })
         },
 
         /**
@@ -281,7 +317,7 @@ Class('Siesta.Test.SenchaTouch', {
         /**
         * This method will simulate a finger move to an xy-coordinate or an element (the center of it)
         * 
-        * @param {Siesta.Test.ActionTarget} target Target point to move the mouse to.
+        * @param {Siesta.Test.ActionTarget} target Target point to move the finger to.
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
         * @param {Object} scope (optional) the scope for the callback
         */
@@ -290,17 +326,20 @@ Class('Siesta.Test.SenchaTouch', {
                 throw 'Trying to call moveFingerTo without a target';
             }
 
-            // Normalize target
-            if (!this.isArray(target)) {
-                target = this.detectCenter(this.normalizeElement(target), 'moveFingerTo');
+            var context = this.getNormalizedTopElementInfo(target);
+
+            if (!context) {
+                this.processCallbackFromTest(callback, null, scope || this);
+                return;
             }
-            this.moveMouse(this.currentPosition, target, callback, scope);
+
+            this.moveCursorTo(context.xy, callback, scope);
         },
 
         /**
         * This method will simulate a finger move from current position relative by the x and y distances provided.
         * 
-        * @param {Siesta.Test.ActionTarget} target Target point to move the mouse to.
+        * @param {Array} delta The delta offset to move the finger by.
         * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the operation is completed.
         * @param {Object} scope (optional) the scope for the callback
         */
@@ -309,9 +348,7 @@ Class('Siesta.Test.SenchaTouch', {
                 throw 'Trying to call moveFingerBy without relative distances';
             }
 
-            var targetXY = [ this.currentPosition[0] + delta[0], this.currentPosition[1] + delta[1] ];
-
-            this.moveMouseTo(targetXY, callback, scope);
+            this.moveCursorBy.apply(this, arguments);
         },
 
 //        /**
@@ -374,15 +411,15 @@ Class('Siesta.Test.SenchaTouch', {
                     me.processCallbackFromTest(callback, null, scope || me)
                 } else {
                     me.swipe(target, direction, function() { 
-                        var as = me.beginAsync(); 
-                        
+
                         if (new Date() - startDate < this.waitForTimeout) {
-                            setTimeout(function() { 
+                            var as = me.beginAsync();
+                            setTimeout(function() {
                                 me.endAsync(as); 
                                 inner(); 
                             }, 1000); 
                         } else {
-                            t.fail('scrollUntil failed to achieve its mission');
+                            me.fail('scrollUntil failed to achieve its mission');
                         }
                     });
                 }
@@ -391,19 +428,27 @@ Class('Siesta.Test.SenchaTouch', {
             inner();
         },
 
-//        /**
-//        * This method will do something
-//        *   
-//        * @param {Ext.Component/String/HTMLElement/Array} scrollable Either an Ext.Component, a Component Query selector, an element, or [x,y] as the drag end point
-//        * @param {Ext.Component/String/HTMLElement/Array} target Either an Ext.Component, a Component Query selector, an element, or [x,y] as the drag end point
-//        * @param {String} direction Either 'left', 'right', 'up' or 'down'
-//        * @param {Function} callback (optional) To run this method async, provide a callback method to be called after the drag operation is completed.
-//        * @param {Object} scope (optional) the scope for the callback
-//        */
-        scrollUntilElementVisible : function(scrollable, direction, target, callback, scope) {
+        /**
+         * Waits until the supplied x&y scroll property has the passed value. You can test for either x or y, or both.
+         *
+         * @param {Ext.scroller.Scroller} scrollable The scroller instance
+         * @param {String} direction 'up', 'down', 'left' or 'right'
+         * @param {Siesta.Test.ActionTarget} actionTarget The target, either an element or a CSS selector normally.
+         * @param {Function} callback The callback to call
+         * @param {Object} scope The scope for the callback
+         */
+        scrollUntilElementVisible : function(scrollable, direction, actionTarget, callback, scope) {
             var me = this;
-            
-            this.scrollUntil(scrollable, direction, function() { return me.elementIsInView(target); }, callback, scope);
+            if (!actionTarget || !scrollable) {
+                this.fail('scrollUntilElementVisible: target or scrollable not provided');
+                return;
+            }
+
+            this.scrollUntil(scrollable, direction, function() {
+                var element = me.normalizeElement(actionTarget, true);
+                return me.elementIsInView(element);
+            },
+            callback, scope);
         },
 
         

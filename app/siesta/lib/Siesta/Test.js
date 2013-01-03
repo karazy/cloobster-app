@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -370,6 +370,10 @@ Class('Siesta.Test', {
                 description : desc
             }))
 
+            if (this.harness.activateDebuggerOnFail) {
+                debugger;
+            }
+
             if (this.harness.breakOnFail) {
                 this.finalize(true);
                 throw 'Assertion failed, test execution aborted';
@@ -419,7 +423,9 @@ Class('Siesta.Test', {
         
         processCallbackFromTest : function (callback, args, scope) {
             var me      = this
-            
+
+            if (!callback) return true;
+
             if (this.transparentEx) {
                 callback.apply(scope || this.global, args || [])
             } else {

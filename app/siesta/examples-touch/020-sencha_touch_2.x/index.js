@@ -4,8 +4,8 @@ Harness.configure({
     title     : 'Sencha Touch 2 samples',
 
     preload : [
-        "../../../sencha-touch-2.0.1/resources/css/sencha-touch.css",
-        "../../../sencha-touch-2.0.1/sencha-touch-all-debug.js"
+        "../../../sencha-touch-2.1.0/resources/css/sencha-touch.css",
+        "../../../sencha-touch-2.1.0/sencha-touch-all-debug.js"
     ]
 });
 
@@ -16,9 +16,9 @@ Harness.start(
         overrideSetTimeout : false,
         alsoPreload : [
             "http://maps.google.com/maps/api/js?sensor=true",
-            "../../../sencha-touch-2.0.1/examples/map/app.js",
-            "../../../sencha-touch-2.0.1/examples/map/lib/plugin/google/Tracker.js",
-            "../../../sencha-touch-2.0.1/examples/map/lib/plugin/google/Traffic.js",
+            "../../../sencha-touch-2.1.0/examples/map/app.js",
+            "../../../sencha-touch-2.1.0/examples/map/lib/plugin/google/Tracker.js",
+            "../../../sencha-touch-2.1.0/examples/map/lib/plugin/google/Traffic.js",
         ]
     },
     '011_carousel.t.js',

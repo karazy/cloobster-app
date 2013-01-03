@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -34,6 +34,20 @@ Ext.define('Siesta.Harness.Browser.UI.ResultPanel', {
             compiled : true 
         }
     ),
+
+    // This method makes sure that the min width of the card panel is respected when
+    // the width of this class changes (after resizing Test TreePanel).
+    ensureLayout : function () {
+        var availableWidth = this.getWidth();
+        var cardPanel = this.slots.cardContainer;
+        var domContainer = this.slots.domContainer;
+        var domContainerWidth = domContainer.getWidth();
+        var minimumForCard = cardPanel.minWidth + 20; // Some splitter space
+
+        if (availableWidth - domContainerWidth < minimumForCard) {
+            domContainer.setWidth(Math.max(0, availableWidth - minimumForCard));
+        }
+    },
 
     initComponent : function() {
         this.addEvents('viewdomchange');
@@ -87,7 +101,8 @@ Ext.define('Siesta.Harness.Browser.UI.ResultPanel', {
                     xtype       : 'container',
                     layout      : 'card', 
                     activeItem  : 0,
-                
+                    minWidth    : 100,
+
                     items : [
                         // grid with assertion
                         {
@@ -186,7 +201,7 @@ Ext.define('Siesta.Harness.Browser.UI.ResultPanel', {
 
         if (arguments.length && lineNbr != null) {
             var el = sourceCtEl.down('.highlighted');
-            el.scrollIntoView(sourceCtEl);
+            el && el.scrollIntoView(sourceCtEl);
         }
     },
 

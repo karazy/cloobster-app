@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -43,7 +43,7 @@ Role('Siesta.Test.TextSelection', {
         },
 
         /**
-         * Utility method which selects text in the passed element
+         * Utility method which selects text in the passed element (should be an input element).
          * @param {Siesta.Test.ActionTarget} The element
          * @param {Int} start (optional) The selection start index
          * @param {Int} end (optional) The selection end index
@@ -51,7 +51,7 @@ Role('Siesta.Test.TextSelection', {
         selectText : function(el, start, end){
             el = this.normalizeElement(el);
 
-            var v = el.value,
+            var v = el.value || el.innerHTML,
                 doFocus = true;
 
             if (v.length > 0) {

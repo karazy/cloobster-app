@@ -5,8 +5,8 @@ Harness.configure({
     loaderPath  : { 'AM' : 'app' },
     
     preload : [
-        "http://cdn.sencha.io/ext-4.1.0-gpl/resources/css/ext-all.css",
-        "http://cdn.sencha.io/ext-4.1.0-gpl/ext-all-debug.js"
+        "http://cdn.sencha.io/ext-4.1.1-gpl/resources/css/ext-all.css",
+        "http://cdn.sencha.io/ext-4.1.1-gpl/ext-all-debug.js"
     ]
     
 });

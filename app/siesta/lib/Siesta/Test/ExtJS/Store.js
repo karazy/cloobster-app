@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -76,8 +76,10 @@ Role('Siesta.Test.ExtJS.Store', {
                     proxy.un('exception', exceptionFailure);
                 }, null, { single : true });
 
-                var exceptionFailure = function () {
-                    me.fail("Failed to load the store", "Store [READ] URL: " + proxy.url);
+                var exceptionFailure = function (proxy, response, operation) {
+                    var url     = proxy.api && proxy.api.read || proxy.url
+                    
+                    me.fail("Failed to load the store", "Store [READ] URL: " + url);
                 };
 
                 proxy.on('exception', exceptionFailure);

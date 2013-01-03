@@ -283,15 +283,15 @@ StartTest(function(t) {
     	t.waitFor(100, function() {
     		checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(4)', null);
     		t.waitFor(100, function() {
-    			checkAndTapOption(t, optionPanels[2],'.x-field-radio:nth-child(2)', 'Coca-Cola light');
+                //scrolling seems to be broken               
+        //         t.scrollUntilElementVisible(choicesPanel.element, 'down','.x-field-checkbox:nth-child(7)', function() {
+                checkAndTapOption(t, optionPanels[2],'.x-field-radio:nth-child(2)', 'Coca-Cola light');
+                // });
+    			
     		});
     	})		
     	
-    	//scrolling seems to be broken
-    	// t.scrollUntilElementVisible(orderdetail.element, 'down', optionPanels[2].element.down('.x-field-checkbox:nth-child(2)'), function() {
-    		
-    	// });
-		t.waitForContentLike(productPrice, '10,25 €', next, this, 2000);
+		t.waitForContentLike(productPrice, '6,95 €', next, this, 3000);
     	
     },
     function(next) {
@@ -342,6 +342,7 @@ function checkAndTapOption(t, container, selector, contentExpected, callback) {
 	}
 	
 	oMask = container.element.down(selector + ' .x-field-mask');
+
 
 	if(typeof callback == 'function') {
 		t.tap(oMask, callback);

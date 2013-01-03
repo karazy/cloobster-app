@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -95,6 +95,8 @@ Class('Siesta.Harness.Browser.SenchaTouch', {
              * @cfg {Boolean} performSetup When set to `true`, Siesta will perform a `Ext.setup()` call, so you can safely assume there's a viewport for example.
              * If, however your test code, performs `Ext.setup()` itself, you need to disable this option.
              * 
+             * If this option is not explicitly specified in the test descritor, but instead inherited, it will be automatically disabled if test has {@link #hostPageUrl} value.
+             * 
              * This option can be also specified in the test file descriptor.
              */
             performSetup        : true,
@@ -128,18 +130,24 @@ Class('Siesta.Harness.Browser.SenchaTouch', {
                 
                 this.SUPERARG(arguments)
             },
-            
+
 
             getNewTestConfiguration: function (desc, scopeProvider, contentManager, options, runFunc) {
                 var config = this.SUPERARG(arguments)
 
-                config.performSetup         = this.getDescriptorConfig(desc, 'performSetup')
-                config.loaderPath           = this.getDescriptorConfig(desc, 'loaderPath')
+                var hostPageUrl = this.getDescriptorConfig(desc, 'hostPageUrl');
+                if (!desc.hasOwnProperty('performSetup') && hostPageUrl) {
+                    config.performSetup = false;
+                } else {
+                    config.performSetup = this.getDescriptorConfig(desc, 'performSetup')
+                }
+                config.loaderPath       = this.getDescriptorConfig(desc, 'loaderPath')
 
                 return config
             },
 
-            
+
+
             createViewport: function (config) {
                 if (!this.isRunningOnMobile && this.useExtJSUI) return Ext.create("Siesta.Harness.Browser.UI.ExtViewport", config);
                 

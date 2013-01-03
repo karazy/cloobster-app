@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -17,7 +17,7 @@ Class('Siesta.Util.Queue', {
         // which should be called manually
         // `interval` - the delay after step (except for asynchronous)
         steps                   : Joose.I.Array,
-        
+
         interval                : 100,
         callbackDelay           : 0,
         // setTimeout
@@ -33,7 +33,9 @@ Class('Siesta.Util.Queue', {
         scope                   : null,
         isAborted               : false,
         
-        observeTest             : null
+        observeTest             : null,
+
+        currentDelayStepId      : null
     },
     
     
@@ -61,6 +63,17 @@ Class('Siesta.Util.Queue', {
             
             this.steps.push(stepData)
         },
+
+        addDelayStep : function (delayMs) {
+            var origSetTimeout = this.deferer;
+            var me = this;
+
+            this.addAsyncStep({
+                processor : function(data) {
+                    me.currentDelayStepId = origSetTimeout(data.next, delayMs || 500);
+                }
+            });
+        },
         
         
         run : function (callback, scope) {
@@ -80,7 +93,8 @@ Class('Siesta.Util.Queue', {
             var deferClearer    = this.deferClearer
             
             if (!deferClearer) throw "Need `deferClearer` to be able to `abort` the queue"
-            
+
+            deferClearer(this.currentDelayStepId);
             deferClearer(this.currentTimeout)
             
             if (!ignoreCallback) this.callback.call(this.scope || this)

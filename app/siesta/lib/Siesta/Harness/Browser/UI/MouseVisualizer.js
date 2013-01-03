@@ -1,6 +1,6 @@
 /*
 
-Siesta 1.1.5
+Siesta 1.1.7
 Copyright(c) 2009-2012 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
@@ -165,7 +165,9 @@ Ext.define('Siesta.Harness.Browser.UI.MouseVisualizer', {
         });
         
         // need to a delay to make it work in FF
-        Ext.Function.defer(clickCircle.addCls, 50, clickCircle, ['ghost-cursor-click-indicator-big']);
+        setTimeout(function() {
+                clickCircle.addCls('ghost-cursor-click-indicator-big');
+        }, 5);
     },
 
     /*
