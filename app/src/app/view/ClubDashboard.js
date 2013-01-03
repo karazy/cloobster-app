@@ -5,7 +5,7 @@
 Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
 	xtype : 'clubdashboard',
-	requires: ['Ext.Img'],
+	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser'],
 	config : {
 		layout : {
 			type : 'fit'
@@ -89,22 +89,28 @@ Ext.define('EatSense.view.ClubDashboard', {
 				},
 				items: [
 					{
-						xtype : 'button',
+						xtype : 'basicbutton',
 						action: 'show-requests',
 						text: i10n.translate('clubdashboard.button.vip'),
 						baseCls: 'club-dashboard-button',
-						cls: 'club-dashboard-button-vip',
 						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label'
+						labelCls: 'club-dashboard-button-label',
+						cls: 'club-dashboard-button-vip',
+						welcomeFn: function() {
+							Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+						}
 					},
 					{
-						xtype : 'button',
+						xtype : 'basicbutton',
 						action: 'show-feedback',
 						text: i10n.translate('clubdashboard.button.feedback'),
 						baseCls: 'club-dashboard-button',
 						cls: 'club-dashboard-button-feedback',
 						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label'
+						labelCls: 'club-dashboard-button-label',
+						welcomeFn: function() {
+							Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+						}
 					}					
 					// {
 					// 	xtype : 'button',
@@ -144,7 +150,28 @@ Ext.define('EatSense.view.ClubDashboard', {
 					// 	labelCls: 'club-dashboard-button-label'
 					// }
 				]
+			},
+
+			//InfoPageTeaser start
+			{
+				xtype: 'panel',
+				width: '100%',
+				layout: {
+					type: 'hbox',
+					align: 'center',
+					pack: 'center'
+				},
+				items: [
+					{
+						xtype : 'infopageteaser',
+						hidden: true,
+						pageStore : 'infopageStore'
+					}
+				]
 			}
+
+			//InfoPageTeaser end
+
 			// {
 			// 	xtype: 'panel',
 			// 	width: '100%',

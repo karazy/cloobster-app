@@ -98,39 +98,39 @@ Ext.define('EatSense.controller.CheckIn', {
     	 //private functions
     	 
     	//called by checkInIntent. 
-    	this.doCheckInIntent = function(barcode, button, deviceId) {    		 
-    	    	//validate barcode field
-    	    	if(barcode.length == 0) {
-              Ext.Viewport.setMasked(false);
-    	    		button.enable();
-    	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
-    	    	} else {
-    	        	var me = this;
-    	        	EatSense.model.Spot.load(barcode, {
-    	        		 success: function(record, operation) {
-    	        			 me.setActiveSpot(record);
-    	        			 me.checkInConfirm({model:record, deviceId : deviceId}); 	        	    	
-     	        	    },
-     	        	    failure: function(record, operation) {
-                            //403 can only occur if you are logged in, with an invalid user
-                            me.getApplication().handleServerError({
-                                'error': operation.error,
-                                'message': {
-                                    404: i10n.translate('checkInErrorBarcode'),
-                                    403: i10n.translate('error.account.credentials.invalid')
-                                },
-                                userLogout : {
-                                  403: true
-                                }
-                            }); 
-     	        	    },
-     	        	    callback: function() {
-                      Ext.Viewport.setMasked(false);
-     	        	    	button.enable();
-     	        	    }
-    	        	});
-    	    	}
-    	 };    	    
+    	// this.doCheckInIntent = function(barcode, button, deviceId) {    		 
+    	//     	//validate barcode field
+    	//     	if(barcode.length == 0) {
+     //          Ext.Viewport.setMasked(false);
+    	//     		button.enable();
+    	//     		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
+    	//     	} else {
+    	//         	var me = this;
+    	//         	EatSense.model.Spot.load(barcode, {
+    	//         		 success: function(record, operation) {
+    	//         			 me.setActiveSpot(record);
+    	//         			 me.checkInConfirm({model:record, deviceId : deviceId}); 	        	    	
+     // 	        	    },
+     // 	        	    failure: function(record, operation) {
+     //                        //403 can only occur if you are logged in, with an invalid user
+     //                        me.getApplication().handleServerError({
+     //                            'error': operation.error,
+     //                            'message': {
+     //                                404: i10n.translate('checkInErrorBarcode'),
+     //                                403: i10n.translate('error.account.credentials.invalid')
+     //                            },
+     //                            userLogout : {
+     //                              403: true
+     //                            }
+     //                        }); 
+     // 	        	    },
+     // 	        	    callback: function() {
+     //                  Ext.Viewport.setMasked(false);
+     // 	        	    	button.enable();
+     // 	        	    }
+    	//         	});
+    	//     	}
+    	//  };    	    
     },
     /**
      * CheckIn Process
@@ -197,6 +197,39 @@ Ext.define('EatSense.controller.CheckIn', {
     		button.enable();
     	}    	
    },
+   doCheckInIntent : function(barcode, button, deviceId) {         
+      //validate barcode field
+      if(barcode.length == 0) {
+        Ext.Viewport.setMasked(false);
+        button.enable();
+        Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
+      } else {
+          var me = this;
+          EatSense.model.Spot.load(barcode, {
+             success: function(record, operation) {
+               me.setActiveSpot(record);               
+               me.checkInConfirm({model:record, deviceId : deviceId});                               
+              },
+              failure: function(record, operation) {
+                      //403 can only occur if you are logged in, with an invalid user
+                      me.getApplication().handleServerError({
+                          'error': operation.error,
+                          'message': {
+                              404: i10n.translate('checkInErrorBarcode'),
+                              403: i10n.translate('error.account.credentials.invalid')
+                          },
+                          userLogout : {
+                            403: true
+                          }
+                      }); 
+              },
+              callback: function() {
+                Ext.Viewport.setMasked(false);
+                button.enable();
+              }
+          });
+      }
+    },
    /**
    * @private
    * Expects a url with a barcode at the end. Separated by a #.
@@ -254,6 +287,8 @@ Ext.define('EatSense.controller.CheckIn', {
 			checkIn.set('deviceId',options.deviceId);
 		}			
 		this.setActiveCheckIn(checkIn);
+
+    this.activateWelcomeMode(options.model.get('welcome'));
 
     //prepare custom header in advance to avoid longer loading times
     // this.getApplication().getController('Lounge').drawCustomHeader();
@@ -579,6 +614,8 @@ Ext.define('EatSense.controller.CheckIn', {
     business = EatSense.model.Business.load(spot.get('businessId'), {
       success: function(record) {
         me.setActiveBusiness(record);
+        me.activateBasicMode(record.get('basic'));
+        me.fireEvent('basicmode',record.get('basic'));
 
         try {
           if(appConstants.Currency[me.getActiveBusiness().get('currency')]) {
@@ -698,7 +735,68 @@ Ext.define('EatSense.controller.CheckIn', {
                 this.fireEvent('statusChanged', appConstants.CANCEL_ALL);
             }
         }
+    },
+    //start welcome and basic mode logic
+
+    /**
+     * Convenvience method. Reads welcome and basic mode from spot and business
+     * and sets it on given view or loungeview
+     * @param {Ext.Component} view (optional)
+     *  If present, uses this view instead of loungeview
+     */
+    activateWelcomeAndBasicMode: function(view) {
+       var viewToSetMode = view || this.getLoungeview();
+
+       this.activateWelcomeMode(this.getActiveSpot().get('welcome'), viewToSetMode);
+       this.activateBasicMode(this.getActiveBusiness().get('basic'), viewToSetMode);
+           
+    },
+
+    /**
+     * Sets welcome mode on {EatSense.view.component.BasicButton} elements.
+     * Searches for all basicButtons in loungeview
+     * @param {Boolean} welcome
+     *    true or false
+     * @param {Ext.Component} view (optional)
+     *  If present, uses this view instead of loungeview
+     */
+    activateWelcomeMode: function(welcome, view) {
+        var me = this,
+            loungeview = view || this.getLoungeview(),
+            basicButtons;
+
+        // console.log('CheckIn.activateWelcomeMode: ' + welcome);
+
+        basicButtons = loungeview.query('basicbutton');
+
+        Ext.Array.each(basicButtons, function(button, index) {
+            button.setWelcome(welcome);
+        });
+    },
+    /**
+     * Sets basic mode on {EatSense.view.component.BasicButton} elements.
+     * Searches for all basicButtons in loungeview
+     * @param {Boolean} basic
+     *    true or false
+     * @param {Ext.Component} view (optional)
+     *  If present, uses this view instead of loungeview
+     */
+    activateBasicMode: function(basic, view) {
+        var me = this,
+            loungeview = view || this.getLoungeview(),
+            basicButtons;
+
+        // console.log('CheckIn.activateBasicMode: ' + basic);
+
+        basicButtons = loungeview.query('basicbutton');
+
+        Ext.Array.each(basicButtons, function(button, index) {
+            button.setBasic(basic);
+            button.activateBasicMode(basic);
+        });
     }
 
+
+    //end welcome and basic mode logic
 });
 

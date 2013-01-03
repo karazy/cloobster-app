@@ -30,6 +30,7 @@
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
 			myordersview: 'lounge myorderstab',
+			myordersviewButton: 'lounge myorderstab tab',
 			// myordersTabBt: 'lounge button[title='+i10n.translate('myOrdersTabBt')+']',
 			//TODO find a better way to select tab
 			myordersTabBt: 'lounge #ext-tab-3',
@@ -82,13 +83,16 @@
              	itemtap: 'toggleOrderDetail'
              },
              myordersview: {
-             	activate: 'myordersviewActivated'
+             	activate: 'myordersviewActivated'             	
              },
              myordersShowCartButton: {
              	tap: 'myordersShowCartButtonHandler'
              },
              myordersCartBackButton : {
              	tap: 'myordersCartBackButtonHandler'
+             },
+             loungeview: {
+             	activeitemchange: 'toggleQuickLeaveMode'
              }
 		},
 		/**
@@ -103,12 +107,34 @@
 		cartNavigationFunctions : new Array(),
 		myordersNavigationFunctions : new Array()
 	},
+	toggleQuickLeaveMode: function(panel, tab, old, e) {
+		var me = this,
+			checkInCtr = this.getApplication().getController('CheckIn'),
+			activeBusiness = null,
+			activeCheckIn = null,
+			myordersStore = Ext.StoreManager.lookup('orderStore');
+
+		if(tab.tabName == 'myorders') {	
+
+			activeBusiness = checkInCtr.getActiveBusiness();
+			activeCheckIn = checkInCtr.getActiveCheckIn();
+
+			//only show exit prompt when in basic mode or no orders are in cart or placed!
+			if((activeBusiness && activeBusiness.get('basic') == true) || (activeCheckIn && activeCheckIn.orders().getCount() == 0 && myordersStore && myordersStore.getCount() == 0 )) {										
+					me.leave();
+					return false;
+				
+			}
+		}
+	},
 	init: function() {
 		//store retrieved models
 		var	messageCtr = this.getApplication().getController('Message');
 
     	messageCtr.on('eatSense.order', this.handleOrderMessage, this);
     	messageCtr.on('eatSense.bill', this.handleBillMessage, this);
+
+    	// this.getApplication().getController('CheckIn').on('basicmode', this.toggleQuickLeaveMode, this);
 	},
 	/**
     * Activate event handler for myordersview.

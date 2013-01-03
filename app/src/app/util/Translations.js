@@ -362,6 +362,15 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Wirklich verlassen?",
 			"EN" :  "Do you want to quit?"
 		},
+		"clubdashboard.welcomespot.title" : {
+			"DE" :  "Herzlich Willkommen",
+			"EN" : ""
+		},
+		"clubdashboard.welcomespot.text" : {
+			"DE" :  "Diese Funktion steht hier nicht zur Verfügung. Bitte checken Sie an einer geigneten Stelle "+
+			"in unserem Haus ein.",
+			"EN" : ""
+		},
 		//Info Pages
 		"infopage.overview.title" : {
 			"DE" :  "Wissenswertes",
