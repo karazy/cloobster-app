@@ -386,6 +386,48 @@
   }
 }
 
+.infopage-teaser {
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  border: 1px solid lightgray; 
+  padding: 10px; 
+  height: 110px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  color: #1E4776;
+
+  /*background-image: url('../images/club/info.png');*/
+  div.thumbnail {
+    margin-right: 5px;
+    float: left;
+    img {
+      max-width: 65px;
+      height: auto;
+      margin-left: 5px; 
+    }
+  }
+
+  h3 {
+    font-size: 1em;
+    line-height: 1em;
+  }
+
+  p {
+    font-size: 0.6em;
+  }
+
+  .info-icon {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    height: 20px;
+    width: 20px;
+    background-image: url('../images/club/info.png');
+    background-size: 20px;
+
+  }
+}
+
 .infopage-detail {
   display: block;
   padding: 5px 15px;

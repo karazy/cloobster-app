@@ -10,7 +10,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 		layout : {
 			type : 'fit'
 		},
-		cls: 'club-dashboard',
+		// cls: 'club-dashboard',
 		items : [
 		{
 			xtype : 'panel',
@@ -156,11 +156,13 @@ Ext.define('EatSense.view.ClubDashboard', {
 			{
 				xtype: 'panel',
 				width: '100%',
+				// docked: 'bottom',
 				layout: {
 					type: 'hbox',
 					align: 'center',
 					pack: 'center'
 				},
+				margin: '15 0 0 0',
 				items: [
 					{
 						xtype : 'infopageteaser',

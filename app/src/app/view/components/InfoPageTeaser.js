@@ -8,13 +8,22 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 	config: {
 		layout: 'fit',
 		pageStore: null,
-		tpl: new Ext.XTemplate('<div class="info"><h3>{title}</h3><div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div></div>'),
+		tpl: new Ext.XTemplate(
+			'<div class="">'+
+				'<div class="thumbnail"><img src="{imageUrl}"/></div>'+
+				// '</div>'+
+				'<h3>{title}</h3>'+
+				'<p>{shortText}</p>'+
+				// '<div>'
+				'<div class="info-icon"></div>'+
+			'</div>'
+			),
 		store: null,
 		page: null,
 		padding: 5,
-		width: '80%',
-		cls: 'infopage-list-item',
-		style: 'border: 1px solid gray; padding: 5px; height: 110px; overflow: hidden; text-overflow: ellipsis; color: #1E4776;'
+		width: '90%',
+		cls: 'infopage-teaser',
+		// style: 'border: 1px solid gray; padding: 5px; height: 110px; overflow: hidden; text-overflow: ellipsis; color: #1E4776;'
 	},
 
 	initialize: function(config) {
