@@ -2,10 +2,10 @@ var Harness = Siesta.Harness.Browser.SenchaTouch;
 var cordovaInit = true;
 
 Harness.configure({
-    title               : 'All-in-one Siesta Examples for Sencha Touch',
+    title               : 'cloobster app workflow tests',
     // transparentEx       : false,
     performSetup: false,
-    hostPageUrl: 'index.html',
+    hostPageUrl: '../index.html',
     preload: [
         // "touch/sencha-touch-all.js",
         // "/_ah/channel/jsapi",
@@ -24,7 +24,7 @@ Harness.start(
     {
         group: 'Order' ,
         items: [
-            'test/010_checkin/001_simple_order.t.js'
+            '010_checkin/001_simple_order.t.js'
         ]
     }
     // {
