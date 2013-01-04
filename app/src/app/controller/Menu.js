@@ -482,7 +482,8 @@ Ext.define('EatSense.controller.Menu', {
 			}
 		} else {
 			//show validation error
-			Ext.Msg.alert(i10n.translate('orderInvalid'),validationError, Ext.emptyFn);
+			//i10n.translate('orderInvalid')
+			Ext.Msg.alert('',validationError, Ext.emptyFn);
 		}
 		
 	},

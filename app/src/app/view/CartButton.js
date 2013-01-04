@@ -8,7 +8,7 @@ Ext.define('EatSense.view.CartButton', {
 		xtype: 'button',
 		action: 'show-cart',
 		align: 'right',
-		iconCls : 'shop1',
+		iconCls : 'cart-bell',
 		iconMask : true,
 		hidden: true,
 		ui: 'action'

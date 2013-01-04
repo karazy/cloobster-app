@@ -58,6 +58,9 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
 	},
+	/**
+	* Register tap on infopageteaser.
+	*/
 	registerInfoPageTeaser: function() {
 		var me = this,
 			clubArea = this.getClubArea(),
@@ -68,6 +71,7 @@ Ext.define('EatSense.controller.InfoPage', {
 				if(!me.getPanelsCreated()) {
 					me.createCarouselPanels();
 				}
+				//null is the dataview, it gets not used inside method!
 				me.showInfoPageDetail(null, page);
 			});
 		}
@@ -384,7 +388,9 @@ Ext.define('EatSense.controller.InfoPage', {
     	store.clearFilter();
     	list.refresh();
     },
-
+    /**
+    * Show/hide InfoPageTeaser.
+    */
     toggleInfoPageTeasers: function(hide) {
     	var me = this,
 			clubArea = this.getClubArea(),

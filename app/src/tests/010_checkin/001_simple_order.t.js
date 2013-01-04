@@ -1,7 +1,7 @@
 StartTest(function(t) {
     t.diag('Order Test');
-    // var listEleHtml;
 
+    
     t.chain(
     	{
             action : 'tap',

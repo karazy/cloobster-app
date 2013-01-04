@@ -26,7 +26,7 @@
 @include sencha-loading-spinner;
 /*Include additional icons*/
 @include pictos-iconmask('user');
-@include pictos-iconmask('shop1');
+/*@include pictos-iconmask('shop1');*/
 @include pictos-iconmask('locate4');
 @include pictos-iconmask('check2');
 @include pictos-iconmask('delete1');
@@ -62,7 +62,6 @@
   color: white;
   text-align: center;
   padding: 2px;
-  font-weight: bold;
   overflow: hidden;
 
   .detail {
@@ -892,6 +891,10 @@
   -webkit-mask-image: inline-image('/buttons/bestellung.png');
 }
 
+.x-button-icon.cart-bell {
+  -webkit-mask-image: inline-image('/buttons/basket_glocke.png');
+}
+
 .x-tab .x-button-icon.cart {
   -webkit-mask-image: inline-image('/buttons/bestellung.png');
 }
@@ -1203,7 +1206,8 @@ h9 {
 .x-toolbar-dark .x-title {
   color: $font-color;
    /*Ticket 105 */
-  text-shadow: none; 
+  text-shadow: none;
+  font-weight: normal;
 }
 
 /* Explizit override needed because ui round ignores $list-bg-color. */
@@ -1234,13 +1238,18 @@ h9 {
 
 
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
+  /*@include background-gradient($active-color, $base-gradient);*/
   background-color: $active-color;
   background-image: none;
+/*  @include color-by-background($active-color, 90%);
+  border-bottom-color: lighten($active-color, 3%);*/
+
   -webkit-box-shadow: black 0 0 0.25em inset;
   box-shadow: black 0 0 0.25em inset;
   /* Let tab buttons overlap the tabbar */
   height: 150px;
   bottom: 5px;
+
 }
 
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
@@ -1278,10 +1287,17 @@ h9 {
 
 /**
 * Same functionality as $list-zebrastribe: true; Since this doesn't work on Android 2.x we still have 
-* seperator between list items.
+* seperator between list items. .x-list-item:nth-child(even) 
 */
-.x-list-normal .x-list-item:nth-child(even) .x-dock-horizontal {
-  background-color: darken($list-bg-color, 5%);
+.x-list-normal .x-list-item {
+  /*background-color: darken($list-bg-color, 5%);*/
+  .x-dock-horizontal {
+    border-top: 1px solid lightgrey;  
+  }
+
+  &.x-list-footer-wrap .x-dock-horizontal {
+    border-bottom: 1px solid lightgrey;
+  }
 }
 
 

@@ -13,7 +13,7 @@ Ext.define('EatSense.view.components.BasicButton', {
 		*/
 		welcome: false,
 		basicFn: null,
-		welcomeFn: null,
+		welcomeFn: null
 	},
 
 	/**

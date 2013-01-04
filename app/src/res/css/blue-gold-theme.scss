@@ -1,8 +1,8 @@
  /* Sencha Variables. */
  /* General base color for style. */
-$base-color: #6699cc;
-/* Used for action buttons and active items. */
-$active-color: #c39f55;
+$base-color: #406291;
+/* Used for action buttons and active items.*/
+$active-color: #D4AF37; 
 /* Disable gradients, shadows ... for tabs.*/
 $include-tab-highlights: false;
 /*'ComfortaaRegular',*/
@@ -38,6 +38,7 @@ $sheet-bg-gradient: #a47772;
 @import 'templates/_theme-template.scss';
 
 .x-msgbox {
-	background-color: $sheet-bg-color;
-	border: .15em solid lighten($sheet-bg-color, 40%);
+	/*background-color: $base-color;*/
+	@include background-gradient(darken($base-color, 20%), 'flat');
+	/*border: .15em solid lighten($sheet-bg-color, 20%);*/
 }

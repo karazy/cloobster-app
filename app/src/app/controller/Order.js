@@ -120,10 +120,10 @@
 			activeCheckIn = checkInCtr.getActiveCheckIn();
 
 			//only show exit prompt when in basic mode or no orders are in cart or placed!
-			if((activeBusiness && activeBusiness.get('basic') == true) || (activeCheckIn && activeCheckIn.orders().getCount() == 0 && myordersStore && myordersStore.getCount() == 0 )) {										
+			// || (activeCheckIn && activeCheckIn.orders().getCount() == 0 && myordersStore && myordersStore.getCount() == 0 )
+			if((activeBusiness && activeBusiness.get('basic') == true)) {										
 					me.leave();
-					return false;
-				
+					return false;				
 			}
 		}
 	},

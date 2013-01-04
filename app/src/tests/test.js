@@ -3,7 +3,8 @@ var cordovaInit = true;
 
 Harness.configure({
     title               : 'cloobster app workflow tests',
-    // transparentEx       : false,
+    transparentEx       : true,
+    testClass   : EatSense.test.CloobsterTest,
     performSetup: false,
     hostPageUrl: '../index.html',
     preload: [
@@ -14,17 +15,33 @@ Harness.configure({
     ],
 });
 
+
 Harness.on('testsuitestart', function (event, harness) {
+    clearLocalstorage();
+}, this);
+
+Harness.on('teststart', function (event, harness) {
+    clearLocalstorage();
+}, this);
+
+function clearLocalstorage() {
     console.log('Deleting app local storage ...');
     window.localStorage.removeItem('eatSense_app_store');
     window.localStorage.removeItem('eatSense_app_store-1');
-}, this);
+}
 
 Harness.start(
     {
         group: 'Order' ,
         items: [
             '010_checkin/001_simple_order.t.js'
+        ]
+    },
+    {
+        group: 'Basic Mode',
+        items: [
+            '020_basicmode/010_check_dashboard.t.js',
+            '020_basicmode/015_check_leave_alert.t.js'
         ]
     }
     // {

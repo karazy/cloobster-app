@@ -8,7 +8,6 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 	config: {
 		layout: 'fit',
 		pageStore: null,
-		loaded: false,
 		tpl: new Ext.XTemplate('<div class="info"><h3>{title}</h3><div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div></div>'),
 		store: null,
 		page: null,
@@ -42,9 +41,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 			pageStore.on('load', this.generateRandomPage, this);
 		}
 		this.addManagedListener(this.element, 'tap', function(panel) {
-					// Ext.Msg.alert('TEST','Tapped the InfoPageTeaser');
 			me.teaserTap();
-			// me.fireEvent('teasertapped', button, button.config.rating);
 		});
 	},
 
@@ -53,10 +50,6 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 			page,
 			randomPageIndex;
 
-		if(this.getLoaded()) {
-			return;			
-		}
-
 		pagesCount = this.getStore().getCount();
 
 		if(pagesCount > 0) {
@@ -64,14 +57,14 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 			randomPageIndex = Math.round(Math.random() * pagesCount);
 			//get random page based on index
 			page = this.getStore().getAt(randomPageIndex);
+			
+			this.setPage(page);
+
+			this.getTpl().overwrite(this.element, page.getData());
+		} else {
+			//don't show if no pages exist
+			this.setHidden(true);
 		}
-
-		this.setPage(page);
-
-		this.getTpl().overwrite(this.element, page.getData());
-
-
-		this.setLoaded(true);
 	},
 
 	teaserTap: function() {

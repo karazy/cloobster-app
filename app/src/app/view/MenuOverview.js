@@ -30,7 +30,7 @@ Ext.define('EatSense.view.MenuOverview', {
 			},
 		   {
 			xtype : 'list',
-			onItemDisclosure: true,
+			// onItemDisclosure: true,
 			allowDeselect: true,
 			itemCls: 'menulist-item',
 			itemTpl : new Ext.XTemplate(
