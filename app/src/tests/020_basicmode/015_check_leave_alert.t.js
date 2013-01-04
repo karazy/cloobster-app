@@ -2,7 +2,7 @@ StartTest(function(t) {
 		//Check into a basic mode location and test if only 2 Dashboard Buttons are visible
 		//do a checkin
 		// t.checkIn(runTest);
-
+        //start checkin
 	    t.chain(
     	{
             action : 'tap',
@@ -28,6 +28,7 @@ StartTest(function(t) {
                 return t.cq1('checkinconfirmation button[action=confirm-checkin]');
             }
         },
+        //end checkin
         function(next) {
             t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard'), next, this, 3000);
         },

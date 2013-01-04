@@ -10,12 +10,13 @@ Class('EatSense.test.CloobsterTest', {
                     action : 'tap',
                     target : this.cq1('dashboard button[action=checkin]')
                 },
-                {
-                    waitFor: 2000
-                },       
+                function(next) {
+                    this.waitForComponentVisible(Ext.Msg, next, this, 3000);
+                },      
                 { 
                     action : 'click', 
                     target : function() {
+                        // Ext.Msg.down('textfield').element.style = Ext.Msg.down('textfield').element.style || {};
                         return Ext.Msg.down('textfield');
                     }
                 },

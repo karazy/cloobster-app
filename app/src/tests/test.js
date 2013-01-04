@@ -41,7 +41,8 @@ Harness.start(
         group: 'Basic Mode',
         items: [
             '020_basicmode/010_check_dashboard.t.js',
-            '020_basicmode/015_check_leave_alert.t.js'
+            '020_basicmode/015_check_leave_alert.t.js',
+            '020_basicmode/020_click_infopageteaser.t.js'
         ]
     }
     // {
