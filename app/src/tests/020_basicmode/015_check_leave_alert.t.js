@@ -8,8 +8,8 @@ StartTest(function(t) {
             action : 'tap',
             target : t.cq1('dashboard button[action=checkin]')
         },
-        {
-            waitFor: 1500
+        function(next) {
+            t.waitForComponentVisible(Ext.Msg, next, this, 3000);
         },
         { action : 'click', target : Ext.Msg.down('textfield')},
         { action : 'type', target : Ext.Msg.down('textfield'), text : '2498-4681'},        
@@ -38,7 +38,16 @@ StartTest(function(t) {
             }
         },
         function(next) {
-            t.waitForComponentVisible(t.cq1('x-msgbox'), next, this, 3000);
+            t.waitForComponentVisible(Ext.Msg, next, this, 3000);
+        },
+        {
+            action      : 'tap',
+            target      : function () {
+                return Ext.Msg.down('button[itemId=yes]');
+            } 
+        },
+        function(next) {
+            t.waitForComponentVisible(t.cq1('dashboard'), next, this, 3000);
         },
         function() {
         	t.done();

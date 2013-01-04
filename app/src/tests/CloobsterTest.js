@@ -44,6 +44,9 @@ Class('EatSense.test.CloobsterTest', {
                 },
                 function(next) {
                     this.waitForComponentVisible(this.cq1('lounge clubarea clubdashboard'), callback, this, 3000);
+                },
+                function() {
+                    t.done();
                 }
             );
         }

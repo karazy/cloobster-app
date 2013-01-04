@@ -40,9 +40,13 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		if(pageStore) {
 			pageStore.on('load', this.generateRandomPage, this);
 		}
-		this.addManagedListener(this.element, 'tap', function(panel) {
-			me.teaserTap();
+		this.on({
+			tap : this.teaserTap,
+			element : 'element'
 		});
+		// this.addListener(this.element, 'tap', function(panel) {
+		// 	me.teaserTap();
+		// });
 	},
 
 	generateRandomPage: function() {
