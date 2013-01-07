@@ -631,6 +631,7 @@ Ext.define('EatSense.controller.Settings', {
             return true;
         });
 
-        this.getCallingView().animateActiveItem(0, {type: 'slide', direction: 'right'});
+        this.getCallingView().setActiveItem(0);
+        // this.getCallingView().animateActiveItem(0, {type: 'slide', direction: 'right'});
     }
 });

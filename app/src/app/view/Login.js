@@ -12,11 +12,11 @@ Ext.define('EatSense.view.Login', {
 			align : 'center',
 			pack: 'center'
 		},
-		showAnimation: 'slideIn',
-		hideAnimation:  {
-			type: 'slideOut',
-			direction: 'right'
-		},
+		// showAnimation: 'slideIn',
+		// hideAnimation:  {
+		// 	type: 'slideOut',
+		// 	direction: 'right'
+		// },
 		padding: '0 10 0 10',
 		scrollable: 'vertical',
 		//BUG: has to be set otherwise an error gets trown

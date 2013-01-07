@@ -124,9 +124,9 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "<h2>Check-in</h2><p>Scan QR code</p>"
 		},
 		"dashboardLabel1" : {
-			"DE" :  "<h2>Your Are Guest</h2><p>"+
+			"DE" :  "<h2>You Are Guest</h2><p>"+
 			"Check in and enjoy our service.</p>",
-			"EN" : "<h2>Your Are Guest</h2><p>"+
+			"EN" : "<h2>You Are Guest</h2><p>"+
 			"Check in and enjoy our service.</p>"
 		},
 		"dashboardLabel2" : {

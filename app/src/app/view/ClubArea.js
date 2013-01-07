@@ -13,10 +13,12 @@ Ext.define('EatSense.view.ClubArea', {
 		iconMask: true,
 		layout: {
 				type: 'card',
-				animation : {
-					type : 'slide',
-					direction : 'left'
-				}
+				//override default tabpanel animation setting
+				animation : null
+				// {
+					// type : 'none',
+					// direction : 'left'
+				// }
 		},
 		activeItem: 0,
 		items: [
@@ -46,7 +48,8 @@ Ext.define('EatSense.view.ClubArea', {
 	 *  animation. left or right 
 	 */
 	switchTo: function(item, dir) {
-		this.animateActiveItem(item, {type: 'slide', direction: dir});
+		this.setActiveItem(item);	
+		// this.animateActiveItem(item, {type: 'slide', direction: dir});
 	}
 	
 });

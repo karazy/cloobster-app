@@ -13,10 +13,12 @@ Ext.define('EatSense.view.SettingsView', {
 			xtype: 'panel',
 			layout: {
 				type: 'card',
-				animation : {
-					type : 'slide',
-					direction : 'left'
-				}
+				//override default tabpanel animation setting
+				animation : null
+				// {
+				// 	type : 'slide',
+				// 	direction : 'left'
+				// }
 			},
 			itemId: 'settingCards',
 			activeItem: 0,

@@ -283,7 +283,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			list = this.getInfoPageList();
 
 		list.deselectAll();
-		clubArea.animateActiveItem(0, {type: 'slide', direction: 'right'});
+		clubArea.setActiveItem(0);
+		// clubArea.animateActiveItem(0, {type: 'slide', direction: 'right'});
     },
 
     /**
@@ -298,9 +299,9 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		
 
-		carousel.un('activeitemchange', this.setListIndex, this);
-
-		clubArea.animateActiveItem(infopageOverview, {type: 'slide', direction: 'right'});
+		carousel.un('activeitemchange', this.setListIndex, this);		
+		clubArea.switchTo(infopageOverview, 'right');
+		// clubArea.animateActiveItem(infopageOverview, {type: 'slide', direction: 'right'});
 
 		//TEST
 		//scroll to selected element

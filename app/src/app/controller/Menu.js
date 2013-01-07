@@ -595,7 +595,7 @@ Ext.define('EatSense.controller.Menu', {
 	    });
 
 	    //remove menu to prevent problems on reload
-	    menuStore.removeAll(true);
+	    menuStore.removeAll(false);
 	}
 
      	

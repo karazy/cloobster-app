@@ -9,10 +9,12 @@ Ext.define('EatSense.view.MyOrders', {
 		itemId : 'myorderstab',		
 		layout: {
 			type: 'card',
-			animation : {
-				type : 'slide',
-				direction : 'left'
-			}
+			//override default tabpanel animation setting
+			animation : null
+			// animation : {
+			// 	type : 'slide',
+			// 	direction : 'left'
+			// }
 		},
 		items: [
 		{	
@@ -204,6 +206,7 @@ Ext.define('EatSense.view.MyOrders', {
 	 *  animation. left or right 
 	 */
 	switchTo: function(item, dir) {
-		this.animateActiveItem(item, {type: 'slide', direction: dir});
+		this.setActiveItem(item);
+		// this.animateActiveItem(item, {type: 'slide', direction: dir});
 	}
 });

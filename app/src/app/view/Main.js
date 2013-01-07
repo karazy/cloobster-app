@@ -10,10 +10,12 @@ Ext.define('EatSense.view.Main', {
 		fullscreen: true,
 		layout : {
 			type : 'card',
-			animation : {
-				type : 'slide',
-				direction : 'left'
-			}
+			//override default tabpanel animation setting
+			animation : null
+			// animation : {
+			// 	type : 'slide',
+			// 	direction : 'left'
+			// }
 		},
 		activeItem : 0,
 		items : [ 
@@ -46,6 +48,7 @@ Ext.define('EatSense.view.Main', {
 	 *  animation. left or right 
 	 */
 	switchTo: function(item, dir) {
-		this.animateActiveItem(item, {type: 'slide', direction: dir});
+		this.setActiveItem(item);
+		// this.animateActiveItem(item, {type: 'slide', direction: dir});
 	}
 });
