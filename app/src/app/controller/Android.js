@@ -3,6 +3,7 @@
 */
 Ext.define('EatSense.controller.Android', {
 	extend: 'Ext.app.Controller',
+	requires: ['EatSense.util.Helper'],
 	config: {
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
@@ -41,12 +42,12 @@ Ext.define('EatSense.controller.Android', {
 	addBackHandler: function(handler) {
 		var _array = this.getAndroidBackHandler();
 		// this.setExitOnBack(false);
-		if(!appHelper.isArray(_array)) {
+		if(!EatSense.util.Helper.isArray(_array)) {
 			console.log('Android.addBackHandler >  androidBackHandler container is not of type array');
 			return;
 		}
 
-		if(appHelper.isFunction(handler)) {
+		if(EatSense.util.Helper.isFunction(handler)) {
 			_array.push(handler);
 		} else {
 			console.log('Android.addBackHandler > handler is not of type function');
@@ -55,7 +56,7 @@ Ext.define('EatSense.controller.Android', {
 
 	removeLastBackHandler: function() {
 		// this.setExitOnBack(false);
-		if(appHelper.isArray(this.getAndroidBackHandler())) {
+		if(EatSense.util.Helper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> removeLastBackHandler');
 			this.getAndroidBackHandler().pop();
 		}		
@@ -76,7 +77,7 @@ Ext.define('EatSense.controller.Android', {
 		var handler,
 			msgBox;
 		
-		if(appHelper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
+		if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
 			console.log('Android Controller -> executeBackHandler');
 			// this.setExitOnBack(false);
 			handler = this.getAndroidBackHandler().pop();
@@ -101,7 +102,7 @@ Ext.define('EatSense.controller.Android', {
 
 				//show short alert and then hide
 				Ext.defer((function() {
-					if(!appHelper.getAlertActive()) {
+					if(!EatSense.util.Helper.getAlertActive()) {
 						msgBox.destroy();
 					}					
 				}), appConfig.msgboxHideLongTimeout, this);

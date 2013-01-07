@@ -112,16 +112,20 @@
 			checkInCtr = this.getApplication().getController('CheckIn'),
 			activeBusiness = null,
 			activeCheckIn = null,
-			myordersStore = Ext.StoreManager.lookup('orderStore');
+			myordersStore = Ext.StoreManager.lookup('orderStore'),
+			myordersview = this.getMyordersview();
 
-		if(tab.tabName == 'myorders') {	
+		console.log('Order.toggleQuickLeaveMode: 1');
 
+		if(tab == myordersview) {	
+			console.log('Order.toggleQuickLeaveMode: 2');
 			activeBusiness = checkInCtr.getActiveBusiness();
 			activeCheckIn = checkInCtr.getActiveCheckIn();
 
 			//only show exit prompt when in basic mode or no orders are in cart or placed!
 			// || (activeCheckIn && activeCheckIn.orders().getCount() == 0 && myordersStore && myordersStore.getCount() == 0 )
-			if((activeBusiness && activeBusiness.get('basic') == true)) {										
+			if((activeBusiness && activeBusiness.get('basic') == true)) {
+					console.log('Order.toggleQuickLeaveMode: 3');
 					me.leave();
 					return false;				
 			}

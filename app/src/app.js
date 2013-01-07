@@ -122,7 +122,7 @@ Ext.application({
 	   	 if(restoredCheckInId) {
         checkInCtr.showDashboard();
         //show loading mask, because it can take a while if server is not responding immediately
-        appHelper.toggleMask('restoreStateLoading');
+        EatSense.util.Helper.toggleMask('restoreStateLoading');
 
         defaultHeaders['checkInId'] = restoredCheckInId;
 
@@ -132,11 +132,11 @@ Ext.application({
    				success : function(record, operation) {
    					console.log('found existing checkin '+record);            
    					checkInCtr.restoreState(record);
-            appHelper.toggleMask(false);   				
+            EatSense.util.Helper.toggleMask(false);   				
    				},
    				failure: function(record, operation) {
    					console.log('error restoring state');
-            appHelper.toggleMask(false);
+            EatSense.util.Helper.toggleMask(false);
 
             delete defaultHeaders['checkInId'];
 
@@ -203,7 +203,7 @@ Ext.application({
 
         	console.log('handle error: '+ code + ' ');
         	if(!hideMessage) {
-        		appHelper.toggleAlertActive(true);
+        		EatSense.util.Helper.toggleAlertActive(true);
         	}
             switch(code) {
                 case 403:
@@ -254,7 +254,7 @@ Ext.application({
 
         if(!hideMessage) {
         	Ext.Msg.alert(i10n.translate('errorTitle'), errMsg, function() {
-        		appHelper.toggleAlertActive(false);
+        		EatSense.util.Helper.toggleAlertActive(false);
         	});	
         }
     }

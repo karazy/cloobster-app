@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.InfoPage', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.view.InfoPageDetail'],
+	requires: ['EatSense.view.InfoPageDetail', 'EatSense.util.Helper'],
 	config: {
 		refs: {
 			clubArea: 'clubarea',
@@ -153,22 +153,26 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
-			this.showHotelInfoHeader();
-
 			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
+			this.showHotelInfoHeader();
+			//defer for a better perceived performance
+			Ext.defer(function() {
+				EatSense.util.Helper.toggleMask('infopage.loadingmsg');
+				//make sure to create panels before store gets filtered
+				//alternative clear filter
+				store.each(function(record) {
+					currentPanel = Ext.create('EatSense.view.InfoPageDetail');
+					//get template and create html representation
+					html = currentPanel.getTpl().apply(record.getData());
+					currentPanel.setHtml(html);
+					carousel.add(currentPanel);
+				});
+			
+				EatSense.util.Helper.toggleMask(false);
 
-			//make sure to create panels before store gets filtered
-			//alternative clear filter
-			store.each(function(record) {
-				currentPanel = Ext.create('EatSense.view.InfoPageDetail');
-				//get template and create html representation
-				html = currentPanel.getTpl().apply(record.getData());
-				currentPanel.setHtml(html);
-				carousel.add(currentPanel);
-			});
-		
-
-			this.setPanelsCreated(true);		
+				this.setPanelsCreated(true);	
+			
+			}, 10, this);
 
 	},
 	/**
@@ -248,9 +252,7 @@ Ext.define('EatSense.controller.InfoPage', {
             me.backToDashboard();
         });
 
-		Ext.defer(function() {
-			this.createCarouselPanels();	
-		}, 10, this);
+		this.createCarouselPanels();			
 
 	},
 	/**
