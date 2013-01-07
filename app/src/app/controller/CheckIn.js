@@ -178,7 +178,6 @@ Ext.define('EatSense.controller.CheckIn', {
     			window.plugins.barcodeScanner.scan(function(result) {
             if(!result.cancelled) {
               barcode =  that.extractBarcode(result.text);
-              console.log('scanned ' + barcode);
               Ext.Viewport.setMasked({
                 message : i10n.translate('loadingMsg'),
                 xtype : 'loadmask'
@@ -211,7 +210,8 @@ Ext.define('EatSense.controller.CheckIn', {
                me.checkInConfirm({model:record, deviceId : deviceId});                               
               },
               failure: function(record, operation) {
-                      //403 can only occur if you are logged in, with an invalid user
+                // console.log('CheckIn.doCheckInIntent: in error + ' + operation.error.status + ' ' + operation.error.responseText);
+                      //403 can only occur if you are logged in, with an invalid user                      
                       me.getApplication().handleServerError({
                           'error': operation.error,
                           'message': {

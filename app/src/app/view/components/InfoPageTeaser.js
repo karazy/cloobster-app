@@ -22,7 +22,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		page: null,
 		padding: 5,
 		width: '90%',
-		cls: 'infopage-teaser',
+		cls: 'infopage-teaser'
 		// style: 'border: 1px solid gray; padding: 5px; height: 110px; overflow: hidden; text-overflow: ellipsis; color: #1E4776;'
 	},
 

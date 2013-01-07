@@ -193,16 +193,14 @@ Ext.application({
                invalidAccessToken = options.userLogout,
                hideMessage = options.hideMessage,
                message = options.message,
-               code,
+               code = error.status,
                defaultErrorKey = null;
 
-        if(error && typeof error.status == 'number') {
-          code = error.status || 500;
-        } else {
+        if(typeof code != 'number') {
+          console.log('App.handleServerError: code ' + code + ' not of type number. Set code to 500');
           code = 500;
         }
 
-        if(code) {
         	console.log('handle error: '+ code + ' ');
         	if(!hideMessage) {
         		appHelper.toggleAlertActive(true);
@@ -253,7 +251,6 @@ Ext.application({
             if(invalidAccessToken && (invalidAccessToken[code] === true || invalidAccessToken === true)) {
               this.fireEvent('userLogout');
             }
-        };
 
         if(!hideMessage) {
         	Ext.Msg.alert(i10n.translate('errorTitle'), errMsg, function() {

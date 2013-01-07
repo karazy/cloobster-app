@@ -30,51 +30,45 @@ StartTest(function(t) {
         },
         //end checkin
         function(next) {
-            t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard'), next, this, 3000);
-        },
-        {
-            action: 'tap',
-            target: function() {
-                return t.cq1('lounge #ext-tab-3');
-            }
+            t.waitForComponentVisible(t.cq1('lounge clubarea infopageteaser'), next, this, 3000);
         },
         function(next) {
-            t.waitForComponentVisible(Ext.Msg, next, this, 3000);
+            var ipt = t.cq1('infopageteaser'),
+                title;
+
+            title = ipt.getPage().get('title');
+            
+            next(title);
+
         },
-        {
-            action      : 'tap',
-            target      : function () {
-                return Ext.Msg.down('button[itemId=yes]');
-            } 
+        function(next, title) {
+            t.tap(t.cq1('lounge clubarea infopageteaser'), next(title));
         },
-        function(next) {
-            t.waitForComponentVisible(t.cq1('dashboard'), next, this, 3000);
+        // {
+        //     action: 'tap',
+        //     target: function() {
+        //         return t.cq1('lounge clubarea infopageteaser');
+        //     }
+        // },
+        function(next, title) {
+            t.waitForComponentVisible(t.cq1('infopagecarousel'), function() {
+                next(title)
+            }, this, 3000);
+        },
+        function(next, title) {
+            var carousel = t.cq1('infopagecarousel'),
+                activePage, record;
+
+            activePage = carousel.getActiveItem();
+
+            t.contentLike(activePage.element, title, 'Correct infopage loaded.');
+            next();
+
         },
         function() {
         	t.done();
         }
         );
 
-		// var steps = [
-		// 	function(next) {
-  //       	var buttons = t.cq('basicbutton');
-
-  //       	t.ok(buttons.length == 2, 'found 2 basic buttons');
-
-        	
-  //       	buttons.forEach(function(b) {
-  //       		t.is(b.getHidden(), true, b.getText() + ' is not visible');
-  //       	});
-        	
-	 //        },
-	 //        function() {
-	 //        	t.done();
-	 //        }
-		// ];
-		
-		// function runTest() {
-		// 	console.log('TEST TEST TEST');
-		// 	t.chain(steps);
-		// }
 
 });
