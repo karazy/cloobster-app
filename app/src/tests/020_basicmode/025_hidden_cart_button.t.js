@@ -32,7 +32,7 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard'), next, this, 3000);
         },
-       {
+        {
             action: 'tap',
             target: t.cq1('clubdashboard button[action=show-menu]')
         },
@@ -80,6 +80,9 @@ StartTest(function(t) {
     },
     function(next) {
         t.waitForComponentVisible(t.cq1('productdetail'), next, this, 3000);
+    },
+    function(next) {
+        t.waitForComponentNotVisible(t.cq1('productdetail button[action=cart]'), next, this, 3000);
     },
     function() {
     	t.done();

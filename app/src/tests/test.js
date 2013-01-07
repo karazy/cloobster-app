@@ -49,7 +49,8 @@ Harness.start(
     {
         group: 'Welcome Mode',
         items: [
-            '030_welcomemode/010_check_dashboard.t.js'
+            '030_welcomemode/010_check_dashboard.t.js',
+            '030_welcomemode/015_cart_welcomefn.t.js'
         ]
     }
     // {
