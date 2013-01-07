@@ -252,7 +252,7 @@ Ext.define('EatSense.controller.Facebook', {
           picture: logo, //FB Business logo, as fallback don't include an image
           name: business.get('name'), //business name
           caption: business.get('slogan') || '', //slogan
-          description: business.get('description')
+          description: business.get('description') || ''
         };
 
 		FB.getLoginStatus(function(response) {
