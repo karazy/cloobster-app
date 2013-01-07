@@ -45,6 +45,12 @@ Harness.start(
             '020_basicmode/020_click_infopageteaser.t.js',
             '020_basicmode/025_hidden_cart_button.t.js'
         ]
+    },
+    {
+        group: 'Welcome Mode',
+        items: [
+            '030_welcomemode/010_check_dashboard.t.js'
+        ]
     }
     // {
     //     group : 'Check-in Suite',
