@@ -719,11 +719,11 @@
       /* center image */
       left: 50%;
       margin-left: -90px;
-      width: 180px;
+      max-width: 180px;
     }
 
     img.logo-vertical {
-      height: 80px;
+      max-height: 80px;
       top: 20px;
       /* no width because we calculate it dynamically*/
     }

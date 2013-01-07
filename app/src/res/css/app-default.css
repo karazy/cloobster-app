@@ -11746,11 +11746,11 @@ input[type="search"]::-webkit-search-cancel-button {
   /* center image */
   left: 50%;
   margin-left: -90px;
-  width: 180px;
+  max-width: 180px;
 }
 /* line 725, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .club-dashboard-header img.logo-vertical {
-  height: 80px;
+  max-height: 80px;
   top: 20px;
   /* no width because we calculate it dynamically*/
 }
