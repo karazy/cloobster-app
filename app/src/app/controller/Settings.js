@@ -147,6 +147,7 @@ Ext.define('EatSense.controller.Settings', {
             accountPanel.setHidden(false);
             //TODO check if account is loaded correctly!
             if(account) {
+                emailLabel.setHidden(false);
                 emailLabel.getTpl().overwrite(emailLabel.element, account.getData());
                 if(account.get('fbUserId')) {
                     this.toggleEmailAndPwButtons(false);
@@ -157,15 +158,17 @@ Ext.define('EatSense.controller.Settings', {
                     this.toggleEmailAndPwButtons(true);
                     fbConnectedLabel.hide();
                 }
-            };
+            }
+
             if(profile) {
                 nicknameField.setValue(profile.get('nickname'));    
-            };
+            }
         } else {
             nicknameField.setValue(appState.get('nickname'));
             //hide account settings
             //TODO show signup button
             accountPanel.setHidden(true);
+            emailLabel.setHidden(true);
         }
         
     },
