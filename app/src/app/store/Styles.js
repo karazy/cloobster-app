@@ -17,12 +17,8 @@ Ext.define('EatSense.store.Styles', {
 			name: 'A green and friendly theme'
 		},
 		{
-			id: 'orange',
-			name: 'A green and cosy theme'
-		},
-		{
 			id: 'blue-gold',
-			name: 'A blue and golden theme'
+			name: 'A noble blue and golden theme'
 		}]
 	}
 });

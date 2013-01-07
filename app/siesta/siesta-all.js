@@ -23748,7 +23748,9 @@ Role('Siesta.Test.Element', {
         isElementVisible : function(el) {
             el = this.normalizeElement(el);
             // Jquery :visible doesn't take visibility into account
-            return !!el && this.$(el).is(':visible') && el.style.visibility !== 'hidden';
+            //return !!el && this.$(el).is(':visible') && el.style.visibility !== 'hidden';
+            //BUGFIX http://bryntum.com/forum/viewtopic.php?f=20&t=2926
+            return !!el && this.$(el).is(':visible') && (!el.style || el.style.visibility !== 'hidden');
         },
 
         /**

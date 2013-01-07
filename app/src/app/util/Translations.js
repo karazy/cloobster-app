@@ -120,13 +120,13 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "<h2>Check-in</h2><p>Barcode einscannen</p>",
+			"DE" :  "<h2>Check-in</h2><p>Wenn du an einer cloobster Location bist</p>",
 			"EN" :  "<h2>Check-in</h2><p>Scan QR code</p>"
 		},
 		"dashboardLabel1" : {
-			"DE" :  "<h2>Service At Its Peak</h2><p>Your guests are mobile.<br/>"+
+			"DE" :  "<h2>Your Are Guest</h2><p>"+
 			"Check in and enjoy our service.</p>",
-			"EN" : "<h2>Service At Its Peak</h2><p>You guests are mobile.<br/>"+
+			"EN" : "<h2>Your Are Guest</h2><p>"+
 			"Check in and enjoy our service.</p>"
 		},
 		"dashboardLabel2" : {
@@ -134,8 +134,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "1. Check in<br/>2. Order<br/>3. Enjoy"
 		},
 		"dashboard.button.settings" : {
-			"DE" : "<h2>Account</h2><p>Profil, Facebook, E-Mail</p>",
-			"EN" : "<h2>Account</h2><p>Profile, Facebook, e-mail</p>"
+			"DE" : "<h2>Account</h2><p>Dein Profil, Facebook, E-Mail</p>",
+			"EN" : "<h2>Account</h2><p>Your Profile, Facebook, e-mail</p>"
 		},
 		// Checkin
 		"checkInTitle" : {
@@ -752,8 +752,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "MyPlaces"
 		},
 		"dashboard.button.history" : {
-			"DE" :  "<h2>MyPlaces</h2><p>Besuchte Locations</p>",
-			"EN" :  "<h2>MyPlaces</h2><p>Locations visited</p>"
+			"DE" :  "<h2>MyPlaces</h2><p>Deine besuchten Hotels und Restaurants</p>",
+			"EN" :  "<h2>MyPlaces</h2><p>Hotels and restaurants visited</p>"
 		},
 		"history.detail.title" : {
 			"DE" :  "Rechnung",
