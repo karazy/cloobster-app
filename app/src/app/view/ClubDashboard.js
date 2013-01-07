@@ -162,7 +162,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					align: 'center',
 					pack: 'center'
 				},
-				margin: '15 0 0 0',
+				margin: '10 0 0 0',
 				items: [
 					{
 						xtype : 'infopageteaser',

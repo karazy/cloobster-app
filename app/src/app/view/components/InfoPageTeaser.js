@@ -11,31 +11,28 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		tpl: new Ext.XTemplate(
 			'<div class="">'+
 				'<div class="thumbnail"><img src="{imageUrl}"/></div>'+
-				// '</div>'+
 				'<h3>{title}</h3>'+
 				'<p>{shortText}</p>'+
-				// '<div>'
 				'<div class="info-icon"></div>'+
 			'</div>'
 			),
 		store: null,
 		page: null,
-		padding: 5,
+		//used to determine the visible state of the teaser
+		basicMode: false,
+		//used to determine the visible state of the teaser
+		pageGenerated: false,
+		padding: 3,
 		width: '90%',
 		cls: 'infopage-teaser'
-		// style: 'border: 1px solid gray; padding: 5px; height: 110px; overflow: hidden; text-overflow: ellipsis; color: #1E4776;'
 	},
 
 	initialize: function(config) {
 		var me = this,
 			pageStore = null;		
 
-		console.log('InfoPageTeaser.constructor');
-
-		// this.initConfig(config);
-
 		if(!this.getPageStore()) {
-			console.log('InfoPageTeaser.constructor: No store configuration provided. Hide component.');
+			console.log('InfoPageTeaser.constructor: No store configuration provided.');
 			// this.setHidden(true);
 			return;
 		}
@@ -43,19 +40,15 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 
 		pageStore = Ext.StoreManager.lookup(this.getPageStore());
 		this.setStore(pageStore);
-		
-		// this.on('show', this.generateRandomPage);
 
 		if(pageStore) {
-			pageStore.on('load', this.generateRandomPage, this);
+			pageStore.on('refresh', this.generateRandomPage, this);
 		}
+
 		this.on({
 			tap : this.teaserTap,
 			element : 'element'
 		});
-		// this.addListener(this.element, 'tap', function(panel) {
-		// 	me.teaserTap();
-		// });
 	},
 
 	generateRandomPage: function() {
@@ -63,7 +56,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 			page,
 			randomPageIndex;
 
-		pagesCount = this.getStore().getCount();
+		pagesCount = this.getStore().getCount();		
 
 		if(pagesCount > 0) {
 			//get a random index
@@ -74,12 +67,14 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 			this.setPage(page);
 
 			this.getTpl().overwrite(this.element, page.getData());
+			this.setState({'pageGenerated' : true});
 		} else {
 			//don't show if no pages exist
-			this.setHidden(true);
+			this.setState({'pageGenerated' : false});
+			// this.setHidden(true);
+			console.log('InfoPageTeaser.generateRandomPage: no pages exist. hide teaser.');
 		}
 	},
-
 	teaserTap: function() {
 		var me = this;
 
@@ -89,6 +84,42 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		}
 
 		me.fireEvent('teasertapped', this.getPage());
+	},
+	/**
+	* Resets teaser to initial state.
+	*/
+	reset: function() {
+		this.setBasicMode(false);
+		this.setPageGenerated(false);
+		this.setPage(null);
+	},
+	/**
+	* Manages the visibility state for the teaser object.
+	* The state depends on locations basic flag and if info pages exist.
+	* Only basicMode and pageGenerated are true, the teaser gets rendered.
+	* @param stateObject
+	*	Object with fields basicMode and/or pageGenerated set either to true or false
+	*/
+	setState: function(stateObject) {
+		if(!stateObject) {
+			console.log('InfoPageTeaser.setState: no state object provided.');
+		}
+
+		console.log('InfoPageTeaser.setState: basicMode='+stateObject.basicMode+' pageGenerated='+stateObject.pageGenerated);
+
+		if(stateObject.basicMode) {
+			this.setBasicMode(true);
+		}
+
+		if(stateObject.pageGenerated) {
+			this.setPageGenerated(true);
+		}
+
+		if(this.getBasicMode() === true && this.getPageGenerated() === true) {
+			this.setHidden(false);
+		} else {
+			this.setHidden(true);
+		}
 	}
 
 });

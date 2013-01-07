@@ -40,19 +40,13 @@ Ext.define('EatSense.controller.InfoPage', {
 		userTypes: false
 	},
 
-	init: function() {
-		var store = Ext.StoreManager.lookup('infopageStore');
-
+	init: function() {		
 		this.getApplication().getController('CheckIn').on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.setPanelsCreated(false);
 				this.loadInfoPages();
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-				//clean up
-				store.clearFilter();
-				this.setPanelsCreated(false);
-				this.removeInfoPageDetailPanels();
-				store.removeAll();
+				this.cleanup();
 			}
 		}, this);
 
@@ -67,13 +61,17 @@ Ext.define('EatSense.controller.InfoPage', {
 			teaser = clubArea.down('infopageteaser');
 
 		if(teaser) {
-			teaser.on('teasertapped', function(page) {
-				if(!me.getPanelsCreated()) {
+			//unregister old listener
+			teaser.un('teasertapped', tapFunction);
+			teaser.on('teasertapped', tapFunction);
+		}
+
+		function tapFunction(page) {
+			if(!me.getPanelsCreated()) {
 					me.createCarouselPanels();
 				}
 				//null is the dataview, it gets not used inside method!
 				me.showInfoPageDetail(null, page);
-			});
 		}
 
 	},
@@ -397,8 +395,26 @@ Ext.define('EatSense.controller.InfoPage', {
 			clubArea = this.getClubArea(),
 			teaser = clubArea.down('infopageteaser');
 
+		console.log('InfoPage.toggleInfoPageTeasers: hide=' + hide);
 		if(teaser) {
-			teaser.setHidden(!hide);	
+			teaser.setState({'basicMode' : hide});
+		} else {
+			console.log('InfoPage.toggleInfoPageTeasers:  no teaser found');
 		}
+    },
+    /**
+    * Cleanup on checkout.
+    */
+    cleanup: function() {
+    	var store = Ext.StoreManager.lookup('infopageStore'),
+    		clubArea = this.getClubArea(),
+			teaser = clubArea.down('infopageteaser');
+
+			//clean up
+			store.clearFilter();
+			this.setPanelsCreated(false);
+			this.removeInfoPageDetailPanels();
+			store.removeAll();
+			teaser.reset();
     }
 });
