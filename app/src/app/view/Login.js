@@ -54,7 +54,7 @@ Ext.define('EatSense.view.Login', {
 				//prevents also that the panel has a wrong size. Bug?
 				scrollable: false,
 				width: '90%',
-				margin: '0 0 5 0',
+				margin: '0 0 7 0',
 				items: [
 
 					{	
@@ -77,7 +77,7 @@ Ext.define('EatSense.view.Login', {
 					}
 
 				]
-			},			
+			},
 			{
 				xtype: 'panel',
 				layout: {

@@ -35,7 +35,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			width : '80%',
 			required : true,
 			maxLength: 25,
-			cls: 'checkin-confirm-nickname-field'
+			cls: 'general-textfield'
 		},  
 		{
 			xtype : 'panel',

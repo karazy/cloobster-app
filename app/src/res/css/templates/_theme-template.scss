@@ -26,7 +26,7 @@
 @include sencha-loading-spinner;
 /*Include additional icons*/
 @include pictos-iconmask('user');
-/*@include pictos-iconmask('shop1');*/
+@include pictos-iconmask('shop1');
 @include pictos-iconmask('locate4');
 @include pictos-iconmask('check2');
 @include pictos-iconmask('delete1');
@@ -592,6 +592,7 @@
 
   p {
     font-size: .8em; 
+    word-break: break-word;
   }
 
   @media (min-width: 768px) { 
@@ -605,8 +606,17 @@
   }
  
   /* Landscape phones and down */
-  @media (max-width: 320px) { 
-    bottom: 10px;
+  @media (max-width: 320px) {
+    h2 {
+      font-size: 18px; 
+      line-height: 20px
+    }
+    top: 5px;
+    left: 25%;
+    p {
+      font-size: 12px; 
+      line-height: 14px
+    }
   }
 }
 
@@ -1059,7 +1069,7 @@
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
-
+  border: 1px solid #664442;
 }
 
 .general-field-label-horizontal {

@@ -509,7 +509,8 @@
 			return true;
 		} else {
 			//show validation error
-			Ext.Msg.alert(i10n.translate('orderInvalid'),validationError, Ext.emptyFn, detail);
+			//i10n.translate('orderInvalid')
+			Ext.Msg.alert('',validationError, Ext.emptyFn, detail);
 			if(component) {
 				//component exists if this was called by hide listener
 				component.show();
