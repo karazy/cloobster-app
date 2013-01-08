@@ -47,7 +47,27 @@ Ext.define('EatSense.controller.History', {
 
          //if user has no account or is not logged in show alert window
          if(!loggedIn) {
-            Ext.Msg.alert(i10n.translate('hint'), i10n.translate('history.noaccount'));
+            // Ext.Msg.alert(i10n.translate('hint'), i10n.translate('history.noaccount'));
+
+            Ext.Msg.show({
+               title: i10n.translate('hint'),
+               message: i10n.translate('history.noaccount'),
+               buttons: [{
+                  text: i10n.translate('account.register.yes'),
+                  itemId: 'yes',
+                  ui: 'action'
+               }, {
+                  text:  i10n.translate('account.register.no'),
+                  itemId: 'no',
+                  ui: 'action'
+               }],
+               scope: this,
+               fn: function(btnId, value, opt) {
+               if(btnId=='yes') {
+                     this.getApplication().getController('Account').showLoginView();
+                  }
+               }
+            });   
          } else {
             //show history view
             mainView.switchTo(historyView, 'left');

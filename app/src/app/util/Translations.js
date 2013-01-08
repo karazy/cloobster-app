@@ -675,8 +675,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Account"
 		},
 		"login.description" : {
-			"DE" : "Erinnere dich, wo Du warst<br/>und teile, wo Du bist",
-			"EN" : "Remember where you were<br/>and share where you are"
+			"DE" : "Erinnere dich, wo Du warst",
+			"EN" : "Remember where you were"
 		},
 		"login.field.email.placeholder" : {
 			"DE" :  "E-Mail",
@@ -749,6 +749,14 @@ Ext.define('EatSense.util.Translations',{
 		"account.passwordrequest.success" : {
 			"DE" :  "Link zum zurücksetzen des Passworts verschickt.",
 			"EN" :  "Link for resetting password has been sent. "
+		},
+		"account.register.yes" : {
+			"DE" :  "Login/Anmelden",
+			"EN" : "Login/Signup"
+		},
+		"account.register.no" : {
+			"DE" :  "Nein Danke",
+			"EN" : "No thanks"
 		},
 		//history
 		"history.title" : {
