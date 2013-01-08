@@ -36,7 +36,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 			// this.setHidden(true);
 			return;
 		}
-		console.log('InfoPageTeaser.constructor: load store ' + this.getPageStore());
+		// console.log('InfoPageTeaser.constructor: store ' + this.getPageStore());
 
 		pageStore = Ext.StoreManager.lookup(this.getPageStore());
 		this.setStore(pageStore);

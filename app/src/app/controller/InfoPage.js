@@ -52,6 +52,13 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
 	},
+	refreshInfoPageList: function() {
+		var list = this.getInfoPageList();
+		console.log('InfoPage.refreshInfoPageList');
+		if(list) {
+			list.refresh();
+		}
+	},
 	/**
 	* Register tap on infopageteaser.
 	*/
@@ -86,6 +93,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		console.log('InfoPage.loadInfoPages');
 		this.setCurrentFilterValue(null);
 		store.clearFilter();
+
 		//do cleanup. Just for safety! Normally a cleanup is performed upon status change.
 		//clear carousel
 		this.removeInfoPageDetailPanels();
@@ -258,19 +266,24 @@ Ext.define('EatSense.controller.InfoPage', {
 			clubArea = this.getClubArea(),
 			androidCtr = this.getApplication().getController('Android'),
 			store = Ext.StoreManager.lookup('infopageStore'),
-			searchfield = this.getInfoPageSearchField();
+			searchfield = this.getInfoPageSearchField(),
+			list = this.getInfoPageList();
 
 		clubArea.setActiveItem(infopageOverview);
 
 		//reset search field
 		searchfield.setValue("");
-		store.clearFilter();		
-		
+		store.clearFilter();				
+
 		androidCtr.addBackHandler(function() {
             me.backToDashboard();
         });
 
-		this.createCarouselPanels();			
+        this.refreshInfoPageList();
+        
+        Ext.defer(function() {
+    		this.createCarouselPanels();
+    	}, 50, this);
 
 	},
 	/**

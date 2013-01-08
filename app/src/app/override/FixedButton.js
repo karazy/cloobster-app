@@ -20,7 +20,7 @@ Ext.define('GT.override.FixedButton', {
         tapOverflowTop: 10,
         tapOverflowBottom: 10,
         tapOverflowLeft: 10,
-        tapOverflowRight: 10,
+        tapOverflowRight: 10
         
     }, 
     template: [
