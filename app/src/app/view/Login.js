@@ -62,18 +62,18 @@ Ext.define('EatSense.view.Login', {
 						name: 'email',
 						required: true,
 						placeHolder: i10n.translate('login.field.email.placeholder'),
-						labelAlign: 'top',
-						cls: 'general-textfield',
-						labelCls: 'general-field-label-vertical'
+						// labelAlign: 'top',
+						cls: 'general-textfield'
+						// labelCls: 'general-field-label-vertical'
 					},
 					{	
 						xtype: 'passwordfield',
 						name: 'password',
 						required: true,
 						placeHolder: i10n.translate('login.field.password.placeholder'),
-						labelAlign: 'top',
-						cls: 'general-textfield',
-						labelCls: 'general-field-label-vertical'
+						// labelAlign: 'top',
+						cls: 'general-textfield'
+						// labelCls: 'general-field-label-vertical'
 					}
 
 				]

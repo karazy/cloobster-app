@@ -1077,7 +1077,8 @@
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
-  border: 1px solid #664442;
+  /*added important because of .x-field:last-child Ticket 391*/
+  border: 1px solid #664442 !important;
 }
 
 .general-field-label-horizontal {

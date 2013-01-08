@@ -12140,44 +12140,45 @@ input[type="search"]::-webkit-search-cancel-button {
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
-  border: 1px solid #664442;
+  /*added important because of .x-field:last-child Ticket 391*/
+  border: 1px solid #664442 !important;
 }
 
-/* line 1083, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1084, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 1088, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1089, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 1093, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1094, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 1097, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1098, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 1102, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1103, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 1108, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1109, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .hidden {
   display: none;
 }
 
-/* line 1113, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1114, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -12185,7 +12186,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 1120, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1121, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -12193,7 +12194,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 1127, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1128, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .visible {
   display: block;
 }
@@ -12207,42 +12208,42 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 1144, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1145, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 1148, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1149, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-label {
   color: black;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
-/* line 1154, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1155, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 5px;
 }
 
-/* line 1159, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1160, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 1163, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1164, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 1168, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1169, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 3px;
 }
 
-/* line 1173, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1174, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -12250,29 +12251,29 @@ h9 {
 /*
 * History
 */
-/* line 1180, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1181, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-wrapper {
   /*margin: 1em;*/
 }
 
-/* line 1184, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1185, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header {
   /*background: url(../images/history/header-bg-2.png) repeat-x;*/
   /*height: 2.2em;*/
   text-align: center;
   /*height: 100%;*/
 }
-/* line 1190, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1191, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header h1 {
   padding-top: 0.8em;
   font-size: 1em;
 }
-/* line 1194, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1195, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header p {
   font-size: 0.8em;
 }
 
-/* line 1199, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1200, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-footer {
   /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
   /*background-position: left bottom;*/
@@ -12280,22 +12281,22 @@ h9 {
   /*height: 2em;*/
   text-align: center;
 }
-/* line 1207, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1208, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-footer h1 {
   font-size: 1em;
 }
 
-/* line 1213, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1214, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-list {
   /*background-color: #f3e8d5;*/
 }
 
-/* line 1217, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1218, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-item {
   /*background: url(../images/history/item-bg.png) repeat-x;*/
   height: 40px;
 }
-/* line 1221, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1222, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-item .x-list-item-label {
   border: none !important;
 }
@@ -12306,7 +12307,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 1233, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1234, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -12314,19 +12315,19 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 1240, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1241, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-hasbadge > .x-badge {
   border-radius: 1em;
 }
 
 /* Perf. optimization for android. And tweak of laf.*/
-/* line 1245, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1246, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
   border-radius: 0.1em !important;
   background-color: #6699cc !important;
 }
-/* line 1250, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1251, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating > .x-dock.x-sized {
   margin: 2px;
 }
@@ -12335,7 +12336,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 1259, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1260, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -12343,7 +12344,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 1266, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1267, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -12360,7 +12361,7 @@ h9 {
   border-top-color: lighten($active-color, 30%);
   background-color: lighten($active-color, 30%);
 }*/
-/* line 1284, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1285, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -12368,16 +12369,16 @@ h9 {
   color: white !important;
 }
 
-/* line 1291, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1292, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #ff9933 !important;
 }
-/* line 1294, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1295, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #ff9933 !important;
 }
 
-/* line 1300, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1301, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   /*@include background-gradient($active-color, $base-gradient);*/
   background-color: #ff9933;
@@ -12391,26 +12392,26 @@ h9 {
   bottom: 5px;
 }
 
-/* line 1315, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1316, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
 }
 
-/* line 1319, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1320, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
 }
 
 /* Override background color of icons. */
-/* line 1325, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1326, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button .x-button-icon {
   background-color: white !important;
   background-image: none !important;
 }
 
 /* Force action button to have white text color. */
-/* line 1331, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1332, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: white;
 }
@@ -12427,15 +12428,15 @@ h9 {
 * Same functionality as $list-zebrastribe: true; Since this doesn't work on Android 2.x we still have 
 * seperator between list items. .x-list-item:nth-child(even) 
 */
-/* line 1352, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1353, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item {
   /*background-color: darken($list-bg-color, 5%);*/
 }
-/* line 1354, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1355, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item .x-dock-horizontal {
   border-top: 1px solid lightgrey;
 }
-/* line 1358, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1359, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid lightgrey;
 }
