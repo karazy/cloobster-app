@@ -52,6 +52,10 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
 	},
+	/**
+	* @private
+	* Calls refresh on infopage list.
+	*/
 	refreshInfoPageList: function() {
 		var list = this.getInfoPageList();
 		console.log('InfoPage.refreshInfoPageList');
@@ -112,8 +116,14 @@ Ext.define('EatSense.controller.InfoPage', {
                     	});
 	                }
 			    }
-
 		});
+
+		try {
+			this.getInfoPageOverview().un('painted', this.refreshInfoPageList, this);
+			this.getInfoPageOverview().on('painted', this.refreshInfoPageList, this);
+		} catch(e) {
+			console.log('InfoPage.loadInfoPages: failed to attach painted listener ' + e);
+		}		
 	},
 	/**
 	* Show hotel information above info page items in overview.
@@ -278,8 +288,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		androidCtr.addBackHandler(function() {
             me.backToDashboard();
         });
-
-        this.refreshInfoPageList();
         
         Ext.defer(function() {
     		this.createCarouselPanels();
