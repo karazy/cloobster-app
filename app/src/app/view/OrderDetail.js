@@ -112,8 +112,7 @@ Ext.define('EatSense.view.OrderDetail', {
 			// },
 			items: [
 				{
-					xtype: 'button',
-					// ui: 'confirm',
+					xtype: 'fixedbutton',
 					text: i10n.translate('change'),
 					action: 'edit',
 					ui: 'action',
@@ -122,8 +121,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					flex: 1
 				},
 				{
-					xtype: 'button',
-					// ui: 'confirm',
+					xtype: 'fixedbutton',
 					text: i10n.translate('cancel'),
 					action: 'undo',
 					ui: 'action',

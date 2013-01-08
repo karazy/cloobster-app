@@ -42,7 +42,7 @@ Ext.define('EatSense.view.MyOrders', {
 						margin: '5',
 						items: [
 						{
-							xtype: 'button',
+							xtype: 'fixedbutton',
 							text: i10n.translate('payRequestButton'),
 							ui: 'action',
 							action: 'pay',
@@ -51,7 +51,7 @@ Ext.define('EatSense.view.MyOrders', {
 							iconMask: true
 						},
 						{
-							xtype: 'button',
+							xtype: 'fixedbutton',
 							text: i10n.translate('leave'),
 							ui: 'action',
 							action: 'exit',
@@ -155,7 +155,7 @@ Ext.define('EatSense.view.MyOrders', {
 							},
 							items: [
 							{
-								xtype: 'button',
+								xtype: 'fixedbutton',
 								text: i10n.translate('feedback'),
 								ui: 'action',
 								action: 'feedback',
@@ -163,7 +163,7 @@ Ext.define('EatSense.view.MyOrders', {
 								width: '80%'
 							},
 							{
-								xtype: 'button',
+								xtype: 'fixedbutton',
 								text: i10n.translate('leave'),
 								ui: 'action',
 								action: 'complete',
