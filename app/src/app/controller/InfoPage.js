@@ -106,8 +106,19 @@ Ext.define('EatSense.controller.InfoPage', {
 		store.load({
 				callback: function(records, operation, success) {
 			    	if(!operation.error) {
-			    		infoPageList.refresh();
+			    		me.refreshInfoPageList();
 			    		me.registerInfoPageTeaser();
+			    		try {
+							me.getInfoPageList().on({
+								'painted' : {
+									single: true,
+									fn: me.refreshInfoPageList,
+									scope: me
+								}								
+							});
+						} catch(e) {
+							console.log('InfoPage.loadInfoPages: failed to attach painted listener ' + e);
+						}
 			    	}
 			    	else {
 		    			me.getApplication().handleServerError({
@@ -116,14 +127,7 @@ Ext.define('EatSense.controller.InfoPage', {
                     	});
 	                }
 			    }
-		});
-
-		try {
-			this.getInfoPageOverview().un('painted', this.refreshInfoPageList, this);
-			this.getInfoPageOverview().on('painted', this.refreshInfoPageList, this);
-		} catch(e) {
-			console.log('InfoPage.loadInfoPages: failed to attach painted listener ' + e);
-		}		
+		});		
 	},
 	/**
 	* Show hotel information above info page items in overview.
@@ -456,6 +460,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			this.setPanelsCreated(false);
 			this.removeInfoPageDetailPanels();
 			store.removeAll();
+			this.refreshInfoPageList();
 			teaser.reset();
     }
 });
