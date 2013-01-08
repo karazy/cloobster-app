@@ -364,12 +364,12 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"clubdashboard.welcomespot.title" : {
 			"DE" :  "Herzlich Willkommen",
-			"EN" : ""
+			"EN" : "Welcome"
 		},
 		"clubdashboard.welcomespot.text" : {
 			"DE" :  "Diese Funktion steht hier nicht zur Verfügung. Bitte checken Sie an einer geigneten Stelle "+
 			"in unserem Haus ein.",
-			"EN" : ""
+			"EN" : "This function is not available here. Please checkin at another spot in our house."
 		},
 		//Info Pages
 		"infopage.overview.title" : {
