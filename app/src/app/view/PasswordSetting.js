@@ -59,7 +59,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 				},
 
 				{
-					xtype: 'button',
+					xtype: 'fixedbutton',
 					ui: 'action',
 					action: 'save',
 					text: i10n.translate('save')

@@ -18,7 +18,7 @@ Ext.define('EatSense.view.Privacy', {
 			docked: 'top'
 		},
 		{
-			xtype: 'button',
+			xtype: 'fixedbutton',
 			docked: 'bottom',
 			ui: 'action',
 			text: i10n.translate('close'),

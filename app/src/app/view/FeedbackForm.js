@@ -22,7 +22,7 @@ Ext.define('EatSense.view.FeedbackForm', {
 					xtype: 'backbutton'
 				},
 				{
-					xtype: 'button',
+					xtype: 'fixedbutton',
 					ui: 'action',
 					action: 'submit',
 					align: 'right',

@@ -44,7 +44,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			},
 			width : '80%',
 			items : [ {
-				xtype : 'button',
+				xtype : 'fixedbutton',
 				action: 'regenerate-nickname',
 				text : i10n.translate('refreshNicknameBt'),
 				style : 'margin-right:10px;',
@@ -53,7 +53,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 				flex: 1
 			},
 			{
-				xtype : 'button',
+				xtype : 'fixedbutton',
 				action: 'confirm-checkin',
 				text : i10n.translate('checkInStep1Button'),
 				ui : 'action',

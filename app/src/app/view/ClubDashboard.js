@@ -21,7 +21,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 			layout: 'fit',
 			items: [
 				{
-						xtype: 'button',
+						xtype: 'fixedbutton',
 						ui: 'action',
 						action: 'fb-wallpost',
 						baseCls: 'fb-wimpel-button',
@@ -59,7 +59,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				},
 				items: [
 				{
-					xtype : 'button',
+					xtype : 'fixedbutton',
 					action: 'show-menu',
 					text: i10n.translate('menuTab'),
 					baseCls: 'club-dashboard-button',
@@ -69,13 +69,13 @@ Ext.define('EatSense.view.ClubDashboard', {
 					badgeCls: 'club-dashboard-button-badge'
 				},
 				{
-						xtype : 'button',
-						action: 'show-infopage',
-						text: i10n.translate('clubdashboard.button.infopage'),
-						baseCls: 'club-dashboard-button',
-						cls: 'club-dashboard-button-infopage',
-						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label'
+					xtype : 'fixedbutton',
+					action: 'show-infopage',
+					text: i10n.translate('clubdashboard.button.infopage'),
+					baseCls: 'club-dashboard-button',
+					cls: 'club-dashboard-button-infopage',
+					pressedCls: 'club-dashboard-button-pressed',
+					labelCls: 'club-dashboard-button-label'
 				}							
 				]
 			},

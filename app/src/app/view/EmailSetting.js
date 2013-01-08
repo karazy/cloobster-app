@@ -58,7 +58,7 @@ Ext.define('EatSense.view.EmailSetting', {
 					labelAlign: 'top'
 				},
 				{
-					xtype: 'button',
+					xtype: 'fixedbutton',
 					ui: 'action',
 					action: 'save',
 					margin: '5 0 7 0',

@@ -42,7 +42,7 @@ Ext.define('EatSense.view.RequestsTab', {
 				padding: '0 5 0 5'
 			},
 			{
-				xtype: 'button',
+				xtype: 'fixedbutton',
 				text: i10n.translate('callWaiterButton'),
 				action: 'waiter',
 				ui: 'action',

@@ -5,7 +5,10 @@ Ext.Loader.setConfig({
 	disableCaching: true
 });
 
-Ext.Loader.setPath('EatSense', 'app');
+Ext.Loader.setPath({
+  'EatSense' : 'app',
+  'GT': 'app'
+});
 
 Ext.application({
 	name : 'EatSense',
@@ -44,7 +47,8 @@ Ext.application({
     'EatSense.override.CustomSpinner',
 		'EatSense.model.AppState',
     'EatSense.override.CustomJsonWriter',
-    'EatSense.override.MessageBox'
+    'EatSense.override.MessageBox',
+    'GT.override.FixedButton'
 	],
 	launch : function() {
 		console.log('App -> launch');		

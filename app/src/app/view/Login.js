@@ -89,7 +89,7 @@ Ext.define('EatSense.view.Login', {
 				margin: '8 0 5 0',
 				items: [
 					{
-						xtype: 'button',
+						xtype: 'fixedbutton',
 						text: i10n.translate('login.button.login'),
 						action: 'login',
 						ui: 'action',
@@ -103,7 +103,7 @@ Ext.define('EatSense.view.Login', {
 					// 	width: '90%'
 					// },
 					{
-						xtype: 'button',
+						xtype: 'fixedbutton',
 						text: i10n.translate('login.button.signup'),
 						ui: 'action',
 						action: 'signup',
@@ -118,7 +118,7 @@ Ext.define('EatSense.view.Login', {
 				html: '- '+i10n.translate('or')+' -'
 			},
 			{
-				xtype: 'button',
+				xtype: 'fixedbutton',
 				text: i10n.translate('login.button.signupfb'),
 				ui: 'action',
 				action: 'signup-fb',

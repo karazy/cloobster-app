@@ -88,7 +88,7 @@ Ext.define('EatSense.view.Settings', {
 						},
 						items: [
 						{
-							xtype: 'button',
+							xtype: 'fixedbutton',
 							ui: 'action',
 							margin: '0 5 0 0',
 							action: 'email-change',
@@ -96,7 +96,7 @@ Ext.define('EatSense.view.Settings', {
 							flex: 1
 						},
 						{
-							xtype: 'button',
+							xtype: 'fixedbutton',
 							ui: 'action',
 							action: 'password-change',
 							margin: '0 0 0 5',
@@ -106,7 +106,7 @@ Ext.define('EatSense.view.Settings', {
 						]
 					},					
 					{
-						xtype: 'button',
+						xtype: 'fixedbutton',
 						text: i10n.translate('settings.button.connectfb'),
 						ui: 'action',
 						action: 'connect-fb',
@@ -116,7 +116,7 @@ Ext.define('EatSense.view.Settings', {
 						iconMask: true
 					},
 					{
-						xtype: 'button',
+						xtype: 'fixedbutton',
 						ui: 'action',
 						action: 'logout',
 						margin: '10 0 5 0',
@@ -126,7 +126,7 @@ Ext.define('EatSense.view.Settings', {
 				]
 			},
 			{
-				xtype: 'button',
+				xtype: 'fixedbutton',
 				text: i10n.translate('general.companydetail'),
 				ui: 'action',
 				action: 'about',

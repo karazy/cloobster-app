@@ -29,7 +29,7 @@ Ext.define('EatSense.view.Cart', {
 			margin: '5',
 			items: [
 			{
-				xtype: 'button',
+				xtype: 'fixedbutton',
 				action: 'trash',
 			    iconCls: 'trash',
 			    iconMask: true,
@@ -39,7 +39,7 @@ Ext.define('EatSense.view.Cart', {
 			    flex: 1
 			},
 			{
-				xtype: 'button',
+				xtype: 'fixedbutton',
 				action: 'order',
 				iconCls: 'action',
 				iconAlign: 'right',

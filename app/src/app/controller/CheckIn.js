@@ -547,6 +547,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		scope: this,
    		 success: function(record, operation) {
    			 this.setActiveSpot(record);
+         this.activateWelcomeMode(record.get('welcome'));
    			 this.showLounge();
    			    			
    			Ext.Viewport.add(main);

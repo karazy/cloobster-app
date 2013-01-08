@@ -2,7 +2,7 @@
 * A button used in toolbars for showing the cart.
 */
 Ext.define('EatSense.view.CartButton', {
-	extend: 'Ext.Button',
+	extend: 'GT.override.FixedButton',
 	xtype: 'cartbutton',
 	config : {
 		xtype: 'button',

@@ -31,7 +31,7 @@ Ext.define('EatSense.view.Dashboard', {
 			html: i10n.translate('dashboardLabel1')
 		},
 		{
-			xtype : 'button',
+			xtype : 'fixedbutton',
 			action: 'checkin',
 			html: i10n.translate('dashboard.button.checkin'),
 			baseCls: 'dashboard-button',
@@ -40,7 +40,7 @@ Ext.define('EatSense.view.Dashboard', {
 			labelCls: 'dashboard-button-label'
 		},
 		{
-			xtype : 'button',
+			xtype : 'fixedbutton',
 			action: 'history',
 			text: i10n.translate('dashboard.button.history'),
 			baseCls: 'dashboard-button',
@@ -49,7 +49,7 @@ Ext.define('EatSense.view.Dashboard', {
 			labelCls: 'dashboard-button-label'
 		},
 		{
-			xtype : 'button',
+			xtype : 'fixedbutton',
 			action: 'show-login',
 			text: i10n.translate('dashboard.button.settings'),
 			baseCls: 'dashboard-button',
@@ -58,7 +58,7 @@ Ext.define('EatSense.view.Dashboard', {
 			labelCls: 'dashboard-button-label'
 		},
 		{
-			xtype : 'button',
+			xtype : 'fixedbutton',
 			action: 'profile',
 			text: i10n.translate('dashboard.button.settings'),
 			hidden: true,
@@ -75,7 +75,7 @@ Ext.define('EatSense.view.Dashboard', {
 					xtype: 'spacer'
 				},
 				{
-					xtype: 'button',
+					xtype: 'fixedbutton',
 					action: 'about',
 					iconCls: 'about',
 					iconMask: true,

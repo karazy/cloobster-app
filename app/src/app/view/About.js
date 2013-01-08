@@ -18,7 +18,7 @@ Ext.define('EatSense.view.About', {
 			docked: 'top'
 		},
 		{
-			xtype: 'button',
+			xtype: 'fixedbutton',
 			docked: 'bottom',
 			ui: 'action',
 			text: i10n.translate('close'),

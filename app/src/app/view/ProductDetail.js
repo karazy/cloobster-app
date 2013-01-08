@@ -130,7 +130,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					}
 				}, 
 				{
-					xtype: 'button',
+					xtype: 'fixedbutton',
 					action: 'close',
 					text: i10n.translate('close'),
 					ui: 'action',

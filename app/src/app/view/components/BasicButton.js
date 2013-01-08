@@ -1,5 +1,5 @@
 Ext.define('EatSense.view.components.BasicButton', {
-	extend: 'Ext.Button',
+	extend: 'GT.override.FixedButton',
 	xtype: 'basicbutton',
 	requires: [],
 	config: {
@@ -20,18 +20,23 @@ Ext.define('EatSense.view.components.BasicButton', {
 	* @override
 	*
 	*/
-	onTap: function(me, e) {
+	onRelease: function(e, me) {
 		if(this.getBasic() === true) {
 			if(appHelper.isFunction(this.getBasicFn())) {
 				//execute basic function
 				this.getBasicFn()();
 			}
-			return false;
+
+			this.callParent([me, e, true]);
+			// return false;
 		}
 
 		if(this.getWelcome() === true && appHelper.isFunction(this.getWelcomeFn())) {
 			//execute welcome function
 			this.getWelcomeFn()();
+
+			// return false;
+			this.callParent([me, e, true]);
 		} else {
 			this.callParent([me, e]);
 		}	
