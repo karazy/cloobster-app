@@ -145,7 +145,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageCarousel = this.getInfoPageCarousel(),
 			carousel = infoPageCarousel.down('carousel'),
 			searchfield = this.getInfoPageSearchField(),		
-			currentPanel = null,
+			// currentPanel = null,
 			html;
 
 			//skip if panels already exist
@@ -155,25 +155,43 @@ Ext.define('EatSense.controller.InfoPage', {
 
 			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
 			this.showHotelInfoHeader();
+			EatSense.util.Helper.toggleMask('infopage.loadingmsg');
 			//defer for a better perceived performance
-			Ext.defer(function() {
-				EatSense.util.Helper.toggleMask('infopage.loadingmsg');
-				//make sure to create panels before store gets filtered
-				//alternative clear filter
+			//make sure to create panels before store gets filtered
+			//alternative clear filter
+
+			Ext.defer(function() {								
 				store.each(function(record) {
-					currentPanel = Ext.create('EatSense.view.InfoPageDetail');
+					// currentPanel = Ext.create('EatSense.view.InfoPageDetail');
 					//get template and create html representation
-					html = currentPanel.getTpl().apply(record.getData());
-					currentPanel.setHtml(html);
-					carousel.add(currentPanel);
+					// html = currentPanel.getTpl().apply(record.getData());
+					// currentPanel.setHtml(html);
+					// carousel.add(currentPanel);
+					carousel.add(me.createInfoPageDetail(record));
 				});
-			
+				this.setPanelsCreated(true);
 				EatSense.util.Helper.toggleMask(false);
-
-				this.setPanelsCreated(true);	
 			
-			}, 10, this);
+			}, 50, this);
 
+	},
+	/**
+	* @private
+	* Creates an InfoPageDetail panel based on the given record.
+	* @param page
+	*	InfoPage record
+	* @return
+	*	created panel
+	*/
+	createInfoPageDetail: function(page) {
+		var panel = Ext.create('EatSense.view.InfoPageDetail'),
+			html;
+
+			if(page) {
+				html = panel.getTpl().apply(page.getData());
+				panel.setHtml(html);
+			}
+			return panel;
 	},
 	/**
 	* Removes all panels from info page carousel.

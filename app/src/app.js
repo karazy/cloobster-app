@@ -96,9 +96,10 @@ Ext.application({
     }
 
     //----- Launch functions end ------
-		
-    	
-	   	//create main screen
+			   	
+      // Destroy the #appLoadingIndicator and #cloobsterLoadingText elements
+      Ext.fly('appLoadingWrapper').destroy();
+      //create main screen
 	   	Ext.create('EatSense.view.Main')
 
       //try to restore application state
