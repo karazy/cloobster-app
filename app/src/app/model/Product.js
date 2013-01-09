@@ -126,5 +126,19 @@ Ext.define('EatSense.model.Product', {
 		this.set('price', rawData.price);
 						
 		return true;
+	},
+	debugData: function() {
+		try {
+			console.log('EatSense.model.Product: data '+ 
+				'id:' + this.get('id') +
+				' name:' + this.get('name') +
+				' shortDesc:' + this.get('shortDesc') +
+				' longDesc:' + this.get('longDesc') +
+				' price:' + this.get('price')
+				);	
+		} catch(e) {
+			console.log('EatSense.model.Product: failed to output debug data');
+		}
+		
 	}
 });

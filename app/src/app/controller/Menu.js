@@ -217,8 +217,8 @@ Ext.define('EatSense.controller.Menu', {
 			detail = this.getProductdetail(), 
 			main = this.getMain(), 
 			menu = this.getMenuview(), 
-			choicesPanel =  this.getProductdetail().down('#choicesPanel'),
-			choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
+			choicesPanel =  null,
+			// choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
 			titlebar = detail.down('titlebar'),
 			activeProduct,
 			activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness(),
@@ -228,35 +228,57 @@ Ext.define('EatSense.controller.Menu', {
 					me.getProductdetail().hide();
 			});
 
+		//DEBUG
+		if(record) {
+			record.debugData();
+		} else {
+			console.log('Menu.loadProductDetail: ERROR no record given');
+		}
+		
+		// console.log('Menu.loadProductDetail: 1');
 		order = EatSense.model.Order.createOrder(record);
 		this.setActiveOrder(order);
+		// console.log('Menu.loadProductDetail: 2');
+
+		choicesPanel =  this.getProductdetail().down('#choicesPanel');
+		//fix for Ticket #397 sometimes product detail seems to be broken
+		if(!choicesPanel) {
+			detail.destroy();
+			detail = null;
+			detail = this.getProductdetail();
+			choicesPanel =  this.getProductdetail().down('#choicesPanel');
+			titlebar = detail.down('titlebar');
+			console.log('Menu.loadProductDetail: detail panel was null. generate new');
+		}
 
 		choicesPanel.removeAll(false);
-
+		// console.log('Menu.loadProductDetail: 3');
 		titlebar.setTitle(order.get('productName'));
-
+		// console.log('Menu.loadProductDetail: 4');
 		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
-
+		// console.log('Menu.loadProductDetail: 5');
 		//reset product spinner
 		this.getAmountSpinner().setValue(1);
 		this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: order, amount: this.getAmountSpinner().getValue()});
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
 		//if basic mode is active, hide amount spinner
 		this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
+		// console.log('Menu.loadProductDetail: 6');
 
 		Ext.Viewport.add(detail);
 		detail.getScrollable().getScroller().scrollToTop();
 		detail.show();
-
+		// console.log('Menu.loadProductDetail: 7');
 		detail.setMasked({
 			xtype: 'loadmask',
 			message: i10n.translate('menu.product.detail.loading')
 		});
-
+		// console.log('Menu.loadProductDetail: 8');
 		Ext.defer((function() {
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices
+			 	 // console.log('Menu.loadProductDetail: 9');
 			 	 order.choices().each(function(choice) {
 						var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 							choicePriceLabel = "";
@@ -276,7 +298,7 @@ Ext.define('EatSense.controller.Menu', {
 						choicesPanel.add(optionsDetailPanel);
 			 	 });		 	 
 			};
-			 
+			 // console.log('Menu.loadProductDetail: 10');
 			//insert comment field after options have been added so it is positioned correctly
 			choicesPanel.add({
 				xtype: 'textareafield',

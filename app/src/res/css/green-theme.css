@@ -11341,7 +11341,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 /* line 408, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .infopage-teaser div.thumbnail {
-  margin-right: 5px;
+  margin-right: 8px;
   /*background-image: url('http://robohash.org/Angola');*/
   background-position: center;
   background-repeat: no-repeat;
@@ -11377,7 +11377,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .infopage-teaser .info-icon {
   position: absolute;
   right: 5px;
-  bottom: 5px;
+  top: 5px;
   height: 20px;
   width: 20px;
   background-image: url("../images/club/info.png");
