@@ -12390,3 +12390,9 @@ h9 {
 .x-list-normal .x-list-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid lightgrey;
 }
+
+/* line 1377, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-list .x-list-item.x-item-pressed .x-dock-horizontal {
+  border-top-color: #ffcdf2;
+  background-color: #ffcdf2;
+}

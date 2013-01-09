@@ -1289,12 +1289,6 @@ h9 {
   background-color: $page-bg-color !important;
 }*/
 
-/* Override needed because ui-round already has a white background. */
-/*.x-list-round .x-list-item.x-item-pressed .x-list-item-label {
-  border-top-color: lighten($active-color, 30%);
-  background-color: lighten($active-color, 30%);
-}*/
-
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -1372,6 +1366,12 @@ h9 {
   &.x-list-footer-wrap .x-dock-horizontal {
     border-bottom: 1px solid lightgrey;
   }
+}
+
+/* Override because otherwise a white background ist set. Don't know why ;) */
+.x-list .x-list-item.x-item-pressed .x-dock-horizontal {
+  border-top-color: lighten($active-color, 30%);
+  background-color: lighten($active-color, 30%);
 }
 
 
