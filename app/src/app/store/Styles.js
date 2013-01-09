@@ -19,6 +19,10 @@ Ext.define('EatSense.store.Styles', {
 		{
 			id: 'blue-gold',
 			name: 'A noble blue and golden theme'
+		},
+		{
+			id: 'black-pink',
+			name: 'A funky black and pink theme'
 		}]
 	}
 });
