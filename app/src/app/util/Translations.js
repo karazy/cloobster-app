@@ -367,7 +367,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Welcome"
 		},
 		"clubdashboard.welcomespot.text" : {
-			"DE" :  "Diese Funktion steht hier nicht zur Verfügung. Bitte checken Sie an einer geigneten Stelle "+
+			"DE" :  "Diese Funktion steht hier nicht zur Verfügung. Bitte checken Sie an einer geeigneten Stelle "+
 			"in unserem Haus ein.",
 			"EN" : "This function is not available here. Please checkin at another spot in our house."
 		},

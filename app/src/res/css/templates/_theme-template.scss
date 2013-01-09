@@ -388,10 +388,10 @@
 }
 
 .infopage-teaser {
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   background-color: #f5f5f5;
   border: 1px solid lightgray; 
-  padding: 10px;
+  /*padding: 10px;*/
   height: 100px; 
   overflow: hidden; 
   text-overflow: ellipsis; 
@@ -400,7 +400,6 @@
 
   /* Landscape phones and down */
   @media only screen and (max-width: 320px) { 
-    padding: 5px;
     margin-top: 5px;
     height: 95px; 
   }
@@ -408,21 +407,32 @@
   /*background-image: url('../images/club/info.png');*/
   div.thumbnail {
     margin-right: 5px;
+    /*background-image: url('http://robohash.org/Angola');*/
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 100px;
     float: left;
-    img {
+    /*img {
       max-width: 65px;
       height: auto;
       margin-left: 5px; 
+    }*/
+    @media only screen and (max-width: 320px) { 
+      height: 95px; 
     }
   }
 
-  h3 {
-    font-size: 1em;
-    line-height: 1em;
-  }
+  .text-container {
+    padding: 8px;
+      h3 {
+        font-size: 1em;
+        line-height: 1em;
+      }
 
-  p {
-    font-size: 0.6em;
+      p {
+        font-size: 0.6em;
+      }
   }
 
   .info-icon {

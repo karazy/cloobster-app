@@ -8,11 +8,13 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 	config: {
 		layout: 'fit',
 		pageStore: null,
-		tpl: new Ext.XTemplate(
+		tpl: new Ext.XTemplate( //<img src="{imageUrl}"/>
 			'<div class="">'+
-				'<div class="thumbnail"><img src="{imageUrl}"/></div>'+
-				'<h3>{title}</h3>'+
-				'<p>{shortText}</p>'+
+				'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}\')"></div></tpl>'+
+				'<div class="text-container">'+
+					'<h3>{title}</h3>'+
+					'<p>{shortText}</p>'+
+				'</div>'+
 				'<div class="info-icon"></div>'+
 			'</div>'
 			),
