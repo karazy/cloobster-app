@@ -62,8 +62,8 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 
 		if(pagesCount > 0) {
 			//get a random index
-			randomPageIndex = Math.round(Math.random() * (pagesCount-1);
-			console.log('InfoPageTeaser.generateRandomPage: pagesCount=' + pagesCount + ' randomPageIndex=' + randomPageIndex);		
+			randomPageIndex = Math.round(Math.random() * (pagesCount-1));
+			// console.log('InfoPageTeaser.generateRandomPage: pagesCount=' + pagesCount + ' randomPageIndex=' + randomPageIndex);		
 			//get random page based on index
 			page = this.getStore().getAt(randomPageIndex);
 			
@@ -108,7 +108,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 			console.log('InfoPageTeaser.setState: no state object provided.');
 		}
 
-		console.log('InfoPageTeaser.setState: basicMode='+stateObject.basicMode+' pageGenerated='+stateObject.pageGenerated);
+		// console.log('InfoPageTeaser.setState: basicMode='+stateObject.basicMode+' pageGenerated='+stateObject.pageGenerated);
 
 		if(stateObject.basicMode) {
 			this.setBasicMode(true);
