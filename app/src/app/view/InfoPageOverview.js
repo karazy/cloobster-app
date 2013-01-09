@@ -26,7 +26,8 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				xtype: 'searchfield',
 				docked: 'top',
 				margin: '0 15 10 10',
-				style: 'border-radius: .3em;'
+				style: 'border-radius: .3em;',
+				cls: 'general-textfield'
 			},
 			{
 				xtype: 'list',

@@ -277,8 +277,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "I like ..."
 		},
 		"orderSubmit" : {
-			"DE" :  "Bestellung abgeschickt ...<br/>Guten Appetit!",
-			"EN" :  "Order sent ...<br/>Enjoy your meal!"
+			"DE" :  "Bestellung abgeschickt ...",
+			"EN" :  "Order sent ..."
 		},
 		"productCartBt" : {
 			"DE" :  "Warenkorb",

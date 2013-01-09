@@ -279,14 +279,15 @@
   padding: 5px;
   margin: 5px;
   border-radius: 0.3em;
-  background-color: #fff;
+  color: $label-color;
+  /*background-color: #fff;*/
 
   .name {
     width: 50%;
   }
 
   .name h2.title {
-    color: #000000;
+    /*color: #000000;*/
     font-size: 1em;
   }
 
@@ -295,7 +296,7 @@
   }
 
   .name h2.price {
-    color: #000000;
+    /*color: #000000;*/
     font-size: 1em;
     white-space: nowrap;
     text-align: right;
@@ -303,7 +304,7 @@
   }
 
   .name h2.price {
-    color: #000000;
+    /*color: #000000;*/
     font-size: 1em;
     white-space: nowrap;
     text-align: right;
@@ -440,27 +441,28 @@
   display: block;
   padding: 5px 15px;
   font-size: 100%;
-  color: black;
+  color: $label-color !important;
+
+  * {
+    color: $label-color !important;    
+  }
 
   h1 {
     font-size: 1.2em;
     font-weight: bold;
     margin: 7px 0px;
-    color: black;
   }
 
   h2 {
     font-size: 1.1em;
     font-weight: bold;
     margin: 4px 0px;
-    color: black;
   }
 
   h3, h4, h5, h6 {
     font-size: 1em;
     font-weight: bold;
     margin: 4px 0px;
-    color: black;
   }
 
   img {
@@ -501,6 +503,7 @@
   margin: 10px;
   max-height: 25%;
   overflow: hidden;
+  color: $label-color;
 
   img {
     float: left;
@@ -1078,7 +1081,7 @@
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
   /*added important because of .x-field:last-child Ticket 391*/
-  border: 1px solid #664442 !important;
+  border: 1px solid $label-color !important;
 }
 
 .general-field-label-horizontal {
