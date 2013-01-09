@@ -69,7 +69,8 @@ Ext.define('EatSense.controller.InfoPage', {
 	registerInfoPageTeaser: function() {
 		var me = this,
 			clubArea = this.getClubArea(),
-			teaser = clubArea.down('infopageteaser');
+			teaser = clubArea.down('infopageteaser'),
+			androidCtr = this.getApplication().getController('Android');
 
 		if(teaser) {
 			//unregister old listener
@@ -79,10 +80,16 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		function tapFunction(page) {
 			if(!me.getPanelsCreated()) {
-					me.createCarouselPanels();
+					me.createCarouselPanels(callback);
 				}
-				//null is the dataview, it gets not used inside method!
-				me.showInfoPageDetail(null, page);
+
+				function callback() {
+					androidCtr.addBackHandler(function() {
+            			me.backToDashboard();
+        			});
+					//null is the dataview, it gets not used inside method!
+					me.showInfoPageDetail(null, page);
+				}				
 		}
 
 	},
@@ -160,8 +167,10 @@ Ext.define('EatSense.controller.InfoPage', {
 	},
 	/**
 	* Create a panel for each entry in infoPageStore.
+	* @param callback (optional)
+	*	Called after all panels have been created
 	*/
-	createCarouselPanels: function() {
+	createCarouselPanels: function(callback) {
 		var me = this,
 			store = Ext.StoreManager.lookup('infopageStore'),
 			infoPageCarousel = this.getInfoPageCarousel(),
@@ -193,6 +202,10 @@ Ext.define('EatSense.controller.InfoPage', {
 				});
 				this.setPanelsCreated(true);
 				EatSense.util.Helper.toggleMask(false);
+
+				if(EatSense.util.Helper.isFunction(callback)) {
+					callback();
+				}
 			
 			}, 50, this);
 

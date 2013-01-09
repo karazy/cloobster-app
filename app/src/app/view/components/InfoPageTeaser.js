@@ -62,7 +62,8 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 
 		if(pagesCount > 0) {
 			//get a random index
-			randomPageIndex = Math.round(Math.random() * pagesCount);
+			randomPageIndex = Math.round(Math.random() * (pagesCount-1);
+			console.log('InfoPageTeaser.generateRandomPage: pagesCount=' + pagesCount + ' randomPageIndex=' + randomPageIndex);		
 			//get random page based on index
 			page = this.getStore().getAt(randomPageIndex);
 			

@@ -46,7 +46,7 @@ Ext.define('EatSense.controller.Menu', {
             	 tap: 'createOrder'
              },
              closeProductDetailBt: {
-             	tap: 'closeProductDetail'
+             	tap: 'closeProductDetailHandler'
              },
              productBackButton: {
              	tap: 'backToMenu'
@@ -225,7 +225,7 @@ Ext.define('EatSense.controller.Menu', {
 			order;
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
-					me.getProductdetail().hide();
+					me.closeProductDetail();
 			});
 
 		//DEBUG
@@ -394,6 +394,13 @@ Ext.define('EatSense.controller.Menu', {
 		});
 	},
 	/**
+	* tap event handler for closeProductDetailBt.
+	*/
+	closeProductDetailHandler: function() {
+		this.getApplication().getController('Android').removeLastBackHandler();
+		this.closeProductDetail();
+	},
+	/**
 	* Hides Product detail. Destroys the active order!! Only call this method
 	* from close button of product detail.
 	*/
@@ -402,7 +409,6 @@ Ext.define('EatSense.controller.Menu', {
 		
 		detail.hide();
 		detail.destroy();
-		this.getApplication().getController('Android').removeLastBackHandler();
 
 		//destroy the active order
 		if(this.getActiveOrder()) {
