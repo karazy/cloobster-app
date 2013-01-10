@@ -20,14 +20,14 @@ Ext.define('EatSense.view.components.BasicButton', {
 	* @override
 	*
 	*/
-	onRelease: function(e, me) {
+	onRelease: function(e, element) {
 		if(this.getBasic() === true) {
 			if(appHelper.isFunction(this.getBasicFn())) {
 				//execute basic function
 				this.getBasicFn()();
 			}
 
-			this.callParent([me, e, true]);
+			this.callParent([e, element, true]);
 			// return false;
 		}
 
@@ -36,9 +36,9 @@ Ext.define('EatSense.view.components.BasicButton', {
 			this.getWelcomeFn()();
 
 			// return false;
-			this.callParent([me, e, true]);
+			this.callParent([e, element, true]);
 		} else {
-			this.callParent([me, e]);
+			this.callParent([e, element]);
 		}	
 
 	},

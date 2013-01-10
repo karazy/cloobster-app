@@ -34,6 +34,7 @@ Ext.define('EatSense.controller.Lounge', {
      //always jump to dashboard on home tab pressed
      tab.setActiveItem(0);
      androidCtr.setExitOnBack(false); 
+     this.setNavigationFunctions(new Array());
      androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
   },
   /**
