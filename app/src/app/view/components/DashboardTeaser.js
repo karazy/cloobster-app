@@ -67,21 +67,32 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			page,
 			randomPageIndex,
 			storeFilters,
-			store = this.getStore();
+			store = this.getStore(),
+			productStore;
 
 		storeFilters = store.getFilters();
 		store.clearFilter(true);
 		if(this.getFilter()) {
 			store.filter(this.getFilter());
 		}
-		storeCount = this.getStore().getCount();
+		// storeCount = this.getStore().getCount();
 
-		if(storeCount > 0) {
+		randomPageIndex = this.getRandomStoreNumber(store);
+
+		if(randomPageIndex > 0) {
 			//get a random index
-			randomPageIndex = Math.round(Math.random() * (storeCount-1));
+			// randomPageIndex = Math.round(Math.random() * (storeCount-1));
 			// console.log('InfoPageTeaser.generateRandomPage: storeCount=' + storeCount + ' randomPageIndex=' + randomPageIndex);		
 			//get random page based on index
+
+			//special for products			
+
 			page = this.getStore().getAt(randomPageIndex);
+
+			productsStore = page.productsStore;
+			randomPageIndex = this.getRandomStoreNumber(productsStore);
+			page = productsStore.getAt(randomPageIndex);
+
 			
 			this.setPage(page);
 
@@ -99,6 +110,21 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		}
 		store.setFilters(storeFilters);
 	},
+
+	getRandomStoreNumber: function(store) {
+		var storeCount,
+			randomPageIndex = 0;
+
+		storeCount = store.getAllCount();
+
+		if(storeCount > 0) {
+			//get a random index
+			randomPageIndex = Math.round(Math.random() * (storeCount-1));
+		}
+
+		return randomPageIndex;
+	},
+
 
 	teaserTap: function() {
 		var me = this;

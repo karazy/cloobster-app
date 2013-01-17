@@ -77,7 +77,25 @@ Ext.define('EatSense.controller.Menu', {
 		/* Android Back handlers */
 		menuNavigationFunctions : new Array()
     },
+    init: function() {
+    	menuStore = Ext.StoreManager.lookup('menuStore');
 
+    	menuStore.on('load', this.registerProductTeaserTap, this);
+    },
+    registerProductTeaserTap: function() {
+    	var me = this,
+    		loungeview = this.getLoungeview(),
+    		teasers;
+
+    	teasers = loungeview.query('dashboardteaser');
+
+    	Ext.Array.each(teasers, function(teaser){
+    		teaser.on('teasertapped', function(product){
+    			// me.showProductlist(null, product);
+    		}, this);
+    	});
+
+    },
     menuTabActivated: function(tab) {
     	var androidCtr = this.getApplication().getController('Android');
     	

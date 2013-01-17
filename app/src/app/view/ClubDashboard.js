@@ -113,17 +113,31 @@ Ext.define('EatSense.view.ClubDashboard', {
 					{
 						xtype : 'dashboardteaser',
 						store : 'menuStore',
-						tpl: new Ext.XTemplate( //<img src="{imageUrl}"/>
+						tpl: new Ext.XTemplate(
 							'<div class="">'+
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
 								'<div class="text-container">'+
-									'<h3>{title}</h3>'+
-									'<p>{description}</p>'+
+									'<h3>{name}</h3>'+
+									'<p>{shortDesc}</p>'+
 								'</div>'+
 								// '<div class="info-icon"></div>'+
 							'</div>'
 						)
-					},						
+					},
+					{
+						xtype : 'dashboardteaser',
+						store : 'menuStore',
+						tpl: new Ext.XTemplate(
+							'<div class="">'+
+								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+								'<div class="text-container">'+
+									'<h3>{name}</h3>'+
+									'<p>{shortDesc}</p>'+
+								'</div>'+
+								// '<div class="info-icon"></div>'+
+							'</div>'
+						)
+					},					
 					{
 						xtype : 'basictilebutton',
 						action: 'show-feedback',
