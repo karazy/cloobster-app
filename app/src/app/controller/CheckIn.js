@@ -93,44 +93,7 @@ Ext.define('EatSense.controller.CheckIn', {
       //register event handlers
     	this.on('statusChanged', this.handleStatusChange, this);
       this.getApplication().on('statusChanged', this.handleStatusChange, this);
-    	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
-
-    	 //private functions
-    	 
-    	//called by checkInIntent. 
-    	// this.doCheckInIntent = function(barcode, button, deviceId) {    		 
-    	//     	//validate barcode field
-    	//     	if(barcode.length == 0) {
-     //          Ext.Viewport.setMasked(false);
-    	//     		button.enable();
-    	//     		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
-    	//     	} else {
-    	//         	var me = this;
-    	//         	EatSense.model.Spot.load(barcode, {
-    	//         		 success: function(record, operation) {
-    	//         			 me.setActiveSpot(record);
-    	//         			 me.checkInConfirm({model:record, deviceId : deviceId}); 	        	    	
-     // 	        	    },
-     // 	        	    failure: function(record, operation) {
-     //                        //403 can only occur if you are logged in, with an invalid user
-     //                        me.getApplication().handleServerError({
-     //                            'error': operation.error,
-     //                            'message': {
-     //                                404: i10n.translate('checkInErrorBarcode'),
-     //                                403: i10n.translate('error.account.credentials.invalid')
-     //                            },
-     //                            userLogout : {
-     //                              403: true
-     //                            }
-     //                        }); 
-     // 	        	    },
-     // 	        	    callback: function() {
-     //                  Ext.Viewport.setMasked(false);
-     // 	        	    	button.enable();
-     // 	        	    }
-    	//         	});
-    	//     	}
-    	//  };    	    
+    	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);  	    
     },
     /**
      * CheckIn Process
@@ -616,6 +579,7 @@ Ext.define('EatSense.controller.CheckIn', {
       success: function(record) {
         me.setActiveBusiness(record);
         me.activateBasicMode(record.get('basic'));
+        me.fireEvent('business-loaded',record);
         me.fireEvent('basicmode',record.get('basic'));
 
         try {
@@ -764,13 +728,19 @@ Ext.define('EatSense.controller.CheckIn', {
     activateWelcomeMode: function(welcome, view) {
         var me = this,
             loungeview = view || this.getLoungeview(),
-            basicButtons;
+            buttons;
 
         // console.log('CheckIn.activateWelcomeMode: ' + welcome);
 
-        basicButtons = loungeview.query('basicbutton');
+        buttons = loungeview.query('basicbutton');
 
-        Ext.Array.each(basicButtons, function(button, index) {
+        Ext.Array.each(buttons, function(button, index) {
+            button.setWelcome(welcome);
+        });
+
+        buttons = loungeview.query('basictilebutton');
+
+        Ext.Array.each(buttons, function(button, index) {
             button.setWelcome(welcome);
         });
     },
@@ -785,13 +755,20 @@ Ext.define('EatSense.controller.CheckIn', {
     activateBasicMode: function(basic, view) {
         var me = this,
             loungeview = view || this.getLoungeview(),
-            basicButtons;
+            buttons;
 
         // console.log('CheckIn.activateBasicMode: ' + basic);
 
-        basicButtons = loungeview.query('basicbutton');
+        buttons = loungeview.query('basicbutton');
 
-        Ext.Array.each(basicButtons, function(button, index) {
+        Ext.Array.each(buttons, function(button, index) {
+            button.setBasic(basic);
+            button.activateBasicMode(basic);
+        });
+
+        buttons = loungeview.query('basictilebutton');
+
+        Ext.Array.each(buttons, function(button, index) {
             button.setBasic(basic);
             button.activateBasicMode(basic);
         });

@@ -2,7 +2,7 @@
 * 
 */
 Ext.define('EatSense.view.components.TileButton', {
-	extend: 'EatSense.view.components.BasicButton',
+	extend: 'GT.override.FixedButton',
 	xtype: 'tilebutton',
 	requires: [],
 	config: {
@@ -34,10 +34,16 @@ Ext.define('EatSense.view.components.TileButton', {
          */
         labelCls: Ext.baseCSSPrefix + 'tilebutton-label',
 
+        /**
+         * @cfg {String} pressedCls
+         * The CSS class to add to button in pressed mode.
+         * @accessor
+         */
         pressedCls: Ext.baseCSSPrefix + 'tilebutton-pressed',
 		
 	},
 	template: [
+		//we have to provide this, since we override the template from GT.override.FixedButton
 		{
             tag: 'span',
             reference: 'tapMask',
@@ -88,7 +94,9 @@ Ext.define('EatSense.view.components.TileButton', {
             }
         }
     },
-
+    /**
+    * @private
+    */
     updateExpandIcon: function(expand) {
     	var iconElement = this.iconElement;
 

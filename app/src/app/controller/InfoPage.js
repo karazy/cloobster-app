@@ -41,17 +41,20 @@ Ext.define('EatSense.controller.InfoPage', {
 	},
 
 	init: function() {		
+		var checkInCtr = this.getApplication().getController('CheckIn');
+
 		this.getApplication().getController('CheckIn').on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.setPanelsCreated(false);
 				this.loadInfoPages();
+				this.setImageForInfoButton(checkInCtr.getActiveSpot());
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();
 			}
 		}, this);
 
 		// always show teaser
-		//this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
+		//this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);		    
 	},
 	/**
 	* @private
@@ -462,6 +465,27 @@ Ext.define('EatSense.controller.InfoPage', {
 		}
     },
     /**
+    *
+    */
+    setImageForInfoButton: function(spot) {
+    	var button = this.getShowInfoPageButton();
+
+    	if(!button) {
+    		return;
+    	}
+    	//a custom logo exists
+    	if(spot && spot.get('logoUrl')) {
+    		//=s720 we load from google blob store and define a maximum logo size
+    		button.setIcon(spot.get('logoUrl')+'=s720');
+    		button.setExpandIcon(true);
+    	} else {
+    		//reset image
+    		button.setIcon('');
+    		button.setExpandIcon(false);
+    		button.showIconElement();
+    	}
+    },
+    /**
     * Cleanup on checkout.
     */
     cleanup: function() {
@@ -476,5 +500,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			store.removeAll();
 			this.refreshInfoPageList();
 			teaser.reset();
+			this.setImageForInfoButton(null);
     }
 });

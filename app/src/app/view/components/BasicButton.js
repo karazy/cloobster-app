@@ -1,3 +1,7 @@
+/**
+* A button which has configurations for behaviour in welcome and basicmode of a business.
+* Extends {@link GT.override.FixedButton}
+*/
 Ext.define('EatSense.view.components.BasicButton', {
 	extend: 'GT.override.FixedButton',
 	xtype: 'basicbutton',
@@ -5,11 +9,15 @@ Ext.define('EatSense.view.components.BasicButton', {
 	config: {
 
 		/**
-		*
-		*/
+         * @cfg {Boolean} basic
+         * 
+         * @accessor
+         */
 		basic: false,
 		/**
+		* @cfg {Boolean} welcome
 		*
+		* @accessor
 		*/
 		welcome: false,
 		basicFn: null,
@@ -21,6 +29,7 @@ Ext.define('EatSense.view.components.BasicButton', {
 	*
 	*/
 	onRelease: function(e, element) {
+		console.log('BasicButton.onRelease');
 		if(this.getBasic() === true) {
 			if(appHelper.isFunction(this.getBasicFn())) {
 				//execute basic function

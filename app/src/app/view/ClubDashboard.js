@@ -5,7 +5,8 @@
 Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
 	xtype : 'clubdashboard',
-	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser', 'EatSense.view.components.TileButton'],
+	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser', 'EatSense.view.components.TileButton',
+		'EatSense.view.components.BasicTileButton'],
 	config : {
 		layout : {
 			type : 'fit'
@@ -74,7 +75,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					iconCls: 'info'
 				},
 				{
-					xtype : 'tilebutton',
+					xtype : 'basictilebutton',
 					action: 'show-requests',
 					title: i10n.translate('clubdashboard.button.vip'),
 					text: i10n.translate('clubdashboard.button.vip.text'),
@@ -108,14 +109,9 @@ Ext.define('EatSense.view.ClubDashboard', {
 						title: i10n.translate('menuTab'),
 						iconCls: 'menu',
 						expandIcon: true
-						// baseCls: 'club-dashboard-button',
-						// cls: 'club-dashboard-button-menu',
-						// pressedCls: 'club-dashboard-button-pressed',
-						// labelCls: 'club-dashboard-button-label',
-						// badgeCls: 'club-dashboard-button-badge'
 					},	
 					{
-						xtype : 'tilebutton',
+						xtype : 'basictilebutton',
 						action: 'show-feedback',
 						title: i10n.translate('clubdashboard.button.feedback'),
 						iconCls: 'feedback',
