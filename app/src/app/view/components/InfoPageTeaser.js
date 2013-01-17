@@ -10,7 +10,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		pageStore: null,
 		tpl: new Ext.XTemplate( //<img src="{imageUrl}"/>
 			'<div class="">'+
-				'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}\')"></div></tpl>'+
+				'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
 				'<div class="text-container">'+
 					'<h3>{title}</h3>'+
 					'<p>{shortText}</p>'+
@@ -25,7 +25,6 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		//used to determine the visible state of the teaser
 		pageGenerated: false,
 		padding: 3,
-		width: '90%',
 		cls: 'infopage-teaser'
 	},
 
@@ -117,8 +116,8 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		if(stateObject.pageGenerated) {
 			this.setPageGenerated(true);
 		}
-
-		if(this.getBasicMode() === true && this.getPageGenerated() === true) {
+		//this.getBasicMode() === true && 
+		if(this.getPageGenerated() === true) {
 			this.setHidden(false);
 		} else {
 			this.setHidden(true);

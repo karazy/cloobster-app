@@ -334,6 +334,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "VIP Call",
 			"EN" :  "VIP Call"
 		},
+		"clubdashboard.button.vip.text" : {
+			"DE" :  "Fragen Sie uns, Sagen Sie uns",
+			"EN" :  "Feel free to ask"
+		},
 		"clubdashboard.button.feedback" : {
 			"DE" :  "Feedback",
 			"EN" :  "Feedback"
@@ -341,6 +345,10 @@ Ext.define('EatSense.util.Translations',{
 		"clubdashboard.button.infopage" : {
 			"DE" :  "A bis Z",
 			"EN" : "A to Z"
+		},
+		"clubdashboard.button.infopage.text" : {
+			"DE" :  "Alle Information über uns",
+			"EN" : "All informations about us"
 		},
 		"clubdashboard.button.info" : {
 			"DE" :  "Info",

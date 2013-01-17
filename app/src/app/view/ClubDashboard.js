@@ -5,12 +5,16 @@
 Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
 	xtype : 'clubdashboard',
-	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser'],
+	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser', 'EatSense.view.components.TileButton'],
 	config : {
 		layout : {
 			type : 'fit'
 		},
-		// cls: 'club-dashboard',
+		// layout: {
+		// 	type: 'vbox',
+		// 	align: 'center',
+		// 	pack: 'center'
+		// },		
 		items : [
 		{
 			xtype : 'panel',
@@ -28,7 +32,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						pressedCls: 'fb-wimpel-button-pressed',
 						top: 0,
 						right: 15
-				}
+				}				
 			]
 		},
 		{
@@ -38,103 +42,89 @@ Ext.define('EatSense.view.ClubDashboard', {
 			docked: 'top',
 			style: 'text-align: center;',
 			html: i10n.translate('clubdashboard.label.description')
-		},		
+		},	
 		{
 			xtype: 'panel',
 			width: '100%',
 			layout: {
-				type: 'vbox',
-				align: 'center',
+				type: 'hbox',
+				align: 'start',
 				pack: 'center'
 			},
+			scrollable: 'vertical',
 			padding: '10 0 0 0',
 			items: [
 			{
 				xtype: 'panel',
-				width: '100%',
+				flex: 1,
 				layout: {
-					type: 'hbox',
+					type: 'vbox',
 					align: 'center',
 					pack: 'center'
 				},
+				defaults: {
+					width: '90%'
+				},
 				items: [
 				{
-					xtype : 'fixedbutton',
-					action: 'show-menu',
-					text: i10n.translate('menuTab'),
-					baseCls: 'club-dashboard-button',
-					cls: 'club-dashboard-button-menu',
-					pressedCls: 'club-dashboard-button-pressed',
-					labelCls: 'club-dashboard-button-label',
-					badgeCls: 'club-dashboard-button-badge'
-				},
-				{
-					xtype : 'fixedbutton',
+					xtype : 'tilebutton',
 					action: 'show-infopage',
-					text: i10n.translate('clubdashboard.button.infopage'),
-					baseCls: 'club-dashboard-button',
-					cls: 'club-dashboard-button-infopage',
-					pressedCls: 'club-dashboard-button-pressed',
-					labelCls: 'club-dashboard-button-label'
-				}							
+					title: i10n.translate('clubdashboard.button.infopage'),
+					text: i10n.translate('clubdashboard.button.infopage.text'),
+					iconCls: 'info'
+				},
+				{
+					xtype : 'tilebutton',
+					action: 'show-requests',
+					title: i10n.translate('clubdashboard.button.vip'),
+					text: i10n.translate('clubdashboard.button.vip.text'),
+					iconCls: 'vip',
+					welcomeFn: function() {
+						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+					}
+				},
+				{
+					xtype : 'infopageteaser',
+					pageStore : 'infopageStore'
+				}												
 				]
 			},
 			{
 				xtype: 'panel',
-				width: '100%',
+				flex: 1,
 				layout: {
-					type: 'hbox',
+					type: 'vbox',
 					align: 'center',
 					pack: 'center'
 				},
+				defaults: {
+					width: '90%'
+				},
 				items: [
 					{
-						xtype : 'basicbutton',
-						action: 'show-requests',
-						text: i10n.translate('clubdashboard.button.vip'),
-						baseCls: 'club-dashboard-button',
-						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label',
-						cls: 'club-dashboard-button-vip',
-						welcomeFn: function() {
-							Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-						}
-					},
+						xtype : 'tilebutton',
+						action: 'show-menu',
+						text: i10n.translate('clubdashboard.menu.text'),
+						title: i10n.translate('menuTab'),
+						iconCls: 'menu',
+						expandIcon: true
+						// baseCls: 'club-dashboard-button',
+						// cls: 'club-dashboard-button-menu',
+						// pressedCls: 'club-dashboard-button-pressed',
+						// labelCls: 'club-dashboard-button-label',
+						// badgeCls: 'club-dashboard-button-badge'
+					},	
 					{
-						xtype : 'basicbutton',
+						xtype : 'tilebutton',
 						action: 'show-feedback',
-						text: i10n.translate('clubdashboard.button.feedback'),
-						baseCls: 'club-dashboard-button',
-						cls: 'club-dashboard-button-feedback',
-						pressedCls: 'club-dashboard-button-pressed',
-						labelCls: 'club-dashboard-button-label',
+						title: i10n.translate('clubdashboard.button.feedback'),
+						iconCls: 'feedback',
 						welcomeFn: function() {
 							Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 						}
-					}
-				]
-			},
-
-			//InfoPageTeaser start
-			{
-				xtype: 'panel',
-				width: '100%',
-				layout: {
-					type: 'hbox',
-					align: 'center',
-					pack: 'center'
-				},
-				// margin: '10 0 0 0',
-				items: [
-					{
-						xtype : 'infopageteaser',
-						hidden: true,
-						pageStore : 'infopageStore'
-					}
+					}	
 				]
 			}
-
-			//InfoPageTeaser end
 			]
 		}
 		]

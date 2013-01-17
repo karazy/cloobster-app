@@ -388,36 +388,48 @@
 }
 
 .infopage-teaser {
-  /*border-radius: 5px;*/
   background-color: #f5f5f5;
   border: 1px solid lightgray; 
-  /*padding: 10px;*/
-  height: 100px; 
+  /*height: 100px;*/
+  max-height: 200px; 
   overflow: hidden; 
   text-overflow: ellipsis; 
   color: #1E4776;
-  margin-top: 15px;
+  /*margin-top: 15px;*/
+  margin: 0.3em;
+
+  /* Landscape phones and down */
+/*  @media only screen and (max-width: 320px) { 
+    margin-top: 5px;
+    height: 95px; 
+  }*/
+
+  @media only screen and (min-width: 768px) {
+    width: 140px;
+    min-height: 140px;
+  }
+
+  /* Landscape phone to portrait tablet */
+  @media only screen and (max-width: 767px) { 
+    width: 110px;
+    min-height: 110px;
+  }
 
   /* Landscape phones and down */
   @media only screen and (max-width: 320px) { 
-    margin-top: 5px;
-    height: 95px; 
+    width: 80px;
+    min-height: 80px;
   }
 
   /*background-image: url('../images/club/info.png');*/
   div.thumbnail {
     margin-right: 8px;
-    /*background-image: url('http://robohash.org/Angola');*/
     background-position: center;
     background-repeat: no-repeat;
     height: 100px;
-    width: 100px;
-    float: left;
-    /*img {
-      max-width: 65px;
-      height: auto;
-      margin-left: 5px; 
-    }*/
+    /*width: 100px;*/
+    /*float: left;*/
+    width: 100%;
     @media only screen and (max-width: 320px) { 
       height: 95px; 
     }
@@ -432,6 +444,7 @@
 
       p {
         font-size: 0.6em;
+        text-overflow: ellipsis; 
       }
   }
 
@@ -759,6 +772,69 @@
   }
 }
 
+.x-tilebutton {
+  margin: 0.3em;
+  font-size: 0.9em;
+  color: $dashboard-color;
+  position: relative;
+  background-color: #f5f5f5;
+  border: 1px solid lightgray;
+  max-height: 200px;
+  -webkit-box-orient: vertical;
+}
+
+.x-tilebutton-title {
+  /*margin-top: 5px;*/
+  font-size: 1.2em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-left: 5px;
+}
+
+.x-tilebutton-label {
+  font-size: 0.8em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-left: 5px;
+}
+
+.x-tilebutton-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+
+  @media only screen and (min-width: 768px) {
+    background-size: 110px;
+    height: 110px;
+    /*width: 140px;*/
+  }
+
+  /* Landscape phone to portrait tablet */
+  @media only screen and (max-width: 767px) { 
+    background-size: 110px;
+    height: 110px;
+  }
+
+  /* Landscape phones and down */
+  @media only screen and (max-width: 320px) { 
+    background-size: 80px;
+    height: 80px;
+  }
+
+}
+
+.x-tilebutton-icon-expand {
+  background-size: auto !important;
+}
+
+.x-tilebutton-pressed {
+  -webkit-box-shadow: 0px 0px 10px 2px $base-color;
+  box-shadow: 0px 0px 10px 2px $base-color;
+  border-radius: 0.5em;
+  color: $base-color;
+  border: 1px solid $base-color;
+}
+
 .club-dashboard-button {
   margin: 0.3em;
   background-repeat: no-repeat;
@@ -766,6 +842,9 @@
   font-size: 0.9em;
   color: $dashboard-color;
   position: relative;
+  background-color: #f5f5f5;
+  border: 1px solid lightgray;
+  max-height: 200px;
 
   @media only screen and (min-width: 768px) {
     background-size: 110px 110px;
@@ -786,25 +865,6 @@
     height: 80px;
     width: 80px;
   }
-/*  @media only screen and (min-width: 768px) {
-    background-size: 70px 70px;
-    height: 100px;
-    width: 100px;
-  }
-
-  @media only screen and (max-width: 767px) { 
-    background-size: 50px 50px;
-    height: 80px;
-    width: 80px;
-    font-size: 0.85em;
-  }
-
-  @media only screen and (max-width: 320px) { 
-    background-size: 40px 40px;
-    height: 70px;
-    width: 70px;
-    font-size: 0.75em;
-  }*/
 
 }
 
@@ -868,22 +928,22 @@
   display: inline-block;
 }
 
-.club-dashboard-button-menu {
+.club-dashboard-button-menu, .x-tilebutton-icon.menu {
   background-image: url('../images/club/menu.png');
   margin-right: 0.6em;
 }
 
-.club-dashboard-button-vip {
+.club-dashboard-button-vip, .x-tilebutton-icon.vip {
   background-image: url('../images/club/vip.png');
   margin-right: 0.6em;
 }
 
-.club-dashboard-button-feedback {
+.club-dashboard-button-feedback, .x-tilebutton-icon.feedback {
   background-image: url('../images/club/feedback.png');
   margin-right: 0.6em;
 }
 
-.club-dashboard-button-infopage {
+.club-dashboard-button-infopage, .x-tilebutton-icon.info {
   background-image: url('../images/club/info.png');
   margin-right: 0.6em;
 }

@@ -50,7 +50,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			}
 		}, this);
 
-		this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
+		// always show teaser
+		//this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
 	},
 	/**
 	* @private
