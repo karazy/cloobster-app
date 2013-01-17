@@ -6,7 +6,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
 	xtype : 'clubdashboard',
 	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser', 'EatSense.view.components.TileButton',
-		'EatSense.view.components.BasicTileButton'],
+		'EatSense.view.components.BasicTileButton', 'EatSense.view.components.DashboardTeaser'],
 	config : {
 		layout : {
 			type : 'fit'
@@ -110,6 +110,20 @@ Ext.define('EatSense.view.ClubDashboard', {
 						iconCls: 'menu',
 						expandIcon: true
 					},	
+					{
+						xtype : 'dashboardteaser',
+						store : 'menuStore',
+						tpl: new Ext.XTemplate( //<img src="{imageUrl}"/>
+							'<div class="">'+
+								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+								'<div class="text-container">'+
+									'<h3>{title}</h3>'+
+									'<p>{description}</p>'+
+								'</div>'+
+								// '<div class="info-icon"></div>'+
+							'</div>'
+						)
+					},						
 					{
 						xtype : 'basictilebutton',
 						action: 'show-feedback',
