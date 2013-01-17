@@ -42,9 +42,7 @@ Ext.define('EatSense.util.Channel', {
 	self : null,
 
 	constructor: function() {
-		console.log('Channel constructor');
 		this.self = this;
-
 	},
 
 	onOpen: function() {
@@ -393,7 +391,14 @@ Ext.define('EatSense.util.Channel', {
 
 		this.checkOnlineFunction = options.checkOnlineHandler;
 		
-
+		if(window['goog'] == undefined) {
+			console.log('Channel.setup: ChannelAPI script not yet loaded. Deferring channel setup for 500ms.');
+			window.setTimeout(function() {
+				appChannel.setup(options);
+			}, 500);
+			return;
+		}
+		
 		(options.executionScope) ? this.executionScope = options.executionScope : this;
 
 		this.connectionStatus = 'INITIALIZING';

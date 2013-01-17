@@ -39,10 +39,10 @@
             "path": "touch/sencha-touch.js",
              "full": "full"
         },
-        {
-            "path" : "/_ah/channel/jsapi",
-            "remote" : true
-        },
+//        {
+//            "path" : "/_ah/channel/jsapi",
+//            "remote" : true
+//        },
         {
             "path" : "lib/facebook_js_sdk.js",
             "remote" : true
