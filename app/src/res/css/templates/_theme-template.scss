@@ -35,6 +35,10 @@
 
 @CHARSET "UTF-8";
 
+/*custom imports*/
+
+@import 'tilebutton';
+
 
 .productListItem {
   h2.title {
@@ -768,69 +772,6 @@
     font-size: 1em;
     padding: 0 0.5em 0 0.5em;
   }
-}
-
-.x-tilebutton {
-  margin: 0.3em;
-  font-size: 0.9em;
-  color: $dashboard-color;
-  position: relative;
-  background-color: #f5f5f5;
-  border: 1px solid lightgray;
-  max-height: 200px;
-  -webkit-box-orient: vertical;
-}
-
-.x-tilebutton-title {
-  /*margin-top: 5px;*/
-  font-size: 1.2em;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-left: 5px;
-}
-
-.x-tilebutton-label {
-  font-size: 0.8em;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-left: 5px;
-}
-
-.x-tilebutton-icon {
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-
-  @media only screen and (min-width: 768px) {
-    background-size: 110px;
-    height: 110px;
-    /*width: 140px;*/
-  }
-
-  /* Landscape phone to portrait tablet */
-  @media only screen and (max-width: 767px) { 
-    background-size: 110px;
-    height: 110px;
-  }
-
-  /* Landscape phones and down */
-  @media only screen and (max-width: 320px) { 
-    background-size: 80px;
-    height: 80px;
-  }
-
-}
-
-.x-tilebutton-icon-expand {
-  background-size: auto !important;
-}
-
-.x-tilebutton-pressed {
-  -webkit-box-shadow: 0px 0px 10px 2px $base-color;
-  box-shadow: 0px 0px 10px 2px $base-color;
-  border-radius: 0.5em;
-  color: $base-color;
-  border: 1px solid $base-color;
 }
 
 .club-dashboard-button {
