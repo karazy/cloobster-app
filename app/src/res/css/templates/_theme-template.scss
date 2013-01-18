@@ -395,12 +395,10 @@
 .infopage-teaser {
   background-color: #f5f5f5;
   border: 1px solid lightgray; 
-  /*height: 100px;*/
-  max-height: 200px; 
+  max-height: 200px;
   overflow: hidden; 
   text-overflow: ellipsis; 
   color: #1E4776;
-  /*margin-top: 15px;*/
   margin: 0.3em;
 
   /* Landscape phones and down */
@@ -440,6 +438,7 @@
 
   .text-container {
     padding: 8px;
+
       h3 {
         font-size: 1em;
         line-height: 1em;
@@ -450,16 +449,34 @@
         text-overflow: ellipsis; 
       }
   }
-
-  .info-icon {
+  .teaser-icon {
     position: absolute;
     right: 5px;
     top: 5px;
     height: 20px;
     width: 20px;
-    background-image: url('../images/club/info.png');
     background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .info-icon {
+    background-image: url('../images/club/info.png');
+  }
 
+  .menu-icon {
+    background-image: url('../images/club/menu.png'); 
+  }
+
+  .special-icon {
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    height: 25px;
+    width: 25px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../images/feedback/star_shining.png');     
   }
 }
 

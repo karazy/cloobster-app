@@ -39,7 +39,7 @@ Ext.define('EatSense.view.components.TileButton', {
          * The CSS class to add to button in pressed mode.
          * @accessor
          */
-        pressedCls: Ext.baseCSSPrefix + 'tilebutton-pressed',
+        pressedCls: Ext.baseCSSPrefix + 'tilebutton-pressed'
 		
 	},
 	template: [

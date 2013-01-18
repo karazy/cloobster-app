@@ -5,7 +5,7 @@
 Ext.define('EatSense.view.ClubDashboard', {
 	extend : 'Ext.Panel',
 	xtype : 'clubdashboard',
-	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.InfoPageTeaser', 'EatSense.view.components.TileButton',
+	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.TileButton',
 		'EatSense.view.components.BasicTileButton', 'EatSense.view.components.DashboardTeaser'],
 	config : {
 		layout : {
@@ -95,7 +95,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 							'<h3>{title}</h3>'+
 							'<p>{shortText}</p>'+
 						'</div>'+
-						'<div class="info-icon"></div>'+
+						'<div class="teaser-icon info-icon"></div>'+
 					'</div>'
 					)
 				}											
@@ -130,10 +130,10 @@ Ext.define('EatSense.view.ClubDashboard', {
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
 								'<div class="text-container">'+
 									'<h3>{name}</h3>'+
-									'<p>{shortDesc}</p>'+
-									'<p>SPECIAL</p>'+
+									'<p>{shortDesc}</p>'+									
 								'</div>'+
-								// '<div class="menu-icon"></div>'+
+								'<div class="teaser-icon menu-icon"></div>'+
+								'<div class="special-icon"></div>'+
 							'</div>'
 						)
 					},	
@@ -148,6 +148,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 									'<h3>{name}</h3>'+
 									'<p>{shortDesc}</p>'+
 								'</div>'+
+								'<div class="teaser-icon menu-icon"></div>'+
 							'</div>'
 						)
 					},				

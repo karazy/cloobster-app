@@ -35,6 +35,10 @@ Ext.define('EatSense.model.Product', {
 		{
 			name: 'special',
 			type: 'boolean'
+		},
+		{
+			name: 'imageUrl',
+			type: 'string'
 		}],
 		 associations: [
 		 {
