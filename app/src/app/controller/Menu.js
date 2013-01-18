@@ -713,8 +713,12 @@ Ext.define('EatSense.controller.Menu', {
 		}
 
 		menuStore.each(function(menu) {
-			productStore.add(menu.productsStore.getData(true));
+			menu.productsStore.each(function(product) {
+				productStore.add(product);	
+			})			
 		});
+
+		productStore.load();
 	},
 	/**
 	* @private

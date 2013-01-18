@@ -125,7 +125,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		randomPageIndex = this.getRandomStoreNumber(store);
 
-		if(randomPageIndex > 0) {
+		if(store.getCount() > 0) {
 
 			page = this.getStore().getAt(randomPageIndex);
 

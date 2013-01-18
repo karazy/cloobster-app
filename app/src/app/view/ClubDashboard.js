@@ -120,52 +120,11 @@ Ext.define('EatSense.view.ClubDashboard', {
 						title: i10n.translate('menuTab'),
 						iconCls: 'menu',
 						expandIcon: true
-					},	
-					{
-						xtype : 'dashboardteaser',
-						store : 'menuStore',
-						type: 'product',
-						tpl: new Ext.XTemplate(
-							'<div class="">'+
-								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
-								'<div class="text-container">'+
-									'<h3>{title}</h3>'+
-									'<p>{description}</p>'+
-								'</div>'+
-							'</div>'
-						)
-					},
-					{
-						xtype : 'dashboardteaser',
-						type: 'product',
-						store : 'menuStore.productsStore',
-						tpl: new Ext.XTemplate(
-							'<div class="">'+
-								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
-								'<div class="text-container">'+
-									'<h3>{name}</h3>'+
-									'<p>{shortDesc}</p>'+
-								'</div>'+
-							'</div>'
-						)
 					},
 					{
 						xtype : 'dashboardteaser',
 						store : 'productStore',
 						type: 'product',
-						// filter: {'property': "special", 'value': true},
-						// filter: new Ext.util.Filter({
-					 //    	root : 'data',
-					 //    	property: 'special',
-					 //    	value: true,
-					 //    	exactMatch: true
-						// }),
-						// filter: function(record) {
-						// 	if(record.get('special') == true) {
-						// 		return true;
-						// 	}
-						// 	return false;
-						// },
 						tpl: new Ext.XTemplate(
 							'<div class="">'+
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
@@ -177,7 +136,21 @@ Ext.define('EatSense.view.ClubDashboard', {
 								// '<div class="menu-icon"></div>'+
 							'</div>'
 						)
-					},					
+					},	
+					{
+						xtype : 'dashboardteaser',
+						store : 'menuStore.productsStore',
+						type: 'product',
+						tpl: new Ext.XTemplate(
+							'<div class="">'+
+								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+								'<div class="text-container">'+
+									'<h3>{name}</h3>'+
+									'<p>{shortDesc}</p>'+
+								'</div>'+
+							'</div>'
+						)
+					},				
 					{
 						xtype : 'basictilebutton',
 						action: 'show-feedback',

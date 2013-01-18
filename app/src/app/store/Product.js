@@ -10,11 +10,11 @@ Ext.define('EatSense.store.Product', {
                 direction: 'ASC'
             }
 		],
-		// filters: [
-  //       	{
-  //       	    property: 'special',
-  //           	value   : true
-  // 	      }
-  //   	]
+		filters: [
+        	{
+        	    property: 'special',
+            	value   : true
+  	      	}
+    	]
 	}
 });
