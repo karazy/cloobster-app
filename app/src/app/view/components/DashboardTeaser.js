@@ -1,5 +1,5 @@
 /**
-* 
+* Uses some logic from {@link Ext.Button}.
 */
 Ext.define('EatSense.view.components.DashboardTeaser', {
 	extend: 'Ext.Panel',
@@ -10,8 +10,13 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		tpl: null,
 		/**
 		* @cfg
+		* @accessor
 		*/
 		store: null,
+		/**
+		* @private
+		*/
+		nestedStores: null,
 		page: null,
 		//used to determine the visible state of the teaser
 		basicMode: false,
@@ -22,77 +27,96 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		* @cfg {String|Object} filter
 		*/
 		filter: '',
-		cls: 'infopage-teaser'
+
+		cls: 'infopage-teaser',
+
+		/**
+         * @cfg {String} pressedCls
+         * The CSS class to add to the teaser in pressed mode.
+         * @accessor
+         */
+        pressedCls: Ext.baseCSSPrefix + 'teaser-pressed',
+
+        /**
+         * @cfg {Number/Boolean} pressedDelay
+         * The amount of delay between the `tapstart` and the moment we add the `pressedCls` (in milliseconds).
+         * Settings this to `true` defaults to 100ms.
+         */
+        pressedDelay: 0
 	},
-
-	// initConfig: function(config) {
-	// 	this.callParent();
-
-
-	// },
 
 	initialize: function(config) {
 		var me = this,
-			store = null;		
+			store = null,
+			nestedStores = null;		
 
-		if(!this.getStore()) {
+		if(!me.config.store) {
 			console.log('DashboardTeaser.constructor: No store configuration provided.');
 			// this.setHidden(true);
 			return;
 		}
 		// console.log('InfoPageTeaser.constructor: store ' + this.getStore());
 
-		store = Ext.StoreManager.lookup(this.getStore());
-		this.setStore(store);
+		nestedStores = me.config.store.split('.');
 
-		// this.setTpl(config.tpl);
+		nestedStores = Ext.isArray(nestedStores) ? nestedStores : [nestedStores];
+
+		store = Ext.StoreManager.lookup(nestedStores[0]);
+		this.setStore(store);		
+		this.setNestedStores(nestedStores.slice(1, nestedStores.length));
 
 		if(store) {
+			//regnerate the teaser on store load or refresh
 			store.on('refresh', this.generateRandomPage, this);
 			store.on('load', this.generateRandomPage, this);
 		}
-
+		//if store already has beed loaded directly generate teaser
 		if(store.isLoaded()) {
 			this.generateRandomPage();
 		}
 
-		this.on({
-			tap : this.teaserTap,
-			element : 'element'
-		});
+		this.element.on({
+            scope      : this,
+            tap        : 'teaserTap',
+            touchstart : 'onPress',
+            touchend   : 'onRelease'
+        });
 	},
 
 	generateRandomPage: function() {
-		var storeCount,
+		var me = this,
+			storeCount,
 			page,
 			randomPageIndex,
 			storeFilters,
 			store = this.getStore(),
-			productStore;
+			productStore,
+			nestedStores = this.getNestedStores();
 
 		storeFilters = store.getFilters();
 		store.clearFilter(true);
 		if(this.getFilter()) {
 			store.filter(this.getFilter());
 		}
-		// storeCount = this.getStore().getCount();
 
 		randomPageIndex = this.getRandomStoreNumber(store);
 
-		if(randomPageIndex > 0) {
-			//get a random index
-			// randomPageIndex = Math.round(Math.random() * (storeCount-1));
-			// console.log('InfoPageTeaser.generateRandomPage: storeCount=' + storeCount + ' randomPageIndex=' + randomPageIndex);		
-			//get random page based on index
-
-			//special for products			
+		if(randomPageIndex > 0) {	
 
 			page = this.getStore().getAt(randomPageIndex);
 
-			productsStore = page.productsStore;
-			randomPageIndex = this.getRandomStoreNumber(productsStore);
-			page = productsStore.getAt(randomPageIndex);
-
+			if(nestedStores) {
+				//if nested stores exist iterate over all of them to get the final random record
+				Ext.Array.each(nestedStores, function(nested) {
+					productsStore = page[nested + ''];
+					if(!productsStore) {
+						console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: non existing nested store ' + nested);
+						return false;
+					}
+					randomPageIndex = me.getRandomStoreNumber(productsStore);
+					page = productsStore.getAt(randomPageIndex);
+				});
+			}
 			
 			this.setPage(page);
 
@@ -171,6 +195,63 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		} else {
 			this.setHidden(true);
 		}
-	}
+	},
+
+	// @private
+	applyPressedDelay: function(delay) {
+        if (Ext.isNumber(delay)) {
+            return delay;
+        }
+        return (delay) ? 100 : 0;
+    },
+
+	// @private
+    updatePressedCls: function(pressedCls, oldPressedCls) {
+        var element = this.element;
+
+        if (element.hasCls(oldPressedCls)) {
+            element.replaceCls(oldPressedCls, pressedCls);
+        }
+    },
+
+    // @private
+    onPress: function() {
+        var me = this,
+            element = me.element,
+            pressedDelay = me.getPressedDelay(),
+            pressedCls = me.getPressedCls();
+
+        if (!me.getDisabled()) {
+            if (pressedDelay > 0) {
+                me.pressedTimeout = setTimeout(function() {
+                    delete me.pressedTimeout;
+                    if (element) {
+                        element.addCls(pressedCls);
+                    }
+                }, pressedDelay);
+            }
+            else {
+                element.addCls(pressedCls);
+            }
+        }
+    },
+    
+    // @private
+    onRelease: function(e) {
+        this.fireAction('release', [this, e], 'doRelease');
+    },
+
+    // @private
+    doRelease: function(me, e) {
+        if (!me.getDisabled()) {
+            if (me.hasOwnProperty('pressedTimeout')) {
+                clearTimeout(me.pressedTimeout);
+                delete me.pressedTimeout;
+            }
+            else {
+                me.element.removeCls(me.getPressedCls());
+            }
+        }
+    }
 
 });

@@ -629,7 +629,6 @@ Ext.define('EatSense.controller.CheckIn', {
 	handleStatusChange: function(status) {
 		console.log('CheckIn Controller -> handleStatusChange' + ' new status '+status);
         var     orderCtr = this.getApplication().getController('Order'),
-                menuCtr = this.getApplication().getController('Menu'),
                 settingsCtr = this.getApplication().getController('Settings'),
                 androidCtr = this.getApplication().getController('Android'),
                 requestCtr = this.getApplication().getController('Request'),
@@ -657,7 +656,6 @@ Ext.define('EatSense.controller.CheckIn', {
       this.getSettingsTab().tab.enable();
       this.getHomeTab().tab.enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());      
-      menuCtr.cleanup();
 
       orderCtr.cleanup();
 

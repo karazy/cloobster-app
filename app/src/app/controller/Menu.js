@@ -31,7 +31,8 @@ Ext.define('EatSense.controller.Menu', {
         	loungeview: 'lounge',
         	loungeTabBar: 'lounge tabbar',
         	showCartButton: 'menutab button[action=show-cart]',
-        	cartView: 'menutab carttab'
+        	cartView: 'menutab carttab',
+        	clubdashboard: 'clubdashboard'
 		},
 
 		control: {
@@ -62,6 +63,9 @@ Ext.define('EatSense.controller.Menu', {
              },
              menuview: {
              	activate: 'menuTabActivated'
+             },
+             clubdashboard: {
+             	initialize: 'registerProductTeaserTap'
              }
 		},
 		/**
@@ -77,12 +81,25 @@ Ext.define('EatSense.controller.Menu', {
 		/* Android Back handlers */
 		menuNavigationFunctions : new Array()
     },
-    init: function() {
-    	menuStore = Ext.StoreManager.lookup('menuStore');
+    launch: function() {
+    	var checkInCtr = this.getApplication().getController('CheckIn');
+    	// menuStore = Ext.StoreManager.lookup('menuStore');
 
-    	menuStore.on('load', this.registerProductTeaserTap, this);
+    	// menuStore.on('load', this.registerProductTeaserTap, this);
+    	// this.registerProductTeaserTap();
+    	checkInCtr.on('statusChanged', function(status) {
+			if(status == appConstants.CHECKEDIN) {
+				this.registerProductTeaserTap();
+			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				this.cleanup();
+			}
+		}, this);
     },
-    registerProductTeaserTap: function() {
+    /**
+    * @param {Boolean} unregister
+    *	If true removes the listener
+    */
+    registerProductTeaserTap: function(unregister) {
     	var me = this,
     		loungeview = this.getLoungeview(),
     		teasers;
@@ -90,9 +107,16 @@ Ext.define('EatSense.controller.Menu', {
     	teasers = loungeview.query('dashboardteaser');
 
     	Ext.Array.each(teasers, function(teaser){
-    		teaser.on('teasertapped', function(product){
+    		if(!unregister) {
+	    		teaser.on('teasertapped', function(product){
+	    			me.jumpToProductDetail(product);
+	    		}, this);
+    		} else {
+    			teaser.un('teasertapped', function(product){
     			me.jumpToProductDetail(product);
     		}, this);
+    		}
+
     	});
     },
     menuTabActivated: function(tab) {
@@ -126,10 +150,10 @@ Ext.define('EatSense.controller.Menu', {
     	parentMenu = menuStore.getById(product.get('menu_id'));
     	//show the product list
     	this.showProductlist(null, parentMenu);
+    	loungeview.setActiveItem(menuview);
     	//show product detail by triggering the select
     	this.getProductlist().select(product);
-    	loungeview.setActiveItem(menuview);
-
+    	
     },
     /**
      * Shows the products of a menuitem

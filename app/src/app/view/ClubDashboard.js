@@ -112,7 +112,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					},	
 					{
 						xtype : 'dashboardteaser',
-						store : 'menuStore',
+						store : 'menuStore.productsStore',
 						tpl: new Ext.XTemplate(
 							'<div class="">'+
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
@@ -126,7 +126,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					},
 					{
 						xtype : 'dashboardteaser',
-						store : 'menuStore',
+						store : 'menuStore.productsStore',
 						tpl: new Ext.XTemplate(
 							'<div class="">'+
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
