@@ -1,22 +1,35 @@
 /**
+* Renders a random teaser based on a given store.
+* This teaser is usually displayed on a dashboard.
 * Uses some logic from {@link Ext.Button}.
 */
 Ext.define('EatSense.view.components.DashboardTeaser', {
 	extend: 'Ext.Panel',
+
+	 /**
+     * @event teasertapped
+     * Fires whenever a teaser is tapped.
+     * @param {Ext.data.Model} the record displayed by this teaser.
+     */
+
+
 	requires: [],
 	xtype: 'dashboardteaser',
 	config: {
 		layout: 'fit',
+		/**
+		* @cfg {Ext.XTemplate} tpl
+		*	Template used to render the teaser.
+		*/
 		tpl: null,
 		/**
-		* @cfg
+		* @cfg {String} store
+		*	Accepts a string with the name of store to use for this teaser.
+		*	Supports nested stores. E. g. you have a category which has assigned products. You can
+		*	set store to categoriesStore.productsStore
 		* @accessor
 		*/
 		store: null,
-		/**
-		* @private
-		*/
-		nestedStores: null,
 		page: null,
 		//used to determine the visible state of the teaser
 		basicMode: false,
@@ -25,6 +38,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		padding: 3,
 		/**
 		* @cfg {String|Object} filter
+		* 	Filter to apply to the store. If nested stores exist it only gets applied to the last store.
 		*/
 		filter: '',
 
@@ -45,6 +59,12 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
         pressedDelay: 0
 	},
 
+	/**
+	* @private
+	* Used if store cfg contains nested stores.
+	*/
+	nestedStores: null,
+
 	initialize: function(config) {
 		var me = this,
 			store = null,
@@ -52,7 +72,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		if(!me.config.store) {
 			console.log('DashboardTeaser.constructor: No store configuration provided.');
-			// this.setHidden(true);
 			return;
 		}
 		// console.log('InfoPageTeaser.constructor: store ' + this.getStore());
@@ -63,7 +82,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		store = Ext.StoreManager.lookup(nestedStores[0]);
 		this.setStore(store);		
-		this.setNestedStores(nestedStores.slice(1, nestedStores.length));
+		this.nestedStores = nestedStores.slice(1, nestedStores.length);
 
 		if(store) {
 			//regnerate the teaser on store load or refresh
@@ -77,7 +96,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		this.element.on({
             scope      : this,
-            tap        : 'teaserTap',
+            tap        : 'onTap',
             touchstart : 'onPress',
             touchend   : 'onRelease'
         });
@@ -90,8 +109,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			randomPageIndex,
 			storeFilters,
 			store = this.getStore(),
-			productStore,
-			nestedStores = this.getNestedStores();
+			productStore;
 
 		storeFilters = store.getFilters();
 		store.clearFilter(true);
@@ -105,9 +123,9 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 			page = this.getStore().getAt(randomPageIndex);
 
-			if(nestedStores) {
+			if(this.nestedStores) {
 				//if nested stores exist iterate over all of them to get the final random record
-				Ext.Array.each(nestedStores, function(nested) {
+				Ext.Array.each(this.nestedStores, function(nested) {
 					productsStore = page[nested + ''];
 					if(!productsStore) {
 						console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: non existing nested store ' + nested);
@@ -134,10 +152,21 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		}
 		store.setFilters(storeFilters);
 	},
-
+	/**
+	* @private
+	* Returns a random index based on the given stores size.
+	* @param {Ext.data.Store} store
+	*	store to get random index
+	* @return
+	*	Random Index, -1 if no store provided
+	*/
 	getRandomStoreNumber: function(store) {
 		var storeCount,
 			randomPageIndex = 0;
+
+		if(!store) {
+			return -1;
+		}
 
 		storeCount = store.getAllCount();
 
@@ -149,12 +178,15 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		return randomPageIndex;
 	},
 
-
-	teaserTap: function() {
+	/**
+	* @private
+	*	Called when tap event is fired on element.
+	*/
+	onTap: function() {
 		var me = this;
 
 		if(!this.getPage()) {
-			console.log('DashboardTeaser.teaserTap: no page exists');
+			console.log('DashboardTeaser.onTap: no page exists');
 			return;
 		}
 
