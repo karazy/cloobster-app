@@ -91,16 +91,45 @@ Ext.define('EatSense.controller.Menu', {
 
     	Ext.Array.each(teasers, function(teaser){
     		teaser.on('teasertapped', function(product){
-    			// me.showProductlist(null, product);
+    			me.jumpToProductDetail(product);
     		}, this);
     	});
-
     },
     menuTabActivated: function(tab) {
     	var androidCtr = this.getApplication().getController('Android');
     	
     	androidCtr.setExitOnBack(false);
     	androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
+    },
+    /**
+    * Shows product detail and product list no matter where the user is.
+    * @param product
+    *	Product to show.
+    */
+    jumpToProductDetail: function(product) {
+    	var me = this,
+    		menuStore = Ext.StoreManager.lookup('menuStore'),
+    		parentMenu,
+    		loungeview = this.getLoungeview(),
+    		menuview = this.getMenuview();
+
+    	if(!product) {
+    		console.log('Menu.jumpToProductDetail: no product given');
+    		return;
+    	}
+
+    	if(!product.get('menu_id')) {
+    		console.log('Menu.jumpToProductDetail: product has no menu_id');
+    		return;
+    	}
+
+    	parentMenu = menuStore.getById(product.get('menu_id'));
+    	//show the product list
+    	this.showProductlist(null, parentMenu);
+    	//show product detail by triggering the select
+    	this.getProductlist().select(product);
+    	loungeview.setActiveItem(menuview);
+
     },
     /**
      * Shows the products of a menuitem
