@@ -73,7 +73,8 @@ Ext.define('EatSense.controller.InfoPage', {
 	registerInfoPageTeaser: function() {
 		var me = this,
 			clubArea = this.getClubArea(),
-			teaser = clubArea.down('infopageteaser'),
+			// teaser = clubArea.down('infopageteaser'),
+			teaser = clubArea.down('dashboardteaser[type=info]'),
 			androidCtr = this.getApplication().getController('Android');
 
 		if(teaser) {

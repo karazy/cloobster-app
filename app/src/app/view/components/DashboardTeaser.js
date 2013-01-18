@@ -85,8 +85,8 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		this.nestedStores = nestedStores.slice(1, nestedStores.length);
 
 		if(store) {
-			//regnerate the teaser on store load or refresh
-			store.on('refresh', this.generateRandomPage, this);
+			//regnerate the teaser on store load
+			// store.on('refresh', this.generateRandomPage, this);
 			store.on('load', this.generateRandomPage, this);
 		}
 		//if store already has beed loaded directly generate teaser
@@ -101,7 +101,11 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
             touchend   : 'onRelease'
         });
 	},
-
+	/**
+	* @private
+	*	Renders the teaser by getting a random record from the store and applying it to 
+	*	the tpl.
+	*/
 	generateRandomPage: function() {
 		var me = this,
 			storeCount,
@@ -109,33 +113,55 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			randomPageIndex,
 			storeFilters,
 			store = this.getStore(),
-			productStore;
+			nestedStoreInstance,
+			nestedStoreFilter;
 
-		storeFilters = store.getFilters();
-		store.clearFilter(true);
-		if(this.getFilter()) {
-			store.filter(this.getFilter());
-		}
+		// storeFilters = store.getFilters();
+		// store.clearFilter(true);
+		
+		// if(this.getFilter() && !this.nestedStores.length > 0) {
+		// 	store.filter(this.getFilter());
+		// }
 
 		randomPageIndex = this.getRandomStoreNumber(store);
 
-		if(randomPageIndex > 0) {	
+		if(randomPageIndex > 0) {
 
 			page = this.getStore().getAt(randomPageIndex);
 
 			if(this.nestedStores) {
 				//if nested stores exist iterate over all of them to get the final random record
-				Ext.Array.each(this.nestedStores, function(nested) {
-					productsStore = page[nested + ''];
-					if(!productsStore) {
+				Ext.Array.each(this.nestedStores, function(nested, index) {
+					nestedStoreInstance = page[nested + ''];
+					//clear possible filters
+					// nestedStoreFilter = nestedStoreInstance.getFilters();
+					// nestedStoreInstance.clearFilter(true);
+
+					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
+						// nestedStoreInstance.findBy(me.getFilter());
+						// nestedStoreInstance.filter('special', true);
+					// }
+
+					if(!nestedStoreInstance) {
 						console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: non existing nested store ' + nested);
 						return false;
 					}
-					randomPageIndex = me.getRandomStoreNumber(productsStore);
-					page = productsStore.getAt(randomPageIndex);
+					randomPageIndex = me.getRandomStoreNumber(nestedStoreInstance);
+					page = nestedStoreInstance.getAt(randomPageIndex);
+
+					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
+					// 	nestedStoreInstance.clearFilter(true);
+					// }
+
+					// nestedStoreInstance.setFilters(nestedStoreFilter);
 				});
 			}
 			
+			if(!page) {
+				console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: no page found, perhabs you provided a wrong filter');
+				return;
+			}
+
 			this.setPage(page);
 
 			this.getTpl().overwrite(this.element, page.getData());
@@ -147,10 +173,10 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			console.log('DashboardTeaser.generateRandomPage: no pages exist. hide teaser.');
 		}
 
-		if(this.getFilter()) {
-			store.clearFilter(true);
-		}
-		store.setFilters(storeFilters);
+		// if(this.getFilter() && !this.nestedStores.length > 0) {
+		// 	store.clearFilter(true);
+		// }
+		// store.setFilters(storeFilters);
 	},
 	/**
 	* @private
@@ -168,7 +194,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			return -1;
 		}
 
-		storeCount = store.getAllCount();
+		storeCount = store.getCount();
 
 		if(storeCount > 0) {
 			//get a random index

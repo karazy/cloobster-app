@@ -85,9 +85,20 @@ Ext.define('EatSense.view.ClubDashboard', {
 					}
 				},
 				{
-					xtype : 'infopageteaser',
-					pageStore : 'infopageStore'
-				}												
+					xtype : 'dashboardteaser',
+					type: 'info',
+					store : 'infopageStore',
+					tpl: new Ext.XTemplate(
+					'<div class="">'+
+						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+						'<div class="text-container">'+
+							'<h3>{title}</h3>'+
+							'<p>{shortText}</p>'+
+						'</div>'+
+						'<div class="info-icon"></div>'+
+					'</div>'
+					)
+				}											
 				]
 			},
 			{
@@ -112,20 +123,21 @@ Ext.define('EatSense.view.ClubDashboard', {
 					},	
 					{
 						xtype : 'dashboardteaser',
-						store : 'menuStore.productsStore',
+						store : 'menuStore',
+						type: 'product',
 						tpl: new Ext.XTemplate(
 							'<div class="">'+
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
 								'<div class="text-container">'+
-									'<h3>{name}</h3>'+
-									'<p>{shortDesc}</p>'+
+									'<h3>{title}</h3>'+
+									'<p>{description}</p>'+
 								'</div>'+
-								// '<div class="info-icon"></div>'+
 							'</div>'
 						)
 					},
 					{
 						xtype : 'dashboardteaser',
+						type: 'product',
 						store : 'menuStore.productsStore',
 						tpl: new Ext.XTemplate(
 							'<div class="">'+
@@ -134,7 +146,35 @@ Ext.define('EatSense.view.ClubDashboard', {
 									'<h3>{name}</h3>'+
 									'<p>{shortDesc}</p>'+
 								'</div>'+
-								// '<div class="info-icon"></div>'+
+							'</div>'
+						)
+					},
+					{
+						xtype : 'dashboardteaser',
+						store : 'productStore',
+						type: 'product',
+						// filter: {'property': "special", 'value': true},
+						// filter: new Ext.util.Filter({
+					 //    	root : 'data',
+					 //    	property: 'special',
+					 //    	value: true,
+					 //    	exactMatch: true
+						// }),
+						// filter: function(record) {
+						// 	if(record.get('special') == true) {
+						// 		return true;
+						// 	}
+						// 	return false;
+						// },
+						tpl: new Ext.XTemplate(
+							'<div class="">'+
+								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+								'<div class="text-container">'+
+									'<h3>{name}</h3>'+
+									'<p>{shortDesc}</p>'+
+									'<p>SPECIAL</p>'+
+								'</div>'+
+								// '<div class="menu-icon"></div>'+
 							'</div>'
 						)
 					},					

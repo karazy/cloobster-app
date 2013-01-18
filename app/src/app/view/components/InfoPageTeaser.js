@@ -43,7 +43,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		this.setStore(pageStore);
 
 		if(pageStore) {
-			pageStore.on('refresh', this.generateRandomPage, this);
+			pageStore.on('load', this.generateRandomPage, this);
 		}
 
 		this.on({
@@ -56,7 +56,7 @@ Ext.define('EatSense.view.components.InfoPageTeaser', {
 		var pagesCount,
 			page,
 			randomPageIndex;
-
+			
 		pagesCount = this.getStore().getCount();		
 
 		if(pagesCount > 0) {

@@ -2,39 +2,51 @@ Ext.define('EatSense.model.Product', {
 	extend : 'Ext.data.Model',
 	config : {
 		idProperty : 'id',
-		fields : [ {
+		fields : [ 
+		{
 			name : 'id',
 			type : 'string'
-		}, {
+		}, 
+		{
 			name : 'name',
 			type : 'string'
-		}, {
+		}, 
+		{
 			name : 'shortDesc',
 			type : 'string'
-		}, {
+		}, 
+		{
 			name : 'longDesc',
 			type : 'string'
-		}, {
+		}, 
+		{
 			name : 'price',
 			type: 'number'
-		}, {
+		}, 
+		{
 			name: 'order',
 			type: 'number'
-		}, { //dont change, gets set automatically
+		}, 
+		{ //dont change, gets set automatically
 			name: 'price_calculated',
 			persist: false,
 			type: 'number'
-		}],		
-		 associations: [{
-	            type: 'hasMany',
-	            model: 'EatSense.model.Choice',
-	            primaryKey: 'id',
-	            name: 'choices',
-	            // autoLoad: true,
-	            associationKey: 'choices', // read child data from child_groups,
-	            store: {
-	            	syncRemovedRecords: false
-	            }
+		},
+		{
+			name: 'special',
+			type: 'boolean'
+		}],
+		 associations: [
+		 {
+            type: 'hasMany',
+            model: 'EatSense.model.Choice',
+            primaryKey: 'id',
+            name: 'choices',
+            // autoLoad: true,
+            associationKey: 'choices', // read child data from child_groups,
+            store: {
+            	syncRemovedRecords: false
+        	}
 	    }],
 	    proxy: {
 		   type: 'rest',

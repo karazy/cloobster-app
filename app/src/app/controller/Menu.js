@@ -104,7 +104,7 @@ Ext.define('EatSense.controller.Menu', {
     		loungeview = this.getLoungeview(),
     		teasers;
 
-    	teasers = loungeview.query('dashboardteaser');
+    	teasers = loungeview.query('dashboardteaser[type="product"]');
 
     	Ext.Array.each(teasers, function(teaser){
     		if(!unregister) {
@@ -229,6 +229,8 @@ Ext.define('EatSense.controller.Menu', {
                         	'forceLogout': {403:true}
                         }); 
                     }
+
+                    me.setupProductStore(menuStore);
 			    }
 			 });
 
@@ -547,6 +549,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	    		// Ext.StoreManager.lookup('menuStore').removeAll();
 	    	    		// Ext.StoreManager.lookup('productStore').removeAll();
 	    	    		me.clearMenuStores();
+	    	    		me.clearProductStore();
 	    	    		//refresh menu
 	    	    		me.showMenu();
 
@@ -669,6 +672,7 @@ Ext.define('EatSense.controller.Menu', {
 		var detail = this.getProductdetail();
 
 		this.clearMenuStores();
+		this.clearProductStore();
 		
 		//close product detail
 		detail.hide();
@@ -695,6 +699,41 @@ Ext.define('EatSense.controller.Menu', {
 
 	    //remove menu to prevent problems on reload
 	    menuStore.removeAll(false);
+	},
+	/**
+	* @private
+	*	Extracts all nested products from given menuStore and adds them to productStore.
+	* @param {Ext.data.Store} menuStore
+	*/
+	setupProductStore: function(menuStore) {
+		var productStore = Ext.StoreManager.lookup('productStore');
+
+		if(!menuStore) {
+			return;
+		}
+
+		menuStore.each(function(menu) {
+			productStore.add(menu.productsStore.getData(true));
+		});
+	},
+	/**
+	* @private
+	* Clear productStore
+	*/
+	clearProductStore: function() {
+		var productStore = Ext.StoreManager.lookup('Product');
+		try {
+			productStore.each(function(product) {
+		        product.choices().each(function(choice) {
+		            choice.options().removeAll(true);
+		        });  
+	    	    product.choices().removeAll(true);
+	        });
+		       
+			productsStore.removeAll();
+		}catch(e) {
+			console.log('Menu.clearProductStore: failed to clear store. ' + e);
+		}
 	}
 
      	
