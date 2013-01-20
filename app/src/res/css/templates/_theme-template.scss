@@ -68,6 +68,7 @@
   text-align: center;
   padding: 2px;
   overflow: hidden;
+  text-overflow: ellipsis;
 
   .detail {
     font-weight: normal;
@@ -88,14 +89,16 @@
 }
 
 .productDetailPanel {
-  background: $product-sub-bg;
+  /*background: $product-sub-bg;*/
+  background: transparent;
   padding: 0.5em;
   margin-bottom: 8px;
-  border-radius: 0.3em;
+  /*border-radius: 0.3em;*/
 }
 
 /* Set background for product description and amount spinner */
-.productDetailPanel .x-panel-inner, .productDetailPanel .x-component-outer, .productDetailPanel .x-form-label {
+/*.productDetailPanel .x-panel-inner, .productDetailPanel */
+.x-component-outer .productDetailPanel .x-form-label {
   background: $product-sub-bg !important;
   color: black;
   /* To prevent rounded corners on form label. */
@@ -105,14 +108,19 @@
 .productDetail {
   font-size: 0.8em;
   padding-right: 0.5em;
-  background: $product-sub-bg;
+  /*background: $product-sub-bg;*/
   word-break: break-word;
+}
+
+.productdetail-spinner {
+  background-color: #d3d3d3;
 }
 
 
 .productdetail-spinner-label {
   padding: 0;
   margin: 0;
+  background-color: #d3d3d3;
 }
 
 .productdetail-spinner-input {
@@ -159,7 +167,7 @@
     font-size: 1em;
     color: $font-color;
     background-color: $product-sub-bg;
-    font-weight: bold;
+    /*font-weight: bold;*/
     padding: 3px 3px 3px 7px;
     border-radius: 0.3em;
     overflow: hidden;
@@ -438,6 +446,7 @@
 
   .text-container {
     padding: 8px;
+    word-break: break-word;
 
       h3 {
         font-size: 1em;
@@ -446,7 +455,7 @@
 
       p {
         font-size: 0.6em;
-        text-overflow: ellipsis; 
+        text-overflow: ellipsis;
       }
   }
   .teaser-icon {

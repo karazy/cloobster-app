@@ -13,13 +13,15 @@ Ext.define('EatSense.controller.Menu', {
         	productlist :'#menuCardPanel #productlist',        	
         	productoverview :'productoverview' ,
         	menuoverview :'menuoverview' ,	       
-        	productdetail : {
-                selector: ' productdetail',
-                xtype: 'productdetail',
-                autoCreate: true
-            },
-        	prodDetailLabel :'productdetail #prodDetailLabel' ,	 
-        	prodPriceLabel :'productdetail #prodPriceLabel' ,    
+        	// productdetail : {
+         //        selector: ' productdetail',
+         //        xtype: 'productdetail',
+         //        autoCreate: true
+         //    },
+            productdetail: 'productdetail',
+        	prodDetailLabel :'productdetail #prodDetailLabel',
+        	prodDetailLabelImage :'productdetail #prodDetailLabelImage',
+        	prodPriceLabel :'productdetail #prodPriceLabel',    
         	amountSpinner: 'productdetail spinnerfield',
         	createOrderBt :'productdetail button[action="cart"]',
         	closeProductDetailBt: 'productdetail button[action=close]',
@@ -292,21 +294,25 @@ Ext.define('EatSense.controller.Menu', {
 			menu = this.getMenuview(), 
 			choicesPanel =  null,
 			// choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
-			titlebar = detail.down('titlebar'),
+			// titlebar = detail.down('titlebar'),
 			activeProduct,
+			detailPanel,
 			activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness(),
-			order;
+			order,
+			titleLabel,
+			prodDetailLabel = this.getProdDetailLabel(),
+			prodDetailLabelImage = this.getProdDetailLabelImage();
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
 					me.closeProductDetail();
 			});
 
 		//DEBUG
-		if(record) {
-			record.debugData();
-		} else {
-			console.log('Menu.loadProductDetail: ERROR no record given');
-		}
+		// if(record) {
+		// 	record.debugData();
+		// } else {
+		// 	console.log('Menu.loadProductDetail: ERROR no record given');
+		// }
 		
 		// console.log('Menu.loadProductDetail: 1');
 		order = EatSense.model.Order.createOrder(record);
@@ -320,25 +326,64 @@ Ext.define('EatSense.controller.Menu', {
 			detail = null;
 			detail = this.getProductdetail();
 			choicesPanel =  this.getProductdetail().down('#choicesPanel');
-			titlebar = detail.down('titlebar');
+			// titlebar = detail.down('titlebar');
 			console.log('Menu.loadProductDetail: detail panel was null. generate new');
 		}
 
 		choicesPanel.removeAll(false);
 		// console.log('Menu.loadProductDetail: 3');
-		titlebar.setTitle(order.get('productName'));
+
+		// titlebar.setTitle(order.get('productName'));
+
+		titleLabel = detail.down('#titleLabel');
+
+    	if(titleLabel) {
+    		titleLabel.getTpl().overwrite(titleLabel.element, order.getData());
+    	}
+
 		// console.log('Menu.loadProductDetail: 4');
 		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
 		// console.log('Menu.loadProductDetail: 5');
 		//reset product spinner
 		this.getAmountSpinner().setValue(1);
-		this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {product: order, amount: this.getAmountSpinner().getValue()});
+
+		detailPanel = detail.down('#productDetailPanel');
+		// detailPanel.element.insertFirst
+		// detailPanel.setStyle('background-image: url("http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg");'+
+		// 			 'background-size: 100% auto;');
+		// '<div style="background-image: url(\"http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg\");'+
+		// 			 'background-size: 600px 200px;"></div>'
+
+		//DEBUG
+		// order.set('productImageUrl', 'res/images/background.jpg');
+
+		if(!order.get('productImageUrl')) {
+			//if no image exists display product text on the left of amount spinner
+			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: this.getAmountSpinner().getValue()});
+			prodDetailLabelImage.element.setHtml('');
+			detailPanel.setStyle({
+				'background-image': 'none'
+			});
+		} else {
+			//when an image exists, display the description beneath the amount spinner
+			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: this.getAmountSpinner().getValue()});
+			prodDetailLabel.element.setHtml('');
+			detailPanel.setStyle(
+			{
+				'background-image': 'url('+order.get('productImageUrl')+')',
+				'background-size': '100%',
+				'background-position': 'center'
+			});
+		}
+		
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
 		//if basic mode is active, hide amount spinner
 		this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
 		// console.log('Menu.loadProductDetail: 6');
 
-		Ext.Viewport.add(detail);
+		// Ext.Viewport.add(detail);
+		this.switchView(detail);
+
 		detail.getScrollable().getScroller().scrollToTop();
 		detail.show();
 		// console.log('Menu.loadProductDetail: 7');
@@ -478,10 +523,13 @@ Ext.define('EatSense.controller.Menu', {
 	* from close button of product detail.
 	*/
 	closeProductDetail: function() {
-		var detail = this.getProductdetail();
+		var detail = this.getProductdetail(),
+			productoverview = this.getProductoverview();
 		
-		detail.hide();
-		detail.destroy();
+		// detail.hide();
+		// detail.destroy();
+
+		this.switchView(productoverview);
 
 		//destroy the active order
 		if(this.getActiveOrder()) {
@@ -562,8 +610,10 @@ Ext.define('EatSense.controller.Menu', {
 	    	    }
 	    	});
 									
-			detail.hide();
-			detail.destroy();
+			// detail.hide();
+			// detail.destroy();
+			me.switchView(this.getProductoverview());
+
 			message = i10n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
 			this.setActiveOrder(null);
 			
@@ -642,7 +692,7 @@ Ext.define('EatSense.controller.Menu', {
 	switchView: function(view, title, labelBackBt, direction) {
 		var menu = this.getMenuview();
 		
-    	menu.switchMenuview(view,direction);
+    	menu.switchMenuview(view, direction);
 	},
 	/**
 	 * Recalculates the total price for the active product.

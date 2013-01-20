@@ -10,31 +10,54 @@ Ext.define('EatSense.view.OrderDetail', {
 	// 	align : 'stretch',
 	// },	
 	config : {
-    	scrollable : {
-		  direction: 'vertical',
-		  directionLock: true,
-		  momentumEasing:  {
-		     momentum: {
-		       acceleration: 30,
-		       friction: 0.5
-		     },
-		     bounce: {
-		        acceleration: 0.0001,
-		        springTension: 0.9999
-		     },
-		     minVelocity: 5
-		  },
-		  outOfBoundRestrictFactor: 0	
-		},
-    	modal: true,
-		top: '3%',
-		left: '2%',
-		right: '2%',
-		bottom: '2%',
+  //   	scrollable : {
+		//   direction: 'vertical',
+		//   directionLock: true,
+		//   momentumEasing:  {
+		//      momentum: {
+		//        acceleration: 30,
+		//        friction: 0.5
+		//      },
+		//      bounce: {
+		//         acceleration: 0.0001,
+		//         springTension: 0.9999
+		//      },
+		//      minVelocity: 5
+		//   },
+		//   outOfBoundRestrictFactor: 0	
+		// },
+  //   	modal: true,
+		// top: '3%',
+		// left: '2%',
+		// right: '2%',
+		// bottom: '2%',
+		scrollable : 'vertical',
 		items : [
 		{
 			xtype: 'titlebar',
-			docked: 'top'
+			docked: 'top',
+			items: [
+				{
+					xtype: 'fixedbutton',
+					// text: i10n.translate('change'),
+					action: 'edit',
+					ui: 'action',
+					iconCls: 'check2',
+					align: 'right',
+					iconMask: true,
+					// flex: 1
+				},
+				{
+					xtype: 'fixedbutton',
+					text: i10n.translate('cancel'),
+					action: 'undo',
+					ui: 'back',
+					// iconCls: 'delete1',
+					// iconAlign: 'right',
+					// iconMask: true,					
+					// flex: 1
+				}
+			]
 		},
 		{
 			xtype : 'panel',
@@ -102,36 +125,36 @@ Ext.define('EatSense.view.OrderDetail', {
 			// 	}
 			// ]
 		},
-		{
-			xtype: 'toolbar',
-			docked: 'bottom',
+			// {
+			// xtype: 'toolbar',
+			// docked: 'bottom',
 			// layout: {
    // 				type: 'hbox',
    // 				align: 'middle',
    // 				pack: 'center'
 			// },
-			items: [
-				{
-					xtype: 'fixedbutton',
-					text: i10n.translate('change'),
-					action: 'edit',
-					ui: 'action',
-					iconCls: 'check2',
-					iconMask: true,
-					flex: 1
-				},
-				{
-					xtype: 'fixedbutton',
-					text: i10n.translate('cancel'),
-					action: 'undo',
-					ui: 'action',
-					iconCls: 'delete1',
-					iconAlign: 'right',
-					iconMask: true,
-					flex: 1
-				}
-			]
-		}
+		// 	items: [
+		// 		{
+		// 			xtype: 'fixedbutton',
+		// 			text: i10n.translate('change'),
+		// 			action: 'edit',
+		// 			ui: 'action',
+		// 			iconCls: 'check2',
+		// 			iconMask: true,
+		// 			flex: 1
+		// 		},
+		// 		{
+		// 			xtype: 'fixedbutton',
+		// 			text: i10n.translate('cancel'),
+		// 			action: 'undo',
+		// 			ui: 'action',
+		// 			iconCls: 'delete1',
+		// 			iconAlign: 'right',
+		// 			iconMask: true,
+		// 			flex: 1
+		// 		}
+		// 	]
+		// }
 		]		
 	}
 });

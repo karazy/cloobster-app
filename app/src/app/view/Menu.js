@@ -27,6 +27,10 @@ Ext.define('EatSense.view.Menu', {
 			        {
 			        	xtype: 'carttab',
 			        	layout: 'fit'
+			        },
+			        {
+			        	xtype: 'productdetail',
+			        	// layout: 'fit'
 			        }
 			]
 			

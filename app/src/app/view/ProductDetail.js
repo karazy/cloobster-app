@@ -4,68 +4,99 @@
 Ext.define('EatSense.view.ProductDetail', {
 	extend : 'Ext.Panel',
 	requires: ['Ext.field.Spinner', 'Ext.field.Radio', 'Ext.form.Panel', 'Ext.field.Checkbox'],
-	xtype : 'productdetail',
-	// layout : {
-	// 	type : 'fit',
-	// 	align : 'stretch',
-	// },	
+	xtype : 'productdetail',	
 	config : {
-		scrollable : {
-		  direction: 'vertical',
-		  directionLock: true,
-		  momentumEasing:  {
-		     momentum: {
-		       acceleration: 30,
-		       friction: 0.5
-		     },
-		     bounce: {
-		        acceleration: 0.0001,
-		        springTension: 0.9999
-		     },
-		     minVelocity: 5
-		  },
-		  outOfBoundRestrictFactor: 0	
-		 },
     	scrollable : 'vertical',
-    	fullscreen: true,
-    	modal: true,
-		top: '3%',
-		left: '2%',
-		right: '2%',
-		bottom: '2%',
 		items : [
 		{
 			xtype: 'titlebar',
-			docked: 'top'
+			title : i10n.translate('menuTitle'),
+			docked: 'top',
+			items: [
+				{
+					xtype: 'fixedbutton',
+					action: 'close',
+					text: i10n.translate('back'),
+					ui: 'back',
+					// iconCls: 'delete1',
+					// iconAlign: 'right',
+					iconMask: true,
+					// flex: 1,
+					align: 'left'
+				},
+				{
+					xtype: 'basicbutton',
+					// text: i10n.translate('putIntoCartButton'),
+					action: 'cart',
+					ui: 'action',
+					iconCls: 'shop1',
+					iconMask: true,
+					// flex: 1,
+					align: 'right',
+					welcomeFn: function() {
+						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+					}
+				}
+			]
+		},
+		{
+			xtype: 'label',
+			itemId: 'titleLabel',
+			docked: 'top',
+			margin: '0 0 15 0',
+			tpl: new Ext.XTemplate('<div class="productlist-header">{productName}</div>')
 		},
 		{
 			xtype : 'panel',
 			cls: 'productDetailPanel',
-			// layout : {
-			// 	type : 'vbox',
-			// },
+			itemId: 'productDetailPanel',
+			layout : {
+				type : 'hbox'
+			},
+			// itemId : 'prodDetailLabel',
+			// cls: 'productDetail',
+			// 	tpl: new Ext.XTemplate(
+			// 		'<tpl if="product.data.imageUrl"><div class="thumbnail" style="background-image: url(\'{product.data.imageUrl}=s720\')"></div></tpl>'+
+			// 		'<div>{product.data.productLongDesc}</div>'
+			// 	),
+			// style: {'background-image': 'url("res/images/background.jpg")',
+			// 		 'background-size': '100%',
+			// 		 'background-position: center'
+			// 		},
 			items : [ 
 			{
 				xtype : 'label',
 				itemId : 'prodDetailLabel',
 				cls: 'productDetail',
-				tpl: '{product.data.productLongDesc}'
+				tpl: new Ext.XTemplate(
+					'<div>{product.data.productLongDesc}</div>'
+					),
+				// flex: 2
 			}, 
 			{
 				xtype : 'panel',
+				width: 130,
 				docked: 'right',
-				width: 110,
+				padding: 3,
+				style: {
+					'border-radius': '3px',
+					'background-color': '#d3d3d3'
+				},
 				// layout : {
 				// 	type : 'vbox',
-				// 	align : 'stretch',
+				// 	align : 'right',
 				// 	pack: 'center'
 				// },
+				// flex: 1,
+				// cls: 'productDetail',
 				items : [
-				{
+				{	
 					xtype : 'spinnerfield',
 					label: i10n.translate('amountspinnerLabel'),
 					labelAlign: 'top',
 					itemId : 'productAmountSpinner',
+					// cls: 'productdetail-spinner',
+					style: 'background-color: #d3d3d3;',
 					labelCls: 'productdetail-spinner-label',
 					inputCls: 'productdetail-spinner-input',
 					stepValue : 1,
@@ -93,6 +124,15 @@ Ext.define('EatSense.view.ProductDetail', {
 			]
 		}, 
 		{
+			xtype : 'label',
+			itemId : 'prodDetailLabelImage',
+			cls: 'productDetail',
+			padding: 5,
+			tpl: new Ext.XTemplate(
+				'<div>{product.data.productLongDesc}</div>'
+			)
+		}, 
+		{
 			xtype : 'formpanel',
 			itemId : 'choicesPanel',
 			cls: 'choice-panel',
@@ -108,39 +148,39 @@ Ext.define('EatSense.view.ProductDetail', {
 			// 	}
 			// ]
 		},
-		{
-			xtype: 'toolbar',
-			docked: 'bottom',
+		// {
+		// 	xtype: 'toolbar',
+		// 	docked: 'bottom',
 			// layout: {
    // 				type: 'hbox',
    // 				align: 'middle',
    // 				pack: 'center'
 			// },
-			items: [
-				{
-					xtype: 'basicbutton',
-					text: i10n.translate('putIntoCartButton'),
-					action: 'cart',
-					ui: 'action',
-					iconCls: 'shop1',
-					iconMask: true,
-					flex: 1,
-					welcomeFn: function() {
-						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-					}
-				}, 
-				{
-					xtype: 'fixedbutton',
-					action: 'close',
-					text: i10n.translate('close'),
-					ui: 'action',
-					iconCls: 'delete1',
-					iconAlign: 'right',
-					iconMask: true,
-					flex: 1
-				}
-			]
-		}
+			// items: [
+				// {
+				// 	xtype: 'basicbutton',
+				// 	text: i10n.translate('putIntoCartButton'),
+				// 	action: 'cart',
+				// 	ui: 'action',
+				// 	iconCls: 'shop1',
+				// 	iconMask: true,
+				// 	flex: 1,
+				// 	welcomeFn: function() {
+				// 		Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+				// 	}
+				// }, 
+				// {
+				// 	xtype: 'fixedbutton',
+				// 	action: 'close',
+				// 	text: i10n.translate('close'),
+				// 	ui: 'action',
+				// 	iconCls: 'delete1',
+				// 	iconAlign: 'right',
+				// 	iconMask: true,
+				// 	flex: 1
+				// }
+		// 	]
+		// }
 		]	
 	}
 });

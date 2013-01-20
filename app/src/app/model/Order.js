@@ -35,6 +35,10 @@ Ext.define('EatSense.model.Order', {
 		{
 			name: 'productShortDesc'
 		},
+		{
+			name: 'productImageUrl',
+			type: 'string'
+		},
 		{	//flag indicating if all order details are shown in myorders view
 			name: 'showDetails',
 			defaultValue: false,
@@ -83,6 +87,7 @@ Ext.define('EatSense.model.Order', {
 			newOrder.set('productPrice', product.get('price'));
 			newOrder.set('productShortDesc', product.get('shortDesc'));
 			newOrder.set('productLongDesc', product.get('longDesc'));
+			newOrder.set('productImageUrl', product.get('imageUrl'));
 			newOrder.set('id', "");
 
 			product.choices().each(function(choice) {
@@ -197,6 +202,7 @@ Ext.define('EatSense.model.Order', {
 		rawJson.productShortDesc = this.get('productShortDesc');
 		rawJson.productLongDesc = this.get('productLongDesc');
 		rawJson.orderTime = (this.get('orderTime')) ? this.get('orderTime').getTime() : null;
+		rawJson.productImageUrl = this.get('productImageUrl');
 
 		rawJson.choices = new Array(this.choices().data.length);
 		
@@ -247,6 +253,7 @@ Ext.define('EatSense.model.Order', {
 		this.set('productPrice', rawData.productPrice);
 		this.set('productShortDesc', rawData.productShortDesc);
 		this.set('productLongDesc', rawData.productLongDesc);
+		this.set('productImageUrl', rawData.productImageUrl);
 		// this.set('checkin_id', rawData.checkin_id);
 
 		return true;	

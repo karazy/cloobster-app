@@ -37,13 +37,23 @@ Ext.define('EatSense.view.ClubDashboard', {
 			]
 		},
 		{
-			xtype: 'label',
-			itemId: 'description',
-			cls: 'club-dashboard-description',
-			docked: 'top',
-			style: 'text-align: center;',
-			html: i10n.translate('clubdashboard.label.description')
-		},	
+			xtype: 'panel',
+			width: '100%',
+			layout: {
+				type: 'vbox',
+				align: 'center',
+				pack: 'start'
+			},
+			scrollable: 'vertical',
+			items: [
+				{
+				xtype: 'label',
+				itemId: 'description',
+				cls: 'club-dashboard-description',
+				// docked: 'top',
+					style: 'text-align: center;',
+					html: i10n.translate('clubdashboard.label.description')
+				},	
 		{
 			xtype: 'panel',
 			width: '100%',
@@ -52,7 +62,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				align: 'start',
 				pack: 'center'
 			},
-			scrollable: 'vertical',
+			// scrollable: 'vertical',
 			padding: '10 0 0 0',
 			items: [
 			{
@@ -90,7 +100,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					store : 'infopageStore',
 					tpl: new Ext.XTemplate(
 					'<div class="">'+
-						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 						'<div class="text-container">'+
 							'<h3>{title}</h3>'+
 							'<p>{shortText}</p>'+
@@ -127,7 +137,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						type: 'product',
 						tpl: new Ext.XTemplate(
 							'<div class="">'+
-								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 								'<div class="text-container">'+
 									'<h3>{name}</h3>'+
 									'<p>{shortDesc}</p>'+									
@@ -143,7 +153,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						type: 'product',
 						tpl: new Ext.XTemplate(
 							'<div class="">'+
-								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s720\')"></div></tpl>'+
+								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 								'<div class="text-container">'+
 									'<h3>{name}</h3>'+
 									'<p>{shortDesc}</p>'+
@@ -165,6 +175,8 @@ Ext.define('EatSense.view.ClubDashboard', {
 			}
 			]
 		}
+			]
+		}		
 		]
 	},
 	showLoadScreen : function(mask) {
