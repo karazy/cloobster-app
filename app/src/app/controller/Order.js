@@ -24,10 +24,10 @@
 			editOrderMenuBt : 'menutab cartoverviewitem button[action=edit]',
 			editOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=edit]',
 			cancelOrderBt : 'cartoverviewitem button[action=cancel]',
-			amountSpinner : 'orderdetail spinnerfield',
-			prodDetailLabel :'orderdetail #prodDetailLabel' ,
-			prodDetailLabelImage :'orderdetail #prodDetailLabelImage',
-			prodPriceLabel :'orderdetail #prodPriceLabel' ,
+			// amountSpinner : 'orderdetail spinnerfield',
+			// prodDetailLabel :'orderdetail #prodDetailLabel' ,
+			// prodDetailLabelImage :'orderdetail #prodDetailLabelImage',
+			// prodPriceLabel :'orderdetail #prodPriceLabel' ,
 			// closeOrderDetailBt: 'orderdetail button[action=close]',
 			loungeview : 'lounge',
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
@@ -62,9 +62,9 @@
 			 cancelOrderBt : {
 			 	tap: 'cancelOrder'
 			 },
-             amountSpinner : {
-            	 spin: 'amountChanged'
-             },
+             // amountSpinner : {
+            	//  spin: 'amountChanged'
+             // },
              paymentButton: {
             	 tap: 'choosePaymentMethod'
              },
@@ -107,7 +107,7 @@
 		*	Current active bill.
 		*/
 		activeBill: null,
-
+		/* Android Back Handlers */
 		myordersNavigationFunctions : new Array()
 	},
 	toggleQuickLeaveMode: function(panel, tab, old, e) {
@@ -163,9 +163,7 @@
 	 */
 	refreshCart: function() {
 		console.log('Cart Controller -> showCart');
-		var 
-			// cartview = this.getCartview(), 
-			cartviews = this.getLoungeview().query('carttab'),
+		var cartviews = this.getLoungeview().query('carttab'),
 			orderlists = this.getLoungeview().query('carttab #orderlist'),
 			orderlist = this.getOrderlist(),
 			orders = this.getApplication().getController('CheckIn').getActiveCheckIn().orders(),
@@ -434,8 +432,10 @@
 		 		titleLabel,
 		 		prodDetailLabel,
 				prodDetailLabelImage,
+				prodPriceLabel,
 				undoButton,
 				prevActiveView,
+				amountSpinner,
 		 		menuCtr = this.getApplication().getController('Menu');
 
 		this.setActiveOrder(order);
@@ -453,6 +453,8 @@
 		detailPanel = detail.down('#productDetailPanel');
 		prodDetailLabel = detail.down('#prodDetailLabel');
 		prodDetailLabelImage = detail.down('#prodDetailLabelImage');
+		prodPriceLabel = detail.down('#prodPriceLabel');
+		amountSpinner = detail.down('spinnerfield');
 		prevActiveView = cardview.getActiveItem();
 
 		undoButton = detail.down('button[action="undo"]');
@@ -463,7 +465,7 @@
 				single: true,
 				tap: function() {
 					cardview.switchTo(prevActiveView);
-					me.closeOrderDetail();
+					me.closeOrderDetail(order, prodPriceLabel);
 				}
 			});
 		} else {
@@ -475,16 +477,37 @@
 				single: true,
 				tap: function() {
 					me.editOrder();
-					cardview.switchTo(prevActiveView);				
+					cardview.switchTo(prevActiveView);
 				}
 			});
 		} else {
 			console.log('Order.showOrderDetail: confirmButton does not exist');
 		}
 
+		if(amountSpinner) {
+			//reset product spinner
+			amountSpinner.setValue(order.get('amount'));
+
+			amountSpinner.on({
+				spin: amountChanged
+			});
+
+			function amountChanged(spinner, value, direction) {
+				me.getActiveOrder().set('amount', value);
+					me.recalculate(me.getActiveOrder(), prodPriceLabel);
+			}
+		}
+
+		//remove listeners and unecessary objects...
+		function cleanup() {
+			if(amountSpinner) {
+				amountSpinner.un({
+					spin: amountChanged
+				});
+			}
+		}
+
 		 choicesPanel.removeAll(false); 
-		 //reset product spinner
-		 this.getAmountSpinner().setValue(order.get('amount'));
 
 		 //set title
 		 // titlebar.setTitle(order.get('productName'));
@@ -498,14 +521,14 @@
 
     	if(!order.get('productImageUrl')) {
 			//if no image exists display product text on the left of amount spinner
-			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, { product: order, amount: this.getAmountSpinner().getValue() });
+			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, { product: order, amount: amountSpinner.getValue() });
 			prodDetailLabelImage.element.setHtml('');
 			detailPanel.setStyle({
 				'background-image': 'none'
 			});			
 		} else {
 			//when an image exists, display the description beneath the amount spinner
-			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: this.getAmountSpinner().getValue()});
+			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountSpinner.getValue()});
 			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
 			{
@@ -526,7 +549,7 @@
 					//recalculate when selection changes
 					choice.clearListeners();
 					choice.on('recalculate', function() {
-						me.recalculate(order);
+						me.recalculate(order, prodPriceLabel);
 					});
 
 					menuCtr.createOptions.apply(me, [choice, optionsDetailPanel]);
@@ -548,15 +571,19 @@
 			}
 		);
 
+		this.recalculate(order, prodPriceLabel);
+
 		cardview.switchTo(detail);
 		detail.getScrollable().getScroller().scrollToTop();
 
 	},
 	/**
 	 * Submits edited order.
+	 * @param view
+	 *		{@link EatSense.view.OrderDetail}
 	 * @return true on ok, false otherwise
 	 */
-	editOrder: function() {
+	editOrder: function(view) {
 		var me = this,
 			order = this.getActiveOrder(),
 			validationError = "", 
@@ -564,9 +591,16 @@
 			productIsValid = true,
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			androidCtr = this.getApplication().getController('Android'),
-			detail = this.getProductdetail();
+			productComment;
 		
 		order.getData(true);
+
+		if(!view) {
+			console.log('Order.editOrder: no orderdetail view given');
+			return;
+		}
+
+		productComment = view.down('#productComment');
 
 		//validate choices 
 		order.choices().each(function(choice) {
@@ -579,7 +613,7 @@
 		});
 		
 		if(productIsValid) {
-			this.getActiveOrder().set('comment', this.getChoicespanel().getComponent('productComment').getValue());	
+			order.set('comment', productComment.getValue());	
 		
 			Ext.Ajax.request({
 	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
@@ -599,7 +633,7 @@
 			return true;
 		} else {
 			//show validation error
-			Ext.Msg.alert('',validationError, Ext.emptyFn, detail);
+			Ext.Msg.alert('',validationError, Ext.emptyFn, view);
 			return false;
 		}
 		
@@ -654,23 +688,28 @@
 	* Tap event handler for close button in order detail.
 	* @DEPRECATED
 	*/
-	closeOrderDetailButtonHandler: function(button) {
-		this.getApplication().getController('Android').removeLastBackHandler();
-		this.closeOrderDetail();
-	},
-	undoEditMenuButtonHander: function(button) {
-
-		this.closeOrderDetail();
-	},
+	// closeOrderDetailButtonHandler: function(button) {
+	// 	this.getApplication().getController('Android').removeLastBackHandler();
+	// 	this.closeOrderDetail();
+	// },
 	/**
 	* Close order detail and restore state of order.
 	*/
-	closeOrderDetail: function() {
-		var detail = this.getProductdetail();
+	closeOrderDetail: function(order, prodPriceLabel) {
 		
-		this.getActiveOrder().restoreState();
+		if(!order) {
+			console.log('Order.closeOrderDetail: no order given');
+			return;
+		}
+
+		if(!prodPriceLabel) {
+			console.log('Order.closeOrderDetail: no prodPriceLabel given');
+			return;
+		}
+
+		order.restoreState();
 		//try to avoid unecessary calculation, only needed to update price after cancelation
-		this.recalculate(this.getActiveOrder());
+		this.recalculate(order, prodPriceLabel);
 		this.refreshCart();
 	},
 	/**
@@ -680,17 +719,17 @@
 	 * @param value
 	 * @param direction
 	 */
-	amountChanged: function(spinner, value, direction) {
-		console.log('Cart Controller > amountChanged (value:'+value+')');
-		this.getActiveOrder().set('amount', value);
-		this.recalculate(this.getActiveOrder());
-	},
+	// amountChanged: function(spinner, value, direction) {
+	// 	console.log('Cart Controller > amountChanged (value:'+value+')');
+	// 	this.getActiveOrder().set('amount', value);
+	// 	// this.recalculate(this.getActiveOrder());
+	// },
 	/**
 	 * Recalculates the total price for the active product.
 	 */
-	recalculate: function(order) {
+	recalculate: function(order, prodPriceLabel) {
 		console.log('Cart.recalculate');
-		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: order.get('amount')});
+		prodPriceLabel.getTpl().overwrite(prodPriceLabel.element, {order: order, amount: order.get('amount')});
 	},
 	/**
 	 * Updates the badge text on cart buttons based on amount of orders.
@@ -1199,15 +1238,10 @@
 	* E. g. used after a FORCE_LOGOUT
 	*/
 	cleanup: function() {
-		var detail = this.getProductdetail(),
-			myordersStore = Ext.data.StoreManager.lookup('orderStore');
+		var myordersStore = Ext.data.StoreManager.lookup('orderStore');
 		
 		//clear orders
 		myordersStore.removeAll();
-
-		//close product detail
-		detail.hide();
-		detail.destroy();
 
 		this.updateCartButtons(true);
       	this.refreshMyOrdersBadgeText(true);		
