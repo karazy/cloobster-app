@@ -43,8 +43,8 @@ Ext.define('EatSense.view.ProductDetail', {
 			xtype: 'label',
 			itemId: 'titleLabel',
 			docked: 'top',
-			margin: '0 0 15 0',
-			tpl: new Ext.XTemplate('<div class="productlist-header">{productName}</div>')
+			// margin: '0 0 15 0',
+			tpl: new Ext.XTemplate('<div class="productlist-header" style="position: absolute; right: 0; left: 0; top: 0px;">{productName}</div>')
 		},
 		{
 			xtype : 'panel',
@@ -53,6 +53,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			layout : {
 				type : 'hbox'
 			},
+			// padding: '25 0 0 0',
 			// itemId : 'prodDetailLabel',
 			// cls: 'productDetail',
 			// 	tpl: new Ext.XTemplate(
@@ -64,6 +65,13 @@ Ext.define('EatSense.view.ProductDetail', {
 			// 		 'background-position: center'
 			// 		},
 			items : [ 
+			{
+				xtype: 'label',
+				itemId: 'titleLabel',
+				docked: 'top',
+				// margin: '0 0 15 0',				
+				tpl: new Ext.XTemplate('<div class="productlist-header" style="position: absolute; right: 0; left: 0; top: 0px;">{productName}</div>')
+			},
 			{
 				xtype : 'label',
 				itemId : 'prodDetailLabel',
@@ -95,7 +103,6 @@ Ext.define('EatSense.view.ProductDetail', {
 					label: i10n.translate('amountspinnerLabel'),
 					labelAlign: 'top',
 					itemId : 'productAmountSpinner',
-					// cls: 'productdetail-spinner',
 					style: 'background-color: #d3d3d3;',
 					labelCls: 'productdetail-spinner-label',
 					inputCls: 'productdetail-spinner-input',

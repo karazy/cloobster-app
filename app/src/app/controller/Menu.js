@@ -336,9 +336,15 @@ Ext.define('EatSense.controller.Menu', {
 		// titlebar.setTitle(order.get('productName'));
 
 		titleLabel = detail.down('#titleLabel');
+		detailPanel = detail.down('#productDetailPanel');
 
     	if(titleLabel) {
-    		titleLabel.getTpl().overwrite(titleLabel.element, order.getData());
+    		if(detailPanel.element.first('.productlist-header')) {
+    			detailPanel.element.first('.productlist-header').destroy();
+    		}    		
+    		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
+    		// titleLabel.getTpl().overwrite(titleLabel.element, order.getData());
+
     	}
 
 		// console.log('Menu.loadProductDetail: 4');
@@ -347,7 +353,7 @@ Ext.define('EatSense.controller.Menu', {
 		//reset product spinner
 		this.getAmountSpinner().setValue(1);
 
-		detailPanel = detail.down('#productDetailPanel');
+
 		// detailPanel.element.insertFirst
 		// detailPanel.setStyle('background-image: url("http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg");'+
 		// 			 'background-size: 100% auto;');
@@ -355,7 +361,7 @@ Ext.define('EatSense.controller.Menu', {
 		// 			 'background-size: 600px 200px;"></div>'
 
 		//DEBUG
-		// order.set('productImageUrl', 'res/images/background.jpg');
+		order.set('productImageUrl', 'res/images/background.jpg');
 
 		if(!order.get('productImageUrl')) {
 			//if no image exists display product text on the left of amount spinner
@@ -363,11 +369,11 @@ Ext.define('EatSense.controller.Menu', {
 			prodDetailLabelImage.element.setHtml('');
 			detailPanel.setStyle({
 				'background-image': 'none'
-			});
+			});			
 		} else {
 			//when an image exists, display the description beneath the amount spinner
 			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: this.getAmountSpinner().getValue()});
-			prodDetailLabel.element.setHtml('');
+			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
 			{
 				'background-image': 'url('+order.get('productImageUrl')+')',

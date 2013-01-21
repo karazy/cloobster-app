@@ -31,6 +31,9 @@ Ext.define('EatSense.view.Menu', {
 			        {
 			        	xtype: 'productdetail',
 			        	// layout: 'fit'
+			        },
+			        {
+			        	xtype: 'orderdetail'
 			        }
 			]
 			
@@ -52,6 +55,9 @@ Ext.define('EatSense.view.Menu', {
 	 //         direction: direction
 		// });		
 		cardpanel.setActiveItem(view);		
+	},
+	switchTo: function(view, direction) {
+		this.switchMenuview(view, direction);
 	},
 	/**
 	 * @Deprecated

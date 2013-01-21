@@ -92,6 +92,7 @@
   /*background: $product-sub-bg;*/
   background: transparent;
   padding: 0.5em;
+  padding-top:35px;
   margin-bottom: 8px;
   /*border-radius: 0.3em;*/
 }
@@ -197,7 +198,7 @@
   }
 
   .comment-input {
-    border: 1px dashed gray;
+    border: 1px solid #d3d3d3;
     padding-top: 3px;
   }
 

@@ -14,16 +14,19 @@
 			cancelAllOrdersBt : 'carttab button[action="trash"]',
 			submitOrderBt : 'carttab button[action="order"]',
 			topToolbar : 'carttab #cartTopBar',
-			productdetail : {
-                selector: 'orderdetail',
-                xtype: 'orderdetail',
-                autoCreate: true
-            },
+			// productdetail : {
+   //              selector: 'orderdetail',
+   //              xtype: 'orderdetail',
+   //              autoCreate: true
+   //          },
+            productdetail: 'myorderstab orderdetail',
 			choicespanel : 'orderdetail #choicesPanel',
-			editOrderBt : 'cartoverviewitem button[action=edit]',
+			editOrderMenuBt : 'menutab cartoverviewitem button[action=edit]',
+			editOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=edit]',
 			cancelOrderBt : 'cartoverviewitem button[action=cancel]',
 			amountSpinner : 'orderdetail spinnerfield',
 			prodDetailLabel :'orderdetail #prodDetailLabel' ,
+			prodDetailLabelImage :'orderdetail #prodDetailLabelImage',
 			prodPriceLabel :'orderdetail #prodPriceLabel' ,
 			closeOrderDetailBt: 'orderdetail button[action=close]',
 			loungeview : 'lounge',
@@ -31,12 +34,10 @@
 			myorderlist: 'myorderstab list',
 			myordersview: 'lounge myorderstab',
 			myordersviewButton: 'lounge myorderstab tab',
-			// myordersTabBt: 'lounge button[title='+i10n.translate('myOrdersTabBt')+']',
 			//TODO find a better way to select tab
 			myordersTabBt: 'lounge #ext-tab-3',
 			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
-			// leaveButton: 'clubarea clubdashboard button[action="exit"]',
 			leaveButton: 'lounge button[action="exit"]',
 			confirmEditButton: 'orderdetail button[action="edit"]',
 			undoEditButton: 'orderdetail button[action="undo"]',
@@ -52,8 +53,11 @@
 			 submitOrderBt : {
 				 tap: 'submitOrders'
 			 },
-			 editOrderBt : {
-				tap: 'showOrderDetail'
+			 editOrderMyOrderBt : {
+				tap: 'editOrderMyOrderBtHandler'
+			 },
+			 editOrderMenuBt : {
+			 	tap: 'editOrderMenuBtHandler'
 			 },
 			 cancelOrderBt : {
 			 	tap: 'cancelOrder'
@@ -103,8 +107,7 @@
 		*	Current active bill.
 		*/
 		activeBill: null,
-		//TODO remove
-		cartNavigationFunctions : new Array(),
+
 		myordersNavigationFunctions : new Array()
 	},
 	toggleQuickLeaveMode: function(panel, tab, old, e) {
@@ -115,17 +118,17 @@
 			myordersStore = Ext.StoreManager.lookup('orderStore'),
 			myordersview = this.getMyordersview();
 
-		console.log('Order.toggleQuickLeaveMode: 1');
+		// console.log('Order.toggleQuickLeaveMode: 1');
 
 		if(tab == myordersview) {	
-			console.log('Order.toggleQuickLeaveMode: 2');
+			// console.log('Order.toggleQuickLeaveMode: 2');
 			activeBusiness = checkInCtr.getActiveBusiness();
 			activeCheckIn = checkInCtr.getActiveCheckIn();
 
 			//only show exit prompt when in basic mode or no orders are in cart or placed!
 			// || (activeCheckIn && activeCheckIn.orders().getCount() == 0 && myordersStore && myordersStore.getCount() == 0 )
 			if((activeBusiness && activeBusiness.get('basic') == true)) {
-					console.log('Order.toggleQuickLeaveMode: 3');
+					// console.log('Order.toggleQuickLeaveMode: 3');
 					me.leave();
 					return false;				
 			}
@@ -397,40 +400,81 @@
 			});						
 	}
 	},
+	editOrderMyOrderBtHandler: function(button) {
+		this.showOrderDetail(button, this.getMyordersview());
+	},
+	editOrderMenuBtHandler: function(button) {
+		this.showOrderDetail(button, this.getMenutab());
+	},
 	/**
 	 * Displays detailed information for an existing order (e.g. Burger)
-	 * @param dataview
-	 * @param order
+	 * @param button
+	 *	Button executing the tap event and holding the record
+	 * @param view
+	 *	The card panel from which the view was called.
 	 */	 
-	// showOrderDetail: function(dataview, order) {
-	showOrderDetail: function(button, eventObj, eOpts) {
+	showOrderDetail: function(button, cardview) {
 		console.log("Cart Controller -> showOrderDetail");		
 		 var 	me = this,
-		 		detail = this.getProductdetail(), 
-		 		choicesPanel =  this.getChoicespanel(),
+		 		detail,
+		 		choicesPanel,
 		 		order = button.getParent().getRecord(),		 				 		
 		 		main = this.getMain(),
-		 		titlebar = detail.down('titlebar'),
+		 		detailPanel,
+		 		titleLabel,
+		 		prodDetailLabel,
+				prodDetailLabelImage,
 		 		menuCtr = this.getApplication().getController('Menu');
 
-		this.setActiveOrder(order),
+		this.setActiveOrder(order);
 
 		me.getApplication().getController('Android').addBackHandler(function() {
 			me.closeOrderDetail();
 		});
 
 		 //save state of order to undo changes
-		 order.saveState();
+		order.saveState();
+
+		detail = cardview.down('orderdetail');
+		choicesPanel = detail.down('#choicesPanel');
+		titleLabel = detail.down('#titleLabel');
+		detailPanel = detail.down('#productDetailPanel');
+		prodDetailLabel = detail.down('#prodDetailLabel');
+		prodDetailLabelImage = detail.down('#prodDetailLabelImage');
 
 		 choicesPanel.removeAll(false); 
 		 //reset product spinner
 		 this.getAmountSpinner().setValue(order.get('amount'));
 
 		 //set title
-		 titlebar.setTitle(order.get('productName'));
+		 // titlebar.setTitle(order.get('productName'));
 
-		 this.getProdDetailLabel().getTpl().overwrite(this.getProdDetailLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
-		 this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
+    	if(titleLabel) {
+    		if(detailPanel.element.first('.productlist-header')) {
+    			detailPanel.element.first('.productlist-header').destroy();
+    		}
+    		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
+    	}
+
+    	if(!order.get('productImageUrl')) {
+			//if no image exists display product text on the left of amount spinner
+			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, { product: order, amount: this.getAmountSpinner().getValue() });
+			prodDetailLabelImage.element.setHtml('');
+			detailPanel.setStyle({
+				'background-image': 'none'
+			});			
+		} else {
+			//when an image exists, display the description beneath the amount spinner
+			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: this.getAmountSpinner().getValue()});
+			prodDetailLabel.element.setHtml('');			
+			detailPanel.setStyle(
+			{
+				'background-image': 'url('+order.get('productImageUrl')+')',
+				'background-size': '100%',
+				'background-position': 'center'
+			});
+		}
+
 		 //dynamically add choices if present		 
 		 if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 
@@ -463,9 +507,10 @@
 				labelCls: 'comment'
 			}
 		);
-		Ext.Viewport.add(detail);
+
+		cardview.switchTo(detail);
 		detail.getScrollable().getScroller().scrollToTop();
-		detail.show();
+
 	},
 	/**
 	 * Edit an existing order.
@@ -513,7 +558,6 @@
 			return true;
 		} else {
 			//show validation error
-			//i10n.translate('orderInvalid')
 			Ext.Msg.alert('',validationError, Ext.emptyFn, detail);
 			if(component) {
 				//component exists if this was called by hide listener

@@ -11,10 +11,6 @@ Ext.define('EatSense.view.MyOrders', {
 			type: 'card',
 			//override default tabpanel animation setting
 			animation : null
-			// animation : {
-			// 	type : 'slide',
-			// 	direction : 'left'
-			// }
 		},
 		items: [
 		{	
@@ -180,6 +176,9 @@ Ext.define('EatSense.view.MyOrders', {
 			},
 			{
 				xtype: 'carttab'
+			},
+			{
+				xtype: 'orderdetail'
 			}
 		]
 	},
