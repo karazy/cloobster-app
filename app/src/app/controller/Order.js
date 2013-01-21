@@ -14,21 +14,11 @@
 			cancelAllOrdersBt : 'carttab button[action="trash"]',
 			submitOrderBt : 'carttab button[action="order"]',
 			topToolbar : 'carttab #cartTopBar',
-			// productdetail : {
-   //              selector: 'orderdetail',
-   //              xtype: 'orderdetail',
-   //              autoCreate: true
-   //          },
             productdetail: 'myorderstab orderdetail',
 			choicespanel : 'orderdetail #choicesPanel',
 			editOrderMenuBt : 'menutab cartoverviewitem button[action=edit]',
 			editOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=edit]',
 			cancelOrderBt : 'cartoverviewitem button[action=cancel]',
-			// amountSpinner : 'orderdetail spinnerfield',
-			// prodDetailLabel :'orderdetail #prodDetailLabel' ,
-			// prodDetailLabelImage :'orderdetail #prodDetailLabelImage',
-			// prodPriceLabel :'orderdetail #prodPriceLabel' ,
-			// closeOrderDetailBt: 'orderdetail button[action=close]',
 			loungeview : 'lounge',
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
@@ -39,8 +29,6 @@
 			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
 			leaveButton: 'lounge button[action="exit"]',
-			// confirmEditButton: 'orderdetail button[action="edit"]',
-			// undoEditButton: 'orderdetail button[action="undo"]',
 			clubarea: 'clubarea',
 			checkoutDescription: 'myorderstab #description',
 			myordersShowCartButton: 'myorderstab button[action=show-cart]',
@@ -62,9 +50,6 @@
 			 cancelOrderBt : {
 			 	tap: 'cancelOrder'
 			 },
-             // amountSpinner : {
-            	//  spin: 'amountChanged'
-             // },
              paymentButton: {
             	 tap: 'choosePaymentMethod'
              },
@@ -74,15 +59,6 @@
              leaveButton : {
             	 tap: 'leave'
              },
-             // closeOrderDetailBt: {
-             // 	tap: 'closeOrderDetailButtonHandler'
-             // },
-             // confirmEditButton: {
-             // 	tap: 'editOrder'
-             // },
-             // undoEditMenuButton: {
-             // 	tap: 'undoEditMenuButtonHander'
-             // }, 
              myorderlist: {
              	itemtap: 'toggleOrderDetail'
              },
@@ -211,14 +187,13 @@
         });
 	},
 	/**
-	* Show my orders
+	* Show orders (leave) tab.
 	*/
 	showMyorders: function() {
 		var lounge = this.getLoungeview(), 
 			view = this.getMyordersview();
 
 		lounge.setActiveItem(view);
-
 		this.backToMyorders();
 	},
 	/**
@@ -226,7 +201,6 @@
 	*/
 	backToMyorders: function() {
 		var myordersview = this.getMyordersview();
-
 		myordersview.switchTo(0, 'right');
 	},
 	/**
@@ -261,8 +235,8 @@
 			if(btnId=='yes') {
 				//workaround, because view stays masked after switch to menu
 				Ext.Msg.hide();
-				//cart is empty jump back to previews menu view
-				this.getApplication().getController('Menu').backToPreviousView();
+				//cart is empty jump back to previous menu view
+				me.getApplication().getController('Menu').backToPreviousView();
 				Ext.Ajax.request({				
 			    	    url: appConfig.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
 			    	    method: 'DELETE',
@@ -356,12 +330,9 @@
 							
 
 							//initial view and no backhandlers left
-							// me.setMyordersNavigationFunctions(new Array());
 							androidCtr.removeAllBackHandlers();
 							//show my orders view
-							// Ext.defer(function() {
-								me.showMyorders();	
-							// }, 500);
+							me.showMyorders();	
 							
 							//switch back to menu and remove previous backhandler
 							menuCtr.backToMenu();
@@ -476,7 +447,7 @@
 			confirmButton.on({
 				single: true,
 				tap: function() {
-					me.editOrder();
+					me.editOrder(detail);
 					cardview.switchTo(prevActiveView);
 				}
 			});
@@ -705,9 +676,7 @@
 		if(!prodPriceLabel) {
 			console.log('Order.closeOrderDetail: no prodPriceLabel given');
 			return;
-		}
-
-		order.restoreState();
+		}		
 		//try to avoid unecessary calculation, only needed to update price after cancelation
 		this.recalculate(order, prodPriceLabel);
 		this.refreshCart();
