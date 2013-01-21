@@ -644,25 +644,28 @@ Ext.define('EatSense.controller.Menu', {
 	 * Switches to card view.
 	 */
 	showCart: function(button) {
-		var me = this,
-			menuview = this.getMenuview(),
-			cartView = this.getCartView(),
-			activePanel = menuview.getActiveItem(),
-			androidCtr = this.getApplication().getController('Android');
+		// var me = this,
+		// 	menuview = this.getMenuview(),
+		// 	cartView = this.getCartView(),
+		// 	activePanel = menuview.getActiveItem(),
+		// 	androidCtr = this.getApplication().getController('Android');
 
 		
-		button.setDisabled(true);
-		Ext.defer((function() {
-			button.setDisabled(false);
-		}), 50, this);
+		// button.setDisabled(true);
+		// Ext.defer((function() {
+		// 	button.setDisabled(false);
+		// }), 50, this);
 
-		menuview.switchMenuview(cartView, "left");
-		this.setViewCallingCart(activePanel);
-		this.getApplication().getController('Order').refreshCart();
+		// menuview.switchTo(cartView, "left");
+		// this.setViewCallingCart(activePanel);
+		// this.getApplication().getController('Order').refreshCart();
 
-		androidCtr.addBackHandler(function() {
-			me.backToPreviousView();
-		}); 	
+		// androidCtr.addBackHandler(function() {
+		// 	me.backToPreviousView();
+		// });
+		
+		this.getApplication().getController('Order').showCart(button, this.getMenuview());		
+
 	},
 	/**
 	* Shows or hides the product cart button.

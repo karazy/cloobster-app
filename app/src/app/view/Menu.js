@@ -11,34 +11,24 @@ Ext.define('EatSense.view.Menu', {
 		iconMask : true,
 		itemId : 'menutab',
 		items : [ 
-		// {
-		// 	xtype: 'panel',
-		// 	itemId: 'menuCardPanel',
-			
-			
-		// 	items: [
-			        {
-			        	xtype: 'menuoverview',
-			        	layout: 'fit'
-			        },
-			        {
-			        	xtype: 'productoverview',
-			        	layout: 'fit'
-			        },
-			        {
-			        	xtype: 'carttab',
-			        	layout: 'fit'
-			        },
-			        {
-			        	xtype: 'productdetail',
-			        	// layout: 'fit'
-			        },
-			        {
-			        	xtype: 'orderdetail'
-			        }
-		// 	]
-			
-		// }
+	        {
+	        	xtype: 'menuoverview',
+	        	layout: 'fit'
+	        },
+	        {
+	        	xtype: 'productoverview',
+	        	layout: 'fit'
+	        },
+	        {
+	        	xtype: 'carttab',
+	        	layout: 'fit'
+	        },
+	        {
+	        	xtype: 'productdetail',
+	        },
+	        {
+	        	xtype: 'orderdetail'
+	        }
 		]
 	},
 	/**

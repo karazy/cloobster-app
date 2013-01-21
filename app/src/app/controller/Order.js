@@ -11,7 +11,7 @@
 			myordersCompleteButton: 'myorderstab button[action=complete]',
 			menutab: 'menutab',
 			orderlist : 'carttab #orderlist',
-			cancelAllOrdersBt : 'carttab button[action="trash"]',
+			// cancelAllOrdersBt : 'carttab button[action="trash"]',
 			submitOrderBt : 'carttab button[action="order"]',
 			topToolbar : 'carttab #cartTopBar',
             productdetail: 'myorderstab orderdetail',
@@ -35,9 +35,9 @@
 			myordersCartBackButton: 'myorderstab carttab button[action=back]'
 		},
 		control: {
-			cancelAllOrdersBt : {
-				 tap: 'dumpCart'
-			 }, 
+			// cancelAllOrdersBt : {
+			// 	 tap: 'dumpCart'
+			//  }, 
 			 submitOrderBt : {
 				 tap: 'submitOrders'
 			 },
@@ -172,19 +172,77 @@
 		lounge.setActiveItem(menu);
 	},
 	/**
-	* 
+	* @private
+	* Tap event handler for myordersShowCartButton 
 	*/
 	myordersShowCartButtonHandler: function(button) {
+        this.showCart(button, this.getMyordersview());
+	},
+	/**
+	 * Switches to cart view {@link EatSense.view.Cart}. Wires up all button events dynamically.
+	 * This is done because of this view located at in different cart views.
+	 * @param {Ext.Button} button
+	 *	button that called this method after its tap event
+	 * @param {Ext.Panel} cardview
+	 *	Panel with card layout
+	 */
+	showCart: function(button, cardview) {
 		var me = this,
-			myordersview = this.getMyordersview(),
-			cartview = myordersview.down('carttab');
+			//active panel
+			prevActiveView,
+			//cartview to set
+			cartView,
+			//back button of cart view
+			backButton,
+			//dump cart button of cart view
+			dumpCartButton,
+			androidCtr = this.getApplication().getController('Android');
 
-		this.getApplication().getController('Order').refreshCart();
-		myordersview.setActiveItem(cartview);
+		if(!cardview) {
+			console.log('Order.showCart: no cardview given');
+			return;
+		}
 
-		this.getApplication().getController('Android').addBackHandler(function() {
-            me.backToMyorders();
-        });
+		prevActiveView = cardview.getActiveItem();
+		cartView = cardview.down('carttab');
+		backButton = cardview.down('backbutton');
+		dumpCartButton = cardview.down('button[action="trash"]');
+		
+		button.setDisabled(true);
+		Ext.defer((function() {
+			button.setDisabled(false);
+		}), 50, this);
+
+		cardview.switchTo(cartView, "left");
+
+		this.refreshCart();
+
+		//register back button
+		backButton.on({
+			single: true,
+			tap: backToPreviousView
+		});
+
+		dumpCartButton.on({
+			tap: dumpCartSuccesCallback
+		});
+
+		function backToPreviousView() {
+			cardview.switchTo(prevActiveView, "right");
+			//remove dumpCart tap listener
+			dumpCartButton.un({
+				tap: dumpCartSuccesCallback
+			});
+		}
+
+		function dumpCartSuccesCallback() {
+			me.dumpCart(backToPreviousView);
+		}
+
+		androidCtr.addBackHandler(function() {
+			// me.backToPreviousView();
+			backToPrevView();
+		});
 	},
 	/**
 	* Show orders (leave) tab.
@@ -211,9 +269,11 @@
 		this.backToMyorders();
 	},
 	/**
-	 * Remove all orders from cart and switch back to menu.
+	 * Removes all orders from cart.
+	 * @param {Function} callback (optional)
+	 *	executed on succesfull request
 	 */
-	dumpCart: function() {
+	dumpCart: function(callback) {
 		console.log('Cart.dumpCart');
 		var me = this,
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn();
@@ -233,10 +293,8 @@
 			scope: this,
 			fn: function(btnId, value, opt) {
 			if(btnId=='yes') {
-				//workaround, because view stays masked after switch to menu
+				//WORKAROUND, because view stays masked after switch to menu
 				Ext.Msg.hide();
-				//cart is empty jump back to previous menu view
-				me.getApplication().getController('Menu').backToPreviousView();
 				Ext.Ajax.request({				
 			    	    url: appConfig.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
 			    	    method: 'DELETE',
@@ -245,6 +303,9 @@
 							activeCheckIn.orders().removeAll();
 							//reset badge text on cart button and switch back to menu
 							me.refreshCart();
+							if(appHelper.isFunction(callback)) {
+								callback();
+							}
 			    	    },
 			    	    failure: function(response) {
 							me.getApplication().handleServerError({
@@ -252,7 +313,7 @@
 			                    'forceLogout': {403:true}
 			                }); 
 						}
-			    });				
+			    });
 				}
 			}
 		});				
@@ -436,6 +497,7 @@
 				single: true,
 				tap: function() {
 					cardview.switchTo(prevActiveView);
+					order.restoreState();
 					me.closeOrderDetail(order, prodPriceLabel);
 				}
 			});
