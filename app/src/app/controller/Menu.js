@@ -13,11 +13,6 @@ Ext.define('EatSense.controller.Menu', {
         	productlist :'productoverview list',        	
         	productoverview :'productoverview' ,
         	menuoverview :'menuoverview' ,	       
-        	// productdetail : {
-         //        selector: ' productdetail',
-         //        xtype: 'productdetail',
-         //        autoCreate: true
-         //    },
             productdetail: 'productdetail',
         	prodDetailLabel :'productdetail #prodDetailLabel',
         	prodDetailLabelImage :'productdetail #prodDetailLabelImage',
@@ -361,7 +356,7 @@ Ext.define('EatSense.controller.Menu', {
 		// 			 'background-size: 600px 200px;"></div>'
 
 		//DEBUG
-		order.set('productImageUrl', 'res/images/background.jpg');
+		// order.set('productImageUrl', 'res/images/background.jpg');
 
 		if(!order.get('productImageUrl')) {
 			//if no image exists display product text on the left of amount spinner
