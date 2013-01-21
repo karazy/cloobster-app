@@ -2,20 +2,21 @@ Ext.define('EatSense.view.Menu', {
 	extend : 'Ext.Panel',
 	xtype : 'menutab',
 	config : {
-		layout: 'fit',
+		layout: {
+				type: 'card'
+		},
 		iconCls : 'menu',
+		activeItem : 0,
 		title: i10n.translate('menuTab'),
 		iconMask : true,
 		itemId : 'menutab',
 		items : [ 
-		{
-			xtype: 'panel',
-			itemId: 'menuCardPanel',
-			layout: {
-				type: 'card'
-			},
-			activeItem : 0,
-			items: [
+		// {
+		// 	xtype: 'panel',
+		// 	itemId: 'menuCardPanel',
+			
+			
+		// 	items: [
 			        {
 			        	xtype: 'menuoverview',
 			        	layout: 'fit'
@@ -35,9 +36,9 @@ Ext.define('EatSense.view.Menu', {
 			        {
 			        	xtype: 'orderdetail'
 			        }
-			]
+		// 	]
 			
-		}
+		// }
 		]
 	},
 	/**
@@ -48,13 +49,13 @@ Ext.define('EatSense.view.Menu', {
 	 * 			left or right
 	 */
 	switchMenuview : function(view, direction){
-		var cardpanel = this.getComponent('menuCardPanel');
+		// var cardpanel = this.getComponent('menuCardPanel');
 
 		// cardpanel.getLayout().setAnimation({
 		// 	 type: 'slide',
 	 //         direction: direction
 		// });		
-		cardpanel.setActiveItem(view);		
+		this.setActiveItem(view);		
 	},
 	switchTo: function(view, direction) {
 		this.switchMenuview(view, direction);

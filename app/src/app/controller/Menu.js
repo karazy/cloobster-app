@@ -10,7 +10,7 @@ Ext.define('EatSense.controller.Menu', {
 		refs: {
 	        main : 'mainview', 
         	menulist :'menuoverview list',        	
-        	productlist :'#menuCardPanel #productlist',        	
+        	productlist :'productoverview list',        	
         	productoverview :'productoverview' ,
         	menuoverview :'menuoverview' ,	       
         	// productdetail : {
@@ -246,7 +246,7 @@ Ext.define('EatSense.controller.Menu', {
 			
 
             //always show menuoverview on first access
-            menu.getComponent('menuCardPanel').setActiveItem(0);       
+            menu.setActiveItem(0);       
 		} else {
 			console.log('Order.showMenu > no businessId in active checkInFound found! Was ' + businessId);
 		}
@@ -652,7 +652,7 @@ Ext.define('EatSense.controller.Menu', {
 		var me = this,
 			menuview = this.getMenuview(),
 			cartView = this.getCartView(),
-			activePanel = menuview.down('#menuCardPanel').getActiveItem(),
+			activePanel = menuview.getActiveItem(),
 			androidCtr = this.getApplication().getController('Android');
 
 		

@@ -36,7 +36,7 @@ Ext.define('EatSense.view.OrderDetail', {
 			layout : {
 				type : 'hbox'
 			},
-			items : [ 
+			items : [
 			{
 				xtype: 'label',
 				itemId: 'titleLabel',

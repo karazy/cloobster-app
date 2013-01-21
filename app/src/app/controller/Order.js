@@ -28,7 +28,7 @@
 			prodDetailLabel :'orderdetail #prodDetailLabel' ,
 			prodDetailLabelImage :'orderdetail #prodDetailLabelImage',
 			prodPriceLabel :'orderdetail #prodPriceLabel' ,
-			closeOrderDetailBt: 'orderdetail button[action=close]',
+			// closeOrderDetailBt: 'orderdetail button[action=close]',
 			loungeview : 'lounge',
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
@@ -39,8 +39,8 @@
 			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
 			leaveButton: 'lounge button[action="exit"]',
-			confirmEditButton: 'orderdetail button[action="edit"]',
-			undoEditButton: 'orderdetail button[action="undo"]',
+			// confirmEditButton: 'orderdetail button[action="edit"]',
+			// undoEditButton: 'orderdetail button[action="undo"]',
 			clubarea: 'clubarea',
 			checkoutDescription: 'myorderstab #description',
 			myordersShowCartButton: 'myorderstab button[action=show-cart]',
@@ -74,15 +74,15 @@
              leaveButton : {
             	 tap: 'leave'
              },
-             closeOrderDetailBt: {
-             	tap: 'closeOrderDetailButtonHandler'
-             },
-             confirmEditButton: {
-             	tap: 'editOrder'
-             },
-             undoEditButton: {
-             	tap: 'closeOrderDetailButtonHandler'
-             }, 
+             // closeOrderDetailBt: {
+             // 	tap: 'closeOrderDetailButtonHandler'
+             // },
+             // confirmEditButton: {
+             // 	tap: 'editOrder'
+             // },
+             // undoEditMenuButton: {
+             // 	tap: 'undoEditMenuButtonHander'
+             // }, 
              myorderlist: {
              	itemtap: 'toggleOrderDetail'
              },
@@ -400,9 +400,19 @@
 			});						
 	}
 	},
+	/**
+	* @private
+	* Tap event handler for editOrderMyOrderBt Button.
+	* Switches to orderdetail card.
+	*/
 	editOrderMyOrderBtHandler: function(button) {
 		this.showOrderDetail(button, this.getMyordersview());
 	},
+	/**
+	* @private
+	* Tap event handler for editOrderMenuBt Button.
+	* Switches to orderdetail card.
+	*/
 	editOrderMenuBtHandler: function(button) {
 		this.showOrderDetail(button, this.getMenutab());
 	},
@@ -424,6 +434,8 @@
 		 		titleLabel,
 		 		prodDetailLabel,
 				prodDetailLabelImage,
+				undoButton,
+				prevActiveView,
 		 		menuCtr = this.getApplication().getController('Menu');
 
 		this.setActiveOrder(order);
@@ -441,6 +453,34 @@
 		detailPanel = detail.down('#productDetailPanel');
 		prodDetailLabel = detail.down('#prodDetailLabel');
 		prodDetailLabelImage = detail.down('#prodDetailLabelImage');
+		prevActiveView = cardview.getActiveItem();
+
+		undoButton = detail.down('button[action="undo"]');
+		confirmButton = detail.down('button[action="edit"]');
+
+		if(undoButton) {
+			undoButton.on({
+				single: true,
+				tap: function() {
+					cardview.switchTo(prevActiveView);
+					me.closeOrderDetail();
+				}
+			});
+		} else {
+			console.log('Order.showOrderDetail: undoButton does not exist');
+		}
+
+		if(confirmButton) {
+			confirmButton.on({
+				single: true,
+				tap: function() {
+					me.editOrder();
+					cardview.switchTo(prevActiveView);				
+				}
+			});
+		} else {
+			console.log('Order.showOrderDetail: confirmButton does not exist');
+		}
 
 		 choicesPanel.removeAll(false); 
 		 //reset product spinner
@@ -513,10 +553,11 @@
 
 	},
 	/**
-	 * Edit an existing order.
+	 * Submits edited order.
+	 * @return true on ok, false otherwise
 	 */
-	editOrder : function(component, eOpts) {
-		var me =this,
+	editOrder: function() {
+		var me = this,
 			order = this.getActiveOrder(),
 			validationError = "", 
 			validationResult = null,
@@ -540,7 +581,7 @@
 		if(productIsValid) {
 			this.getActiveOrder().set('comment', this.getChoicespanel().getComponent('productComment').getValue());	
 		
-			Ext.Ajax.request({				
+			Ext.Ajax.request({
 	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
 	    	    method: 'PUT',
 	    	    jsonData: order.getRawJsonData(),
@@ -553,16 +594,12 @@
 			});
 
 			androidCtr.removeLastBackHandler();
-			detail.hide();
+			// detail.hide();
 			this.refreshCart();
 			return true;
 		} else {
 			//show validation error
 			Ext.Msg.alert('',validationError, Ext.emptyFn, detail);
-			if(component) {
-				//component exists if this was called by hide listener
-				component.show();
-			}
 			return false;
 		}
 		
@@ -615,10 +652,14 @@
 	},
 	/**
 	* Tap event handler for close button in order detail.
-	*
+	* @DEPRECATED
 	*/
 	closeOrderDetailButtonHandler: function(button) {
 		this.getApplication().getController('Android').removeLastBackHandler();
+		this.closeOrderDetail();
+	},
+	undoEditMenuButtonHander: function(button) {
+
 		this.closeOrderDetail();
 	},
 	/**
@@ -631,7 +672,6 @@
 		//try to avoid unecessary calculation, only needed to update price after cancelation
 		this.recalculate(this.getActiveOrder());
 		this.refreshCart();
-		detail.hide();
 	},
 	/**
 	 * Called when the product spinner value changes. 
@@ -685,7 +725,7 @@
 			//clear dashboard menu button
 			if(dashboardMenuButton) {
 				dashboardMenuButton.setBadgeText("");
-			}	
+			}
 		} else {
 			if(!checkIn || checkIn.orders().getCount() == 0 ) {
 				badgeText = "";
