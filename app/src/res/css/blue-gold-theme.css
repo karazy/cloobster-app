@@ -11259,7 +11259,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* line 225, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem {
-  color: #000000;
+  /*color: #000000;*/
 }
 /* line 228, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem .order-title {
@@ -11267,13 +11267,13 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 /* line 232, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem td.title {
-  color: #000000;
+  /*color: #000000;*/
   font-size: 1em;
   padding-right: 3px;
 }
 /* line 238, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem td.price {
-  color: #000000;
+  /*color: #000000;*/
   font-size: 1em;
   white-space: nowrap;
   text-align: right;
@@ -11281,19 +11281,19 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 /* line 246, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem li, .orderListItem p {
-  color: #000000;
+  /*color: #000000;*/
   margin-left: 15px;
   font-size: 0.7em;
 }
 /* line 252, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem h4 {
   font-size: 0.7em;
-  color: #000000;
+  /*color: #000000;*/
 }
 /* line 257, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem h3 {
   font-size: 0.9em;
-  color: #000000;
+  /*color: #000000;*/
 }
 /* line 262, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .orderListItem .canceled {
