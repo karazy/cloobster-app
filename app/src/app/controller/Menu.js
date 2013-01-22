@@ -89,10 +89,13 @@ Ext.define('EatSense.controller.Menu', {
 				this.registerProductTeaserTap();
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();
+				this.registerProductTeaserTap(true);
 			}
 		}, this);
     },
     /**
+    * @private
+    * Register dashboardteaser tap event
     * @param {Boolean} unregister
     *	If true removes the listener
     */
@@ -105,15 +108,10 @@ Ext.define('EatSense.controller.Menu', {
 
     	Ext.Array.each(teasers, function(teaser){
     		if(!unregister) {
-	    		teaser.on('teasertapped', function(product){
-	    			me.jumpToProductDetail(product);
-	    		}, this);
+	    		teaser.on('teasertapped', me.jumpToProductDetail, me);
     		} else {
-    			teaser.un('teasertapped', function(product){
-    			me.jumpToProductDetail(product);
-    		}, this);
+    			teaser.un('teasertapped', me.jumpToProductDetail, me);
     		}
-
     	});
     },
     menuTabActivated: function(tab) {
@@ -127,7 +125,7 @@ Ext.define('EatSense.controller.Menu', {
     * @param product
     *	Product to show.
     */
-    jumpToProductDetail: function(product) {
+    jumpToProductDetail: function(product, teaser) {
     	var me = this,
     		menuStore = Ext.StoreManager.lookup('menuStore'),
     		parentMenu,
@@ -723,14 +721,14 @@ Ext.define('EatSense.controller.Menu', {
 	* E. g. used after a FORCE_LOGOUT
 	*/
 	cleanup: function() {
-		var detail = this.getProductdetail();
+		// var detail = this.getProductdetail();
 
 		this.clearMenuStores();
 		this.clearProductStore();
 		
 		//close product detail
-		detail.hide();
-		detail.destroy();
+		// detail.hide();
+		// detail.destroy();
 		//show menu first level
 		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
 	},
@@ -779,7 +777,8 @@ Ext.define('EatSense.controller.Menu', {
 	* Clear productStore
 	*/
 	clearProductStore: function() {
-		var productStore = Ext.StoreManager.lookup('Product');
+		var productStore = Ext.StoreManager.lookup('productStore');
+		
 		try {
 			productStore.each(function(product) {
 		        product.choices().each(function(choice) {

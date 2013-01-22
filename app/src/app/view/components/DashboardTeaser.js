@@ -10,8 +10,8 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
      * @event teasertapped
      * Fires whenever a teaser is tapped.
      * @param {Ext.data.Model} the record displayed by this teaser.
+     * @param {EatSense.view.components.DashboardTeaser} a reference to the teaser itself
      */
-
 
 	requires: [],
 	xtype: 'dashboardteaser',
@@ -93,6 +93,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			//regnerate the teaser on store load
 			// store.on('refresh', this.generateRandomPage, this);
 			store.on('load', this.generateRandomPage, this);
+			store.on('clear', this.clearPage, this);
 		}
 		//if store already has beed loaded directly generate teaser
 		if(store.isLoaded()) {
@@ -186,6 +187,16 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		// store.setFilters(storeFilters);
 	},
 	/**
+	* @private 
+	*	clear the page
+	*/
+	clearPage: function() {
+		this.setHidden(true);
+		this.element.setHtml('');
+		this.setPage(null);
+		this.setState({'pageGenerated' : false});
+	},
+	/**
 	* @private
 	* Returns a random index based on the given stores size.
 	* @param {Ext.data.Store} store
@@ -223,7 +234,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			return;
 		}
 
-		me.fireEvent('teasertapped', this.getPage());
+		me.fireEvent('teasertapped', this.getPage(), me);
 	},
 	/**
 	* Resets teaser to initial state.
@@ -247,13 +258,14 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		// console.log('EatSense.view.components.DashboardTeaser.setState: basicMode='+stateObject.basicMode+' pageGenerated='+stateObject.pageGenerated);
 
-		if(stateObject.basicMode) {
-			this.setBasicMode(true);
+		if(typeof stateObject.basicMode == "boolean") {
+			this.setBasicMode(stateObject.basicMode);
 		}
 
-		if(stateObject.pageGenerated) {
-			this.setPageGenerated(true);
+		if(typeof stateObject.pageGenerated == "boolean") {
+			this.setPageGenerated(stateObject.pageGenerated);
 		}
+
 		//this.getBasicMode() === true && 
 		if(this.getPageGenerated() === true) {
 			this.setHidden(false);
