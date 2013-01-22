@@ -168,22 +168,9 @@ Ext.define('EatSense.controller.Menu', {
 		});
 
     	this.setActiveMenu(record);
-    	
-    	//remove custom HTML title tab otherwise an "Uncaught TypeError: Cannot set property 'innerHTML' of undefined " gets thrown
-    	// oldHeader = this.getProductlist().element.down('div[class="productlist-header"]');
-    	// if(oldHeader) {
-    	// 	oldHeader.destroy();
-    	// 	oldHeader = null;
-    	// };    	
 
     	this.getProductlist().setStore(prodStore);  
 		this.getProductlist().refresh();
-		//inject a dynamic title tab directly above the list
-		// firstItem = this.getProductlist().element.down('div[class="x-list-item-label"]');
-
-		// if(firstItem) {
-		// 	this.getProductlist().getTpl().insertBefore(firstItem, record.getData());	
-		// };
     	
     	titleLabel = pov.down('#titleLabel');
 
