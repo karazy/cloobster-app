@@ -11,14 +11,15 @@
 			myordersCompleteButton: 'myorderstab button[action=complete]',
 			menutab: 'menutab',
 			orderlist : 'carttab #orderlist',
-			// cancelAllOrdersBt : 'carttab button[action="trash"]',
 			submitOrderBt : 'carttab button[action="order"]',
 			topToolbar : 'carttab #cartTopBar',
             productdetail: 'myorderstab orderdetail',
 			choicespanel : 'orderdetail #choicesPanel',
 			editOrderMenuBt : 'menutab cartoverviewitem button[action=edit]',
 			editOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=edit]',
-			cancelOrderBt : 'cartoverviewitem button[action=cancel]',
+			// cancelOrderBt : 'cartoverviewitem button[action=cancel]',
+			// cancelOrderMenuBt : 'menutab cartoverviewitem button[action=cancel]',
+			// cancelOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=cancel]',
 			loungeview : 'lounge',
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
@@ -35,9 +36,6 @@
 			myordersCartBackButton: 'myorderstab carttab button[action=back]'
 		},
 		control: {
-			// cancelAllOrdersBt : {
-			// 	 tap: 'dumpCart'
-			//  }, 
 			 submitOrderBt : {
 				 tap: 'submitOrders'
 			 },
@@ -47,9 +45,15 @@
 			 editOrderMenuBt : {
 			 	tap: 'editOrderMenuBtHandler'
 			 },
-			 cancelOrderBt : {
-			 	tap: 'cancelOrder'
-			 },
+			 // cancelOrderBt : {
+			 // 	tap: 'cancelOrder'
+			 // },
+			 // cancelOrderMenuBt: {
+			 // 	tap: 'cancelOrderMenuBtHandler'
+			 // },
+			 // cancelOrderMyOrderBt: {
+			 // 	tap: 'cancelOrderMyOrderBtHandler'
+			 // },
              paymentButton: {
             	 tap: 'choosePaymentMethod'
              },
@@ -196,6 +200,7 @@
 			backButton,
 			//dump cart button of cart view
 			dumpCartButton,
+			cancelOrderButtons,
 			androidCtr = this.getApplication().getController('Android');
 
 		if(!cardview) {
@@ -207,8 +212,11 @@
 		cartView = cardview.down('carttab');
 		backButton = cardview.down('backbutton');
 		dumpCartButton = cardview.down('button[action="trash"]');
+		cancelOrderButtons = cartView.query('cartoverviewitem button[action=cancel]');
 		
+		//prevent multiple taps by disabling button
 		button.setDisabled(true);
+
 		Ext.defer((function() {
 			button.setDisabled(false);
 		}), 50, this);
@@ -217,21 +225,43 @@
 
 		this.refreshCart();
 
+		//wire up all event handlers
+
 		//register back button
 		backButton.on({
 			single: true,
 			tap: backToPreviousView
 		});
 
+		//register dump cartbutton
 		dumpCartButton.on({
 			tap: dumpCartSuccesCallback
 		});
 
+		Ext.Array.each(cancelOrderButtons, function(cancelBt) {
+			cancelBt.on({
+				tap: cancelButtonTapEvent
+			});
+		});
+
+		//switch back to previous view, could be menuoverview, productoverview or myordersview
 		function backToPreviousView() {
+			//switch view
 			cardview.switchTo(prevActiveView, "right");
 			//remove dumpCart tap listener
 			dumpCartButton.un({
 				tap: dumpCartSuccesCallback
+			});
+			//remove cancel button listeners
+			Ext.Array.each(cancelOrderButtons, function(cancelBt) {
+				cancelBt.un({
+					tap: cancelButtonTapEvent
+				});
+			});
+
+			backButton.un({
+				single: true,
+				tap: backToPreviousView
 			});
 		}
 
@@ -239,9 +269,13 @@
 			me.dumpCart(backToPreviousView);
 		}
 
+		function cancelButtonTapEvent(button) {
+			me.cancelOrder(button, button.getParent().getRecord(), backToPreviousView);
+		} 
+
 		androidCtr.addBackHandler(function() {
 			// me.backToPreviousView();
-			backToPrevView();
+			backToPreviousView();
 		});
 	},
 	/**
@@ -447,10 +481,11 @@
 		this.showOrderDetail(button, this.getMenutab());
 	},
 	/**
-	 * Displays detailed information for an existing order (e.g. Burger)
-	 * @param button
+	 * Displays detailed information for an existing order (e.g. Burger). Wires up all
+	 * event handlers for actions. This is done here because this view gets called from multiple card panels.
+	 * @param {Ext.Button} button
 	 *	Button executing the tap event and holding the record
-	 * @param view
+	 * @param {Ext.Panel} view with card layout
 	 *	The card panel from which the view was called.
 	 */	 
 	showOrderDetail: function(button, cardview) {
@@ -673,15 +708,20 @@
 	},
 
 	/**
-	*	Deletes a single order.
-	* 	Called by cancelButton of an individual order.
-	*
+	* Deletes a single order.
+	* Called by cancelButton of an individual order.
+	* @param {Ext.Button} button
+	* @param {EatSense.mode.Order} order
+	*	Order to delete
+	* @param {Function} onStoreEmptyCallback
+	* 	Executed when order store is empty
 	*/
-	cancelOrder: function(button, eventObj, eOpts) {
+	cancelOrder: function(button, order, onStoreEmptyCallback) {
 		var 	order = button.getParent().getRecord(),
 				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 				productName = order.get('productName'),
 				index;
+
 			//delete item
 			activeCheckIn.orders().remove(order);
 			//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
@@ -689,8 +729,13 @@
 			
 			Ext.Ajax.request({
 	    	    url: appConfig.serviceUrl+'/c/businesses/'+activeCheckIn.get('businessId')+'/orders/'+order.getId(),
-	    	    method: 'DELETE',
+	    	    method: 'DELETE',	    	    
+	    	    success: function(response) {
+	    	    	//TODO 22.01.2012 test better success and failure handling
+	    	    	// order.destroy();
+	    	    },
 	    	    failure: function(response) {
+	    	    	// activeCheckIn.orders().add(order);
 					me.getApplication().handleServerError({
 	                	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
 	                	'forceLogout': {403:true}
@@ -700,8 +745,9 @@
 			
 			this.refreshCart();
 			//if no orders are left jump back to menu view
-			if(activeCheckIn.orders().getCount() == 0) {
-				this.getApplication().getController('Menu').backToPreviousView();
+			if(activeCheckIn.orders().getCount() == 0 && appHelper.isFunction(onStoreEmptyCallback)) {
+				onStoreEmptyCallback();
+				// this.getApplication().getController('Menu').backToPreviousView();
 			};
 			
 			//show success message and switch to next view

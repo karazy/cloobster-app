@@ -1,3 +1,9 @@
+/**
+* Shows a list of orders in your cart. 
+* Echt order is displayed as acustom dataitem {@link EatSense.view.CartOverviewItem}
+* This view is shown in multiple places, so be careful wiring up the events.
+*
+*/
 Ext.define('EatSense.view.Cart', {
 	extend : 'Ext.Panel',
 	xtype : 'carttab',
@@ -53,11 +59,11 @@ Ext.define('EatSense.view.Cart', {
 			
 		},
 		{
-				xtype: 'dataview',
-				itemId: 'orderlist',
-				useComponents: true,
-				cls: 'cartoverview',
-				defaultType: 'cartoverviewitem'
+			xtype: 'dataview',
+			itemId: 'orderlist',
+			useComponents: true,
+			cls: 'cartoverview',
+			defaultType: 'cartoverviewitem'
 		}, 
 		{
 			type: 'panel',
