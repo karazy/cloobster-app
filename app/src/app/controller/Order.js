@@ -15,8 +15,8 @@
 			topToolbar : 'carttab #cartTopBar',
             productdetail: 'myorderstab orderdetail',
 			choicespanel : 'orderdetail #choicesPanel',
-			editOrderMenuBt : 'menutab cartoverviewitem button[action=edit]',
-			editOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=edit]',
+			// editOrderMenuBt : 'menutab cartoverviewitem button[action=edit]',
+			// editOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=edit]',
 			// cancelOrderBt : 'cartoverviewitem button[action=cancel]',
 			// cancelOrderMenuBt : 'menutab cartoverviewitem button[action=cancel]',
 			// cancelOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=cancel]',
@@ -39,12 +39,12 @@
 			 submitOrderBt : {
 				 tap: 'submitOrders'
 			 },
-			 editOrderMyOrderBt : {
-				tap: 'editOrderMyOrderBtHandler'
-			 },
-			 editOrderMenuBt : {
-			 	tap: 'editOrderMenuBtHandler'
-			 },
+			 // editOrderMyOrderBt : {
+				// tap: 'editOrderMyOrderBtHandler'
+			 // },
+			 // editOrderMenuBt : {
+			 // 	tap: 'editOrderMenuBtHandler'
+			 // },
 			 // cancelOrderBt : {
 			 // 	tap: 'cancelOrder'
 			 // },
@@ -168,29 +168,23 @@
 		return true;
 	},
 	/**
-	 * @DEPRECATED
-	 * Show menu.
-	 */
-	showMenu: function() {
-		var lounge = this.getLoungeview(), menu = this.getMenutab();		
-		lounge.setActiveItem(menu);
-	},
-	/**
 	* @private
 	* Tap event handler for myordersShowCartButton 
 	*/
 	myordersShowCartButtonHandler: function(button) {
-        this.showCart(button, this.getMyordersview());
+        this.showCart(button, this.getMyordersview(), this.getLoungeview());
 	},
 	/**
 	 * Switches to cart view {@link EatSense.view.Cart}. Wires up all button events dynamically.
-	 * This is done because of this view located at in different cart views.
+	 * This is done because of this view used in different cart views.
 	 * @param {Ext.Button} button
 	 *	button that called this method after its tap event
 	 * @param {Ext.Panel} cardview
-	 *	Panel with card layout
+	 *	Panel with card layout. e.g. {@link EatSense.view.Menu}
+	 * @param {Ext.tab.Panel} globalContainer
+	 *	The main tab container. Used to react on tab changes.
 	 */
-	showCart: function(button, cardview) {
+	showCart: function(button, cardview, globalContainer) {
 		var me = this,
 			//active panel
 			prevActiveView,
@@ -201,6 +195,7 @@
 			//dump cart button of cart view
 			dumpCartButton,
 			cancelOrderButtons,
+			editOrderButtons,
 			androidCtr = this.getApplication().getController('Android');
 
 		if(!cardview) {
@@ -213,6 +208,7 @@
 		backButton = cardview.down('backbutton');
 		dumpCartButton = cardview.down('button[action="trash"]');
 		cancelOrderButtons = cartView.query('cartoverviewitem button[action=cancel]');
+		editOrderButtons = cartView.query('cartoverviewitem button[action=edit]');
 		
 		//prevent multiple taps by disabling button
 		button.setDisabled(true);
@@ -238,14 +234,41 @@
 			tap: dumpCartSuccesCallback
 		});
 
+		//register order cancel buttons
 		Ext.Array.each(cancelOrderButtons, function(cancelBt) {
 			cancelBt.on({
 				tap: cancelButtonTapEvent
 			});
 		});
 
+		//register edit order buttons
+		Ext.Array.each(editOrderButtons, function(editBt) {
+			editBt.on({
+				tap: editButtonTapEvent
+			});
+		});
+
+		//gets fired when all orders in cart are deleted
+		me.on({
+			cartcleared: backToPreviousView
+		});
+
+		//on tap change switch back to previous view
+		if(globalContainer) {
+			globalContainer.on({
+				single: true,
+				activeitemchange: backToPreviousView
+			});
+		}
+
 		//switch back to previous view, could be menuoverview, productoverview or myordersview
+		//unregister all not needed listeners
 		function backToPreviousView() {
+
+			me.un({
+				cartcleared: backToPreviousView
+			});
+
 			//switch view
 			cardview.switchTo(prevActiveView, "right");
 			//remove dumpCart tap listener
@@ -259,10 +282,22 @@
 				});
 			});
 
+			Ext.Array.each(editOrderButtons, function(editBt) {
+				editBt.un({
+					tap: editButtonTapEvent
+				});
+			});
+
 			backButton.un({
 				single: true,
 				tap: backToPreviousView
 			});
+
+			if(globalContainer) {
+				globalContainer.un({
+					activeitemchange: backToPreviousView
+				});
+			}
 		}
 
 		function dumpCartSuccesCallback() {
@@ -271,6 +306,10 @@
 
 		function cancelButtonTapEvent(button) {
 			me.cancelOrder(button, button.getParent().getRecord(), backToPreviousView);
+		} 
+
+		function editButtonTapEvent(button) {
+			me.showOrderDetail(button, cardview);
 		} 
 
 		androidCtr.addBackHandler(function() {
@@ -337,6 +376,7 @@
 							activeCheckIn.orders().removeAll();
 							//reset badge text on cart button and switch back to menu
 							me.refreshCart();
+							me.fireEvent('cartcleared');
 							if(appHelper.isFunction(callback)) {
 								callback();
 							}
@@ -465,22 +505,6 @@
 	}
 	},
 	/**
-	* @private
-	* Tap event handler for editOrderMyOrderBt Button.
-	* Switches to orderdetail card.
-	*/
-	editOrderMyOrderBtHandler: function(button) {
-		this.showOrderDetail(button, this.getMyordersview());
-	},
-	/**
-	* @private
-	* Tap event handler for editOrderMenuBt Button.
-	* Switches to orderdetail card.
-	*/
-	editOrderMenuBtHandler: function(button) {
-		this.showOrderDetail(button, this.getMenutab());
-	},
-	/**
 	 * Displays detailed information for an existing order (e.g. Burger). Wires up all
 	 * event handlers for actions. This is done here because this view gets called from multiple card panels.
 	 * @param {Ext.Button} button
@@ -530,26 +554,30 @@
 		if(undoButton) {
 			undoButton.on({
 				single: true,
-				tap: function() {
-					cardview.switchTo(prevActiveView);
-					order.restoreState();
-					me.closeOrderDetail(order, prodPriceLabel);
-				}
+				tap: undoButtonTapHandler
 			});
 		} else {
 			console.log('Order.showOrderDetail: undoButton does not exist');
 		}
 
+		function undoButtonTapHandler() {
+			cardview.switchTo(prevActiveView);
+			order.restoreState();
+			me.closeOrderDetail(order, prodPriceLabel);
+		}
+
 		if(confirmButton) {
 			confirmButton.on({
 				single: true,
-				tap: function() {
-					me.editOrder(detail);
-					cardview.switchTo(prevActiveView);
-				}
+				tap: confirmButtonTapHandler
 			});
 		} else {
 			console.log('Order.showOrderDetail: confirmButton does not exist');
+		}
+
+		function confirmButtonTapHandler() {
+			me.editOrder(detail);
+			cardview.switchTo(prevActiveView);
 		}
 
 		if(amountSpinner) {
@@ -566,6 +594,11 @@
 			}
 		}
 
+
+		me.on('cartcleared', cleanup);
+
+		detail.on('hide', cleanup);
+
 		//remove listeners and unecessary objects...
 		function cleanup() {
 			if(amountSpinner) {
@@ -573,9 +606,25 @@
 					spin: amountChanged
 				});
 			}
+
+			if(confirmButton) {
+				confirmButton.un({
+					tap: confirmButtonTapHandler
+				});
+			}
+
+			if(undoButton) {
+				undoButton.un({
+					tap: undoButtonTapHandler
+				});
+			}
+
+			me.un('cartcleared', cleanup);
+
+			detail.un('hide', cleanup);
 		}
 
-		 choicesPanel.removeAll(false); 
+		 choicesPanel.removeAll(false);
 
 		 //set title
 		 // titlebar.setTitle(order.get('productName'));
@@ -600,7 +649,7 @@
 			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
 			{
-				'background-image': 'url('+order.get('productImageUrl')+')',
+				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
 				'background-size': '100%',
 				'background-position': 'center'
 			});
@@ -717,7 +766,8 @@
 	* 	Executed when order store is empty
 	*/
 	cancelOrder: function(button, order, onStoreEmptyCallback) {
-		var 	order = button.getParent().getRecord(),
+		var 	me = this,
+				order = button.getParent().getRecord(),
 				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 				productName = order.get('productName'),
 				index;
@@ -747,6 +797,7 @@
 			//if no orders are left jump back to menu view
 			if(activeCheckIn.orders().getCount() == 0 && appHelper.isFunction(onStoreEmptyCallback)) {
 				onStoreEmptyCallback();
+				me.fireEvent('cartcleared');
 				// this.getApplication().getController('Menu').backToPreviousView();
 			};
 			

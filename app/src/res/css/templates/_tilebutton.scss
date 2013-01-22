@@ -60,31 +60,65 @@
   border: 1px solid $base-color;
 }
 
+/*.x-tilebutton-badge {
+  margin-left: 34px;
+  top: 17px;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.2em;
+  border-radius: 0.2em;
+  padding: .1em .3em;
 
-/*  .x-hasbadge {
-    overflow: visible;
-    .x-badge {
-      @extend .x-button-label;
-      @include background-clip(padding-box);
-      @if $include-border-radius { @include border-radius($badge-radius); }
-      padding: .1em .3em;
-      z-index: 2;
-      @if $include-button-highlights {
-        @include bevel-by-background($badge-bg-color);
-        @include box-shadow(rgba(#000, .5) 0 .1em .1em);
-      }
-      overflow: hidden;
-      @include color-by-background($badge-bg-color, $contrast: 50%);
-      border: 1px solid darken($badge-bg-color, 10%);
-      position: absolute;
-      width: auto;
-      min-width: $badge-size;
-      line-height: 1.2em;
-      font-size: .6em;
-      right: 0px;
-      top: -.2em;
-      max-width: 95%;
-      @include background-gradient($badge-bg-color, $badge-bg-gradient);
-      display: inline-block;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  overflow: hidden;
+  color: #FCC;
+  border: 1px solid #900;
+  position: absolute;
+  width: auto;
+  min-width: 2em;
+  line-height: 1.2em;
+  font-size: .6em;
+  max-width: 95%;
+  background-color: #C00;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F66), color-stop(2%, #F00000), color-stop(100%, #A80000));
+  background-image: -webkit-linear-gradient(#F66, #F00000 2%, #A80000);
+  background-image: linear-gradient(#F66, #F00000 2%, #A80000);
+  display: inline-block;
+} */
+
+ /*Badges*/
+$badge-size: 2em !default;
+$badge-radius: .2em !default;
+$badge-bg-color: darken($alert-color, 10%) !default;
+$badge-bg-gradient: $base-gradient !default;
+
+.x-hasbadge {
+  overflow: visible;
+  .x-tilebutton-badge {
+    @extend .x-button-label;
+    @include background-clip(padding-box);
+    @if $include-border-radius { @include border-radius($badge-radius); }
+    padding: .1em .3em;
+    z-index: 2;
+    @if $include-button-highlights {
+      @include bevel-by-background($badge-bg-color);
+      @include box-shadow(rgba(#000, .5) 0 .1em .1em);
     }
-  }*/
+    overflow: hidden;
+    @include color-by-background($badge-bg-color, $contrast: 50%);
+    border: 1px solid darken($badge-bg-color, 10%);
+    position: absolute;
+    width: auto;
+    min-width: $badge-size;
+    line-height: 1.2em;
+    font-size: 1em;
+    right: 0px;
+    top: -.2em;
+    max-width: 95%;
+    @include background-gradient($badge-bg-color, $badge-bg-gradient);
+    display: inline-block;
+    /*border-radius: 1em;*/
+  }
+}

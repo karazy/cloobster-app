@@ -371,7 +371,7 @@ Ext.define('EatSense.controller.Menu', {
 			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
 			{
-				'background-image': 'url('+order.get('productImageUrl')+')',
+				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
 				'background-size': '100%',
 				'background-position': 'center'
 			});
@@ -664,7 +664,7 @@ Ext.define('EatSense.controller.Menu', {
 		// 	me.backToPreviousView();
 		// });
 		
-		this.getApplication().getController('Order').showCart(button, this.getMenuview());		
+		this.getApplication().getController('Order').showCart(button, this.getMenuview(), this.getLoungeview());		
 
 	},
 	/**
