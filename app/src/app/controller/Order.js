@@ -602,8 +602,9 @@
 		}
 
 		function confirmButtonTapHandler() {
-			me.editOrder(detail);
-			cardview.switchTo(prevActiveView);
+			if(me.editOrder(detail)) {
+				cardview.switchTo(prevActiveView);	
+			}			
 		}
 
 		if(amountSpinner) {
@@ -724,7 +725,7 @@
 	 * Submits edited order.
 	 * @param view
 	 *		{@link EatSense.view.OrderDetail}
-	 * @return true on ok, false otherwise
+	 * @return true on valid changes, false otherwise
 	 */
 	editOrder: function(view) {
 		var me = this,
