@@ -1,6 +1,6 @@
 	Ext.define('EatSense.controller.Order', {
 	extend: 'Ext.app.Controller',
-	requires: ['Ext.picker.Picker'],
+	requires: ['Ext.picker.Picker', 'EatSense.util.Helper'],
 	config: {
 		refs: {
 			main : 'mainview',			
@@ -11,7 +11,7 @@
 			myordersCompleteButton: 'myorderstab button[action=complete]',
 			menutab: 'menutab',
 			orderlist : 'carttab #orderlist',
-			submitOrderBt : 'carttab button[action="order"]',
+			// submitOrderBt : 'carttab button[action="order"]',
 			topToolbar : 'carttab #cartTopBar',
             productdetail: 'myorderstab orderdetail',
 			choicespanel : 'orderdetail #choicesPanel',
@@ -36,9 +36,9 @@
 			myordersCartBackButton: 'myorderstab carttab button[action=back]'
 		},
 		control: {
-			 submitOrderBt : {
-				 tap: 'submitOrders'
-			 },
+			 // submitOrderBt : {
+				//  tap: 'submitOrders'
+			 // },
 			 // editOrderMyOrderBt : {
 				// tap: 'editOrderMyOrderBtHandler'
 			 // },
@@ -207,6 +207,7 @@
 		cartView = cardview.down('carttab');
 		backButton = cardview.down('backbutton');
 		dumpCartButton = cardview.down('button[action="trash"]');
+		submitOrdersButton = cardview.down('button[action="order"]');
 		cancelOrderButtons = cartView.query('cartoverviewitem button[action=cancel]');
 		editOrderButtons = cartView.query('cartoverviewitem button[action=edit]');
 		
@@ -227,6 +228,11 @@
 		backButton.on({
 			single: true,
 			tap: backToPreviousView
+		});
+
+		//register submit order button
+		submitOrdersButton.on({
+			tap: submitOrdersButtonTapEvent
 		});
 
 		//register dump cartbutton
@@ -275,6 +281,10 @@
 			dumpCartButton.un({
 				tap: dumpCartSuccesCallback
 			});
+
+			submitOrdersButton.un({
+				tap: submitOrdersButtonTapEvent
+			});
 			//remove cancel button listeners
 			Ext.Array.each(cancelOrderButtons, function(cancelBt) {
 				cancelBt.un({
@@ -306,7 +316,11 @@
 
 		function cancelButtonTapEvent(button) {
 			me.cancelOrder(button, button.getParent().getRecord(), backToPreviousView);
-		} 
+		}
+
+		function submitOrdersButtonTapEvent(button) {
+			me.submitOrders(cartView);
+		}
 
 		function editButtonTapEvent(button) {
 			me.showOrderDetail(button, cardview);
@@ -377,7 +391,7 @@
 							//reset badge text on cart button and switch back to menu
 							me.refreshCart();
 							me.fireEvent('cartcleared');
-							if(appHelper.isFunction(callback)) {
+							if(EatSense.util.Helper.isFunction(callback)) {
 								callback();
 							}
 			    	    },
@@ -394,8 +408,10 @@
 	},
 	/**
 	 * Submits orders to server.
+	 * @param {EatSense.view.Cart} cartview 
+	 *	
 	 */
-	submitOrders: function() {
+	submitOrders: function(cartview) {
 		console.log('Cart Controller -> submitOrders');
 		var checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(), 
 			orders = checkIn.orders(),
@@ -409,7 +425,17 @@
 			androidCtr = this.getApplication().getController('Android'),
 			me = this,
 			loungeview = this.getLoungeview(),
-			myordersview = this.getMyordersview();
+			myordersview = this.getMyordersview(),
+			submitOrderBt,
+			cancelOrderBt;
+
+		if(!cartview) {
+			console.log('Order.submitOrders: no cartview given');
+			return;
+		}
+
+		submitOrderBt = cartview.down('button[action="order"]');
+		cancelOrderBt = cartview.down('button[action="trash"]');
 		
 		if(ordersCount > 0) {
 			Ext.Msg.show({
@@ -429,8 +455,8 @@
 				if(btnId=='yes') {					
 					// cartview.showLoadScreen(true);
 					appHelper.toggleMask('submitOrderProcess');
-					this.getSubmitOrderBt().disable();
-					this.getCancelOrderBt().disable();
+					submitOrderBt.disable();
+					cancelOrderBt.disable();
 					
 					Ext.Ajax.request({
 						url: appConfig.serviceUrl+'/c/checkins/'+checkInId+'/cart',
@@ -439,8 +465,8 @@
 						success: function(response) {
 			    	    	// cartview.showLoadScreen(false);
 			    	    	appHelper.toggleMask(false);
-			    	    	me.getSubmitOrderBt().enable();
-			    	    	me.getCancelOrderBt().enable();
+			    	    	submitOrderBt.enable();
+			    	    	cancelOrderBt.enable();
 							
 			    	    	//TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
 							//because of that we manually have to call destroy
@@ -490,8 +516,8 @@
 						failure: function(response) {
 							// cartview.showLoadScreen(false);
 							appHelper.toggleMask(false);
-			    	    	me.getSubmitOrderBt().enable();
-			    	    	me.getCancelOrderBt().enable();
+			    	    	submitOrderBt.enable();
+			    	    	cancelOrderBt.enable();
 							// me.getOrderlist().setStore(orders);
 							me.getApplication().handleServerError({
 								'error': { 'status' : response.status, 'statusText' : response.statusText}, 
@@ -795,7 +821,7 @@
 			
 			this.refreshCart();
 			//if no orders are left jump back to menu view
-			if(activeCheckIn.orders().getCount() == 0 && appHelper.isFunction(onStoreEmptyCallback)) {
+			if(activeCheckIn.orders().getCount() == 0 && EatSense.util.Helper.isFunction(onStoreEmptyCallback)) {
 				onStoreEmptyCallback();
 				me.fireEvent('cartcleared');
 				// this.getApplication().getController('Menu').backToPreviousView();
