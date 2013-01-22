@@ -456,7 +456,7 @@ Ext.define('EatSense.controller.InfoPage', {
     toggleInfoPageTeasers: function(hide) {
     	var me = this,
 			clubArea = this.getClubArea(),
-			teaser = clubArea.down('infopageteaser');
+			teaser = clubArea.down('dashboardteaser[type=info]');
 
 		console.log('InfoPage.toggleInfoPageTeasers: hide=' + hide);
 		if(teaser) {
@@ -492,7 +492,7 @@ Ext.define('EatSense.controller.InfoPage', {
     cleanup: function() {
     	var store = Ext.StoreManager.lookup('infopageStore'),
     		clubArea = this.getClubArea(),
-			teaser = clubArea.down('infopageteaser');
+			teasers = clubArea.query('dashboardteaser[type="info"]');
 
 			//clean up
 			store.clearFilter();
@@ -500,7 +500,11 @@ Ext.define('EatSense.controller.InfoPage', {
 			this.removeInfoPageDetailPanels();
 			store.removeAll();
 			this.refreshInfoPageList();
-			teaser.reset();
+			if(teasers){
+				Ext.Array.each(teasers, function(teaser) {
+					teaser.reset();	
+				})				
+			}
 			this.setImageForInfoButton(null);
     }
 });

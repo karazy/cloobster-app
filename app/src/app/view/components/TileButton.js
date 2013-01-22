@@ -2,7 +2,8 @@
 * 
 */
 Ext.define('EatSense.view.components.TileButton', {
-	extend: 'GT.override.FixedButton',
+	// extend: 'GT.override.FixedButton',
+    extend: 'Ext.Button',
 	xtype: 'tilebutton',
 	requires: [],
 	config: {

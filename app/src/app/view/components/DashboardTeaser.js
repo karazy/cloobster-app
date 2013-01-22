@@ -74,7 +74,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			console.log('DashboardTeaser.constructor: No store configuration provided.');
 			return;
 		}
-		// console.log('InfoPageTeaser.constructor: store ' + this.getStore());
+		// console.log('DashboardTeaser.constructor: store ' + this.getStore());
 
 		nestedStores = me.config.store.split('.');
 
@@ -245,7 +245,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			console.log('DashboardTeaser.setState: no state object provided.');
 		}
 
-		// console.log('InfoPageTeaser.setState: basicMode='+stateObject.basicMode+' pageGenerated='+stateObject.pageGenerated);
+		// console.log('EatSense.view.components.DashboardTeaser.setState: basicMode='+stateObject.basicMode+' pageGenerated='+stateObject.pageGenerated);
 
 		if(stateObject.basicMode) {
 			this.setBasicMode(true);

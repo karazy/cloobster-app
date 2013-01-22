@@ -289,8 +289,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "{0} has been canceled."
 		},
 		"order.detail.title" : {
-			"DE" :  "Bestellung editieren",
-			"EN" : "Edit order"
+			"DE" :  "Editieren",
+			"EN" : "Edit"
 		},
 		//Cart
 		"cartviewTitle" : {
