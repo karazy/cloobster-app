@@ -4,12 +4,86 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cloobster</title>
+<style type="text/css">
+        
+      #appLoadingWrapper {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        margin-top: -15px;
+      }
 
+       #cloobsterLoadingText {
+          color: #1E4776;
+          font-size: 20px;
+          font-weight: bold;
+          position: relative;
+          top: 15px;
+          width: 100%;
+          text-align: center;
+       }
+        /**
+        * Example of an initial loading indicator.
+        * It is recommended to keep this as minimal as possible to provide instant feedback
+        * while other resources are still being loaded for the first time
+        */
+
+       #appLoadingIndicator {
+           position: relative;           
+           text-align: center;
+           width: 100%;
+           height: 30px;
+           -webkit-animation-name: appLoadingIndicator;
+           -webkit-animation-duration: 0.7s;
+           -webkit-animation-iteration-count: infinite;
+           -webkit-animation-direction: linear;
+       }
+
+       #appLoadingIndicator > * {
+           background-color: #000000;
+           display: inline-block;
+           height: 30px;
+           -webkit-border-radius: 15px;
+           margin: 0 5px;
+           width: 30px;
+           opacity: 0.8;
+       }
+
+       @-webkit-keyframes appLoadingIndicator{
+           0% {
+               opacity: 0.8
+           }
+           50% {
+               opacity: 0
+           }
+           100% {
+               opacity: 0.8
+           }
+       }
+
+</style>
 <link rel="stylesheet" id="default" href="res/css/app-default.css" type="text/css">
 <link rel="stylesheet" id="red" href="res/css/red-theme.css" type="text/css" disabled="true">
 <link rel="stylesheet" id="green" href="res/css/green-theme.css" type="text/css" disabled="true">
-<link rel="stylesheet" id="orange" href="res/css/orange-theme.css" type="text/css" disabled="true">
+<link rel="stylesheet" id="blue-gold" href="res/css/blue-gold-theme.css" type="text/css" disabled="true">
+<link rel="stylesheet" id="black-pink" href="res/css/black-pink-theme.css" type="text/css" disabled="true">
 <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
+<script type="text/javascript">
+(function() {
+    function async_load(){
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = '/_ah/channel/jsapi';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    if (window.attachEvent)
+        window.attachEvent('onload', async_load);
+    else
+        window.addEventListener('load', async_load, false);
+})();
+</script>
 </head>
 <body>
 	<div id="fb-root"></div>
@@ -17,8 +91,20 @@
 	//used for desktop development. normally indicates if Cordova (Phonegap) is ready
 	// Init FB here because we have a different init for desktop.
 	// Try to init Facebook SDK
-	FB.init({ appId: "359215437471990", useCachedDialogs: false });
+	try {
+		//FB.init({ appId: "359215437471990", useCachedDialogs: false });
+	} catch(e) {
+		console.log('FB Init failed! ' + e);
+	}
 	var cordovaInit = true;
 	</script>
+	<div id="appLoadingWrapper">
+        <div id="appLoadingIndicator">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div id="cloobsterLoadingText">Loading cloobster ...</div>
+  </div>
 </body>
 </html>

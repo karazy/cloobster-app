@@ -52,10 +52,10 @@
         {
             "path": "lib/facebook_js_sdk.js",
         },
-        {
-            "path": "https://karazy-cloobster.appspot.com/_ah/channel/jsapi",
-            "remote" : true
-        },
+//        {
+//            "path": "https://karazy-cloobster.appspot.com/_ah/channel/jsapi",
+//            "remote" : true
+//        },
         {
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */

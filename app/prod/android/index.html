@@ -69,6 +69,22 @@
 <link rel="stylesheet" id="black-pink" href="res/css/black-pink-theme.css" type="text/css" disabled="true">
 <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
 <script type="text/javascript">
+(function() {
+    function async_load(){
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://karazy-cloobster.appspot.com/_ah/channel/jsapi';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    if (window.attachEvent)
+        window.attachEvent('onload', async_load);
+    else
+        window.addEventListener('load', async_load, false);
+})();
+</script>
+<script type="text/javascript">
     var cordovaInit = false;
 
     //Used for debugging
