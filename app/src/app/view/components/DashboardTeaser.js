@@ -1,6 +1,6 @@
 /**
-* Renders a random teaser based on a given store.
-* This teaser is usually displayed on a dashboard.
+* Uses a random record based on given store and displays it based on given template.
+* This "teaser" is usually displayed on a dashboard.
 * Uses some logic from {@link Ext.Button}.
 */
 Ext.define('EatSense.view.components.DashboardTeaser', {
@@ -30,19 +30,25 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		* @accessor
 		*/
 		store: null,
+		/**
+		* The record to display.
+		* @accessor
+		*/		
 		page: null,
 		//used to determine the visible state of the teaser
 		basicMode: false,
 		//used to determine the visible state of the teaser
 		pageGenerated: false,
-		padding: 3,
+		
 		/**
+		* //TODO reserved for future use
 		* @cfg {String|Object} filter
 		* 	Filter to apply to the store. If nested stores exist it only gets applied to the last store.
 		*/
 		filter: '',
 
 		cls: 'infopage-teaser',
+		padding: 3,
 
 		/**
          * @cfg {String} pressedCls
@@ -86,7 +92,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		this.setMasked({
 	        xtype: 'loadmask'
-	        // message: i10n.translate('loading')
 	     });
 
 		if(store) {
@@ -188,7 +193,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 	},
 	/**
 	* @private 
-	*	clear the page
+	* Clear the page.
 	*/
 	clearPage: function() {
 		this.setHidden(true);
@@ -221,7 +226,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		return randomPageIndex;
 	},
-
 	/**
 	* @private
 	*	Called when tap event is fired on element.
