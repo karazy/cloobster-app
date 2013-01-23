@@ -23,20 +23,20 @@ Ext.define('EatSense.controller.Android', {
 		});
 
 		//let the button also work on message boxes
-		Ext.Msg.on('show', function() {
-			var me = this;
-			this.addBackHandler(function() {
-				me.setKeepHandler(true);
-				Ext.Msg.hide();
-			});
-		}, this);
+		// Ext.Msg.on('show', function() {
+		// 	var me = this;
+		// 	this.addBackHandler(function() {
+		// 		me.setKeepHandler(true);
+		// 		Ext.Msg.hide();
+		// 	});
+		// }, this);
 
-		Ext.Msg.on('hide', function() {
-			if(!this.getKeepHandler()) {
-				this.removeLastBackHandler();
-			};
-			this.setKeepHandler(false);
-		}, this);
+		// Ext.Msg.on('hide', function() {
+		// 	if(!this.getKeepHandler()) {
+		// 		this.removeLastBackHandler();
+		// 	};
+		// 	this.setKeepHandler(false);
+		// }, this);
 	},
 
 	addBackHandler: function(handler) {
@@ -77,12 +77,11 @@ Ext.define('EatSense.controller.Android', {
 		var handler,
 			msgBox;
 		
-		if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
-			console.log('Android Controller -> executeBackHandler');
-			// this.setExitOnBack(false);
-			handler = this.getAndroidBackHandler().pop();
-			handler();
-		} else {
+		// if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
+		// 	console.log('Android Controller -> executeBackHandler');
+		// 	handler = this.getAndroidBackHandler().pop();
+		// 	handler();
+		// } else {
 			if(this.getExitOnBack()) {
 				console.log('Android Controller -> executeBackHandler: exit app');
 				navigator.app.exitApp();
@@ -110,7 +109,7 @@ Ext.define('EatSense.controller.Android', {
 				this.setExitOnBack(true);
 			}
 			
-		}
+		// }
 	},
 	/**
 	* Clear current back handler and set it to an empty array.

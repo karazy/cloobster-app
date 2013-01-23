@@ -24,7 +24,7 @@ Ext.define('EatSense.view.Menu', {
 	        	layout: 'fit'
 	        },
 	        {
-	        	xtype: 'productdetail',
+	        	xtype: 'productdetail'
 	        },
 	        {
 	        	xtype: 'orderdetail'
