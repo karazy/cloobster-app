@@ -114,9 +114,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		this.setCurrentFilterValue(null);
 		store.clearFilter();
 
-		//do cleanup. Just for safety! Normally a cleanup is performed upon status change.
-		//clear carousel
-		this.removeInfoPageDetailPanels();
 		//make sure that store is empty!
 		store.removeAll();
 		store.load({
@@ -193,30 +190,42 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
+			this.setPanelsCreated(true);
+
+			//do cleanup. Just for safety! Normally a cleanup is performed upon status change.
+			//clear carousel
+			this.removeInfoPageDetailPanels();
+
 			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
+
 			this.showHotelInfoHeader();
-			EatSense.util.Helper.toggleMask('infopage.loadingmsg');
-			//defer for a better perceived performance
-			//make sure to create panels before store gets filtered
-			//alternative clear filter
+			try {
+				EatSense.util.Helper.toggleMask('infopage.loadingmsg');
+				//defer for a better perceived performance
+				//make sure to create panels before store gets filtered
+				//alternative clear filter
 
-			Ext.defer(function() {								
-				store.each(function(record) {
-					// currentPanel = Ext.create('EatSense.view.InfoPageDetail');
-					//get template and create html representation
-					// html = currentPanel.getTpl().apply(record.getData());
-					// currentPanel.setHtml(html);
-					// carousel.add(currentPanel);
-					carousel.add(me.createInfoPageDetail(record));
-				});
-				this.setPanelsCreated(true);
-				EatSense.util.Helper.toggleMask(false);
+				Ext.defer(function() {								
+					store.each(function(record) {
+						// currentPanel = Ext.create('EatSense.view.InfoPageDetail');
+						//get template and create html representation
+						// html = currentPanel.getTpl().apply(record.getData());
+						// currentPanel.setHtml(html);
+						// carousel.add(currentPanel);
+						carousel.add(me.createInfoPageDetail(record));
+					});				
+					EatSense.util.Helper.toggleMask(false);
 
-				if(EatSense.util.Helper.isFunction(callback)) {
-					callback();
-				}
-			
-			}, 50, this);
+					if(EatSense.util.Helper.isFunction(callback)) {
+						callback();
+					}
+				
+				}, 50, this);
+			} catch(e) {
+				this.setPanelsCreated(false);
+				console.log('InfoPage.createCarouselPanels: failed to create panels ' + e);
+			}
+
 
 	},
 	/**
