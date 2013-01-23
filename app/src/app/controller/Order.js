@@ -665,14 +665,14 @@
 
     	if(!order.get('productImageUrl')) {
 			//if no image exists display product text on the left of amount spinner
-			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, { product: order, amount: amountSpinner.getValue() });
+			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
 			prodDetailLabelImage.element.setHtml('');
 			detailPanel.setStyle({
 				'background-image': 'none'
 			});			
 		} else {
 			//when an image exists, display the description beneath the amount spinner
-			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountSpinner.getValue()});
+			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
 			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
 			{

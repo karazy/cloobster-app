@@ -49,7 +49,7 @@ Ext.define('EatSense.view.OrderDetail', {
 				itemId : 'prodDetailLabel',
 				cls: 'productDetail',
 				tpl: new Ext.XTemplate(
-					'<div>{order.data.productLongDesc}</div>'
+					'<div>{productLongDesc}</div>'
 					)
 			}, 
 			{
@@ -98,7 +98,7 @@ Ext.define('EatSense.view.OrderDetail', {
 			cls: 'productDetail',
 			padding: 5,
 			tpl: new Ext.XTemplate(
-				'<div>{order.data.productLongDesc}</div>'
+				'<div>{productLongDesc}</div>'
 			)
 		},
 		{

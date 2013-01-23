@@ -58,8 +58,8 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 				xtype : 'fixedbutton',
 				action: 'confirm-checkin',
 				text : i10n.translate('checkInStep1Button'),
-				ui : 'action',				
-				margin : 5,
+				ui : 'action'				
+				// margin : 5,
 				// flex: 1
 			} ]
 		},

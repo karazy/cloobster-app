@@ -222,22 +222,29 @@ Ext.define('EatSense.controller.CheckIn', {
 	  var checkInDialog = this.getCheckinconfirmation(), 
 		    main = this.getMain(),
         nicknameToggle = this.getNicknameTogglefield(),
+        nicknameField = this.getNickname(),
 		    checkIn = Ext.create('EatSense.model.CheckIn'),
         accountCtr = this.getApplication().getController('Account'),
-        profile = accountCtr.getProfile();
+        profile = accountCtr.getProfile(),
+        nicknameExists = false;
 			
       //restore from profile
        if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
-          this.getNickname().setValue(profile.get('nickname'));
+          nicknameField.setValue(profile.get('nickname'));
           nicknameToggle.setValue(1);
        } 
         //restore from localstorage
         else if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
-          this.getNickname().setValue(this.getAppState().get('nickname'));
-          nicknameToggle.setValue(1);
-       } else {
-	   		this.generateNickname();
-	   	 }
+          nicknameField.setValue(this.getAppState().get('nickname'));
+          nicknameToggle.setValue(1);          
+       } 
+       
+       if(nicknameField.getValue().length >= 3) {
+          nicknameExists = true;  
+        }
+      //  else {
+	   		// this.generateNickname();
+	   	 // }
 		
 		checkIn.set('spotId', options.model.get('barcode'));
 		checkIn.set('businessName', options.model.get('business'));
@@ -253,10 +260,14 @@ Ext.define('EatSense.controller.CheckIn', {
 
     this.activateWelcomeMode(options.model.get('welcome'));
 
-    //prepare custom header in advance to avoid longer loading times
-    // this.getApplication().getController('Lounge').drawCustomHeader();
+      //user has to choose a nickname
+		if(!nicknameExists) {
+      main.switchTo(checkInDialog, 'left');
+    } else {
+      //user already has a stored nickname
+      this.checkIn();
+    }
 		
-		main.switchTo(checkInDialog, 'left');
    },
    /**
     * CheckIn Process
@@ -452,6 +463,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		this.getAppState().set('nickname', newData);
 	},
 	/**
+   * @DEPRECATED
 	 * Makes an ajax call to the server, retrieves a random nickname
 	 * and sets the nickname field.
 	 * 
