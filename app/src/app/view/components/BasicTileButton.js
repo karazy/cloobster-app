@@ -19,8 +19,7 @@ Ext.define('EatSense.view.components.BasicTileButton', {
 		*/
 		welcome: false,
 		basicFn: null,
-		welcomeFn: null,
-
+		welcomeFn: null
 	},
 	/**
 	* @override

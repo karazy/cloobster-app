@@ -19,13 +19,13 @@ Ext.define('EatSense.view.OrderDetail', {
 					ui: 'action',
 					iconCls: 'check2',
 					align: 'right',
-					iconMask: true,
+					iconMask: true
 				},
 				{
 					xtype: 'fixedbutton',
 					text: i10n.translate('cancel'),
 					action: 'undo',
-					ui: 'back',
+					ui: 'back'
 				}
 			]
 		},

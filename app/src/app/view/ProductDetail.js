@@ -78,7 +78,7 @@ Ext.define('EatSense.view.ProductDetail', {
 				cls: 'productDetail',
 				tpl: new Ext.XTemplate(
 					'<div>{product.data.productLongDesc}</div>'
-					),
+				)
 				// flex: 2
 			}, 
 			{
@@ -143,51 +143,8 @@ Ext.define('EatSense.view.ProductDetail', {
 			xtype : 'formpanel',
 			itemId : 'choicesPanel',
 			cls: 'choice-panel',
-			// layout: 'vbox',
-			// minHeight: '200px',
 			scrollable : false
-			// items: [
-			// 	{
-			// 		xtype: 'label',
-			// 		docked: 'top',
-			// 		cls: 'choice-panel-title',
-			// 		html: i10n.translate('choicesPanelTitle')
-			// 	}
-			// ]
-		},
-		// {
-		// 	xtype: 'toolbar',
-		// 	docked: 'bottom',
-			// layout: {
-   // 				type: 'hbox',
-   // 				align: 'middle',
-   // 				pack: 'center'
-			// },
-			// items: [
-				// {
-				// 	xtype: 'basicbutton',
-				// 	text: i10n.translate('putIntoCartButton'),
-				// 	action: 'cart',
-				// 	ui: 'action',
-				// 	iconCls: 'shop1',
-				// 	iconMask: true,
-				// 	flex: 1,
-				// 	welcomeFn: function() {
-				// 		Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-				// 	}
-				// }, 
-				// {
-				// 	xtype: 'fixedbutton',
-				// 	action: 'close',
-				// 	text: i10n.translate('close'),
-				// 	ui: 'action',
-				// 	iconCls: 'delete1',
-				// 	iconAlign: 'right',
-				// 	iconMask: true,
-				// 	flex: 1
-				// }
-		// 	]
-		// }
+		}
 		]	
 	}
 });
