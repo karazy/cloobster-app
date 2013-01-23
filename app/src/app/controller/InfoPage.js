@@ -85,16 +85,20 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		function tapFunction(page) {
 			if(!me.getPanelsCreated()) {
-					me.createCarouselPanels(callback);
-				}
+				me.createCarouselPanels(doShowInfoPage);
+			} else {
+				doShowInfoPage();
+			}
 
-				function callback() {
-					androidCtr.addBackHandler(function() {
-            			me.backToDashboard();
-        			});
-					//null is the dataview, it gets not used inside method!
-					me.showInfoPageDetail(null, page);
-				}				
+			function doShowInfoPage() {
+				androidCtr.addBackHandler(function() {
+        			me.backToDashboard();
+    			});
+				//null is the dataview, it gets not used inside method!
+				me.showInfoPageDetail(null, page);
+			}	
+
+							
 		}
 
 	},
