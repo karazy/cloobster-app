@@ -10,12 +10,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 	config : {
 		layout : {
 			type : 'fit'
-		},
-		// layout: {
-		// 	type: 'vbox',
-		// 	align: 'center',
-		// 	pack: 'center'
-		// },		
+		},	
 		items : [
 		{
 			xtype : 'panel',
@@ -44,135 +39,140 @@ Ext.define('EatSense.view.ClubDashboard', {
 				align: 'center',
 				pack: 'start'
 			},
+			padding: '0 6 0 6',
 			scrollable: 'vertical',
 			items: [
 				{
-				xtype: 'label',
-				itemId: 'description',
-				cls: 'club-dashboard-description',
-				// docked: 'top',
+					xtype: 'label',
+					itemId: 'description',
+					cls: 'club-dashboard-description',
 					style: 'text-align: center;',
 					html: i10n.translate('clubdashboard.label.description')
-				},	
-		{
-			xtype: 'panel',
-			width: '100%',
-			layout: {
-				type: 'hbox',
-				align: 'start',
-				pack: 'center'
-			},
-			// scrollable: 'vertical',
-			padding: '10 0 0 0',
-			items: [
-			{
-				xtype: 'panel',
-				flex: 1,
-				layout: {
-					type: 'vbox',
-					align: 'center',
-					pack: 'center'
-				},
-				defaults: {
-					width: '90%'
-				},
-				items: [
-				{
-					xtype : 'tilebutton',
-					action: 'show-infopage',
-					title: i10n.translate('clubdashboard.button.infopage'),
-					text: i10n.translate('clubdashboard.button.infopage.text'),
-					iconCls: 'info'
 				},
 				{
-					xtype : 'basictilebutton',
-					action: 'show-requests',
-					title: i10n.translate('clubdashboard.button.vip'),
-					text: i10n.translate('clubdashboard.button.vip.text'),
-					iconCls: 'vip',
-					welcomeFn: function() {
-						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-					}
-				},
-				{
-					xtype : 'dashboardteaser',
-					type: 'info',
-					store : 'infopageStore',
-					tpl: new Ext.XTemplate(
-					'<div class="">'+
-						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-						'<div class="text-container">'+
-							'<h3>{title}</h3>'+
-							'<p>{shortText}</p>'+
-						'</div>'+
-						'<div class="teaser-icon info-icon"></div>'+
-					'</div>'
-					)
-				}											
-				]
-			},
-			{
-				xtype: 'panel',
-				flex: 1,
-				layout: {
-					type: 'vbox',
-					align: 'center',
-					pack: 'center'
-				},
-				defaults: {
-					width: '90%'
-				},
-				items: [
+					xtype: 'panel',
+					width: '100%',
+					layout: {
+						type: 'hbox',
+						align: 'start',
+						pack: 'center'
+					},
+					// scrollable: 'vertical',
+					padding: '5px 0 0 0',			
+					items: [
 					{
-						xtype : 'tilebutton',
-						action: 'show-menu',
-						text: i10n.translate('clubdashboard.menu.text'),
-						title: i10n.translate('menuTab'),
-						iconCls: 'menu',
-						expandIcon: true
+						xtype: 'panel',
+						flex: 1,
+						padding: '0 3 0 0',
+						layout: {
+							type: 'vbox',
+							align: 'center',
+							pack: 'center'
+						},
+						defaults: {
+							width: '100%',
+							margin: '5 0 0 0'
+						},
+						items: [
+						{
+							xtype : 'tilebutton',
+							action: 'show-infopage',
+							title: i10n.translate('clubdashboard.button.infopage'),
+							text: i10n.translate('clubdashboard.button.infopage.text'),
+							iconCls: 'info'
+						},
+						{
+							xtype : 'basictilebutton',
+							action: 'show-requests',
+							title: i10n.translate('clubdashboard.button.vip'),
+							text: i10n.translate('clubdashboard.button.vip.text'),
+							iconCls: 'vip',
+							welcomeFn: function() {
+								Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+							}
+						},
+						{
+							xtype : 'dashboardteaser',
+							type: 'info',
+							store : 'infopageStore',
+							tpl: new Ext.XTemplate(
+							'<div class="">'+
+								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+								'<div class="text-container">'+
+									'<h3>{title}</h3>'+
+									'<p>{shortText}</p>'+
+								'</div>'+
+								'<div class="teaser-icon info-icon"></div>'+
+							'</div>'
+							)
+						}											
+						]
 					},
 					{
-						xtype : 'dashboardteaser',
-						store : 'productStore',
-						type: 'product',
-						tpl: new Ext.XTemplate(
-							'<div class="">'+
-								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-								'<div class="text-container">'+
-									'<h3>{name}</h3>'+
-									'<p>{shortDesc}</p>'+									
-								'</div>'+
-								'<div class="teaser-icon menu-icon"></div>'+
-								'<div class="special-icon"></div>'+
-							'</div>'
-						)
-					},	
-					{
-						xtype : 'dashboardteaser',
-						store : 'menuStore.productsStore',
-						type: 'product',
-						tpl: new Ext.XTemplate(
-							'<div class="">'+
-								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-								'<div class="text-container">'+
-									'<h3>{name}</h3>'+
-									'<p>{shortDesc}</p>'+
-								'</div>'+
-								'<div class="teaser-icon menu-icon"></div>'+
-							'</div>'
-						)
-					},				
-					{
-						xtype : 'basictilebutton',
-						action: 'show-feedback',
-						title: i10n.translate('clubdashboard.button.feedback'),
-						iconCls: 'feedback',
-						welcomeFn: function() {
-							Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-						}
-					}	
-				]
-			}
+						xtype: 'panel',
+						flex: 1,
+						padding: '0 0 0 3',
+						layout: {
+							type: 'vbox',
+							align: 'center',
+							pack: 'center'
+						},
+						defaults: {
+							width: '100%',
+							margin: '5 0 0 0'
+						},
+						items: [
+							{
+								xtype : 'tilebutton',
+								action: 'show-menu',
+								text: i10n.translate('clubdashboard.menu.text'),
+								title: i10n.translate('menuTab'),
+								iconCls: 'menu',
+								expandIcon: true
+							},
+							{
+								xtype : 'dashboardteaser',
+								store : 'productStore',
+								type: 'product',
+								tpl: new Ext.XTemplate(
+									'<div class="">'+
+										'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+										'<div class="text-container">'+
+											'<h3>{name}</h3>'+
+											'<p>{shortDesc}</p>'+									
+										'</div>'+
+										'<div class="teaser-icon menu-icon"></div>'+
+										'<div class="special-icon"></div>'+
+									'</div>'
+								)
+							},	
+							{
+								xtype : 'dashboardteaser',
+								store : 'menuStore.productsStore',
+								type: 'product',
+								tpl: new Ext.XTemplate(
+									'<div class="">'+
+										'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+										'<div class="text-container">'+
+											'<h3>{name}</h3>'+
+											'<p>{shortDesc}</p>'+
+										'</div>'+
+										'<div class="teaser-icon menu-icon"></div>'+
+									'</div>'
+								)
+							},				
+							{
+								xtype : 'basictilebutton',
+								action: 'show-feedback',
+								title: i10n.translate('clubdashboard.button.feedback'),
+								text: i10n.translate('clubdashboard.button.feedback.text'),
+								iconCls: 'feedback',
+								welcomeFn: function() {
+									Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+								}
+							}	
+						]
+					}
 			]
 		}
 			]

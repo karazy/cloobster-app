@@ -257,7 +257,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "No current order."
 		},
 		"productPutIntoCardMsg" : {
-			"DE" :  "{0} auf Warenkorb geparkt.",
+			"DE" :  "{0} in Warenkorb gelegt.",
 			"EN" :  "{0} added to cart."
 		},
 		"orderRemoved" : {
@@ -346,6 +346,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Feedback",
 			"EN" :  "Feedback"
 		},
+		"clubdashboard.button.feedback.text" : {
+			"DE" :  "Sagen Sie uns Ihre Meinung",
+			"EN" : "Tell us what you think"
+		},
 		"clubdashboard.button.infopage" : {
 			"DE" :  "A bis Z",
 			"EN" : "A to Z"
@@ -382,6 +386,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Diese Funktion steht hier nicht zur Verfügung. Bitte checken Sie an einer geeigneten Stelle "+
 			"in unserem Haus ein.",
 			"EN" : "This function is not available here. Please checkin at another spot in our house."
+		},
+		"clubdashboard.menu.text" : {
+			"DE" :  "Unsere Angebote",
+			"EN" : "Our offers"
 		},
 		//Info Pages
 		"infopage.overview.title" : {

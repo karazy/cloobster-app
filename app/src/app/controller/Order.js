@@ -528,7 +528,7 @@
 					}
 				}
 			});						
-	}
+		}
 	},
 	/**
 	 * Displays detailed information for an existing order (e.g. Burger). Wires up all
