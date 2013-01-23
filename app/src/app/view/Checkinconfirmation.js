@@ -35,30 +35,32 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			width : '80%',
 			required : true,
 			maxLength: 25,
+			placeHolder: i10n.translate('checkin.nickname.palceholder'),
 			cls: 'general-textfield'
 		},  
 		{
 			xtype : 'panel',
 			layout : {
-				type : 'hbox'
+				type : 'fit'
 			},
 			width : '80%',
-			items : [ {
-				xtype : 'fixedbutton',
-				action: 'regenerate-nickname',
-				text : i10n.translate('refreshNicknameBt'),
-				style : 'margin-right:10px;',
-				ui : 'action',
-				margin : 5,
-				flex: 1
-			},
+			items : [ 
+			// {
+			// 	xtype : 'fixedbutton',
+			// 	action: 'regenerate-nickname',
+			// 	text : i10n.translate('refreshNicknameBt'),
+			// 	style : 'margin-right:10px;',
+			// 	ui : 'action',
+			// 	margin : 5,
+			// 	flex: 1
+			// },
 			{
 				xtype : 'fixedbutton',
 				action: 'confirm-checkin',
 				text : i10n.translate('checkInStep1Button'),
-				ui : 'action',
+				ui : 'action',				
 				margin : 5,
-				flex: 1
+				// flex: 1
 			} ]
 		},
 		{

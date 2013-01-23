@@ -89,6 +89,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Verlassen",
 			"EN" :  "Quit"
 		},
+		"retry" : {
+			"DE" :  "Wiederholen",
+			"EN" : "Retry"
+		},
 		"channelTokenError" : {
 			"DE" :  "Updates im Hintergrund nicht funktionsfähig.",
 			"EN" :  "Updates have not been successful."
@@ -151,7 +155,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Please enter bar code."
 		},
 		"checkInStep1Label1" : {
-			"DE" :  "Bitte einen Spitznamen wählen.",
+			// "DE" :  "Bitte einen Spitznamen wählen.",
+			"DE" : "Mit welchem Namen möchtest du einchecken?",
 			"EN" :  "Please choose an alias."
 		},
 		"refreshNicknameBt" : {
@@ -209,6 +214,10 @@ Ext.define('EatSense.util.Translations',{
 		"restoreStateFailed" : {
 			"DE" :  "Check-in nicht mehr gültig.<br/>Bitte neu einchecken.",
 			"EN" :  "Check-in invalid.<br/>Please try again."
+		},
+		"checkin.nickname.palceholder" : {
+			"DE" :  "z. B. Max Mustermann",
+			"EN" : "e.g. John Doe"
 		},
 		// Menu
 		"menuTab" : {
@@ -851,7 +860,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Session is invalid."
 		},
 		"errorCommunication" : {
-			"DE" :  "Es kann momentan keine Verbindung hergestellt werden.<br/>Bitte probiere es noch einmal.",
+			"DE" :  "Es kann momentan keine Verbindung hergestellt werden.<br/>Bitte probiere es noch einmal und prüfe deinen Netzwerkstatus.",
 			"EN" :  "Connection temporarily not available.<br/ Please try again."
 		},
 		"error.menu.needsrefresh" : {
@@ -881,6 +890,11 @@ Ext.define('EatSense.util.Translations',{
 		"error.account.facebook.exists" : {
 			"DE" :  "Dieser Facebook Account ist mit einem andere cloobster Account verknüpft.",
 			"EN" : "This Facebook account is linked with another cloobster Account."
+		},
+		//system
+		"network.slow" : {
+			"DE" :  "Die Verbindung ist langsam. Dies kann die Anwendung verlangsamen.",
+			"EN" : "Your are on a slow connection. This may slow down the app."
 		}
 	}
 	}

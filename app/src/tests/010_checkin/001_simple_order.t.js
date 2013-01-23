@@ -136,7 +136,7 @@ StartTest(function(t) {
     function(next) {
     	t.tap(t.cq1('productdetail button[action=close]'));
     	//wait until productdetail is destroyed
-    	t.waitForComponentQueryNotFound('productdetail', next, this, 3000);
+    	t.waitForComponentNotVisible('productdetail', next, this, 3000);
     },
     {	//wait a moment otherwise the next tap happens to early and productdetail won't show
     	waitFor: 1000
@@ -212,7 +212,7 @@ StartTest(function(t) {
 
     	t.diag('alter order | undo change');
 
-    	orderEditButton = t.cq1('lounge carttab cartoverviewitem button[action=edit]');
+    	orderEditButton = t.cq1('cartoverviewitem button[action=edit]');
     	t.tap(orderEditButton);
     	t.waitForComponentVisible(t.cq1('orderdetail'), next, this, 1000);
     },

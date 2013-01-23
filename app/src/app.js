@@ -51,7 +51,7 @@ Ext.application({
     'GT.override.FixedButton'
 	],
 	launch : function() {
-		console.log('App -> launch');		
+		console.log('App.launch');		
     	this.launched = true;
         this.mainLaunch();
 	},
@@ -62,85 +62,193 @@ Ext.application({
      	return;
     }
 		
-		console.log('App -> mainLaunch');
+		console.log('App.mainLaunch');
 		
-		var me = this,
-  			appStateStore = Ext.data.StoreManager.lookup('appStateStore'),
-  	 		checkInCtr = this.getController('CheckIn'),
-        settingsCtr = this.getController('Settings'),
-        accountCtr = this.getController('Account'),
-  	 		restoredCheckInId,
-        //default ajax headers
-        defaultHeaders = {}; 
-
-      //start set some app defaults
-  		//timeout for requests
-  		Ext.Ajax.timeout = 1200000;
-
-      //On some devices. Sometimes MsgBoxes disappear behind other floating panels.
-      //Give the message box a high zIndex to prevent hidden alerts!
-      Ext.Msg.defaultAllowedConfig.zIndex = 100;
-
-      //end set some app defaults
-
-      //set Default headers object
-      Ext.Ajax.setDefaultHeaders(defaultHeaders);
-
-    //----- Launch functions start ------  	
-    //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is moved here.
-    //Android controller launch
-		//Android specific behaviour
-    if(Ext.os.is.Android) {
-      	console.log('Android Controller -> setup android specific behaviour');
-      	document.addEventListener('backbutton', onBackKeyDown, false);
-        function onBackKeyDown() {            
-              console.log('fire backbutton event');
-              me.getController('Android').executeBackHandler();
-      };
-    }
-
-    //----- Launch functions end ------
 			   	
       // Destroy the #appLoadingIndicator and #cloobsterLoadingText elements
       Ext.fly('appLoadingWrapper').destroy();
       //create main screen
-	   	Ext.create('EatSense.view.Main')
+	   	Ext.create('EatSense.view.Main');
+
+      //check if a network state exists when cordova is runnning
+      //only proceed if a network connection is detected
+      if(navigator && navigator.network) {        
+        this.checkConnection(this.initCloobster);
+      } else {
+        this.initCloobster()
+      }
+	},
+  /**
+  * Checks the network connection state. 
+  * If no connection exists ask user to retry. If he denies the app will exit (only on Android).
+  * @param {Function} callback
+  *   Executed when on successful connection check or if no check is possible
+  */
+  checkConnection: function(callback) {
+    var me = this,
+        networkState = navigator.network.connection.type;
+      //TODO since cordova 2.2 network.connection is decprecated
+      //but iOS version still running on 2.1
+      //on android returned strange values
+
+    //possible states
+    // Connection.UNKNOWN
+    // Connection.ETHERNET
+    // Connection.WIFI
+    // Connection.CELL_2G
+    // Connection.CELL_3G
+    // Connection.CELL_4G
+    // Connection.NONE
+
+    console.log('App.checkConnection: type=' + networkState);
+
+
+    if(networkState == Connection.NONE || networkState == Connection.UNKNOWN) {
+      Ext.Msg.show({
+        title: i10n.translate('error'),
+        message: i10n.translate('errorCommunication'),
+        buttons: [{
+          text: i10n.translate('retry'),
+          itemId: 'yes',
+          ui: 'action'
+        }, {
+          text:  i10n.translate('leave'),
+          itemId: 'no',
+          ui: 'action',
+          //set hidden on iOS because Apple does not allow app closing
+          hidden: Ext.os.is.iOS
+        }],
+        scope: this,
+        fn: function(btnId, value, opt) {
+        if(btnId == 'yes') {
+            //retry
+            me.checkConnection(callback);
+        } else {
+          //close the app
+          navigator.app.exitApp();
+        }
+        }
+      });  
+    } else if(networkState == Connection.CELL_2G && Ext.os.is.Android) {
+      //only Android reports the state correctly for cellular data
+      //http://docs.phonegap.com/en/2.2.0/cordova_connection_connection.md.html#connection.type
+      Ext.Msg.show({
+        title: i10n.translate('hint'),
+        message: i10n.translate('network.slow'),
+        buttons: [{
+          text: i10n.translate('ok'),
+          itemId: 'yes',
+          ui: 'action'
+        }],
+        scope: this,
+        fn: function(btnId, value, opt) {
+          callback.apply(me);
+        }
+      });  
+    } else {
+      callback.apply(me);
+    }
+  },
+  /**
+  * Do initialization. Check the localstorage for existing checkIns or an account.
+  */
+  initCloobster: function() {
+      var me = this,
+        appStateStore = Ext.data.StoreManager.lookup('appStateStore'),
+        checkInCtr = this.getController('CheckIn'),
+        accountCtr = this.getController('Account'),
+        restoredCheckInId,
+        //default ajax headers
+        defaultHeaders = {}; 
+
+        //start set some app defaults
+        //timeout for requests
+        Ext.Ajax.timeout = 1200000;
+
+        //On some devices. Sometimes MsgBoxes disappear behind other floating panels.
+        //Give the message box a high zIndex to prevent hidden alerts!
+        Ext.Msg.defaultAllowedConfig.zIndex = 100;
+
+        //end set some app defaults
+
+        //set Default headers object
+        Ext.Ajax.setDefaultHeaders(defaultHeaders);
+
+      //----- Launch functions start ------   
+      //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is moved here.
+      //Android controller launch
+      //Android specific behaviour
+      if(Ext.os.is.Android) {
+          console.log('Android Controller -> setup android specific behaviour');
+          document.addEventListener('backbutton', onBackKeyDown, false);
+          function onBackKeyDown() {            
+                console.log('fire backbutton event');
+                me.getController('Android').executeBackHandler();
+        };
+      }
+
+    //----- Launch functions end ------
 
       //try to restore application state
-	   	try {
+      try {
         appStateStore.load();
-	   	} catch (e) {
-	   		appStateStore.removeAll();
-	   	}
-	     
-	     
-	   	if(appStateStore.getCount() == 1) {
-	   		console.log('app state found');
-		   	checkInCtr.setAppState(appStateStore.getAt(0));
-	   		restoredCheckInId = checkInCtr.getAppState().get('checkInId');
+      } catch (e) {
+        appStateStore.removeAll();
+      }
+
+       
+      if(appStateStore.getCount() == 1) {
+        console.log('app state found');
+        checkInCtr.setAppState(appStateStore.getAt(0));
+        restoredCheckInId = checkInCtr.getAppState().get('checkInId');
         //Checks for existing access token. It exists when a user is logged in.
         accountCtr.checkAccessToken();
-	   	}
+      }
 
+       //found a valid checkIn Id. Restore state.
+       if(restoredCheckInId) {
+          this.restoreCheckIn(restoredCheckInId, defaultHeaders);
+       }                     
+       else {        
+        if (appStateStore.getCount() > 1){
+          console.log('Too many appStates! Clearing cache. this should never happen.');
+          appStateStore.removeAll();
+          appStateStore.sync();
+        } else {
+          console.log('no app state found.');
+        }
+         appStateStore.add(checkInCtr.getAppState());
+         checkInCtr.showDashboard();
+       }  
+  },
 
-	   	 //found a valid checkIn Id. Restore state.
-	   	 if(restoredCheckInId) {
+  /**
+  * @private
+  * Restore checkin.
+  * @param {String} restoredCheckInId
+  *   CheckIn to restore.
+  */
+  restoreCheckIn: function(restoredCheckInId, defaultHeaders) {
+    var me = this,
+        checkInCtr = this.getController('CheckIn');
+
         checkInCtr.showDashboard();
         //show loading mask, because it can take a while if server is not responding immediately
         EatSense.util.Helper.toggleMask('restoreStateLoading');
 
         defaultHeaders['checkInId'] = restoredCheckInId;
 
-   			 //reload old state
-   			 EatSense.model.CheckIn.load(restoredCheckInId, {
-   				scope: this,
-   				success : function(record, operation) {
-   					console.log('found existing checkin '+record);            
-   					checkInCtr.restoreState(record);
-            EatSense.util.Helper.toggleMask(false);   				
-   				},
-   				failure: function(record, operation) {
-   					console.log('error restoring state');
+         //reload old state
+         EatSense.model.CheckIn.load(restoredCheckInId, {
+          scope: this,
+          success : function(record, operation) {
+            console.log('found existing checkin '+record);            
+            checkInCtr.restoreState(record);
+            EatSense.util.Helper.toggleMask(false);           
+          },
+          failure: function(record, operation) {
+            console.log('error restoring state');
+
             EatSense.util.Helper.toggleMask(false);
 
             delete defaultHeaders['checkInId'];
@@ -150,28 +258,14 @@ Ext.application({
 
             checkInCtr.showDashboard();
 
-
-
             me.getApplication().handleServerError({
               'error': operation.error,
               'forceLogout': false,
-              'message' : i10n.translate('restoreStateFailed')
+              'message' : {403: i10n.translate('restoreStateFailed')}
             });
-   				}
+          }
         });
-	   	 }	   		 	   	 	   	 
-	   	 else {	   		 
-	   		if (appStateStore.getCount() > 1){
-		   	  console.log('Too many appStates! Clearing cache. this should never happen.');
-		   	  appStateStore.removeAll();
-          appStateStore.sync();
-		   	} else {
-		   		console.log('no app state found.');
-		   	}
-	   		 appStateStore.add(checkInCtr.getAppState());
-	   		 checkInCtr.showDashboard();
-	   	 }	
-	},
+  },
 
 	//Global utility methods
 	/**
@@ -187,8 +281,8 @@ Ext.application({
     *       invalidAccessToken: same as forceLogout but in case of an invalid logged in user and not checkIn
     *       hideMessage: true if you don't want do display an error message
     *       message: message to show. If no message is set a default message will be displayed.
-    *		can be either a common message for all status codes or a specialized message
-    *		{403: 'message 1', 404: 'message 2'}
+    *		    can be either a common message for all status codes or a specialized message
+    *		    {403: 'message 1', 404: 'message 2'}
     */
     handleServerError: function(options) {
         var    errMsg,
