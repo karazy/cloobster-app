@@ -10,7 +10,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 	config : {
 		layout : {
 			type : 'fit'
-		},	
+		},
 		items : [
 		{
 			xtype : 'panel',
@@ -34,6 +34,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 		{
 			xtype: 'panel',
 			width: '100%',
+			itemId: 'tilePanel',
 			layout: {
 				type: 'vbox',
 				align: 'center',
@@ -56,7 +57,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						type: 'hbox',
 						align: 'start',
 						pack: 'center'
-					},
+					},					
 					// scrollable: 'vertical',
 					padding: '5px 0 0 0',			
 					items: [

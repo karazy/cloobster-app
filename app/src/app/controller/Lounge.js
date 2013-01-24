@@ -14,7 +14,7 @@ Ext.define('EatSense.controller.Lounge', {
       clubDashboard: 'clubarea clubdashboard',
       dashboardHeader: 'clubarea clubdashboard #header',
 			descriptionPanel: 'clubarea clubdashboard #description',
-			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]'
+			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]'      
 		},
 		control: {
 			menuDashboardButton : {
@@ -29,13 +29,19 @@ Ext.define('EatSense.controller.Lounge', {
 	},
 
   clubAreaActivated: function(tab, options) {
-      var androidCtr = this.getApplication().getController('Android');
+      var androidCtr = this.getApplication().getController('Android'),
+          tilePanel = tab.down('#tilePanel');
 
      //always jump to dashboard on home tab pressed
      tab.setActiveItem(0);
      androidCtr.setExitOnBack(false); 
      this.setNavigationFunctions(new Array());
      androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
+
+     //scroll to top when activating the home menu
+     if(tilePanel && tilePanel.getScrollable()) {
+      tilePanel.getScrollable().getScroller().scrollToTop();
+     }
   },
   /**
   * Initialize and show dashboard upon checkin.
