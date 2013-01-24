@@ -11,22 +11,14 @@
 			myordersCompleteButton: 'myorderstab button[action=complete]',
 			menutab: 'menutab',
 			orderlist : 'carttab #orderlist',
-			// submitOrderBt : 'carttab button[action="order"]',
 			topToolbar : 'carttab #cartTopBar',
             productdetail: 'myorderstab orderdetail',
 			choicespanel : 'orderdetail #choicesPanel',
-			// editOrderMenuBt : 'menutab cartoverviewitem button[action=edit]',
-			// editOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=edit]',
-			// cancelOrderBt : 'cartoverviewitem button[action=cancel]',
-			// cancelOrderMenuBt : 'menutab cartoverviewitem button[action=cancel]',
-			// cancelOrderMyOrderBt : 'myorderstab cartoverviewitem button[action=cancel]',
 			loungeview : 'lounge',
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
 			myordersview: 'lounge myorderstab',
-			myordersviewButton: 'lounge myorderstab tab',
-			//TODO find a better way to select tab
-			myordersTabBt: 'lounge #ext-tab-3',
+			//not used?
 			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
 			leaveButton: 'lounge button[action="exit"]',
@@ -36,24 +28,6 @@
 			myordersCartBackButton: 'myorderstab carttab button[action=back]'
 		},
 		control: {
-			 // submitOrderBt : {
-				//  tap: 'submitOrders'
-			 // },
-			 // editOrderMyOrderBt : {
-				// tap: 'editOrderMyOrderBtHandler'
-			 // },
-			 // editOrderMenuBt : {
-			 // 	tap: 'editOrderMenuBtHandler'
-			 // },
-			 // cancelOrderBt : {
-			 // 	tap: 'cancelOrder'
-			 // },
-			 // cancelOrderMenuBt: {
-			 // 	tap: 'cancelOrderMenuBtHandler'
-			 // },
-			 // cancelOrderMyOrderBt: {
-			 // 	tap: 'cancelOrderMyOrderBtHandler'
-			 // },
              paymentButton: {
             	 tap: 'choosePaymentMethod'
              },
@@ -944,9 +918,17 @@
 	* Displays the number of placed orders.
 	*/
 	refreshMyOrdersBadgeText: function(clear) {
-		var button = this.getMyordersTabBt(),
+		var loungeview = this.getLoungeview(),
+			button,
 			orderStore = Ext.StoreManager.lookup('orderStore'),
 			badgeText;
+
+		if(loungeview && loungeview.getTabBar()) {
+			//get the leave tab
+			button = loungeview.getTabBar().getAt(2);
+		} else {
+			console.log('Order.refreshMyOrdersBadgeText: loungeview has no tabbar!');
+		}
 
 		if(clear) {
 			button.setBadgeText("");			
