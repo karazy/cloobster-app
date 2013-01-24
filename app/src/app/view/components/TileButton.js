@@ -53,9 +53,7 @@ Ext.define('EatSense.view.components.TileButton', {
         * @cfg {String} iconAlign
         * @see Ext.Button
         */
-        iconAlign: 'top',
-
-        // cls: Ext.os.is.Android2 ? 'infopage-teaser' : ''
+        iconAlign: 'top'
 		
 	},
 	template: [

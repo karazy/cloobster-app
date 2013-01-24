@@ -53,17 +53,6 @@ Ext.define('EatSense.view.ProductDetail', {
 			layout : {
 				type : 'hbox'
 			},
-			// padding: '25 0 0 0',
-			// itemId : 'prodDetailLabel',
-			// cls: 'productDetail',
-			// 	tpl: new Ext.XTemplate(
-			// 		'<tpl if="product.data.imageUrl"><div class="thumbnail" style="background-image: url(\'{product.data.imageUrl}=s720\')"></div></tpl>'+
-			// 		'<div>{product.data.productLongDesc}</div>'
-			// 	),
-			// style: {'background-image': 'url("res/images/background.jpg")',
-			// 		 'background-size': '100%',
-			// 		 'background-position: center'
-			// 		},
 			items : [ 
 			{
 				xtype: 'label',
@@ -88,15 +77,10 @@ Ext.define('EatSense.view.ProductDetail', {
 				padding: 3,
 				style: {
 					'border-radius': '3px',
-					'background-color': '#d3d3d3'
+					'background-color': '#d3d3d3',
+					//prevents the box from having the size of the long desc
+					'height' : '100%'
 				},
-				// layout : {
-				// 	type : 'vbox',
-				// 	align : 'right',
-				// 	pack: 'center'
-				// },
-				// flex: 1,
-				// cls: 'productDetail',
 				items : [
 				{	
 					xtype : 'spinnerfield',

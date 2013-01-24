@@ -59,7 +59,9 @@ Ext.define('EatSense.view.OrderDetail', {
 				padding: 3,
 				style: {
 					'border-radius': '3px',
-					'background-color': '#d3d3d3'
+					'background-color': '#d3d3d3',
+					//prevents the box from having the size of the long desc
+					'height' : '100%'
 				},
 				items : [ 
 					{
