@@ -47,24 +47,33 @@ Ext.define('EatSense.view.components.TileButton', {
          * The CSS class for button badge.
          * @accessor
          */
-        badgeCls: Ext.baseCSSPrefix + 'tilebutton-badge'
+        badgeCls: Ext.baseCSSPrefix + 'tilebutton-badge',
+
+        /**
+        * @cfg {String} iconAlign
+        * @see Ext.Button
+        */
+        iconAlign: 'top',
+
+        // cls: Ext.os.is.Android2 ? 'infopage-teaser' : ''
 		
 	},
 	template: [
 		//we have to provide this, since we override the template from GT.override.FixedButton
-		{
-            tag: 'span',
-            reference: 'tapMask',
-            style: {
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                boxSizing: 'content-box'
-            }
-        },
+		// {
+  //           tag: 'span',
+  //           reference: 'tapMask',
+  //           style: {
+  //               position: 'absolute',
+  //               width: '100%',
+  //               height: '100%',
+  //               boxSizing: 'content-box'
+  //           }
+  //       },
         {
             tag: 'span',
             reference: 'badgeElement',
+            className: Ext.baseCSSPrefix + 'tilebutton-badge',
             hidden: true
         },
         {

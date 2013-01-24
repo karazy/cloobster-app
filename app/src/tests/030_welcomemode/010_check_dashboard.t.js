@@ -21,6 +21,19 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
         },
+        { 
+            action: 'click', 
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            }
+        },
+        {
+            action : 'type',
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            },
+            text : 'Test User'
+        },
         {
             action : 'tap',
             target : function() {
@@ -28,14 +41,14 @@ StartTest(function(t) {
             }
         },
         function(next) {
-            t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard'), next, this, 3000);
+            t.waitForComponentVisible(t.cq1('clubdashboard basictilebutton[action="show-feedback"]'), next, this, 3000);
         },
         //end checkin
         {
             action: 'tap',
             target: function() {
                 t.diag('test feedback button welcome fn');
-                return t.cq1('lounge clubarea clubdashboard button[action=show-feedback]');
+                return t.cq1('clubdashboard basictilebutton[action="show-feedback"]');
             }
         },
         function(next, title) {
@@ -54,7 +67,7 @@ StartTest(function(t) {
             action: 'tap',
             target: function() {
                 t.diag('test vip button welcome fn');
-                return t.cq1('lounge clubarea clubdashboard button[action=show-requests]');
+                return t.cq1('clubdashboard basictilebutton[action=show-requests]');
             }
         },
         function(next, title) {

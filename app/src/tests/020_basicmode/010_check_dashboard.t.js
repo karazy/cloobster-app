@@ -22,6 +22,19 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
         },
+        { 
+            action: 'click', 
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            }
+        },
+        {
+            action : 'type',
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            },
+            text : 'Test User'
+        },
         {
             action : 'tap',
             target : function() {
@@ -29,12 +42,16 @@ StartTest(function(t) {
             }
         },
         function(next) {
-            t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard'), next, this, 3000);
+            t.waitForComponentVisible(t.cq1('clubdashboard basictilebutton'), next, this, 3000);
+        },
+        //explicit wait necessary for buttons to be fully rendered and initialized
+        {
+            waitFor: 1000
         },
         function(next) {
-        	var buttons = t.cq('basicbutton');
+        	var buttons = t.cq('basictilebutton');
 
-        	t.ok(buttons.length == 2, 'found 2 basic buttons');
+        	t.ok(buttons.length == 2, 'found 2 basictilebutton buttons');
 
         	
         	buttons.forEach(function(b) {
@@ -48,31 +65,5 @@ StartTest(function(t) {
         	t.done();
         }
         );
-
-		// var steps = [
-		// 	function(next) {
-  //       	var buttons = t.cq('basicbutton');
-
-  //       	t.ok(buttons.length == 2, 'found 2 basic buttons');
-
-        	
-  //       	buttons.forEach(function(b) {
-  //       		t.is(b.getHidden(), true, b.getText() + ' is not visible');
-  //       	});
-        	
-	 //        },
-	 //        function() {
-	 //        	t.done();
-	 //        }
-		// ];
-
-  //       var allSteps = []
-
-  //       allSteps = t.checkInSteps(t).concat(steps);
-		// t.chain(allSteps);
-		// function runTest() {
-		// 	console.log('TEST TEST TEST');
-		// 	t.chain(steps);
-		// }
 
 });

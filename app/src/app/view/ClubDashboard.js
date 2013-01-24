@@ -97,14 +97,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 							type: 'info',
 							store : 'infopageStore',
 							tpl: new Ext.XTemplate(
-							'<div class="">'+
+							// '<div class="">'+
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 								'<div class="text-container">'+
 									'<h3>{title}</h3>'+
 									'<p>{shortText}</p>'+
 								'</div>'+
-								'<div class="teaser-icon info-icon"></div>'+
-							'</div>'
+								'<div class="teaser-icon info-icon"></div>'
+							// '</div>'
 							)
 						}											
 						]
@@ -136,15 +136,15 @@ Ext.define('EatSense.view.ClubDashboard', {
 								store : 'productStore',
 								type: 'product',
 								tpl: new Ext.XTemplate(
-									'<div class="">'+
+									// '<div class="">'+
 										'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 										'<div class="text-container">'+
 											'<h3>{name}</h3>'+
 											'<p>{shortDesc}</p>'+									
 										'</div>'+
 										'<div class="teaser-icon menu-icon"></div>'+
-										'<div class="special-icon"></div>'+
-									'</div>'
+										'<div class="special-icon"></div>'
+									// '</div>'
 								)
 							},	
 							{
@@ -152,14 +152,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 								store : 'menuStore.productsStore',
 								type: 'product',
 								tpl: new Ext.XTemplate(
-									'<div class="">'+
+									// '<div class="">'+
 										'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 										'<div class="text-container">'+
 											'<h3>{name}</h3>'+
 											'<p>{shortDesc}</p>'+
 										'</div>'+
-										'<div class="teaser-icon menu-icon"></div>'+
-									'</div>'
+										'<div class="teaser-icon menu-icon"></div>'
+									// '</div>'
 								)
 							},				
 							{

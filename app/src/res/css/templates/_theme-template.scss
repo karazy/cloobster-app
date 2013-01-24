@@ -8,6 +8,11 @@
 
 @import 'sencha-touch/default/all';
 
+/*custom imports*/
+
+@import 'tilebutton';
+@import 'widgets/dashboard-teaser';
+
 @include sencha-panel;
 @include sencha-buttons;
 @include sencha-sheet;
@@ -34,11 +39,6 @@
 
 
 @CHARSET "UTF-8";
-
-/*custom imports*/
-
-@import 'tilebutton';
-@import 'widgets/dashboard-teaser';
 
 
 .productListItem {

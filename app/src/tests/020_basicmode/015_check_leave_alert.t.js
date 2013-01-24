@@ -22,6 +22,19 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
         },
+        { 
+            action: 'click', 
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            }
+        },
+        {
+            action : 'type',
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            },
+            text : 'Test User'
+        },
         {
             action : 'tap',
             target : function() {

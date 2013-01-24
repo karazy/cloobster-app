@@ -7023,6 +7023,125 @@ audio {
   width: 100%;
 }
 
+/*custom imports*/
+/* line 1, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-tilebutton {
+  /*margin: 0.3em;*/
+  font-size: 0.9em;
+  color: #1e4776;
+  position: relative;
+  background-color: #f5f5f5;
+  border: 1px solid lightgray;
+  max-height: 200px;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+}
+
+/* line 13, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-tilebutton-title {
+  font-size: 1.2em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-left: 5px;
+  color: #1e4776;
+}
+
+/* line 21, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-tilebutton-label {
+  font-size: 0.8em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-left: 5px;
+  color: #1e4776;
+}
+
+/* line 29, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-tilebutton-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  /* Landscape phone to portrait tablet */
+  /* Landscape phones and down */
+}
+@media only screen and (min-width: 768px) {
+  /* line 29, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+  .x-tilebutton-icon {
+    background-size: 110px;
+    height: 110px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 29, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+  .x-tilebutton-icon {
+    background-size: 110px;
+    height: 110px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* line 29, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+  .x-tilebutton-icon {
+    background-size: 80px;
+    height: 80px;
+  }
+}
+
+/* line 53, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-tilebutton-icon-expand {
+  background-size: auto !important;
+}
+
+/* line 57, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-tilebutton-pressed {
+  -webkit-box-shadow: 0px 0px 10px 2px #990033;
+  box-shadow: 0px 0px 10px 2px #990033;
+  color: #990033;
+  border: 1px solid #990033;
+}
+
+/*Badges*/
+/* line 70, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-hasbadge {
+  overflow: visible;
+}
+/* line 72, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
+.x-hasbadge .x-tilebutton-badge {
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.2em;
+  border-radius: 0.2em;
+  padding: .1em .3em;
+  z-index: 2;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  overflow: hidden;
+  color: #ffcccc;
+  border: 1px solid #990000;
+  position: absolute;
+  width: auto;
+  min-width: 2em;
+  line-height: 1.2em;
+  font-size: 1em;
+  right: 0px;
+  top: -0.2em;
+  max-width: 95%;
+  background-image: none;
+  background-color: #cc0000;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff1a1a), color-stop(3%, #e60000), color-stop(100%, #b30000));
+  background-image: -webkit-linear-gradient(top, #ff1a1a, #e60000 3%, #b30000);
+  background-image: linear-gradient(top, #ff1a1a, #e60000 3%, #b30000);
+  display: inline-block;
+  /*border-radius: 1em;*/
+}
+
+/* line 1, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/widgets/_dashboard-teaser.scss */
+.x-teaser-pressed {
+  -webkit-box-shadow: 0px 0px 10px 2px #990033;
+  box-shadow: 0px 0px 10px 2px #990033;
+  color: #990033;
+  border: 1px solid #990033;
+}
+
 /* line 8, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_panel.scss */
 .x-panel,
 .x-msgbox,
@@ -7190,7 +7309,7 @@ audio {
   -webkit-mask-size: 1.1em;
 }
 /* line 80, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-button.x-item-disabled .x-button-label, .x-button.x-item-disabled .x-hasbadge .x-badge, .x-hasbadge .x-button.x-item-disabled .x-badge, .x-button.x-item-disabled .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-item-disabled .x-tilebutton-badge, .x-button.x-item-disabled .x-button-icon {
+.x-button.x-item-disabled .x-button-label, .x-button.x-item-disabled .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-item-disabled .x-tilebutton-badge, .x-button.x-item-disabled .x-hasbadge .x-badge, .x-hasbadge .x-button.x-item-disabled .x-badge, .x-button.x-item-disabled .x-button-icon {
   opacity: .5;
 }
 
@@ -7225,27 +7344,27 @@ audio {
 }
 
 /* line 104, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-iconalign-left .x-button-label, .x-iconalign-left .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-left .x-badge, .x-iconalign-left .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-left .x-tilebutton-badge {
+.x-iconalign-left .x-button-label, .x-iconalign-left .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-left .x-tilebutton-badge, .x-iconalign-left .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-left .x-badge {
   margin-left: 0.3em;
 }
 
 /* line 107, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-iconalign-right .x-button-label, .x-iconalign-right .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-right .x-badge, .x-iconalign-right .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-right .x-tilebutton-badge {
+.x-iconalign-right .x-button-label, .x-iconalign-right .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-right .x-tilebutton-badge, .x-iconalign-right .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-right .x-badge {
   margin-right: 0.3em;
 }
 
 /* line 110, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-iconalign-top .x-button-label, .x-iconalign-top .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-top .x-badge, .x-iconalign-top .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-top .x-tilebutton-badge {
+.x-iconalign-top .x-button-label, .x-iconalign-top .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-top .x-tilebutton-badge, .x-iconalign-top .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-top .x-badge {
   margin-top: 0.3em;
 }
 
 /* line 113, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-iconalign-bottom .x-button-label, .x-iconalign-bottom .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-bottom .x-badge, .x-iconalign-bottom .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-bottom .x-tilebutton-badge {
+.x-iconalign-bottom .x-button-label, .x-iconalign-bottom .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-iconalign-bottom .x-tilebutton-badge, .x-iconalign-bottom .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-bottom .x-badge {
   margin-bottom: 0.3em;
 }
 
 /* line 118, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-button-label, .x-hasbadge .x-badge, .x-hasbadge .x-tilebutton-badge {
+.x-button-label, .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-badge {
   -webkit-box-flex: 1;
   box-flex: 1;
   -webkit-box-align: center;
@@ -7265,11 +7384,11 @@ audio {
   padding: .3em .6em;
 }
 /* line 135, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button .x-tilebutton-badge {
+.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button .x-tilebutton-badge, .x-toolbar .x-button .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button .x-badge {
   font-size: .7em;
 }
 /* line 139, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button .x-tilebutton-badge, .x-toolbar .x-button .x-hasbadge .x-badge {
+.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button .x-tilebutton-badge, .x-toolbar .x-button .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-badge {
   line-height: 1.6em;
 }
 
@@ -7281,7 +7400,7 @@ audio {
   min-height: 0;
 }
 /* line 149, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
-.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-button-small .x-badge, .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-decline-small .x-badge, .x-button-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button-small .x-tilebutton-badge, .x-button.x-button-action-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-button-action-small .x-tilebutton-badge, .x-button.x-button-confirm-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-button-confirm-small .x-tilebutton-badge, .x-button.x-button-decline-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-button-decline-small .x-tilebutton-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button-small .x-tilebutton-badge, .x-toolbar .x-button.x-button-action-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button.x-button-action-small .x-tilebutton-badge, .x-toolbar .x-button.x-button-confirm-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button.x-button-confirm-small .x-tilebutton-badge, .x-toolbar .x-button.x-button-decline-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button.x-button-decline-small .x-tilebutton-badge {
+.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button-small .x-tilebutton-badge, .x-button.x-button-action-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-button-action-small .x-tilebutton-badge, .x-button.x-button-confirm-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-button-confirm-small .x-tilebutton-badge, .x-button.x-button-decline-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-button.x-button-decline-small .x-tilebutton-badge, .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-button-small .x-badge, .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button-small .x-tilebutton-badge, .x-toolbar .x-button.x-button-action-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button.x-button-action-small .x-tilebutton-badge, .x-toolbar .x-button.x-button-confirm-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button.x-button-confirm-small .x-tilebutton-badge, .x-toolbar .x-button.x-button-decline-small .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-toolbar .x-button.x-button-decline-small .x-tilebutton-badge, .x-toolbar .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-decline-small .x-badge {
   font-size: .6em;
 }
 /* line 153, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
@@ -7854,7 +7973,7 @@ audio {
   border-radius: 0.9em;
 }
 /* line 146, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
-.x-tabbar.x-docked-top .x-tab .x-button-label, .x-tabbar.x-docked-top .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab .x-badge, .x-tabbar.x-docked-top .x-tab .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab .x-tilebutton-badge {
+.x-tabbar.x-docked-top .x-tab .x-button-label, .x-tabbar.x-docked-top .x-tab .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab .x-tilebutton-badge, .x-tabbar.x-docked-top .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab .x-badge {
   font-size: .8em;
   line-height: 1.2em;
   text-rendering: optimizeLegibility;
@@ -7879,7 +7998,7 @@ audio {
   position: relative;
 }
 /* line 170, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
-.x-tabbar.x-docked-top .x-tab.x-tab-icon .x-button-label, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-badge, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-tilebutton-badge {
+.x-tabbar.x-docked-top .x-tab.x-tab-icon .x-button-label, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-tilebutton-badge, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-badge {
   margin: 0;
   margin-left: .3em;
   padding: .1em 0 .2em 0;
@@ -7915,7 +8034,7 @@ audio {
   position: relative;
 }
 /* line 207, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
-.x-tabbar.x-docked-bottom .x-tab .x-button-label, .x-tabbar.x-docked-bottom .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-bottom .x-tab .x-badge, .x-tabbar.x-docked-bottom .x-tab .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tabbar.x-docked-bottom .x-tab .x-tilebutton-badge {
+.x-tabbar.x-docked-bottom .x-tab .x-button-label, .x-tabbar.x-docked-bottom .x-tab .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tabbar.x-docked-bottom .x-tab .x-tilebutton-badge, .x-tabbar.x-docked-bottom .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-bottom .x-tab .x-badge {
   margin: 0;
   padding: .1em 0 .2em 0;
   font-size: 9px;
@@ -8192,7 +8311,7 @@ audio {
 }
 
 /* line 113, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
-.x-tab.x-item-disabled span.x-button-label, .x-tab.x-item-disabled .x-hasbadge span.x-badge, .x-hasbadge .x-tab.x-item-disabled span.x-badge, .x-tab.x-item-disabled .x-hasbadge span.x-tilebutton-badge, .x-hasbadge .x-tab.x-item-disabled span.x-tilebutton-badge, .x-tab.x-item-disabled .x-button-icon {
+.x-tab.x-item-disabled span.x-button-label, .x-tab.x-item-disabled .x-hasbadge span.x-tilebutton-badge, .x-hasbadge .x-tab.x-item-disabled span.x-tilebutton-badge, .x-tab.x-item-disabled .x-hasbadge span.x-badge, .x-hasbadge .x-tab.x-item-disabled span.x-badge, .x-tab.x-item-disabled .x-button-icon {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
 }
@@ -8210,7 +8329,7 @@ audio {
   overflow: visible !important;
 }
 /* line 125, /Users/fred/karazy/cloobster_app/app/src/touch/resources/themes/stylesheets/sencha-touch/default/widgets/_tabs.scss */
-.x-tab .x-button-label, .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tab .x-badge, .x-tab .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tab .x-tilebutton-badge {
+.x-tab .x-button-label, .x-tab .x-hasbadge .x-tilebutton-badge, .x-hasbadge .x-tab .x-tilebutton-badge, .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tab .x-badge {
   overflow: visible !important;
 }
 
@@ -10959,124 +11078,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 @CHARSET "UTF-8";
-/*custom imports*/
-/* line 1, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-tilebutton {
-  /*margin: 0.3em;*/
-  font-size: 0.9em;
-  color: #1e4776;
-  position: relative;
-  background-color: #f5f5f5;
-  border: 1px solid lightgray;
-  max-height: 200px;
-  -webkit-box-orient: vertical;
-}
-
-/* line 12, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-tilebutton-title {
-  /*margin-top: 5px;*/
-  font-size: 1.2em;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-left: 5px;
-}
-
-/* line 20, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-tilebutton-label {
-  font-size: 0.8em;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-left: 5px;
-}
-
-/* line 27, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-tilebutton-icon {
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  /* Landscape phone to portrait tablet */
-  /* Landscape phones and down */
-}
-@media only screen and (min-width: 768px) {
-  /* line 27, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-  .x-tilebutton-icon {
-    background-size: 110px;
-    height: 110px;
-    /*width: 140px;*/
-  }
-}
-@media only screen and (max-width: 767px) {
-  /* line 27, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-  .x-tilebutton-icon {
-    background-size: 110px;
-    height: 110px;
-  }
-}
-@media only screen and (max-width: 320px) {
-  /* line 27, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-  .x-tilebutton-icon {
-    background-size: 80px;
-    height: 80px;
-  }
-}
-
-/* line 52, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-tilebutton-icon-expand {
-  background-size: auto !important;
-}
-
-/* line 56, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-tilebutton-pressed {
-  -webkit-box-shadow: 0px 0px 10px 2px #990033;
-  box-shadow: 0px 0px 10px 2px #990033;
-  color: #990033;
-  border: 1px solid #990033;
-}
-
-/*Badges*/
-/* line 69, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-hasbadge {
-  overflow: visible;
-}
-/* line 71, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
-.x-hasbadge .x-tilebutton-badge {
-  -webkit-background-clip: padding;
-  background-clip: padding-box;
-  -webkit-border-radius: 0.2em;
-  border-radius: 0.2em;
-  padding: .1em .3em;
-  z-index: 2;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
-  overflow: hidden;
-  color: #ffcccc;
-  border: 1px solid #990000;
-  position: absolute;
-  width: auto;
-  min-width: 2em;
-  line-height: 1.2em;
-  font-size: 1em;
-  right: 0px;
-  top: -0.2em;
-  max-width: 95%;
-  background-image: none;
-  background-color: #cc0000;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff1a1a), color-stop(3%, #e60000), color-stop(100%, #b30000));
-  background-image: -webkit-linear-gradient(top, #ff1a1a, #e60000 3%, #b30000);
-  background-image: linear-gradient(top, #ff1a1a, #e60000 3%, #b30000);
-  display: inline-block;
-  /*border-radius: 1em;*/
-}
-
-/* line 1, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/widgets/_dashboard-teaser.scss */
-.x-teaser-pressed {
-  -webkit-box-shadow: 0px 0px 10px 2px #990033;
-  box-shadow: 0px 0px 10px 2px #990033;
-  color: #990033;
-  border: 1px solid #990033;
-}
-
 /* line 45, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .productListItem h2.title {
   font-size: 1em;

@@ -22,6 +22,19 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
         },
+        { 
+            action: 'click', 
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            }
+        },
+        {
+            action : 'type',
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            },
+            text : 'Test User'
+        },
         {
             action : 'tap',
             target : function() {
@@ -30,10 +43,10 @@ StartTest(function(t) {
         },
         //end checkin
         function(next) {
-            t.waitForComponentVisible(t.cq1('lounge clubarea infopageteaser'), next, this, 3000);
+            t.waitForComponentVisible(t.cq1('lounge clubarea dashboardteaser[type=info]'), next, this, 3000);
         },
         function(next) {
-            var ipt = t.cq1('infopageteaser'),
+            var ipt = t.cq1('dashboardteaser[type=info]'),
                 title;
 
             title = ipt.getPage().get('title');
@@ -42,7 +55,7 @@ StartTest(function(t) {
 
         },
         function(next, title) {
-            t.tap(t.cq1('lounge clubarea infopageteaser'), next(title));
+            t.tap(t.cq1('lounge clubarea dashboardteaser[type=info]'), next(title));
         },
         // {
         //     action: 'tap',

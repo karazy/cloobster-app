@@ -20,6 +20,19 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
         },
+        { 
+            action: 'click', 
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            }
+        },
+        {
+            action : 'type',
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            },
+            text : 'Test User'
+        },
         {
             action : 'tap',
             target : function() {
@@ -32,7 +45,7 @@ StartTest(function(t) {
         //end checkin
           {
                 action: 'tap',
-                target: t.cq1('clubdashboard button[action=show-menu]')
+                target: t.cq1('clubdashboard tilebutton[action=show-menu]')
             },
             function(next) {
                 t.elementIsVisible(t.cq1('lounge menutab menuoverview'), "menuoverview is visible");

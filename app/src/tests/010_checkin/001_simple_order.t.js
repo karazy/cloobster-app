@@ -21,6 +21,19 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
         },
+        { 
+            action: 'click', 
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            }
+        },
+        {
+            action : 'type',
+            target: function() {
+                return t.cq1('checkinconfirmation #nicknameTf');
+            },
+            text : 'Test User'
+        },
         {
             action : 'tap',
             target : function() {
@@ -205,16 +218,34 @@ StartTest(function(t) {
     	t.waitForComponentVisible(t.cq1('lounge menutab carttab'), next, this, 1000);
     },
     {
-    	waitFor: 300
+    	waitFor: 500
+    },
+    function(next) {
+        t.waitForComponentVisible(t.cq1('menutab cartoverviewitem button[action=edit]'), next, this, 3000);
     },
     function(next) {
     	var orderEditButton;
 
     	t.diag('alter order | undo change');
 
-    	orderEditButton = t.cq1('cartoverviewitem button[action=edit]');
-    	t.tap(orderEditButton);
-    	t.waitForComponentVisible(t.cq1('orderdetail'), next, this, 1000);
+    	orderEditButton = t.cq1('menutab cartoverviewitem button[action=edit]');
+
+        if(!orderEditButton) {
+            t.fail('no order edit button found');
+        }
+
+    	t.tap(orderEditButton.element);
+        next();
+    	// t.waitForComponentVisible(t.cq1('orderdetail'), next, this, 2000);
+    },
+    //  {
+    //     action : 'tap',
+    //     target : function() {
+    //         return t.cq1('menutab cartoverviewitem button[action=edit]');
+    //     }
+    // },
+    function(next) {
+        t.waitForComponentVisible(t.cq1('menutab orderdetail'), next, this, 3000);
     },
     {
     	waitFor: 500
