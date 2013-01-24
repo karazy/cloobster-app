@@ -279,7 +279,7 @@ Ext.define('EatSense.controller.Menu', {
 			// choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
 			// titlebar = detail.down('titlebar'),
 			activeProduct,
-			detailPanel,
+			detailPanel,			
 			activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			order,
 			titleLabel,
@@ -345,7 +345,7 @@ Ext.define('EatSense.controller.Menu', {
 		// 			 'background-size: 600px 200px;"></div>'
 
 		//DEBUG
-		// order.set('productImageUrl', 'res/images/background.jpg');
+		// order.set('productImageUrl', 'res/images/background.png');
 
 		if(!order.get('productImageUrl')) {
 			//if no image exists display product text on the left of amount spinner
@@ -362,13 +362,16 @@ Ext.define('EatSense.controller.Menu', {
 			{
 				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
 				'background-size': '100%',
-				'background-position': 'center'
+				'background-position': 'center',
+				'min-height': '160px',
+				'background-repeat': 'no-repeat'
 			});
 		}
 		
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
 		//if basic mode is active, hide amount spinner
-		this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
+		//TODO 24.01.2013 how to deal with this. always show spinner otherwise when 0€ product an ugly gray bar is displayed
+		// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
 		// console.log('Menu.loadProductDetail: 6');
 
 		// Ext.Viewport.add(detail);

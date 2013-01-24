@@ -654,7 +654,9 @@
 			{
 				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
 				'background-size': '100%',
-				'background-position': 'center'
+				'background-position': 'center',
+				'min-height': '160px',
+				'background-repeat': 'no-repeat'
 			});
 		}
 

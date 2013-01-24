@@ -125,6 +125,8 @@ Ext.define('EatSense.view.components.TileButton', {
     },
     /**
      * @private
+     * Copied from Ext.Button
+     * If not present resetting the Icon did not work. See Ticket #433
      */
     updateIcon: function(icon) {
         var me = this,
