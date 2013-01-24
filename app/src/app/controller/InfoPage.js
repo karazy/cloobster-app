@@ -489,15 +489,24 @@ Ext.define('EatSense.controller.InfoPage', {
     	if(!button) {
     		return;
     	}
+    	//DEBUG
+    	// if(spot) {
+    	// 	spot.set('logoUrl', 'http://lh4.ggpht.com/8M0z_I9aSu7S3jNFjrVQ_HV9f1-qx09VzkkU8WNNFWoBL1F3D5vhKPn4gfKoe38AN4WdzUqcnnlqhX1C6ldDswfjUsexpI4W');	
+    	// }
+    	
+
     	//a custom logo exists
     	if(spot && spot.get('logoUrl')) {
-    		//=s720 we load from google blob store and define a maximum logo size
-    		button.setIcon(spot.get('logoUrl')+'=s720');
+    		console.log('InfoPage.setImageForInfoButton: found logo ' + spot.get('logoUrl'));
+    		//=s360 we load from google blob store and define a maximum logo size
+    		button.setIcon(spot.get('logoUrl')+'=s360');
     		button.setExpandIcon(true);
     	} else {
+    		console.log('InfoPage.setImageForInfoButton: no logo in spot');
     		//reset image
     		button.setIcon('');
     		button.setExpandIcon(false);
+    		//private button method
     		button.showIconElement();
     	}
     },

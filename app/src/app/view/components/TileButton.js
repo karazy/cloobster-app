@@ -122,5 +122,24 @@ Ext.define('EatSense.view.components.TileButton', {
     			iconElement.removeCls('x-tilebutton-icon-expand');
     		}
     	}
+    },
+    /**
+     * @private
+     */
+    updateIcon: function(icon) {
+        var me = this,
+            element = me.iconElement;
+
+        if (icon) {
+            me.showIconElement();
+            element.setStyle('background-image', 'url(' + icon + ')');
+            me.refreshIconAlign();
+            me.refreshIconMask();
+        }
+        else {
+            element.setStyle('background-image', '');
+            me.hideIconElement();
+            me.setIconAlign(false);
+        }
     }
 });

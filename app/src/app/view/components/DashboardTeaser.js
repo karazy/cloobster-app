@@ -170,6 +170,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			
 			if(!page) {
 				console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: no page found, perhabs you provided a wrong filter');
+				this.setState({'pageGenerated' : false});
 				return;
 			}
 

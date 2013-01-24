@@ -137,6 +137,8 @@ Ext.define('EatSense.controller.Menu', {
     		console.log('Menu.jumpToProductDetail: no product given');
     		return;
     	}
+    	//get all associated data!
+    	product.getData(true);
 
     	if(!product.get('menu_id')) {
     		console.log('Menu.jumpToProductDetail: product has no menu_id');
@@ -282,7 +284,8 @@ Ext.define('EatSense.controller.Menu', {
 			order,
 			titleLabel,
 			prodDetailLabel = this.getProdDetailLabel(),
-			prodDetailLabelImage = this.getProdDetailLabelImage();
+			prodDetailLabelImage = this.getProdDetailLabelImage(),
+			commentField;
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
 					me.closeProductDetail();
@@ -405,8 +408,7 @@ Ext.define('EatSense.controller.Menu', {
 			};
 			 // console.log('Menu.loadProductDetail: 10');
 			//insert comment field after options have been added so it is positioned correctly
-			choicesPanel.add({
-				xtype: 'textareafield',
+			commentField = Ext.create('Ext.field.TextArea', {
 				label: i10n.translate('orderComment'),
 				labelAlign: 'top',
 				itemId: 'productComment',
@@ -415,6 +417,11 @@ Ext.define('EatSense.controller.Menu', {
 				inputCls: 'comment-input',
 				labelCls: 'comment'
 			});
+
+			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
+			commentField.setHidden(activeBusiness.get('basic'));
+			choicesPanel.add(commentField);
+			
 
 			detail.setMasked(false);
 		}), 10, this);
@@ -758,7 +765,8 @@ Ext.define('EatSense.controller.Menu', {
 			})			
 		});
 
-		productStore.load();
+		//fire load event for listening components
+		productStore.fireEvent('load', productStore, productStore.data.items, true);
 	},
 	/**
 	* @private
@@ -775,7 +783,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	    product.choices().removeAll(true);
 	        });
 		       
-			productsStore.removeAll();
+			productStore.removeAll();
 		}catch(e) {
 			console.log('Menu.clearProductStore: failed to clear store. ' + e);
 		}

@@ -527,7 +527,9 @@
 				undoButton,
 				prevActiveView,
 				amountSpinner,
-		 		menuCtr = this.getApplication().getController('Menu');
+				commentField,
+		 		menuCtr = this.getApplication().getController('Menu'),
+		 		activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness();
 
 		this.setActiveOrder(order);
 
@@ -678,16 +680,19 @@
 		 
 		 
 		 //insert comment field after options have been added so it is positioned correctly
-		 choicesPanel.add({
-				xtype: 'textareafield',
+		commentField = Ext.create('Ext.field.TextArea', {
 				label: i10n.translate('orderComment'),
 				labelAlign: 'top',
 				itemId: 'productComment',
+				maxRows: 3,
 				value: order.get('comment'),
 				inputCls: 'comment-input',
 				labelCls: 'comment'
-			}
-		);
+			});
+
+		//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
+		commentField.setHidden(activeBusiness.get('basic'));
+		choicesPanel.add(commentField);
 
 		this.recalculate(order, prodPriceLabel);
 
