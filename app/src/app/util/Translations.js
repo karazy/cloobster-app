@@ -891,6 +891,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Dieser Facebook Account ist mit einem andere cloobster Account verknüpft.",
 			"EN" : "This Facebook account is linked with another cloobster Account."
 		},
+		"error.version" : {
+			"DE" :  "Ihre cloobster Version ist veraltet. Bitte aktualisieren Sie die Version.",
+			"EN" : "Your cloobster version is outdated. Please update!"
+		},
 		//system
 		"network.slow" : {
 			"DE" :  "Die Verbindung ist langsam. Dies kann die Anwendung verlangsamen.",

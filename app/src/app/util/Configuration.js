@@ -18,6 +18,9 @@ Ext.define('EatSense.util.Configuration', {
 		// Interval for channel ping messages.
 		channelPingInterval: 120000,
 		// Amount of time in ms to wait for a channel message after ping.
-		channelMessageTimeout: 40000
+		channelMessageTimeout: 40000,
+		//version indicator of the backend api, will be increased when the api changes
+		//in such a way that an old cloobster version is not compatible anymore
+		cloobsterApi: 1
 	}
 });

@@ -174,6 +174,8 @@ Ext.application({
         //set Default headers object
         Ext.Ajax.setDefaultHeaders(defaultHeaders);
 
+        headerUtil.addHeader('cloobster-api', appConfig.cloobsterApi);
+
       //----- Launch functions start ------   
       //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is moved here.
       //Android controller launch
@@ -317,6 +319,9 @@ Ext.application({
                 case 0:
                   defaultErrorKey = 'errorCommunication';
                 	break;
+                case 460:
+                  defaultErrorKey = 'error.apiversion';
+                  break;
                 default:
                   code = 500
                   defaultErrorKey = 'errorMsg';
