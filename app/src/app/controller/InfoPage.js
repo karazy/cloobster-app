@@ -43,7 +43,7 @@ Ext.define('EatSense.controller.InfoPage', {
 	init: function() {		
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
-		this.getApplication().getController('CheckIn').on('statusChanged', function(status) {
+		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.setPanelsCreated(false);
 				this.loadInfoPages();
@@ -52,6 +52,8 @@ Ext.define('EatSense.controller.InfoPage', {
 				this.cleanup();
 			}
 		}, this);
+
+		checkInCtr.on('business-loaded', this.showHotelInfoHeader, this);
 
 		// always show teaser
 		//this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);		    
@@ -197,8 +199,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			this.removeInfoPageDetailPanels();
 
 			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
-
-			this.showHotelInfoHeader();
+			//executed on business-loaded event
+			// this.showHotelInfoHeader();
 			try {
 				EatSense.util.Helper.toggleMask('infopage.loadingmsg');
 				//defer for a better perceived performance
