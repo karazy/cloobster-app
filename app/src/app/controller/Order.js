@@ -179,12 +179,7 @@
 
 		prevActiveView = cardview.getActiveItem();
 		cartView = cardview.down('carttab');
-		backButton = cardview.down('backbutton');
-		dumpCartButton = cardview.down('button[action="trash"]');
-		submitOrdersButton = cardview.down('button[action="order"]');
-		cancelOrderButtons = cartView.query('cartoverviewitem button[action=cancel]');
-		editOrderButtons = cartView.query('cartoverviewitem button[action=edit]');
-		
+
 		//prevent multiple taps by disabling button
 		button.setDisabled(true);
 
@@ -193,8 +188,14 @@
 		}), 50, this);
 
 		cardview.switchTo(cartView, "left");
-
 		this.refreshCart();
+
+		backButton = cartView.down('backbutton');
+		dumpCartButton = cartView.down('button[action="trash"]');
+		submitOrdersButton = cartView.down('button[action="order"]');
+		cancelOrderButtons = cartView.query('cartoverviewitem button[action=cancel]');
+		editOrderButtons = cartView.query('cartoverviewitem button[action=edit]');
+		
 
 		//wire up all event handlers
 
