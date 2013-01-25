@@ -7100,8 +7100,8 @@ audio {
 
 /* line 64, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_tilebutton.scss */
 .x-tilebutton-pressed {
-  -webkit-box-shadow: 0px 0px 10px 2px #990033;
-  box-shadow: 0px 0px 10px 2px #990033;
+  /*  -webkit-box-shadow: 0px 0px 10px 2px $base-color;
+    box-shadow: 0px 0px 10px 2px $base-color;*/
   color: #990033;
   border: 1px solid #990033;
 }
@@ -7144,8 +7144,8 @@ audio {
 
 /* line 1, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/widgets/_dashboard-teaser.scss */
 .x-teaser-pressed {
-  -webkit-box-shadow: 0px 0px 10px 2px #990033 !important;
-  box-shadow: 0px 0px 10px 2px #990033 !important;
+  /* -webkit-box-shadow: 0px 0px 10px 2px $base-color !important;
+   box-shadow: 0px 0px 10px 2px $base-color !important;*/
   color: #990033 !important;
   border: 1px solid #990033 !important;
 }

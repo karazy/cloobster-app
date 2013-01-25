@@ -360,10 +360,10 @@ Ext.define('EatSense.controller.Menu', {
 			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
 			{
-				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
-				'background-size': '100%',
-				'background-position': 'center',
-				'min-height': '160px',
+				'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
+				'background-size': '100% auto',
+				'background-position': 'center top',
+				'min-height': '165px',
 				'background-repeat': 'no-repeat'
 			});
 		}
