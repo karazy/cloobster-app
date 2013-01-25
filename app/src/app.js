@@ -142,10 +142,12 @@ Ext.application({
         }],
         scope: this,
         fn: function(btnId, value, opt) {
+          Cloobster.asyncJsapiLoad();
           callback.apply(me);
         }
       });  
     } else {
+      Cloobster.asyncJsapiLoad();
       callback.apply(me);
     }
   },
