@@ -71,11 +71,11 @@ Ext.define('EatSense.view.Cart', {
 			itemId: 'carttotalpanel',
 			items: [{
 				xtype: 'label',		
-				cls: 'cartTotal',		
+				cls: 'cartTotal',
 				tpl: new Ext.XTemplate('<h1>Total {[this.formatPrice(values.price)]}</h1>',
 					{
 						formatPrice: function(price) {
-							return appHelper.formatPrice(price);
+							return appHelper.formatPrice(price, true);
 						}
 					}
 				)
