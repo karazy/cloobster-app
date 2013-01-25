@@ -18,20 +18,15 @@ Ext.define('EatSense.view.ProductDetail', {
 					action: 'close',
 					text: i10n.translate('back'),
 					ui: 'back',
-					// iconCls: 'delete1',
-					// iconAlign: 'right',
 					iconMask: true,
-					// flex: 1,
 					align: 'left'
 				},
 				{
 					xtype: 'basicbutton',
-					// text: i10n.translate('putIntoCartButton'),
 					action: 'cart',
 					ui: 'action',
 					iconCls: 'shop1',
 					iconMask: true,
-					// flex: 1,
 					align: 'right',
 					welcomeFn: function() {
 						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
@@ -43,7 +38,6 @@ Ext.define('EatSense.view.ProductDetail', {
 			xtype: 'label',
 			itemId: 'titleLabel',
 			docked: 'top',
-			// margin: '0 0 15 0',
 			tpl: new Ext.XTemplate('<div class="productlist-header" style="position: absolute; right: 0; left: 0; top: 0px;">{productName}</div>')
 		},
 		{
@@ -57,8 +51,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			{
 				xtype: 'label',
 				itemId: 'titleLabel',
-				docked: 'top',
-				// margin: '0 0 15 0',				
+				docked: 'top',		
 				tpl: new Ext.XTemplate('<div class="productlist-header" style="position: absolute; right: 0; left: 0; top: 0px;">{productName}</div>')
 			},
 			{
@@ -67,8 +60,10 @@ Ext.define('EatSense.view.ProductDetail', {
 				cls: 'productDetail',
 				tpl: new Ext.XTemplate(
 					'<div>{product.data.productLongDesc}</div>'
-				)
-				// flex: 2
+				),
+				style: {
+					'margin-top' : '35px'
+				}
 			}, 
 			{
 				xtype : 'panel',
@@ -78,7 +73,7 @@ Ext.define('EatSense.view.ProductDetail', {
 				style: {
 					'border-radius': '3px',
 					'background': 'rgba(211, 211, 211, 0.7)',
-					//prevents the box from having the size of the long desc
+					//prevents the box from having the height of the long desc
 					'height' : '100%',
 					'margin-top' : '35px'
 				},

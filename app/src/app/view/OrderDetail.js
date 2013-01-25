@@ -50,7 +50,10 @@ Ext.define('EatSense.view.OrderDetail', {
 				cls: 'productDetail',
 				tpl: new Ext.XTemplate(
 					'<div>{productLongDesc}</div>'
-					)
+				),
+				style: {
+					'margin-top' : '35px'
+				}
 			}, 
 			{
 				xtype : 'panel',
@@ -60,8 +63,9 @@ Ext.define('EatSense.view.OrderDetail', {
 				style: {
 					'border-radius': '3px',
 					'background': 'rgba(211, 211, 211, 0.7)',
-					//prevents the box from having the size of the long desc
-					'height' : '100%'
+					//prevents the box from having the height of the long desc
+					'height' : '100%',
+					'margin-top' : '35px'
 				},
 				items : [ 
 					{
