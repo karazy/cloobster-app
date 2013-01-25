@@ -23,10 +23,17 @@ Ext.define('EatSense.view.components.TileButton', {
 
         /**
          * @cfg {Boolean} expandIcon
-         * Set to true, to not shrink the image to fit the button size
+         * Set to true, to not shrink the icon to a fixed size
          * @accessor
          */
         expandIcon: false,
+
+        /**
+         * @cfg {Boolean} expandIcon
+         * Set to true, to fit the icon completely to the avail size
+         * @accessor
+         */
+        fitIcon: false,
 
         /**
          * @cfg {String} labelCls
@@ -122,6 +129,20 @@ Ext.define('EatSense.view.components.TileButton', {
     			iconElement.removeCls('x-tilebutton-icon-expand');
     		}
     	}
+    },
+    /**
+    * @private
+    */
+    updateExpandIcon: function(expand) {
+        var iconElement = this.iconElement;
+
+        if(iconElement) {
+            if(expand === true) {
+                iconElement.addCls('x-tilebutton-icon-fit');
+            } else {
+                iconElement.removeCls('x-tilebutton-icon-fit');
+            }
+        }
     },
     /**
      * @private

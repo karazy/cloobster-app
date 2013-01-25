@@ -77,19 +77,19 @@ Ext.define('EatSense.view.ProductDetail', {
 				padding: 3,
 				style: {
 					'border-radius': '3px',
-					'background-color': '#d3d3d3',
+					'background': 'rgba(211, 211, 211, 0.7)',
 					//prevents the box from having the size of the long desc
 					'height' : '100%'
 				},
 				items : [
 				{	
 					xtype : 'spinnerfield',
-					label: i10n.translate('amountspinnerLabel'),
-					labelAlign: 'top',
 					itemId : 'productAmountSpinner',
-					style: 'background-color: #d3d3d3;',
-					labelCls: 'productdetail-spinner-label',
+					style: {
+						'background': 'transparent'
+					},
 					inputCls: 'productdetail-spinner-input',
+					padding: '5 0 0 2',
 					stepValue : 1,
 					value : 1,
 					minValue : '1',
@@ -100,7 +100,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					xtype: 'label',
 					cls: 'productPrice',
 					itemId : 'prodPriceLabel',
-					padding: '5 0 0 0',
+					padding: '5 0 0 2',
 					tpl: new Ext.XTemplate(
 					'{[this.formatPrice(values.order.calculate())]}',
 					{

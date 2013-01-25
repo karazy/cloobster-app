@@ -282,8 +282,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Amount"
 		},
 		"amountspinnerLabel" : {
-			"DE" :  "Ich will ...",
-			"EN" :  "I like ..."
+			"DE" :  "Ich will",
+			"EN" :  "I want"
 		},
 		"orderSubmit" : {
 			"DE" :  "Bestellung abgeschickt ...",
@@ -340,8 +340,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Home"
 		},
 		"clubdashboard.label.description" : {
-			"DE" :  "<h2>Guten Tag, {0}.</h2><p>Herzlich Willkommen im</p><p>\"{1}\"</p>",
-			"EN" :  "<h2>Welcome, {0}.</h2><p>You have checked into</p><p>\"{1}\"</p>"
+			"DE" :  "<h2>{0},</h2><p>Herzlich Willkommen im</p><p>\"{1}\"</p>",
+			"EN" :  "<h2>{0},</h2><p>welcome to</p><p>\"{1}\"</p>"
 		},
 		"clubdashboard.button.vip" : {
 			"DE" :  "VIP Call",

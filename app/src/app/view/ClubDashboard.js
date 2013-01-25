@@ -40,7 +40,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				align: 'center',
 				pack: 'start'
 			},
-			padding: '0 6 0 6',
+			padding: '0 8 0 8',
 			scrollable: 'vertical',
 			items: [
 				{
@@ -64,7 +64,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					{
 						xtype: 'panel',
 						flex: 1,
-						padding: '0 3 0 0',
+						padding: '0 4 0 0',
 						layout: {
 							type: 'vbox',
 							align: 'center',
@@ -72,7 +72,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						},
 						defaults: {
 							width: '100%',
-							margin: '5 0 0 0'
+							margin: '8 0 0 0'
 						},
 						items: [
 						{
@@ -96,15 +96,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 							xtype : 'dashboardteaser',
 							type: 'info',
 							store : 'infopageStore',
+							iconFit: true,
 							tpl: new Ext.XTemplate(
-							// '<div class="">'+
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 								'<div class="text-container">'+
 									'<h3>{title}</h3>'+
 									'<p>{shortText}</p>'+
 								'</div>'+
 								'<div class="teaser-icon info-icon"></div>'
-							// '</div>'
 							)
 						}											
 						]
@@ -112,7 +111,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					{
 						xtype: 'panel',
 						flex: 1,
-						padding: '0 0 0 3',
+						padding: '0 0 0 4',
 						layout: {
 							type: 'vbox',
 							align: 'center',
@@ -120,7 +119,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						},
 						defaults: {
 							width: '100%',
-							margin: '5 0 0 0'
+							margin: '8 0 0 0'
 						},
 						items: [
 							{
@@ -128,23 +127,19 @@ Ext.define('EatSense.view.ClubDashboard', {
 								action: 'show-menu',
 								text: i10n.translate('clubdashboard.menu.text'),
 								title: i10n.translate('menuTab'),
-								iconCls: 'menu',
-								expandIcon: true
+								iconCls: 'menu'
 							},
 							{
 								xtype : 'dashboardteaser',
 								store : 'productStore',
 								type: 'product',
 								tpl: new Ext.XTemplate(
-									// '<div class="">'+
-										'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-										'<div class="text-container">'+
-											'<h3>{name}</h3>'+
-											'<p>{shortDesc}</p>'+									
-										'</div>'+
-										'<div class="teaser-icon menu-icon"></div>'+
-										'<div class="special-icon"></div>'
-									// '</div>'
+									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+									'<div class="text-container">'+
+										'<h3>{name}</h3>'+
+										'<p>{shortDesc}</p>'+									
+									'</div>'+
+									'<div class="teaser-icon star-icon"></div>'
 								)
 							},	
 							{
@@ -152,14 +147,12 @@ Ext.define('EatSense.view.ClubDashboard', {
 								store : 'menuStore.productsStore',
 								type: 'product',
 								tpl: new Ext.XTemplate(
-									// '<div class="">'+
-										'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-										'<div class="text-container">'+
-											'<h3>{name}</h3>'+
-											'<p>{shortDesc}</p>'+
-										'</div>'+
-										'<div class="teaser-icon menu-icon"></div>'
-									// '</div>'
+									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+									'<div class="text-container">'+
+										'<h3>{name}</h3>'+
+										'<p>{shortDesc}</p>'+
+									'</div>'+
+									'<div class="teaser-icon menu-icon"></div>'
 								)
 							},				
 							{
