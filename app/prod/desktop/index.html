@@ -18,9 +18,14 @@
           font-size: 20px;
           font-weight: bold;
           position: relative;
-          top: 15px;
+          /*top: 15px;*/
           width: 100%;
           text-align: center;
+          margin-bottom: 5px;
+          -webkit-animation-name: appLoadingIndicator;
+           -webkit-animation-duration: 1.5s;
+           -webkit-animation-iteration-count: infinite;
+           -webkit-animation-direction: linear;
        }
         /**
         * Example of an initial loading indicator.
@@ -28,26 +33,26 @@
         * while other resources are still being loaded for the first time
         */
 
-       #appLoadingIndicator {
+/*       #appLoadingIndicator {
            position: relative;           
            text-align: center;
            width: 100%;
            height: 30px;
            -webkit-animation-name: appLoadingIndicator;
-           -webkit-animation-duration: 0.7s;
+           -webkit-animation-duration: 1.5s;
            -webkit-animation-iteration-count: infinite;
            -webkit-animation-direction: linear;
        }
 
        #appLoadingIndicator > * {
-           background-color: #000000;
-           display: inline-block;
-           height: 30px;
-           -webkit-border-radius: 15px;
-           margin: 0 5px;
-           width: 30px;
-           opacity: 0.8;
-       }
+          background-color: #1E4776;
+          display: inline-block;
+          height: 14px;
+          -webkit-border-radius: 7px;
+          margin: 0 1px;
+          width: 14px;
+          opacity: 0.8;
+       }*/
 
        @-webkit-keyframes appLoadingIndicator{
            0% {
@@ -69,19 +74,30 @@
 <link rel="stylesheet" id="black-pink" href="res/css/black-pink-theme.css" type="text/css" disabled="true">
 <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
 <script type="text/javascript">
+var Cloobster = Cloobster || {};
+
+Cloobster.asyncJsapiLoad = function() {
+  if(window['goog']) {
+    return;
+  }
+  var s = document.getElementById('channel-jsapi');
+  if(s) {
+    s.parentNode.removeChild(s);
+  }
+  s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.id = 'channel-jsapi';
+  s.src = '/_ah/channel/jsapi';
+  var x = document.getElementsByTagName('script')[0];
+  x.parentNode.insertBefore(s, x);
+};
+
 (function() {
-    function async_load(){
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = '/_ah/channel/jsapi';
-        var x = document.getElementsByTagName('script')[0];
-        x.parentNode.insertBefore(s, x);
-    }
     if (window.attachEvent)
-        window.attachEvent('onload', async_load);
+        window.attachEvent('onload', Cloobster.asyncJsapiLoad);
     else
-        window.addEventListener('load', async_load, false);
+        window.addEventListener('load', Cloobster.asyncJsapiLoad, false);
 })();
 </script>
 </head>
@@ -98,13 +114,8 @@
 	}
 	var cordovaInit = true;
 	</script>
-	<div id="appLoadingWrapper">
-        <div id="appLoadingIndicator">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <div id="cloobsterLoadingText">Loading cloobster ...</div>
+	<div id="appLoadingWrapper">        
+        <div id="cloobsterLoadingText">loading</div>
   </div>
 </body>
 </html>
