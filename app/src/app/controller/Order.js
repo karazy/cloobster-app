@@ -645,7 +645,9 @@
 			prodDetailLabelImage.element.setHtml('');
 			detailPanel.setStyle({
 				'background-image': 'none'
-			});			
+			});	
+			//prevents the box from having the height of the long desc
+			amountSpinner.setHeight('100%');		
 		} else {
 			//when an image exists, display the description beneath the amount spinner
 			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
@@ -655,9 +657,11 @@
 				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
 				'background-size': '100% auto',
 				'background-position': 'center top',
-				'min-height': '165px',
+				'min-height': '150px',
 				'background-repeat': 'no-repeat'
 			});
+
+			amountSpinner.setHeight('');
 		}
 
 		 //dynamically add choices if present		 
