@@ -69,19 +69,27 @@
 <link rel="stylesheet" id="black-pink" href="res/css/black-pink-theme.css" type="text/css" disabled="true">
 <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
 <script type="text/javascript">
-(function() {
-    function async_load(){
-        var s = document.createElement('script');
+var Cloobster = Cloobster || {};
+
+
+Cloobster.asyncJsapiLoad = (function() {
+
+    return function() {
+      var s = document.createElement('script');
         s.type = 'text/javascript';
         s.async = true;
         s.src = 'https://karazy-cloobster.appspot.com/_ah/channel/jsapi';
         var x = document.getElementsByTagName('script')[0];
         x.parentNode.insertBefore(s, x);
     }
+
+})();
+
+(function() {
     if (window.attachEvent)
-        window.attachEvent('onload', async_load);
+        window.attachEvent('onload', Cloobster.asyncJsapiLoad);
     else
-        window.addEventListener('load', async_load, false);
+        window.addEventListener('load', Cloobster.asyncJsapiLoad, false);
 })();
 </script>
 <script type="text/javascript">
@@ -123,7 +131,7 @@
             <div></div>
             <div></div>
         </div>
-        <div id="cloobsterLoadingText">Loading cloobster ...</div>
+        <div id="cloobsterLoadingText">loading<br/>cloobster...</div>
   </div>
 </body>
 </html>
