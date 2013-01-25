@@ -570,7 +570,6 @@
 
 		if(confirmButton) {
 			confirmButton.on({
-				single: true,
 				tap: confirmButtonTapHandler
 			});
 		} else {
