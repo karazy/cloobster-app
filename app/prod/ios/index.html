@@ -50,19 +50,22 @@
 <script type="text/javascript">
 var Cloobster = Cloobster || {};
 
-
-Cloobster.asyncJsapiLoad = (function() {
-
-    return function() {
-      var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = 'https://karazy-cloobster.appspot.com/_ah/channel/jsapi';
-        var x = document.getElementsByTagName('script')[0];
-        x.parentNode.insertBefore(s, x);
-    }
-
-})();
+Cloobster.asyncJsapiLoad = function() {
+  if(window['goog']) {
+    return;
+  }
+  var s = document.getElementById('channel-jsapi');
+  if(s) {
+    s.parentNode.removeChild(s);
+  }
+  s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.id = 'channel-jsapi';
+  s.src = 'https://karazy-cloobster.appspot.com/_ah/channel/jsapi';
+  var x = document.getElementsByTagName('script')[0];
+  x.parentNode.insertBefore(s, x);
+};
 
 (function() {
     if (window.attachEvent)
