@@ -5,6 +5,8 @@
 /*'ComfortaaRegular',*/
 /* Round tab buttons top left and lower right. */
 /* Forms */
+/*$form-slider-size: 0.4em;*/
+/*$form-thumb-size: 1.4em;*/
 /* Custom variables */
 /* Font color for most of the buttons. Also used as border color, color for titlebars. */
 /* Text color for list rows. */
@@ -10452,7 +10454,7 @@ html, body {
 .x-slider,
 .x-toggle {
   position: relative;
-  height: 1.4em;
+  height: 2.2em;
   min-height: 0;
   min-width: 0;
 }
@@ -10472,20 +10474,20 @@ html, body {
 /* line 57, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form-sliders.scss */
 .x-thumb {
   position: absolute;
-  height: 1.4em;
-  width: 1.4em;
+  height: 2.2em;
+  width: 2.2em;
 }
 /* line 63, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form-sliders.scss */
 .x-thumb:after {
   content: "";
   position: absolute;
-  width: 1.05em;
-  height: 1.05em;
+  width: 1.85em;
+  height: 1.85em;
   top: 0.175em;
   left: 0.175em;
   border: 1px solid #919191;
-  -webkit-border-radius: 0.525em;
-  border-radius: 0.525em;
+  -webkit-border-radius: 0.925em;
+  border-radius: 0.925em;
   background-image: none;
   background-color: #dddddd;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(3%, #eaeaea), color-stop(100%, #d0d0d0));
@@ -10512,11 +10514,11 @@ html, body {
   content: "";
   position: absolute;
   width: auto;
-  height: 0.4em;
-  top: 0.537em;
+  height: 0.8em;
+  top: 0.737em;
   left: 0;
   right: 0;
-  margin: 0 0.525em;
+  margin: 0 0.925em;
   background-image: none;
   background-color: #dddddd;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c4c4c4), color-stop(10%, #d0d0d0), color-stop(65%, #dddddd), color-stop(100%, #dedede));
@@ -10526,15 +10528,15 @@ html, body {
   border-bottom: 0;
   -webkit-box-shadow: rgba(255, 255, 255, 0.7) 0 0.1em 0;
   box-shadow: rgba(255, 255, 255, 0.7) 0 0.1em 0;
-  -webkit-border-radius: 0.2em;
-  border-radius: 0.2em;
+  -webkit-border-radius: 0.4em;
+  border-radius: 0.4em;
 }
 
 /* line 93, ../../touch/resources/themes/stylesheets/sencha-touch/default/widgets/_form-sliders.scss */
 .x-toggle {
-  width: 2.8em;
-  -webkit-border-radius: 0.7em;
-  border-radius: 0.7em;
+  width: 4.4em;
+  -webkit-border-radius: 1.1em;
+  border-radius: 1.1em;
   overflow: hidden;
   border: 1px solid #b7b7b7;
   background-image: none;
@@ -11202,7 +11204,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .productDetailPanel {
   /*background: $product-sub-bg;*/
   background: transparent;
-  padding: 0.5em;
+  padding: 0 0.5em 0.5em 0.5em;
   padding-top: 35px;
   margin-bottom: 8px;
   /*border-radius: 0.3em;*/
@@ -12399,7 +12401,7 @@ h9 {
 /* line 1200, templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 /* line 1205, templates/_theme-template.scss */

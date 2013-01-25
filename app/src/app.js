@@ -122,6 +122,7 @@ Ext.application({
         fn: function(btnId, value, opt) {
         if(btnId == 'yes') {
             //retry
+            Cloobster.asyncJsapiLoad();
             me.checkConnection(callback);
         } else {
           //close the app
@@ -141,13 +142,11 @@ Ext.application({
           ui: 'action'
         }],
         scope: this,
-        fn: function(btnId, value, opt) {
-          Cloobster.asyncJsapiLoad();
+        fn: function(btnId, value, opt) {          
           callback.apply(me);
         }
       });  
     } else {
-      Cloobster.asyncJsapiLoad();
       callback.apply(me);
     }
   },

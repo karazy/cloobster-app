@@ -156,7 +156,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"checkInStep1Label1" : {
 			// "DE" :  "Bitte einen Spitznamen wählen.",
-			"DE" : "Mit welchem Namen möchtest du einchecken?",
+			"DE" : "Mit welchem Namen<br/>möchtest du einchecken?",
 			"EN" :  "Please choose an alias."
 		},
 		"refreshNicknameBt" : {
@@ -196,12 +196,16 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Alias already in use at this location."
 		},
 		"saveNicknameToggle" : {
-			"DE" :  "Spitzname speichern?",
-			"EN" :  "Save alias?"
+			"DE" :  "Namen merken?",
+			"EN" :  "Remember name?"
 		},
 		"checkInCanceled" : {
 			"DE" :  "Sitzung wurde durch Servicepersonal beendet.",
 			"EN" :  "Session has been closed."
+		},
+		"checkin.confirm.title" : {
+			"DE" :  "Willkommen",
+			"EN" : "Welcome"
 		},
 		"nickname" : {
 			"DE" :  "Spitzname",
@@ -348,24 +352,24 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "VIP Call"
 		},
 		"clubdashboard.button.vip.text" : {
-			"DE" :  "Fragen Sie uns, Sagen Sie uns",
-			"EN" :  "Feel free to ask"
+			"DE" :  "Fragen Sie uns",
+			"EN" :  "Ask us"
 		},
 		"clubdashboard.button.feedback" : {
 			"DE" :  "Feedback",
 			"EN" :  "Feedback"
 		},
 		"clubdashboard.button.feedback.text" : {
-			"DE" :  "Sagen Sie uns Ihre Meinung",
-			"EN" : "Tell us what you think"
+			"DE" :  "Ihre Meinung",
+			"EN" : "Tell us"
 		},
 		"clubdashboard.button.infopage" : {
 			"DE" :  "A bis Z",
 			"EN" : "A to Z"
 		},
 		"clubdashboard.button.infopage.text" : {
-			"DE" :  "Alle Information über uns",
-			"EN" : "All informations about us"
+			"DE" :  "Alle Information",
+			"EN" : "All information"
 		},
 		"clubdashboard.button.info" : {
 			"DE" :  "Info",

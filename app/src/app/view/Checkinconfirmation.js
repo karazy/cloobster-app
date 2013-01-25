@@ -15,7 +15,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 		items : [ {
 			docked : 'top',
 			xtype : 'toolbar',
-			title : i10n.translate('nickname'),
+			title : i10n.translate('checkin.confirm.title'),
 			items : [{
 				xtype : 'button',
 				action: 'cancel-checkin',
@@ -45,21 +45,12 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			},
 			width : '80%',
 			items : [ 
-			// {
-			// 	xtype : 'fixedbutton',
-			// 	action: 'regenerate-nickname',
-			// 	text : i10n.translate('refreshNicknameBt'),
-			// 	style : 'margin-right:10px;',
-			// 	ui : 'action',
-			// 	margin : 5,
-			// 	flex: 1
-			// },
 			{
 				xtype : 'fixedbutton',
 				action: 'confirm-checkin',
 				text : i10n.translate('checkInStep1Button'),
-				ui : 'action'				
-				// margin : 5,
+				ui : 'action',	
+				margin: '10 0 0 0'
 				// flex: 1
 			} ]
 		},
@@ -68,8 +59,8 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			action : 'toggle-nickname',
 			cls: 'checkin-confirm-nickname-toggle',
 			labelCls: 'checkin-confirm-nickname-toggle-label',
-			labelAlign: 'top',
-			html: i10n.translate('nicknameToggleHint'),
+			labelWidth: '70%',
+			margin: '10 0 0 0',
 			width: '80%',
 			value : 0,
 			label : i10n.translate('saveNicknameToggle')			
