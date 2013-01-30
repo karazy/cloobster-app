@@ -83,8 +83,6 @@ Ext.define('EatSense.controller.Menu', {
     	var checkInCtr = this.getApplication().getController('CheckIn');
     	// menuStore = Ext.StoreManager.lookup('menuStore');
 
-    	// menuStore.on('load', this.registerProductTeaserTap, this);
-    	// this.registerProductTeaserTap();
     	checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.registerProductTeaserTap();

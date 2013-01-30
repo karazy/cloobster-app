@@ -424,14 +424,12 @@ Ext.define('EatSense.controller.CheckIn', {
     */
 	showLounge: function() {
     	var menuCtr = this.getApplication().getController('Menu'),
-          requestCtr = this.getApplication().getController('Request'),
           loungeCtr = this.getApplication().getController('Lounge'),
           accountCtr = this.getApplication().getController('Account');
 
         loungeCtr.initDashboard();
         this.loadBusiness();
-        menuCtr.showMenu();
-        requestCtr.refreshAccountLabel();      
+        menuCtr.showMenu();  
 	},
   /**
   * Shows an about screen.
@@ -491,8 +489,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	restoreState: function(checkIn) {
 		var me = this,
         main = this.getMain(),
-        messageCtr = this.getApplication().getController('Message'),
-        requestCtr = this.getApplication().getController('Request');
+        messageCtr = this.getApplication().getController('Message');
 
         this.setActiveCheckIn(checkIn);
         //reload of application before hitting leave button
@@ -538,9 +535,6 @@ Ext.define('EatSense.controller.CheckIn', {
           });        	    	
   	    }
 		});
-
-    //restore existing requests
-    requestCtr.loadRequests();	
 	},
   /**
   * @private
@@ -612,7 +606,6 @@ Ext.define('EatSense.controller.CheckIn', {
 	handleStatusChange: function(status) {
 		console.log('CheckIn Controller -> handleStatusChange' + ' new status '+status);
         var     settingsCtr = this.getApplication().getController('Settings'),
-                requestCtr = this.getApplication().getController('Request'),
                 accountCtr = this.getApplication().getController('Account'),
                 appState = this.getAppState();
 
@@ -642,9 +635,7 @@ Ext.define('EatSense.controller.CheckIn', {
       
       headerUtil.resetHeaders(['checkInId','pathId']);
 
-      appChannel.closeChannel();
-
-      requestCtr.resetAllRequests();
+      appChannel.closeChannel();      
 
       this.getActiveSpot().payments().removeAll(true);
       this.setActiveSpot(null);

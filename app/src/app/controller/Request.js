@@ -28,10 +28,21 @@ Ext.define('EatSense.controller.Request',{
 
 		requestNavigationFunctions : new Array()
 	},
-	init: function() {
-		var messageCtr = this.getApplication().getController('Message');
+	launch: function() {
+		var messageCtr = this.getApplication().getController('Message'),
+			checkInCtr = this.getApplication().getController('CheckIn');
 
 		messageCtr.on('eatSense.request', this.handleRequestMessage, this);
+
+		checkInCtr.on('resumecheckin', this.loadRequests, this);
+
+		checkInCtr.on('statusChanged', function(status) {
+			if(status == appConstants.CHECKEDIN) {
+				this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
+			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				this.resetAllRequests();
+			}
+		}, this);
 	},
 	/**
 	* Tap event handler for show showRequestViewButton on dashboard.
@@ -208,11 +219,10 @@ Ext.define('EatSense.controller.Request',{
 	/*
 	*	Sets the account label in request tab displaying nickname of current checkin
 	*/
-	refreshAccountLabel: function() {
-		var accountLabel = this.getAccountLabel(),
-			checkInCtr = this.getApplication().getController('CheckIn');
+	refreshAccountLabel: function(checkIn) {
+		var accountLabel = this.getAccountLabel();
 
-		accountLabel.setHtml(i10n.translate('vipGreetingMessage', checkInCtr.getActiveCheckIn().get('nickname')));
+		accountLabel.setHtml(i10n.translate('vipGreetingMessage', checkIn.get('nickname')));
 	},
 	/**
 	* Tap handler for backbutton.
