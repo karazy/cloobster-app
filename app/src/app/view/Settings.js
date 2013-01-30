@@ -3,6 +3,7 @@
 */
 Ext.define('EatSense.view.Settings', {
 	extend : 'Ext.Panel',
+	requires: ['EatSense.view.components.SlidenavButton'],
 	xtype : 'settings',
 	config : {
 		layout: {
@@ -12,7 +13,6 @@ Ext.define('EatSense.view.Settings', {
 		},
 		scrollable: 'vertical',
 		padding: '0 10 0 10',
-		// width: '100%',
 		/**
          * @cfg {Boolean} If true adds a back button to the components titlebar.
          * @accessor
@@ -27,7 +27,12 @@ Ext.define('EatSense.view.Settings', {
 			{
 				xtype: 'titlebar',
 				title: i10n.translate('settingsButton'),
-				docked: 'top'
+				docked: 'top',
+				items: [
+					{
+						xtype: 'slidenavbutton',
+					}
+				]
 			},
 			{
 						xtype: 'label',
@@ -46,8 +51,6 @@ Ext.define('EatSense.view.Settings', {
 			{
 				xtype : 'textfield',
 				placeHolder : i10n.translate('nickname'),
-				// labelWidth: '40%',
-				// labelAlign: 'top',
 				width: '90%',
 				itemId : 'nickname',
 				maxLength: 25,
@@ -133,12 +136,6 @@ Ext.define('EatSense.view.Settings', {
 				margin: '7 0 5 0',
 				width: '90%'
 			}
-			// {
-			// 	xtype: 'label',
-			// 	html: 'cloobster App Version: ' + appConfig.version,
-			// 	style: 'text-align: right; font-size: 0.6em; color: black;',
-			// 	width: '90%'
-			// }
 		]
 	},
 	constructor: function(config) {

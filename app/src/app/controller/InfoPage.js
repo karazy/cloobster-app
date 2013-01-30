@@ -13,17 +13,13 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageCarousel: 'infopageoverview infopagecarousel',
 			showInfoPageButton: 'clubarea clubdashboard button[action=show-infopage]',
 			infoPageCarouselBackButton: 'infopageoverview infopagecarousel button[action=back]',
-			// infoPageBackButton: 'clubarea infopageoverview button[action=back]',
-			infoPageList: 'clubarea infopageoverview list',
-			infoPageSearchField: 'clubarea infopageoverview searchfield'
+			infoPageList: 'infopageoverview list',
+			infoPageSearchField: 'infopageoverview searchfield'
 		},
 		control: {
 			showInfoPageButton: {
 				tap: 'showInfoPageButtonHandler'
 			},
-			// infoPageBackButton: {
-			// 	tap: 'infoPageBackButtonHandler'
-			// },
 			infoPageList: {
 				select: 'showInfoPageDetail'
 			},
@@ -76,7 +72,6 @@ Ext.define('EatSense.controller.InfoPage', {
 	registerInfoPageTeaser: function() {
 		var me = this,
 			clubArea = this.getClubArea(),
-			// teaser = clubArea.down('infopageteaser'),
 			teaser = clubArea.down('dashboardteaser[type=info]'),
 			androidCtr = this.getApplication().getController('Android');
 
@@ -266,6 +261,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		var me = this,
 			infoPageOverview = this.getInfoPageOverview(),
 			ipcarousel = this.getInfoPageCarousel(),
+			lounge = this.getLounge(),
 			carousel = ipcarousel.down('carousel'),
 			androidCtr = this.getApplication().getController('Android'),
 			infoPageList = this.getInfoPageList(),
@@ -283,6 +279,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		}
 
 		infoPageOverview.setActiveItem(ipcarousel);
+		lounge.getList().select(2);
 
 		carousel.on('activeitemchange', this.setListIndex, this);
 
@@ -318,6 +315,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			list = this.getInfoPageList();
 
 
+		infopageOverview.setActiveItem(0);
 		lounge.getList().select(2);
 
 
@@ -500,7 +498,6 @@ Ext.define('EatSense.controller.InfoPage', {
     	// if(spot) {
     	// 	spot.set('logoUrl', 'http://lh4.ggpht.com/8M0z_I9aSu7S3jNFjrVQ_HV9f1-qx09VzkkU8WNNFWoBL1F3D5vhKPn4gfKoe38AN4WdzUqcnnlqhX1C6ldDswfjUsexpI4W');	
     	// }
-    	
 
     	//a custom logo exists
     	if(spot && spot.get('logoUrl')) {

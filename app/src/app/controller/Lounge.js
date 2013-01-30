@@ -14,7 +14,8 @@ Ext.define('EatSense.controller.Lounge', {
       clubDashboard: 'clubarea clubdashboard',
       dashboardHeader: 'clubarea clubdashboard #header',
 			descriptionPanel: 'clubarea clubdashboard #description',
-			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]'      
+			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]',
+      navButtons: 'lounge button[action=toggle-navigation]'    
 		},
 		control: {
 			menuDashboardButton : {
@@ -22,12 +23,57 @@ Ext.define('EatSense.controller.Lounge', {
 			},
       clubArea: {
         activate: 'clubAreaActivated'
+      },
+      navButtons: {
+        tap: 'toggleNavigation'
       }
 		},
 		/* Android Back handlers */
 		navigationFunctions : new Array()
 	},
+  init: function() {
+    var checkInCtr = this.getApplication().getController('CheckIn');
 
+    checkInCtr.on('basicmode', this.manageSlidenavigation, this);
+  },
+  /**
+  * Show/hide the slidenavigation menu.
+  */
+  toggleNavigation: function(button) {
+    var loungeview = this.getLoungeview();
+    loungeview.toggleContainer();
+  },
+  /**
+  * Manages the slidenavigation menu based on given parameters.
+  * @param basicMode
+  *   Toggles visibility of flagged menu items.
+  */
+  manageSlidenavigation: function(basicMode) {
+      var lounge = this.getLoungeview();
+
+      if(!lounge) {
+          console.log('Lounge.manageSlidenavigation: no loungeview found!');
+          return;
+      }
+
+      if(!lounge.getList()) {
+        console.log('Lounge.manageSlidenavigation: loungeview contains no list with navigation items!');
+          return; 
+      }
+
+      console.log('Lounge.manageSlidenavigation: basicMode=' + basicMode);
+
+      //hide all elements with flag hideOnBasic
+      if(basicMode == true) {
+        lounge.getList().getStore().filter([
+          {property: "hideOnBasic", value: false}
+        ]);
+      } else {
+        lounge.getList().getStore().clearFilter();
+      }       
+
+
+  },
   clubAreaActivated: function(tab, options) {
       var androidCtr = this.getApplication().getController('Android'),
           tilePanel = tab.down('#tilePanel');
@@ -99,8 +145,8 @@ Ext.define('EatSense.controller.Lounge', {
             }
        }
   },
-
 	showMenu: function(button) {
-		this.getLoungeview().setActiveItem(1);
+		var lounge = this.getLoungeview();
+    lounge.getList().select(1);
 	}
 });
