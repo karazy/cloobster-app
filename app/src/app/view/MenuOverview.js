@@ -6,7 +6,7 @@
  */
 Ext.define('EatSense.view.MenuOverview', {
 	extend : 'Ext.Container',
-	requires: ['EatSense.view.CartButton'],
+	requires: ['EatSense.view.CartButton', 'EatSense.view.components.SlidenavButton'],
 	xtype : 'menuoverview',
 	config : {
 		items : [ 
@@ -16,6 +16,9 @@ Ext.define('EatSense.view.MenuOverview', {
 				itemId: 'menuTopBar',
 				title : i10n.translate('menuTitle'),
 				items : [ 
+				{
+					xtype: 'slidenavbutton'
+				},
 				{
 					xtype: 'cartbutton'
 				}

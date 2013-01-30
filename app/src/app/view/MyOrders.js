@@ -1,6 +1,6 @@
 Ext.define('EatSense.view.MyOrders', {
 	extend : 'Ext.Panel',
-	requires: ['EatSense.view.CartButton'],
+	requires: ['EatSense.view.CartButton', 'EatSense.view.components.SlidenavButton'],
 	xtype: 'myorderstab',
 	config: {
 		iconCls : 'cash',
@@ -22,6 +22,9 @@ Ext.define('EatSense.view.MyOrders', {
 					xtype : 'titlebar',
 					title : i10n.translate('myOrdersTitle'),
 					items : [ 
+					{
+						xtype: 'slidenavbutton',
+					},
 					{
 						xtype: 'cartbutton'
 					}

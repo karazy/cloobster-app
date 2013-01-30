@@ -24,18 +24,6 @@ Ext.define('EatSense.view.ClubArea', {
 		items: [
 			{
 				xtype: 'clubdashboard'
-			},
-			{
-				xtype: 'feedbackform'
-			},
-			{
-				xtype: 'requeststab'
-			},
-			{
-				xtype: 'infopageoverview'
-			},
-			{
-				xtype: 'infopagecarousel'
 			}
 		]
 	},

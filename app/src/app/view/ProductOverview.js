@@ -3,7 +3,7 @@
  */
 Ext.define('EatSense.view.ProductOverview', {
 	extend : 'Ext.Container',
-	requires: ['EatSense.view.CartButton'],
+	requires: ['EatSense.view.CartButton', 'EatSense.view.components.SlidenavButton'],
 	xtype : 'productoverview',
 	config : {
 		items : [ 
@@ -12,7 +12,11 @@ Ext.define('EatSense.view.ProductOverview', {
 			xtype : 'titlebar',
 			itemId: 'menuTopBar',
 			title : i10n.translate('menuTitle'),
-			items : [ {
+			items : [ 
+			{
+				xtype: 'slidenavbutton'
+			},
+			{
 				xtype : 'fixedbutton',
 				itemId : 'menuBackBt',
 				action: 'back',

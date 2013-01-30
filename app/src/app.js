@@ -15,11 +15,11 @@ Ext.application({
 	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
   'Android', 'Feedback', 'Styles', 'Account', 'History', 'Lounge', 'Facebook', 'InfoPage' ],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
-  'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage'],
+  'PaymentMethod', 'Request', 'Newsletter', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area'],
 	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'Newsletter', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
     'EatSense.view.BackButton', 'EatSense.view.SettingsView', 'About', 'Privacy'], 
-	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage'],
+	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [
@@ -48,7 +48,8 @@ Ext.application({
 		'EatSense.model.AppState',
     'EatSense.override.CustomJsonWriter',
     'EatSense.override.MessageBox',
-    'GT.override.FixedButton'
+    'GT.override.FixedButton',
+    'EatSense.ux.slidenavigation.collapsible.View'
 	],
 	launch : function() {
 		console.log('App.launch');		

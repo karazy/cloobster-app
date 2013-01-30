@@ -6,23 +6,24 @@ Ext.define('EatSense.controller.Request',{
 	extend: 'Ext.app.Controller',
 	config: {
 		refs: {
+			lounge: 'lounge',
 			clubArea: 'clubarea',
-			showRequestViewButton: 'clubarea clubdashboard button[action=show-requests]',
+			showRequestViewButton: 'clubdashboard button[action=show-requests]',
 			callWaiterButton: 'requeststab button[action=waiter]',
 			callWaiterLabel: 'requeststab #callWaiterLabel',
 			accountLabel: 'requeststab #accountLabel',
-			backButton: 'requeststab button[action=back]'
+			// backButton: 'requeststab button[action=back]'
 		},
 		control: {
 			callWaiterButton: {
 				tap: 'toggleCallWaiterRequest'
 			},
 			showRequestViewButton: {
-				tap: 'showRequestView'
+				tap: 'showRequestViewButtonHandler'
 			},
-			backButton: {
-				tap: 'backButtonHandler'
-			}
+			// backButton: {
+			// 	tap: 'backButtonHandler'
+			// }
 		},
 
 		requestNavigationFunctions : new Array()
@@ -32,15 +33,12 @@ Ext.define('EatSense.controller.Request',{
 
 		messageCtr.on('eatSense.request', this.handleRequestMessage, this);
 	},
-	showRequestView: function(button) {
-		var me = this,
-			clubArea = this.getClubArea();
-
-		clubArea.setActiveItem(2);
-
-		this.getApplication().getController('Android').addBackHandler(function() {
-            me.backToDashboard();
-        });
+	/**
+	* Tap event handler for show showRequestViewButton on dashboard.
+	*/
+	showRequestViewButtonHandler: function(button) {
+		var lounge = this.getLounge();
+		lounge.getList().select(3);
 	},
 	toggleCallWaiterRequest: function(button, event) {
 		if(!button.mode || button.mode == 'call') {
@@ -219,17 +217,17 @@ Ext.define('EatSense.controller.Request',{
 	/**
 	* Tap handler for backbutton.
 	*/
-	backButtonHandler: function(button) {
-		this.backToDashboard();
-		this.getApplication().getController('Android').removeLastBackHandler();
-	},
+	// backButtonHandler: function(button) {
+	// 	this.backToDashboard();
+	// 	this.getApplication().getController('Android').removeLastBackHandler();
+	// },
 	/**
     * Return to dashboard view.
     */
-    backToDashboard: function(button) {
-    	var me = this,
-			clubArea = this.getClubArea();
+  //   backToDashboard: function(button) {
+  //   	var me = this,
+		// 	clubArea = this.getClubArea();
 
-		clubArea.switchTo(0, 'right');
-    }
+		// clubArea.switchTo(0, 'right');
+  //   }
 });

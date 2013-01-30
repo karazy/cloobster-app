@@ -4,12 +4,9 @@
 Ext.define('EatSense.view.RequestsTab', {
 	extend : 'Ext.Panel',
 	xtype : 'requeststab',
+	requires: ['EatSense.view.components.SlidenavButton'],
 	config : {
-		layout: {
-			type: 'vbox',
-			pack: 'center',
-			align: 'middle'
-		},
+		
 		cls: 'request-panel',
 		items : [
 			{
@@ -18,10 +15,18 @@ Ext.define('EatSense.view.RequestsTab', {
 				docked: 'top',
 				items:[
 				{
-					xtype: 'backbutton'
+					xtype: 'slidenavbutton'
 				}
 				]
-			},										
+			},
+			{
+					xtype: 'panel',
+				layout: {
+		type: 'vbox',
+		pack: 'center',
+		align: 'middle'
+	},				
+					items: [
 			{
 				xtype : 'panel',
 				html: '<img src="res/images/club/vip.png" />',
@@ -49,6 +54,10 @@ Ext.define('EatSense.view.RequestsTab', {
 				margin: '10 0 20 0',
 				width: '80%'
 			}			
+					]
+				}	
+							
+		
 		]
 	}
 });

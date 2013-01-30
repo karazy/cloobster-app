@@ -12,17 +12,19 @@ Ext.define('EatSense.controller.Feedback', {
 			showFeedbackButton: 'clubarea clubdashboard button[action=show-feedback]',
 			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
 			myordersview: 'lounge myorderstab',
+			feedbackform: 'feedbackform',
 			emailField: 'feedbackform emailfield',
 			commentField: 'feedbackform textareafield',
 			submitFeedBackButton: 'feedbackform button[action=submit]',
 			//back button in dashboard
-			backButton: 'clubarea feedbackform button[action=back]',
+			// backButton: 'clubarea feedbackform button[action=back]',
 			//back button in myordersview
-			backLeaveButton: 'myorderstab feedbackform button[action=back]'
+			backLeaveButton: 'myorderstab feedbackform button[action=back]',
+			loungeFeedbackView: 'lounge #loungeFeedback'
 		},
 		control: {
 			showFeedbackButton: {
-				tap: 'showFeedbackForm'
+				tap: 'showFeedbackButtonHandler'
 			},
 			submitFeedBackButton: {
 				tap: 'submitFeedback'
@@ -36,11 +38,20 @@ Ext.define('EatSense.controller.Feedback', {
 			commentField: {
 				change: 'saveComment'
 			},
-			backButton : {
-				tap: 'backButtonHandler'
-			},
+			// backButton : {
+			// 	tap: 'backButtonHandler'
+			// },
 			backLeaveButton: {
 				tap: 'backLeaveButtonHandler'
+			},
+			feedbackform: {
+				show: 'showFeedbackForm'
+			},
+			myordersview: {
+				show: 'myordersviewShowHandler'
+			},
+			loungeFeedbackView: {
+				show: 'loungeFeedbackViewShowHandler'
 			}
 		},
 
@@ -51,34 +62,68 @@ Ext.define('EatSense.controller.Feedback', {
 		/* "home" if opened from dashboard, "checkout" otherwise */
 		feedbackOrigin: null,
 		/* active feedback view */
-		activeFeedbackView: null
+		activeFeedbackView: null,
+		/* Indicates if feedback has been submitted */
+		submitted: false
 	},
-
-	/**
-	* Display feedback form from request tab.
-	* @param button
-	*	Button which fired tap event
-	*/
-	showFeedbackForm: function(button) {
+	init: function() {
 		var me = this,
-			clubArea = this.getClubArea(),
-			feedbackform = clubArea.down('feedbackform');
+			checkInCtr = this.getApplication().getController('CheckIn');
 
-		this.setFeedbackOrigin('home');
+		checkInCtr.on('statusChanged', function(status) {
+			if(status == appConstants.CHECKEDIN) {
+				this.setSubmitted(false);
+				this.loadFeedbackTemplate(restoreFeedback);
+
+			    function restoreFeedback() {
+			      //restore existing feedback
+			      if(checkInCtr.getAppState().get('feedbackId')) {
+			      	me.setSubmitted(true);
+			        me.loadFeedback(checkInCtr.getAppState().get('feedbackId'));
+			      }
+			    };
+			}
+			else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				this.cleanup();
+			}
+		}, this);
+
+		// this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
+	},
+	/**
+	* Tap event handler for show feedback button on dashboard.
+	*/
+	showFeedbackButtonHandler: function(button) {
+		var lounge = this.getLounge();
+		lounge.getList().select(3);
+	},
+	/**
+	* Show event handler for feedbackform.
+	* @param panel
+	*	The feedbackform
+	*/
+	showFeedbackForm: function(panel) {
+		// var me = this,
+		// 	lounge = this.getLounge(),
+		// 	feedbackform = lounge.down('feedbackform');
+
+		console.log('Feedback.showFeedbackForm');
+		// this.setFeedbackOrigin('home');
 		//make sure feedback form exists		
-		this.setActiveFeedbackView(feedbackform);
+		this.setActiveFeedbackView(panel);
 
-		//TODO FR 23.11.2012 Workaorund because Feedback sliders get drawn at random positions
-		//this doesn't really fix the problem only improves it
-		clubArea.switchTo(1, 'left');
-		me.propateFeedbackForm();
+		// clubArea.switchTo(1, 'left');
+		// lounge.getList().select(3);
+
+		this.propateFeedbackForm();
 					
-		this.getApplication().getController('Android').addBackHandler(function() {
-            me.backToDashboard();
-        });
+		// this.getApplication().getController('Android').addBackHandler(function() {
+  //           me.backToDashboard();
+  //       });
 	},
 
 	/**
+	* Tap event handler for feedback button in myordersview.
 	* Display feedback form from myorders tab.
 	* @param button
 	*	Button which fired tap event
@@ -89,16 +134,29 @@ Ext.define('EatSense.controller.Feedback', {
 			myordersview = this.getMyordersview(),
 			feedbackform = myordersview.down('feedbackform');
 		
+		console.log('Feedback.showFeedbackLeaveForm');
 		this.setFeedbackOrigin('checkout');
-		this.setActiveFeedbackView(feedbackform);
+		// this.setActiveFeedbackView(feedbackform);
 
 		//show feedback form
 		myordersview.setActiveItem(1);
-		me.propateFeedbackForm();
+		// me.propateFeedbackForm();
 
 		this.getApplication().getController('Android').addBackHandler(function() {
             me.backToMyOrders();
         });
+	},
+	/**
+	* Show event handler for myordersview.
+	*/
+	myordersviewShowHandler: function() {
+		this.toggleShowFeedbackLeaveButton(this.getSubmitted());
+	},
+	/**
+	* Show event handler for feedback view called from slidenav.
+	*/
+	loungeFeedbackViewShowHandler: function() {
+		this.setFeedbackOrigin('home');
 	},
 	/**
 	* Load Feedback data from server.
@@ -198,11 +256,8 @@ Ext.define('EatSense.controller.Feedback', {
 	submitFeedback: function(button) {
 		var me = this,
 			activeFeedback = this.getActiveFeedback(),
-			feedbackTemplate = this.getFeedbackTemplate(),
-			// feedback = this.getFeedback(),
-			// requestNavview = this.getRequestNavview(),			
+			feedbackTemplate = this.getFeedbackTemplate(),		
 			activeFeedbackView = this.getActiveFeedbackView(),
-			// questions = this.getQuestionsList(),
 			questions = activeFeedback.answers(),
 			emailField = activeFeedbackView.down('#email'),
 			commentField = activeFeedbackView.down('#comment'),
@@ -258,20 +313,19 @@ Ext.define('EatSense.controller.Feedback', {
 		});
 
 		//3. back to previous view
-		if(this.getFeedbackOrigin() == 'home') {
-			this.backToDashboard();			
+		if(this.getFeedbackOrigin() == 'checkout') {
+			this.backToMyOrders();			
 		} else if(this.getFeedbackOrigin()) {
-			this.backToMyOrders();
+			this.backToDashboard();			
 		} else {
 			console.log('Feedback.submitFeedback > incorrect feedback origin provided: ' + this.getFeedbackOrigin());
 		};
 
 		this.setFeedbackOrigin(null);
 		this.setActiveFeedbackView(null);
-		
 
-		//hide the feedback button after payment request when feedback has been submitted
-		this.getShowFeedbackLeaveButton().setHidden(true);
+		this.setSubmitted(true);
+		this.toggleShowFeedbackLeaveButton(true);		
 
 		Ext.Msg.show({
 			title : i10n.translate('feedbackCompleteTitle'),
@@ -292,10 +346,9 @@ Ext.define('EatSense.controller.Feedback', {
 	*/
 	enableFeedback: function() {
 		this.getShowFeedbackButton().setHidden(false);
-		// this.getFeedbackLabel().setHidden(false);
 
 		if(!this.getActiveFeedback() || !this.getActiveFeedback().get('id')) {
-			this.getShowFeedbackLeaveButton().setHidden(false);
+			this.toggleShowFeedbackLeaveButton(false);
 		}
 	},
 	/**
@@ -303,6 +356,8 @@ Ext.define('EatSense.controller.Feedback', {
 	* Disable feedback funtionality by hiding the buttons.
 	*/
 	disableFeedback: function() {
+		//TODO
+		return;
     	this.getShowFeedbackLeaveButton().setHidden(true);
 		this.getShowFeedbackButton().setHidden(true);
 	},
@@ -313,6 +368,11 @@ Ext.define('EatSense.controller.Feedback', {
 	*/
 	loadFeedback: function(id) {
 		var me = this;
+
+		if(!id) {
+			console.log('Feedback.loadFeedback: no id given');
+			return;
+		}
 
 		EatSense.model.Feedback.load(id, {
 			success: function(record, operation) {
@@ -376,19 +436,16 @@ Ext.define('EatSense.controller.Feedback', {
     /**
 	* Tap handler for backbutton.
 	*/
-	backButtonHandler: function(button) {
-		this.backToDashboard();
-		this.getApplication().getController('Android').removeLastBackHandler();
-	},
+	// backButtonHandler: function(button) {
+	// 	this.backToDashboard();
+	// 	this.getApplication().getController('Android').removeLastBackHandler();
+	// },
     /**
     * Return to dashboard view.
     */
     backToDashboard: function(button) {
-    	var me = this,
-			clubArea = this.getClubArea();
-
-		this.setFeedbackOrigin(null);
-		clubArea.switchTo(0, 'right');
+		var lounge = this.getLounge();
+		lounge.getList().select(0);
     },
      /**
 	* Tap handler for backbutton.
@@ -406,5 +463,24 @@ Ext.define('EatSense.controller.Feedback', {
 
 		this.setFeedbackOrigin(null);
 		myordersview.switchTo(0, 'right');
+    },
+    /**
+    * Show or hide the feedback button on leave.
+    */
+	toggleShowFeedbackLeaveButton: function(hide) {
+		if(this.getShowFeedbackLeaveButton()) {
+			this.getShowFeedbackLeaveButton().setHidden(hide);	
+		} else {
+			console.log('Feedback.toggleShowFeedbackLeaveButton: no button exists');
+		}
+	},
+    /**
+    * Cleanup 
+    */
+    cleanup: function() {
+    	//clear feedbackId
+    	this.setSubmitted(false);
+      	this.getApplication().getController('CheckIn').getAppState().set('feedbackId', null);
+      	this.clearFeedback();
     }
 });

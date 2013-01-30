@@ -426,7 +426,6 @@ Ext.define('EatSense.controller.CheckIn', {
     	var menuCtr = this.getApplication().getController('Menu'),
           requestCtr = this.getApplication().getController('Request'),
           androidCtr = this.getApplication().getController('Android'),
-          feedbackCtr = this.getApplication().getController('Feedback'),
           loungeCtr = this.getApplication().getController('Lounge'),
           accountCtr = this.getApplication().getController('Account');
 
@@ -434,8 +433,6 @@ Ext.define('EatSense.controller.CheckIn', {
         this.loadBusiness();
         menuCtr.showMenu();
         requestCtr.refreshAccountLabel();
-            //load feedback from server
-        feedbackCtr.loadFeedbackTemplate();
         // androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());        
 	},
   /**
@@ -498,8 +495,7 @@ Ext.define('EatSense.controller.CheckIn', {
         main = this.getMain(),
 		    orderCtr = this.getApplication().getController('Order'),
         messageCtr = this.getApplication().getController('Message'),
-        requestCtr = this.getApplication().getController('Request'),
-        feedbackCtr = this.getApplication().getController('Feedback');
+        requestCtr = this.getApplication().getController('Request');
 
         this.setActiveCheckIn(checkIn);
         //reload of application before hitting leave button
@@ -559,17 +555,6 @@ Ext.define('EatSense.controller.CheckIn', {
 
     //restore existing requests
     requestCtr.loadRequests();	
-    //load feedback from server
-    feedbackCtr.loadFeedbackTemplate(restoreFeedback);
-
-    function restoreFeedback() {
-      //restore existing feedback
-      if(me.getAppState().get('feedbackId')) {
-        feedbackCtr.loadFeedback(me.getAppState().get('feedbackId'));
-      }
-    };
-    
-    
 	},
   /**
   * @private
@@ -644,7 +629,6 @@ Ext.define('EatSense.controller.CheckIn', {
                 settingsCtr = this.getApplication().getController('Settings'),
                 androidCtr = this.getApplication().getController('Android'),
                 requestCtr = this.getApplication().getController('Request'),
-                feedbackCtr = this.getApplication().getController('Feedback'),
                 accountCtr = this.getApplication().getController('Account'),
                 appState = this.getAppState();
 
@@ -656,26 +640,23 @@ Ext.define('EatSense.controller.CheckIn', {
 
     }
 		else if(status == appConstants.PAYMENT_REQUEST) {
-			this.getMenuTab().tab.disable();
+			// this.getMenuTab().tab.disable();
 			// this.getCartTab().disable();
-      this.getSettingsTab().tab.disable();
-      this.getHomeTab().tab.disable();			
+      // this.getSettingsTab().tab.disable();
+      // this.getHomeTab().tab.disable();			
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 			this.showDashboard();
-      this.getMenuTab().tab.enable();
+      // this.getMenuTab().tab.enable();
 			// this.getCartTab().enable();
-      this.getSettingsTab().tab.enable();
-      this.getHomeTab().tab.enable();			
+      // this.getSettingsTab().tab.enable();
+      // this.getHomeTab().tab.enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());      
 
       orderCtr.cleanup();
 
       //clear checkInId
       this.getAppState().set('checkInId', null);
-      //clear feedbackId
-      this.getAppState().set('feedbackId', null);
-      feedbackCtr.clearFeedback();
       
       headerUtil.resetHeaders(['checkInId','pathId']);
 

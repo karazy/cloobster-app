@@ -7,12 +7,13 @@ Ext.define('EatSense.controller.InfoPage', {
 	requires: ['EatSense.view.InfoPageDetail', 'EatSense.util.Helper'],
 	config: {
 		refs: {
+			lounge: 'lounge',
 			clubArea: 'clubarea',
-			infoPageOverview: 'clubarea infopageoverview',
-			infoPageCarousel: 'clubarea infopagecarousel',
+			infoPageOverview: 'infopageoverview',
+			infoPageCarousel: 'infopageoverview infopagecarousel',
 			showInfoPageButton: 'clubarea clubdashboard button[action=show-infopage]',
-			infoPageCarouselBackButton: 'clubarea infopagecarousel button[action=back]',
-			infoPageBackButton: 'clubarea infopageoverview button[action=back]',
+			infoPageCarouselBackButton: 'infopageoverview infopagecarousel button[action=back]',
+			// infoPageBackButton: 'clubarea infopageoverview button[action=back]',
 			infoPageList: 'clubarea infopageoverview list',
 			infoPageSearchField: 'clubarea infopageoverview searchfield'
 		},
@@ -20,9 +21,9 @@ Ext.define('EatSense.controller.InfoPage', {
 			showInfoPageButton: {
 				tap: 'showInfoPageButtonHandler'
 			},
-			infoPageBackButton: {
-				tap: 'infoPageBackButtonHandler'
-			},
+			// infoPageBackButton: {
+			// 	tap: 'infoPageBackButtonHandler'
+			// },
 			infoPageList: {
 				select: 'showInfoPageDetail'
 			},
@@ -263,9 +264,9 @@ Ext.define('EatSense.controller.InfoPage', {
   	*/
 	showInfoPageDetail: function(dataview, record) {
 		var me = this,
+			infoPageOverview = this.getInfoPageOverview(),
 			ipcarousel = this.getInfoPageCarousel(),
 			carousel = ipcarousel.down('carousel'),
-			clubArea = this.getClubArea(),
 			androidCtr = this.getApplication().getController('Android'),
 			infoPageList = this.getInfoPageList(),
 			store = Ext.StoreManager.lookup('infopageStore'),
@@ -281,7 +282,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			carousel.setActiveItem(index);
 		}
 
-		clubArea.setActiveItem(ipcarousel);
+		infoPageOverview.setActiveItem(ipcarousel);
 
 		carousel.on('activeitemchange', this.setListIndex, this);
 
@@ -310,26 +311,35 @@ Ext.define('EatSense.controller.InfoPage', {
 	showInfoPageButtonHandler: function(button) {
 		var me = this,
 			infopageOverview = this.getInfoPageOverview(),
-			clubArea = this.getClubArea(),
+			lounge = this.getLounge(),
 			androidCtr = this.getApplication().getController('Android'),
 			store = Ext.StoreManager.lookup('infopageStore'),
 			searchfield = this.getInfoPageSearchField(),
 			list = this.getInfoPageList();
 
-		clubArea.setActiveItem(infopageOverview);
+
+		lounge.getList().select(2);
+
 
 		//reset search field
 		searchfield.setValue("");
 		store.clearFilter();				
 
 		androidCtr.addBackHandler(function() {
-            me.backToDashboard();
+            // me.backToDashboard();
         });
         
         Ext.defer(function() {
     		this.createCarouselPanels();
     	}, 50, this);
 
+	},
+
+	/**
+	* Tap event handler for show feedback button on dashboard.
+	*/
+	showFeedbackButtonHandler: function(button) {
+		
 	},
 	/**
 	* Tap event handler for infoPageBackButton.
@@ -370,14 +380,11 @@ Ext.define('EatSense.controller.InfoPage', {
     	var me = this,
     		infopageOverview = this.getInfoPageOverview(),
     		carousel = this.getInfoPageCarousel().down('carousel'),
-			clubArea = this.getClubArea(),
 			list = this.getInfoPageList();
-
 		
 
-		carousel.un('activeitemchange', this.setListIndex, this);		
-		clubArea.switchTo(infopageOverview, 'right');
-		// clubArea.animateActiveItem(infopageOverview, {type: 'slide', direction: 'right'});
+		carousel.un('activeitemchange', this.setListIndex, this);
+		infopageOverview.setActiveItem(0);	
 
 		//TEST
 		//scroll to selected element

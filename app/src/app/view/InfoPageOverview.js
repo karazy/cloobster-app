@@ -1,42 +1,54 @@
 Ext.define('EatSense.view.InfoPageOverview', {
 	extend: 'Ext.Panel',
 	xtype: 'infopageoverview',
-	requires: ['Ext.field.Search'],
+	requires: ['Ext.field.Search', 'EatSense.view.components.SlidenavButton'],
 	config: {
-		layout: 'fit',
+		layout: 'card',
+		activeItem: 0,
 		items: [
-			{
-				xtype: 'titlebar',
-				docked: 'top',
-				title: i10n.translate('infopage.overview.title'),
-				items: [
+				{
+					xtype: 'panel',
+					layout: {
+						type: 'fit'
+					},
+					items: [		
 					{
-						xtype: 'backbutton'						
+						xtype: 'titlebar',
+						docked: 'top',
+						title: i10n.translate('infopage.overview.title'),
+						items: [
+							{
+								xtype: 'slidenavbutton'
+							}
+						]
+					},
+					{
+						xtype: 'label',
+						docked: 'top',
+						itemId: 'hotelInfo',
+						cls: 'infopage-hotel-info',
+						tpl: '<img src="{imageUrl}" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
+					},
+					{
+						xtype: 'searchfield',
+						docked: 'top',
+						margin: '0 15 10 10',
+						style: 'border-radius: .3em;',
+						cls: 'general-textfield'
+					},
+					{
+						xtype: 'list',
+		   				allowDeselect: true,
+		   				scrollToTopOnRefresh: true,
+		   				store: 'infopageStore',
+						itemCls: 'infopage-list-item',
+						itemTpl: '<div class="info"><h3>{title}</h3><div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div></div>'
 					}
-				]
-			},
+				]},
 			{
-				xtype: 'label',
-				docked: 'top',
-				itemId: 'hotelInfo',
-				cls: 'infopage-hotel-info',
-				tpl: '<img src="{imageUrl}" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
-			},
-			{
-				xtype: 'searchfield',
-				docked: 'top',
-				margin: '0 15 10 10',
-				style: 'border-radius: .3em;',
-				cls: 'general-textfield'
-			},
-			{
-				xtype: 'list',
-   				allowDeselect: true,
-   				scrollToTopOnRefresh: true,
-   				store: 'infopageStore',
-				itemCls: 'infopage-list-item',
-				itemTpl: '<div class="info"><h3>{title}</h3><div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div></div>'
+				xtype: 'infopagecarousel'
 			}
+			
 		]
 	}
 });
