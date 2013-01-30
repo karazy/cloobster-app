@@ -12172,7 +12172,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 994, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
-.x-button-icon.cart-button {
+.x-button-icon.cart-button, .menu-icon {
   -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA5NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExOEMxNDgxNDFBRjY2NjkyRSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCRDk0MTQ3MDkyMjExMUUxODYwODg3RDU3NTM4QUM5QyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCRDk0MTQ2RjkyMjExMUUxODYwODg3RDU3NTM4QUM5QyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2ICgxMy4wIDIwMTIwMzA1Lm0uNDE1IDIwMTIvMDMvMDU6MjE6MDA6MDApICAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjAyODAxMTc0MDcyMDY4MTE4QzE0ODE0MUFGNjY2OTJFIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjAyODAx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');
 }
 
@@ -12192,7 +12192,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 1010, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
-.x-tab .x-button-icon.cash {
+.x-tab .x-button-icon.cash, .exit-icon {
   -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAB7CAAAewgFu0HU+AAAAB3RJTUUH3AkcCiYsQmaWswAAASpJREFUaN7tms0NwjAMhZ2oA5QVWKBLlFU6Ti6IOXIBxBBInJDYghHMpeKEhGiD7cTvSbk1iT/5t1WJIAiCIFXxvD6qawz0q6In2FaA+ZeHoyfY2oF5yaboCbZWYF6zOXqCrQ2YSxwSPcHWAswlD1sNnI/nsRZYIqJgzaB/s7UyS7sZLfWA+37znMOoxJKN8xU5XMpYRg4jhwFsAzjnPFoClihavOCuJooWe8xhbgY4ny67GqCDoleDt8FDxdOdslEsFGWmBg/2BkwppcnKYMJSaxiGa+F7F1Vp6cIS8HrY8NtS8AQcPHlYtA93AsawFdgSHn63gbQ/TJY9q/EBQLodmmlLQbNgRE+w0sDqsJLAJmClgM3AYpYG8I+63R9b68D45QEhDUEQZEgvVK5jjdkuW9sAAAAASUVORK5CYII=');
 }
 
@@ -12217,6 +12217,16 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 1030, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.feedback-icon {
+  -webkit-mask-image: url('data:image/png;base64,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');
+}
+
+/* line 1034, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.request-icon {
+  -webkit-mask-image: url('data:image/png;base64,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');
+}
+
+/* line 1038, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .newsletter-floating {
   border-radius: 0.3em !important;
   padding: 3px !important;
@@ -12224,7 +12234,7 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em !important;
 }
 
-/* line 1037, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1045, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .newsletter-register-button {
   width: 200px;
   margin-top: 5px;
@@ -12233,7 +12243,7 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Feedback
 */
-/* line 1046, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1054, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .star-button {
   height: 50px;
   width: 50px;
@@ -12243,7 +12253,7 @@ input[type="search"]::-webkit-search-cancel-button {
   background-position: center center;
 }
 
-/* line 1055, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1063, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .star-button-shining {
   height: 50px;
   width: 50px;
@@ -12253,24 +12263,24 @@ input[type="search"]::-webkit-search-cancel-button {
   background-position: center center;
 }
 
-/* line 1064, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1072, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .feedback-label {
   color: black;
   font-size: 1.2em;
   word-break: break-word;
 }
 
-/* line 1071, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1079, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .feedback-slider {
   background: #fffffb;
 }
 
-/* line 1075, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1083, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .feedback-slider .x-slider {
   top: 0.4em;
 }
 
-/* line 1079, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1087, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .feedback-panel {
   padding: 0.3em 0em;
 }
@@ -12278,42 +12288,42 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * General styles
 */
-/* line 1088, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1096, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-text {
   font-size: 0.8em;
   color: black;
   margin-bottom: 10px;
 }
-/* line 1093, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1101, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-text ul {
   margin-left: 20px;
   margin-bottom: 5px;
 }
-/* line 1096, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1104, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-text ul li {
   list-style: circle;
 }
 
-/* line 1102, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1110, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-label {
   color: black;
   font-size: 1em;
   text-align: center;
   width: 100%;
 }
-/* line 1108, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1116, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-label h1 {
   font-size: 1em;
   font-weight: bold;
   width: 100%;
 }
-/* line 1114, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1122, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-label p.small {
   font-size: 0.8em;
   width: 100%;
 }
 
-/* line 1121, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1129, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
@@ -12321,41 +12331,41 @@ input[type="search"]::-webkit-search-cancel-button {
   border: 1px solid black !important;
 }
 
-/* line 1128, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1136, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 1133, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1141, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 1138, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1146, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 1142, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1150, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 1147, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1155, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 1153, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1161, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .hidden {
   display: none;
 }
 
-/* line 1158, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1166, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -12363,7 +12373,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 1165, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1173, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -12371,7 +12381,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 1172, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1180, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .visible {
   display: block;
 }
@@ -12385,12 +12395,12 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 1189, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1197, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 1193, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1201, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-label {
   color: black;
   font-size: 1em;
@@ -12398,30 +12408,30 @@ h9 {
   text-align: center;
 }
 
-/* line 1200, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1208, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 10px;
 }
 
-/* line 1205, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1213, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 1209, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1217, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 1214, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1222, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 3px;
 }
 
-/* line 1219, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1227, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -12429,29 +12439,29 @@ h9 {
 /*
 * History
 */
-/* line 1226, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1234, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-wrapper {
   /*margin: 1em;*/
 }
 
-/* line 1230, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1238, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header {
   /*background: url(../images/history/header-bg-2.png) repeat-x;*/
   /*height: 2.2em;*/
   text-align: center;
   /*height: 100%;*/
 }
-/* line 1236, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1244, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header h1 {
   padding-top: 0.8em;
   font-size: 1em;
 }
-/* line 1240, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1248, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-header p {
   font-size: 0.8em;
 }
 
-/* line 1245, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1253, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-footer {
   /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
   /*background-position: left bottom;*/
@@ -12459,24 +12469,70 @@ h9 {
   /*height: 2em;*/
   text-align: center;
 }
-/* line 1253, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1261, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-footer h1 {
   font-size: 1em;
 }
 
-/* line 1259, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1267, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-list {
   /*background-color: #f3e8d5;*/
 }
 
-/* line 1263, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1271, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-item {
   /*background: url(../images/history/item-bg.png) repeat-x;*/
   height: 40px;
 }
-/* line 1267, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1275, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .history-detail-item .x-list-item-label {
   border: none !important;
+}
+
+/* Slidenavigation */
+/* line 1282, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.slidenav-icon {
+  width: 30px;
+  height: 2.6em;
+  float: left;
+  background-color: black;
+  background-image: none;
+  -webkit-mask-size: 1.6em;
+  margin: 0 auto;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* line 1294, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.slidenav-badge {
+  top: 10px;
+  /*  sencha copy paste, some adjustments */
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.2em;
+  border-radius: 1em;
+  padding: .1em .3em;
+  /* To prevent overlapping in login window. */
+  /*z-index: 2;*/
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  overflow: hidden;
+  color: #FCC;
+  border: 1px solid #900;
+  position: absolute;
+  width: auto;
+  min-width: 2em;
+  line-height: 1.2em;
+  font-size: .6em;
+  right: 10px;
+  max-width: 95%;
+  background-color: #C00;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff6666), color-stop(2%, #f00000), color-stop(100%, #a80000));
+  background-image: -webkit-linear-gradient(#ff6666, #f00000 2%, #a80000);
+  background-image: linear-gradient(#ff6666, #f00000 2%, #a80000);
+  display: inline-block;
 }
 
 /*
@@ -12485,7 +12541,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 1279, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1332, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -12493,19 +12549,19 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 1286, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1339, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-hasbadge > .x-badge {
   /*border-radius: 1em;*/
 }
 
 /* Perf. optimization for android. And tweak of laf.*/
-/* line 1291, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1344, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
   border-radius: 0.1em !important;
   background-color: #6699cc !important;
 }
-/* line 1296, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1349, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating > .x-dock.x-sized {
   margin: 2px;
 }
@@ -12514,7 +12570,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 1305, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1358, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -12522,7 +12578,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 1312, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1365, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -12534,7 +12590,7 @@ h9 {
 /*.x-list-round .x-scroll-view {
   background-color: $page-bg-color !important;
 }*/
-/* line 1324, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1377, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -12542,16 +12598,16 @@ h9 {
   color: white !important;
 }
 
-/* line 1331, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1384, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #ff9933 !important;
 }
-/* line 1334, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1387, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #ff9933 !important;
 }
 
-/* line 1340, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1393, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   /*@include background-gradient($active-color, $base-gradient);*/
   background-color: #ff9933;
@@ -12565,26 +12621,26 @@ h9 {
   bottom: 5px;
 }
 
-/* line 1355, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1408, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
 }
 
-/* line 1359, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1412, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
 }
 
 /* Override background color of icons. */
-/* line 1365, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1418, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button .x-button-icon {
   background-color: white !important;
   background-image: none !important;
 }
 
 /* Force action button to have white text color. */
-/* line 1371, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1424, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: white;
 }
@@ -12601,21 +12657,21 @@ h9 {
 * Same functionality as $list-zebrastribe: true; Since this doesn't work on Android 2.x we still have 
 * seperator between list items. .x-list-item:nth-child(even) 
 */
-/* line 1392, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1445, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item {
   /*background-color: darken($list-bg-color, 5%);*/
 }
-/* line 1394, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1447, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item .x-dock-horizontal {
   border-top: 1px solid lightgrey;
 }
-/* line 1398, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1451, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid lightgrey;
 }
 
 /* Override because otherwise a white background ist set. Don't know why ;) */
-/* line 1404, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1457, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list .x-list-item.x-item-pressed .x-dock-horizontal {
   border-top-color: #ffe6cc;
   background-color: #ffe6cc;

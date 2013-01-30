@@ -64,6 +64,19 @@
 		/* Android Back Handlers */
 		myordersNavigationFunctions : new Array()
 	},
+	launch: function() {
+		var checkInCtr = this.getApplication().getController('CheckIn');
+
+		checkInCtr.on('resumecheckin', this.loadExistingOrders, this);
+
+		checkInCtr.on('statusChanged', function(status) {
+			if(status == appConstants.CHECKEDIN) {
+				
+			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				this.cleanup();
+			}
+		}, this);
+	},
 	toggleQuickLeaveMode: function(panel, tab, old, e) {
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn'),
@@ -934,11 +947,12 @@
 			orderStore = Ext.StoreManager.lookup('orderStore'),
 			badgeText;
 
-		if(loungeview && loungeview.getTabBar()) {
-			//get the leave tab
-			button = loungeview.getTabBar().getAt(2);
-		} else {
-			console.log('Order.refreshMyOrdersBadgeText: loungeview has no tabbar!');
+		
+		button = loungeview.getList().getStore().getAt(4);
+
+		if(!button) {
+			console.log('Order.refreshMyOrdersBadgeText: button not found');
+			return;
 		}
 
 		if(clear) {
@@ -957,7 +971,8 @@
 				//show description when checkout is empty
 				this.getCheckoutDescription().setHidden(false);
 			}
-			button.setBadgeText(badgeText);
+			// button.setBadgeText(badgeText);
+			button.set('badgeText', badgeText);
 		}
 	},
 	/**
@@ -1380,6 +1395,34 @@
 			//show a message 
 			Ext.Msg.alert(i10n.translate('hint'), i10n.translate('myorders.messages.billnew.message', bill.get('paymentMethod')));
 		}
+	},
+	/**
+	* Loads existig orders placed in cart for given check-in.
+	* Refreshes cart and myorderslist afterwards.
+	* @param checkIn
+	*	CheckIn to load orders for.
+	*/
+	loadExistingOrders: function(checkIn) {
+		var me = this;
+		   			//after spot information is restored and stores are initialized load orders
+   			
+   			if(!checkIn) {
+   				console.log('Order.loadExistingOrders: no checkIn given');
+   				return;
+   			}
+
+   			checkIn.orders().load({
+   				scope: this,
+   				params: {
+   					'status': appConstants.Order.CART
+   				},
+   				callback: function(records, operation, success) {
+   					if(!operation.error) {
+   						me.refreshCart();
+             			me.refreshMyOrdersList();
+   					}
+   				}
+   			});
 	},
 	/**
 	* Close windows, reset fields and so on...

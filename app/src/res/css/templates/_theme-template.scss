@@ -991,7 +991,7 @@
   -webkit-mask-image: inline-image('buttons/about.png');
 }
 
-.x-button-icon.cart-button {
+.x-button-icon.cart-button, .menu-icon {
   -webkit-mask-image: inline-image('/buttons/bestellung.png');
 }
 
@@ -1007,7 +1007,7 @@
   -webkit-mask-image: inline-image('/buttons/notes.png');
 }
 
-.x-tab .x-button-icon.cash {
+.x-tab .x-button-icon.cash, .exit-icon {
   -webkit-mask-image: inline-image('/buttons/exit.png');
 }
 
@@ -1025,6 +1025,14 @@
 
 .x-button-icon.cash {
   -webkit-mask-image: inline-image('/buttons/kasse.png');
+}
+
+.feedback-icon {
+  -webkit-mask-image: inline-image('../images/club/feedback.png'); 
+}
+
+.request-icon {
+  -webkit-mask-image: inline-image('../images/club/vip.png');  
 }
 
 .newsletter-floating {
@@ -1267,6 +1275,51 @@ h9 {
   .x-list-item-label {
     border: none !important;
   }
+}
+
+/* Slidenavigation */
+
+.slidenav-icon {
+  width: 30px;
+  height: 2.6em;
+  float: left;
+  background-color: $label-color;
+  background-image: none;
+  -webkit-mask-size: 1.6em;
+  margin: 0 auto;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+.slidenav-badge {
+  top: 10px;
+  /*  sencha copy paste, some adjustments */
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.2em;
+  border-radius: 1em;
+  padding: .1em .3em;
+  /* To prevent overlapping in login window. */
+  /*z-index: 2;*/
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
+  overflow: hidden;
+  color: #FCC;
+  border: 1px solid #900;
+  position: absolute;
+  width: auto;
+  min-width: 2em;
+  line-height: 1.2em;
+  font-size: .6em;
+  right: 10px;
+  max-width: 95%;
+  background-color: #C00;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F66), color-stop(2%, #F00000), color-stop(100%, #A80000));
+  background-image: -webkit-linear-gradient(#F66, #F00000 2%, #A80000);
+  background-image: linear-gradient(#F66, #F00000 2%, #A80000);
+  display: inline-block;
 }
 
 /*

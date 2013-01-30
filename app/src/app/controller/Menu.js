@@ -148,7 +148,7 @@ Ext.define('EatSense.controller.Menu', {
     	parentMenu = menuStore.getById(product.get('menu_id'));
     	//show the product list
     	this.showProductlist(null, parentMenu);
-    	loungeview.setActiveItem(menuview);
+    	loungeview.getList().select(1);
     	//show product detail by triggering the select
     	this.getProductlist().select(product);
     	

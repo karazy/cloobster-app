@@ -13,6 +13,7 @@ Ext.define('EatSense.controller.Android', {
 		keepHandler: false
 	},
 	launch: function() {
+		var checkInCtr = this.getApplication().getController('CheckIn');
 		// var keepHandler = false;
 		
 		Ext.Viewport.element.on('tap', function() {
@@ -37,6 +38,14 @@ Ext.define('EatSense.controller.Android', {
 		// 	};
 		// 	this.setKeepHandler(false);
 		// }, this);
+
+		checkInCtr.on('statusChanged', function(status) {
+			if(status == appConstants.CHECKEDIN) {
+				
+			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				this.resetBackHandler();
+			}
+		}, this);
 	},
 
 	addBackHandler: function(handler) {

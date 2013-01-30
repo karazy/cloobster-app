@@ -425,15 +425,13 @@ Ext.define('EatSense.controller.CheckIn', {
 	showLounge: function() {
     	var menuCtr = this.getApplication().getController('Menu'),
           requestCtr = this.getApplication().getController('Request'),
-          androidCtr = this.getApplication().getController('Android'),
           loungeCtr = this.getApplication().getController('Lounge'),
           accountCtr = this.getApplication().getController('Account');
 
         loungeCtr.initDashboard();
         this.loadBusiness();
         menuCtr.showMenu();
-        requestCtr.refreshAccountLabel();
-        // androidCtr.setAndroidBackHandler(menuCtr.getMenuNavigationFunctions());        
+        requestCtr.refreshAccountLabel();      
 	},
   /**
   * Shows an about screen.
@@ -493,7 +491,6 @@ Ext.define('EatSense.controller.CheckIn', {
 	restoreState: function(checkIn) {
 		var me = this,
         main = this.getMain(),
-		    orderCtr = this.getApplication().getController('Order'),
         messageCtr = this.getApplication().getController('Message'),
         requestCtr = this.getApplication().getController('Request');
 
@@ -522,22 +519,11 @@ Ext.define('EatSense.controller.CheckIn', {
    			 this.showLounge();
    			    			
    			Ext.Viewport.add(main);
+
+        me.fireEvent('resumecheckin', me.getActiveCheckIn());
+
         me.fireEvent('statusChanged', appConstants.CHECKEDIN);
-   			
-   			//after spot information is restored and stores are initialized load orders
-   			
-   			this.getActiveCheckIn().orders().load({
-   				scope: this,
-   				params: {
-   					'status': appConstants.Order.CART
-   				},
-   				callback: function(records, operation, success) {
-   					if(!operation.error) {
-   						orderCtr.refreshCart();
-              orderCtr.refreshMyOrdersList();
-   					}
-   				}
-   			});
+
 
          //open a channel for push messags
          try {
@@ -625,9 +611,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	 */
 	handleStatusChange: function(status) {
 		console.log('CheckIn Controller -> handleStatusChange' + ' new status '+status);
-        var     orderCtr = this.getApplication().getController('Order'),
-                settingsCtr = this.getApplication().getController('Settings'),
-                androidCtr = this.getApplication().getController('Android'),
+        var     settingsCtr = this.getApplication().getController('Settings'),
                 requestCtr = this.getApplication().getController('Request'),
                 accountCtr = this.getApplication().getController('Account'),
                 appState = this.getAppState();
@@ -653,8 +637,6 @@ Ext.define('EatSense.controller.CheckIn', {
       // this.getHomeTab().tab.enable();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());      
 
-      orderCtr.cleanup();
-
       //clear checkInId
       this.getAppState().set('checkInId', null);
       
@@ -663,7 +645,6 @@ Ext.define('EatSense.controller.CheckIn', {
       appChannel.closeChannel();
 
       requestCtr.resetAllRequests();
-      androidCtr.resetBackHandler();
 
       this.getActiveSpot().payments().removeAll(true);
       this.setActiveSpot(null);

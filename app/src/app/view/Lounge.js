@@ -2,7 +2,6 @@
 *
 */
 Ext.define('EatSense.view.Lounge', {
-	// extend : 'Ext.tab.Panel',
 	extend: 'EatSense.ux.slidenavigation.collapsible.View',
 	requires : [ 
 		'EatSense.view.MyOrders', 
@@ -20,27 +19,21 @@ Ext.define('EatSense.view.Lounge', {
          *  will be draggable.  To disable draggin all together, set this
          *  to false.
          */
-        slideSelector: 'slidenavigation-button',
-        
+        slideSelector: 'slidenavigation-button',    
         /**
          *  Time in milliseconds to animate the closing of the container
          *  after an item has been clicked on in the list.
          */
         selectSlideDuration: 0,
         slideDuration: 0,
-		// layout: {
-  //          type: 'card',
-  //          //override default tabpanel animation setting
-  //          animation: null
-  //       },
-		// tabBarPosition: 'bottom',
-		// tabBar : {
-		// 	itemId : 'loungeTabBar',
-		// 	cls: 'lounge-tabbar'
-		// 	//true to hide tabbar for screenhots to keep our features secret
-		// 	// hidden: true
-		// },
-		// activeItem : 0,
+        // container: {
+        // 	items: [
+        // 		{
+        // 			xtype: 'titlebar',
+        // 			title: i10n.translate('slidenav.title')
+        // 		}
+        // 	]
+        // },
 		items : [
 		// {
 		// 	title: 'Group 1',
@@ -66,6 +59,7 @@ Ext.define('EatSense.view.Lounge', {
 			{
 				title: i10n.translate('requestsTitle'),
 				xtype: 'requeststab',
+				iconCls: 'request-icon',
 				leaf: true,
 				preCreate: true
 			},
@@ -90,9 +84,7 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'settingstab',
 				title: i10n.translate('settingsButton'),
 				leaf: true
-			}
-		// 	]
-		// }			
+			}			
 		]
 	},
 	/**
