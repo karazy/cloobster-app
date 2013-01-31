@@ -314,6 +314,25 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             list.select ( this.prevsel );
             return; // not a leaf
         }
+
+        //if basic mode is active look for a welcome fn, otherwise proceed as normal
+        if(me.getBasicMode() === true && Ext.isFunction(item.raw.basicFn)) {
+            //don't select item
+            list.deselect(item);
+            list.select ( this.prevsel );
+            item.raw.basicFn();
+            return
+        }
+
+        //welcome mode is active look for a welcome fn, otherwise proceed as normal
+        if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
+            //don't select item
+            list.deselect(item);
+            list.select ( this.prevsel );
+            item.raw.welcomeFn();
+            return
+        }
+
         this.prevsel = item;
 
         if (me._cache[index] == undefined) {
@@ -334,10 +353,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             }
         }
 
-        //welcome mode is active look for a welcome fn, otherwise proceed as normal
-        if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
-            item.raw.welcomeFn();
-        } else if (Ext.isFunction(this._cache[index])) {
+        if (Ext.isFunction(this._cache[index])) {
             this._cache[index]();
         } else {
             container.setActiveItem(this._cache[index]);

@@ -65,6 +65,8 @@ Ext.define('EatSense.controller.InfoPage', {
 	          }
 	        }
 	      })
+	    } else {
+	    	console.error('InfoPage.launch: no lounge view found!');
 	    }
 
 		// always show teaser

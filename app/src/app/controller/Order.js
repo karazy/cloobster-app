@@ -77,39 +77,47 @@
 				this.cleanup();
 			}
 		}, this);
+
+		checkInCtr.on('basicmode', this.toggleQuickLeaveMode, this);
 	},
-	toggleQuickLeaveMode: function(panel, tab, old, e) {
+	/**
+	* @private
+	* Activates a quick leave mode when business is a basic one.
+	* Quick leave means that instead of displaying the myorders screen
+	* User directly gets asked if he wants to check out.
+	* @param {Boolean} basicMode
+	*	indicates the state of the basic mode
+	*/
+	toggleQuickLeaveMode: function(basicMode) {
 		var me = this,
-			checkInCtr = this.getApplication().getController('CheckIn'),
-			activeBusiness = null,
-			activeCheckIn = null,
-			myordersStore = Ext.StoreManager.lookup('orderStore'),
-			myordersview = this.getMyordersview();
+			loungeview = this.getLoungeview(),
+			listItem;
 
-		// console.log('Order.toggleQuickLeaveMode: 1');
+		if(loungeview) {
+			listItem = loungeview.getItemByAction('show-myorders');
+			//if basic mode is active hack the slide nav list and add a quick leave funtion
+			if(!listItem) {
+				return;
+			}
 
-		if(tab == myordersview) {	
-			// console.log('Order.toggleQuickLeaveMode: 2');
-			activeBusiness = checkInCtr.getActiveBusiness();
-			activeCheckIn = checkInCtr.getActiveCheckIn();
-
-			//only show exit prompt when in basic mode or no orders are in cart or placed!
-			// || (activeCheckIn && activeCheckIn.orders().getCount() == 0 && myordersStore && myordersStore.getCount() == 0 )
-			if((activeBusiness && activeBusiness.get('basic') == true)) {
-					// console.log('Order.toggleQuickLeaveMode: 3');
+			if(basicMode) {
+				listItem.raw.basicFn = function() {
 					me.leave();
-					return false;				
+					return;
+				}
+			} else {
+				listItem.raw.basicFn = null;
+				delete listItem.raw.basicFn;
 			}
 		}
 	},
+
 	init: function() {
 		//store retrieved models
 		var	messageCtr = this.getApplication().getController('Message');
 
     	messageCtr.on('eatSense.order', this.handleOrderMessage, this);
-    	messageCtr.on('eatSense.bill', this.handleBillMessage, this);
-
-    	// this.getApplication().getController('CheckIn').on('basicmode', this.toggleQuickLeaveMode, this);
+    	messageCtr.on('eatSense.bill', this.handleBillMessage, this);    	
 	},
 	/**
     * Activate event handler for myordersview.
