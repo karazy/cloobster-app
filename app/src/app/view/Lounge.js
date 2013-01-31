@@ -19,25 +19,38 @@ Ext.define('EatSense.view.Lounge', {
          *  will be draggable.  To disable draggin all together, set this
          *  to false.
          */       
-        slideSelector: 'slidenav-toggle',
+        // slideSelector: 'slidenav-toggle',
+        slideSelector: 'x-slidenavigation-bezel',
         /**
          *  Time in milliseconds to animate the closing of the container
          *  after an item has been clicked on in the list.
          */
-        selectSlideDuration: 0,
-        slideDuration: 0,
+        // selectSlideDuration: 50,
+        // slideDuration: 50,
         container: {
-        	items: [
+        	items: [     
+        		{
+        			xtype: 'container',
+        			cls: 'x-slidenavigation-bezel',
+        			id: 'slidenavigationbezel',
+        			left: 0,
+        			top: 0,
+        			bottom: 0,
+        			width: 15,
+        			style: 'background-color: transparent;'
+        		},   	
         		//the button to reveal the slide navigation
         		{
         			xtype: 'fixedbutton',
-        			docked:'bottom',
+        			// docked:'bottom',
         			iconCls: 'mask',
         			cls: 'slidenav-toggle',
         			action: 'toggle-navigation',
         			floatingCls: 'dummy-cls',
-        			bottom: 5
+        			bottom: 5,
+        			left: 0		
         		}
+        		
         	]
         },
 		items : [	

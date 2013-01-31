@@ -151,7 +151,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         /**
          * @cfg {Boolean} set to true when basic mode is active
          */
-        basicMode: false,
+        basicMode: false
     },
         
     initConfig: function() {
@@ -478,7 +478,20 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      */
     closeContainer: function(duration) {
         var duration = duration || this.config.slideDuration;
-        this.moveContainer(0, duration);
+
+
+        // this.config.slideSelector = false;
+        Ext.defer(function() {
+            this.getContainer().getActiveItem().setMasked(false);
+        }, 10, this);
+        // this.getContainer().getActiveItem().setMasked(false);
+        Ext.getCmp('slidenavigationbezel').setWidth('15px');
+        this.moveContainer(0, duration);   
+
+        
+        // this.getContainer().element.un({
+        //     'tap': this.closeContainerNoDuration
+        // });
     },
     
     /**
@@ -487,7 +500,14 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     openContainer: function(duration) {
         var duration = duration || this.config.slideDuration;
         this.getContainer().addCls('open');
+
+
+        // this.config.slideSelector = 'x-slidenavigation-container';
+        this.getContainer().getActiveItem().setMasked(true);
+
         this.moveContainer(this.config.list.width, duration);
+
+        Ext.getCmp('slidenavigationbezel').setWidth('100%');
     },
     
     toggleContainer: function(duration) {
@@ -538,6 +558,11 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          
         if (closed) {
             this.getContainer().removeCls('open');
+            // this.config.slideSelector = false;
+            Ext.getCmp('slidenavigationbezel').setWidth('15px');
+            Ext.defer(function() {
+                this.getContainer().getActiveItem().setMasked(false);
+            }, 10, this);
             
             /*
             Ext.each(this.getContainer().getActiveItem().getItems().items, function(item) {
@@ -548,6 +573,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             */
         } else {
             this.getContainer().addCls('open');
+            // this.config.slideSelector = 'x-slidenavigation-container';
+            Ext.getCmp('slidenavigationbezel').setWidth('100%');
+            this.getContainer().getActiveItem().setMasked(true);
             /*
             Ext.each(this.getContainer().getActiveItem().getItems().items, function(item) {
                 if (item.maskOnSlide) {
@@ -707,7 +735,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     },
 
     /**
-    * Returns the first list record matching the given action-
+    * Returns the first list record matching the given action.
     * @param {String} action
     *   Action to match the records property
     * @return {Ext.Model} record if found null otherwise

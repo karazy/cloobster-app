@@ -1323,7 +1323,9 @@ h9 {
   .mask {
     background-color: white !important;
     -webkit-mask-size: 30px;
-    -webkit-mask-image: inline-image('../images/list.png');
+    /*-webkit-mask-image: inline-image('../images/list.png');*/
+    -webkit-mask-image: inline-image('../images/logo_hat_96_96.png');
+    
     -webkit-mask-position: right center;
     -webkit-mask-repeat: no-repeat;
     width: 30px;

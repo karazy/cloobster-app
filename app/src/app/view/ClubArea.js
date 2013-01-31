@@ -12,13 +12,9 @@ Ext.define('EatSense.view.ClubArea', {
 		title: i10n.translate('clubdashboard.tab.title'),
 		iconMask: true,
 		layout: {
-				type: 'card',
-				//override default tabpanel animation setting
-				animation : null
-				// {
-					// type : 'none',
-					// direction : 'left'
-				// }
+			type: 'card',
+			//override default tabpanel animation setting
+			animation : null
 		},
 		activeItem: 0,
 		items: [
