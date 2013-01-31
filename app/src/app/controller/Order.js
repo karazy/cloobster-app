@@ -71,6 +71,7 @@
 
 		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
+				// if(check)
 				
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();

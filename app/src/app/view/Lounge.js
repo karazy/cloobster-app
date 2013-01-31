@@ -79,7 +79,10 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				preCreate: true,
 				hideOnBasic: true,
-				action: 'show-requests'
+				action: 'show-requests',
+				welcomeFn: function() {
+					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+				}
 			},
 			{	
 				xtype: 'myorderstab',
@@ -98,7 +101,10 @@ Ext.define('EatSense.view.Lounge', {
 				backButton: false,
 				hideOnBasic: true,
 				preCreate: true,
-				action: 'show-feedback'
+				action: 'show-feedback',
+				welcomeFn: function() {
+					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+				}
 			},
 			{
 				xtype: 'settingstab',

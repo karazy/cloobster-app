@@ -34,12 +34,13 @@ Ext.define('EatSense.controller.Lounge', {
   launch: function() {
     var checkInCtr = this.getApplication().getController('CheckIn');
 
-    checkInCtr.on('basicmode', this.manageSlidenavigation, this);
+    checkInCtr.on('basicmode', this.manageBasicMode, this);
 
     checkInCtr.on('statusChanged', function(status) {
       if(status == appConstants.CHECKEDIN) {
         this.getLoungeview().getList().select(0);
-         this.toggleSlidenavButtons(true);
+        this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
+        this.toggleSlidenavButtons(true);
       }  else if(status == appConstants.PAYMENT_REQUEST) {
          this.toggleSlidenavButtons(false);
       } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
@@ -57,22 +58,24 @@ Ext.define('EatSense.controller.Lounge', {
   /**
   * Manages the slidenavigation menu based on given parameters.
   * @param basicMode
-  *   Toggles visibility of flagged menu items.
+  *   Toggles visibility of flagged menu items. And activates basicmode on slide navigation.
   */
-  manageSlidenavigation: function(basicMode) {
+  manageBasicMode: function(basicMode) {
       var lounge = this.getLoungeview();
 
       if(!lounge) {
-          console.log('Lounge.manageSlidenavigation: no loungeview found!');
+          console.log('Lounge.manageBasicMode: no loungeview found!');
           return;
       }
 
       if(!lounge.getList()) {
-        console.log('Lounge.manageSlidenavigation: loungeview contains no list with navigation items!');
+        console.log('Lounge.manageBasicMode: loungeview contains no list with navigation items!');
           return; 
       }
 
-      console.log('Lounge.manageSlidenavigation: basicMode=' + basicMode);
+      console.log('Lounge.manageBasicMode: basicMode=' + basicMode);
+
+      lounge.setBasicMode(basicMode);
 
       //hide all elements with flag hideOnBasic
       if(basicMode == true) {

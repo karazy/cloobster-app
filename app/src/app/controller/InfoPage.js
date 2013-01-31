@@ -52,7 +52,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			}
 		}, this);
 
-		checkInCtr.on('business-loaded', this.showHotelInfoHeader, this);
+		checkInCtr.on('businessloaded', this.showHotelInfoHeader, this);
 
 		if(lounge) {
 	      lounge.getList().on({
@@ -210,7 +210,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			this.removeInfoPageDetailPanels();
 
 			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
-			//executed on business-loaded event
+			//executed on businessloaded event
 			// this.showHotelInfoHeader();
 			try {
 				EatSense.util.Helper.toggleMask('infopage.loadingmsg');

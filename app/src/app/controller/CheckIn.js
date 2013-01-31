@@ -6,6 +6,33 @@
  */
 Ext.define('EatSense.controller.CheckIn', {
     extend: 'Ext.app.Controller',
+
+    /**
+     * @event statusChanged
+     * Fires whenever the checkin changed its status.
+     * It is one of the list available under EatSense.util.Constants
+     * @param {String} the status
+     */
+
+     /**
+     * @event resumecheckin
+     * Fires on resume of a checkin.
+     * @param {EatSense.model.CheckIn} the checkin
+     */     
+
+    /**
+     * @event basicmode
+     * Fires after the spot is loaded. 
+     * @param {Boolean} True if basic mode is active, false otherwise.
+     */
+
+    /**
+     * @event businessloaded
+     * Fires when business data is loaded.
+     * @param {EatSense.model.Business} the loaded business.
+     */
+
+
     requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message'],
     config: {
         profile: Ext.os.deviceType.toLowerCase(),
@@ -556,7 +583,8 @@ Ext.define('EatSense.controller.CheckIn', {
       success: function(record) {
         me.setActiveBusiness(record);
         me.activateBasicMode(record.get('basic'));
-        me.fireEvent('business-loaded',record);
+        me.fireEvent('businessloaded',record);
+        //notify listeners about the basic mode
         me.fireEvent('basicmode',record.get('basic'));
 
         try {

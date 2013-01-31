@@ -28,13 +28,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         list: {
             width: 250,
             maxDrag: null,
-            itemCls: 'x-slidenavigation-item',
-            // items: [{
-            //     xtype: 'titlebar',
-            //     title: i10n.translate('slidenav.list.title'),
-            //     docked: 'top',
-            //     ui: 'light'
-            // }]
+            itemCls: 'x-slidenavigation-item'
         },
 
         /**
@@ -138,7 +132,20 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          * @cfg {Boolean} defaultExpanded
          */
         defaultExpanded: false,
-        useAnimation: true
+        /**
+         * @cfg {Boolean} useAnimation
+         */
+        useAnimation: true,
+
+        //extended my Karazy GmbH
+        /**
+         * @cfg {Boolean} set to true when welcome mode is active
+         */
+        welcomeMode: false,
+        /**
+         * @cfg {Boolean} set to true when basic mode is active
+         */
+        basicMode: false,
     },
         
     initConfig: function() {
@@ -248,7 +255,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                me.assignIndexes ( item.items );
            }
        });
-    }, 
+    },
 
     /**
      *  Creates a button that can toggle the navigation menu.  For an example
@@ -316,7 +323,8 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             // create an Ext object
             if (Ext.isFunction(item.raw.handler)) {
                 me._cache[index] = item.raw.handler;
-            } else {
+            }
+            else {
                 me._cache[index] = container.add(Ext.merge(me.config.defaults, item.raw));
 
                 // Add a button for controlling the slide, if desired
@@ -325,8 +333,11 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 }
             }
         }
-        
-        if (Ext.isFunction(this._cache[index])) {
+
+        //welcome mode is active look for a welcome fn, otherwise proceed as normal
+        if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
+            item.raw.welcomeFn();
+        } else if (Ext.isFunction(this._cache[index])) {
             this._cache[index]();
         } else {
             container.setActiveItem(this._cache[index]);
@@ -410,7 +421,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 config: {
                    // idProperty: 'index',
                     fields: [
+                        //used internally for caching
                         'index',
+                        //title used for display
                         {
                             name: 'title',
                             type: 'string'
@@ -668,6 +681,22 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         }
 
         return targets;
+    },
+
+    /**
+    * Returns the first list record matching the given action-
+    * @param {String} action
+    *   Action to match the records property
+    * @return {Ext.Model} record if found null otherwise
+    */
+    getItemByAction: function(action) {
+        var record = null,
+            list = this.getList();
+
+        record = list.getStore().findRecord('action', action, 0, false, false, true);
+
+
+        return record;
     }
 
 });
