@@ -40,34 +40,26 @@ Ext.define('EatSense.controller.InfoPage', {
 	launch: function() {		
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn'),
-			lounge = this.getLounge();
+			lounge;			
 
 		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.setPanelsCreated(false);
 				this.loadInfoPages();
 				this.setImageForInfoButton(checkInCtr.getActiveSpot());
+				lounge = this.getLounge();
+				if(lounge) {
+					lounge.getList().on({
+						select: me.loungeListSelect,
+						scope: me
+					});
+				}
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-				this.cleanup();
+				this.cleanup();				
 			}
 		}, this);
 
 		checkInCtr.on('businessloaded', this.showHotelInfoHeader, this);
-
-		if(lounge) {
-	      lounge.getList().on({
-	        select: function(list, record) {
-	          if(record.get('action') == 'show-infopage') {
-	          	//creates carousels on first access
-	          	if(!me.getPanelsCreated()) {
-	            	me.createCarouselPanels();
-	        	}
-	          }
-	        }
-	      })
-	    } else {
-	    	console.error('InfoPage.launch: no lounge view found!');
-	    }
 
 		// always show teaser
 		//this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);		    
@@ -112,10 +104,23 @@ Ext.define('EatSense.controller.InfoPage', {
 				//null is the dataview, it gets not used inside method!
 				me.showInfoPageDetail(null, page);
 			}	
-
-							
 		}
+	},
+	/**
+	* @private
+	* Listens for lounge list select event.
+	* When item with action show-infopage is selected, 
+	* check if pages have been created.
+	*
+	*/
+	loungeListSelect: function(list, record) {
 
+		if(record.get('action') == 'show-infopage') {
+			//creates carousels on first access
+			if(!this.getPanelsCreated()) {
+				this.createCarouselPanels();
+			}
+		}       
 	},
 	/**
 	* Load infopages into infopageStore.
@@ -537,7 +542,8 @@ Ext.define('EatSense.controller.InfoPage', {
     cleanup: function() {
     	var store = Ext.StoreManager.lookup('infopageStore'),
     		clubArea = this.getClubArea(),
-			teasers = clubArea.query('dashboardteaser[type="info"]');
+			teasers = clubArea.query('dashboardteaser[type="info"]'),
+			lounge = this.getLounge();
 
 			//clean up
 			store.clearFilter();
@@ -551,5 +557,13 @@ Ext.define('EatSense.controller.InfoPage', {
 				})				
 			}
 			this.setImageForInfoButton(null);
+
+			if(lounge) {
+				//deregister listener for lounge list select
+				lounge.getList().un({
+					select: me.loungeListSelect,
+					scope: this
+				});
+			}
     }
 });
