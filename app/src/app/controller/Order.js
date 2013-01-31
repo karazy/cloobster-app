@@ -956,7 +956,7 @@
 		}
 
 		if(clear) {
-			button.setBadgeText("");			
+			button.set('badgeText', badgeText);		
 			if(orderStore && orderStore.getCount() > 0) {
 				this.getCheckoutDescription().setHidden(true);
 			}

@@ -991,7 +991,7 @@
   -webkit-mask-image: inline-image('buttons/about.png');
 }
 
-.x-button-icon.cart-button, .menu-icon {
+.x-button-icon.cart-button, .offer-icon {
   -webkit-mask-image: inline-image('/buttons/bestellung.png');
 }
 
@@ -1033,6 +1033,14 @@
 
 .request-icon {
   -webkit-mask-image: inline-image('../images/club/vip.png');  
+}
+
+.home-icon {
+  -webkit-mask-image: inline-image('../images/home2.png');  
+}
+
+.slidenav-info-icon {
+  -webkit-mask-image: inline-image('/buttons/about.png');  
 }
 
 .newsletter-floating {
@@ -1283,12 +1291,51 @@ h9 {
   width: 30px;
   height: 2.6em;
   float: left;
-  background-color: $label-color;
+  background-color: $base-color;
   background-image: none;
   -webkit-mask-size: 1.6em;
   margin: 0 auto;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
+}
+
+.slidenav-toggle {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  padding: 0;
+  background: none;
+  background-color: $active-color !important;
+  border-radius: 0;
+  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 10px;
+  /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em;
+  box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em;*/
+  /*box-shadow: 2px 2px 4px 1px lighten($base-color, 30%);*/
+  -webkit-box-shadow: 2px 2px 4px 1px lightgrey;
+  box-shadow: 2px 2px 4px 1px lightgrey;
+
+  /* Overwrite background of floating panel div */
+  div {
+    background-color: transparent !important; 
+  }
+
+  .mask {
+    background-color: white !important;
+    -webkit-mask-size: 30px;
+    -webkit-mask-image: inline-image('../images/list.png');
+    -webkit-mask-position: right center;
+    -webkit-mask-repeat: no-repeat;
+    width: 30px;
+    height: 60px;
+  }
+
+ 
+  
+  /*background-image: url('../images/club/vip.png');*/
+  /*background-size: 15px;*/
+ /* background-position: center;
+  background-repeat: no-repeat;*/
 }
 
 .slidenav-badge {
@@ -1320,6 +1367,28 @@ h9 {
   background-image: -webkit-linear-gradient(#F66, #F00000 2%, #A80000);
   background-image: linear-gradient(#F66, #F00000 2%, #A80000);
   display: inline-block;
+}
+
+.x-slidenavigation-item {
+  color: $base-color !important;
+
+  .x-dock-horizontal {
+    border-top: 1px solid black !important;  
+  }
+
+  &.x-list-footer-wrap .x-dock-horizontal {
+    border-bottom: 1px solid black !important;
+  }
+
+  .x-item-selected.x-dock-horizontal {
+    color: $base-color !important; 
+  }
+}
+
+
+
+.x-slidenavigation-list {
+  background-color: #2E2E2E;
 }
 
 /*

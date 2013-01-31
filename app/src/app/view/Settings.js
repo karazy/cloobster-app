@@ -29,9 +29,9 @@ Ext.define('EatSense.view.Settings', {
 				title: i10n.translate('settingsButton'),
 				docked: 'top',
 				items: [
-					{
-						xtype: 'slidenavbutton',
-					}
+					// {
+					// 	xtype: 'slidenavbutton',
+					// }
 				]
 			},
 			{

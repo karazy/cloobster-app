@@ -19,56 +19,75 @@ Ext.define('EatSense.view.Lounge', {
          *  will be draggable.  To disable draggin all together, set this
          *  to false.
          */
-        slideSelector: 'slidenavigation-button',    
+        // slideSelector: 'slidenavigation-button',    
+        slideSelector: 'slidenav-toggle',
         /**
          *  Time in milliseconds to animate the closing of the container
          *  after an item has been clicked on in the list.
          */
         selectSlideDuration: 0,
         slideDuration: 0,
-        // container: {
-        // 	items: [
-        // 		{
-        // 			xtype: 'titlebar',
-        // 			title: i10n.translate('slidenav.title')
-        // 		}
-        // 	]
-        // },
-		items : [
-		// {
-		// 	title: 'Group 1',
-		// 	items: [	
+        container: {
+        	items: [
+        		// {
+        		// 	xtype: 'button',
+        		// 	iconCls: 'home',
+        		// 	iconMask: true,
+        		// 	docked: 'bottom',
+        		// 	cls: 'slidenavigation-button'
+        		// }
+        		{
+        			xtype: 'fixedbutton',
+        			docked:'bottom',
+        			iconCls: 'mask',
+        			cls: 'slidenav-toggle',
+        			action: 'toggle-navigation',
+        			floatingCls: 'dummy-cls',
+        			// html: '<div class="mask"></div>',
+        			bottom: 5
+        		}
+        	]
+        },
+		items : [	
 			{
 				xtype: 'clubarea',
 				title: i10n.translate('slidenav.button.home'),
-				leaf: true
+				leaf: true,
+				action: 'show-clubdashboard',
+				iconCls: 'home-icon'
 			},		
 			{
-				iconCls: 'menu-icon',
+				iconCls: 'offer-icon',
 				xtype: 'menutab',
 				title: i10n.translate('menuTab'),
 				leaf: true,
-				preCreate: true
+				preCreate: true,
+				action: 'show-menu'
 			},
 			{
 				xtype: 'infopageoverview',
 				title: i10n.translate('infopage.overview.title'),
 				leaf: true,
-				preCreate: true
+				preCreate: true,
+				action: 'show-infopage',
+				iconCls: 'slidenav-info-icon'
 			},
 			{
 				title: i10n.translate('requestsTitle'),
 				xtype: 'requeststab',
 				iconCls: 'request-icon',
 				leaf: true,
-				preCreate: true
+				preCreate: true,
+				hideOnBasic: true,
+				action: 'show-requests'
 			},
 			{	
 				xtype: 'myorderstab',
 				iconCls: 'exit-icon',
 				title: i10n.translate('myOrdersTabLeaveBt'),
 				leaf: true,
-				preCreate: true
+				preCreate: true,
+				action: 'show-myorders'
 			},
 			{
 				xtype: 'feedbackform',
@@ -78,12 +97,14 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				backButton: false,
 				hideOnBasic: true,
-				preCreate: true
+				preCreate: true,
+				action: 'show-feedback'
 			},
 			{
 				xtype: 'settingstab',
 				title: i10n.translate('settingsButton'),
-				leaf: true
+				leaf: true,
+				action: 'show-settings'
 			}			
 		]
 	},

@@ -20,16 +20,16 @@ Ext.define('EatSense.view.ClubDashboard', {
 			docked: 'top',
 			layout: 'fit',
 			items: [
-				{
-					xtype: 'fixedbutton',
-					ui: 'action',
-					action: 'toggle-navigation',
-					iconMask: true,
-					iconCls: 'more',
-					top: 10,
-					left: 10,
-					cls: 'slidenavigation-button'
-				},
+				// {
+				// 	xtype: 'fixedbutton',
+				// 	ui: 'action',
+				// 	action: 'toggle-navigation',
+				// 	iconMask: true,
+				// 	iconCls: 'more',
+				// 	top: 10,
+				// 	left: 10,
+				// 	cls: 'slidenavigation-button'
+				// },
 				{
 						xtype: 'fixedbutton',
 						ui: 'action',

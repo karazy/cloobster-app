@@ -22,9 +22,9 @@ Ext.define('EatSense.view.MyOrders', {
 					xtype : 'titlebar',
 					title : i10n.translate('myOrdersTitle'),
 					items : [ 
-					{
-						xtype: 'slidenavbutton',
-					},
+					// {
+					// 	xtype: 'slidenavbutton',
+					// },
 					{
 						xtype: 'cartbutton'
 					}
@@ -175,7 +175,8 @@ Ext.define('EatSense.view.MyOrders', {
 				]
 			},
 			{
-				xtype: 'feedbackform'
+				xtype: 'feedbackform',
+				backButton: true
 			},
 			{
 				xtype: 'carttab'

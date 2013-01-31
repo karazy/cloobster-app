@@ -15,12 +15,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					{
 						xtype: 'titlebar',
 						docked: 'top',
-						title: i10n.translate('infopage.overview.title'),
-						items: [
-							{
-								xtype: 'slidenavbutton'
-							}
-						]
+						title: i10n.translate('infopage.overview.title')
 					},
 					{
 						xtype: 'label',

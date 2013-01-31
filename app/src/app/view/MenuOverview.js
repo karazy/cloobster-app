@@ -16,9 +16,9 @@ Ext.define('EatSense.view.MenuOverview', {
 				itemId: 'menuTopBar',
 				title : i10n.translate('menuTitle'),
 				items : [ 
-				{
-					xtype: 'slidenavbutton'
-				},
+				// {
+				// 	xtype: 'slidenavbutton'
+				// },
 				{
 					xtype: 'cartbutton'
 				}

@@ -28,11 +28,13 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         list: {
             width: 250,
             maxDrag: null,
-            items: [{
-                xtype: 'toolbar',
-                docked: 'top',
-                ui: 'light'
-            }]
+            itemCls: 'x-slidenavigation-item',
+            // items: [{
+            //     xtype: 'titlebar',
+            //     title: i10n.translate('slidenav.list.title'),
+            //     docked: 'top',
+            //     ui: 'light'
+            // }]
         },
 
         /**
@@ -196,7 +198,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             
     initialize: function() {
         var me = this;
-        
+
         this.callParent();
         
         this.addCls('x-slidenavigation');
@@ -424,7 +426,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                             name: 'hideOnBasic',
                             type: 'boolean',
                             defaultValue: false
-                        }
+                        },
+                        //a string used to select this button
+                        'action'
                     ] 
                 }
             });

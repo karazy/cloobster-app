@@ -12,9 +12,9 @@ Ext.define('EatSense.view.FeedbackForm', {
 			title: i10n.translate('feedback'),
 			docked: 'top',
 			items: [
-				{
-					xtype: 'slidenavbutton'
-				},
+				// {
+				// 	xtype: 'slidenavbutton'
+				// },
 				{
 					xtype: 'fixedbutton',
 					ui: 'action',

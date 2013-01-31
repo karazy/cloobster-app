@@ -31,10 +31,21 @@ Ext.define('EatSense.controller.Lounge', {
 		/* Android Back handlers */
 		navigationFunctions : new Array()
 	},
-  init: function() {
+  launch: function() {
     var checkInCtr = this.getApplication().getController('CheckIn');
 
     checkInCtr.on('basicmode', this.manageSlidenavigation, this);
+
+    checkInCtr.on('statusChanged', function(status) {
+      if(status == appConstants.CHECKEDIN) {
+        this.getLoungeview().getList().select(0);
+         this.toggleSlidenavButtons(true);
+      }  else if(status == appConstants.PAYMENT_REQUEST) {
+         this.toggleSlidenavButtons(false);
+      } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+         this.toggleSlidenavButtons(true);
+      }
+    }, this);
   },
   /**
   * Show/hide the slidenavigation menu.
@@ -71,8 +82,22 @@ Ext.define('EatSense.controller.Lounge', {
       } else {
         lounge.getList().getStore().clearFilter();
       }       
+  },
+  /**
+  * Shows or hides all slidenav buttons.
+  * @param show
+  *   true to show/enable, false to hide/disable
+  */
+  toggleSlidenavButtons: function(show) {
+    var lounge = this.getLoungeview(),
+        buttons;
 
+        buttons = lounge.query('button[action=toggle-navigation]');
 
+        Ext.Array.each(buttons, function(b) {
+          b.setDisabled(!show);
+          b.setHidden(!show);
+        });
   },
   clubAreaActivated: function(tab, options) {
       var androidCtr = this.getApplication().getController('Android'),

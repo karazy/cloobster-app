@@ -37,8 +37,10 @@ Ext.define('EatSense.controller.InfoPage', {
 		userTypes: false
 	},
 
-	init: function() {		
-		var checkInCtr = this.getApplication().getController('CheckIn');
+	launch: function() {		
+		var me = this,
+			checkInCtr = this.getApplication().getController('CheckIn'),
+			lounge = this.getLounge();
 
 		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
@@ -51,6 +53,19 @@ Ext.define('EatSense.controller.InfoPage', {
 		}, this);
 
 		checkInCtr.on('business-loaded', this.showHotelInfoHeader, this);
+
+		if(lounge) {
+	      lounge.getList().on({
+	        select: function(list, record) {
+	          if(record.get('action') == 'show-infopage') {
+	          	//creates carousels on first access
+	          	if(!me.getPanelsCreated()) {
+	            	me.createCarouselPanels();
+	        	}
+	          }
+	        }
+	      })
+	    }
 
 		// always show teaser
 		//this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);		    
