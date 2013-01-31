@@ -59,9 +59,9 @@ Ext.define('EatSense.controller.Menu', {
              showCartButton: {
              	tap: 'showCart'
              },
-             menuview: {
-             	activate: 'menuTabActivated'
-             },
+             // menuview: {
+             // 	activate: 'menuTabActivated'
+             // },
              clubdashboard: {
              	initialize: 'registerProductTeaserTap'
              }
@@ -81,7 +81,6 @@ Ext.define('EatSense.controller.Menu', {
     },
     launch: function() {
     	var checkInCtr = this.getApplication().getController('CheckIn');
-    	// menuStore = Ext.StoreManager.lookup('menuStore');
 
     	checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
@@ -113,12 +112,12 @@ Ext.define('EatSense.controller.Menu', {
     		}
     	});
     },
-    menuTabActivated: function(tab) {
-    	var androidCtr = this.getApplication().getController('Android');
+    // menuTabActivated: function(tab) {
+    // 	var androidCtr = this.getApplication().getController('Android');
     	
-    	androidCtr.setExitOnBack(false);
-    	androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
-    },
+    // 	androidCtr.setExitOnBack(false);
+    // 	androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
+    // },
     /**
     * Shows product detail and product list no matter where the user is.
     * @param product
@@ -644,28 +643,7 @@ Ext.define('EatSense.controller.Menu', {
 	 * Switches to card view.
 	 */
 	showCart: function(button) {
-		// var me = this,
-		// 	menuview = this.getMenuview(),
-		// 	cartView = this.getCartView(),
-		// 	activePanel = menuview.getActiveItem(),
-		// 	androidCtr = this.getApplication().getController('Android');
-
-		
-		// button.setDisabled(true);
-		// Ext.defer((function() {
-		// 	button.setDisabled(false);
-		// }), 50, this);
-
-		// menuview.switchTo(cartView, "left");
-		// this.setViewCallingCart(activePanel);
-		// this.getApplication().getController('Order').refreshCart();
-
-		// androidCtr.addBackHandler(function() {
-		// 	me.backToPreviousView();
-		// });
-		
 		this.getApplication().getController('Order').showCart(button, this.getMenuview(), this.getLoungeview());		
-
 	},
 	/**
 	* Shows or hides the product cart button.

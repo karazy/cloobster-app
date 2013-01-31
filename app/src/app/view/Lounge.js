@@ -18,8 +18,7 @@ Ext.define('EatSense.view.Lounge', {
          *  Any component within the container with an 'x-toolbar' class
          *  will be draggable.  To disable draggin all together, set this
          *  to false.
-         */
-        // slideSelector: 'slidenavigation-button',    
+         */       
         slideSelector: 'slidenav-toggle',
         /**
          *  Time in milliseconds to animate the closing of the container
@@ -29,13 +28,7 @@ Ext.define('EatSense.view.Lounge', {
         slideDuration: 0,
         container: {
         	items: [
-        		// {
-        		// 	xtype: 'button',
-        		// 	iconCls: 'home',
-        		// 	iconMask: true,
-        		// 	docked: 'bottom',
-        		// 	cls: 'slidenavigation-button'
-        		// }
+        		//the button to reveal the slide navigation
         		{
         			xtype: 'fixedbutton',
         			docked:'bottom',
@@ -43,7 +36,6 @@ Ext.define('EatSense.view.Lounge', {
         			cls: 'slidenav-toggle',
         			action: 'toggle-navigation',
         			floatingCls: 'dummy-cls',
-        			// html: '<div class="mask"></div>',
         			bottom: 5
         		}
         	]

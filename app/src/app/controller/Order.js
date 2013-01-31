@@ -332,11 +332,9 @@
 	* Show orders (leave) tab.
 	*/
 	showMyorders: function() {
-		var lounge = this.getLoungeview(), 
-			view = this.getMyordersview();
+		var lounge = this.getLoungeview();
 
-		lounge.setActiveItem(view);
-		this.backToMyorders();
+		lounge.selectByAction('show-myorders');
 	},
 	/**
 	* Set Myordersview active in myorders tab cart layout.

@@ -324,6 +324,9 @@ Ext.application({
                 case 460:
                   defaultErrorKey = 'error.apiversion';
                   break;
+                case 401:
+                  defaultErrorKey = 'error.account.required';
+                  break;
                 default:
                   code = 500
                   defaultErrorKey = 'errorMsg';

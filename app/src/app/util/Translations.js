@@ -895,6 +895,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Bitte geben Sie Ihre Zugangsdaten ein, um sich einzuloggen.",
 			"EN" :  "Please enter user name and password to proceed."
 		},
+		"error.account.required" : {
+			"DE" :  "Ein Account wird für diese Funktion benötigt.",
+			"EN" : "Please login/register to use this function."
+		},
 		"error.account.credentials.invalid" : {
 			"DE" :  "Gespeicherte Zugangsdaten ungültig. Bitte neu einloggen.",
 			"EN" :  "Login data invalid. Please log in again."

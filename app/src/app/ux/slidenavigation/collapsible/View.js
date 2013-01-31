@@ -7,6 +7,12 @@
  */
 Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     extend: 'Ext.Container',
+
+    /**
+     * @event activeitemchange
+     * Fires whenever an item gets selected in the list
+     * @param {Ext.Component} the activated item
+     */ 
     
     requires: [
         'Ext.Button',
@@ -315,9 +321,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             return; // not a leaf
         }
 
-        //if basic mode is active look for a welcome fn, otherwise proceed as normal
+        //if basic mode is active look for a basic fn, otherwise proceed as normal
         if(me.getBasicMode() === true && Ext.isFunction(item.raw.basicFn)) {
-            //don't select item
+            //don't select item!
             list.deselect(item);
             list.select ( this.prevsel );
             item.raw.basicFn();
@@ -326,7 +332,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
 
         //welcome mode is active look for a welcome fn, otherwise proceed as normal
         if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
-            //don't select item
+            //don't select item!
             list.deselect(item);
             list.select ( this.prevsel );
             item.raw.welcomeFn();
@@ -357,6 +363,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             this._cache[index]();
         } else {
             container.setActiveItem(this._cache[index]);
+            this.fireEvent('activeitemchange', this._cache[index]);
         }
         
         if (this.config.closeOnSelect) {
@@ -713,6 +720,19 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
 
 
         return record;
+    },
+    /**
+    * Selects a navigation entry by given action.
+    * @param {String} action of item to select.
+    */
+    selectByAction: function(action) {
+        var list = this.getList(),
+            recordToSelect;
+
+        recordToSelect = this.getItemByAction(action);
+        if(recordToSelect) {
+            list.select(recordToSelect);    
+        }        
     }
 
 });

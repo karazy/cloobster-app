@@ -561,7 +561,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			if(lounge) {
 				//deregister listener for lounge list select
 				lounge.getList().un({
-					select: me.loungeListSelect,
+					select: this.loungeListSelect,
 					scope: this
 				});
 			}
