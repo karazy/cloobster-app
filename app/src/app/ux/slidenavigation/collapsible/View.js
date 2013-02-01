@@ -375,6 +375,12 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         }
     },
 
+    /**
+    * CUSTOM EXTENSION!
+    * Adds the given item to container.
+    * @private item
+    *   Item to add.
+    */
     addItemToContainer: function(item) {
         var me = this,
             container = me.getContainer(),
@@ -388,12 +394,13 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         }
     },
     
-    onContainerDrag: function(draggable, e, offset, eOpts) {
-        if (offset.x < 1) {
-            this.setClosed(true);
-        } else {
-            this.setClosed(false);
-        }
+    onContainerDrag: function(draggable, e, offsetX, offsetY, eOpts) {
+        console.log('onContainerDrag offset.x ' + offsetX);
+        // if (offsetX < 1) {
+        //     this.setClosed(true);
+        // } else {
+        //     this.setClosed(false);
+        // }
     },
     
     onContainerDragstart: function(draggable, e, offset, eOpts) {
@@ -477,15 +484,24 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      *  Closes the container.  See ``moveContainer`` for more details.
      */
     closeContainer: function(duration) {
-        var duration = duration || this.config.slideDuration;
+        var duration = duration || this.config.slideDuration,
+            slideBezelPanel;
 
+        //defer to prevent false masking and flickering
+        // Ext.defer(function() {
+        //     this.getContainer().getActiveItem().setMasked(false);
+        // }, 10, this);
 
-        // this.config.slideSelector = false;
-        Ext.defer(function() {
-            this.getContainer().getActiveItem().setMasked(false);
-        }, 10, this);
-        // this.getContainer().getActiveItem().setMasked(false);
-        Ext.getCmp('slidenavigationbezel').setWidth('15px');
+        // slideBezelPanel = Ext.getCmp('slidenavigationbezel')
+
+        // slideBezelPanel.setWidth('15px');
+        // this.fireEvent('containertoggle', 'closed');
+        console.log('closeContainer');
+
+        // slideBezelPanel.element.un({
+        //     tap: this.
+        // });
+
         this.moveContainer(0, duration);   
 
         
@@ -501,13 +517,16 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         var duration = duration || this.config.slideDuration;
         this.getContainer().addCls('open');
 
-
-        // this.config.slideSelector = 'x-slidenavigation-container';
-        this.getContainer().getActiveItem().setMasked(true);
+        //defer to prevent false masking and flickering
+        // Ext.defer(function() {
+        //         this.getContainer().getActiveItem().setMasked(true);
+        // }, 10, this);
+        // this.moveContainer(this.config.list.width, duration);
+        // Ext.getCmp('slidenavigationbezel').setWidth('100%');
+        // this.fireEvent('containertoggle', 'open');
 
         this.moveContainer(this.config.list.width, duration);
-
-        Ext.getCmp('slidenavigationbezel').setWidth('100%');
+        console.log('openContainer');
     },
     
     toggleContainer: function(duration) {
@@ -558,11 +577,13 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          
         if (closed) {
             this.getContainer().removeCls('open');
-            // this.config.slideSelector = false;
             Ext.getCmp('slidenavigationbezel').setWidth('15px');
+            //defer to prevent false masking and flickering
             Ext.defer(function() {
                 this.getContainer().getActiveItem().setMasked(false);
             }, 10, this);
+            this.fireEvent('containertoggle', 'closed');
+            console.log('setClosed close');
             
             /*
             Ext.each(this.getContainer().getActiveItem().getItems().items, function(item) {
@@ -573,9 +594,13 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             */
         } else {
             this.getContainer().addCls('open');
-            // this.config.slideSelector = 'x-slidenavigation-container';
             Ext.getCmp('slidenavigationbezel').setWidth('100%');
-            this.getContainer().getActiveItem().setMasked(true);
+            //defer to prevent false masking and flickering
+            Ext.defer(function() {
+                this.getContainer().getActiveItem().setMasked(true);
+            }, 10, this);
+            this.fireEvent('containertoggle', 'open');
+            console.log('setClosed open');
             /*
             Ext.each(this.getContainer().getActiveItem().getItems().items, function(item) {
                 if (item.maskOnSlide) {
@@ -654,7 +679,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         order: 'before',
                         scope: this
                     },
-                    drag: Ext.Function.createThrottled(this.onContainerDrag, 100, this),
+                    // drag: Ext.Function.createThrottled(this.onContainerDrag, 100, this),
                     dragend: this.onContainerDragend,
                     scope: this
                 },
@@ -663,6 +688,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         animationend: function(translatable, b, c) {
                             // Remove the class when the animation is finished, but only
                             // if we're "closed"
+                            console.log('animationend');
                             this.setClosed(this.isClosed());
                         },
                         scope: this // The "x-slidenavigation" container

@@ -41,12 +41,15 @@ Ext.define('EatSense.controller.Lounge', {
         this.getLoungeview().getList().select(0);
         this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
         this.toggleSlidenavButtons(true);
+        this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
       }  else if(status == appConstants.PAYMENT_REQUEST) {
          this.toggleSlidenavButtons(false);
       } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
          this.toggleSlidenavButtons(true);
+         this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
       }
     }, this);
+    
   },
   /**
   * Show/hide the slidenavigation menu.
@@ -54,6 +57,21 @@ Ext.define('EatSense.controller.Lounge', {
   toggleNavigation: function(button) {
     var loungeview = this.getLoungeview();
     loungeview.toggleContainer();
+
+    // button.toggleCls('x-slidenavigation-toggle-closed');
+    // button.toggleCls('x-slidenavigation-toggle-open');
+    // button.toggleCls('mask-open');
+  },
+  toggleSlidenavButtonState: function(containerState) {
+    var buttons = this.getLoungeview().query('button[action=toggle-navigation]');
+
+    Ext.Array.each(buttons, function(button) {
+      if(containerState == 'open') {
+        button.addCls('mask-open');
+      } else {
+        button.removeCls('mask-open');
+      }      
+    });
   },
   /**
   * Manages the slidenavigation menu based on given parameters.
