@@ -211,6 +211,6 @@ Ext.define('EatSense.controller.Lounge', {
   },
 	showMenu: function(button) {
 		var lounge = this.getLoungeview();
-    lounge.getList().select(1);
+    lounge.selectByAction('show-menu');
 	}
 });
