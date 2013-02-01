@@ -781,7 +781,18 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     */
     selectByAction: function(action) {
         var list = this.getList(),
+            //selected elements 
+            selection = list.getSelection(),
+            activeSelection,
             recordToSelect;
+                
+        if(selection.length > 0) {
+            //since only one item is selectable (or should be ^^) grab it
+            if(selection[0].get('action') == action) {
+                //already the active element
+                return;
+            }
+        }
 
         recordToSelect = this.getItemByAction(action);
         if(recordToSelect) {

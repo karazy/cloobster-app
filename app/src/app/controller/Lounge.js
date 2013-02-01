@@ -57,11 +57,11 @@ Ext.define('EatSense.controller.Lounge', {
   toggleNavigation: function(button) {
     var loungeview = this.getLoungeview();
     loungeview.toggleContainer();
-
-    // button.toggleCls('x-slidenavigation-toggle-closed');
-    // button.toggleCls('x-slidenavigation-toggle-open');
-    // button.toggleCls('mask-open');
   },
+  /**
+  * Toggles navigation button cls based on he given containerState either 'open' or 'closed'.
+  * @param {String} containerState
+  */
   toggleSlidenavButtonState: function(containerState) {
     var buttons = this.getLoungeview().query('button[action=toggle-navigation]');
 

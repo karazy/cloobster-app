@@ -118,8 +118,9 @@ Ext.define('EatSense.controller.InfoPage', {
 		if(record.get('action') == 'show-infopage') {
 			//creates carousels on first access
 			if(!this.getPanelsCreated()) {
-				this.createCarouselPanels();
+				this.createCarouselPanels();				
 			}
+			this.resetInfoPageOverview();
 		}       
 	},
 	/**
@@ -299,9 +300,11 @@ Ext.define('EatSense.controller.InfoPage', {
 		if(index >= 0) {
 			carousel.setActiveItem(index);
 		}
-
-		infoPageOverview.setActiveItem(ipcarousel);
-		lounge.getList().select(2);
+		//must be called before setActiveItem, because a reset is triggered
+		//that sets activeItem to 0! currently reset is only triggered if item is not already selected.
+		//this my change in future implementation and should be revieved later
+		lounge.selectByAction('show-infopage');
+		infoPageOverview.setActiveItem(ipcarousel);		
 
 		carousel.on('activeitemchange', this.setListIndex, this);
 
@@ -328,22 +331,31 @@ Ext.define('EatSense.controller.InfoPage', {
 	* Tap event handler for showInfoPagesButton.
 	*/
 	showInfoPageButtonHandler: function(button) {
+		var lounge = this.getLounge();
+
+		//execute select on list and let it handle the rest
+		lounge.selectByAction('show-infopage');	
+	},
+	/**
+	* @private
+	* Reset infopageoverview by clearing the searchfield and all filters.
+	* Also set activeItem to 0;
+	*/
+	resetInfoPageOverview: function() {
 		var me = this,
 			infopageOverview = this.getInfoPageOverview(),
 			lounge = this.getLounge(),
 			androidCtr = this.getApplication().getController('Android'),
 			store = Ext.StoreManager.lookup('infopageStore'),
 			searchfield = this.getInfoPageSearchField(),
-			list = this.getInfoPageList();
-
-
-		infopageOverview.setActiveItem(0);
-		lounge.getList().select(2);
-
+			list = this.getInfoPageList();		
 
 		//reset search field
 		searchfield.setValue("");
-		store.clearFilter();				
+		store.clearFilter();
+
+		infopageOverview.setActiveItem(0);
+		list.deselectAll();
 
 		androidCtr.addBackHandler(function() {
             // me.backToDashboard();
@@ -352,14 +364,6 @@ Ext.define('EatSense.controller.InfoPage', {
         Ext.defer(function() {
     		this.createCarouselPanels();
     	}, 50, this);
-
-	},
-
-	/**
-	* Tap event handler for show feedback button on dashboard.
-	*/
-	showFeedbackButtonHandler: function(button) {
-		
 	},
 	/**
 	* Tap event handler for infoPageBackButton.
@@ -434,7 +438,6 @@ Ext.define('EatSense.controller.InfoPage', {
     	}, 50, this);
 
     	this.setUserTypes(timeout);
-    	
     },
 
     /**
