@@ -285,6 +285,13 @@ Ext.define('EatSense.controller.Account', {
         	appState.set('nickname', null);
         }
 
+        //if user is already checked in, get the checkInId from appState
+        //it is also possible to get the id from checkInController, but to avoid to much inter controller
+        //dependencies this approach is used
+        if(appState.get('checkInId')) {
+        	newAccount.set('checkInId', appState.get('checkInId'));
+        }
+
         //set generated sencha ID to null
         newAccount.id = null;
         newAccount.set('id',null);

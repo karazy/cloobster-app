@@ -25,7 +25,6 @@ Ext.define('EatSense.controller.Settings', {
             emailBackClubBt: 'lounge emailsetting button[action=back]',
             passwordChangeClubBt: 'lounge settings button[action=password-change]',
             passwordBackClubBt: 'lounge passwordsetting button[action=back]',            
-
             emailLabel: 'settings #accountEmail',
             saveEmailBt: 'emailsetting button[action=save]',
             savePasswordBt: 'passwordsetting button[action=save]',
@@ -126,6 +125,8 @@ Ext.define('EatSense.controller.Settings', {
             console.log('Settings.loadSettings > Abort! calling view has no settings panel');
             return;
         }
+
+        //TODO get the email and password change buttons and wire up the events instead of the oldschool way!
 
         this.setCallingView(view);
         callingView = this.getCallingView();

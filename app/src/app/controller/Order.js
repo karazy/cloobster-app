@@ -406,7 +406,8 @@
 	 */
 	submitOrders: function(cartview) {
 		console.log('Cart Controller -> submitOrders');
-		var checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(), 
+		var checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
+			accountCtr = this.getApplication().getController('Account'),
 			orders = checkIn.orders(),
 			checkInId = checkIn.get('userId'),
 			businessId = checkIn.get('businessId'),
@@ -426,9 +427,33 @@
 			console.log('Order.submitOrders: no cartview given');
 			return;
 		}
-
 		//TODO check if user is logged in, if not show create account screen
 		//after create refresh settingsview or does that happen automatically?
+		if(!accountCtr.isLoggedIn()) {
+
+            Ext.Msg.show({
+               title: i10n.translate('hint'),
+               message: i10n.translate('error.account.required'),
+               buttons: [{
+                  text: i10n.translate('account.register.yes'),
+                  itemId: 'yes',
+                  ui: 'action'
+               }, {
+                  text:  i10n.translate('account.register.no'),
+                  itemId: 'no',
+                  ui: 'action'
+               }],
+               scope: this,
+               fn: function(btnId, value, opt) {
+               if(btnId=='yes') {
+                     accountCtr.showLoginView();
+                  }
+               }
+            });           			
+			return;
+		}
+
+		
 
 
 		submitOrderBt = cartview.down('button[action="order"]');

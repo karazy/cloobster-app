@@ -23,7 +23,7 @@ Ext.define('EatSense.view.Login', {
 		//http://www.sencha.com/forum/showthread.php?192847-Animating-panels-throws-Cannot-call-method-getPageBox-of-null/page2
 		hidden: true,
 		//make login panel stay on top!
-		style: 'z-index: 2;',
+		style: 'z-index: 5;',
 		items: [
 			{
 				docked : 'top',
@@ -138,12 +138,12 @@ Ext.define('EatSense.view.Login', {
 				style: 'text-align: right; color: blue; font-size: .8em; margin-right:.5em; text-decoration:underline;'
 			},
 
-			{
-				xtype: 'toolbar',
-				docked: 'bottom',
-				items: [
-				]
-			}
+			// {
+			// 	xtype: 'toolbar',
+			// 	docked: 'bottom',
+			// 	items: [
+			// 	]
+			// }
 		]
 	}
 });
