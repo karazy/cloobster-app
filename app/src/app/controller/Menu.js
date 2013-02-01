@@ -26,8 +26,6 @@ Ext.define('EatSense.controller.Menu', {
         	productBackButton: 'productoverview button[action=back]',
         	topToolbar: 'menutab #menuTopBar',
         	loungeview: 'lounge',
-        	//not used?
-        	loungeTabBar: 'lounge tabbar',
         	showCartButton: 'menutab button[action=show-cart]',
         	cartView: 'menutab carttab',
         	clubdashboard: 'clubdashboard'

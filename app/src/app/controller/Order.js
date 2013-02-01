@@ -18,8 +18,6 @@
 			//the orderlist shown in lounge in myorders tab lounge tab #myorderstab
 			myorderlist: 'myorderstab list',
 			myordersview: 'lounge myorderstab',
-			//not used?
-			loungeTabBar: '#loungeTabBar',
 			paymentButton: 'myorderstab button[action="pay"]',
 			leaveButton: 'lounge button[action="exit"]',
 			clubarea: 'clubarea',
