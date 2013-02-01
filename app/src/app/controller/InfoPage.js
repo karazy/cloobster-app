@@ -308,7 +308,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		carousel.on('activeitemchange', this.setListIndex, this);
 
-		androidCtr.addBackHandler(function() {			
+		androidCtr.addBackHandler(function() {
             me.backToOverview();
         });
 

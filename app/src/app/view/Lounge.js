@@ -37,19 +37,22 @@ Ext.define('EatSense.view.Lounge', {
         			top: 0,
         			bottom: 0,
         			width: 15,
-        			style: 'background-color: transparent;'
+        			style: 'background-color: transparent;',
+        			items: [
+	        			{	
+		        			//the button to reveal the slide navigation
+		        			xtype: 'fixedbutton',
+		        			iconCls: 'x-slidenavigation-toggle-mask',
+		        			cls: 'x-slidenavigation-toggle',
+		        			action: 'toggle-navigation',
+		        			floatingCls: 'dummy-cls',
+		        			bottom: 5,
+		        			left: 0,
+		        			tapMaskFactor: 3
+	        			}  
+        			]
         		},            	        		
-        		{	
-        			//the button to reveal the slide navigation
-        			xtype: 'fixedbutton',
-        			iconCls: 'x-slidenavigation-toggle-mask',
-        			cls: 'x-slidenavigation-toggle',
-        			action: 'toggle-navigation',
-        			floatingCls: 'dummy-cls',
-        			bottom: 5,
-        			left: 0,
-        			tapMaskFactor: 3
-        		}        		      	
+        		      		      	
         	]
         },
 		items : [	

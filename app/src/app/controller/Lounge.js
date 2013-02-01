@@ -24,9 +24,9 @@ Ext.define('EatSense.controller.Lounge', {
       clubArea: {
         activate: 'clubAreaActivated'
       },
-      navButtons: {
-        tap: 'toggleNavigation'
-      }
+      // navButtons: {
+      //   tap: 'toggleNavigation'
+      // }
 		},
 		/* Android Back handlers */
 		navigationFunctions : new Array()
@@ -42,11 +42,13 @@ Ext.define('EatSense.controller.Lounge', {
         this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
         this.toggleSlidenavButtons(true);
         this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
+        this.registerSlideBezelTap();
       }  else if(status == appConstants.PAYMENT_REQUEST) {
          this.toggleSlidenavButtons(false);
       } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
          this.toggleSlidenavButtons(true);
          this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
+         this.registerSlideBezelTap(false);
       }
     }, this);
     
@@ -57,6 +59,22 @@ Ext.define('EatSense.controller.Lounge', {
   toggleNavigation: function(button) {
     var loungeview = this.getLoungeview();
     loungeview.toggleContainer();
+  },
+  registerSlideBezelTap: function(un) {
+    var me = this,
+        slideBezel = Ext.getCmp('slidenavigationbezel');
+
+    if(!un) {
+      slideBezel.element.on({
+        tap: me.toggleNavigation,
+        scope: this
+      });
+    } else {
+      slideBezel.element.un({
+        tap: me.toggleNavigation,
+        scope: this
+      });
+    }    
   },
   /**
   * Toggles navigation button cls based on he given containerState either 'open' or 'closed'.
