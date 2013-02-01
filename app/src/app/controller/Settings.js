@@ -1,10 +1,9 @@
 /**
 *	Handles save and restore of application settings.
-*   Register for newsletter.
 */
 Ext.define('EatSense.controller.Settings', {
     extend: 'Ext.app.Controller',
-    requires: ['EatSense.view.NewsletterPopup', 'EatSense.view.Newsletter'],
+    requires: [],
     config: {
     	refs: {
             //settings accessed from lounge when checked-in
@@ -13,8 +12,6 @@ Ext.define('EatSense.controller.Settings', {
             settingsView: 'mainview settingsview',
             // settingsNavView: 'settingstab navigationview',
     		nicknameField: 'settings #nickname',
-            // newsletterView: 'settings newsletter',
-            // registerNewsletterBt: 'settings newsletter button[action=register]',
             aboutBt: 'settings button[action=about]',
             //account related stuff
             accountPanel: 'settings #accountPanel',
@@ -43,9 +40,6 @@ Ext.define('EatSense.controller.Settings', {
     		nicknameField : {
     			change: 'saveNickname'
     		},
-            registerNewsletterBt: {
-                tap: 'registerNewsletterBtTap'
-            },
             aboutBt: {
                 tap: 'showAbout'
             },
@@ -206,78 +200,6 @@ Ext.define('EatSense.controller.Settings', {
             appState.set('nickname', newData);
         }		
 	},
-    /**
-    * @deprecated
-    *   Tap handler for register newsletter button.
-    */
-    registerNewsletterBtTap: function(button) {
-        var me = this,
-            newsletter = this.getNewsletterView(),
-            values = newsletter.getValues();
-
-        //force keyboard to hide, due to a bug in Android 4.0 the textfield is visible above the popup
-        newsletter.down('emailfield').blur();
-
-        this.registerNewsletter(values);
-    },
-    /**
-    * @deprecated
-    * Submits the form to register a new newsletter.
-    * @param record
-    *   newsletter data to submit
-    * @param successCallback
-    *   callback function called on success
-    */
-    registerNewsletter: function(data, successCallback) {
-        var me = this,
-            checkInCtr = this.getApplication().getController('CheckIn'),
-            appState = checkInCtr.getAppState(),
-            record = Ext.create('EatSense.model.Newsletter'),
-            errors;
-
-        record.setData(data);
-        //validate record
-        errors = record.validate();
-
-        if(!errors.isValid()) {
-            Ext.Msg.alert(i10n.translate('error'), i10n.translate('newsletterInvalidEmail'));
-            return;
-        }
-
-        record.save({
-            success: function(record, operation) {
-                //ensure PUT is always used when saving the mail
-                record.phantom = true;
-
-                appState.set('newsletterRegistered', true);
-                
-                if(appHelper.isFunction(successCallback)) {
-                    successCallback();    
-                }
-                
-                //show short success message
-                Ext.Msg.show({
-                    title : i10n.translate('hint'),
-                    'message' : i10n.translate('newsletterRegisterSuccess', record.get('email')),
-                    buttons : []
-                });
-                //show short alert and then hide
-                Ext.defer((function() {
-                    if(!appHelper.getAlertActive()) {
-                        Ext.Msg.hide();
-                    }                   
-                }), appConfig.msgboxHideTimeout, this);
-            },
-            failure: function(record, operation) {
-                me.getApplication().handleServerError({
-                    'error': operation.error, 
-                    'forceLogout': false,
-                    'message' : {500: i10n.translate('newsletterDuplicateEmail')}
-                }); 
-            }
-        });
-    },
-
     /**
     * Shows an about screen.
     */

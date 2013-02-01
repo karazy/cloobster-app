@@ -427,6 +427,10 @@
 			return;
 		}
 
+		//TODO check if user is logged in, if not show create account screen
+		//after create refresh settingsview or does that happen automatically?
+
+
 		submitOrderBt = cartview.down('button[action="order"]');
 		cancelOrderBt = cartview.down('button[action="trash"]');
 		

@@ -25,10 +25,6 @@ Ext.define('EatSense.model.AppState', {
 		{
 			name: 'accountId',
 			type: 'number'
-		},
-		{
-			name: 'newsletterRegistered',
-			type: 'boolean'
 		}, 
 		{
 			name: 'feedbackId',
