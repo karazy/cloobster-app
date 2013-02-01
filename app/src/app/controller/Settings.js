@@ -150,12 +150,12 @@ Ext.define('EatSense.controller.Settings', {
                 emailLabel.setHidden(false);
                 emailLabel.getTpl().overwrite(emailLabel.element, account.getData());
                 if(account.get('fbUserId')) {
-                    this.toggleEmailAndPwButtons(false);
+                    this.toggleEmailAndPwButtons(view, false);
                     connectWithFbButton.disable();
                     connectWithFbButton.hide();
                     fbConnectedLabel.show();
                 } else {
-                    this.toggleEmailAndPwButtons(true);
+                    this.toggleEmailAndPwButtons(view, true);
                     fbConnectedLabel.hide();
                 }
             }
@@ -594,28 +594,43 @@ Ext.define('EatSense.controller.Settings', {
     /**
     * Show or hide email and pw change buttons.
     * This is useful when the account auth is handled via facebook or google.
+    * @param {Ext.Container} view
+    *   container containing the buttons
     * @param show
     *   true to show, false to hide
     */
-    toggleEmailAndPwButtons: function(show) {
-        var emailChangeDashboardBt = this.getEmailChangeDashboardBt(),
-            emailChangeClubBt = this.getEmailChangeClubBt(),
-            passwordChangeDashboardBt = this.getPasswordChangeDashboardBt(),
-            passwordChangeClubBt = this.getPasswordChangeClubBt(),
-            changeSectionLabel = this.getCallingView().down('#changeSectionLabel');
+    toggleEmailAndPwButtons: function(view, show) {
+        var passwordChangeBt,
+            emailChangeBt,
+            changeSectionLabel;
 
-        emailChangeDashboardBt.setDisabled(!show);
-        emailChangeClubBt.setDisabled(!show);
-        passwordChangeDashboardBt.setDisabled(!show);
-        passwordChangeClubBt.setDisabled(!show);
-        emailChangeDashboardBt.setHidden(!show);
-        emailChangeClubBt.setHidden(!show);
-        passwordChangeDashboardBt.setHidden(!show);
-        passwordChangeClubBt.setHidden(!show);
+        if(!view) {
+            console.error('Settings.toggleEmailAndPwButtons: no view given');
+            return;
+        }
+
+        emailChangeBt = view.down('button[action=email-change]');
+        passwordChangeBt = view.down('button[action=password-change]');
+        changeSectionLabel = view.down('#changeSectionLabel');
+
+        if(emailChangeBt) {
+            emailChangeBt.setDisabled(!show);
+            emailChangeBt.setHidden(!show);    
+        } else {
+            console.error('Settings.toggleEmailAndPwButtons: email change button not found');
+        }
+
+        if(passwordChangeBt) {
+            passwordChangeBt.setDisabled(!show);
+            passwordChangeBt.setHidden(!show);
+        } else  {
+            console.error('Settings.toggleEmailAndPwButtons: password change button not found');
+        }         
 
         if(changeSectionLabel) {
             changeSectionLabel.setHidden(!show);
         }
+
     },
     /**
     * Switches back to settings and removes inserted passwords.
