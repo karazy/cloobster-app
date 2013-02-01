@@ -49,7 +49,7 @@ Ext.define('EatSense.controller.Request',{
 	*/
 	showRequestViewButtonHandler: function(button) {
 		var lounge = this.getLounge();
-		lounge.getList().select(3);
+		lounge.selectByAction('show-requests');
 	},
 	toggleCallWaiterRequest: function(button, event) {
 		if(!button.mode || button.mode == 'call') {

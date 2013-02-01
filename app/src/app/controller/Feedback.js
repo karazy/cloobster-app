@@ -445,7 +445,7 @@ Ext.define('EatSense.controller.Feedback', {
     */
     backToDashboard: function(button) {
 		var lounge = this.getLounge();
-		lounge.getList().select(0);
+		lounge.selectByAction('show-feedback');
     },
      /**
 	* Tap handler for backbutton.
