@@ -95,7 +95,7 @@ Ext.define('EatSense.controller.Feedback', {
 	*/
 	showFeedbackButtonHandler: function(button) {
 		var lounge = this.getLounge();
-		lounge.getList().select(5);
+		lounge.selectByAction('show-feedback');
 	},
 	/**
 	* Show event handler for feedbackform.

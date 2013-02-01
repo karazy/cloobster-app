@@ -12434,18 +12434,18 @@ h9 {
 /* Slidenavigation */
 /* line 1290, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .slidenav-icon {
-  width: 30px;
+  width: 35px;
   height: 2.6em;
   float: left;
-  background-color: #406291;
+  background-color: white;
   background-image: none;
   -webkit-mask-size: 1.6em;
-  margin: 0 auto;
+  margin: 0 5px 0 0;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
 }
 
-/* Slidenavigation button closed */
+/* Slidenavigation button */
 /* line 1303, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-slidenavigation-toggle {
   position: absolute;
@@ -12477,44 +12477,8 @@ h9 {
 /* line 1329, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-slidenavigation-toggle.mask-open .x-slidenavigation-toggle-mask {
   display: block;
-  background-color: #406291 !important;
-  -webkit-mask-size: 30px;
-  /*-webkit-mask-image: inline-image('../images/list.png');*/
-  -webkit-mask-image: url('data:image/png;base64,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');
-  -webkit-mask-position: right center;
-  -webkit-mask-repeat: no-repeat;
-  width: 30px;
-  height: 60px;
-}
-
-/* Slidenavigation button open */
-/* line 1344, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
-.x-slidenavigation-toggle-open {
-  position: absolute;
-  width: 40px;
-  height: 60px;
-  padding: 0;
-  background: none;
-  background-color: #d4af37 !important;
-  border-radius: 0;
-  border-bottom-right-radius: 2px !important;
-  border-top-right-radius: 2px !important;
-  /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em;
-  box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em;*/
-  /*box-shadow: 2px 2px 4px 1px lighten($base-color, 30%);*/
-  -webkit-box-shadow: 2px 2px 4px 1px lightgrey;
-  box-shadow: 2px 2px 4px 1px lightgrey;
-  /* Overwrite background of floating panel div */
-}
-/* line 1361, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
-.x-slidenavigation-toggle-open div {
-  background-color: transparent !important;
-}
-/* line 1365, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
-.x-slidenavigation-toggle-open .x-slidenavigation-toggle-mask {
   background-color: white !important;
   -webkit-mask-size: 30px;
-  /*-webkit-mask-image: inline-image('../images/list.png');*/
   -webkit-mask-image: url('data:image/png;base64,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');
   -webkit-mask-position: right center;
   -webkit-mask-repeat: no-repeat;
@@ -12522,7 +12486,7 @@ h9 {
   height: 60px;
 }
 
-/* line 1378, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1343, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .slidenav-badge {
   top: 10px;
   /*  sencha copy paste, some adjustments */
@@ -12554,26 +12518,27 @@ h9 {
   display: inline-block;
 }
 
-/* line 1409, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1374, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-slidenavigation-item {
-  color: #406291 !important;
+  /*color: $base-color !important;*/
+  color: white !important;
 }
-/* line 1412, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1378, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-slidenavigation-item .x-dock-horizontal {
   border-top: 1px solid black !important;
 }
-/* line 1416, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1382, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-slidenavigation-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid black !important;
 }
-/* line 1420, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
-.x-slidenavigation-item .x-item-selected.x-dock-horizontal {
-  color: #406291 !important;
-}
 
-/* line 1427, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1389, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-slidenavigation-list {
   background-color: #2E2E2E;
+}
+/* line 1392, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-slidenavigation-list .x-list-item.x-item-selected .x-dock-horizontal {
+  color: white !important;
 }
 
 /*
@@ -12582,7 +12547,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 1438, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1404, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -12590,19 +12555,19 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 1445, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1411, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-hasbadge > .x-badge {
   /*border-radius: 1em;*/
 }
 
 /* Perf. optimization for android. And tweak of laf.*/
-/* line 1450, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1416, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
   border-radius: 0.1em !important;
   background-color: #406291 !important;
 }
-/* line 1455, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1421, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating > .x-dock.x-sized {
   margin: 2px;
 }
@@ -12611,7 +12576,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 1464, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1430, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -12619,7 +12584,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 1471, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1437, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -12631,7 +12596,7 @@ h9 {
 /*.x-list-round .x-scroll-view {
   background-color: $page-bg-color !important;
 }*/
-/* line 1483, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1449, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -12639,16 +12604,16 @@ h9 {
   color: white !important;
 }
 
-/* line 1490, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1456, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #d4af37 !important;
 }
-/* line 1493, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1459, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #d4af37 !important;
 }
 
-/* line 1499, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1465, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   /*@include background-gradient($active-color, $base-gradient);*/
   background-color: #d4af37;
@@ -12662,26 +12627,26 @@ h9 {
   bottom: 5px;
 }
 
-/* line 1514, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1480, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
 }
 
-/* line 1518, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1484, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
 }
 
 /* Override background color of icons. */
-/* line 1524, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1490, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button .x-button-icon {
   background-color: white !important;
   background-image: none !important;
 }
 
 /* Force action button to have white text color. */
-/* line 1530, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1496, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: white;
 }
@@ -12698,21 +12663,21 @@ h9 {
 * Same functionality as $list-zebrastribe: true; Since this doesn't work on Android 2.x we still have 
 * seperator between list items. .x-list-item:nth-child(even) 
 */
-/* line 1551, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1517, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item {
   /*background-color: darken($list-bg-color, 5%);*/
 }
-/* line 1553, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1519, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item .x-dock-horizontal {
   border-top: 1px solid lightgrey;
 }
-/* line 1557, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1523, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid lightgrey;
 }
 
 /* Override because otherwise a white background ist set. Don't know why ;) */
-/* line 1563, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1529, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list .x-list-item.x-item-pressed .x-dock-horizontal {
   border-top-color: #efe1b5;
   background-color: #efe1b5;

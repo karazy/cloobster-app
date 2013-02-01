@@ -395,7 +395,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     },
     
     onContainerDrag: function(draggable, e, offsetX, offsetY, eOpts) {
-        console.log('onContainerDrag offset.x ' + offsetX);
         // if (offsetX < 1) {
         //     this.setClosed(true);
         // } else {
@@ -496,7 +495,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
 
         // slideBezelPanel.setWidth('15px');
         // this.fireEvent('containertoggle', 'closed');
-        console.log('closeContainer');
 
         // slideBezelPanel.element.un({
         //     tap: this.
@@ -526,7 +524,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         // this.fireEvent('containertoggle', 'open');
 
         this.moveContainer(this.config.list.width, duration);
-        console.log('openContainer');
     },
     
     toggleContainer: function(duration) {
@@ -583,7 +580,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 this.getContainer().getActiveItem().setMasked(false);
             }, 10, this);
             this.fireEvent('containertoggle', 'closed');
-            console.log('setClosed close');
             
             /*
             Ext.each(this.getContainer().getActiveItem().getItems().items, function(item) {
@@ -600,7 +596,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 this.getContainer().getActiveItem().setMasked(true);
             }, 10, this);
             this.fireEvent('containertoggle', 'open');
-            console.log('setClosed open');
+
             /*
             Ext.each(this.getContainer().getActiveItem().getItems().items, function(item) {
                 if (item.maskOnSlide) {
@@ -688,7 +684,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         animationend: function(translatable, b, c) {
                             // Remove the class when the animation is finished, but only
                             // if we're "closed"
-                            console.log('animationend');
                             this.setClosed(this.isClosed());
                         },
                         scope: this // The "x-slidenavigation" container

@@ -1288,18 +1288,18 @@ h9 {
 /* Slidenavigation */
 
 .slidenav-icon {
-  width: 30px;
+  width: 35px;
   height: 2.6em;
   float: left;
-  background-color: $base-color;
+  background-color: white;
   background-image: none;
   -webkit-mask-size: 1.6em;
-  margin: 0 auto;
+  margin: 0 5px 0 0;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
 }
 
-/* Slidenavigation button closed */ 
+/* Slidenavigation button */ 
 .x-slidenavigation-toggle {
   position: absolute;
   width: 20px;
@@ -1328,9 +1328,8 @@ h9 {
 
     .x-slidenavigation-toggle-mask {
       display: block;
-      background-color: $base-color !important;
+      background-color: white !important;
       -webkit-mask-size: 30px;
-      /*-webkit-mask-image: inline-image('../images/list.png');*/
       -webkit-mask-image: inline-image('../images/logo_hat_96_96.png');
       
       -webkit-mask-position: right center;
@@ -1340,40 +1339,6 @@ h9 {
     }
   }
 
-/* Slidenavigation button open */ 
-.x-slidenavigation-toggle-open {
-  position: absolute;
-  width: 40px;
-  height: 60px;
-  padding: 0;
-  background: none;
-  background-color: $active-color !important;
-  border-radius: 0;
-  border-bottom-right-radius: 2px !important;
-  border-top-right-radius: 2px !important;
-  /*-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em;
-  box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em;*/
-  /*box-shadow: 2px 2px 4px 1px lighten($base-color, 30%);*/
-  -webkit-box-shadow: 2px 2px 4px 1px lightgrey;
-  box-shadow: 2px 2px 4px 1px lightgrey;
-
-  /* Overwrite background of floating panel div */
-  div {
-    background-color: transparent !important; 
-  }
-
-  .x-slidenavigation-toggle-mask {
-    background-color: white !important;
-    -webkit-mask-size: 30px;
-    /*-webkit-mask-image: inline-image('../images/list.png');*/
-    -webkit-mask-image: inline-image('../images/logo_hat_96_96.png');
-    
-    -webkit-mask-position: right center;
-    -webkit-mask-repeat: no-repeat;
-    width: 30px;
-    height: 60px;
-  }
-}
 
 .slidenav-badge {
   top: 10px;
@@ -1407,7 +1372,8 @@ h9 {
 }
 
 .x-slidenavigation-item {
-  color: $base-color !important;
+  /*color: $base-color !important;*/
+  color: white !important;
 
   .x-dock-horizontal {
     border-top: 1px solid black !important;  
@@ -1417,15 +1383,15 @@ h9 {
     border-bottom: 1px solid black !important;
   }
 
-  .x-item-selected.x-dock-horizontal {
-    color: $base-color !important; 
-  }
+  
 }
-
-
 
 .x-slidenavigation-list {
   background-color: #2E2E2E;
+
+  .x-list-item.x-item-selected .x-dock-horizontal {
+    color: white !important; 
+  }
 }
 
 /*
