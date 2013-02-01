@@ -644,18 +644,10 @@ Ext.define('EatSense.controller.CheckIn', {
 		if(status == appConstants.CHECKEDIN) {
 
     }
-		else if(status == appConstants.PAYMENT_REQUEST) {
-			// this.getMenuTab().tab.disable();
-			// this.getCartTab().disable();
-      // this.getSettingsTab().tab.disable();
-      // this.getHomeTab().tab.disable();			
+		else if(status == appConstants.PAYMENT_REQUEST) {	
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-			this.showDashboard();
-      // this.getMenuTab().tab.enable();
-			// this.getCartTab().enable();
-      // this.getSettingsTab().tab.enable();
-      // this.getHomeTab().tab.enable();			
+			this.showDashboard();			
 			this.getLoungeview().setActiveItem(this.getMenuTab());      
 
       //clear checkInId

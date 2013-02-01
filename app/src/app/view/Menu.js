@@ -38,13 +38,7 @@ Ext.define('EatSense.view.Menu', {
 	 * @param direction
 	 * 			left or right
 	 */
-	switchMenuview : function(view, direction){
-		// var cardpanel = this.getComponent('menuCardPanel');
-
-		// cardpanel.getLayout().setAnimation({
-		// 	 type: 'slide',
-	 //         direction: direction
-		// });		
+	switchMenuview : function(view, direction){	
 		this.setActiveItem(view);		
 	},
 	switchTo: function(view, direction) {
