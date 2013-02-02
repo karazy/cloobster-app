@@ -640,7 +640,12 @@ Ext.define('EatSense.controller.Account', {
 		this.setAccount(null);
 		this.showDashboardLoginButton();
 	},
-
+	/**
+	* Indicates if user is logged in. User is considered to be logged in
+	* when an X-Auth is set.
+	* @return
+	*	true if logged in
+	*/
 	isLoggedIn: function() {
 		return headerUtil.getHeaderValue('X-Auth') != null;
 	},
