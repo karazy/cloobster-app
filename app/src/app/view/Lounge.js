@@ -73,7 +73,7 @@ Ext.define('EatSense.view.Lounge', {
 			},
 			{
 				xtype: 'infopageoverview',
-				title: i10n.translate('infopage.overview.title'),
+				title: i10n.translate('clubdashboard.button.infopage'),
 				leaf: true,
 				preCreate: true,
 				action: 'show-infopage',
