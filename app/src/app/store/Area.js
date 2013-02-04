@@ -4,6 +4,7 @@ Ext.define('EatSense.store.Area', {
 	config: {
 		storeId: 'areaStore',
 		model: 'EatSense.model.Area',
+		syncRemovedRecords: false,
         sorters: [
       {
           property : "name",

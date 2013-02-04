@@ -43,13 +43,16 @@ Ext.define('EatSense.controller.Lounge', {
         this.toggleSlidenavButtons(true);
         this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
         this.registerSlideBezelTap();
-        this.loadAreas();
+        if(!checkInCtr.getActiveSpot().get('welcome')) {
+          this.loadAreas();
+        }        
       }  else if(status == appConstants.PAYMENT_REQUEST) {
          this.toggleSlidenavButtons(false);
       } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
          this.toggleSlidenavButtons(true);
          this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
          this.registerSlideBezelTap(false);
+         this.cleanup();
       }
     }, this);
     
@@ -261,7 +264,8 @@ Ext.define('EatSense.controller.Lounge', {
             items = [
               {
                 title: i10n.translate('slidenav.header.areas'),
-                header: true
+                header: true,
+                dynamic: true
               }
             ],
             item;
@@ -270,6 +274,7 @@ Ext.define('EatSense.controller.Lounge', {
           item = {};
           item.leaf = true;
           item.title = area.get('name');
+          item.dynamic = true;
           item.handler = function() {
             me.switchArea(area);
           };
@@ -287,5 +292,31 @@ Ext.define('EatSense.controller.Lounge', {
       loungeview.getList().select(0);
 
       this.fireEvent('areaswitched', area);
+    },
+    /**
+    * Cleanup on checkout.
+    */
+    cleanup: function() {
+      var areaStore = Ext.StoreManager.lookup('areaStore'),
+          slideNavStore = this.getLoungeview().getList().getStore();
+      
+      try {
+        areaStore.clearFilter();
+        //as awlays be extra careful cleaning up sencha stores.
+        areaStore.each(function(area) {
+          area.destroy();
+        });
+        areaStore.removeAll(false);
+
+        slideNavStore.each(function(item) {
+          if(item.get('dynamic')) {
+            slideNavStore.remove(item);
+            item.destroy();
+          }
+        });
+      } catch(e) {
+        console.error('Lounge.cleanup: failed ' + e);
+      }
+
     }
 });

@@ -470,7 +470,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                             defaultValue: false
                         },
                         //a string used to select this button
-                        'action'
+                        'action',
+                        //true if this is a record added dynamically
+                        'dynamic'
                     ] 
                 }
             });
