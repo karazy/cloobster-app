@@ -92,7 +92,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		if(store) {
 			//regnerate the teaser on store load
-			// store.on('refresh', this.generateRandomPage, this);
+			store.on('refresh', this.generateRandomPage, this);
 			store.on('load', this.generateRandomPage, this);
 			store.on('clear', this.clearPage, this);
 		}

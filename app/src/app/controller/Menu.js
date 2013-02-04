@@ -92,6 +92,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		loungeCtr.on('areaswitched', function(area) {
 			this.filterMenuBasedOnArea(area);
+			this.filterProductStore(area.raw.menuIds, true);
 		}, this);
     },
     /**
@@ -193,17 +194,6 @@ Ext.define('EatSense.controller.Menu', {
     		menuStore = Ext.StoreManager.lookup('menuStore'),
     		titleLabel,
     		titleLabelTpl;
-
-
-    	menuStore.filter([
-	    	{
-	    		filterFn: function(menu) {
-	    			if(Ext.Array.contains(activeSpot.raw.areaMenuIds, menu.get('id'))) {
-	    				return true;
-	    			}
-	    		}
-	    	}
-    	]);
 		
 		if(businessId && businessId.toString().length != 0) {
 			menuStore.load({
@@ -211,7 +201,6 @@ Ext.define('EatSense.controller.Menu', {
 				params: {
 					'includeProducts' : true,
 					'pathId': businessId
-					// 'areaId' : areaId
 				},
 			    callback: function(records, operation, success) {
 			    	if(operation.error) { 
@@ -221,7 +210,19 @@ Ext.define('EatSense.controller.Menu', {
                         }); 
                     }
 
-                    me.setupProductStore(menuStore);
+                    //setup store before filtering the store
+                    me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);
+
+                    //only display assigned menus
+			    	menuStore.filter([
+				    	{
+				    		filterFn: function(menu) {
+				    			if(Ext.Array.contains(activeSpot.raw.areaMenuIds, menu.get('id'))) {
+				    				return true;
+				    			}
+				    		}
+				    	}
+			    	]);
 			    }
 			 });
 
@@ -264,7 +265,7 @@ Ext.define('EatSense.controller.Menu', {
     filterMenuBasedOnArea: function(area) {
     	var menuStore = Ext.StoreManager.lookup('menuStore');
 
-    	menuStore.clearFilter(); //true?
+    	menuStore.clearFilter(true);
 	    menuStore.filter([
 	    	{
 	    		filterFn: function(menu) {
@@ -781,22 +782,47 @@ Ext.define('EatSense.controller.Menu', {
 	* @private
 	*	Extracts all nested products from given menuStore and adds them to productStore.
 	* @param {Ext.data.Store} menuStore
+	*	Store to extract menus from
+	* @param {Array} menuIds
+	*	Ids of menus to filter product store
 	*/
-	setupProductStore: function(menuStore) {
+	setupProductStore: function(menuStore, menuIds) {
 		var productStore = Ext.StoreManager.lookup('productStore');
 
 		if(!menuStore) {
 			return;
 		}
 
+		this.filterProductStore(menuIds, false);
+
 		menuStore.each(function(menu) {
 			menu.productsStore.each(function(product) {
-				productStore.add(product);	
-			})			
+				productStore.add(product);
+			});
 		});
 
 		//fire load event for listening components
 		productStore.fireEvent('load', productStore, productStore.data.items, true);
+	},
+	filterProductStore: function(menuIds, clear) {
+		var productStore = Ext.StoreManager.lookup('productStore');
+
+		if(clear) {
+			productStore.clearFilter(true);	
+		}
+		
+		if(menuIds) {
+			productStore.filter([
+		    	{
+		    		filterFn: function(product) {
+		    			if(Ext.Array.contains(menuIds, product.get('menu_id'))) {
+		    				return true;
+		    			}
+		    		}
+		    	}
+    		]);
+		}
+		
 	},
 	/**
 	* @private
