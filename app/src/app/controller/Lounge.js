@@ -43,6 +43,7 @@ Ext.define('EatSense.controller.Lounge', {
         this.toggleSlidenavButtons(true);
         this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
         this.registerSlideBezelTap();
+        this.loadAreas();
       }  else if(status == appConstants.PAYMENT_REQUEST) {
          this.toggleSlidenavButtons(false);
       } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
@@ -212,5 +213,79 @@ Ext.define('EatSense.controller.Lounge', {
 	showMenu: function(button) {
 		var lounge = this.getLoungeview();
     lounge.selectByAction('show-menu');
-	}
+	},
+    /**
+    * Load all available areas for this location.
+    */
+    loadAreas: function() {
+      var me = this,
+          areaStore = Ext.StoreManager.lookup('areaStore'),
+          loungeview = this.getLoungeview(),
+          items;
+
+          if(!areaStore) {
+            console.log('CheckIn.loadAreas: could not optain area store');
+            return;
+          }
+
+          if(!loungeview) {
+            console.log('CheckIn.loadAreas: no loungeview exists');
+            return;            
+          }
+
+          areaStore.load({
+            callback: function(records, operation, success) {
+              if(!operation.error) {
+                if(records.length > 0) {
+                  items = me.createItemsFromAreaStore(areaStore);
+                  loungeview.addNewItems(items);
+                }
+              } else {
+              me.getApplication().handleServerError({
+                        'error': operation.error, 
+                        'forceLogout': {403:true}
+                      });
+                  }             
+
+            }
+          });
+    },
+    /**
+    * @private
+    * traverses the areaStore and builds an area of items used to display in slide navigation
+    * @param {Ext.data.Store} areaStore
+    *   The store to create the items from.
+    */
+    createItemsFromAreaStore: function(areaStore) {
+        var me = this,
+            items = [
+              {
+                title: i10n.translate('slidenav.header.areas'),
+                header: true
+              }
+            ],
+            item;
+
+        areaStore.each(function(area) {
+          item = {};
+          item.leaf = true;
+          item.title = area.get('name');
+          item.handler = function() {
+            me.switchArea(area);
+          };
+          items.push(item);
+        });
+
+        return items;
+    },
+    /**
+    * Jumps back to dashboard and switches to new area.
+    */
+    switchArea: function(area) {
+      var loungeview = this.getLoungeview();
+
+      loungeview.getList().select(0);
+
+      this.fireEvent('areaswitched', area);
+    }
 });

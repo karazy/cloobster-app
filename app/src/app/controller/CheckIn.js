@@ -48,9 +48,7 @@ Ext.define('EatSense.controller.CheckIn', {
         	nicknameTogglefield: 'checkinconfirmation togglefield[action=toggle-nickname]',
         	nicknameSettingsField: 'settings #nicknameSetting',
         	settingsview: 'settings',
-        	
         	checkInDlg1Label1: 'checkinconfirmation #checkInDlg1Label1',    	       
-        	           	
         	checkInBtn: 'dashboard button[action=checkin]',
           //confirm checkn view
           cancelCheckInBt: 'checkinconfirmation button[action=cancel-checkin]',           

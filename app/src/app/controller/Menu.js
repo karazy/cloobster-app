@@ -78,7 +78,8 @@ Ext.define('EatSense.controller.Menu', {
 		menuNavigationFunctions : new Array()
     },
     launch: function() {
-    	var checkInCtr = this.getApplication().getController('CheckIn');
+    	var checkInCtr = this.getApplication().getController('CheckIn'),
+    		loungeCtr = this.getApplication().getController('Lounge');
 
     	checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
@@ -87,6 +88,10 @@ Ext.define('EatSense.controller.Menu', {
 				this.cleanup();
 				this.registerProductTeaserTap(true);
 			}
+		}, this);
+
+		loungeCtr.on('areaswitched', function(area) {
+			this.filterMenuBasedOnArea(area);
 		}, this);
     },
     /**
@@ -110,12 +115,6 @@ Ext.define('EatSense.controller.Menu', {
     		}
     	});
     },
-    // menuTabActivated: function(tab) {
-    // 	var androidCtr = this.getApplication().getController('Android');
-    	
-    // 	androidCtr.setExitOnBack(false);
-    // 	androidCtr.setAndroidBackHandler(this.getMenuNavigationFunctions());
-    // },
     /**
     * Shows product detail and product list no matter where the user is.
     * @param product
@@ -189,18 +188,30 @@ Ext.define('EatSense.controller.Menu', {
     		main = this.getMain(),
     		checkInCtr = this.getApplication().getController('CheckIn'),
     		businessId = Ext.String.trim(checkInCtr.getActiveCheckIn().get('businessId')),
+    		activeSpot = checkInCtr.getActiveSpot(),
     		areaId = checkInCtr.getActiveSpot().get('areaId'),
     		menuStore = Ext.StoreManager.lookup('menuStore'),
     		titleLabel,
     		titleLabelTpl;
+
+
+    	menuStore.filter([
+	    	{
+	    		filterFn: function(menu) {
+	    			if(Ext.Array.contains(activeSpot.raw.areaMenuIds, menu.get('id'))) {
+	    				return true;
+	    			}
+	    		}
+	    	}
+    	]);
 		
 		if(businessId && businessId.toString().length != 0) {
 			menuStore.load({
 				scope   : this,
 				params: {
 					'includeProducts' : true,
-					'pathId': businessId,
-					'areaId' : areaId
+					'pathId': businessId
+					// 'areaId' : areaId
 				},
 			    callback: function(records, operation, success) {
 			    	if(operation.error) { 
@@ -216,8 +227,7 @@ Ext.define('EatSense.controller.Menu', {
 
 			try {
 				titleLabel = menu.down('#titleLabel');
-
-				titleLabel.getTpl().overwrite(titleLabel.element, checkInCtr.getActiveSpot().getData());
+				titleLabel.getTpl().overwrite(titleLabel.element, [checkInCtr.getActiveSpot().get('areaName')]);
 			} catch(e) {
 				console.log('Menu.showMenu > failed to set up titleLabel');
 			}
@@ -228,6 +238,43 @@ Ext.define('EatSense.controller.Menu', {
 		} else {
 			console.log('Order.showMenu > no businessId in active checkInFound found! Was ' + businessId);
 		}
+    },
+    /**
+    * Updates the menu label with the given title.
+    * @param {String} areaName
+    *	Name of area to set as title
+    *
+    */
+    updateMenuLabel: function(areaName) {
+    	var titleLabel,
+    	 	menu = this.getMenuview();
+
+		try {
+			titleLabel = menu.down('#titleLabel');
+
+			titleLabel.getTpl().overwrite(titleLabel.element, [areaName]);
+		} catch(e) {
+			console.log('Menu.showMenu > failed to set up titleLabel');
+		}
+
+    },
+    /**
+    *
+    */
+    filterMenuBasedOnArea: function(area) {
+    	var menuStore = Ext.StoreManager.lookup('menuStore');
+
+    	menuStore.clearFilter(); //true?
+	    menuStore.filter([
+	    	{
+	    		filterFn: function(menu) {
+	    			if(Ext.Array.contains(area.raw.menuIds, menu.get('id'))) {
+	    				return true;
+	    			}
+	    		}
+	    	}
+    	]);
+    	this.updateMenuLabel(area.get('name'));
     },
     /**
      * Shows the menu. At this point the store is already filled with data.

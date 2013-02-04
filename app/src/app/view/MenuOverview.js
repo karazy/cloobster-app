@@ -29,7 +29,7 @@ Ext.define('EatSense.view.MenuOverview', {
 				itemId: 'titleLabel',
 				docked: 'top',
 				margin: '0 0 15 0',
-				tpl: new Ext.XTemplate('<div class="productlist-header">{areaName}</div>')
+				tpl: new Ext.XTemplate('<div class="productlist-header">{0}</div>')
 			},
 		   {
 			xtype : 'list',

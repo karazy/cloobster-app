@@ -21,17 +21,6 @@ Ext.define('EatSense.model.Spot', {
 				type : 'string'
 			},
 			{
-				name: 'areaName',
-				type : 'string'
-			},
-			{
-				name: 'areaDescription',
-				type : 'string'
-			},	
-			{
-				name: 'areaId'
-			},
-			{
 				name: 'logoUrl',
 				type: 'string',
 				persist: false
@@ -53,7 +42,19 @@ Ext.define('EatSense.model.Spot', {
 			{
 				name: 'welcome',
 				type: 'bool'
+			},
+			{
+				name: 'areaName',
+				type : 'string'
+			},
+			{
+				name: 'areaDescription',
+				type : 'string'
+			},	
+			{
+				name: 'areaId'
 			}
+			//also contains areaMenuIds, an array of assigned menu ids, access via raw
 		],
 		 associations: [{
 	            type: 'hasMany',

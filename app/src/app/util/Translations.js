@@ -130,6 +130,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Home",
 			"EN" : "Home"
 		},
+		"slidenav.header.areas" : {
+			"DE" :  "Servicebereiche",
+			"EN" : "service areas"
+		},
 		//Dashboard
 		"dashboard.button.checkin" : {
 			"DE" :  "<h2>Check-in</h2><p>Wenn du an einer cloobster Location bist</p>",
