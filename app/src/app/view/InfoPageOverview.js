@@ -11,7 +11,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					layout: {
 						type: 'fit'
 					},
-					items: [		
+					items: [
 					{
 						xtype: 'titlebar',
 						docked: 'top',

@@ -185,7 +185,7 @@ Ext.application({
       if(Ext.os.is.Android) {
           console.log('Android Controller -> setup android specific behaviour');
           document.addEventListener('backbutton', onBackKeyDown, false);
-          function onBackKeyDown() {            
+          function onBackKeyDown() {
                 console.log('fire backbutton event');
                 me.getController('Android').executeBackHandler();
         };

@@ -817,8 +817,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Show more ..."
 		},
 		"history.noaccount" : {
-			"DE" :  "Dieses Feature benötigt einen cloobster Account.",
-			"EN" :  "This feature requires a cloobster account."
+			"DE" :  "Erinnere dich, wo Du warst! Dieses Feature benötigt einen cloobster Account.",
+			"EN" :  "Remember where you were! This feature requires a cloobster account."
 		},
 		"history.list.description" : {
 			"DE" :  "Hier werden Ihre besuchten Orte aufgelistet. Sie haben noch keine Orte besucht.",

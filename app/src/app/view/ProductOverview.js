@@ -17,13 +17,9 @@ Ext.define('EatSense.view.ProductOverview', {
 			// 	xtype: 'slidenavbutton'
 			// },
 			{
-				xtype : 'fixedbutton',
-				itemId : 'menuBackBt',
-				action: 'back',
-				text : i10n.translate('back'),
-				ui : 'back',
-				align: 'left'
-			},{
+				xtype : 'backbutton'
+			},
+			{
 				xtype: 'cartbutton'
 			}
 			]

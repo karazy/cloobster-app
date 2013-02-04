@@ -472,7 +472,7 @@ Ext.define('EatSense.controller.Account', {
     	    headers: {
 				//provide credentials, they will be added to request header
 				'login': login,
-				'password': password			
+				'password': password
 			},
 			//submit a timestamp to prevent iOS6 from caching the POST request
 			jsonData: timestamp,
@@ -639,6 +639,31 @@ Ext.define('EatSense.controller.Account', {
 
 		this.setAccount(null);
 		this.showDashboardLoginButton();
+	},
+	/**
+	@USELESS? ;) 
+	* @private
+	* Updates logged in account with given checkinid
+	* @param {String} checkInId
+	*	Id to update account with
+	*/
+	updateAccountWithCheckIn: function(checkInId) {
+		var account;
+
+		if(!this.isLoggedIn()) {
+			console.error('Account.updateAccountWithCheckIn: not logged in');
+			return;
+		}
+
+		if(!this.getAccount()) {
+			console.error('Account.updateAccountWithCheckIn: no account');
+			return;
+		}
+
+		account = this.getAccount();
+
+		account.set('checkInId', checkInId);
+		account.save();
 	},
 	/**
 	* Indicates if user is logged in. User is considered to be logged in

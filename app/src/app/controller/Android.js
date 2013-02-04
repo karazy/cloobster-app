@@ -10,11 +10,18 @@ Ext.define('EatSense.controller.Android', {
 		//when true, will exit application on next backbutton event
 		exitOnBack: false,
 		//if true won't remove a backhandler. Only used for message boxes. Setting this somewhere else won't have any effect.
-		keepHandler: false
+		keepHandler: false,
+
+		msgBoxVisible: false,
+
+		rootContainer: null
 	},
 	launch: function() {
-		var checkInCtr = this.getApplication().getController('CheckIn');
+		var me = this,
+			checkInCtr = this.getApplication().getController('CheckIn');
 		// var keepHandler = false;
+
+		this.resetBackHandler(new Array());
 		
 		Ext.Viewport.element.on('tap', function() {
 			this.setExitOnBack(false);
@@ -24,26 +31,20 @@ Ext.define('EatSense.controller.Android', {
 		});
 
 		//let the button also work on message boxes
-		// Ext.Msg.on('show', function() {
-		// 	var me = this;
-		// 	this.addBackHandler(function() {
-		// 		me.setKeepHandler(true);
-		// 		Ext.Msg.hide();
-		// 	});
-		// }, this);
+		Ext.Msg.on('show', function() {
+			var me = this;
+			this.setMsgBoxVisible(true);
+		}, this);
 
-		// Ext.Msg.on('hide', function() {
-		// 	if(!this.getKeepHandler()) {
-		// 		this.removeLastBackHandler();
-		// 	};
-		// 	this.setKeepHandler(false);
-		// }, this);
+		Ext.Msg.on('hide', function() {
+			this.setMsgBoxVisible(false);
+		}, this);
 
 		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
-				
-			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.resetBackHandler();
+			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				me.resetBackHandler();
 			}
 		}, this);
 	},
@@ -84,13 +85,37 @@ Ext.define('EatSense.controller.Android', {
 
 	executeBackHandler: function() {
 		var handler,
-			msgBox;
-		
-		// if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
-		// 	console.log('Android Controller -> executeBackHandler');
-		// 	handler = this.getAndroidBackHandler().pop();
-		// 	handler();
-		// } else {
+			msgBox,
+			backbutton;
+			
+			//close open message box
+			if(this.getMsgBoxVisible()) {
+				this.setMsgBoxVisible(false);
+				Ext.Msg.hide();	
+				return;
+			}
+			
+
+			//1. check if back handlers exist and execute it
+
+			// if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
+			// 	console.log('Android Controller -> executeBackHandler');
+			// 	handler = this.getAndroidBackHandler().pop();
+			// 	handler();
+			// } else {						
+
+			//2. if backbutton exists do a tap
+			// if(this.getRootContainer()) {
+			// 	backbutton = this.getRootContainer().down('backbutton');
+			// 	if(backbutton) {
+			// 		//trigger tap on the back button
+			// 		backbutton.doTap(backbutton);
+			// 		return;
+			// 	}				
+			// }
+
+			// no backbuttons or backhandlers
+			//ask user before exiting the app
 			if(this.getExitOnBack()) {
 				console.log('Android Controller -> executeBackHandler: exit app');
 				navigator.app.exitApp();
