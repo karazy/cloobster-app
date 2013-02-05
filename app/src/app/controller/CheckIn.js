@@ -40,7 +40,7 @@ Ext.define('EatSense.controller.CheckIn', {
      */
 
 
-    requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message'],
+    requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message', 'EatSense.view.SpotSelection'],
     config: {
         profile: Ext.os.deviceType.toLowerCase(),
     	refs: {
@@ -70,7 +70,12 @@ Ext.define('EatSense.controller.CheckIn', {
         	menuTab: 'menutab',
         	cartTab: 'carttab',
           settingsTab: 'settingstab',
-          homeTab: 'clubarea'
+          homeTab: 'clubarea',
+          spotSelectionView : {
+            selector: 'spotselection',
+            xtype: 'spotselection',
+            autoCreate: true
+          }
     	},
     	control: {
     		checkInBtn: {
@@ -891,7 +896,7 @@ Ext.define('EatSense.controller.CheckIn', {
         this.scanBarcode(doLoadSpot);
       } else {
         //or load spots
-        //this.showAllSpots(doLoadBarcode);
+        this.showSpotSelection(area, doSwitch);
       }
 
       
@@ -991,6 +996,116 @@ Ext.define('EatSense.controller.CheckIn', {
               }
           });
       }
+  },
+  /**
+  * Display {@link EatSense.view.SpotSelection} with all avail. spots at given area.
+  * @param {EatSense.model.Area|String} either an area model or area id
+  * @param {Function} onSelect
+  *   callback on spot selection, gets passed the selected spot
+  */
+  showSpotSelection: function(area, onSelect) {
+    var me = this,
+        spotSelectionView = this.getSpotSelectionView(),
+        spotStore = Ext.StoreManager.lookup('spotStore'),
+        backbutton,
+        searchField,
+        spotList,
+        userTypes = null;
+
+    //load all spots
+    this.loadSpotsForArea(area);
+
+    //register events
+    backbutton = spotSelectionView.down('backbutton');
+    searchField = spotSelectionView.down('searchfield');
+    spotList = spotSelectionView.down('list');
+
+    backbutton.on({
+      tap: hideSpotSelectionView,
+      single: true,
+      scope: this
+    });
+
+    spotList.on({
+      select: onSelect
+    });
+
+    searchfield.on({
+      keyup: searchFieldKeyupHandler,
+      clearicontap: clearSpotListFilter
+    });
+
+
+    function hideSpotSelectionView() {
+      backbutton.un({
+        tap: hideSpotSelectionView
+      });
+
+      spotList.un({
+        select: onSelect
+      });
+
+      searchfield.un({
+        keyup: searchFieldKeyupHandler,
+        clearicontap: clearSpotListFilter
+      });
+
+      clearSpotListFilter();
+      spotSelectionView.hide();
+
+      return false;
+    }
+
+    function onSelect(list, record) {
+
+      backbutton.un({
+        tap: hideSpotSelectionView
+      });
+
+      spotList.un({
+        select: onSelect
+      });
+
+      searchfield.on({
+        keyup: searchFieldKeyupHandler,
+        clearicontap: clearSpotListFilter
+      });
+
+      clearSpotListFilter();
+      if(appHelper.isFunction(onSelect)) {
+        onSelect(record);
+      }
+    }
+
+    function searchFieldKeyupHandler(field) {
+      var timeout;
+
+      if(userTypes) {
+        window.clearTimeout(userTypes);
+      }
+      
+
+      timeout = Ext.defer(function() {
+        userTypes = null;
+        filterSpotList(field.getValue()); 
+      }, 50, this);
+
+      userTypes = timeout;
+    }
+
+    function filterSpotList(value) {
+      spotStore.filter('name', value);
+      spotList.refresh();
+    }
+
+    function clearSpotListFilter() {
+      spotStore.clearFilter();
+      spotList.refresh();
+    }
+
+    Ext.Viewport.add(spotSelectionView);
+    spotSelectionView.show();
+
   },
   /**
   * Load all spots for active area. Only if area does not require a barcode.
