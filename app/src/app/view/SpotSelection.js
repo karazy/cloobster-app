@@ -21,6 +21,12 @@ Ext.define('EatSense.view.SpotSelection', {
 				]
 			},
 			{
+				xtype: 'label',
+				docked: 'top',
+				cls: 'general-label',
+				html: i10n.translate('spotselection.description')
+			},
+			{
 				xtype: 'searchfield',
 				docked: 'top',
 				margin: '0 15 10 10',

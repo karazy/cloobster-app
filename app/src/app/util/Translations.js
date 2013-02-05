@@ -854,6 +854,25 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Facebook login nicht erfolgreich.",
 			"EN" :  "Facebook login failed."
 		},
+		//spot selection
+		"spotselection.title" : {
+			"DE" :  "Spot Auswahl",
+			"EN" : "Spot Selection"
+		},
+		"spotselection.description" : {
+			"DE" :  "Bitte wählen Sie Ihren aktuellen Spot aus.",
+			"EN" : "Please select your current spot."
+		},
+		"checkin.switchspot.message" : {
+			"DE" :  "Bitte scannen Sie den Barcode des aktuellen Spots um Ihre Bestellung abzuschicken.<br/>"+
+				"Haben Sie bereits Bestellungen verschickt werden Sie aufgefordert den Prozess abzuschliessen.",
+			"EN" : ""
+		},
+		"checkin.switchspot.list" : {
+			"DE" :  "Bitte wählen Sie an einem anderen Spot um Ihre Bestellung abzuschicken.<br/>"+
+				"Haben Sie bereits Bestellungen verschickt werden Sie aufgefordert den Prozess abzuschliessen.",
+			"EN" : ""
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

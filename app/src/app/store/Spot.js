@@ -4,6 +4,14 @@ Ext.define('EatSense.store.Spot', {
     config : {
     	storeId: 'spotStore',
     	model   : 'EatSense.model.Spot',
-    	syncRemovedRecords: false
+    	syncRemovedRecords: false,
+    	proxy : {
+			type : 'rest',
+			url : '/c/businesses/{pathId}/spots',
+			enablePagingParams: false,
+			reader : {
+				type : 'json'
+			}
+		}
     }
 });

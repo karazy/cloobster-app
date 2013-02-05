@@ -934,6 +934,7 @@ Ext.define('EatSense.controller.CheckIn', {
         //set new active spot
         me.setActiveSpot(newSpot);
 
+        newCheckIn.set('id', ''); //as always set sencha id to null
         newCheckIn.set('spotId', newSpot.get('barcode'));
         newCheckIn.set('businessName', newSpot.get('business'));
         newCheckIn.set('businessId', newSpot.get('businessId'));
@@ -1027,49 +1028,37 @@ Ext.define('EatSense.controller.CheckIn', {
     });
 
     spotList.on({
-      select: onSelect
+      select: onListSelect
     });
 
-    searchfield.on({
+    searchField.on({
       keyup: searchFieldKeyupHandler,
       clearicontap: clearSpotListFilter
     });
 
 
     function hideSpotSelectionView() {
+
       backbutton.un({
         tap: hideSpotSelectionView
       });
 
       spotList.un({
-        select: onSelect
+        select: onListSelect
       });
 
-      searchfield.un({
+      searchField.un({
         keyup: searchFieldKeyupHandler,
         clearicontap: clearSpotListFilter
       });
 
       clearSpotListFilter();
       spotSelectionView.hide();
-
-      return false;
     }
 
-    function onSelect(list, record) {
+    function onListSelect(list, record) {
 
-      backbutton.un({
-        tap: hideSpotSelectionView
-      });
-
-      spotList.un({
-        select: onSelect
-      });
-
-      searchfield.on({
-        keyup: searchFieldKeyupHandler,
-        clearicontap: clearSpotListFilter
-      });
+      hideSpotSelectionView();
 
       clearSpotListFilter();
       if(appHelper.isFunction(onSelect)) {
