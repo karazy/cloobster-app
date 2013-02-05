@@ -6,9 +6,27 @@
 */
 Ext.define('EatSense.controller.Message', {
 	extend: 'Ext.app.Controller',
+	requires: ['EatSense.util.Channel'],
 	config: {
 		//id used for channel creation		
 		channelId: null
+	},
+	launch: function() {		
+		var me = this,
+			checkInCtr = this.getApplication().getController('CheckIn');		
+
+		checkInCtr.on('statusChanged', function(status) {
+			if(status == appConstants.CHECKEDIN) {
+
+			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				me.closeChannel();	
+			}
+		}, this);
+
+		checkInCtr.on('spotswitched', function(newSpot, newCheckIn) {
+			me.closeChannel();
+			me.openChannel(newCheckIn.get('userId'));
+		});
 	},
 	/**
 	*	Called after receiving a channel message.
@@ -168,6 +186,12 @@ Ext.define('EatSense.controller.Message', {
 			executionScope: me
 		});
 
+	},
+	/**
+	* Close the active channel.
+	*/
+	closeChannel: function() {
+		appChannel.closeChannel();
 	},
 	/**
 	*	Called when the connection status changes.

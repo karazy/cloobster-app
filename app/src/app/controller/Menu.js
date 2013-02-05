@@ -610,7 +610,7 @@ Ext.define('EatSense.controller.Menu', {
 			console.log('Menu.createOrder: active spot belongs not to active area');
 			if(orderCtr.getMyordersCount() > 0) {
 				//orders exist, ask user to complete current process
-				//checkInCtr.confirmSwitchSpot(true);
+				//checkInCtr.confirmSwitchSpot();
 			} else {
 				//no orders exist ask user to select spot				
 				checkInCtr.confirmSwitchSpot();

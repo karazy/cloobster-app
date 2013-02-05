@@ -32,6 +32,13 @@ Ext.define('EatSense.controller.CheckIn', {
      * @param {EatSense.model.Business} the loaded business.
      */
 
+     /**
+     * @event spotswitched
+     * Fires when a user switched spot inside a location
+     * @param {EatSense.model.Spot} the new spot.
+     * @param {EatSense.model.CheckIn} the new checkin.
+     */
+
 
     requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message'],
     config: {
@@ -90,9 +97,6 @@ Ext.define('EatSense.controller.CheckIn', {
             settingsBt: {
             	tap: 'showSettings'
             },
-            // settingsBackBt: {
-            // 	tap: 'showDashboard'            	
-            // },
             nicknameSettingsField: {            	
             	change: 'saveNickname'
             }
@@ -226,19 +230,17 @@ Ext.define('EatSense.controller.CheckIn', {
                me.setActiveArea(record.get('areaId'));
                me.checkInConfirm({model:record, deviceId : deviceId});                               
               },
-              failure: function(record, operation) {
-                // console.log('CheckIn.doCheckInIntent: in error + ' + operation.error.status + ' ' + operation.error.responseText);
-                      //403 can only occur if you are logged in, with an invalid user                      
-                      me.getApplication().handleServerError({
-                          'error': operation.error,
-                          'message': {
-                              404: i10n.translate('checkInErrorBarcode'),
-                              403: i10n.translate('error.account.credentials.invalid')
-                          },
-                          userLogout : {
-                            403: true
-                          }
-                      }); 
+              failure: function(record, operation) {                 
+                me.getApplication().handleServerError({
+                    'error': operation.error,
+                    'message': {
+                        404: i10n.translate('checkInErrorBarcode'),
+                        403: i10n.translate('error.account.credentials.invalid')
+                    },
+                    userLogout : {
+                      403: true
+                    }
+                }); 
               },
               callback: function() {
                 Ext.Viewport.setMasked(false);
@@ -250,7 +252,8 @@ Ext.define('EatSense.controller.CheckIn', {
    /**
    * @private
    * Expects a url with a barcode at the end. Separated by a #.
-   * e. g. https://cloobster.com/get-app#30001-1001
+   * e. g. https://cloobster.com/get-app#ENCRYPTED_BARCODE
+   * @return the extracted barcode
    */
    extractBarcode: function(url) {
     var indexHashTag = url.lastIndexOf('#') + 1,
@@ -296,9 +299,6 @@ Ext.define('EatSense.controller.CheckIn', {
        if(nicknameField.getValue().length >= 3) {
           nicknameExists = true;  
         }
-      //  else {
-	   		// this.generateNickname();
-	   	 // }
 		
 		checkIn.set('spotId', options.model.get('barcode'));
 		checkIn.set('businessName', options.model.get('business'));
@@ -354,13 +354,11 @@ Ext.define('EatSense.controller.CheckIn', {
                       'pathId' : me.getActiveCheckIn().get('businessId')
                     });
 
-  					   	    //currently disabled, will be enabled when linking to users actually makes sense
-                    //me.showCheckinWithOthers();
                     me.fireEvent('statusChanged', appConstants.CHECKEDIN);
   					   	    me.showLounge();
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
-  					   	    //save nickname in settings
+  					//save nickname in settings
   					if(nicknameToggle.getValue() == 1) {
               if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
                   profile.set('nickname', nickname);
@@ -681,9 +679,7 @@ Ext.define('EatSense.controller.CheckIn', {
       //clear checkInId
       this.getAppState().set('checkInId', null);
       
-      headerUtil.resetHeaders(['checkInId','pathId']);
-
-      appChannel.closeChannel();      
+      headerUtil.resetHeaders(['checkInId','pathId']);       
 
       this.getActiveSpot().payments().removeAll(true);
       this.setActiveSpot(null);
@@ -861,7 +857,7 @@ Ext.define('EatSense.controller.CheckIn', {
           scope: this,
           fn: function(btnId, value, opt) {
             if(btnId=='yes') {
-              me.switchspot(area);
+              me.switchspot(switchSpot);
             }
           }
       }); 
@@ -874,11 +870,13 @@ Ext.define('EatSense.controller.CheckIn', {
   * @param {Boolean} ordersExist
   *   if true then orders exist and we don't delete the checkin
   */
-  switchspot: function(area, ordersExist) {
+  switchSpot: function(area, ordersExist) {
     var me = this,
         activeArea = area,
         barcodeRequired,
-        activeCheckIn = this.getActiveCheckIn();
+        activeCheckIn = this.getActiveCheckIn(),
+        newCheckIn = Ext.create('EatSense.model.CheckIn'),
+        appState = this.getAppState();
 
       if(Ext.isNumber(activeArea)) {
       //if we only have an area id always require a barcode
@@ -889,34 +887,113 @@ Ext.define('EatSense.controller.CheckIn', {
 
       //start scanning
       if(barcodeRequired) {
-
+        //scan barcode
+        this.scanBarcode(doLoadBarcode);
       } else {
-        //load spots
+        //or load spots
+        //this.showAllSpots(doLoadBarcode);
+      }
+
+      
+      //load barcode and and proceed with doSwitch on success
+      function doLoadSpot(barcode) {
+        me.loadSpot(barcode, doSwitch);
       }
 
       //after selecting/scanning spot
       //trigger leave and complete the checkin
       //get new checkin
       //set new spot as active      
-      function doSwitch(newSpot, ordersExist) {
+      function doSwitch(newSpot) {
+        //necessary or handle upfront?
+        // if(!ordersExist) {
+        //   activeCheckIn.erase({
+        //     failure: function(response, operation) {
+        //       me.getApplication().handleServerError({
+        //         'error': operation.error,
+        //         'forceLogout': {403: true}
+        //       });
+        //     }
+        //   });
+        // }
 
-        if(!ordersExist) {
-          activeCheckIn.erase({
-            failure: function(response, operation) {
-              me.getApplication().handleServerError({
-                'error': operation.error,
-                'forceLogout': {403: true}
-              });
-            }
-          });
+        //check business ids of new spot against old spot!
+        if(newSpot.get('businessId') != me.getActiveSpot().get('businessId')) {
+           Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.businesses.mismatch'));
+          return;
         }
-        
 
-        me.setActiveSpot(spot);
-        me.fireEvent('spotswitched', spot);
+        //set new active spot
+        me.setActiveSpot(newSpot);
+
+        newCheckIn.set('spotId', newSpot.get('barcode'));
+        newCheckIn.set('businessName', newSpot.get('business'));
+        newCheckIn.set('businessId', newSpot.get('businessId'));
+        newCheckIn.set('spot', newSpot.get('name'));
+        //nickname korrekt laden über neue generelle methode!
+        newCheckIn.set('nickname', appState.get('nickname'));
+        //we are already checked in, no intent
+        newCheckIn.set('status', appConstants.INTENT);
+
+        //save checkin
+        newCheckIn.saveCheckIn(newCheckIn, doCheckIn);              
       }
 
+      function doCheckIn(checkin) {
+        me.setActiveCheckIn(checkin);
+        me.getAppState().set('checkInId', checkin.get('userId'));
 
+             
+       //open a channel for push messags
+       try {
+            messageCtr.openChannel(checkin.get('userId'));
+        } catch(e) {
+            console.log('could not open a channel ' + e);
+        }
+        //notify controllers after everything has finished to refresh state where necessary
+        me.fireEvent('spotswitched', newSpot, checkin);
+      }
+  },
+  /**
+  * Load a spot via given barcode. Masks Viewport while loading. Also handles errors.
+  * @param {String} barcode
+  *   barcode identifiying spot
+  * @param {Function} callback
+  *   Executed on success. Gets spot as parameter.
+  *
+  */
+  loadSpot: function(barcode, callback) {
+    var me = this;
+
+      if(!barcode || barcode.length == 0) {
+        Ext.Viewport.setMasked(false);
+        Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
+      } else {
+          appHelper.toggleMask('loadingMsg');
+
+          EatSense.model.Spot.load(barcode, {
+             success: function(record, operation) {
+               if(appHelper.isFunction(callback)) {
+                  callback(record);
+               }
+              },
+              failure: function(record, operation) {                 
+                me.getApplication().handleServerError({
+                    'error': operation.error,
+                    'message': {
+                        404: i10n.translate('checkInErrorBarcode'),
+                        403: i10n.translate('error.account.credentials.invalid')
+                    },
+                    userLogout : {
+                      403: true
+                    }
+                }); 
+              },
+              callback: function() {
+                appHelper.toggleMask(false);
+              }
+          });
+      }
   },
   /**
   * Load all spots for active area. Only if area does not require a barcode.
@@ -957,6 +1034,51 @@ Ext.define('EatSense.controller.CheckIn', {
       }
     });
   },
+    /**
+    * Do a checkin by persisting it. While saving masks viewport, since this is a critical action.
+    * @param {EatSense.model.CheckIn} checkIn
+    *   CheckIn object used to checkin at location
+    * @param {Function} onSuccess
+    *   callback function, executed on success gets passed the persisted checkin
+    */
+   saveCheckIn: function(checkIn, onSuccess) {
+     var me = this,
+         nickname = Ext.String.trim(this.getNickname().getValue()),
+         nicknameToggle = this.getNicknameTogglefield(),
+         messageCtr = this.getApplication().getController('Message'),
+         checkInDialog = this.getCheckinconfirmation(),
+         accountCtr = this.getApplication().getController('Account'),
+         profile = accountCtr.getProfile();
+      
+      if(!checkIn) {
+        console.error('CheckIn.doCheckIn: no checkIn given');
+        return;
+      }
+
+      appHelper.toggleMask('loadingMsg');      
+      checkIn.save({
+          success: function(response) {
+            appHelper.toggleMask(false);
+            //Set default headers so that always checkInId is send
+            headerUtil.addHeaders({
+              'checkInId' : response.get('userId'),
+              'pathId' : me.getActiveCheckIn().get('businessId')
+            });
+
+            if(appHelper.isFunction(onSuccess)) {
+              onSuccess(response);
+            }
+          },
+        failure: function(response, operation) {
+            appHelper.toggleMask(false);
+            me.getApplication().handleServerError({
+              'error': operation.error, 
+              'forceLogout':{403 : true}
+            }); 
+          }
+      });
+     
+   }
 
 
     //end welcome and basic mode logic
