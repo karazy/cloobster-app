@@ -1297,6 +1297,10 @@ h9 {
   margin: 0 5px 0 0;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
+
+  &.icon-align-right {
+    float: right;
+  }
 }
 
 /* Slidenavigation button */ 

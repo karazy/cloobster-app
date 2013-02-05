@@ -1340,11 +1340,11 @@
 	},
 	/**
 	 * Returns number of issued orders.
-	 * May not always reflect the current state!!
+	 * May not always reflect the current state!
 	 * 
 	 * @returns
 	 */
-	myordersCount: function() {
+	getMyordersCount: function() {
 		var myordersStore = Ext.data.StoreManager.lookup('orderStore');
 		
 		if(myordersStore == null) {

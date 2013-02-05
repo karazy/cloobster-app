@@ -590,6 +590,7 @@ Ext.define('EatSense.controller.Menu', {
 	createOrder: function(button) {
 		//get active product and set choice values
 		var me = this,	
+			checkInCtr = this.getApplication().getController('CheckIn'),
 			order = this.getActiveOrder(),
 			order,
 			validationError = "",
@@ -604,6 +605,18 @@ Ext.define('EatSense.controller.Menu', {
 			androidCtr = this.getApplication().getController('Android'),
 			orderCtr = this.getApplication().getController('Order');
 		
+
+		if(!checkInCtr.checkActiveSpotInActiveArea()) {
+			console.log('Menu.createOrder: active spot belongs not to active area');
+			if(orderCtr.getMyordersCount() > 0) {
+				//orders exist, ask user to complete current process
+			} else {
+				//no orders exist ask user to select spot				
+				checkInCtr.confirmSwitchSpot();
+			}
+			return;
+		}
+
 		//validate choices 
 		order.choices().each(function(choice) {
 				validationResult = choice.validateChoice();
@@ -837,6 +850,7 @@ Ext.define('EatSense.controller.Menu', {
 		            choice.options().removeAll(true);
 		        });  
 	    	    product.choices().removeAll(true);
+	    	    product.destroy();
 	        });
 		       
 			productStore.removeAll();

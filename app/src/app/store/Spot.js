@@ -3,6 +3,7 @@ Ext.define('EatSense.store.Spot', {
     requires: ['EatSense.model.Spot'],    
     config : {
     	storeId: 'spotStore',
-    	model   : 'EatSense.model.Spot'
+    	model   : 'EatSense.model.Spot',
+    	syncRemovedRecords: false
     }
 });

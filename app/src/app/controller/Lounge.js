@@ -5,6 +5,13 @@
 */
 Ext.define('EatSense.controller.Lounge', {
 	extend: 'Ext.app.Controller',
+
+    /**
+   * @event areaswitched
+   * Fires whenever the user selected a new area in the slidenavigation.
+   * @param {EatSense.model.Area} the new area
+   */
+
 	requires: [],
 	config: {
 		refs: {
@@ -23,10 +30,7 @@ Ext.define('EatSense.controller.Lounge', {
 			},
       clubArea: {
         activate: 'clubAreaActivated'
-      },
-      // navButtons: {
-      //   tap: 'toggleNavigation'
-      // }
+      }
 		},
 		/* Android Back handlers */
 		navigationFunctions : new Array()

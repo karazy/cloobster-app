@@ -106,19 +106,25 @@ Ext.define('EatSense.controller.CheckIn', {
         */
         activeCheckIn: null,
         /**
-        *   The spot the activeCheckIn is assigned to.
+        *   The spot the activeCheckIn is currently checked in.
         */
         activeSpot: null,
         /* The active business. */
-        activeBusiness: null
+        activeBusiness: null,
+        /* The area the user currently views. This does not mean he is checked in there. This is indicated by the activeSpot.*/
+        activeArea: null
     },
     init: function() {
-    	var messageCtr = this.getApplication().getController('Message');
+    	var messageCtr = this.getApplication().getController('Message'),
+          loungeCtr = this.getApplication().getController('Lounge');
     	
       //register event handlers
     	this.on('statusChanged', this.handleStatusChange, this);
       this.getApplication().on('statusChanged', this.handleStatusChange, this);
-    	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);  	    
+    	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
+      loungeCtr.on('areaswitched', function(area) {
+        this.setActiveArea(area);
+      }, this);
     },
     /**
      * CheckIn Process
@@ -194,7 +200,8 @@ Ext.define('EatSense.controller.CheckIn', {
           var me = this;
           EatSense.model.Spot.load(barcode, {
              success: function(record, operation) {
-               me.setActiveSpot(record);               
+               me.setActiveSpot(record);
+               me.setActiveArea(record.get('areaId'));
                me.checkInConfirm({model:record, deviceId : deviceId});                               
               },
               failure: function(record, operation) {
@@ -537,6 +544,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		scope: this,
    		 success: function(record, operation) {
    			 this.setActiveSpot(record);
+         this.setActiveArea(record.get('areaId'));
          this.activateWelcomeMode(record.get('welcome'));
    			 this.showLounge();
    			    			
@@ -631,9 +639,9 @@ Ext.define('EatSense.controller.CheckIn', {
 	 */
 	handleStatusChange: function(status) {
 		console.log('CheckIn Controller -> handleStatusChange' + ' new status '+status);
-        var     settingsCtr = this.getApplication().getController('Settings'),
-                accountCtr = this.getApplication().getController('Account'),
-                appState = this.getAppState();
+    var accountCtr = this.getApplication().getController('Account'),
+        appState = this.getAppState(),
+        spotStore = Ext.StoreManager.lookup('spotStore');
 
     appState.set('prevStatus', appState.get('status'));
     appState.set('status', status);
@@ -657,6 +665,15 @@ Ext.define('EatSense.controller.CheckIn', {
 
       this.getActiveSpot().payments().removeAll(true);
       this.setActiveSpot(null);
+      this.setActiveArea(null);
+
+      if(spotStore) {
+        spotStore.each(function(spot) {
+          spot.destroy();
+        });
+
+        spotStore.removeAll(true);
+      }
       
       if(accountCtr.getAccount()) {
         //account can be null when no one is logged in
@@ -753,7 +770,147 @@ Ext.define('EatSense.controller.CheckIn', {
             button.setBasic(basic);
             button.activateBasicMode(basic);
         });
+    },
+  /**
+  * @private
+  * Checks if the active spot belongs to active area.
+  * This is mainly used to ensure orders can only be issued from active spot.
+  * @return true if spot belongs to area, false otherwise
+  */
+  checkActiveSpotInActiveArea: function() {
+    var activeSpot = this.getActiveSpot(),
+        activeArea = this.getActiveArea();
+
+    if(!activeSpot) {
+      console.error('Order.checkActiveSpotInActiveArea: activeSpot not found.');
+      return false;
     }
+
+    if(!activeArea) {
+      console.error('Order.checkActiveSpotInActiveArea: activeArea not found.');
+      return true;
+    }
+
+    if(Ext.isNumber(activeArea) && activeSpot.get('areaId') == activeArea) {
+      //initial area, we only have the id
+      return true;
+    }
+
+    if(activeSpot.get('areaId') == activeArea.get('id')) {
+      return true;
+    }
+
+    return false;
+  },
+  /**
+  * Ask user if he wants to switch the spot based on the activeArea.
+  */
+  confirmSwitchSpot: function() {
+    var me = this,
+        activeArea = this.getActiveArea(),
+        barcodeRequired;
+
+    if(!activeArea) {
+      console.error('CheckIn.loadSpotsForActiveArea');
+      return;
+    };
+
+    if(Ext.isNumber(activeArea)) {
+      //if we only have an area id always require a barcode
+      barcodeRequired = true;
+    } else {
+      barcodeRequired = activeArea.get('barcodeRequired');
+    }
+
+    Ext.Msg.show({
+          title: i10n.translate('hint'),
+          message: barcodeRequired ? i10n.translate('checkin.switchspot.barcode') : i10n.translate('checkin.switchspot.list'),
+          buttons: [{
+            text: i10n.translate('yes'),
+            itemId: 'yes',
+            ui: 'action'
+          }, {
+            text:  i10n.translate('no'),
+            itemId: 'no',
+            ui: 'action'
+          }],
+          scope: this,
+          fn: function(btnId, value, opt) {
+            if(btnId=='yes') {
+              me.switchspot(area);
+            }
+          }
+      }); 
+  },
+  /**
+  * @private
+  * Called after successful user confirm in CheckIn.confirmSwitchSpot.
+  * @param {EatSense.model.Area} area
+  *   Gets passed the active area.
+  */
+  switchspot: function(area) {
+    var me = this,
+        activeArea = area,
+        barcodeRequired;
+
+      if(Ext.isNumber(activeArea)) {
+      //if we only have an area id always require a barcode
+        barcodeRequired = true;
+      } else {
+        barcodeRequired = activeArea.get('barcodeRequired');
+      }
+
+      //start scanning
+      if(barcodeRequired) {
+
+      } else {
+        //load spots
+      }
+
+      //after selecting/scanning spot
+      //trigger leave and complete the checkin
+      //set new spot as active
+
+  },
+  /**
+  * Load all spots for active area. Only if area does not require a barcode.
+  *
+  */
+  loadSpotsForArea: function(area) {
+    var me = this,
+        activeArea = area,
+        spotStore = Ext.StoreManager.lookup('spotStore'),
+        areaId;
+
+    if(!activeArea) {
+      console.error('CheckIn.loadSpotsForActiveArea: no area given');
+      return;
+    };
+
+    if(!Ext.isNumber(activeArea) && activeArea.get('barcodeRequired')) {
+      console.log('Order.loadSpotsForActiveArea: this area requires a barcode!');
+      return;
+    }
+
+    areaId = Ext.isNumber(activeArea) ? activeArea || activeArea.get('id');
+
+    spotStore.load({
+      params: {
+        'areaId' : areaId
+      },
+      callback: function(records, operation, success) {            
+        if(!operation.error) {
+
+        }
+        else {
+          me.getApplication().handleServerError({
+                'error': operation.error, 
+                'forceLogout': {403:true}
+              });
+          }
+
+    });
+  },
 
 
     //end welcome and basic mode logic
