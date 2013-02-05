@@ -946,15 +946,9 @@ Ext.define('EatSense.controller.CheckIn', {
         me.setActiveCheckIn(checkin);
         me.getAppState().set('checkInId', checkin.get('userId'));
 
-             
-       //open a channel for push messags
-       try {
-            messageCtr.openChannel(checkin.get('userId'));
-        } catch(e) {
-            console.log('could not open a channel ' + e);
-        }
+
         //notify controllers after everything has finished to refresh state where necessary
-        me.fireEvent('spotswitched', newSpot, checkin);
+        me.fireEvent('spotswitched', me.getActiveSpot(), checkin);
       }
   },
   /**
