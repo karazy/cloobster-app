@@ -127,18 +127,48 @@ Ext.define('EatSense.controller.CheckIn', {
       }, this);
     },
     /**
-     * CheckIn Process
-     * Step 1: barcode is scanned and send to server
+     * Try to checkin by scanning a barcode.
+     * @param {Ext.Button} button
+     *  Button that triggered this tap event handler
      */    
     checkInIntent: function(button) {
-    	console.log('CheckIn Controller -> checkIn');
-    	//disable button to prevent multiple checkins
-    	button.disable();
-    	var barcode,
-          that = this,
+    	console.log('CheckIn Controller -> checkIn');    	
+    	var me = this,
+          device,
           deviceId;
+      
+      deviceId = (device) ? device.platform : 'desktop';
 
-    	if(this.getProfile() == 'desktop' || !window.plugins || !window.plugins.barcodeScanner || (device && device.platform == "iPhone Simulator")) {
+      //disable button to prevent multiple checkins
+      button.disable();
+      barcode = this.scanBarcode(callback);
+
+      function callback(barcode) {
+        if(!barcode) {
+         button.enable();
+        } else {
+          Ext.Viewport.setMasked({
+            message : i10n.translate('loadingMsg'),
+            xtype : 'loadmask'
+          });
+          me.doCheckInIntent(barcode, button, deviceId);
+        }
+      }	
+   },
+   /**
+   * @private
+   * Optains a barcode. In development (desktop, iPhone simulator) mode, shows a prompt, otherwise opens
+   * the barcode scanner plugin.
+   * 
+   * @param {Function} callback
+   *  Called after completion/cancelation of scanning. Gets passed the barcode as parameter.
+   *  barcode is false when user cancelled
+   */
+   scanBarcode: function(callback) {
+      var me = this,
+          barcode;
+
+      if(this.getProfile() == 'desktop' || !window.plugins || !window.plugins.barcodeScanner || (device && device.platform == "iPhone Simulator")) {
             Ext.Msg.show({
                 title: i10n.translate('barcodePromptTitle'),
                 message: i10n.translate('barcodePromptText'),
@@ -151,45 +181,37 @@ Ext.define('EatSense.controller.CheckIn', {
                     itemId: 'no',
                     ui: 'action'
                 }],
-                prompt : { maxlength : 20},
+                prompt : { maxlength : 50},
                 scope: this,
                 fn: function(btnId, value, opt) {
                     if(btnId=='yes') {
                         barcode = Ext.String.trim(value);    
-                        deviceId = '_browser';
-                        Ext.Viewport.setMasked({
-                          message : i10n.translate('loadingMsg'),
-                          xtype : 'loadmask'
-                        });
-                        this.doCheckInIntent(barcode, button, deviceId);
                     } else {
-                        button.enable();
+                      barcode = false;
+                    }
+
+                    if(Ext.isFunction(callback)) {
+                      callback(barcode);
                     }
                 }
             }); 
-            // barcode = Ext.String.trim(this.getSearchfield().getValue());
-    	} else if(this.getProfile() == 'phone' || this.getProfile() == 'tablet') {
-    			window.plugins.barcodeScanner.scan(function(result) {
+      } else if(this.getProfile() == 'phone' || this.getProfile() == 'tablet') {
+          window.plugins.barcodeScanner.scan(function(result) {
             if(!result.cancelled) {
-              barcode =  that.extractBarcode(result.text);
-              Ext.Viewport.setMasked({
-                message : i10n.translate('loadingMsg'),
-                xtype : 'loadmask'
-              });
-              //FR 28.03.12 apple rejects apps which track device uuid
-              // deviceId = device.uuid;
-              that.doCheckInIntent(barcode, button, deviceId);
+              barcode =  me.extractBarcode(result.text);
             } else {
-              console.log('user cancelled scan');
-              button.enable();
+              barcode = false;
             }
-    		}, function(error) {
-    			Ext.Msg.alert("Scanning failed: " + error, Ext.emptyFn);
-    		});
-    	} else {
-    		button.enable();
-    	}    	
+
+            if(Ext.isFunction(callback)) {
+              callback(barcode);
+            }
+        }, function(error) {
+          Ext.Msg.alert("Scanning failed: " + error, Ext.emptyFn);
+        });
+      }
    },
+
    doCheckInIntent : function(barcode, button, deviceId) {         
       //validate barcode field
       if(barcode.length == 0) {
@@ -804,8 +826,10 @@ Ext.define('EatSense.controller.CheckIn', {
   },
   /**
   * Ask user if he wants to switch the spot based on the activeArea.
+  * @param {Boolean} ordersExist
+  *   if true then orders exist and we don't delete the checkin
   */
-  confirmSwitchSpot: function() {
+  confirmSwitchSpot: function(ordersExist) {
     var me = this,
         activeArea = this.getActiveArea(),
         barcodeRequired;
@@ -847,11 +871,14 @@ Ext.define('EatSense.controller.CheckIn', {
   * Called after successful user confirm in CheckIn.confirmSwitchSpot.
   * @param {EatSense.model.Area} area
   *   Gets passed the active area.
+  * @param {Boolean} ordersExist
+  *   if true then orders exist and we don't delete the checkin
   */
-  switchspot: function(area) {
+  switchspot: function(area, ordersExist) {
     var me = this,
         activeArea = area,
-        barcodeRequired;
+        barcodeRequired,
+        activeCheckIn = this.getActiveCheckIn();
 
       if(Ext.isNumber(activeArea)) {
       //if we only have an area id always require a barcode
@@ -869,7 +896,26 @@ Ext.define('EatSense.controller.CheckIn', {
 
       //after selecting/scanning spot
       //trigger leave and complete the checkin
-      //set new spot as active
+      //get new checkin
+      //set new spot as active      
+      function doSwitch(newSpot, ordersExist) {
+
+        if(!ordersExist) {
+          activeCheckIn.erase({
+            failure: function(response, operation) {
+              me.getApplication().handleServerError({
+                'error': operation.error,
+                'forceLogout': {403: true}
+              });
+            }
+          });
+        }
+        
+
+        me.setActiveSpot(spot);
+        me.fireEvent('spotswitched', spot);
+      }
+
 
   },
   /**
@@ -892,13 +938,13 @@ Ext.define('EatSense.controller.CheckIn', {
       return;
     }
 
-    areaId = Ext.isNumber(activeArea) ? activeArea || activeArea.get('id');
+    areaId = Ext.isNumber(activeArea) ? activeArea : activeArea.get('id');
 
     spotStore.load({
       params: {
         'areaId' : areaId
       },
-      callback: function(records, operation, success) {            
+      callback: function(records, operation, success) { 
         if(!operation.error) {
 
         }
@@ -908,7 +954,7 @@ Ext.define('EatSense.controller.CheckIn', {
                 'forceLogout': {403:true}
               });
           }
-
+      }
     });
   },
 
