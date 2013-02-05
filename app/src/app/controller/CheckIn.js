@@ -189,7 +189,7 @@ Ext.define('EatSense.controller.CheckIn', {
                 scope: this,
                 fn: function(btnId, value, opt) {
                     if(btnId=='yes') {
-                        barcode = Ext.String.trim(value);    
+                        barcode = encodeURIComponent(Ext.String.trim(value));    
                     } else {
                       barcode = false;
                     }
@@ -823,7 +823,7 @@ Ext.define('EatSense.controller.CheckIn', {
   /**
   * Ask user if he wants to switch the spot based on the activeArea.
   * @param {Boolean} ordersExist
-  *   if true then orders exist and we don't delete the checkin
+  *   if true then orders exist and checkin must be completed
   */
   confirmSwitchSpot: function(ordersExist) {
     var me = this,
@@ -857,7 +857,7 @@ Ext.define('EatSense.controller.CheckIn', {
           scope: this,
           fn: function(btnId, value, opt) {
             if(btnId=='yes') {
-              me.switchspot(switchSpot);
+              me.switchSpot(activeArea, ordersExist);
             }
           }
       }); 
@@ -888,7 +888,7 @@ Ext.define('EatSense.controller.CheckIn', {
       //start scanning
       if(barcodeRequired) {
         //scan barcode
-        this.scanBarcode(doLoadBarcode);
+        this.scanBarcode(doLoadSpot);
       } else {
         //or load spots
         //this.showAllSpots(doLoadBarcode);
@@ -905,17 +905,20 @@ Ext.define('EatSense.controller.CheckIn', {
       //get new checkin
       //set new spot as active      
       function doSwitch(newSpot) {
-        //necessary or handle upfront?
-        // if(!ordersExist) {
-        //   activeCheckIn.erase({
-        //     failure: function(response, operation) {
-        //       me.getApplication().handleServerError({
-        //         'error': operation.error,
-        //         'forceLogout': {403: true}
-        //       });
-        //     }
-        //   });
-        // }
+        //delete checkin
+        if(!ordersExist) {
+          activeCheckIn.erase({
+            failure: function(response, operation) {
+              me.getApplication().handleServerError({
+                'error': operation.error,
+                'forceLogout': {403: true}
+              });
+            }
+          });
+        } else {
+          //TODO complete checkin
+          return;
+        }
 
         //check business ids of new spot against old spot!
         if(newSpot.get('businessId') != me.getActiveSpot().get('businessId')) {
@@ -936,7 +939,7 @@ Ext.define('EatSense.controller.CheckIn', {
         newCheckIn.set('status', appConstants.INTENT);
 
         //save checkin
-        newCheckIn.saveCheckIn(newCheckIn, doCheckIn);              
+        me.saveCheckIn(newCheckIn, doCheckIn);
       }
 
       function doCheckIn(checkin) {
