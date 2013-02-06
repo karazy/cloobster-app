@@ -873,6 +873,16 @@ Ext.define('EatSense.util.Translations',{
 				"Haben Sie bereits Bestellungen verschickt werden Sie aufgefordert den Prozess abzuschliessen.",
 			"EN" : ""
 		},
+		"checkin.switchspot.orders.barcode" : {
+			"DE" :  "Wählen Sie, wie Sie ihre aktuellen Bestellungen in Höhe von {0} abschliessen möchten" +
+			" und scannen Sie anschließend den Barcode des neuen Spots.",
+			"EN" : ""
+		},
+		"checkin.switchspot.orders.list" : {
+			"DE" :  "Wählen Sie, wie Sie ihre aktuellen Bestellungen in Höhe von {0} abschliessen möchten" +
+			" und suchen Sie dann den neuen Spot in der Liste.",
+			"EN" : ""
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

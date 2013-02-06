@@ -1089,7 +1089,6 @@
 				me.getMyordersview().showLoadScreen(false);
 			}
 		});
-		
 	},
 	/**
 	 * Calculates and returns the total price of all orders.
@@ -1120,7 +1119,7 @@
 	 */
 	choosePaymentMethod: function(onChoose) {
 		var availableMethods = this.getApplication().getController('CheckIn').getActiveSpot().payments(),
-			orderCount = this.getMyorderlist().getStaore().getCount(),
+			orderCount = this.getMyorderlist().getStore().getCount(),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			picker,
 			choosenMethod,
@@ -1183,8 +1182,11 @@
 	* Creates and saves a bill for given checkin.
 	* @param {String} paymentMethod
 	*	Payment method to set in bill.
+	* @param {Function} callback
+	*	called after the save was performed. gets passed true/false 
+	*	based on success/failure
 	*/
-	saveBillForCheckIn: function(paymentMethod) {
+	saveBillForCheckIn: function(paymentMethod, callback) {
 		var bill = Ext.create('EatSense.model.Bill'),
 			date = new Date();
 
@@ -1200,30 +1202,39 @@
 		bill.save({
 			scope: this,
 			success: function(record, operation) {
-	
+				if(appHelper.isFunction(callback)) {
+					callback(true);
+				}
 			},
 			failure: function(record, operation) {
 				me.getApplication().handleServerError({
 					'error': operation.error,
 					'forceLogout': {403: true}
 				});
+
+				callback(false);
 			}
 		});
 	},
+	// /**
+	// * Starts a payment workflow.
+	// * 1. Asks user to select a
+	// */
+	// doPayment: function(callback) {
+	// 	var me = this;
 
-	doPayment: function(callback) {
-		var me = this;
+	// 	this.choosePaymentMethod(doSaveBillForCheckIn)
 
-		this.choosePaymentMethod(doSaveBillForCheckIn)
+	// 	function doSaveBillForCheckIn(paymentMethod) {
+	// 		me.saveBillForCheckIn(paymentMethod, onSuccess);			
+	// 	}
 
-		function doSaveBillForCheckIn(paymentMethod) {
-			me.saveBillForCheckIn(paymentMethod);
-
-			if(appHelper.isFunction(callback)) {
-				callback();
-			}
-		}
-	},
+	// 	function onSuccess() {
+	// 		if(appHelper.isFunction(callback)) {
+	// 			callback();
+	// 		}
+	// 	}
+	// },
 	
 	/**
 	 * Request the payment.

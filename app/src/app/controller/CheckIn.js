@@ -833,6 +833,9 @@ Ext.define('EatSense.controller.CheckIn', {
   confirmSwitchSpot: function(ordersExist) {
     var me = this,
         activeArea = this.getActiveArea(),
+        orderCtr = this.getApplication().getController('Order'),
+        ordersTotal,
+        completeCheckInMessage,
         barcodeRequired;
 
     if(!activeArea) {
@@ -847,7 +850,23 @@ Ext.define('EatSense.controller.CheckIn', {
       barcodeRequired = activeArea.get('barcodeRequired');
     }
 
-    Ext.Msg.show({
+    //if orders exist show alert and ask user to select payment method
+    if(ordersExist) {
+      ordersTotal = appHelper.formatPrice(orderCtr.calculateOrdersTotal(Ext.StoreManager.lookup('orderStore')), true);
+      completeCheckInMessage = barcodeRequired ?
+       i10n.translate('checkin.switchspot.orders.barcode', ordersTotal) : i10n.translate('checkin.switchspot.orders.list', ordersTotal);
+
+      Ext.Msg.alert(i10n.translate('hint'), 
+        completeCheckInMessage,
+          function() {
+            orderCtr.choosePaymentMethod(onChoose);
+          }, this);
+
+      function onChoose(paymentMethod) {
+        me.switchSpot(activeArea, ordersExist, paymentMethod);
+      }
+    } else {
+          Ext.Msg.show({
           title: i10n.translate('hint'),
           message: barcodeRequired ? i10n.translate('checkin.switchspot.barcode') : i10n.translate('checkin.switchspot.list'),
           buttons: [{
@@ -865,7 +884,8 @@ Ext.define('EatSense.controller.CheckIn', {
               me.switchSpot(activeArea, ordersExist);
             }
           }
-      }); 
+       }); 
+    }
   },
   /**
   * @private
@@ -874,15 +894,19 @@ Ext.define('EatSense.controller.CheckIn', {
   *   Gets passed the active area.
   * @param {Boolean} ordersExist
   *   if true then orders exist and we don't delete the checkin
+  * @param {String} paymentMethod
+  *   Payment method to used to create bill when orders exist
   */
-  switchSpot: function(area, ordersExist) {
+  switchSpot: function(area, ordersExist, paymentMethod) {
     var me = this,
         activeArea = area,
         barcodeRequired,
         activeCheckIn = this.getActiveCheckIn(),
         newCheckIn = Ext.create('EatSense.model.CheckIn'),
         appState = this.getAppState(),
-        orderCtr = this.getApplication().getController('Order');
+        orderCtr = this.getApplication().getController('Order'),
+        switchFnSequence = Ext.Function.createInterceptor(doSwitch, checkAndFinalizeCheckIn);
+
 
       if(Ext.isNumber(activeArea)) {
       //if we only have an area id always require a barcode
@@ -891,50 +915,57 @@ Ext.define('EatSense.controller.CheckIn', {
         barcodeRequired = activeArea.get('barcodeRequired');
       }
 
-      //start scanning
+      //get barcode or spot
       if(barcodeRequired) {
         //scan barcode
         this.scanBarcode(doLoadSpot);
       } else {
         //or load spots
-        this.showSpotSelection(area, doSwitch);
+        this.showSpotSelection(area, switchFnSequence);
       }
+
+      //Sequence of functions
+      // 1.loadSpot
+      // 2.checkAndFinalizeCheckIn
+      // 3.doSwitch
+      // 4.doCheckIn -> fires spotswitched
 
       
       //load barcode and and proceed with doSwitch on success
       function doLoadSpot(barcode) {
-        me.loadSpot(barcode, doSwitch);
+        me.loadSpot(barcode, function() {
+          switchFnSequence(newSpot);
+        });
       }
 
-      //after selecting/scanning spot
-      //trigger leave and complete the checkin
-      //get new checkin
-      //set new spot as active      
-      function doSwitch(newSpot) {
-        //delete checkin
-        if(!ordersExist) {
-          activeCheckIn.erase({
-            failure: function(response, operation) {
-              me.getApplication().handleServerError({
-                'error': operation.error,
-                'forceLogout': {403: true}
-              });
-            }
-          });
-        } else {
-          //get payment, create bill and we are good to go
-          orderCtr.choosePaymentMethod();
-
-          //TODO show the bill?
-          //TODO clean up stores, refresh badge texts and so on
-          return;
-        }
-
+      //verify switch, finalize checkin, returns true on success
+      function checkAndFinalizeCheckIn(newSpot) {
         //check business ids of new spot against old spot!
         if(newSpot.get('businessId') != me.getActiveSpot().get('businessId')) {
            Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.businesses.mismatch'));
-          return;
+          return false;
         }
+
+        //delete checkin
+        if(!ordersExist) {          
+          this.deleteActiveCheckIn(callback);
+        } else {
+          //save bill ... to complete checkin
+          if(!paymentMethod) {
+            console.error('CheckIn.switchSpot: no paymentMethod given');
+            return false;
+          }
+          orderCtr.saveBillForCheckIn(paymentMethod, callback);
+        }
+
+        function callback(success) {
+          return success;
+        }
+      }
+
+
+      //set given spot as active on, save the new checkin 
+      function doSwitch(newSpot) {
 
         //set new active spot
         me.setActiveSpot(newSpot);
@@ -951,6 +982,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
         //save checkin
         me.saveCheckIn(newCheckIn, doCheckIn);
+
       }
 
       function doCheckIn(checkin) {
@@ -959,6 +991,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
 
         //notify controllers after everything has finished to refresh state where necessary
+        //clean up orderstore, cart, badge texts ...
         me.fireEvent('spotswitched', me.getActiveSpot(), checkin);
       }
   },
@@ -1175,8 +1208,37 @@ Ext.define('EatSense.controller.CheckIn', {
               'forceLogout':{403 : true}
             }); 
           }
+      });     
+   },
+   /**
+   * Deletes the active checkIn
+   */
+   deleteActiveCheckIn: function(callback) {
+    var activeCheckIn = this.getActiveCheckIn();
+
+
+    if(!activeCheckIn) {
+      console.error('CheckIn.deleteCheckIn: no active checkIn exists.');
+      if(appHelper.isFunction(callback)) {
+        callback(false);
+      }
+      return false;
+    }
+
+    //additional checks? checkIn.get('status') != appConstants.PAYMENT_REQUEST
+
+    activeCheckIn.erase({
+        success: function() {
+          callback(true);
+        },
+        failure: function(response, operation) {
+          me.getApplication().handleServerError({
+            'error': operation.error,
+            'forceLogout': {403: true}
+          });
+          callback(false);
+        }
       });
-     
    }
 
 
