@@ -881,7 +881,8 @@ Ext.define('EatSense.controller.CheckIn', {
         barcodeRequired,
         activeCheckIn = this.getActiveCheckIn(),
         newCheckIn = Ext.create('EatSense.model.CheckIn'),
-        appState = this.getAppState();
+        appState = this.getAppState(),
+        orderCtr = this.getApplication().getController('Order');
 
       if(Ext.isNumber(activeArea)) {
       //if we only have an area id always require a barcode
@@ -921,7 +922,11 @@ Ext.define('EatSense.controller.CheckIn', {
             }
           });
         } else {
-          //TODO complete checkin
+          //get payment, create bill and we are good to go
+          orderCtr.choosePaymentMethod();
+
+          //TODO show the bill?
+          //TODO clean up stores, refresh badge texts and so on
           return;
         }
 
@@ -1011,7 +1016,8 @@ Ext.define('EatSense.controller.CheckIn', {
         backbutton,
         searchField,
         spotList,
-        userTypes = null;
+        userTypes = null,
+        searckKeyUpFn =  Ext.Function.createBuffered( filterSpotList, 50, this);
 
     //load all spots
     this.loadSpotsForArea(area);
@@ -1036,7 +1042,7 @@ Ext.define('EatSense.controller.CheckIn', {
       clearicontap: clearSpotListFilter
     });
 
-
+    //hide the spot selection view and deregister listeners
     function hideSpotSelectionView() {
 
       backbutton.un({
@@ -1056,6 +1062,7 @@ Ext.define('EatSense.controller.CheckIn', {
       spotSelectionView.hide();
     }
 
+    //list select handler
     function onListSelect(list, record) {
 
       hideSpotSelectionView();
@@ -1066,27 +1073,19 @@ Ext.define('EatSense.controller.CheckIn', {
       }
     }
 
+    //key up handler
     function searchFieldKeyupHandler(field) {
-      var timeout;
-
-      if(userTypes) {
-        window.clearTimeout(userTypes);
-      }
-      
-
-      timeout = Ext.defer(function() {
-        userTypes = null;
-        filterSpotList(field.getValue()); 
-      }, 50, this);
-
-      userTypes = timeout;
+      searckKeyUpFn(field.getValue());
     }
 
+    //filter spot list by given value
     function filterSpotList(value) {
+      spotStore.clearFilter(true);
       spotStore.filter('name', value);
       spotList.refresh();
     }
 
+    //clear the spot list filter
     function clearSpotListFilter() {
       spotStore.clearFilter();
       spotList.refresh();
@@ -1094,7 +1093,6 @@ Ext.define('EatSense.controller.CheckIn', {
 
     Ext.Viewport.add(spotSelectionView);
     spotSelectionView.show();
-
   },
   /**
   * Load all spots for active area. Only if area does not require a barcode.

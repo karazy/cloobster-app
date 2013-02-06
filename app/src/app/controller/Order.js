@@ -982,7 +982,7 @@
 			badgeText;
 
 		
-		button = loungeview.getList().getStore().getAt(4);
+		button = loungeview.getItemByAction('show-myorders');
 
 		if(!button) {
 			console.log('Order.refreshMyOrdersBadgeText: button not found');
@@ -1094,7 +1094,7 @@
 	/**
 	 * Calculates and returns the total price of all orders.
 	 * 
-	 * @param orderStore
+	 * @param {Ext.data.Store} orderStore
 	 * 		An order store instance for which to calculate the total price.
 	 * 
 	 * @return
@@ -1112,23 +1112,15 @@
 			
 		return total;
 	},
-	//TODO remove dead code 19.10.2012
-	// showMyOrderDetail: function(list, index, dataitem) {
-	// 	var panel = Ext.create('Ext.Panel');
-	// 	panel.setWidth(200);
-	// 	panel.setHeight(200);
-	// 	panel.setModal(true);
-	// 	panel.setHideOnMaskTap(true);
-
-	// 	panel.showBy(dataitem);
-	// },
 	/**
 	 * Choose a payment method to issue the paymentRequest.
+	 * @param {Function} onChoose (optional)
+	 *	Callback executed when user hits ok. Gets passed payment method.
+	 *	If no callback provided calls Order.paymentRequest
 	 */
-	choosePaymentMethod: function() {
-		console.log('Order Controller -> choosePaymentMethod');
+	choosePaymentMethod: function(onChoose) {
 		var availableMethods = this.getApplication().getController('CheckIn').getActiveSpot().payments(),
-			orderCount = this.getMyorderlist().getStore().getCount(),
+			orderCount = this.getMyorderlist().getStaore().getCount(),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			picker,
 			choosenMethod,
@@ -1150,8 +1142,12 @@
 							if(!choosenMethod) {
 								choosenMethod = availableMethods.getAt(0).get('name');
 							}
-							picker.hide();						
-							me.paymentRequest(choosenMethod);
+							picker.hide();
+							if(appHelper.isFunction(onChoose)) {
+								onChoose(choosenMethod);
+							} else {
+								me.paymentRequest(choosenMethod);	
+							}							
 						}
 					}
 				},
@@ -1181,6 +1177,51 @@
 									
 			Ext.Viewport.add(picker);
 			picker.show();
+		}
+	},
+	/**
+	* Creates and saves a bill for given checkin.
+	* @param {String} paymentMethod
+	*	Payment method to set in bill.
+	*/
+	saveBillForCheckIn: function(paymentMethod) {
+		var bill = Ext.create('EatSense.model.Bill'),
+			date = new Date();
+
+
+		bill.set('paymentMethod', paymentMethod);
+
+		//FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
+		bill.set('time', date);
+		//workaround to prevent sencha from sending phantom id
+		bill.setId('');
+		
+
+		bill.save({
+			scope: this,
+			success: function(record, operation) {
+	
+			},
+			failure: function(record, operation) {
+				me.getApplication().handleServerError({
+					'error': operation.error,
+					'forceLogout': {403: true}
+				});
+			}
+		});
+	},
+
+	doPayment: function(callback) {
+		var me = this;
+
+		this.choosePaymentMethod(doSaveBillForCheckIn)
+
+		function doSaveBillForCheckIn(paymentMethod) {
+			me.saveBillForCheckIn(paymentMethod);
+
+			if(appHelper.isFunction(callback)) {
+				callback();
+			}
 		}
 	},
 	
@@ -1459,7 +1500,7 @@
    			});
 	},
 	/**
-	* Close windows, reset fields and so on...
+	* Do cleanup and provide a fresh order state.
 	* E. g. used after a FORCE_LOGOUT
 	*/
 	cleanup: function() {

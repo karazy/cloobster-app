@@ -7,7 +7,7 @@ Ext.define('EatSense.view.SpotSelection', {
 	xtype: 'spotselection',
 	config: {
 		layout: 'fit',
-		//make login panel stay on top!
+		//make panel stay on top!
 		style: 'z-index: 5;',
 		items: [
 			{
@@ -16,7 +16,8 @@ Ext.define('EatSense.view.SpotSelection', {
 				docked: 'top',
 				items: [
 					{
-						xtype: 'backbutton'
+						xtype: 'backbutton',
+						title: i10n.translate('cancel')
 					}
 				]
 			},
