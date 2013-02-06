@@ -34,15 +34,27 @@ Ext.define('EatSense.controller.Request',{
 
 		messageCtr.on('eatSense.request', this.handleRequestMessage, this);
 
-		checkInCtr.on('resumecheckin', this.loadRequests, this);
+		// checkInCtr.on('resumecheckin', this.loadRequests, this);
 
-		checkInCtr.on('statusChanged', function(status) {
-			if(status == appConstants.CHECKEDIN) {
-				this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
-			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-				this.resetAllRequests();
-			}
-		}, this);
+		// checkInCtr.on('statusChanged', function(status) {
+		// 	if(status == appConstants.CHECKEDIN) {
+		// 		this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
+		// 	} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+		// 		this.resetAllRequests();
+		// 	}
+		// }, this);
+
+		checkInCtr.on({
+			'statusChanged': function(status) {
+				if(status == appConstants.CHECKEDIN) {
+					this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
+				} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+					this.resetAllRequests();
+			},
+			'resumecheckin': this.loadRequests,
+			'spotswitched': this.resetAllRequests
+			scope: this
+		});
 	},
 	/**
 	* Tap event handler for show showRequestViewButton on dashboard.
@@ -223,21 +235,5 @@ Ext.define('EatSense.controller.Request',{
 		var accountLabel = this.getAccountLabel();
 
 		accountLabel.setHtml(i10n.translate('vipGreetingMessage', checkIn.get('nickname')));
-	},
-	/**
-	* Tap handler for backbutton.
-	*/
-	// backButtonHandler: function(button) {
-	// 	this.backToDashboard();
-	// 	this.getApplication().getController('Android').removeLastBackHandler();
-	// },
-	/**
-    * Return to dashboard view.
-    */
-  //   backToDashboard: function(button) {
-  //   	var me = this,
-		// 	clubArea = this.getClubArea();
-
-		// clubArea.switchTo(0, 'right');
-  //   }
+	}
 });

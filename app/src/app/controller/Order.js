@@ -65,18 +65,23 @@
 	launch: function() {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
-		checkInCtr.on('resumecheckin', this.loadExistingOrders, this);
-
-		checkInCtr.on('statusChanged', function(status) {
-			if(status == appConstants.CHECKEDIN) {
-				// if(check)
-				
-			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+		checkInCtr.on({
+			'statusChanged': function(status) {
+				if(status == appConstants.CHECKEDIN) {
+					// if(check)
+					
+				} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+					this.cleanup();
+				}
+			},
+			'resumecheckin': this.loadExistingOrders,
+			'spotswitched': function() {
 				this.cleanup();
-			}
-		}, this);
-
-		checkInCtr.on('basicmode', this.toggleQuickLeaveMode, this);
+				this.doDumpCart();
+			},
+			'basicmode': this.toggleQuickLeaveMode,
+			scope: this
+		});
 	},
 	/**
 	* @private
@@ -351,7 +356,7 @@
 	/**
 	 * Removes all orders from cart.
 	 * @param {Function} callback (optional)
-	 *	executed on succesfull request
+	 *	executed on succesful request
 	 */
 	dumpCart: function(callback) {
 		console.log('Cart.dumpCart');
@@ -373,31 +378,39 @@
 			scope: this,
 			fn: function(btnId, value, opt) {
 			if(btnId=='yes') {
-				//WORKAROUND, because view stays masked after switch to menu
-				Ext.Msg.hide();
-				Ext.Ajax.request({				
-			    	    url: appConfig.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
-			    	    method: 'DELETE',
-			    	    success: function(response) {
-			    	    	//clear store				
-							activeCheckIn.orders().removeAll();
-							//reset badge text on cart button and switch back to menu
-							me.refreshCart();
-							me.fireEvent('cartcleared');
-							if(EatSense.util.Helper.isFunction(callback)) {
-								callback();
-							}
-			    	    },
-			    	    failure: function(response) {
-							me.getApplication().handleServerError({
-								'error': { 'status' : response.status, 'statusText' : response.statusText}, 
-			                    'forceLogout': {403:true}
-			                }); 
-						}
-			    });
+					//WORKAROUND, because view stays masked after switch to menu
+					Ext.Msg.hide();
+					me.doDumpCart(callback);				
 				}
 			}
 		});				
+	},
+	/**
+	 * Delete all orders from cart.
+	 * @param {Function} callback (optional)
+	 *	executed after 
+	 */
+	doDumpCart: function(callback) {
+		Ext.Ajax.request({				
+	    	    url: appConfig.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
+	    	    method: 'DELETE',
+	    	    success: function(response) {
+	    	    	//clear store				
+					activeCheckIn.orders().removeAll();
+					//reset badge text on cart button and switch back to menu
+					me.refreshCart();
+					me.fireEvent('cartcleared');
+					if(EatSense.util.Helper.isFunction(callback)) {
+						callback();
+					}
+	    	    },
+	    	    failure: function(response) {
+					me.getApplication().handleServerError({
+						'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+	                    'forceLogout': {403:true}
+	                }); 
+				}
+	    });
 	},
 	/**
 	 * Submits orders to server.

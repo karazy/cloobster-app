@@ -762,10 +762,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		this.clearMenuStores();
 		this.clearProductStore();
-		
-		//close product detail
-		// detail.hide();
-		// detail.destroy();
+
 		//show menu first level
 		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
 	},

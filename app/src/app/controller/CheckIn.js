@@ -565,7 +565,7 @@ Ext.define('EatSense.controller.CheckIn', {
         });
 
 		//load active spot
-		EatSense.model.Spot.load(checkIn.get('spotId'), {
+		EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
 		scope: this,
    		 success: function(record, operation) {
    			 this.setActiveSpot(record);
