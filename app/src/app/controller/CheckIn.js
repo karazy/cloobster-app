@@ -948,7 +948,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
         //delete checkin
         if(!ordersExist) {          
-          this.deleteActiveCheckIn(callback);
+          me.deleteActiveCheckIn(callback);
         } else {
           //save bill ... to complete checkin
           if(!paymentMethod) {

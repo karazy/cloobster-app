@@ -16,9 +16,6 @@ Ext.define('EatSense.controller.Feedback', {
 			emailField: 'feedbackform emailfield',
 			commentField: 'feedbackform textareafield',
 			submitFeedBackButton: 'feedbackform button[action=submit]',
-			//back button in dashboard
-			// backButton: 'clubarea feedbackform button[action=back]',
-			//back button in myordersview
 			backLeaveButton: 'myorderstab feedbackform button[action=back]',
 			loungeFeedbackView: 'lounge #loungeFeedback'
 		},
@@ -38,9 +35,6 @@ Ext.define('EatSense.controller.Feedback', {
 			commentField: {
 				change: 'saveComment'
 			},
-			// backButton : {
-			// 	tap: 'backButtonHandler'
-			// },
 			backLeaveButton: {
 				tap: 'backLeaveButtonHandler'
 			},
@@ -70,23 +64,45 @@ Ext.define('EatSense.controller.Feedback', {
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn');
 
-		checkInCtr.on('statusChanged', function(status) {
-			if(status == appConstants.CHECKEDIN) {
-				this.setSubmitted(false);
-				this.loadFeedbackTemplate(restoreFeedback);
+		// checkInCtr.on('statusChanged', function(status) {
+		// 	if(status == appConstants.CHECKEDIN) {
+		// 		this.setSubmitted(false);
+		// 		this.loadFeedbackTemplate(restoreFeedback);
 
-			    function restoreFeedback() {
-			      //restore existing feedback
-			      if(checkInCtr.getAppState().get('feedbackId')) {
-			      	me.setSubmitted(true);
-			        me.loadFeedback(checkInCtr.getAppState().get('feedbackId'));
-			      }
-			    };
-			}
-			else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-				this.cleanup();
-			}
-		}, this);
+		// 	    function restoreFeedback() {
+		// 	      //restore existing feedback
+		// 	      if(checkInCtr.getAppState().get('feedbackId')) {
+		// 	      	me.setSubmitted(true);
+		// 	        me.loadFeedback(checkInCtr.getAppState().get('feedbackId'));
+		// 	      }
+		// 	    };
+		// 	}
+		// 	else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+		// 		this.cleanup();
+		// 	}
+		// }, this);
+
+		checkInCtr.on({
+			'statusChanged': function(status) {
+				if(status == appConstants.CHECKEDIN) {
+					this.setSubmitted(false);
+					this.loadFeedbackTemplate(restoreFeedback);
+
+				    function restoreFeedback() {
+				      //restore existing feedback
+				      if(checkInCtr.getAppState().get('feedbackId')) {
+				      	me.setSubmitted(true);
+				        me.loadFeedback(checkInCtr.getAppState().get('feedbackId'));
+				      }
+				    };
+				}
+				else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+					this.cleanup();
+				}
+			},
+			'spotswitched' : this.resetActiveFeedback,
+			scope: this
+		})
 
 		// this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
 	},
@@ -187,10 +203,9 @@ Ext.define('EatSense.controller.Feedback', {
 						});
 
 						if(callbackFn && appHelper.isFunction(callbackFn)) {
-							callbackFn();	
+							callbackFn();
 						}
-			    	}
-			    	else {
+			    	} else {
 			    		//no feedback form exists, hide feedback buttons
 			    		if(operation.error.status == 404) {
 			    			me.disableFeedback();
@@ -434,13 +449,6 @@ Ext.define('EatSense.controller.Feedback', {
 		checkInCtr.getAppState().set('feedbackId', id);
 	},
     /**
-	* Tap handler for backbutton.
-	*/
-	// backButtonHandler: function(button) {
-	// 	this.backToDashboard();
-	// 	this.getApplication().getController('Android').removeLastBackHandler();
-	// },
-    /**
     * Return to dashboard view.
     */
     backToDashboard: function(button) {
@@ -482,5 +490,31 @@ Ext.define('EatSense.controller.Feedback', {
     	this.setSubmitted(false);
       	this.getApplication().getController('CheckIn').getAppState().set('feedbackId', null);
       	this.clearFeedback();
-    }
+    },
+    /**
+	* Reset all active feedback to default.
+	*/
+	resetActiveFeedback: function() {
+		var me = this,
+			lounge = this.getLounge(),
+			forms = lounge.query('feedbackform dataview'),
+			emailfields = lounge.query('feedbackform emailfield'),
+			textareafields = lounge.query('feedbackform textareafield');
+
+		if(this.getActiveFeedback()) {
+
+			//copy all questions and add them to answers of active feedback
+			me.getFeedbackTemplate().questions().each(function(question) {
+				me.getActiveFeedback().answers().add(question.copy(question.get('id')));
+			});
+
+			Ext.Array.each(emailfields, function(field) {
+				field.setValue("");
+			});
+
+			Ext.Array.each(textareafields, function(field) {
+				field.setValue("");
+			});
+		}
+	},
 });

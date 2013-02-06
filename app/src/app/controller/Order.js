@@ -75,9 +75,9 @@
 				}
 			},
 			'resumecheckin': this.loadExistingOrders,
-			'spotswitched': function() {
+			'spotswitched': function(newSpot, newCheckIn) {
 				this.cleanup();
-				this.doDumpCart();
+				this.doDumpCart(newCheckIn);
 			},
 			'basicmode': this.toggleQuickLeaveMode,
 			scope: this
@@ -380,7 +380,7 @@
 			if(btnId=='yes') {
 					//WORKAROUND, because view stays masked after switch to menu
 					Ext.Msg.hide();
-					me.doDumpCart(callback);				
+					me.doDumpCart(activeCheckIn, callback);				
 				}
 			}
 		});				
@@ -390,13 +390,13 @@
 	 * @param {Function} callback (optional)
 	 *	executed after 
 	 */
-	doDumpCart: function(callback) {
+	doDumpCart: function(checkIn, callback) {
 		Ext.Ajax.request({				
-	    	    url: appConfig.serviceUrl+'/c/checkins/'+activeCheckIn.get('userId')+'/cart/',
+	    	    url: appConfig.serviceUrl+'/c/checkins/'+checkIn.get('userId')+'/cart/',
 	    	    method: 'DELETE',
 	    	    success: function(response) {
 	    	    	//clear store				
-					activeCheckIn.orders().removeAll();
+					checkIn.orders().removeAll();
 					//reset badge text on cart button and switch back to menu
 					me.refreshCart();
 					me.fireEvent('cartcleared');

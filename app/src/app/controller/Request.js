@@ -11,8 +11,7 @@ Ext.define('EatSense.controller.Request',{
 			showRequestViewButton: 'clubdashboard button[action=show-requests]',
 			callWaiterButton: 'requeststab button[action=waiter]',
 			callWaiterLabel: 'requeststab #callWaiterLabel',
-			accountLabel: 'requeststab #accountLabel',
-			// backButton: 'requeststab button[action=back]'
+			accountLabel: 'requeststab #accountLabel'
 		},
 		control: {
 			callWaiterButton: {
@@ -20,10 +19,7 @@ Ext.define('EatSense.controller.Request',{
 			},
 			showRequestViewButton: {
 				tap: 'showRequestViewButtonHandler'
-			},
-			// backButton: {
-			// 	tap: 'backButtonHandler'
-			// }
+			}
 		},
 
 		requestNavigationFunctions : new Array()
@@ -34,27 +30,28 @@ Ext.define('EatSense.controller.Request',{
 
 		messageCtr.on('eatSense.request', this.handleRequestMessage, this);
 
-		checkInCtr.on('resumecheckin', this.loadRequests, this);
+		// checkInCtr.on('resumecheckin', this.loadRequests, this);
 
-		checkInCtr.on('statusChanged', function(status) {
-			if(status == appConstants.CHECKEDIN) {
-				this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
-			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-				this.resetAllRequests();
-			}
-		}, this);
+		// checkInCtr.on('statusChanged', function(status) {
+		// 	if(status == appConstants.CHECKEDIN) {
+		// 		this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
+		// 	} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+		// 		this.resetAllRequests();
+		// 	}
+		// }, this);
 
-		// checkInCtr.on({
-		// 	'statusChanged': function(status) {
-		// 		if(status == appConstants.CHECKEDIN) {
-		// 			this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
-		// 		} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-		// 			this.resetAllRequests();
-		// 	},
-		// 	'resumecheckin': this.loadRequests,
-		// 	'spotswitched': this.resetAllRequests,
-		// 	scope: this
-		// });
+		checkInCtr.on({
+			'statusChanged': function(status) {
+				if(status == appConstants.CHECKEDIN) {
+					this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
+				} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+					this.resetAllRequests();
+				}
+			},
+			'resumecheckin': this.loadRequests,
+			'spotswitched': this.resetAllRequests,
+			scope: this
+		});
 	},
 	/**
 	* Tap event handler for show showRequestViewButton on dashboard.
