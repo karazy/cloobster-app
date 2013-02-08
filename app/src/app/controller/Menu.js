@@ -96,6 +96,7 @@ Ext.define('EatSense.controller.Menu', {
 		function doAreaFiltering(area) {
 			this.filterMenuBasedOnArea(area);
 			this.filterProductStore(area.raw.menuIds, true);
+			this.backToMenu();
 		}
     },
     /**
