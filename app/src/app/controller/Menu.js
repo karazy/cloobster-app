@@ -199,6 +199,10 @@ Ext.define('EatSense.controller.Menu', {
     		titleLabelTpl;
 		
 		if(businessId && businessId.toString().length != 0) {
+
+			//remove old eventually existing filters, e.g. left overs from Menu.filterMenuBasedOnArea
+            menuStore.clearFilter(true);
+
 			menuStore.load({
 				scope   : this,
 				params: {
@@ -214,8 +218,7 @@ Ext.define('EatSense.controller.Menu', {
                     }
 
                     //setup store before filtering the store
-                    me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);
-
+                    me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);                    
                     //only display assigned menus
 			    	menuStore.filter([
 				    	{
@@ -269,19 +272,18 @@ Ext.define('EatSense.controller.Menu', {
     */
     filterMenuBasedOnArea: function(area) {
     	var menuStore = Ext.StoreManager.lookup('menuStore');
-    	var tmpArea = area;
     	
-    	if(!tmpArea) {
+    	if(!area) {
     		console.error('Menu.filterMenuBasedOnArea: no area given');	
     		return;
     	}
 
-    	if(!tmpArea.raw.menuIds) {
+    	if(!area.raw.menuIds) {
     		console.error('Menu.filterMenuBasedOnArea: area has no assigned menus array');	
     		return;
     	}
 
-    	if(tmpArea.raw.menuIds.length == 0) {
+    	if(area.raw.menuIds.length == 0) {
     		console.log('Menu.filterMenuBasedOnArea: has no assigned menus');
     	}
     	
@@ -289,11 +291,11 @@ Ext.define('EatSense.controller.Menu', {
 	    menuStore.filter([
 	    	{
 	    		filterFn: function(menu) {
-	    			if(tmpArea.raw.menuIds.length == 0) {
+	    			if(!area || !area.raw || !area.raw.menuIds || area.raw.menuIds.length == 0) {
 						return false;
 	    			}
 
-	    			if(Ext.Array.contains(tmpArea.raw.menuIds, menu.get('id'))) {
+	    			if(Ext.Array.contains(area.raw.menuIds, menu.get('id'))) {
 	    				return true;
 	    			}
 
@@ -302,7 +304,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	}
     	]);
 
-    	this.updateMenuLabel(tmpArea.get('name'));
+    	this.updateMenuLabel(area.get('name'));
     },
     /**
      * Shows the menu. At this point the store is already filled with data.
@@ -799,7 +801,7 @@ Ext.define('EatSense.controller.Menu', {
 	clearMenuStores: function() {
 		var menuStore = Ext.StoreManager.lookup('menuStore');
 
-
+		menuStore.clearFilter(true);
 		menuStore.each(function(menu) {
         menu.products().each(function(product) {
 	        product.choices().each(function(choice) {
