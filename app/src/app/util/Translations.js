@@ -942,6 +942,14 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Ihre cloobster Version ist veraltet. Bitte aktualisieren Sie die Version.",
 			"EN" : "Your cloobster version is outdated. Please update!"
 		},
+		"error.checkin.switchspot.businesses.mismatch" : {
+			"DE" :  "Dieser Spot ist ungültig.",
+			"EN" : ""
+		},
+		"error.checkin.switchspot.area.mismatch" : {
+			"DE" :  "Dieser Spot gehört nicht zum ausgewählten Servicebereich.",
+			"EN" : ""
+		},
 		//system
 		"network.slow" : {
 			"DE" :  "Die Verbindung ist langsam. Dies kann die Anwendung verlangsamen.",

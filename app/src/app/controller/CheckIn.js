@@ -789,11 +789,15 @@ Ext.define('EatSense.controller.CheckIn', {
   * @private
   * Checks if the active spot belongs to active area.
   * This is mainly used to ensure orders can only be issued from active spot.
+  * @param {EatSense.model.Spot} spot (optional)
+  *   spot to check, if none provided uses active spot
+  * @param {EatSense.model.Area} area (optional)
+  *   area to check, if none provided uses active area
   * @return true if spot belongs to area, false otherwise
   */
-  checkActiveSpotInActiveArea: function() {
-    var activeSpot = this.getActiveSpot(),
-        activeArea = this.getActiveArea();
+  checkActiveSpotInActiveArea: function(spot, area) {
+    var activeSpot = spot || this.getActiveSpot(),
+        activeArea = area || this.getActiveArea();
 
     if(!activeSpot) {
       console.error('Order.checkActiveSpotInActiveArea: activeSpot not found.');
@@ -944,6 +948,12 @@ Ext.define('EatSense.controller.CheckIn', {
         //check business ids of new spot against old spot!
         if(newSpot.get('businessId') != me.getActiveSpot().get('businessId')) {
            Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.businesses.mismatch'));
+          return false;
+        }
+
+        //check that new spot belongs to selected area
+        if(!me.checkActiveSpotInActiveArea(newSpot, area)) {
+          Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.area.mismatch'));
           return false;
         }
 
