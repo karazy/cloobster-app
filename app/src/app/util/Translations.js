@@ -863,8 +863,8 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Bitte wählen Sie Ihren aktuellen Spot aus.",
 			"EN" : "Please select your current spot."
 		},
-		"checkin.switchspot.message" : {
-			"DE" :  "Bitte scannen Sie den Barcode des aktuellen Spots um Ihre Bestellung abzuschicken.<br/>",
+		"checkin.switchspot.barcode" : {
+			"DE" :  "Bitte scannen Sie den Barcode des aktuellen Spots um Ihre Bestellung abzuschicken.",
 			"EN" : ""
 		},
 		"checkin.switchspot.list" : {
