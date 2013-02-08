@@ -22,7 +22,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         'Ext.Toolbar',
         'Ext.data.Model',
         'Ext.data.TreeStore',
-        'Ext.dataview.List',
+        'Ext.dataview.List'
     ],
     
     xtype: 'slidenavigationviewcollapsible',
@@ -125,13 +125,16 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             '<tpl if="iconCls">',
                 '<div class="slidenav-icon {iconCls}"></div>',
             '</tpl>',
-            '<div style="min-height: 2.6em; padding: 0.65em 0.8em;',
+            '<div style="min-height: 2.6em; padding: 0.65em 0.8em; float:left; max-width: 180px;',
                 ' /*border-bottom: 1px solid #dedede;*/">',
                 '{title}',
             '</div>',
+            '<tpl if="marked">',
+                '<div class="slidenav-icon marked-icon"></div>',
+            '</tpl>',
             '<tpl if="badgeText">',
                 '<span class="slidenav-badge">{badgeText}</span>',
-            '</tpl>',
+            '</tpl>'
         ].join(''),
 
         /**
@@ -197,7 +200,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             listeners: {
                 release: me.toggleContainer,
                 scope: me
-            },
+            }
             /**
              *  To add the button into a toolbar, you can add the following
              *  to any item in your navigation list.
@@ -472,7 +475,11 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         //a string used to select this button
                         'action',
                         //true if this is a record added dynamically
-                        'dynamic'
+                        'dynamic',
+                        //used to explicity mark an item, renders a icon after the name
+                        'marked',
+                        //area represented by this item
+                        'areaId'
                     ] 
                 }
             });

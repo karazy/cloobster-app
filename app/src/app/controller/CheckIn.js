@@ -18,7 +18,7 @@ Ext.define('EatSense.controller.CheckIn', {
      * @event resumecheckin
      * Fires on resume of a checkin.
      * @param {EatSense.model.CheckIn} the checkin
-     */     
+     */
 
     /**
      * @event basicmode
@@ -684,9 +684,10 @@ Ext.define('EatSense.controller.CheckIn', {
       //clear checkInId
       this.getAppState().set('checkInId', null);
       
-      headerUtil.resetHeaders(['checkInId','pathId']);       
+      headerUtil.resetHeaders(['checkInId','pathId']);
 
-      this.getActiveSpot().payments().removeAll(true);
+      this.getActiveBusiness().payments().removeAll(true);
+      this.setActiveBusiness(null);
       this.setActiveSpot(null);
       this.setActiveArea(null);
 
@@ -966,7 +967,8 @@ Ext.define('EatSense.controller.CheckIn', {
 
       //set given spot as active on, save the new checkin 
       function doSwitch(newSpot) {
-
+        //reset old checkInId in header
+        headerUtil.resetHeaders(['checkInId']);
         //set new active spot
         me.setActiveSpot(newSpot);
 
@@ -987,8 +989,13 @@ Ext.define('EatSense.controller.CheckIn', {
 
       function doCheckIn(checkin) {
         me.setActiveCheckIn(checkin);
-        me.getAppState().set('checkInId', checkin.get('userId'));
+        //Set default headers so that always checkInId is send
+        headerUtil.addHeaders({
+          'checkInId' : checkin.get('userId'),
+          'pathId' : checkin.get('businessId')
+        });
 
+        me.getAppState().set('checkInId', checkin.get('userId'));
 
         //notify controllers after everything has finished to refresh state where necessary
         //clean up orderstore, cart, badge texts ...
@@ -1174,13 +1181,7 @@ Ext.define('EatSense.controller.CheckIn', {
     *   callback function, executed on success gets passed the persisted checkin
     */
    saveCheckIn: function(checkIn, onSuccess) {
-     var me = this,
-         nickname = Ext.String.trim(this.getNickname().getValue()),
-         nicknameToggle = this.getNicknameTogglefield(),
-         messageCtr = this.getApplication().getController('Message'),
-         checkInDialog = this.getCheckinconfirmation(),
-         accountCtr = this.getApplication().getController('Account'),
-         profile = accountCtr.getProfile();
+     var me = this;
       
       if(!checkIn) {
         console.error('CheckIn.doCheckIn: no checkIn given');
@@ -1190,12 +1191,7 @@ Ext.define('EatSense.controller.CheckIn', {
       appHelper.toggleMask('loadingMsg');      
       checkIn.save({
           success: function(response) {
-            appHelper.toggleMask(false);
-            //Set default headers so that always checkInId is send
-            headerUtil.addHeaders({
-              'checkInId' : response.get('userId'),
-              'pathId' : me.getActiveCheckIn().get('businessId')
-            });
+            appHelper.toggleMask(false);            
 
             if(appHelper.isFunction(onSuccess)) {
               onSuccess(response);

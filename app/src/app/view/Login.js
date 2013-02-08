@@ -136,7 +136,7 @@ Ext.define('EatSense.view.Login', {
 				baseCls: 'link-button',
 				margin: '15 0 0 0',
 				style: 'text-align: right; color: blue; font-size: .8em; margin-right:.5em; text-decoration:underline;'
-			},
+			}
 
 			// {
 			// 	xtype: 'toolbar',

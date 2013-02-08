@@ -53,26 +53,12 @@ Ext.define('EatSense.model.Spot', {
 			},	
 			{
 				name: 'areaId'
+			},
+			{	//true if this is a masterspot
+				name: 'master'
 			}
 			//also contains areaMenuIds, an array of assigned menu ids, access via raw
 		],
-		 associations: [{
-	            type: 'hasMany',
-	            model: 'EatSense.model.PaymentMethod',
-	            primaryKey: 'id',
-	            name: 'payments',
-	            //autoLoad: true,
-	            associationKey: 'payments', // read child data from child_groups
-	            store: {
-	            	syncRemovedRecords: false,
-	            	sorters: [
-						{
-							property: 'order',
-							direction: 'ASC'
-						}
-	            	]
-	            }
-	        }],
 		proxy : {
 			type : 'rest',
 			url : '/spots/',

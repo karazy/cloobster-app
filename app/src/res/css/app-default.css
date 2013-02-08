@@ -12237,6 +12237,11 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* line 1046, templates/_theme-template.scss */
+.marked-icon {
+  -webkit-mask-image: url('data:image/png;base64,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');
+}
+
+/* line 1050, templates/_theme-template.scss */
 .newsletter-floating {
   border-radius: 0.3em !important;
   padding: 3px !important;
@@ -12244,7 +12249,7 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0.2em 0.6em !important;
 }
 
-/* line 1053, templates/_theme-template.scss */
+/* line 1057, templates/_theme-template.scss */
 .newsletter-register-button {
   width: 200px;
   margin-top: 5px;
@@ -12253,7 +12258,7 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * Feedback
 */
-/* line 1062, templates/_theme-template.scss */
+/* line 1066, templates/_theme-template.scss */
 .star-button {
   height: 50px;
   width: 50px;
@@ -12263,7 +12268,7 @@ input[type="search"]::-webkit-search-cancel-button {
   background-position: center center;
 }
 
-/* line 1071, templates/_theme-template.scss */
+/* line 1075, templates/_theme-template.scss */
 .star-button-shining {
   height: 50px;
   width: 50px;
@@ -12273,24 +12278,24 @@ input[type="search"]::-webkit-search-cancel-button {
   background-position: center center;
 }
 
-/* line 1080, templates/_theme-template.scss */
+/* line 1084, templates/_theme-template.scss */
 .feedback-label {
   color: black;
   font-size: 1.2em;
   word-break: break-word;
 }
 
-/* line 1087, templates/_theme-template.scss */
+/* line 1091, templates/_theme-template.scss */
 .feedback-slider {
   background: #fffffb;
 }
 
-/* line 1091, templates/_theme-template.scss */
+/* line 1095, templates/_theme-template.scss */
 .feedback-slider .x-slider {
   top: 0.4em;
 }
 
-/* line 1095, templates/_theme-template.scss */
+/* line 1099, templates/_theme-template.scss */
 .feedback-panel {
   padding: 0.3em 0em;
 }
@@ -12298,42 +12303,42 @@ input[type="search"]::-webkit-search-cancel-button {
 /*
 * General styles
 */
-/* line 1104, templates/_theme-template.scss */
+/* line 1108, templates/_theme-template.scss */
 .general-text {
   font-size: 0.8em;
   color: black;
   margin-bottom: 10px;
 }
-/* line 1109, templates/_theme-template.scss */
+/* line 1113, templates/_theme-template.scss */
 .general-text ul {
   margin-left: 20px;
   margin-bottom: 5px;
 }
-/* line 1112, templates/_theme-template.scss */
+/* line 1116, templates/_theme-template.scss */
 .general-text ul li {
   list-style: circle;
 }
 
-/* line 1118, templates/_theme-template.scss */
+/* line 1122, templates/_theme-template.scss */
 .general-label {
   color: black;
   font-size: 1em;
   text-align: center;
   width: 100%;
 }
-/* line 1124, templates/_theme-template.scss */
+/* line 1128, templates/_theme-template.scss */
 .general-label h1 {
   font-size: 1em;
   font-weight: bold;
   width: 100%;
 }
-/* line 1130, templates/_theme-template.scss */
+/* line 1134, templates/_theme-template.scss */
 .general-label p.small {
   font-size: 0.8em;
   width: 100%;
 }
 
-/* line 1137, templates/_theme-template.scss */
+/* line 1141, templates/_theme-template.scss */
 .general-textfield {
   border-radius: 0.3em;
   margin: 5px 0px 7px 0px;
@@ -12341,41 +12346,41 @@ input[type="search"]::-webkit-search-cancel-button {
   border: 1px solid black !important;
 }
 
-/* line 1144, templates/_theme-template.scss */
+/* line 1148, templates/_theme-template.scss */
 .general-field-label-horizontal {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
 }
 
-/* line 1149, templates/_theme-template.scss */
+/* line 1153, templates/_theme-template.scss */
 .general-field-label-vertical {
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
 }
 
-/* line 1154, templates/_theme-template.scss */
+/* line 1158, templates/_theme-template.scss */
 .general-panel {
   background: #917D64;
 }
 
-/* line 1158, templates/_theme-template.scss */
+/* line 1162, templates/_theme-template.scss */
 h8 {
   position: absolute;
   left: 5px;
 }
 
-/* line 1163, templates/_theme-template.scss */
+/* line 1167, templates/_theme-template.scss */
 h9 {
   position: relative;
   padding-right: 20px;
 }
 
-/* line 1169, templates/_theme-template.scss */
+/* line 1173, templates/_theme-template.scss */
 .hidden {
   display: none;
 }
 
-/* line 1174, templates/_theme-template.scss */
+/* line 1178, templates/_theme-template.scss */
 .collapsed-arrow {
   background-image: url("../images/arrow_right.png");
   background-repeat: no-repeat;
@@ -12383,7 +12388,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 1181, templates/_theme-template.scss */
+/* line 1185, templates/_theme-template.scss */
 .expanded-arrow {
   background-image: url("../images/arrow_down.png");
   background-repeat: no-repeat;
@@ -12391,7 +12396,7 @@ h9 {
   background-size: 20px 20px;
 }
 
-/* line 1188, templates/_theme-template.scss */
+/* line 1192, templates/_theme-template.scss */
 .visible {
   display: block;
 }
@@ -12405,12 +12410,12 @@ h9 {
 /*
 * CheckIn confirmation view
 */
-/* line 1205, templates/_theme-template.scss */
+/* line 1209, templates/_theme-template.scss */
 .checkin-confirm-nickname-field {
   border-radius: 0.3em;
 }
 
-/* line 1209, templates/_theme-template.scss */
+/* line 1213, templates/_theme-template.scss */
 .checkin-confirm-nickname-label {
   color: black;
   font-size: 1em;
@@ -12418,30 +12423,30 @@ h9 {
   text-align: center;
 }
 
-/* line 1216, templates/_theme-template.scss */
+/* line 1220, templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle {
   border-radius: 0.3em;
   margin-top: 10px;
 }
 
-/* line 1221, templates/_theme-template.scss */
+/* line 1225, templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer {
   padding: 5px;
 }
 
-/* line 1225, templates/_theme-template.scss */
+/* line 1229, templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
   float: left;
   margin-right: 10px;
 }
 
-/* line 1230, templates/_theme-template.scss */
+/* line 1234, templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle .x-innerhtml {
   position: relative;
   top: 3px;
 }
 
-/* line 1235, templates/_theme-template.scss */
+/* line 1239, templates/_theme-template.scss */
 .checkin-confirm-nickname-toggle-label {
   border-radius: 0.3em 0.3em 0 0;
 }
@@ -12449,29 +12454,29 @@ h9 {
 /*
 * History
 */
-/* line 1242, templates/_theme-template.scss */
+/* line 1246, templates/_theme-template.scss */
 .history-detail-wrapper {
   /*margin: 1em;*/
 }
 
-/* line 1246, templates/_theme-template.scss */
+/* line 1250, templates/_theme-template.scss */
 .history-detail-header {
   /*background: url(../images/history/header-bg-2.png) repeat-x;*/
   /*height: 2.2em;*/
   text-align: center;
   /*height: 100%;*/
 }
-/* line 1252, templates/_theme-template.scss */
+/* line 1256, templates/_theme-template.scss */
 .history-detail-header h1 {
   padding-top: 0.8em;
   font-size: 1em;
 }
-/* line 1256, templates/_theme-template.scss */
+/* line 1260, templates/_theme-template.scss */
 .history-detail-header p {
   font-size: 0.8em;
 }
 
-/* line 1261, templates/_theme-template.scss */
+/* line 1265, templates/_theme-template.scss */
 .history-detail-footer {
   /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
   /*background-position: left bottom;*/
@@ -12479,28 +12484,28 @@ h9 {
   /*height: 2em;*/
   text-align: center;
 }
-/* line 1269, templates/_theme-template.scss */
+/* line 1273, templates/_theme-template.scss */
 .history-detail-footer h1 {
   font-size: 1em;
 }
 
-/* line 1275, templates/_theme-template.scss */
+/* line 1279, templates/_theme-template.scss */
 .history-detail-list {
   /*background-color: #f3e8d5;*/
 }
 
-/* line 1279, templates/_theme-template.scss */
+/* line 1283, templates/_theme-template.scss */
 .history-detail-item {
   /*background: url(../images/history/item-bg.png) repeat-x;*/
   height: 40px;
 }
-/* line 1283, templates/_theme-template.scss */
+/* line 1287, templates/_theme-template.scss */
 .history-detail-item .x-list-item-label {
   border: none !important;
 }
 
 /* Slidenavigation */
-/* line 1290, templates/_theme-template.scss */
+/* line 1294, templates/_theme-template.scss */
 .slidenav-icon {
   width: 35px;
   height: 2.6em;
@@ -12512,13 +12517,13 @@ h9 {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
 }
-/* line 1301, templates/_theme-template.scss */
+/* line 1305, templates/_theme-template.scss */
 .slidenav-icon.icon-align-right {
   float: right;
 }
 
 /* Slidenavigation button */
-/* line 1307, templates/_theme-template.scss */
+/* line 1311, templates/_theme-template.scss */
 .x-slidenavigation-toggle {
   position: absolute;
   width: 20px;
@@ -12533,20 +12538,20 @@ h9 {
   box-shadow: 2px 2px 4px 1px lightgrey;
   /* Overwrite background of floating panel div */
 }
-/* line 1321, templates/_theme-template.scss */
+/* line 1325, templates/_theme-template.scss */
 .x-slidenavigation-toggle div {
   background-color: transparent !important;
 }
-/* line 1325, templates/_theme-template.scss */
+/* line 1329, templates/_theme-template.scss */
 .x-slidenavigation-toggle .x-slidenavigation-toggle-mask {
   display: none;
 }
 
-/* line 1330, templates/_theme-template.scss */
+/* line 1334, templates/_theme-template.scss */
 .x-slidenavigation-toggle.mask-open {
   width: 40px;
 }
-/* line 1333, templates/_theme-template.scss */
+/* line 1337, templates/_theme-template.scss */
 .x-slidenavigation-toggle.mask-open .x-slidenavigation-toggle-mask {
   display: block;
   background-color: white !important;
@@ -12558,7 +12563,7 @@ h9 {
   height: 60px;
 }
 
-/* line 1347, templates/_theme-template.scss */
+/* line 1351, templates/_theme-template.scss */
 .slidenav-badge {
   top: 10px;
   /*  sencha copy paste, some adjustments */
@@ -12590,25 +12595,25 @@ h9 {
   display: inline-block;
 }
 
-/* line 1378, templates/_theme-template.scss */
+/* line 1382, templates/_theme-template.scss */
 .x-slidenavigation-item {
   /*color: $base-color !important;*/
   color: white !important;
 }
-/* line 1382, templates/_theme-template.scss */
+/* line 1386, templates/_theme-template.scss */
 .x-slidenavigation-item .x-dock-horizontal {
   border-top: 1px solid black !important;
 }
-/* line 1386, templates/_theme-template.scss */
+/* line 1390, templates/_theme-template.scss */
 .x-slidenavigation-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid black !important;
 }
 
-/* line 1393, templates/_theme-template.scss */
+/* line 1397, templates/_theme-template.scss */
 .x-slidenavigation-list {
   background-color: #2E2E2E;
 }
-/* line 1396, templates/_theme-template.scss */
+/* line 1400, templates/_theme-template.scss */
 .x-slidenavigation-list .x-list-item.x-item-selected .x-dock-horizontal {
   color: white !important;
 }
@@ -12619,7 +12624,7 @@ h9 {
 /*
 * A smaller distance between border and box content.
 */
-/* line 1408, templates/_theme-template.scss */
+/* line 1412, templates/_theme-template.scss */
 .x-msgbox.x-floating {
   padding: 2px;
 }
@@ -12627,19 +12632,19 @@ h9 {
 /*
 * Rounded badges.
 */
-/* line 1415, templates/_theme-template.scss */
+/* line 1419, templates/_theme-template.scss */
 .x-hasbadge > .x-badge {
   /*border-radius: 1em;*/
 }
 
 /* Perf. optimization for android. And tweak of laf.*/
-/* line 1420, templates/_theme-template.scss */
+/* line 1424, templates/_theme-template.scss */
 .x-panel.x-floating {
   -webkit-box-shadow: none;
   border-radius: 0.1em !important;
   background-color: #6699cc !important;
 }
-/* line 1425, templates/_theme-template.scss */
+/* line 1429, templates/_theme-template.scss */
 .x-panel.x-floating > .x-dock.x-sized {
   margin: 2px;
 }
@@ -12648,7 +12653,7 @@ h9 {
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 1434, templates/_theme-template.scss */
+/* line 1438, templates/_theme-template.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -12656,7 +12661,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 1441, templates/_theme-template.scss */
+/* line 1445, templates/_theme-template.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -12668,7 +12673,7 @@ h9 {
 /*.x-list-round .x-scroll-view {
   background-color: $page-bg-color !important;
 }*/
-/* line 1453, templates/_theme-template.scss */
+/* line 1457, templates/_theme-template.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -12676,16 +12681,16 @@ h9 {
   color: white !important;
 }
 
-/* line 1460, templates/_theme-template.scss */
+/* line 1464, templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #ff9933 !important;
 }
-/* line 1463, templates/_theme-template.scss */
+/* line 1467, templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #ff9933 !important;
 }
 
-/* line 1469, templates/_theme-template.scss */
+/* line 1473, templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   /*@include background-gradient($active-color, $base-gradient);*/
   background-color: #ff9933;
@@ -12699,26 +12704,26 @@ h9 {
   bottom: 5px;
 }
 
-/* line 1484, templates/_theme-template.scss */
+/* line 1488, templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
 }
 
-/* line 1488, templates/_theme-template.scss */
+/* line 1492, templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
 }
 
 /* Override background color of icons. */
-/* line 1494, templates/_theme-template.scss */
+/* line 1498, templates/_theme-template.scss */
 .x-button .x-button-icon {
   background-color: white !important;
   background-image: none !important;
 }
 
 /* Force action button to have white text color. */
-/* line 1500, templates/_theme-template.scss */
+/* line 1504, templates/_theme-template.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: white;
 }
@@ -12735,21 +12740,21 @@ h9 {
 * Same functionality as $list-zebrastribe: true; Since this doesn't work on Android 2.x we still have 
 * seperator between list items. .x-list-item:nth-child(even) 
 */
-/* line 1521, templates/_theme-template.scss */
+/* line 1525, templates/_theme-template.scss */
 .x-list-normal .x-list-item {
   /*background-color: darken($list-bg-color, 5%);*/
 }
-/* line 1523, templates/_theme-template.scss */
+/* line 1527, templates/_theme-template.scss */
 .x-list-normal .x-list-item .x-dock-horizontal {
   border-top: 1px solid lightgrey;
 }
-/* line 1527, templates/_theme-template.scss */
+/* line 1531, templates/_theme-template.scss */
 .x-list-normal .x-list-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid lightgrey;
 }
 
 /* Override because otherwise a white background ist set. Don't know why ;) */
-/* line 1533, templates/_theme-template.scss */
+/* line 1537, templates/_theme-template.scss */
 .x-list .x-list-item.x-item-pressed .x-dock-horizontal {
   border-top-color: #ffe6cc;
   background-color: #ffe6cc;

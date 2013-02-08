@@ -391,6 +391,13 @@
 	 *	executed after 
 	 */
 	doDumpCart: function(checkIn, callback) {
+		var me = this;
+
+		if(!checkIn) {
+			console.error('Order.doDumpCart: no checkIn given');
+			return;
+		}
+
 		Ext.Ajax.request({				
 	    	    url: appConfig.serviceUrl+'/c/checkins/'+checkIn.get('userId')+'/cart/',
 	    	    method: 'DELETE',
@@ -1131,7 +1138,7 @@
 	 *	If no callback provided calls Order.paymentRequest
 	 */
 	choosePaymentMethod: function(onChoose) {
-		var availableMethods = this.getApplication().getController('CheckIn').getActiveSpot().payments(),
+		var availableMethods = this.getApplication().getController('CheckIn').getActiveBusiness().payments(),
 			orderCount = this.getMyorderlist().getStore().getCount(),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			picker,

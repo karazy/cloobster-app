@@ -51,7 +51,7 @@ Ext.define('EatSense.view.Lounge', {
 		        			tapMaskFactor: 3
 	        			}  
         			]
-        		},            	        		
+        		}         	        		
         		      		      	
         	]
         },

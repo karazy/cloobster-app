@@ -516,5 +516,5 @@ Ext.define('EatSense.controller.Feedback', {
 				field.setValue("");
 			});
 		}
-	},
+	}
 });
