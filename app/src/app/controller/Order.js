@@ -77,7 +77,8 @@
 			'resumecheckin': this.loadExistingOrders,
 			'spotswitched': function(newSpot, newCheckIn) {
 				this.cleanup();
-				this.doDumpCart(newCheckIn);
+				this.refreshCart();
+				// this.doDumpCart(newCheckIn);
 			},
 			'basicmode': this.toggleQuickLeaveMode,
 			scope: this

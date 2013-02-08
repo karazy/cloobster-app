@@ -46,6 +46,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'statusChanged' : function(status) {
 			if(status == appConstants.CHECKEDIN) {
+				this.initDashboard();
 			  this.getLoungeview().getList().select(0);
 			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  this.toggleSlidenavButtons(true);
@@ -65,7 +66,7 @@ Ext.define('EatSense.controller.Lounge', {
 				this.cleanup();
 			}
 		 },
-		 'basicmode' : this.manageBasicMode
+		 'basicmode' : this.manageBasicMode,
 		 scope: this
 	  });
 
@@ -229,7 +230,7 @@ Ext.define('EatSense.controller.Lounge', {
   },
 	showMenu: function(button) {
 		var lounge = this.getLoungeview();
-	 lounge.selectByAction('show-menu');
+	 	lounge.selectByAction('show-menu');
 	},
 	 /**
 	 * Load all available areas for this location.
@@ -338,9 +339,9 @@ Ext.define('EatSense.controller.Lounge', {
 	 switchArea: function(area) {
 		var loungeview = this.getLoungeview();
 
-		loungeview.getList().select(0);
-
 		this.fireEvent('areaswitched', area);
+
+		loungeview.getList().select(0);
 	 },
 	 /**
 	 * Cleanup on checkout.

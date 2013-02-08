@@ -87,9 +87,9 @@ Ext.define('EatSense.controller.CheckIn', {
             checkinDlg2Userlist: {
             	select: 'linkToUser'
             },
-            checkinDlg2CancelBt: {
-            	tap: 'showLounge'
-            },
+            // checkinDlg2CancelBt: {
+            // 	tap: 'showLounge'
+            // },
             cancelCheckInBt: {
             	tap: 'showDashboard'
             },
@@ -360,7 +360,7 @@ Ext.define('EatSense.controller.CheckIn', {
                     });
 
                     me.fireEvent('statusChanged', appConstants.CHECKEDIN);
-  					   	    me.showLounge();
+  					   	    me.loadBusiness(); 
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					//save nickname in settings
@@ -416,78 +416,64 @@ Ext.define('EatSense.controller.CheckIn', {
     * Step 4: List other users located at this spot
     * @param options
     */
-   showCheckinWithOthers: function(options) {
-	   //TODO out of order
-	   var checkinwithothersDlg = this.getCheckinwithothers(), 
-	   main = this.getMain(),
-	   spotId = this.getActiveCheckIn().get('spotId'),
-	   checkInId = this.getActiveCheckIn().get('userId');
+   // showCheckinWithOthers: function(options) {
+	  //  //TODO out of order
+	  //  var checkinwithothersDlg = this.getCheckinwithothers(), 
+	  //  main = this.getMain(),
+	  //  spotId = this.getActiveCheckIn().get('spotId'),
+	  //  checkInId = this.getActiveCheckIn().get('userId');
 	   
-	    var userListStore = Ext.create('Ext.data.Store', {
-	   			   model: 'EatSense.model.User',
-	   			   proxy: {
-	   				   type: 'rest',
-	   				   url : appConfig.serviceUrl+'/checkins/?spotId='+spotId+'&checkInId='+checkInId,
-	   				   reader: {
-	   					   type: 'json'
-	   			   		}
-	   			   }
-	   		   });
-	     //set list content in view	  
-	  	 this.getUserlist().setStore(userListStore); 
-	  	 this.getUserlist().getStore().load({
-	  	     scope   : this,
-	  	     callback: function(records, operation, success) {	  	    	 
+	  //   var userListStore = Ext.create('Ext.data.Store', {
+	  //  			   model: 'EatSense.model.User',
+	  //  			   proxy: {
+	  //  				   type: 'rest',
+	  //  				   url : appConfig.serviceUrl+'/checkins/?spotId='+spotId+'&checkInId='+checkInId,
+	  //  				   reader: {
+	  //  					   type: 'json'
+	  //  			   		}
+	  //  			   }
+	  //  		   });
+	  //    //set list content in view	  
+	  // 	 this.getUserlist().setStore(userListStore); 
+	  // 	 this.getUserlist().getStore().load({
+	  // 	     scope   : this,
+	  // 	     callback: function(records, operation, success) {	  	    	 
 			  	  
-				  	if(records.length > 0) {
-				  		main.switchTo(checkinwithothersDlg, 'left');
-				  	} else {
-				  		this.showLounge();
-				  	}
-	  	     }
-	  	 });	  		  	
-   },
+			// 	  	if(records.length > 0) {
+			// 	  		main.switchTo(checkinwithothersDlg, 'left');
+			// 	  	} else {
+			// 	  		this.showLounge();
+			// 	  	}
+	  // 	     }
+	  // 	 });	  		  	
+   // },
    /**
     * CheckIn Process
     * Step 4-I: Link user to a chosen person 
     * @param dataview
     * @param record
     */
-   linkToUser: function(dataview, record) {
-	   //TODO out of order
-	   var checkIn = this.getActiveCheckIn(),
-	   me = this;	   
-	   checkIn.set('linkedCheckInId', record.get('userId'));
+   // linkToUser: function(dataview, record) {
+	  //  //TODO out of order
+	  //  var checkIn = this.getActiveCheckIn(),
+	  //  me = this;	   
+	  //  checkIn.set('linkedCheckInId', record.get('userId'));
 	   
-	   checkIn.save({
-		  scope: this,
-		  success: function(record, operation) {
-			  me.showLounge();
-		  },
-		   failure: function(record, operation) {
-   	    	if(operation.getError() != null && operation.getError().status != null && operation.getError().status == 500) {
-   	    		var error = Ext.JSON.decode(response.statusText);
-   	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate(error.errorKey,error.substitutions), Ext.emptyFn);
-   	    	} else {
-   	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('errorMsg'), Ext.emptyFn);
-   	    	}
-		   }
-	   });
-   },
-   /**
-    *
-    * Show club dashboard aka lounge. 
-    * Does several initialisation tasks.
-    */
-	showLounge: function() {
-    	var menuCtr = this.getApplication().getController('Menu'),
-          loungeCtr = this.getApplication().getController('Lounge'),
-          accountCtr = this.getApplication().getController('Account');
-
-        loungeCtr.initDashboard();
-        this.loadBusiness();
-        menuCtr.showMenu();  
-	},
+	  //  checkIn.save({
+		 //  scope: this,
+		 //  success: function(record, operation) {
+			//   me.showLounge();
+		 //  },
+		 //   failure: function(record, operation) {
+   // 	    	if(operation.getError() != null && operation.getError().status != null && operation.getError().status == 500) {
+   // 	    		var error = Ext.JSON.decode(response.statusText);
+   // 	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate(error.errorKey,error.substitutions), Ext.emptyFn);
+   // 	    	} else {
+   // 	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('errorMsg'), Ext.emptyFn);
+   // 	    	}
+		 //   }
+	  //  });
+   // },
   /**
   * Shows an about screen.
   */
@@ -571,7 +557,7 @@ Ext.define('EatSense.controller.CheckIn', {
    			 this.setActiveSpot(record);
          this.setActiveArea(record.get('areaId'));
          this.activateWelcomeMode(record.get('welcome'));
-   			 this.showLounge();
+   			 this.loadBusiness(); 
    			    			
    			Ext.Viewport.add(main);
 
@@ -679,14 +665,18 @@ Ext.define('EatSense.controller.CheckIn', {
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 			this.showDashboard();			
-			this.getLoungeview().setActiveItem(this.getMenuTab());      
+			// this.getLoungeview().setActiveItem(this.getMenuTab());      
 
       //clear checkInId
       this.getAppState().set('checkInId', null);
       
       headerUtil.resetHeaders(['checkInId','pathId']);
 
-      this.getActiveBusiness().payments().removeAll(true);
+      this.getActiveBusiness().payments().each(function(pm) {
+        pm.destroy();
+      });
+      this.getActiveBusiness().payments().removeAll();
+
       this.setActiveBusiness(null);
       this.setActiveSpot(null);
       this.setActiveArea(null);
@@ -905,8 +895,8 @@ Ext.define('EatSense.controller.CheckIn', {
         activeCheckIn = this.getActiveCheckIn(),
         newCheckIn = Ext.create('EatSense.model.CheckIn'),
         appState = this.getAppState(),
-        orderCtr = this.getApplication().getController('Order'),
-        switchFnSequence = Ext.Function.createInterceptor(doSwitch, checkAndFinalizeCheckIn);
+        orderCtr = this.getApplication().getController('Order');
+        // switchFnSequence = Ext.Function.createInterceptor(doSwitch, checkAndFinalizeCheckIn);
 
 
       if(Ext.isNumber(activeArea)) {
@@ -922,7 +912,9 @@ Ext.define('EatSense.controller.CheckIn', {
         this.scanBarcode(doLoadSpot);
       } else {
         //or load spots
-        this.showSpotSelection(area, switchFnSequence);
+        this.showSpotSelection(area, function(newSpot) {
+          checkAndFinalizeCheckIn(newSpot, doSwitch);
+        });
       }
 
       //Sequence of functions
@@ -934,13 +926,21 @@ Ext.define('EatSense.controller.CheckIn', {
       
       //load barcode and and proceed with doSwitch on success
       function doLoadSpot(barcode) {
-        me.loadSpot(barcode, function() {
-          switchFnSequence(newSpot);
+        me.loadSpot(barcode, function(newSpot) {
+          checkAndFinalizeCheckIn(newSpot, doSwitch);
         });
+
+
       }
 
       //verify switch, finalize checkin, returns true on success
-      function checkAndFinalizeCheckIn(newSpot) {
+      function checkAndFinalizeCheckIn(newSpot, onSuccess) {
+
+        if(!newSpot) {
+          console.error('CheckIn.switchSpot.checkAndFinalizeCheckIn: no spot given');
+          return false;
+        }
+
         //check business ids of new spot against old spot!
         if(newSpot.get('businessId') != me.getActiveSpot().get('businessId')) {
            Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.businesses.mismatch'));
@@ -960,7 +960,9 @@ Ext.define('EatSense.controller.CheckIn', {
         }
 
         function callback(success) {
-          return success;
+          if(success) {
+            onSuccess(newSpot);
+          }
         }
       }
 
@@ -972,7 +974,7 @@ Ext.define('EatSense.controller.CheckIn', {
         //set new active spot
         me.setActiveSpot(newSpot);
 
-        newCheckIn.set('id', ''); //as always set sencha id to null
+        newCheckIn.set('userId', ''); //as always set sencha id to null
         newCheckIn.set('spotId', newSpot.get('barcode'));
         newCheckIn.set('businessName', newSpot.get('business'));
         newCheckIn.set('businessId', newSpot.get('businessId'));
@@ -1208,6 +1210,8 @@ Ext.define('EatSense.controller.CheckIn', {
    },
    /**
    * Deletes the active checkIn
+   * @param {Function} callback
+   *    Called after delete returns. Gets passed true or false depending on success.
    */
    deleteActiveCheckIn: function(callback) {
     var activeCheckIn = this.getActiveCheckIn();

@@ -2,8 +2,11 @@
  *  {@link EatSense.ux.slidenavigation.collapsible.View} is a subclass of {@link Ext.Container}
  *  that provides a sliding main view with an underlying navigation list.  The
  *  concept was inspired by Facebook's mobile app.
- *
+ * 
  *  @author Weston Nielson <wnielson@github>
+ *
+ *  Component heavily modified to use for cloobster.
+ *  @author Frederik Reifschneider
  */
 Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     extend: 'Ext.Container',
@@ -18,7 +21,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         'Ext.Button',
         'Ext.Container',
         'Ext.Function',
-        'Ext.ModelManager',
+        'Ext.data.ModelManager',
         'Ext.Toolbar',
         'Ext.data.Model',
         'Ext.data.TreeStore',

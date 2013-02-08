@@ -84,16 +84,19 @@ Ext.define('EatSense.controller.Menu', {
     	checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.registerProductTeaserTap();
+				this.showMenu();				
+				loungeCtr.on('areaswitched', doAreaFiltering, this);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();
 				this.registerProductTeaserTap(true);
+				loungeCtr.un('areaswitched', doAreaFiltering, this);
 			}
 		}, this);
 
-		loungeCtr.on('areaswitched', function(area) {
+		function doAreaFiltering(area) {
 			this.filterMenuBasedOnArea(area);
 			this.filterProductStore(area.raw.menuIds, true);
-		}, this);
+		}
     },
     /**
     * @private
@@ -260,22 +263,46 @@ Ext.define('EatSense.controller.Menu', {
 
     },
     /**
-    *
+    * Filter the menu assigned to given area.
+    * @param {EatSense.model.Area} area
+    *	area to filter menus with
     */
     filterMenuBasedOnArea: function(area) {
     	var menuStore = Ext.StoreManager.lookup('menuStore');
+    	var tmpArea = area;
+    	
+    	if(!tmpArea) {
+    		console.error('Menu.filterMenuBasedOnArea: no area given');	
+    		return;
+    	}
 
+    	if(!tmpArea.raw.menuIds) {
+    		console.error('Menu.filterMenuBasedOnArea: area has no assigned menus array');	
+    		return;
+    	}
+
+    	if(tmpArea.raw.menuIds.length == 0) {
+    		console.log('Menu.filterMenuBasedOnArea: has no assigned menus');
+    	}
+    	
     	menuStore.clearFilter(true);
 	    menuStore.filter([
 	    	{
 	    		filterFn: function(menu) {
-	    			if(Ext.Array.contains(area.raw.menuIds, menu.get('id'))) {
+	    			if(tmpArea.raw.menuIds.length == 0) {
+						return false;
+	    			}
+
+	    			if(Ext.Array.contains(tmpArea.raw.menuIds, menu.get('id'))) {
 	    				return true;
 	    			}
+
+	    			return false;
 	    		}
 	    	}
     	]);
-    	this.updateMenuLabel(area.get('name'));
+
+    	this.updateMenuLabel(tmpArea.get('name'));
     },
     /**
      * Shows the menu. At this point the store is already filled with data.
