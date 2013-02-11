@@ -288,25 +288,30 @@ Ext.define('EatSense.controller.CheckIn', {
 		    main = this.getMain(),
         nicknameToggle = this.getNicknameTogglefield(),
         nicknameField = this.getNickname(),
-		    checkIn = Ext.create('EatSense.model.CheckIn'),
+        nickname,
+		checkIn = Ext.create('EatSense.model.CheckIn'),
         accountCtr = this.getApplication().getController('Account'),
         profile = accountCtr.getProfile(),
         nicknameExists = false;
 			
       //restore from profile
        if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
-          nicknameField.setValue(profile.get('nickname'));
-          nicknameToggle.setValue(1);
+          // nicknameField.setValue(profile.get('nickname'));
+          // nicknameToggle.setValue(1);
+          nickname = profile.get('nickname');
+          nicknameExists = true;
        } 
         //restore from localstorage
         else if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
-          nicknameField.setValue(this.getAppState().get('nickname'));
-          nicknameToggle.setValue(1);          
+          // nicknameField.setValue(this.getAppState().get('nickname'));
+          // nicknameToggle.setValue(1);
+          nickname = this.getAppState().get('nickname');
+          nicknameExists = true;  
        } 
        
-       if(nicknameField.getValue().length >= 3) {
-          nicknameExists = true;  
-        }
+       // if(nicknameField.getValue().length >= 3) {
+       //    nicknameExists = true;  
+       //  }
 		
 		checkIn.set('spotId', options.model.get('barcode'));
 		checkIn.set('businessName', options.model.get('business'));
@@ -322,36 +327,36 @@ Ext.define('EatSense.controller.CheckIn', {
 
     this.activateWelcomeMode(options.model.get('welcome'));
 
-      //user has to choose a nickname
-		if(!nicknameExists) {
+    //user has to choose a nickname
+	if(!nicknameExists) {
       main.switchTo(checkInDialog, 'left');
     } else {
       //user already has a stored nickname
-      this.checkIn();
+      this.checkIn(nickname);
     }
 		
    },
    /**
     * CheckIn Process
     * Step 3: User confirmed his wish to check in
-    * @param options
+    * @param {String} savedNickname
     */
-   checkIn: function() {
+   checkIn: function(savedNickname) {
 	   var me = this,
-	       nickname = Ext.String.trim(this.getNickname().getValue()),
+	       nickname = savedNickname || Ext.String.trim(this.getNickname().getValue()),
 	       nicknameToggle = this.getNicknameTogglefield(),
-         messageCtr = this.getApplication().getController('Message'),
-         checkInDialog = this.getCheckinconfirmation(),
-         accountCtr = this.getApplication().getController('Account'),
-         profile = accountCtr.getProfile();
+           messageCtr = this.getApplication().getController('Message'),
+           checkInDialog = this.getCheckinconfirmation(),
+           accountCtr = this.getApplication().getController('Account'),
+           profile = accountCtr.getProfile();
 
 	 //get CheckIn Object and save it.	   
 	   if(nickname.length < 3) {
 		   Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
 	   } else {		   
-          appHelper.toggleMask('loadingMsg');
-		      this.getActiveCheckIn().set('nickname',nickname);		  	   
-		      this.getActiveCheckIn().save(
+            appHelper.toggleMask('loadingMsg');
+            this.getActiveCheckIn().set('nickname',nickname);		  	   
+		    this.getActiveCheckIn().save(
 					   {
 					   	    success: function(response) {
                     appHelper.toggleMask(false);
@@ -367,15 +372,15 @@ Ext.define('EatSense.controller.CheckIn', {
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					//save nickname in settings
-  					if(nicknameToggle.getValue() == 1) {
-              if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
+  		    if(nicknameToggle.getValue() == 1) {
+                if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
                   profile.set('nickname', nickname);
                   profile.save();
-              } else {
-                  me.getAppState().set('nickname', nickname);
-              }
-              nicknameToggle.reset();
-  					}
+                } else {
+                    me.getAppState().set('nickname', nickname);
+                }
+                nicknameToggle.reset();
+  			}
                    
                //open a channel for push messags
                try {
@@ -414,69 +419,6 @@ Ext.define('EatSense.controller.CheckIn', {
 		   Ext.Viewport.add(main);
 	   }
    },
-   /**
-    * CheckIn Process
-    * Step 4: List other users located at this spot
-    * @param options
-    */
-   // showCheckinWithOthers: function(options) {
-	  //  //TODO out of order
-	  //  var checkinwithothersDlg = this.getCheckinwithothers(), 
-	  //  main = this.getMain(),
-	  //  spotId = this.getActiveCheckIn().get('spotId'),
-	  //  checkInId = this.getActiveCheckIn().get('userId');
-	   
-	  //   var userListStore = Ext.create('Ext.data.Store', {
-	  //  			   model: 'EatSense.model.User',
-	  //  			   proxy: {
-	  //  				   type: 'rest',
-	  //  				   url : appConfig.serviceUrl+'/checkins/?spotId='+spotId+'&checkInId='+checkInId,
-	  //  				   reader: {
-	  //  					   type: 'json'
-	  //  			   		}
-	  //  			   }
-	  //  		   });
-	  //    //set list content in view	  
-	  // 	 this.getUserlist().setStore(userListStore); 
-	  // 	 this.getUserlist().getStore().load({
-	  // 	     scope   : this,
-	  // 	     callback: function(records, operation, success) {	  	    	 
-			  	  
-			// 	  	if(records.length > 0) {
-			// 	  		main.switchTo(checkinwithothersDlg, 'left');
-			// 	  	} else {
-			// 	  		this.showLounge();
-			// 	  	}
-	  // 	     }
-	  // 	 });	  		  	
-   // },
-   /**
-    * CheckIn Process
-    * Step 4-I: Link user to a chosen person 
-    * @param dataview
-    * @param record
-    */
-   // linkToUser: function(dataview, record) {
-	  //  //TODO out of order
-	  //  var checkIn = this.getActiveCheckIn(),
-	  //  me = this;	   
-	  //  checkIn.set('linkedCheckInId', record.get('userId'));
-	   
-	  //  checkIn.save({
-		 //  scope: this,
-		 //  success: function(record, operation) {
-			//   me.showLounge();
-		 //  },
-		 //   failure: function(record, operation) {
-   // 	    	if(operation.getError() != null && operation.getError().status != null && operation.getError().status == 500) {
-   // 	    		var error = Ext.JSON.decode(response.statusText);
-   // 	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate(error.errorKey,error.substitutions), Ext.emptyFn);
-   // 	    	} else {
-   // 	    		Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('errorMsg'), Ext.emptyFn);
-   // 	    	}
-		 //   }
-	  //  });
-   // },
   /**
   * Shows an about screen.
   */
