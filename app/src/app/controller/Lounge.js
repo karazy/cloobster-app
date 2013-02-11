@@ -33,12 +33,15 @@ Ext.define('EatSense.controller.Lounge', {
 		}
 		},
 		/* Android Back handlers */
-		navigationFunctions : new Array()
+		navigationFunctions : new Array(),
+		loadAreaTask: null
 	},
   launch: function() {
 	 var me = this,
-		  checkInCtr = this.getApplication().getController('CheckIn');
+		  checkInCtr = this.getApplication().getController('CheckIn'),
+		  loadAreasTask;
 
+	  me.createLoadAreaTask();
 
 	  checkInCtr.on({
 		 'spotswitched' : function(spot) {
@@ -52,12 +55,19 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.toggleSlidenavButtons(true);
 			  this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
 			  this.registerSlideBezelTap();
+			  //start load area task
+			  if(this.getLoadAreaTask()) {
+			  	this.getLoadAreaTask().delay(10);	
+			  } else {
+			  	console.error('Lounge.launch: no load area task exists');
+			  }
+			  
 			  //don't show avail areas on welcome spots
-			  if(!checkInCtr.getActiveSpot().get('welcome')) {
-				 this.loadAreas(function() {
-					me.markSlideNavAreaActive(checkInCtr.getActiveArea());
-				 });           
-			  }        
+			  // if(!checkInCtr.getActiveSpot().get('welcome')) {
+				 //   me.loadAreas(function() {
+					// 	me.markSlideNavAreaActive(checkInCtr.getActiveArea());
+				 // 	});				          
+			  // }        
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
@@ -67,7 +77,14 @@ Ext.define('EatSense.controller.Lounge', {
 				this.cleanup();
 			}
 		 },
-		 'basicmode' : this.manageBasicMode,
+		 'basicmode' : function(basicMode) {
+		 	this.manageBasicMode(basicMode);
+		 	if(this.getLoadAreaTask()) {
+		 		this.getLoadAreaTask().delay(10);	
+		  	} else {
+		  		console.error('Lounge.launch: no load area task exists');
+		  	}
+		 },
 		 scope: this
 	  });
 
@@ -136,7 +153,10 @@ Ext.define('EatSense.controller.Lounge', {
 		//hide all elements with flag hideOnBasic
 		if(basicMode == true) {
 		  lounge.getList().getStore().filter([
-			 {property: "hideOnBasic", value: false}
+			 {
+			 	property: "hideOnBasic", 
+			 	value: false
+			 }
 		  ]);
 		} else {
 		  lounge.getList().getStore().clearFilter();
@@ -232,6 +252,28 @@ Ext.define('EatSense.controller.Lounge', {
 	showMenu: function(button) {
 		var lounge = this.getLoungeview();
 	 	lounge.selectByAction('show-menu');
+	},
+	createLoadAreaTask: function() {
+		var me = this,
+			 task,
+			 checkInCtr = this.getApplication().getController('CheckIn');
+
+		task = Ext.create('Ext.util.DelayedTask', function() {
+			if(!checkInCtr.getActiveSpot() || !checkInCtr.getActiveBusiness()) {
+				task.delay(10);
+				console.log('Lounge.createLoadAreaTask: delaying task for 100ms');
+			} else {
+				task.cancel();
+				console.log('Lounge.createLoadAreaTask: executing task');
+				if(!checkInCtr.getActiveSpot().get('welcome') == true && !checkInCtr.getActiveBusiness().get('basic') == true) {
+					me.loadAreas(function() {
+						me.markSlideNavAreaActive(checkInCtr.getActiveArea());
+				 	}); 
+				}
+			}			   
+		}, this, checkInCtr);
+
+		this.setLoadAreaTask(task);
 	},
 	 /**
 	 * Load all available areas for this location.

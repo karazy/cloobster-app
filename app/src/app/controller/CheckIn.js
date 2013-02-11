@@ -130,9 +130,9 @@ Ext.define('EatSense.controller.CheckIn', {
       //register event handlers
     	this.on({
         'statusChanged' : this.handleStatusChange,
-        scope. this 
+        scope: this 
       });
-      
+
       this.getApplication().on('statusChanged', this.handleStatusChange, this);
     	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
       loungeCtr.on('areaswitched', function(area) {
@@ -198,7 +198,7 @@ Ext.define('EatSense.controller.CheckIn', {
                 scope: this,
                 fn: function(btnId, value, opt) {
                     if(btnId=='yes') {
-                        barcode = encodeURIComponent(Ext.String.trim(value));    
+                        barcode = encodeURIComponent(Ext.String.trim(value));
                     } else {
                       barcode = false;
                     }
