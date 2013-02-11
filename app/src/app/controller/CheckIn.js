@@ -320,7 +320,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		}			
 		this.setActiveCheckIn(checkIn);
 
-    this.activateWelcomeMode(options.model.get('welcome') || options.model.get('master'));
+    this.activateWelcomeMode(options.model.get('welcome'));
 
       //user has to choose a nickname
 		if(!nicknameExists) {
@@ -788,6 +788,30 @@ Ext.define('EatSense.controller.CheckIn', {
         });
     },
   /**
+  * Checks if the active spot is eligible for actions (order, vip call, feedback)
+  * @return
+  *     true if action is permitted
+  */  
+  checkActiveSpotEligibleForAction: function() {
+    var activeSpot = this.getActiveSpot(),
+        activeArea = this.getActiveArea();
+
+    //TODO maybe enhance to define action types to be more granular
+
+    //master spot is not allowed to do actions
+    if(activeSpot.get('master') == true) {
+        return false;
+    }
+
+    //welcome spots should have been deactivated in the first place!
+    if(activeSpot.get('welcome') == true) {
+        console.error('Order.checkActiveSpotEligibleForAction: welcome spot tried to execute an action');
+        return false;
+    }
+
+    return true;
+  },
+  /**
   * @private
   * Checks if the active spot belongs to active area.
   * This is mainly used to ensure orders can only be issued from active spot.
@@ -823,29 +847,47 @@ Ext.define('EatSense.controller.CheckIn', {
     return false;
   },
   /**
-  * Ask user if he wants to switch the spot based on the activeArea.
-  * @param {Boolean} ordersExist
-  *   if true then orders exist and checkin must be completed
+  * Ask user if he wants to switch the spot.
+  * @param {Boolean} useActiveSpot (optional)
+  *   if true, get area from active spot instead of using the active area
   */
-  confirmSwitchSpot: function(ordersExist) {
+  confirmSwitchSpot: function(useActiveSpot) {
     var me = this,
+        activeSpot = this.getActiveSpot(),
         activeArea = this.getActiveArea(),
+        //used to store area temporary
+        tmpArea,
         orderCtr = this.getApplication().getController('Order'),
         ordersTotal,
         completeCheckInMessage,
-        barcodeRequired;
+        barcodeRequired,
+        ordersExist;
+
+    if(useActiveSpot) {
+        activeArea = areaStore.getById(activeSpot.get('areaId'));
+    }
 
     if(!activeArea) {
       console.error('CheckIn.loadSpotsForActiveArea');
       return;
     };
 
-    if(Ext.isNumber(activeArea)) {
-      //if we only have an area id always require a barcode
-      barcodeRequired = true;
-    } else {
-      barcodeRequired = activeArea.get('barcodeRequired');
-    }
+      if(Ext.isNumber(activeArea)) {
+        //if we only have an area id try to load the area object
+        tmpArea = areaStore.getById(activeArea);
+        if(tmpArea) {
+            activeArea = tmpArea;
+            barcodeRequired = activeArea.get('barcodeRequired');
+        } else {
+            barcodeRequired = true;
+        }        
+      } else {
+        //already an area object
+        barcodeRequired = activeArea.get('barcodeRequired');
+      }
+
+    //check if orders exist
+    ordersExist = orderCtr.getMyordersCount() > 0;
 
     //if orders exist show alert and ask user to select payment method
     if(ordersExist) {
@@ -860,7 +902,7 @@ Ext.define('EatSense.controller.CheckIn', {
           }, this);
 
       function onChoose(paymentMethod) {
-        me.switchSpot(activeArea, ordersExist, paymentMethod);
+        me.switchSpot(activeArea, ordersExist, barcodeRequired, paymentMethod);
       }
     } else {
           Ext.Msg.show({
@@ -878,7 +920,7 @@ Ext.define('EatSense.controller.CheckIn', {
           scope: this,
           fn: function(btnId, value, opt) {
             if(btnId=='yes') {
-              me.switchSpot(activeArea, ordersExist);
+              me.switchSpot(activeArea, ordersExist, barcodeRequired);
             }
           }
        }); 
@@ -894,23 +936,28 @@ Ext.define('EatSense.controller.CheckIn', {
   * @param {String} paymentMethod
   *   Payment method to used to create bill when orders exist
   */
-  switchSpot: function(area, ordersExist, paymentMethod) {
+  switchSpot: function(area, ordersExist, barcodeRequired, paymentMethod) {
     var me = this,
         activeArea = area,
-        barcodeRequired,
         activeCheckIn = this.getActiveCheckIn(),
         newCheckIn = Ext.create('EatSense.model.CheckIn'),
         appState = this.getAppState(),
-        orderCtr = this.getApplication().getController('Order');
-        // switchFnSequence = Ext.Function.createInterceptor(doSwitch, checkAndFinalizeCheckIn);
+        orderCtr = this.getApplication().getController('Order')
+        areaStore = Ext.StoreManager.lookup('areaStore');
 
 
-      if(Ext.isNumber(activeArea)) {
-      //if we only have an area id always require a barcode
-        barcodeRequired = true;
-      } else {
-        barcodeRequired = activeArea.get('barcodeRequired');
-      }
+      // if(Ext.isNumber(activeArea)) {
+      //   //if we only have an area id try to load the area object
+      //   activeArea = areaStore.getById(area);
+      //   if(activeArea) {
+      //       barcodeRequired = activeArea.get('barcodeRequired');
+      //   } else {
+      //       activeArea = area;
+      //       barcodeRequired = true;
+      //   }        
+      // } else {
+      //   barcodeRequired = activeArea.get('barcodeRequired');
+      // }
 
       //get barcode or spot
       if(barcodeRequired) {

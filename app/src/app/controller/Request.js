@@ -50,7 +50,17 @@ Ext.define('EatSense.controller.Request',{
 		var lounge = this.getLounge();
 		lounge.selectByAction('show-requests');
 	},
+	/**
+	* Send or cancel a vip call.
+	*/
 	toggleCallWaiterRequest: function(button, event) {
+		var checkInCtr = this.getApplication().getController('CheckIn');
+
+		if(!checkInCtr.checkActiveSpotInActiveArea() || !checkInCtr.checkActiveSpotEligibleForAction()) {			
+			checkInCtr.confirmSwitchSpot(true);
+			return;
+		}
+
 		if(!button.mode || button.mode == 'call') {
 			this.sendCallWaiterRequest(button, event);
 		} else if (button.mode == 'cancel'){
