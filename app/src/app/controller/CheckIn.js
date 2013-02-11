@@ -356,9 +356,8 @@ Ext.define('EatSense.controller.CheckIn', {
 	   } else {		   
             appHelper.toggleMask('loadingMsg');
             this.getActiveCheckIn().set('nickname',nickname);		  	   
-		    this.getActiveCheckIn().save(
-					   {
-					   	    success: function(response) {
+		    this.getActiveCheckIn().save({
+				success: function(response) {
                     appHelper.toggleMask(false);
   					   	    console.log("CheckIn Controller -> checkIn success");
                     //Set default headers so that always checkInId is send
@@ -1020,7 +1019,7 @@ Ext.define('EatSense.controller.CheckIn', {
         newCheckIn.set('businessId', newSpot.get('businessId'));
         newCheckIn.set('spot', newSpot.get('name'));
         //nickname korrekt laden über neue generelle methode!
-        newCheckIn.set('nickname', appState.get('nickname'));
+        newCheckIn.set('nickname', me.getNickname());
         //we are already checked in, no intent
         newCheckIn.set('status', appConstants.INTENT);
 
