@@ -401,6 +401,28 @@ Ext.define('EatSense.controller.CheckIn', {
 	   }
    },
    /**
+   * Returns the current nickname.
+   * If user is logged in gets the nickname saved in the profile.
+   * Otherwise tries to get the nickname from local storage.
+   * @return
+   *    Nickname or empty string if none is found.
+   */
+   getNickname: function() {
+    var savedNickname = "",
+        accountCtr = this.getApplication().getController('Account'),
+        profile = accountCtr.getProfile();
+
+        if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
+            //restore from profile
+            savedNickname = profile.get('nickname');
+       } else if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
+            //restore from localstorage
+            savedNickname = this.getAppState().get('nickname');
+       } 
+
+       return savedNickname;
+   },
+   /**
     * CheckIn Process
     * Step 2 alt: cancel process
     */
@@ -907,20 +929,6 @@ Ext.define('EatSense.controller.CheckIn', {
         newCheckIn = Ext.create('EatSense.model.CheckIn'),
         appState = this.getAppState(),
         orderCtr = this.getApplication().getController('Order');
-
-
-      // if(Ext.isNumber(activeArea)) {
-      //   //if we only have an area id try to load the area object
-      //   activeArea = areaStore.getById(area);
-      //   if(activeArea) {
-      //       barcodeRequired = activeArea.get('barcodeRequired');
-      //   } else {
-      //       activeArea = area;
-      //       barcodeRequired = true;
-      //   }        
-      // } else {
-      //   barcodeRequired = activeArea.get('barcodeRequired');
-      // }
 
       //get barcode or spot
       if(barcodeRequired) {
