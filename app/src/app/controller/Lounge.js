@@ -52,6 +52,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.toggleSlidenavButtons(true);
 			  this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
 			  this.registerSlideBezelTap();
+			  //don't show avail areas on welcome spots
 			  if(!checkInCtr.getActiveSpot().get('welcome')) {
 				 this.loadAreas(function() {
 					me.markSlideNavAreaActive(checkInCtr.getActiveArea());

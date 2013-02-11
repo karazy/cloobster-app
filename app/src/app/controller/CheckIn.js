@@ -128,7 +128,11 @@ Ext.define('EatSense.controller.CheckIn', {
           loungeCtr = this.getApplication().getController('Lounge');
     	
       //register event handlers
-    	this.on('statusChanged', this.handleStatusChange, this);
+    	this.on({
+        'statusChanged' : this.handleStatusChange,
+        scope. this 
+      });
+      
       this.getApplication().on('statusChanged', this.handleStatusChange, this);
     	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
       loungeCtr.on('areaswitched', function(area) {
@@ -317,7 +321,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		}			
 		this.setActiveCheckIn(checkIn);
 
-    this.activateWelcomeMode(options.model.get('welcome'));
+    this.activateWelcomeMode(options.model.get('welcome') || options.model.get('master'));
 
       //user has to choose a nickname
 		if(!nicknameExists) {
@@ -932,8 +936,6 @@ Ext.define('EatSense.controller.CheckIn', {
         me.loadSpot(barcode, function(newSpot) {
           checkAndFinalizeCheckIn(newSpot, doSwitch);
         });
-
-
       }
 
       //verify switch, finalize checkin, returns true on success
@@ -1019,7 +1021,8 @@ Ext.define('EatSense.controller.CheckIn', {
         });
 
         me.getAppState().set('checkInId', checkin.get('userId'));
-
+        //deactivate welcome mode, since we can not switch to a welcome spot, this is always false
+        me.activateWelcomeMode(false);
         //notify controllers after everything has finished to refresh state where necessary
         //clean up orderstore, cart, badge texts ...
         me.fireEvent('spotswitched', me.getActiveSpot(), checkin);
