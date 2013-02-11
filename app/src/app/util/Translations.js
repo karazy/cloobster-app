@@ -780,8 +780,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Log-out"
 		},
 		"account.logout.confirm.message" : {
-			"DE" :  "Möchten Sie sich abmelden?<br/>Zukünftige Check-ins tauchen nicht unter \"MyPlaces auf\"!",
-			"EN" :  "Do you want to log out? Future check-ins will not show under \"MyPlaces auf\"!"
+			"DE" :  "Möchten Sie sich abmelden?",
+			"EN" :  "Do you want to log out?"
 		},
 		"account.passwordrequest.message" : {
 			"DE" :  "Bitte geben Sie Ihre<br/>cloobster Account E-Mail ein.",

@@ -984,7 +984,7 @@ Ext.define('EatSense.controller.CheckIn', {
         this.scanBarcode(doLoadSpot);
       } else {
         //or load spots
-        this.showSpotSelection(area, function(newSpot) {
+        this.showSpotSelection(activeArea, function(newSpot) {
           checkAndFinalizeCheckIn(newSpot, doSwitch);
         });
       }
@@ -1030,7 +1030,7 @@ Ext.define('EatSense.controller.CheckIn', {
         }
 
         //check that new spot belongs to selected area
-        if(!me.checkActiveSpotInActiveArea(newSpot, area)) {
+        if(!me.checkActiveSpotInActiveArea(newSpot, activeArea)) {
           Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.area.mismatch'));
           return false;
         }

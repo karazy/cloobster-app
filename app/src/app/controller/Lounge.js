@@ -57,7 +57,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.registerSlideBezelTap();
 			  //start load area task
 			  if(this.getLoadAreaTask()) {
-			  	this.getLoadAreaTask().delay(10);	
+			  	this.getLoadAreaTask().delay(100);	
 			  } else {
 			  	console.error('Lounge.launch: no load area task exists');
 			  }
@@ -80,7 +80,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 'basicmode' : function(basicMode) {
 		 	this.manageBasicMode(basicMode);
 		 	if(this.getLoadAreaTask()) {
-		 		this.getLoadAreaTask().delay(10);	
+		 		this.getLoadAreaTask().delay(100);	
 		  	} else {
 		  		console.error('Lounge.launch: no load area task exists');
 		  	}
@@ -260,7 +260,7 @@ Ext.define('EatSense.controller.Lounge', {
 
 		task = Ext.create('Ext.util.DelayedTask', function() {
 			if(!checkInCtr.getActiveSpot() || !checkInCtr.getActiveBusiness()) {
-				task.delay(10);
+				task.delay(100);
 				console.log('Lounge.createLoadAreaTask: delaying task for 100ms');
 			} else {
 				task.cancel();

@@ -56,7 +56,7 @@ Ext.define('EatSense.controller.Request',{
 	toggleCallWaiterRequest: function(button, event) {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
-		if(!checkInCtr.checkActiveSpotInActiveArea() || !checkInCtr.checkActiveSpotEligibleForAction()) {			
+		if(!checkInCtr.checkActiveSpotEligibleForAction()) {			
 			checkInCtr.confirmSwitchSpot(true);
 			return;
 		}
