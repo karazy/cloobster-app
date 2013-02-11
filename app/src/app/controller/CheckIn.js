@@ -726,7 +726,6 @@ Ext.define('EatSense.controller.CheckIn', {
 
        this.activateWelcomeMode(this.getActiveSpot().get('welcome'), viewToSetMode);
        this.activateBasicMode(this.getActiveBusiness().get('basic'), viewToSetMode);
-           
     },
 
     /**
@@ -948,6 +947,18 @@ Ext.define('EatSense.controller.CheckIn', {
         //check business ids of new spot against old spot!
         if(newSpot.get('businessId') != me.getActiveSpot().get('businessId')) {
            Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.businesses.mismatch'));
+          return false;
+        }
+
+        //prevent switch to welcome spots
+        if(newSpot.get('welcome') == true) {
+          Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.welcome'));
+          return false;
+        }
+
+        //prevent switch to master spots
+        if(newSpot.get('master') == true) {
+          Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.welcome'));
           return false;
         }
 

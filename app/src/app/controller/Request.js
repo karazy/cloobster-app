@@ -30,16 +30,6 @@ Ext.define('EatSense.controller.Request',{
 
 		messageCtr.on('eatSense.request', this.handleRequestMessage, this);
 
-		// checkInCtr.on('resumecheckin', this.loadRequests, this);
-
-		// checkInCtr.on('statusChanged', function(status) {
-		// 	if(status == appConstants.CHECKEDIN) {
-		// 		this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
-		// 	} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-		// 		this.resetAllRequests();
-		// 	}
-		// }, this);
-
 		checkInCtr.on({
 			'statusChanged': function(status) {
 				if(status == appConstants.CHECKEDIN) {

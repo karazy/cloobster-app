@@ -950,6 +950,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Dieser Spot gehört nicht zum ausgewählten Servicebereich.",
 			"EN" : ""
 		},
+		"error.checkin.switchspot.welcome" : {
+			"DE" :  "Dieser Spot repräsentiert keinen Standort. Bitte checken Sie an anderer Stelle ein.",
+			"EN" : ""
+		},
 		//system
 		"network.slow" : {
 			"DE" :  "Die Verbindung ist langsam. Dies kann die Anwendung verlangsamen.",
