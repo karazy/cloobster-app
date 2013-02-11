@@ -675,10 +675,12 @@ Ext.define('EatSense.controller.CheckIn', {
       
       headerUtil.resetHeaders(['checkInId','pathId']);
 
-      this.getActiveBusiness().payments().each(function(pm) {
-        pm.destroy();
-      });
-      this.getActiveBusiness().payments().removeAll();
+      if(this.getActiveBusiness()) {
+        this.getActiveBusiness().payments().each(function(pm) {
+            pm.destroy();
+          });
+        this.getActiveBusiness().payments().removeAll(); 
+      }      
 
       this.setActiveBusiness(null);
       this.setActiveSpot(null);
