@@ -211,11 +211,10 @@ Ext.define('EatSense.controller.CheckIn', {
       } else if(this.getProfile() == 'phone' || this.getProfile() == 'tablet') {
           window.plugins.barcodeScanner.scan(function(result) {
             if(!result.cancelled) {
-              barcode =  me.extractBarcode(result.text);
+              barcode =  encodeURIComponent(Ext.String.trim(me.extractBarcode(result.text)));
             } else {
               barcode = false;
             }
-
             if(Ext.isFunction(callback)) {
               callback(barcode);
             }
@@ -265,7 +264,7 @@ Ext.define('EatSense.controller.CheckIn', {
    * @return the extracted barcode
    */
    extractBarcode: function(url) {
-    var indexHashTag = url.lastIndexOf('#') + 1,
+    var indexHashTag = url.indexOf('#') + 1,
         code;
 
     try {
