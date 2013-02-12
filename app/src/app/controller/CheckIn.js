@@ -291,27 +291,8 @@ Ext.define('EatSense.controller.CheckIn', {
         nickname,
 		    checkIn = Ext.create('EatSense.model.CheckIn'),
         accountCtr = this.getApplication().getController('Account'),
-        profile = accountCtr.getProfile(),
-        nicknameExists = false;
-			//TODO use new loadNickname method
-      //restore from profile
-    /*   if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
-          // nicknameField.setValue(profile.get('nickname'));
-          // nicknameToggle.setValue(1);
-          nickname = profile.get('nickname');
-          nicknameExists = true;
-       } 
-        //restore from localstorage
-        else if(this.getAppState().get('nickname') != null && Ext.String.trim(this.getAppState().get('nickname')) != '') {
-          // nicknameField.setValue(this.getAppState().get('nickname'));
-          // nicknameToggle.setValue(1);
-          nickname = this.getAppState().get('nickname');
-          nicknameExists = true;  
-       } 
-       */
-       // if(nicknameField.getValue().length >= 3) {
-       //    nicknameExists = true;  
-       //  }
+        profile = accountCtr.getProfile();
+
      nickname = this.loadNickname();
 		
 		checkIn.set('spotId', options.model.get('barcode'));

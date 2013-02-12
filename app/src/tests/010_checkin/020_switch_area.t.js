@@ -68,19 +68,18 @@ StartTest(function(t) {
         },
         function(next) {
             var lounge = t.cq1('lounge'),
-                record,
-                listEle;
-            // listEle = lounge.getList().element;
+                record;
 
             record = lounge.getList().getStore().find('title', 'Zimmerservice');
             t.isGreater(record, -1, 'found a mathing service area');
             lounge.getList().select(record);
+            next();
         },
         function(next) {
             t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard dashboardteaser[type=product]'), next, this, 3000);
         },
         function(next) {
-            var teaser = t.cq1('lounge clubarea clubdashboard dashboardteaser');
+            var teaser = t.cq1('lounge clubarea clubdashboard dashboardteaser[type=product]');
 
             t.waitForContentLike(teaser.element, 'Der Pure', next, this, 1000);
         },

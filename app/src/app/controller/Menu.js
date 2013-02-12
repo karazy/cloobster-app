@@ -848,7 +848,8 @@ Ext.define('EatSense.controller.Menu', {
 		if(clear) {
 			productStore.clearFilter(true);	
 		}
-		
+		//TODO refactor filtering when this will be used in a more general way
+		// so a hardcodet special filter is not needed anymore
 		if(menuIds) {
 			productStore.filter([
 		    	{
@@ -857,6 +858,10 @@ Ext.define('EatSense.controller.Menu', {
 		    				return true;
 		    			}
 		    		}
+		    	},
+		    	{
+        	    	property: 'special',
+            		value   : true
 		    	}
     		]);
 		}
