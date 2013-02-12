@@ -135,6 +135,14 @@ Ext.define('EatSense.view.Settings', {
 				action: 'about',
 				margin: '7 0 5 0',
 				width: '90%'
+			},
+			{
+				xtype: 'fixedbutton',
+				text: i10n.translate('settings.button.login'),
+				ui: 'action',
+				action: 'show-login',
+				margin: '7 0 5 0',
+				width: '90%'
 			}
 		]
 	},

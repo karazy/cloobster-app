@@ -1,4 +1,4 @@
-/*
+	/*
 *	Settings Tab Displayed in Lounge view.
 */
 Ext.define('EatSense.view.SettingsTab', {

@@ -87,6 +87,25 @@ Ext.define('EatSense.controller.Settings', {
         //used for back button logic, dynamically wiring button tap events ...
         callingView : null
     },
+    launch: function() {
+        var me = this,
+            checkInCtr = this.getApplication().getController('CheckIn'),
+            accountCtr = this.getApplication().getController('Account');
+
+        checkInCtr.on('statusChanged', function(status) {
+            if(status == appConstants.CHECKEDIN) {            
+                accountCtr.on('userlogin', refreshSettings, this);
+            } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+                accountCtr.un('userlogin', refreshSettings, this);
+            }
+        }, this);
+
+        //refresh settings upon login
+        function refreshSettings(account) {
+            me.loadSettings(me.getSettingsTab().down('#settingCards'));
+        }
+
+    },
     /**
     * Activate event handler for settingstab.
     */
@@ -97,6 +116,7 @@ Ext.define('EatSense.controller.Settings', {
 
         androidCtr.setExitOnBack(false);    
         androidCtr.setAndroidBackHandler(this.getSettingsNavigationFunctions());
+        
     },
     /**
     *	Loads the settings and sets the corresponding fields.
@@ -114,15 +134,17 @@ Ext.define('EatSense.controller.Settings', {
             emailChangeBt = null,
             emailLabel = null,
             fbConnectedLabel = null,
-            accountPanel = null; 
+            accountPanel = null,
+            //shown when user is not logged in
+            loginButton = null; 
 
         if(!view) {
-            console.log('Settings.loadSettings > Abort! no view given');
+            console.log('Settings.loadSettings: no view given');
             return;
         }
 
         if(!view.down('settings')) {
-            console.log('Settings.loadSettings > Abort! calling view has no settings panel');
+            console.log('Settings.loadSettings: calling view has no settings panel');
             return;
         }
 
@@ -136,6 +158,7 @@ Ext.define('EatSense.controller.Settings', {
         accountPanel = callingView.down('settings #accountPanel');
         connectWithFbButton = callingView.down('settings button[action=connect-fb]');        
         fbConnectedLabel = callingView.down('settings #accountFbStatus');
+        loginButton = callingView.down('settings button[action=show-login]');
 
 
         if(accountCtr.isLoggedIn()) {
@@ -153,6 +176,7 @@ Ext.define('EatSense.controller.Settings', {
                     this.toggleEmailAndPwButtons(view, true);
                     fbConnectedLabel.hide();
                 }
+                loginButton.hide();
             }
 
             if(profile) {
@@ -164,6 +188,7 @@ Ext.define('EatSense.controller.Settings', {
             //TODO show signup button
             accountPanel.setHidden(true);
             emailLabel.setHidden(true);
+            loginButton.show();
         }
         
     },

@@ -14,7 +14,7 @@ Ext.define('EatSense.controller.Account', {
 				autoCreate: true
 			},
 			settingsView: 'mainview settingsview',			
-			showLoginButtonDashboard : 'dashboard button[action=show-login]',
+			showLoginButtonDashboard : 'button[action=show-login]',
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
 			settingsViewBackButton: 'mainview settingsview settings #backButton',
 			logoutDashboardButton: 'settingsview button[action=logout]',
@@ -312,6 +312,7 @@ Ext.define('EatSense.controller.Account', {
 				//reset fields
         		form.reset();
         		callback(true);
+        		me.fireEvent('userlogin', record);
         	},
         	failure: function(record, operation) {
         		callback(false);
@@ -347,8 +348,8 @@ Ext.define('EatSense.controller.Account', {
 	/**
 	* Tries to login the user.
 	* @param fbdata
-	* @return
-	*	true on success
+	* @param {Function} loginCallback (optional)
+	*	called after login finished. Get passed true/false depending on success
 	*/
 	login: function(fbdata, loginCallback) {
 		var me = this,
@@ -421,6 +422,8 @@ Ext.define('EatSense.controller.Account', {
 
     		//reset fields
     		form.reset();
+
+    		me.fireEvent('userlogin', account);
 
     		if(loginCallback) {
     			loginCallback(true);
@@ -677,15 +680,34 @@ Ext.define('EatSense.controller.Account', {
 	},
 
 	//ui actions start
+	/**
+	* Hide and disable all login buttons. Enable and show settings button.
+	*/
 	hideDashboardLoginButton: function() {
-		this.getShowLoginButtonDashboard().disable();
-		this.getShowLoginButtonDashboard().hide();
+		var buttons = this.getMainView().query('button[action=show-login]');
+
+		Ext.Array.each(buttons, function(button) {
+			button.disable();
+			button.hide();
+		});
+
+		// this.getShowLoginButtonDashboard().disable();
+		// this.getShowLoginButtonDashboard().hide();
 		this.getShowSettingsButtonDashboard().enable();
 		this.getShowSettingsButtonDashboard().show();	
 	},
+	/**
+	* Show and enable all login buttons. Disable and hide settings button.
+	*/
 	showDashboardLoginButton: function() {
-		this.getShowLoginButtonDashboard().enable();
-		this.getShowLoginButtonDashboard().show();	
+		var buttons = this.getMainView().query('button[action=show-login]');
+
+		Ext.Array.each(buttons, function(button) {
+			button.enable();
+			button.show();
+		});
+		// this.getShowLoginButtonDashboard().enable();
+		// this.getShowLoginButtonDashboard().show();	
 		this.getShowSettingsButtonDashboard().disable();
 		this.getShowSettingsButtonDashboard().hide();	
 	}

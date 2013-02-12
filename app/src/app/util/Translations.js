@@ -544,10 +544,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Passwort",
 			"EN" :  "Password"
 		},
-		// "settings.section.account" : {
-		// 	"DE" :  "Account-Daten",
-		// 	"EN" :  "Account data"
-		// },
+		"settings.button.login" : {
+			"DE" :  "Login/Anmelden",
+			"EN" : "Login/Register"
+		},
 		"settings.account.email" : {
 			"DE" :  "Ihr cloobster Konto:<br/>{email}",
 			"EN" :  "Your cloobster account:<br/>{email}"
