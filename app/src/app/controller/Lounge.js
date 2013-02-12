@@ -265,7 +265,7 @@ Ext.define('EatSense.controller.Lounge', {
 			} else {
 				task.cancel();
 				console.log('Lounge.createLoadAreaTask: executing task');
-				if(!checkInCtr.getActiveSpot().get('welcome') == true && !checkInCtr.getActiveBusiness().get('basic') == true) {
+				if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
 					me.loadAreas(function() {
 						me.markSlideNavAreaActive(checkInCtr.getActiveArea());
 				 	}); 

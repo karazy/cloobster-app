@@ -82,7 +82,7 @@ Ext.define('EatSense.controller.CheckIn', {
                 tap: 'checkInIntent'
             },
             confirmCheckInBt: {
-            	tap: 'checkIn'
+            	tap: 'confirmCheckInBtHandler'
             }, 
             checkinDlg2Userlist: {
             	select: 'linkToUser'
@@ -289,13 +289,13 @@ Ext.define('EatSense.controller.CheckIn', {
         nicknameToggle = this.getNicknameTogglefield(),
         nicknameField = this.getNickname(),
         nickname,
-		checkIn = Ext.create('EatSense.model.CheckIn'),
+		    checkIn = Ext.create('EatSense.model.CheckIn'),
         accountCtr = this.getApplication().getController('Account'),
         profile = accountCtr.getProfile(),
         nicknameExists = false;
-			
+			//TODO use new loadNickname method
       //restore from profile
-       if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
+    /*   if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != null && Ext.String.trim(profile.get('nickname')) != '') {
           // nicknameField.setValue(profile.get('nickname'));
           // nicknameToggle.setValue(1);
           nickname = profile.get('nickname');
@@ -308,10 +308,11 @@ Ext.define('EatSense.controller.CheckIn', {
           nickname = this.getAppState().get('nickname');
           nicknameExists = true;  
        } 
-       
+       */
        // if(nicknameField.getValue().length >= 3) {
        //    nicknameExists = true;  
        //  }
+     nickname = this.loadNickname();
 		
 		checkIn.set('spotId', options.model.get('barcode'));
 		checkIn.set('businessName', options.model.get('business'));
@@ -328,13 +329,20 @@ Ext.define('EatSense.controller.CheckIn', {
     this.activateWelcomeMode(options.model.get('welcome'));
 
     //user has to choose a nickname
-	if(!nicknameExists) {
+    if(!nickname) {
       main.switchTo(checkInDialog, 'left');
     } else {
       //user already has a stored nickname
       this.checkIn(nickname);
     }
 		
+   },
+   /**
+   * Tap event handler for confirmCheckInBt
+   *
+   */
+   confirmCheckInBtHandler: function(button) {
+    this.checkIn();
    },
    /**
     * CheckIn Process
@@ -406,7 +414,7 @@ Ext.define('EatSense.controller.CheckIn', {
    * @return
    *    Nickname or empty string if none is found.
    */
-   getNickname: function() {
+   loadNickname: function() {
     var savedNickname = "",
         accountCtr = this.getApplication().getController('Account'),
         profile = accountCtr.getProfile();
@@ -1019,7 +1027,7 @@ Ext.define('EatSense.controller.CheckIn', {
         newCheckIn.set('businessId', newSpot.get('businessId'));
         newCheckIn.set('spot', newSpot.get('name'));
         //nickname korrekt laden über neue generelle methode!
-        newCheckIn.set('nickname', me.getNickname());
+        newCheckIn.set('nickname', me.loadNickname());
         //we are already checked in, no intent
         newCheckIn.set('status', appConstants.INTENT);
 

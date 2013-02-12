@@ -17,7 +17,7 @@ StartTest(function(t) {
             target : function() {
                 return Ext.Msg.down('textfield');
             }, 
-            text : 'basic001'
+            text : 'tstbasic001'
         },  
         {
             action      : 'tap',

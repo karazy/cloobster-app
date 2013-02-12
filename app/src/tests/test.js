@@ -34,7 +34,8 @@ Harness.start(
     {
         group: 'Order' ,
         items: [
-            '010_checkin/001_simple_order.t.js'
+            '010_checkin/001_simple_order.t.js',
+            '010_checkin/020_switch_area.t.js'
         ]
     },
     {
