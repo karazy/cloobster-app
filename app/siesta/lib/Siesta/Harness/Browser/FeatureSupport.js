@@ -1,7 +1,7 @@
 /*
 
-Siesta 1.1.7
-Copyright(c) 2009-2012 Bryntum AB
+Siesta 1.1.8
+Copyright(c) 2009-2013 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
 
@@ -109,7 +109,8 @@ Singleton('Siesta.Harness.Browser.FeatureSupport', {
                         fireEvent           : emptyFn,
                         addResult           : emptyFn,
                         normalizeElement    : function(a) { return a[0]; },
-                        findCenter          : function() { return [0,0]; }
+                        findCenter          : function() { return [0,0]; },
+                        isArray             : function(arr) { return 'length' in arr; }
                     }
                 });
             

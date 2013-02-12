@@ -11,7 +11,13 @@ StartTest(function(t) {
             waitFor: 1500
         },
         { action : 'click', target : Ext.Msg.down('textfield')},
-        { action : 'type', target : Ext.Msg.down('textfield'), text : 'tst001'},        
+        { 
+            action : 'type', 
+            target : function() {
+                return Ext.Msg.down('textfield');
+            }, 
+            text : 'tst001'
+        },     
         {
             action      : 'tap',
             target      : function () {
@@ -280,7 +286,7 @@ StartTest(function(t) {
     	undoButton = t.cq1('orderdetail button[action=undo]');
     	t.tap(undoButton);
     	//wait until orderdetail not visible. Does not get destroyed like productdetail
-    	t.waitForComponentNotVisible('orderdetail', next, this, 3000);
+    	t.waitForComponentNotVisible('menutab orderdetail', next, this, 3000);
     },
     function(next) {
     	var orderEditButton;
@@ -289,7 +295,7 @@ StartTest(function(t) {
 
     	orderEditButton = t.cq1('lounge carttab cartoverviewitem button[action=edit]');
     	t.tap(orderEditButton);
-    	t.waitForComponentVisible(t.cq1('orderdetail'), next, this, 1000);
+    	t.waitForComponentVisible(t.cq1('menutab orderdetail'), next, this, 1000);
     },
     {
     	waitFor: 200
@@ -315,9 +321,9 @@ StartTest(function(t) {
     		checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(4)', null);
     		t.waitFor(100, function() {
                 //scrolling seems to be broken               
-        //         t.scrollUntilElementVisible(choicesPanel.element, 'down','.x-field-checkbox:nth-child(7)', function() {
+                t.scrollUntilElementVisible(choicesPanel.element, 'down','.x-field-checkbox:nth-child(7)', function() {
                 checkAndTapOption(t, optionPanels[2],'.x-field-radio:nth-child(2)', 'Coca-Cola light');
-                // });
+                });
     			
     		});
     	})		
@@ -331,21 +337,83 @@ StartTest(function(t) {
     	editButton = t.cq1('orderdetail button[action=edit]');
     	t.tap(editButton);
     	//wait until orderdetail not visible. Does not get destroyed like productdetail
-    	t.waitForComponentNotVisible('orderdetail', next, this, 3000);
+    	t.waitForComponentNotVisible('myorderstab orderdetail', next, this, 3000);
     },
     {
     	waitFor: 200
     },
+    //try to submit order
     function(next) {
     	var submitButton;
 
-		t.diag('submit order');
+		t.diag('try to submit order');
 
 		submitButton = t.cq1('lounge menutab carttab button[action=order]');
 		t.tap(submitButton, next);		
     },
-    {	//wait for popup to be visible
+    function(next) {
+        t.waitForComponentVisible(Ext.Msg, next, this, 3000);
+    },
+    //user login
+    {
+        action      : 'tap',
+        target      : function () {
+            return Ext.Msg.down('button[itemId=yes]');
+        } 
+    },
+    // function(next) {
+    //     t.diag('user login');
+    //     t.waitForComponentVisible('login', next, this, 3000);
+    // },
+    {
         waitFor: 1500
+    },
+    {
+        action      : 'click',
+        target      : function () {
+            return t.cq1('login emailfield');
+        } 
+    },
+    {
+        action      : 'type',
+        target      : function () {
+            return t.cq1('login emailfield');
+        },
+        text: 'fred@karazy.de'
+    },
+    {
+        action      : 'click',
+        target      : function () {
+            return t.cq1('login passwordfield');
+        } 
+    },
+    {
+        action      : 'type',
+        target      : function () {
+            return t.cq1('login passwordfield');
+        },
+        text: 'test11'
+    },
+    {
+        action      : 'tap',
+        target      : function () {
+            return t.cq1('login button[action=login]');
+        } 
+    },
+    {
+        waitFor: 1500
+    },
+    //call submit again
+    function(next) {
+        var submitButton;
+
+        t.diag('submit order');
+
+        submitButton = t.cq1('lounge menutab carttab button[action=order]');
+        t.tap(submitButton, next);      
+    },
+    function(next) {
+        t.waitForComponentVisible(Ext.Msg, next, this, 3000);
     },
     {
         action      : 'tap',

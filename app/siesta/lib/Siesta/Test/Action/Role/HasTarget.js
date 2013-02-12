@@ -1,7 +1,7 @@
 /*
 
-Siesta 1.1.7
-Copyright(c) 2009-2012 Bryntum AB
+Siesta 1.1.8
+Copyright(c) 2009-2013 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
 
@@ -127,7 +127,7 @@ Role('Siesta.Test.Action.Role.HasTarget', {
             if (this.__cachedTarget__) return this.__cachedTarget__
             
             var test        = this.test;
-            var target      = this.target || test.getElementAtCursor();
+            var target      = this.target || test.currentPosition;
 
             if (test.typeOf(target) === 'Function') target = target.call(test, this);
             

@@ -1,7 +1,7 @@
 /*
 
-Siesta 1.1.7
-Copyright(c) 2009-2012 Bryntum AB
+Siesta 1.1.8
+Copyright(c) 2009-2013 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
 

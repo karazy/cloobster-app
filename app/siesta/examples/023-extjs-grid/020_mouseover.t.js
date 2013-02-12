@@ -12,7 +12,7 @@ StartTest(function(t) {
     var view = grid.getView(),
         store = grid.store;
 
-    t.willFireNTimes(grid.headerCt, 'headerclick', 4);
+    t.willFireNTimes(grid, 'itemclick', store.getCount());
     var hdr = 1;
 
     var verifyStep = function(next, headerEl) {

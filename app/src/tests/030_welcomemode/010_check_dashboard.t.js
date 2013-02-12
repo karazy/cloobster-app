@@ -11,7 +11,13 @@ StartTest(function(t) {
             t.waitForComponentVisible(Ext.Msg, next, this, 3000);
         },
         { action : 'click', target : Ext.Msg.down('textfield')},
-        { action : 'type', target : Ext.Msg.down('textfield'), text : '2498-2500'},        
+        { 
+            action : 'type', 
+            target : function() {
+                return Ext.Msg.down('textfield');
+            }, 
+            text : '2498-2500'
+        },
         {
             action      : 'tap',
             target      : function () {

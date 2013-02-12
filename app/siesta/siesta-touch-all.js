@@ -1,7 +1,7 @@
 /*
 
-Siesta 1.1.7
-Copyright(c) 2009-2012 Bryntum AB
+Siesta 1.1.8
+Copyright(c) 2009-2013 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
 
@@ -7269,7 +7269,7 @@ Role('Siesta.Test.More', {
     )
 
          * 
-         * The same example, using action configuration objects for first 2 steps:
+         * The same example, using action configuration objects for first 2 steps. For the list of available actions please refer to the classes in the Siesta.Test.Action namespace.
          
     t.chain(
         {
@@ -7289,8 +7289,22 @@ Role('Siesta.Test.More', {
         ...
     )
     
+         * Please note, that by default, each step is expected to complete within the {@link Siesta.Harness#defaultTimeout} time. 
+         * You can change this with the `timeout` property of the step configuration object, allowing some steps to last longer.
+         * 
+         * In a special case, `action` property of the step configuration object can be a function. In this case you can also 
+         * provide a `timeout` property, otherwise this case is identical to using functions:
          *  
-         *  For the list of available actions please refer to the classes in the Siesta.Test.Action namespace. Please note, that each step is expected to complete within the {@link Siesta.Harness#defaultTimeout} time.
+
+    t.chain(
+        {
+            action      : function (next) { ... },
+            // allow 50s for the function to call "next" before step will be considered timed-out
+            timeout     : 50000
+        },
+        ...
+    )
+    
          *  
          *  @param {Function/Object/Array} step1 The function to execute or action configuration, or the array of such
          *  @param {Function/Object} step2 The function to execute or action configuration
@@ -7354,13 +7368,15 @@ Role('Siesta.Test.More', {
                             data.next()
                         }
                         
-                        if (me.typeOf(step) == 'Function') {
+                        if (me.typeOf(step) == 'Function' || me.typeOf(step.action) == 'Function') {
+                            var func    = me.typeOf(step) == 'Function' ? step : step.action
+                            
                             // if the last step is a function - then provide "null" as the "next" callback for it
                             args.unshift(isLast ? function () {} : nextFunc)
                             
-                            if (!isLast && !me.analyzeChainStep(step)) me.fail('Step function [' + step.toString() + '] does not use provided "next" function anywhere')
+                            if (!isLast && !me.analyzeChainStep(func)) me.fail('Step function [' + func.toString() + '] does not use provided "next" function anywhere')
                             
-                            step.apply(me, args)
+                            func.apply(me, args)
                             
                             // and finalize the async frame manually, as the "nextFunc" for last step will never be called
                             isLast && me.endAsync(async)
@@ -19788,7 +19804,7 @@ Role('Siesta.Test.Action.Role.HasTarget', {
             if (this.__cachedTarget__) return this.__cachedTarget__
             
             var test        = this.test;
-            var target      = this.target || test.getElementAtCursor();
+            var target      = this.target || test.currentPosition;
 
             if (test.typeOf(target) === 'Function') target = target.call(test, this);
             
@@ -21793,9 +21809,20 @@ Role('Siesta.Test.Simulate.Event', {
             var global      = this.global;
             options         = options || {};
 
+            if (this.isArray(el)) {
+                if (!('clientX' in options)) {
+                    options.clientX = el[0];
+                }
+
+                if (!('clientY' in options)) {
+                    options.clientY = el[1];
+                }
+            }
+
             el              = this.normalizeElement(el);
             var evt         = this.createEvent(type, options, el);
-            
+
+
             if (evt) {
                 evt.synthetic = true;
                 this.dispatchEvent(el, type, evt);
@@ -23523,7 +23550,7 @@ Role('Siesta.Test.Element', {
         isElementVisible : function(el) {
             el = this.normalizeElement(el);
             // Jquery :visible doesn't take visibility into account
-            return !!el && this.$(el).is(':visible') && el.style.visibility !== 'hidden';
+            return !!el && this.$(el).is(':visible') && (!el.style || el.style.visibility !== 'hidden');
         },
 
         /**
@@ -26070,7 +26097,8 @@ Singleton('Siesta.Harness.Browser.FeatureSupport', {
                         fireEvent           : emptyFn,
                         addResult           : emptyFn,
                         normalizeElement    : function(a) { return a[0]; },
-                        findCenter          : function() { return [0,0]; }
+                        findCenter          : function() { return [0,0]; },
+                        isArray             : function(arr) { return 'length' in arr; }
                     }
                 });
             
@@ -27581,7 +27609,7 @@ Class('Siesta.Harness.Browser.SenchaTouch', {
 ;
 ;
 Class('Siesta', {
-    /*PKGVERSION*/VERSION : '1.1.7',
+    /*PKGVERSION*/VERSION : '1.1.8',
 
     // "my" should been named "static"
     my : {

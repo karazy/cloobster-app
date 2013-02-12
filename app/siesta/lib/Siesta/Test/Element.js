@@ -1,7 +1,7 @@
 /*
 
-Siesta 1.1.7
-Copyright(c) 2009-2012 Bryntum AB
+Siesta 1.1.8
+Copyright(c) 2009-2013 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
 
@@ -48,7 +48,7 @@ Role('Siesta.Test.Element', {
         isElementVisible : function(el) {
             el = this.normalizeElement(el);
             // Jquery :visible doesn't take visibility into account
-            return !!el && this.$(el).is(':visible') && el.style.visibility !== 'hidden';
+            return !!el && this.$(el).is(':visible') && (!el.style || el.style.visibility !== 'hidden');
         },
 
         /**

@@ -1,7 +1,7 @@
 /*
 
-Siesta 1.1.7
-Copyright(c) 2009-2012 Bryntum AB
+Siesta 1.1.8
+Copyright(c) 2009-2013 Bryntum AB
 http://bryntum.com/contact
 http://bryntum.com/products/siesta/license
 
@@ -58,9 +58,20 @@ Role('Siesta.Test.Simulate.Event', {
             var global      = this.global;
             options         = options || {};
 
+            if (this.isArray(el)) {
+                if (!('clientX' in options)) {
+                    options.clientX = el[0];
+                }
+
+                if (!('clientY' in options)) {
+                    options.clientY = el[1];
+                }
+            }
+
             el              = this.normalizeElement(el);
             var evt         = this.createEvent(type, options, el);
-            
+
+
             if (evt) {
                 evt.synthetic = true;
                 this.dispatchEvent(el, type, evt);

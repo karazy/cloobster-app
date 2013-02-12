@@ -11,8 +11,14 @@ StartTest(function(t) {
         function(next) {
             t.waitForComponentVisible(Ext.Msg, next, this, 3000);
         },
-        { action : 'click', target : Ext.Msg.down('textfield')},
-        { action : 'type', target : Ext.Msg.down('textfield'), text : 'basic001'},        
+        { action : 'tap', target : Ext.Msg.down('textfield')},
+        { 
+            action : 'type', 
+            target : function() {
+                return Ext.Msg.down('textfield');
+            }, 
+            text : 'basic001'
+        },        
         {
             action      : 'tap',
             target      : function () {

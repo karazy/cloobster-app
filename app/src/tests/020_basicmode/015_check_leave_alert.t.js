@@ -12,7 +12,13 @@ StartTest(function(t) {
             t.waitForComponentVisible(Ext.Msg, next, this, 3000);
         },
         { action : 'click', target : Ext.Msg.down('textfield')},
-        { action : 'type', target : Ext.Msg.down('textfield'), text : 'basic001'},        
+        { 
+            action : 'type', 
+            target : function() {
+                return Ext.Msg.down('textfield');
+            }, 
+            text : 'basic001'
+        },  
         {
             action      : 'tap',
             target      : function () {
@@ -48,8 +54,23 @@ StartTest(function(t) {
         {
             action: 'tap',
             target: function() {
-                return t.cq1('lounge #ext-tab-3');
+                return t.cq1('lounge button[action=toggle-navigation]');
             }
+        },
+        function(next) {
+            //get navigation list
+            t.waitForElementVisible(t.cq1('lounge list'), next, this, 3000);
+        },
+        function(next) {
+            var lounge = t.cq1('lounge');
+            
+            lounge.selectByAction('show-myorders');
+            next();
+
+            // var listEle = t.cq1('lounge list').element;
+            // //first item are empty, maybe because of the new list implementation in 2.1
+            // listEleHtml = listEle.down('.x-list-item:nth-child(3) .x-list-item-body');
+            // t.tap(listEleHtml);
         },
         function(next) {
             t.waitForComponentVisible(Ext.Msg, next, this, 3000);

@@ -1,12 +1,25 @@
 Release history for Siesta:
 
+1.1.8     2013-01-05 10:44
+
+    [KNOWN ISSUES]
+    - Selenium Safari driver requires compilation from source
+
+    [FEATURES / ENHANCEMENTS]
+    - Documented `timeout` property of the step config object in `t.chain`. Allow functions as value of `action` property.
+
+    [API CHANGES]
+
+    [BUG FIXES]
+    - Fixed a bug in PhantomJS launcher, when it could incorrectly report that harness page is using Siesta Lite version
+    - Fixed #511: Investigate if "style" property can be missing on the dom element
+
 1.1.7     2012-12-13 14:43
 
     [KNOWN ISSUES]
     - Selenium Safari driver requires compilation from source
 
     [FEATURES / ENHANCEMENTS]
-    - TODO describe the changes with normalization methods
 
     [API CHANGES]
     - All user simulated interactions now correctly targets up the top-most DOM element from the position where the action was supposed to happen
