@@ -10,8 +10,8 @@ Class('EatSense.test.CloobsterTest', {
                     action : 'tap',
                     target : this.cq1('dashboard button[action=checkin]')
                 },
-                function(next) {
-                    this.waitForComponentVisible(this.getExt().Msg, next, this, 3000);
+                {
+                    waitFor: 1500
                 },
                 {
                     action : 'click', 
