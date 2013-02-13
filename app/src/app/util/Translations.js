@@ -938,6 +938,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Dieser Facebook Account ist mit einem andere cloobster Account verknüpft.",
 			"EN" : "This Facebook account is linked with another cloobster Account."
 		},
+		"error.account.inactive" : {
+			"DE" :  "Ihr Account ist inaktiv. Kontaktieren Sie bitte support@cloobster.com",
+			"EN" : "Your account is inactive. Please contact support@cloobster.com"
+		},
 		"error.version" : {
 			"DE" :  "Ihre cloobster Version ist veraltet. Bitte aktualisieren Sie die Version.",
 			"EN" : "Your cloobster version is outdated. Please update!"
