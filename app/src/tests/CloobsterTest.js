@@ -104,6 +104,36 @@ Class('EatSense.test.CloobsterTest', {
             ];
 
             return steps;
+        },
+
+        testUserLogin: function(_Ext, callback) {
+            var defaultHeaders = _Ext.Ajax.getDefaultHeaders() || {};
+            
+            _Ext.Ajax.request({
+                url: '/c/accounts/tokens',
+                method: 'POST',
+                headers: {
+                    //provide credentials, they will be added to request header
+                    'login': 'auto-test@karazy.net',
+                    'password': 'test11'
+                },
+                //submit a timestamp to prevent iOS6 from caching the POST request
+                jsonData: new Date().getTime(),
+                scope: this,
+                success: function(response) {
+                    
+                    _Ext.apply(defaultHeaders, {'X-Auth' : _Ext.decode(response.responseText).accessToken});
+
+                    if(!_Ext.Ajax.getDefaultHeaders()) {
+                        _Ext.Ajax.setDefaultHeaders(defaultHeaders);
+                    }
+
+                    callback();
+                },
+                failure: function(response) {
+                    
+                }
+            });
         }
     }
 });

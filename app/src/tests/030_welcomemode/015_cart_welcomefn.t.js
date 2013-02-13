@@ -15,7 +15,7 @@ StartTest(function(t) {
             target : function() {
                 return Ext.Msg.down('textfield');
             }, 
-            text : '$2a$10$2K4lMULCKPJ1MR.XnCLuzeB04wxYKCif/iDgfK1MElytM.AwFPidq'
+            text : 'welcome001'
         },        
         {
             action      : 'tap',

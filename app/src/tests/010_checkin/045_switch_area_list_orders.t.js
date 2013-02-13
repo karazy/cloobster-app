@@ -5,8 +5,8 @@ StartTest(function(t) {
         //start checkin
 	    t.chain(
         function(next) {
-            testUserLogin(next);
-        },         
+            t.testUserLogin(Ext, next);
+        },
     	{
             action : 'tap',
             target : t.cq1('dashboard button[action=checkin]')
@@ -290,36 +290,5 @@ StartTest(function(t) {
         }
 
         );
-
-    function testUserLogin(callback) {
-        var defaultHeaders = Ext.Ajax.getDefaultHeaders() || {};
-        
-
-        Ext.Ajax.request({
-            url: appConfig.serviceUrl+'/c/accounts/tokens',
-            method: 'POST',
-            headers: {
-                //provide credentials, they will be added to request header
-                'login': 'auto-test@karazy.net',
-                'password': 'test11'
-            },
-            //submit a timestamp to prevent iOS6 from caching the POST request
-            jsonData: new Date().getTime(),
-            scope: this,
-            success: function(response) {
-                
-                Ext.apply(defaultHeaders, {'X-Auth' : Ext.decode(response.responseText).accessToken});
-
-                if(!Ext.Ajax.getDefaultHeaders()) {
-                    Ext.Ajax.setDefaultHeaders(defaultHeaders);
-                }
-
-                callback();
-            },
-            failure: function(response) {
-                
-            }
-        });
-    }
 
 });
