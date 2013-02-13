@@ -55,6 +55,7 @@ Class('EatSense.test.CloobsterTest', {
                 function(next) {
                     // this.diag('check in complete...');
                     this.pass('checkin passed');
+                    next(); //call next to complete the chain              
                     callback();
                 }
             );
