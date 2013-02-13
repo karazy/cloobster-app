@@ -501,20 +501,28 @@ Ext.define('EatSense.controller.Feedback', {
 			emailfields = lounge.query('feedbackform emailfield'),
 			textareafields = lounge.query('feedbackform textareafield');
 
-		if(this.getActiveFeedback()) {
-
-			//copy all questions and add them to answers of active feedback
-			me.getFeedbackTemplate().questions().each(function(question) {
-				me.getActiveFeedback().answers().add(question.copy(question.get('id')));
-			});
-
-			Ext.Array.each(emailfields, function(field) {
-				field.setValue("");
-			});
-
-			Ext.Array.each(textareafields, function(field) {
-				field.setValue("");
-			});
+		if(!this.getActiveFeedback()) {
+			console.error('Feedback.resetActiveFeedback: no active feedback');
+			return;
 		}
+
+		if(!this.getFeedbackTemplate()) {
+			console.error('Feedback.resetActiveFeedback: no feedback template');
+			return;
+		}
+
+		//copy all questions and add them to answers of active feedback
+		me.getFeedbackTemplate().questions().each(function(question) {
+			me.getActiveFeedback().answers().add(question.copy(question.get('id')));
+		});
+
+		Ext.Array.each(emailfields, function(field) {
+			field.setValue("");
+		});
+
+		Ext.Array.each(textareafields, function(field) {
+			field.setValue("");
+		});
+
 	}
 });
