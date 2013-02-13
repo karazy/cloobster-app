@@ -45,7 +45,7 @@ Ext.define('EatSense.controller.Lounge', {
 
 	  checkInCtr.on({
 		 'spotswitched' : function(spot) {
-			this.markSlideNavAreaActive(checkInCtr.getActiveArea());
+			this.markSlideNavAreaActive(checkInCtr.getActiveArea(), spot);
 		 },
 		 'statusChanged' : function(status) {
 			if(status == appConstants.CHECKEDIN) {
@@ -60,14 +60,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  	this.getLoadAreaTask().delay(100);	
 			  } else {
 			  	console.error('Lounge.launch: no load area task exists');
-			  }
-			  
-			  //don't show avail areas on welcome spots
-			  // if(!checkInCtr.getActiveSpot().get('welcome')) {
-				 //   me.loadAreas(function() {
-					// 	me.markSlideNavAreaActive(checkInCtr.getActiveArea());
-				 // 	});				          
-			  // }        
+			  }   
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
@@ -267,7 +260,7 @@ Ext.define('EatSense.controller.Lounge', {
 				console.log('Lounge.createLoadAreaTask: executing task');
 				if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
 					me.loadAreas(function() {
-						me.markSlideNavAreaActive(checkInCtr.getActiveArea());
+						me.markSlideNavAreaActive(checkInCtr.getActiveArea(), checkInCtr.getActiveSpot());
 				 	}); 
 				}
 			}			   
@@ -352,7 +345,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 * @param {String|EatSense.modelArea} area or areaId
 	 *   area to mark active
 	 */
-	 markSlideNavAreaActive: function(area) {
+	 markSlideNavAreaActive: function(area, spot) {
 		var me = this,
 			 // areaStore = Ext.StoreManager.lookup('areaStore'),
 			 areaId,
@@ -368,9 +361,11 @@ Ext.define('EatSense.controller.Lounge', {
 			 //deselect all items
 			 slideNavStore.each(function(item) {
 				if(item.get('areaId') == areaId) {
-				  item.set('marked', true);  
+				  item.set('marked', true); 
+				  item.set('subtitle', spot.get('name'));
 				} else {
 				  item.set('marked', false);
+				  item.set('subtitle', '');
 				}
 				
 			 });

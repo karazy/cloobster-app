@@ -184,7 +184,7 @@ Ext.define('EatSense.controller.Menu', {
     },
     /**
     * Activate event handler for menuview.
-    * Always jumps back to root view.
+    * Always jumps back to first menu level.
     * @param {Ext.Component} view
     */
     menuviewActivated: function(view) {

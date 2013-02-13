@@ -99,7 +99,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                   '<span class="x-button x-button-plain">',
                     '<span class="x-button-icon arrow_down x-icon-mask"',
                     ' style="margin-right:0.4em; background-color: #cacaca !important; background-image: none !important;"></span>',
-                    '<span style="color:#00bbe8;">{title}</span>',
+                    '<span style="color:#00bbe8;">{title}</span>',                
                   '</span>',
                 '<tpl else>',
                   '<span class="x-button x-button-plain">',
@@ -128,9 +128,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             '<tpl if="iconCls">',
                 '<div class="slidenav-icon {iconCls}"></div>',
             '</tpl>',
-            '<div style="min-height: 2.6em; padding: 0.65em 0.8em; float:left; max-width: 180px;',
-                ' /*border-bottom: 1px solid #dedede;*/">',
+            '<div style="padding: 0.65em 0.8em 0.2em 0.6em; max-width: 180px; float:left;">',
                 '{title}',
+                '<div style="font-size: 12px;">{subtitle}</div>',
             '</div>',
             '<tpl if="marked">',
                 '<div class="slidenav-icon marked-icon"></div>',
@@ -461,6 +461,11 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         //title used for display
                         {
                             name: 'title',
+                            type: 'string'
+                        },
+                        //subtitle
+                        {
+                            name: 'subtitle',
                             type: 'string'
                         },
                         'slideButton', 
