@@ -126,10 +126,10 @@
 	/**
     * Activate event handler for myordersview.
     */
-	myordersviewActivated: function(tab, options) {
+	myordersviewActivated: function(view, options) {
 		var androidCtr = this.getApplication().getController('Android');
 
-		tab.setActiveItem(0);
+		view.setActiveItem(0);
 		this.refreshMyOrdersList();
 		
 		

@@ -57,9 +57,9 @@ Ext.define('EatSense.controller.Menu', {
              showCartButton: {
              	tap: 'showCart'
              },
-             // menuview: {
-             // 	activate: 'menuTabActivated'
-             // },
+             menuview: {
+             	activate: 'menuviewActivated'
+             },
              clubdashboard: {
              	initialize: 'registerProductTeaserTap'
              }
@@ -180,7 +180,15 @@ Ext.define('EatSense.controller.Menu', {
     		titleLabel.getTpl().overwrite(titleLabel.element, record.getData());
     	}
 
-    	this.switchView(pov, "", "", 'left');
+    	this.switchView(pov, 'left');
+    },
+    /**
+    * Activate event handler for menuview.
+    * Always jumps back to root view.
+    * @param {Ext.Component} view
+    */
+    menuviewActivated: function(view) {
+    	this.backToMenu();
     },
     /**
     *	Load menus and products and selects menu card.
@@ -313,7 +321,7 @@ Ext.define('EatSense.controller.Menu', {
 	backToMenu: function() {
 		var androidCtr = this.getApplication().getController('Android');
 
-		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
+		this.switchView(this.getMenuoverview(), 'right');
 		//directly remove handlers, because this function can be called from another controller
 		//so the wrong context is set
 		this.setMenuNavigationFunctions(new Array());
@@ -331,7 +339,7 @@ Ext.define('EatSense.controller.Menu', {
 	*/
 	backToPreviousView: function() {
 		if(this.getViewCallingCart()) {
-			this.switchView(this.getViewCallingCart(), i10n.translate('menuTitle'), null, 'right');
+			this.switchView(this.getViewCallingCart(), 'right');
 			this.setViewCallingCart(null);			
 		} else {
 			console.log('Menu.backToPreviousView > called without viewCallingCart set')
@@ -754,14 +762,10 @@ Ext.define('EatSense.controller.Menu', {
 	 * Switches to another view
 	 * @param view
 	 * 		new view
-	 * @param title
-	 * 			Toolbar title
-	 * @param labelBackBt
-	 * 			label of back button. If <code>null</code> back button will be hidden.
 	 * @param direction
 	 * 			Direction for switch animation.
 	 */
-	switchView: function(view, title, labelBackBt, direction) {
+	switchView: function(view, direction) {
 		var menu = this.getMenuview();
 		
     	menu.switchMenuview(view, direction);
@@ -797,7 +801,7 @@ Ext.define('EatSense.controller.Menu', {
 		this.clearProductStore();
 
 		//show menu first level
-		this.switchView(this.getMenuoverview(), i10n.translate('menuTitle'), null, 'right');
+		this.switchView(this.getMenuoverview(), 'right');
 	},
 	/**
 	* Clear Menu store and nested stores (product, choices, options).
