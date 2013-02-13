@@ -61,7 +61,7 @@ StartTest(function(t) {
     	t.waitFor({
     		method: function() {
     			var listEle = t.cq1('lounge menutab menuoverview list').element;
-    			listEleHtml = listEle.down('.x-list-item:nth-child(4)');
+    			listEleHtml = listEle.down('.x-list-item:nth-child(3)');
 
     			return (listEleHtml != 'undefined' && listEleHtml != null);
     		},
@@ -319,14 +319,14 @@ StartTest(function(t) {
     	checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(1)', null);
     	t.waitFor(100, function() {
     		checkAndTapOption(t, choicesPanel,'.x-field-checkbox:nth-child(4)', null);
-    		t.waitFor(100, function() {
-                //scrolling seems to be broken               
-                t.scrollUntilElementVisible(choicesPanel.element, 'down','.x-field-checkbox:nth-child(7)', function() {
-                checkAndTapOption(t, optionPanels[2],'.x-field-radio:nth-child(2)', 'Coca-Cola light');
-                });
+    		// t.waitFor(300, function() {
+      //           //scrolling seems to be broken               
+      //           t.scrollUntilElementVisible(orderdetail.getScrollable(), 'up','.x-field-textarea', function() {
+      //               checkAndTapOption(t, optionPanels[2],'.x-field-radio:nth-child(2)', 'Coca-Cola light');
+      //           });
     			
-    		});
-    	})		
+    		// });
+    	});		
     	
 		t.waitForContentLike(productPrice, '6,95 €', next, this, 3000);
     	
@@ -379,7 +379,7 @@ StartTest(function(t) {
         target      : function () {
             return t.cq1('login emailfield');
         },
-        text: 'fred@karazy.de'
+        text: 'auto-test@karazy.net'
     },
     {
         action      : 'click',

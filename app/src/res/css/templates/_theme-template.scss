@@ -63,12 +63,13 @@
   background-color: $active-color;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  margin: 0 20px 5px 20px;
+  margin: 0 10px 5px 10px;
   color: white;
   text-align: center;
   padding: 2px;
   overflow: hidden;
   text-overflow: ellipsis;
+  word-break: break-word;
 
   .detail {
     font-weight: normal;

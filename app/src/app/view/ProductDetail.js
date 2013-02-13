@@ -35,12 +35,6 @@ Ext.define('EatSense.view.ProductDetail', {
 			]
 		},
 		{
-			xtype: 'label',
-			itemId: 'titleLabel',
-			docked: 'top',
-			tpl: new Ext.XTemplate('<div class="productlist-header" style="position: absolute; right: 0; left: 0; top: 0px;">{productName}</div>')
-		},
-		{
 			xtype : 'panel',
 			cls: 'productDetailPanel',
 			itemId: 'productDetailPanel',
@@ -51,8 +45,8 @@ Ext.define('EatSense.view.ProductDetail', {
 			{
 				xtype: 'label',
 				itemId: 'titleLabel',
-				docked: 'top',		
-				tpl: new Ext.XTemplate('<div class="productlist-header" style="position: absolute; right: 0; left: 0; top: 0px;">{productName}</div>')
+				docked: 'top',	
+				tpl: new Ext.XTemplate('<div class="productlist-header">{productName}</div>')
 			},
 			{
 				xtype : 'label',
@@ -60,10 +54,10 @@ Ext.define('EatSense.view.ProductDetail', {
 				cls: 'productDetail',
 				tpl: new Ext.XTemplate(
 					'<div>{product.data.productLongDesc}</div>'
-				),
-				style: {
-					'margin-top' : '35px'
-				}
+				)
+				// style: {
+				// 	'margin-top' : '35px'
+				// }
 			}, 
 			{
 				xtype : 'panel',
@@ -75,7 +69,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					'background': 'rgba(211, 211, 211, 0.7)',
 					//prevents the box from having the height of the long desc
 					// 'height' : '100%',
-					'margin-top' : '35px'
+					// 'margin-top' : '35px'
 				},
 				items : [
 				{	
