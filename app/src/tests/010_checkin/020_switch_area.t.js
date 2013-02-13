@@ -71,7 +71,7 @@ StartTest(function(t) {
                 record;
 
             record = lounge.getList().getStore().find('title', 'Zimmerservice');
-            t.isGreater(record, -1, 'found a mathing service area');
+            t.isGreater(record, -1, 'found a matching service area');
             lounge.getList().select(record);
             next();
         },

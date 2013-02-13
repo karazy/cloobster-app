@@ -916,7 +916,8 @@ Ext.define('EatSense.controller.CheckIn', {
         activeCheckIn = this.getActiveCheckIn(),
         newCheckIn = Ext.create('EatSense.model.CheckIn'),
         appState = this.getAppState(),
-        orderCtr = this.getApplication().getController('Order');
+        orderCtr = this.getApplication().getController('Order'),
+        transientNickname;
 
       //get barcode or spot
       if(barcodeRequired) {
@@ -975,6 +976,9 @@ Ext.define('EatSense.controller.CheckIn', {
           return false;
         }
 
+        //temporarily store old transient nickname
+        transientNickname = activeCheckIn.get('nickname');
+
         //delete checkin
         if(!ordersExist) {          
           me.deleteActiveCheckIn(callback);
@@ -1008,7 +1012,7 @@ Ext.define('EatSense.controller.CheckIn', {
         newCheckIn.set('businessId', newSpot.get('businessId'));
         newCheckIn.set('spot', newSpot.get('name'));
         //nickname korrekt laden über neue generelle methode!
-        newCheckIn.set('nickname', me.loadNickname());
+        newCheckIn.set('nickname', me.loadNickname() || transientNickname);
         //we are already checked in, no intent
         newCheckIn.set('status', appConstants.INTENT);
 

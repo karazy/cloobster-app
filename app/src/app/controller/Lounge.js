@@ -180,7 +180,7 @@ Ext.define('EatSense.controller.Lounge', {
   },
   clubAreaActivated: function(tab, options) {
 		var androidCtr = this.getApplication().getController('Android'),
-			 tilePanel = tab.down('#tilePanel');
+			tilePanel = tab.down('#tilePanel');
 
 	  //always jump to dashboard on home tab pressed
 	  tab.setActiveItem(0);

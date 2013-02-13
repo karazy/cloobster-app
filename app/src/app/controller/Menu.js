@@ -352,7 +352,7 @@ Ext.define('EatSense.controller.Menu', {
 			// choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
 			// titlebar = detail.down('titlebar'),
 			activeProduct,
-			detailPanel,			
+			detailPanel,		
 			activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			order,
 			titleLabel,
@@ -499,6 +499,9 @@ Ext.define('EatSense.controller.Menu', {
 				inputCls: 'comment-input',
 				labelCls: 'comment'
 			});
+
+			//sometimes textarea gets focus, so do a blur
+			commentField.blur();
 
 			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
 			commentField.setHidden(activeBusiness.get('basic'));
