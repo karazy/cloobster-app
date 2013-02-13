@@ -53,7 +53,8 @@ Class('EatSense.test.CloobsterTest', {
                     }
                 },
                 function(next) {
-                    this.diag('check in complete...');
+                    // this.diag('check in complete...');
+                    this.pass('checkin passed');
                     callback();
                 }
             );

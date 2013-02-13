@@ -5,8 +5,11 @@ StartTest(function(t) {
         //start checkin
 	    t.chain(
         function(next) {
+            t.testUserLogin(Ext, next);
+        },
+    	function(next) {
             t.checkIn('tst001', next);
-        },      
+        },   
         //end checkin
         //order a product
         function(next) {
