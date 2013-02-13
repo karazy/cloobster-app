@@ -38,7 +38,8 @@ Harness.start(
             '010_checkin/020_switch_area.t.js',
             '010_checkin/030_switch_area_barcode.t.js',
             '010_checkin/035_switch_area_barcode_orders.t.js',            
-            '010_checkin/040_switch_area_list.t.js'
+            '010_checkin/040_switch_area_list.t.js',
+            '010_checkin/045_switch_area_list_orders.t.js'
         ]
     },
     {
