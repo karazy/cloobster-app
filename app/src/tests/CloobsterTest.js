@@ -3,44 +3,48 @@ Class('EatSense.test.CloobsterTest', {
 
     methods : {
 
-        checkIn: function(callback, scope) {
+        checkIn: function(barcode, callback) {
             this.diag('Perform checkin ...');
             this.chain(
                 {
                     action : 'tap',
-                    target : function() { 
-                        return this.cq1('dashboard button[action=checkin]'); 
-                    }
+                    target : this.cq1('dashboard button[action=checkin]')
+                },
+                function(next) {
+                    this.waitForComponentVisible(this.getExt().Msg, next, this, 3000);
                 },
                 {
-                    waitFor: 2000
-                },
-                // function(next) {
-                //     this.waitForComponentVisible(Ext.Msg, next, this, 3000);
-                // },
-                { 
                     action : 'click', 
-                    target : function() {
-                        return Ext.Msg.down('textfield');
-                    }
+                    target : this.getExt().Msg.down('textfield')
                 },
                 { 
                     action : 'type', 
-                    target : function() 
-                    {
-                        return Ext.Msg.down('textfield');
-                    },
-                    text : 'basic001'
-                    // 2498-4681
-                },        
+                    target : function() {
+                        return this.getExt().Msg.down('textfield');
+                    }, 
+                    text : barcode
+                },
                 {
                     action      : 'tap',
                     target      : function () {
-                        return Ext.Msg.down('button[itemId=yes]');
+                        return this.getExt().Msg.down('button[itemId=yes]');
                     } 
                 },
                 function(next) {
                     this.waitForComponentVisible(this.cq1('mainview checkinconfirmation'), next, this, 3000);
+                },
+                { 
+                    action: 'click', 
+                    target: function() {
+                        return this.cq1('checkinconfirmation #nicknameTf');
+                    }
+                },
+                {
+                    action : 'type',
+                    target: function() {
+                        return this.cq1('checkinconfirmation #nicknameTf');
+                    },
+                    text : 'Test User'
                 },
                 {
                     action : 'tap',
@@ -49,66 +53,16 @@ Class('EatSense.test.CloobsterTest', {
                     }
                 },
                 function(next) {
-                    this.waitForComponentVisible(this.cq1('lounge clubarea clubdashboard'), callback, this, 3000);
-                },
-                function() {
-                    t.done();
+                    this.diag('check in complete...');
+                    callback();
                 }
             );
         },
 
-        checkInSteps: function(t) {
-            var steps = [
-                {
-                    action : 'tap',
-                    target : function() { 
-                        return t.cq1('dashboard button[action=checkin]'); 
-                    }
-                },
-                function(next) {
-                    t.waitForComponentVisible(Ext.Msg, next, t, 3000);
-                },
-                { 
-                    action : 'click', 
-                    target : function() {
-                        return Ext.Msg.down('textfield');
-                    }
-                },
-                { 
-                    action : 'type', 
-                    target : function() 
-                    {
-                        return Ext.Msg.down('textfield');
-                    },
-                    text : 'basic001'
-                    // 2498-4681
-                },        
-                {
-                    action      : 'tap',
-                    target      : function () {
-                        return Ext.Msg.down('button[itemId=yes]');
-                    } 
-                },
-                function(next) {
-                    t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, t, 3000);
-                },
-                {
-                    action : 'tap',
-                    target : function() {
-                        return t.cq1('checkinconfirmation button[action=confirm-checkin]');
-                    }
-                },
-                function(next) {
-                    t.waitForComponentVisible(t.cq1('lounge clubarea clubdashboard'), next, t, 3000);
-                }
-            ];
-
-            return steps;
-        },
 
         testUserLogin: function(_Ext, callback) {
             var defaultHeaders = _Ext.Ajax.getDefaultHeaders() || {};
-            
+            //try this.getExt()
             _Ext.Ajax.request({
                 url: '/c/accounts/tokens',
                 method: 'POST',

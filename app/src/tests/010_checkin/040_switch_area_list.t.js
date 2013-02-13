@@ -3,49 +3,9 @@ StartTest(function(t) {
          t.diag('Switch Area Spot List Test');
         //start checkin
 	    t.chain(
-    	{
-            action : 'tap',
-            target : t.cq1('dashboard button[action=checkin]')
-        },
-        function(next) {
-            t.waitForComponentVisible(Ext.Msg, next, this, 3000);
-        },
-        { action : 'click', target : Ext.Msg.down('textfield')},
-        { 
-            action : 'type', 
-            target : function() {
-                return Ext.Msg.down('textfield');
-            }, 
-            text : 'tst001'
-        },
-        {
-            action      : 'tap',
-            target      : function () {
-                return Ext.Msg.down('button[itemId=yes]');
-            } 
-        },
-        function(next) {
-            t.waitForComponentVisible(t.cq1('mainview checkinconfirmation'), next, this, 3000);
-        },
-        { 
-            action: 'click', 
-            target: function() {
-                return t.cq1('checkinconfirmation #nicknameTf');
-            }
-        },
-        {
-            action : 'type',
-            target: function() {
-                return t.cq1('checkinconfirmation #nicknameTf');
-            },
-            text : 'Test User'
-        },
-        {
-            action : 'tap',
-            target : function() {
-                return t.cq1('checkinconfirmation button[action=confirm-checkin]');
-            }
-        },        
+    	function(next) {
+            t.checkIn('tst001', next);
+        },     
         //end checkin
         {
             action: 'tap',
