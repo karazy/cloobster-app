@@ -60,8 +60,7 @@ Ext.define('EatSense.view.OrderDetail', {
 					'border-radius': '3px',
 					'background': 'rgba(211, 211, 211, 0.7)',
 					//prevents the box from having the height of the long desc
-					'height' : '100%',
-					'margin-top' : '35px'
+					'height' : '100%'
 				},
 				items : [ 
 					{
