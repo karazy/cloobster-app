@@ -80,7 +80,8 @@ public final class BeepManager {
         shouldPlayBeep = false;
       }
     }
-    return shouldPlayBeep;
+    return false;
+//    return shouldPlayBeep;
   }
 
   private static MediaPlayer buildMediaPlayer(Context activity) {
