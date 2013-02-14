@@ -41,7 +41,7 @@
             "path": "touch/sencha-touch.js",
         },
         {
-            "path": "lib/cordova-2.1.0.js",
+            "path": "lib/cordova-2.4.0.js",
         },
         {
             "path": "lib/barcodescanner.js",
