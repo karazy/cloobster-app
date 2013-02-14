@@ -1,8 +1,6 @@
 /**
 * Adds {@link EatSense.view.components.BasicButton} as a mixin to {@link EatSense.view.components.TileButton}.
 * This makes this TileButton react to welcome and basicmode.
-* 
-*
 */
 Ext.define('EatSense.view.components.BasicTileButton', {
 	extend: 'EatSense.view.components.TileButton',

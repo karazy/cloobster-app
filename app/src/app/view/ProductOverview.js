@@ -12,10 +12,7 @@ Ext.define('EatSense.view.ProductOverview', {
 			xtype : 'titlebar',
 			itemId: 'menuTopBar',
 			title : i10n.translate('menuTitle'),
-			items : [ 
-			// {
-			// 	xtype: 'slidenavbutton'
-			// },
+			items : [
 			{
 				xtype : 'backbutton'
 			},

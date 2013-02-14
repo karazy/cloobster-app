@@ -14,9 +14,6 @@ Ext.define('EatSense.view.RequestsTab', {
 				title : i10n.translate('requestsTitle'),
 				docked: 'top',
 				items:[
-				// {
-				// 	xtype: 'slidenavbutton'
-				// }
 				]
 			},
 			{

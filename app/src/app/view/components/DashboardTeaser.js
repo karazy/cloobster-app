@@ -259,6 +259,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 	setState: function(stateObject) {
 		if(!stateObject) {
 			console.log('DashboardTeaser.setState: no state object provided.');
+			return;
 		}
 
 		// console.log('EatSense.view.components.DashboardTeaser.setState: basicMode='+stateObject.basicMode+' pageGenerated='+stateObject.pageGenerated);

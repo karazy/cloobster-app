@@ -1,5 +1,5 @@
 /**
-* 
+* Button to toggle slide navigation
 */
 Ext.define('EatSense.view.components.SlidenavButton', {
 	extend: 'GT.override.FixedButton',

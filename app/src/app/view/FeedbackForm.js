@@ -12,9 +12,6 @@ Ext.define('EatSense.view.FeedbackForm', {
 			title: i10n.translate('feedback'),
 			docked: 'top',
 			items: [
-				// {
-				// 	xtype: 'slidenavbutton'
-				// },
 				{
 					xtype: 'fixedbutton',
 					ui: 'action',
@@ -33,12 +30,6 @@ Ext.define('EatSense.view.FeedbackForm', {
 			},
 			scrollable: 'vertical',
 			items: [
-				// {
-				// 	xtype: 'label',
-				// 	cls: 'general-label',
-				// 	text: i10n.translate('feedbackQuestion'),
-				// 	docked: 'top'
-				// },
 				{
 					xtype: 'dataview',
 					itemId: 'questions',

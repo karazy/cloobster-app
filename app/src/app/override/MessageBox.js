@@ -1,5 +1,7 @@
 /**
 * Overrides default Ext.MessageBox.
+* Accepts a nohide config on buttons to prevent hiding
+* of MsgBox after tap event.
 */
 Ext.define('EatSense.override.MessageBox', {
     // Support dontHide configuration property for Button

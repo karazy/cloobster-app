@@ -49,13 +49,6 @@ Ext.define('EatSense.controller.Styles', {
             targetTheme = stylesheets[themeId],
             sheet,
             interval;
-
-        //TODO do we need a loading mask?
-        // main.setMasked({
-        //     xtype: 'loadmask',
-        //     message: 'Theming',
-        //     indicator: false
-        // });
 		
 		if(!targetTheme) {
 			return;
@@ -76,7 +69,6 @@ Ext.define('EatSense.controller.Styles', {
                         stylesheets[sheet].setAttribute('disabled', true);
                     }
                 }
-                // main.unmask();
             }
         }, 100);
     },

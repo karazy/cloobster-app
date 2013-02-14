@@ -1,5 +1,5 @@
 /**
-* 
+* A square button in "pinterest" style used on the dashboard.
 */
 Ext.define('EatSense.view.components.TileButton', {
 	// extend: 'GT.override.FixedButton',
@@ -64,17 +64,6 @@ Ext.define('EatSense.view.components.TileButton', {
 		
 	},
 	template: [
-		//we have to provide this, since we override the template from GT.override.FixedButton
-		// {
-  //           tag: 'span',
-  //           reference: 'tapMask',
-  //           style: {
-  //               position: 'absolute',
-  //               width: '100%',
-  //               height: '100%',
-  //               boxSizing: 'content-box'
-  //           }
-  //       },
         {
             tag: 'span',
             reference: 'badgeElement',
