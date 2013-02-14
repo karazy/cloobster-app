@@ -89,6 +89,8 @@ Ext.define('EatSense.controller.Lounge', {
   toggleNavigation: function(button) {
 	 var loungeview = this.getLoungeview();
 	 loungeview.toggleContainer();
+	 //stop propagation
+	 return false;
   },
   registerSlideBezelTap: function(un) {
 	 var me = this,
@@ -119,7 +121,7 @@ Ext.define('EatSense.controller.Lounge', {
 		} else {
 		  button.removeCls('mask-open');
 		}      
-	 });
+	 });	 
   },
   /**
   * Manages the slidenavigation menu based on given parameters.

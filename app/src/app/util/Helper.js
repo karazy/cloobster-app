@@ -111,5 +111,21 @@ Ext.define('EatSense.util.Helper', {
 	    } else {
 	      Ext.Viewport.setMasked(false);
 	    };
-  }
+  	},
+  	/**
+  	* Iterate over an object and sysout its properties.
+  	* @param {Object} obj
+  	*	Object to sysout
+  	*/
+  	debugObject: function(obj) {
+  		if(!obj) {
+  			return;
+  		}
+
+  		for (var key in obj) {
+		  if (obj.hasOwnProperty(key)) {
+		  	console.log(key + ' -> ' + obj[key]);
+		  }
+		}
+  	}
 });

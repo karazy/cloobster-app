@@ -764,12 +764,13 @@
 				labelCls: 'comment'
 			});
 
-		//sometimes textarea gets focus, so do a blur
-		commentField.blur();
-
 		//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
 		commentField.setHidden(activeBusiness.get('basic'));
-		choicesPanel.add(commentField);
+
+		Ext.defer((function() {
+			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
+			choicesPanel.add(commentField);
+		}), 400, this);
 
 		this.recalculate(order, prodPriceLabel);
 
