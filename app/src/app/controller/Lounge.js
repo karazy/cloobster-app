@@ -54,6 +54,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  this.toggleSlidenavButtons(true);
 			  this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
+			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
 			  this.registerSlideBezelTap();
 			  //start load area task
 			  if(this.getLoadAreaTask()) {
@@ -66,6 +67,7 @@ Ext.define('EatSense.controller.Lounge', {
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
 				this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
+				this.getLoungeview().un('containertoggle', this.disableTextFields, this);
 				this.registerSlideBezelTap(false);
 				this.cleanup();
 			}
@@ -122,6 +124,26 @@ Ext.define('EatSense.controller.Lounge', {
 		  button.removeCls('mask-open');
 		}      
 	 });	 
+  },
+  /**
+  * Disables all textarea fields in the active container. 
+  * This is due to a strange bug propagating the focus event to inputs, also 
+  * the container is masked.
+  * @param {String} containerState
+  */
+  disableTextFields: function(containerState) {
+  	var textfields = this.getLoungeview().getContainer().getActiveItem().query('textareafield');
+
+  	Ext.Array.each(textfields, function(field) {
+  		
+  		if(containerState == 'open') {
+  			field.setDisabled(true);
+		} else {
+			Ext.defer(function() {
+				field.setDisabled(false);
+			}, 300, this);		  
+		}
+  	});
   },
   /**
   * Manages the slidenavigation menu based on given parameters.

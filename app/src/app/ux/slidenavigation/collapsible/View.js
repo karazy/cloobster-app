@@ -622,6 +622,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             });
             */
         }
+
     },
     
     /**
