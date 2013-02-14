@@ -102,13 +102,13 @@ Ext.define('EatSense.controller.InfoPage', {
         			me.backToDashboard();
     			});
 				//null is the dataview, it gets not used inside method!
-				me.showInfoPageDetail(null, page);
+				me.showInfoPageDetail(null, page, true);
 			}	
 		}
 	},
 	/**
 	* @private
-	* Listens for lounge list select event.
+	* Listens for slide navigation list select event.
 	* When item with action show-infopage is selected, 
 	* check if pages have been created.
 	*
@@ -218,8 +218,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			this.removeInfoPageDetailPanels();
 
 			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
-			//executed on businessloaded event
-			// this.showHotelInfoHeader();
 			try {
 				EatSense.util.Helper.toggleMask('infopage.loadingmsg');
 				//defer for a better perceived performance
@@ -277,10 +275,15 @@ Ext.define('EatSense.controller.InfoPage', {
 		carousel.removeAll(true);
 	},
 	/**
- 	* Event handler for select of infoPageList.
+ 	* Select event handler of infoPageList.
 	* Shows details for selected InfoPage element.
+	* @param {Ext.dataview.List} list
+	* @param {EatSense.model.InfoPage} infopage
+	*	InfoPage to show detail for.
+	* @param {Boolean} direct (optional)
+	*	true if this is direct call and not from list itself
   	*/
-	showInfoPageDetail: function(dataview, record) {
+	showInfoPageDetail: function(dataview, record, direct) {
 		var me = this,
 			infoPageOverview = this.getInfoPageOverview(),
 			ipcarousel = this.getInfoPageCarousel(),
@@ -292,6 +295,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			filters = store.getFilters(),
 			index;
 
+		//TODO maybe use itemtap (me, index, target, record, e)?
+
 		//clear filters to get the real index
 		store.clearFilter(true);
 		index = store.indexOf(record);
@@ -302,11 +307,15 @@ Ext.define('EatSense.controller.InfoPage', {
 		}
 		//must be called before setActiveItem, because a reset is triggered
 		//that sets activeItem to 0! currently reset is only triggered if item is not already selected.
-		//this my change in future implementation and should be revieved later
+		//this may change in future implementation and should be reviewed later
 		lounge.selectByAction('show-infopage');
 		infoPageOverview.setActiveItem(ipcarousel);		
 
 		carousel.on('activeitemchange', this.setListIndex, this);
+		//direct call e.g. from dashboard teaser type=info
+		if(direct) {
+			this.setListIndex(carousel, index, null);
+		}
 
 		androidCtr.addBackHandler(function() {
             me.backToOverview();

@@ -23,12 +23,6 @@ StartTest(function(t) {
         function(next, title) {
             t.tap(t.cq1('lounge clubarea dashboardteaser[type=info]'), next(title));
         },
-        // {
-        //     action: 'tap',
-        //     target: function() {
-        //         return t.cq1('lounge clubarea infopageteaser');
-        //     }
-        // },
         function(next, title) {
             t.waitForComponentVisible(t.cq1('infopagecarousel'), function() {
                 next(title)

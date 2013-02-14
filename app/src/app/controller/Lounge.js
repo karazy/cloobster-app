@@ -15,19 +15,19 @@ Ext.define('EatSense.controller.Lounge', {
 	requires: [],
 	config: {
 		refs: {
-		mainview: 'mainview',
-		 loungeview: 'lounge',
-		clubArea: 'clubarea',
-		clubDashboard: 'clubarea clubdashboard',
-		dashboardHeader: 'clubarea clubdashboard #header',
+			mainview: 'mainview',
+			loungeview: 'lounge',
+			clubArea: 'clubarea',
+			clubDashboard: 'clubarea clubdashboard',
+			dashboardHeader: 'clubarea clubdashboard #header',
 			descriptionPanel: 'clubarea clubdashboard #description',
 			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]',
-		navButtons: 'lounge button[action=toggle-navigation]'    
+			navButtons: 'lounge button[action=toggle-navigation]'    
 		},
 		control: {
-			menuDashboardButton : {
-				tap: 'showMenu'
-			},
+		menuDashboardButton : {
+			tap: 'showMenu'
+		},
 		clubArea: {
 		  activate: 'clubAreaActivated'
 		}
@@ -214,57 +214,55 @@ Ext.define('EatSense.controller.Lounge', {
   * Initialize and show dashboard upon checkin.
   */
   initDashboard: function() {
-		var descriptionPanel = this.getDescriptionPanel(),
-			 // accountCtr = this.getApplication().getController('Account'),
-			 checkInCtr = this.getApplication().getController('CheckIn'),
-			 nickname = "",
-			 business = "",
-			 spotName = "",
-			 main = this.getMainview(),
-			 lounge = this.getLoungeview();
+	var descriptionPanel = this.getDescriptionPanel(),
+		checkInCtr = this.getApplication().getController('CheckIn'),
+		nickname = "",
+		business = "",
+		spotName = "",
+		main = this.getMainview(),
+		lounge = this.getLoungeview();
 
-		if(checkInCtr.getActiveCheckIn()){
-			 nickname = checkInCtr.getActiveCheckIn().get('nickname');
-			 business = checkInCtr.getActiveCheckIn().get('businessName');
-			 spotName = checkInCtr.getActiveSpot().get('name');
-		};
+	if(checkInCtr.getActiveCheckIn()){
+		 nickname = checkInCtr.getActiveCheckIn().get('nickname');
+		 business = checkInCtr.getActiveCheckIn().get('businessName');
+		 spotName = checkInCtr.getActiveSpot().get('name');
+	};
 
-	  descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business, spotName));
+	descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business, spotName));
 		
-		this.setCustomHeader();
+	this.setCustomHeader();
 
 		//always show dashboard first
-		this.getClubArea().setActiveItem(0);
-		lounge.setActiveItem(0);
+	this.getClubArea().setActiveItem(0);
+	lounge.setActiveItem(0);
 
-		main.switchTo(lounge, 'left');
+	main.switchTo(lounge, 'left');
   },
   /**
   * Draws custom business header in club dashboard if it exists.
   */
   setCustomHeader: function() {
-	 var checkInCtr = this.getApplication().getController('CheckIn'),
-		  headerUrl = null,
-		  header = this.getDashboardHeader(),
-		  //html for custom business header            
-		  headerHtml = null;
+	var checkInCtr = this.getApplication().getController('CheckIn'),
+		headerUrl = null,
+		header = this.getDashboardHeader(),
+		//html for custom business header            
+		headerHtml = null;
+	//TODO maybe load from business.images instead from spot
+	//set header images
+	 if(checkInCtr.getActiveSpot()) {
+		headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
 
-	 // console.log('Lounge.setCustomHeader');
-		//set header images with business logo and banner
-		 if(checkInCtr.getActiveSpot()) {
-				headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
+		if(headerUrl) {
+			 headerHtml = '<img class="header" src="'+headerUrl+'=s720" />';
+		};
 
-				if(headerUrl) {
-					 headerHtml = '<img class="header" src="'+headerUrl+'=s720" />';
-				};
-
-				//only show if header exists!
-				if(headerUrl) {
-				  header.setHtml(headerHtml);
-				} else {
-				  header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
-				}
-		 }
+		//only show if header exists!
+		if(headerUrl) {
+		  header.setHtml(headerHtml);
+		} else {
+		  header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
+		}
+	 }
   },
 	showMenu: function(button) {
 		var lounge = this.getLoungeview();
@@ -391,9 +389,7 @@ Ext.define('EatSense.controller.Lounge', {
 				  item.set('marked', false);
 				  item.set('subtitle', '');
 				}
-				
 			 });
-
 	 },
 	 /**
 	 * Jumps back to dashboard and switches to new area.
