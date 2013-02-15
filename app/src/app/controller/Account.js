@@ -548,7 +548,7 @@ Ext.define('EatSense.controller.Account', {
 		this.confirmUserLogout();
 	},
 	/**
-	* Let user confirm has wish to logout. 
+	* Let user confirm his wish to logout. 
 	*/
 	confirmUserLogout: function() {
 		Ext.Msg.show({

@@ -881,6 +881,10 @@ Ext.define('EatSense.util.Translations',{
 			" und suchen Sie dann den neuen Spot in der Liste.",
 			"EN" : ""
 		},
+		"checkin.switchspot.confirmselected" : {
+			"DE" :  "An Spot {0} einchecken?",
+			"EN" : "CheckIn at spot {0}?"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

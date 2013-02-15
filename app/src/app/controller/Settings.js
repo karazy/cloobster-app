@@ -148,6 +148,7 @@ Ext.define('EatSense.controller.Settings', {
         }
 
         //TODO get the email and password change buttons and wire up the events instead of the oldschool way!
+        //problem is that there is no clear point to unwire. 
 
         this.setCallingView(view);
         callingView = this.getCallingView();

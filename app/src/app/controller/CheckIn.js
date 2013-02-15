@@ -1140,12 +1140,30 @@ Ext.define('EatSense.controller.CheckIn', {
     //list select handler
     function onListSelect(list, record) {
 
-      hideSpotSelectionView();
+      Ext.Msg.show({
+        title: i10n.translate('hint'),
+        message: i10n.translate('checkin.switchspot.confirmselected', record.get('name')),
+        buttons: [{
+          text: i10n.translate('yes'),
+          itemId: 'yes',
+          ui: 'action'
+        }, {
+          text:  i10n.translate('no'),
+          itemId: 'no',
+          ui: 'action'
+        }],
+        scope: this,
+        fn: function(btnId, value, opt) {
+        if(btnId=='yes') {
+            hideSpotSelectionView();
 
-      clearSpotListFilter();
-      if(appHelper.isFunction(onSelect)) {
-        onSelect(record);
-      }
+            clearSpotListFilter();
+            if(appHelper.isFunction(onSelect)) {
+              onSelect(record);
+            }
+          }
+        }
+      });  
     }
 
     //key up handler
@@ -1156,7 +1174,7 @@ Ext.define('EatSense.controller.CheckIn', {
     //filter spot list by given value
     function filterSpotList(value) {
       spotStore.clearFilter(true);
-      spotStore.filter('name', value);
+      spotStore.filter('name', value, true);
       spotList.refresh();
     }
 
