@@ -61,7 +61,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  	this.getLoadAreaTask().delay(100);	
 			  } else {
 			  	console.error('Lounge.launch: no load area task exists');
-			  }   
+			  }
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
@@ -275,11 +275,11 @@ Ext.define('EatSense.controller.Lounge', {
 
 		task = Ext.create('Ext.util.DelayedTask', function() {
 			if(!checkInCtr.getActiveSpot() || !checkInCtr.getActiveBusiness()) {
-				task.delay(100);
 				console.log('Lounge.createLoadAreaTask: delaying task for 100ms');
+				task.delay(100);				
 			} else {
-				task.cancel();
 				console.log('Lounge.createLoadAreaTask: executing task');
+				task.cancel();				
 				if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
 					me.loadAreas(function() {
 						me.markSlideNavAreaActive(checkInCtr.getActiveArea(), checkInCtr.getActiveSpot());
@@ -310,6 +310,8 @@ Ext.define('EatSense.controller.Lounge', {
 				console.log('CheckIn.loadAreas: no loungeview exists');
 				return;            
 			 }
+
+			 console.log('CheckIn.loadAreas');
 
 			 areaStore.load({
 				callback: function(records, operation, success) {
@@ -415,7 +417,7 @@ Ext.define('EatSense.controller.Lounge', {
 			 area.destroy();
 		  });
 		  areaStore.removeAll(false);
-
+		  //remove all dynamic items
 		  slideNavStore.each(function(item) {
 			 if(item.get('dynamic')) {
 				slideNavStore.remove(item);

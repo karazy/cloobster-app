@@ -1167,6 +1167,10 @@
 								choosenMethod = availableMethods.getAt(0).get('name');
 							}
 							picker.hide();
+							//20130215 destroy picker to prevent duplicates
+							//a bug existed that caused checkin to fail because picker tried to refresh
+							//on business load
+							picker.destroy();
 							if(appHelper.isFunction(onChoose)) {
 								onChoose(choosenMethod);
 							} else {

@@ -172,7 +172,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         me.store = Ext.create('Ext.data.TreeStore', {
             model: me.getModel(),
             defaultRootProperty: 'items',
-            root: { items: this.config.items }
+            root: { items: this.config.items },
+            //TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+            destroyRemovedRecords: false
         });
 
         // me.store.on('addrecords', this.addNewItems, this);

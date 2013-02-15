@@ -343,11 +343,10 @@ Ext.define('EatSense.controller.CheckIn', {
 	   if(nickname.length < 3) {
 		   Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
 	   } else {		   
-            appHelper.toggleMask('loadingMsg');
-            this.getActiveCheckIn().set('nickname',nickname);		  	   
-		    this.getActiveCheckIn().save({
-				success: function(response) {
-                    appHelper.toggleMask(false);
+        appHelper.toggleMask('loadingMsg');
+        this.getActiveCheckIn().set('nickname',nickname);		  	   
+        this.getActiveCheckIn().save({
+				success: function(response) {                    
   					   	    console.log("CheckIn Controller -> checkIn success");
                     //Set default headers so that always checkInId is send
                     headerUtil.addHeaders({
@@ -360,15 +359,15 @@ Ext.define('EatSense.controller.CheckIn', {
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					//save nickname in settings
-  		    if(nicknameToggle.getValue() == 1) {
-                if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
-                  profile.set('nickname', nickname);
-                  profile.save();
-                } else {
-                    me.getAppState().set('nickname', nickname);
-                }
-                nicknameToggle.reset();
-  			}
+  		  if(nicknameToggle.getValue() == 1) {
+          if(accountCtr.isLoggedIn() && profile && profile.get('nickname') != nickname) {
+            profile.set('nickname', nickname);
+            profile.save();
+          } else {
+              me.getAppState().set('nickname', nickname);
+          }
+          nicknameToggle.reset();
+  			}  
                    
                //open a channel for push messags
                try {
@@ -376,6 +375,8 @@ Ext.define('EatSense.controller.CheckIn', {
                 } catch(e) {
                     console.log('could not open a channel ' + e);
                 }
+                //ATTENTION hide mask after loadBusiness
+                // appHelper.toggleMask(false);
 					},
 				failure: function(response, operation) {
                     appHelper.toggleMask(false);
@@ -495,6 +496,7 @@ Ext.define('EatSense.controller.CheckIn', {
             console.log('CheckIn in status '+checkIn.get('status')+'. Don\'t restore state!');
             this.handleStatusChange(appConstants.COMPLETE);
             this.setActiveCheckIn(null);
+            appHelper.toggleMask(false);
             return;
         }
 
@@ -568,7 +570,7 @@ Ext.define('EatSense.controller.CheckIn', {
           console.log('CheckIn.loadBusiness > failed setting currency');
         }
 
-
+        appHelper.toggleMask(false);
       },
       failure: function(record, operation) {
         me.handleServerError({
@@ -805,7 +807,7 @@ Ext.define('EatSense.controller.CheckIn', {
   * @param {Boolean} useActiveSpot (optional)
   *   if true, get area from active spot instead of using the active area
   */
-  confirmSwitchSpot: function(useActiveSpot) {
+  confirmSwitchSpot: function(useActiveSpot, onSwitch, onSwitchScope) {
     var me = this,
         activeSpot = this.getActiveSpot(),
         activeArea = this.getActiveArea(),
@@ -861,7 +863,9 @@ Ext.define('EatSense.controller.CheckIn', {
             'area' : activeArea, 
             'ordersExist' : ordersExist, 
             'barcodeRequired' : barcodeRequired,
-            'paymentMethod' : paymentMethod
+            'paymentMethod' : paymentMethod,
+            'onSwitch' : onSwitch,
+            'onSwitchScope' : onSwitchScope
         });
       }
     } else {
@@ -883,7 +887,9 @@ Ext.define('EatSense.controller.CheckIn', {
               me.switchSpot({
                 'area' : activeArea, 
                 'ordersExist' : ordersExist, 
-                'barcodeRequired' : barcodeRequired
+                'barcodeRequired' : barcodeRequired,
+                'onSwitch' : onSwitch,
+                'onSwitchScope' : onSwitchScope
             });
             }
           }
@@ -902,6 +908,7 @@ Ext.define('EatSense.controller.CheckIn', {
   *   Payment method to used to create bill when orders exist
   * options.barcodeRequired
   *     Indicates if a list of spots gets shown, or user has to scan the barcode
+  *  options.onSwitch
   */
   switchSpot: function(options) {
     if(!options) {
@@ -1032,6 +1039,14 @@ Ext.define('EatSense.controller.CheckIn', {
         me.getAppState().set('checkInId', checkin.get('userId'));
         //deactivate welcome mode, since we can not switch to a welcome spot, this is always false
         me.activateWelcomeMode(false);
+        //execute onSwitch callback if exists
+        if(appHelper.isFunction(options.onSwitch)) {
+          if(options.onSwitchScope) {
+            options.onSwitch.call(options.onSwitchScope);
+          } else {
+            options.onSwitch();  
+          }
+        }
         //notify controllers after everything has finished to refresh state where necessary
         //clean up orderstore, cart, badge texts ...
         me.fireEvent('spotswitched', me.getActiveSpot(), checkin);

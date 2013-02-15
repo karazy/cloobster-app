@@ -252,7 +252,8 @@ Ext.application({
           success : function(record, operation) {
             console.log('found existing checkin '+record);            
             checkInCtr.restoreState(record);
-            EatSense.util.Helper.toggleMask(false);           
+            //ATTENTION hide mask after business is loaded
+            // EatSense.util.Helper.toggleMask(false);           
           },
           failure: function(record, operation) {
             console.log('error restoring state');
