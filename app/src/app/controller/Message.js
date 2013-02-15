@@ -176,11 +176,11 @@ Ext.define('EatSense.controller.Message', {
 	openChannel: function(id) {
 		var		me = this;
 
-		//DEBUGGING remember to disable before building. Used to prevent 
+		//DEBUG remember to disable before building. Used to prevent 
 		//spamming of console with messages
-		if(Ext.os.deviceType.toLowerCase() == 'desktop') {
-			return;
-		}
+		// if(Ext.os.deviceType.toLowerCase() == 'desktop') {
+		// 	return;
+		// }
 
 		this.setChannelId(id);
 
