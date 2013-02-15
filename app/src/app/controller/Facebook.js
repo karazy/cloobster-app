@@ -261,13 +261,15 @@ Ext.define('EatSense.controller.Facebook', {
 		  		// var uid = response.authResponse.userID;
     			// var accessToken = response.authResponse.accessToken;
     			// console.log('Facebook.postCheckIn > uid = ' + uid + ' accessToken='+accessToken);
+    			console.log('Facebook.postCheckIn: post (already logged in)');
 		   		post();
 		  } else {
 			FB.login(function(response) {
 		            if (response.authResponse) {
+		            	console.log('Facebook.postCheckIn: post after login');
 		            	post();
 		            } else {
-		                console.log('Facebook.postCheckIn > Fb login failed.')
+		                console.log('Facebook.postCheckIn: Fb login failed.')
 		            }
 	            },
 	            { 
