@@ -115,7 +115,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          * @cfg {String} staticHeaderItemTpl
          */
         staticHeaderItemTpl: [
-             '<div style="min-height: 2.6em; padding: 0.65em 0.8em;',
+             '<div style="min-height: 2em; padding: 0.5em 0.8em; font-size: 16px;',
                 ' color: gray;">',
                 '{title}',
             '</div>'
@@ -128,7 +128,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             '<tpl if="iconCls">',
                 '<div class="slidenav-icon {iconCls}"></div>',
             '</tpl>',
-            '<div style="padding: 0.65em 0.8em 0.2em 0.6em; max-width: 180px; float:left;">',
+            '<div style="padding: 0.65em 0.8em 0.2em 0.6em; max-width: 180px; float:left; font-size: 16px;">',
                 '{title}',
                 '<div style="font-size: 12px;">{subtitle}</div>',
             '</div>',

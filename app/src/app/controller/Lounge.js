@@ -53,7 +53,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.getLoungeview().getList().select(0);
 			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  this.toggleSlidenavButtons(true);
-			  this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
+			  // this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
 			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
 			  this.registerSlideBezelTap();
 			  //start load area task
@@ -66,7 +66,7 @@ Ext.define('EatSense.controller.Lounge', {
 				this.toggleSlidenavButtons(false);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
-				this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
+				// this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
 				this.getLoungeview().un('containertoggle', this.disableTextFields, this);
 				this.registerSlideBezelTap(false);
 				this.cleanup();

@@ -51,8 +51,16 @@ Ext.define('EatSense.view.Lounge', {
 		        			tapMaskFactor: 3
 	        			}  
         			]
-        		}         	        		
-        		      		      	
+        		},
+				// {
+				// 	xtype: 'panel',
+				// 	layout: {
+				// 		type: 'fit'
+				// 	},
+				// 	height: 5,
+				// 	docked: 'bottom',
+				// 	style: 'background-color: orange'
+				// }         	        		
         	]
         },
 		items : [	
@@ -91,14 +99,6 @@ Ext.define('EatSense.view.Lounge', {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
 			},
-			{	
-				xtype: 'myorderstab',
-				iconCls: 'exit-icon',
-				title: i10n.translate('myOrdersTabLeaveBt'),
-				leaf: true,
-				preCreate: true,
-				action: 'show-myorders'
-			},
 			{
 				xtype: 'feedbackform',
 				iconCls: 'feedback-icon',
@@ -117,8 +117,17 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'settingstab',
 				title: i10n.translate('settingsButton'),
 				leaf: true,
-				action: 'show-settings'
-			}			
+				action: 'show-settings',
+				iconCls: 'user-icon',
+			},
+						{	
+				xtype: 'myorderstab',
+				iconCls: 'exit-icon',
+				title: i10n.translate('myOrdersTabLeaveBt'),
+				leaf: true,
+				preCreate: true,
+				action: 'show-myorders'
+			}		
 		]
 	},
 	/**
