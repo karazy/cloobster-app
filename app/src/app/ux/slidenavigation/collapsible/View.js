@@ -115,7 +115,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          * @cfg {String} staticHeaderItemTpl
          */
         staticHeaderItemTpl: [
-             '<div style="min-height: 2em; padding: 0.5em 0.8em; font-size: 16px;',
+             '<div style="height: 25px; padding: 7px 0em; font-size: 16px;',
                 ' color: gray;">',
                 '{title}',
             '</div>'
@@ -128,7 +128,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             '<tpl if="iconCls">',
                 '<div class="slidenav-icon {iconCls}"></div>',
             '</tpl>',
-            '<div style="padding: 0.65em 0.8em 0.2em 0.6em; max-width: 180px; float:left; font-size: 16px;">',
+            '<div style="height: 30px; padding: 7px 0.8em 2px 0em; max-width: 180px; float:left; font-size: 16px; line-height: 16px;">',
                 '{title}',
                 '<div style="font-size: 12px;">{subtitle}</div>',
             '</div>',
@@ -174,7 +174,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             defaultRootProperty: 'items',
             root: { items: this.config.items },
             //TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
-            destroyRemovedRecords: false
+            destroyRemovedRecords: false            
         });
 
         // me.store.on('addrecords', this.addNewItems, this);

@@ -319,6 +319,50 @@ Ext.define('EatSense.controller.Lounge', {
 					 if(records.length > 0) {
 						items = me.createItemsFromAreaStore(areaStore);
 						loungeview.addNewItems(items);
+						loungeview.getList().getStore().setSorters(null);
+						// loungeview.getList().getStore().setSorters(
+						// 	[
+				  //               {
+				  //                   sorterFn: function(item1, item2) {
+				  //                       if(!item1.dynamic && item2.dynamic) {
+				  //                           return 1;
+				  //                       } 
+				  //                       // if(item1.dynamic && item2.dynamic && item1.subtitle && !item2.subtitle && !item2.header) {
+				  //                       //     return -1;
+				  //                       // } 
+				  //                       // return 0;
+				  //                       // else if(item1.dynamic && item2.dynamic && item1.subtitle && !item2.subtitle) {
+				  //                       //     return 1;
+				  //                       // } else {
+				  //                       //     return 0;
+				  //                       // }
+				  //                   }
+				  //               }
+				  //           ]
+						// );		
+
+						loungeview.getList().getStore().sort([
+						   {
+				                    sorterFn: function(item1, item2) {
+				                    	console.log('dynamic ' + item1.data.dynamic+ ' ' +item1.get('title') +' ' +item2.get('dynamic'));
+				                        // if(!item1.dynamic && item2.dynamic) {
+				                        //     return 1;
+				                        // } 
+				                        // return -1;
+				                        if(item1.get('dynamic') && item2.get('dynamic') && item1.get('subtitle') && !item2.get('subtitle') && !item2.get('header')) {
+				                            return -1;
+				                        } 
+				                        return 0;
+				                        // else if(item1.dynamic && item2.dynamic && item1.subtitle && !item2.subtitle) {
+				                        //     return 1;
+				                        // } else {
+				                        //     return 0;
+				                        // }
+				                    }
+				                }
+						]);
+
+
 					 }
 					 callback();
 				  } else {
