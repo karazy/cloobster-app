@@ -56,9 +56,11 @@ Ext.define('EatSense.controller.Lounge', {
 			  // this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
 			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
 			  this.registerSlideBezelTap();
+			  //initially only the area id exists so use areaName from spot
+			  this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
 			  //start load area task
 			  if(this.getLoadAreaTask()) {
-			  	this.getLoadAreaTask().delay(100);	
+			  	this.getLoadAreaTask().delay(100);
 			  } else {
 			  	console.error('Lounge.launch: no load area task exists');
 			  }
@@ -237,6 +239,32 @@ Ext.define('EatSense.controller.Lounge', {
 	lounge.setActiveItem(0);
 
 	main.switchTo(lounge, 'left');
+  },
+  /*
+  * Set title of menu tilebutton in club dashboard to name of active area.
+  * @param {EatSense.model.Area|String} area 
+  *		Area whos name to display as title. If none provided resets to default.
+  *		Can either be an area model or a string
+  */
+  applyAreaNameToMenuTileButton: function(area) {
+  	var dashboard = this.getClubDashboard(),
+  		menuTileButton;
+
+  		menuTileButton = dashboard.down('tilebutton[action=show-menu]');
+
+  		if(!menuTileButton) {
+  			return;
+  		}
+
+  		if(area) {  
+  			if(typeof area == 'string') {
+  				menuTileButton.setTitle(area);
+  			} else {
+  				menuTileButton.setTitle(area.get('name'));	
+  			}	  		
+  		} else {
+  			menuTileButton.setTitle(i10n.translate('menuTab'));
+  		}
   },
   /**
   * Draws custom business header in club dashboard if it exists.
@@ -443,6 +471,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 switchArea: function(area) {
 		var loungeview = this.getLoungeview();
 
+		this.applyAreaNameToMenuTileButton(area);
 		this.fireEvent('areaswitched', area);
 
 		loungeview.getList().select(0);
@@ -468,6 +497,8 @@ Ext.define('EatSense.controller.Lounge', {
 				item.destroy();
 			 }
 		  });
+		  //reset area title
+		  this.applyAreaNameToMenuTileButton();
 		} catch(e) {
 		  console.error('Lounge.cleanup: failed ' + e);
 		}
