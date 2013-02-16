@@ -88,18 +88,6 @@ Ext.define('EatSense.view.Lounge', {
 				iconCls: 'slidenav-info-icon'
 			},
 			{
-				title: i10n.translate('requestsTitle'),
-				xtype: 'requeststab',
-				iconCls: 'request-icon',
-				leaf: true,
-				preCreate: true,
-				hideOnBasic: true,
-				action: 'show-requests',
-				welcomeFn: function() {
-					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-				}
-			},
-			{
 				xtype: 'feedbackform',
 				iconCls: 'feedback-icon',
 				itemId: 'loungeFeedback',
@@ -113,6 +101,19 @@ Ext.define('EatSense.view.Lounge', {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
 			},
+			{
+				title: i10n.translate('requestsTitle'),
+				xtype: 'requeststab',
+				iconCls: 'request-icon',
+				leaf: true,
+				preCreate: true,
+				hideOnBasic: true,
+				action: 'show-requests',
+				welcomeFn: function() {
+					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+				}
+			},
+			
 			{
 				xtype: 'settingstab',
 				title: i10n.translate('settingsButton'),
