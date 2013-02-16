@@ -49,8 +49,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'statusChanged' : function(status) {
 			if(status == appConstants.CHECKEDIN) {
-				this.initDashboard();
-			  this.getLoungeview().getList().select(0);
+			  this.initDashboard();			  
 			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  this.toggleSlidenavButtons(true);
 			  // this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
@@ -64,6 +63,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  } else {
 			  	console.error('Lounge.launch: no load area task exists');
 			  }
+			  this.getLoungeview().selectByAction('show-clubdashboard');
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
@@ -369,26 +369,26 @@ Ext.define('EatSense.controller.Lounge', {
 				  //           ]
 						// );		
 
-						loungeview.getList().getStore().sort([
-						   {
-				                    sorterFn: function(item1, item2) {
-				                    	console.log('dynamic ' + item1.data.dynamic+ ' ' +item1.get('title') +' ' +item2.get('dynamic'));
-				                        // if(!item1.dynamic && item2.dynamic) {
-				                        //     return 1;
-				                        // } 
-				                        // return -1;
-				                        if(item1.get('dynamic') && item2.get('dynamic') && item1.get('subtitle') && !item2.get('subtitle') && !item2.get('header')) {
-				                            return -1;
-				                        } 
-				                        return 0;
-				                        // else if(item1.dynamic && item2.dynamic && item1.subtitle && !item2.subtitle) {
-				                        //     return 1;
-				                        // } else {
-				                        //     return 0;
-				                        // }
-				                    }
-				                }
-						]);
+						// loungeview.getList().getStore().sort([
+						//    {
+				  //                   sorterFn: function(item1, item2) {
+				  //                   	console.log('dynamic ' + item1.data.dynamic+ ' ' +item1.get('title') +' ' +item2.get('dynamic'));
+				  //                       // if(!item1.dynamic && item2.dynamic) {
+				  //                       //     return 1;
+				  //                       // } 
+				  //                       // return -1;
+				  //                       if(item1.get('dynamic') && item2.get('dynamic') && item1.get('subtitle') && !item2.get('subtitle') && !item2.get('header')) {
+				  //                           return -1;
+				  //                       } 
+				  //                       return 0;
+				  //                       // else if(item1.dynamic && item2.dynamic && item1.subtitle && !item2.subtitle) {
+				  //                       //     return 1;
+				  //                       // } else {
+				  //                       //     return 0;
+				  //                       // }
+				  //                   }
+				  //               }
+						// ]);
 
 
 					 }
@@ -474,7 +474,7 @@ Ext.define('EatSense.controller.Lounge', {
 		this.applyAreaNameToMenuTileButton(area);
 		this.fireEvent('areaswitched', area);
 
-		loungeview.getList().select(0);
+		loungeview.selectByAction('show-clubdashboard');
 	 },
 	 /**
 	 * Cleanup on checkout.
