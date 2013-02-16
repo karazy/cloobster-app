@@ -863,22 +863,36 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Bitte wählen Sie Ihren aktuellen Spot aus.",
 			"EN" : "Please select your current spot."
 		},
-		"checkin.switchspot.barcode" : {
-			"DE" :  "Bitte scannen Sie den Barcode des aktuellen Spots um Ihre Bestellung abzuschicken.",
+		"checkin.switchspot.msgtitle" : {
+			"DE" :  "Spotwechsel",
+			"EN" : "Switch spot"
+		},
+		"checkin.switchspot.switch" : {
+			"DE" :  "Wechseln",
+			"EN" : "Switch"
+		},
+		"checkin.switchspot.stay" : {
+			"DE" :  "Bleiben",
+			"EN" : "Stay"
+		},
+		"checkin.switchspot.barcode" : {			
+			"DE" :  "Um	dieses	Produkt	zu bestellen müssen Sie von \"{0}” nach \"{1}\" wechseln. "+
+					"Scannen Sie hierfür den Barcode des neuen Spots.",
 			"EN" : ""
 		},
 		"checkin.switchspot.list" : {
-			"DE" : "Bitte wähle Sie Ihren Spot (Standort) aus um die Bestellung abzuschicken.",
+			"DE" : "Um	dieses	Produkt	zu	bestellen müssen Sie von \"{0}” nach \"{1}\" wechseln. "+
+					"Wählen Sie hierfür den neuen Spot (Standort) aus der Liste.",
 			"EN" : ""
 		},
 		"checkin.switchspot.orders.barcode" : {
-			"DE" :  "Wählen Sie, wie Sie ihre aktuellen Bestellungen in Höhe von {0} abschliessen möchten" +
-			" und scannen Sie anschließend den Barcode des neuen Spots.",
+			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
+					"Dann wechseln Sie von \"{1}” nach \"{2}\" durch scannen des neuen Spots.",
 			"EN" : ""
 		},
 		"checkin.switchspot.orders.list" : {
-			"DE" :  "Wählen Sie, wie Sie ihre aktuellen Bestellungen in Höhe von {0} abschliessen möchten" +
-			" und suchen Sie dann den neuen Spot in der Liste.",
+			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
+					"Dann wechseln Sie von \"{1}” nach \"{2}\" durch Auswahl des neuen Spots.",
 			"EN" : ""
 		},
 		"checkin.switchspot.confirmselected" : {

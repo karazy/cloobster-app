@@ -850,9 +850,9 @@ Ext.define('EatSense.controller.CheckIn', {
     if(ordersExist) {
       ordersTotal = appHelper.formatPrice(orderCtr.calculateOrdersTotal(Ext.StoreManager.lookup('orderStore')), true);
       completeCheckInMessage = barcodeRequired ?
-       i10n.translate('checkin.switchspot.orders.barcode', ordersTotal) : i10n.translate('checkin.switchspot.orders.list', ordersTotal);
+       i10n.translate('checkin.switchspot.orders.barcode', ordersTotal, activeSpot.get('areaName'), activeArea.get('name')) : i10n.translate('checkin.switchspot.orders.list', ordersTotal, activeSpot.get('areaName'), activeArea.get('name'));
 
-      Ext.Msg.alert(i10n.translate('hint'), 
+      Ext.Msg.alert(i10n.translate('checkin.switchspot.msgtitle'), 
         completeCheckInMessage,
           function() {
             orderCtr.choosePaymentMethod(onChoose);
@@ -870,14 +870,14 @@ Ext.define('EatSense.controller.CheckIn', {
       }
     } else {
           Ext.Msg.show({
-          title: i10n.translate('hint'),
-          message: barcodeRequired ? i10n.translate('checkin.switchspot.barcode') : i10n.translate('checkin.switchspot.list'),
+          title: i10n.translate('checkin.switchspot.msgtitle'),
+          message: barcodeRequired ? i10n.translate('checkin.switchspot.barcode', activeSpot.get('areaName'), activeArea.get('name')) : i10n.translate('checkin.switchspot.list', activeSpot.get('areaName'), activeArea.get('name')),
           buttons: [{
-            text: i10n.translate('yes'),
+            text: i10n.translate('checkin.switchspot.switch'),
             itemId: 'yes',
             ui: 'action'
           }, {
-            text:  i10n.translate('no'),
+            text:  i10n.translate('checkin.switchspot.stay'),
             itemId: 'no',
             ui: 'action'
           }],
@@ -1280,7 +1280,8 @@ Ext.define('EatSense.controller.CheckIn', {
    *    Called after delete returns. Gets passed true or false depending on success.
    */
    deleteActiveCheckIn: function(callback) {
-    var activeCheckIn = this.getActiveCheckIn();
+    var me = this,
+        activeCheckIn = this.getActiveCheckIn();
 
 
     if(!activeCheckIn) {
