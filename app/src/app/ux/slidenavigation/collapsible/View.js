@@ -680,7 +680,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         return Ext.create('Ext.Container', Ext.merge({}, this.config.container, {
             docked: 'left',
             cls: 'x-slidenavigation-container',
-            style: 'width: 100%; height: 100%; position: absolute; opacity: 1; z-index: 5',
+            style: 'width: 100%; height: 100%; position: absolute; opacity: 1; z-index: 5; left: 35px;',
             docked: 'left',
             layout: 'card',
             draggable: {
@@ -813,6 +813,80 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         if(recordToSelect) {
             list.select(recordToSelect);    
         }        
+    },
+
+    doBounce: function(times, delay) {
+        var me = this,
+            counter = 0,
+            times = times || 1,
+            delay = delay || 1000,
+            containerEle = this.getContainer().element;
+
+        bounceBaby();
+
+        //TODO register cotainer tap and stop animation on tap
+        containerEle.on({
+            touchstart: stopTheBounce,
+            single: true
+        });
+
+        function bounceBaby() {
+            me.getBounceAnimationIn().run(containerEle, {
+            });
+            return;
+
+            if(counter < times) {
+                me.getBounceAnimationOut().run(containerEle, {
+                after: function() {
+                    counter++;
+                    me.getBounceAnimationIn().run(containerEle, {
+                        after: function() {
+                            Ext.defer(function() {
+                                bounceBaby();
+                            }, delay);                            
+                        }
+                    });
+                }
+                });
+            } else {
+                containerEle.un({
+                    touchstart: stopTheBounce
+                });
+            }
+        }
+
+        function stopTheBounce() {
+            //increase times so that excecution stops
+            counter = times + 1;
+        }
+
+        
+    },
+
+    getBounceAnimationOut: function() {
+        var anim;
+
+        anim = Ext.create('Ext.Anim',{
+          autoClear: false,
+          reverse: false,
+          easing: 'ease-in',
+          from:{'left':'0px'},
+          to: {'left':'35px'},
+          duration: 500,
+        });
+        return anim;
+    },
+    getBounceAnimationIn: function() {
+        var anim;
+
+        anim = Ext.create('Ext.Anim',{
+          autoClear: false,
+          easing: 'ease-out',
+          from:{'left':'35px'},
+          to: {'left':'0px'},
+          duration: 300
+        });
+        return anim;
     }
 
 });

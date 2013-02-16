@@ -1335,12 +1335,12 @@ h9 {
     /*display: none;*/
     display: block;
     background-color: white !important;
-    -webkit-mask-size: 20px;
-    -webkit-mask-image: inline-image('../images/home2.png');
+    -webkit-mask-size: 30px;
+    -webkit-mask-image: inline-image('../images/home2_menu.png');
     
     -webkit-mask-position: right center;
     -webkit-mask-repeat: no-repeat;
-    width: 20px;
+    width: 30px;
     height: 50px;
   }
 }
