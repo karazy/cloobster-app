@@ -852,11 +852,25 @@ Ext.define('EatSense.controller.CheckIn', {
       completeCheckInMessage = barcodeRequired ?
        i10n.translate('checkin.switchspot.orders.barcode', ordersTotal, activeSpot.get('areaName'), activeArea.get('name')) : i10n.translate('checkin.switchspot.orders.list', ordersTotal, activeSpot.get('areaName'), activeArea.get('name'));
 
-      Ext.Msg.alert(i10n.translate('checkin.switchspot.msgtitle'), 
-        completeCheckInMessage,
-          function() {
-            orderCtr.choosePaymentMethod(onChoose);
-          }, this);
+      Ext.Msg.show({
+          title: i10n.translate('checkin.switchspot.msgtitle'),
+          message: completeCheckInMessage,
+          buttons: [{
+            text: i10n.translate('checkin.switchspot.switch'),
+            itemId: 'yes',
+            ui: 'action'
+          }, {
+            text:  i10n.translate('checkin.switchspot.stay'),
+            itemId: 'no',
+            ui: 'action'
+          }],
+          scope: this,
+          fn: function(btnId, value, opt) {
+            if(btnId=='yes') {
+              orderCtr.choosePaymentMethod(onChoose);
+            }
+          }
+       }); 
 
       function onChoose(paymentMethod) {
         me.switchSpot({
@@ -869,7 +883,7 @@ Ext.define('EatSense.controller.CheckIn', {
         });
       }
     } else {
-          Ext.Msg.show({
+        Ext.Msg.show({
           title: i10n.translate('checkin.switchspot.msgtitle'),
           message: barcodeRequired ? i10n.translate('checkin.switchspot.barcode', activeSpot.get('areaName'), activeArea.get('name')) : i10n.translate('checkin.switchspot.list', activeSpot.get('areaName'), activeArea.get('name')),
           buttons: [{
