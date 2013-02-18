@@ -64,13 +64,16 @@ Ext.define('EatSense.controller.Lounge', {
 			  	console.error('Lounge.launch: no load area task exists');
 			  }
 			  this.getLoungeview().selectByAction('show-clubdashboard');
+			  this.getLoungeview().setDisableDrag(false);
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
+				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
 				// this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
 				this.getLoungeview().un('containertoggle', this.disableTextFields, this);
 				this.registerSlideBezelTap(false);
+				this.getLoungeview().setDisableDrag(false);
 				this.cleanup();
 			}
 			

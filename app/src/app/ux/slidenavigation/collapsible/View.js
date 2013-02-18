@@ -25,7 +25,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         'Ext.Toolbar',
         'Ext.data.Model',
         'Ext.data.Store',
-        // 'Ext.data.TreeStore',
         'Ext.dataview.List'
     ],
     
@@ -162,7 +161,11 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         /**
          * @cfg {Boolean} set to true, to provide a visuell hint for menu when user is inactice
          */
-        bounceWhenInactive: false
+        bounceWhenInactive: false,
+        /**
+         * {Boolean} set to true, to prevent dragging
+         */
+        disableDrag: false
     },
         
     initConfig: function() {
@@ -174,14 +177,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         /**
          *  Create the store.
          */
-        // me.store = Ext.create('Ext.data.TreeStore', {
-        //     model: me.getModel(),
-        //     defaultRootProperty: 'items',
-        //     root: { items: this.config.items },
-        //     //TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
-        //     destroyRemovedRecords: false            
-        // });
-
         me.store = Ext.create('Ext.data.Store', {
             model: me.getModel(),
             data: this.config.items,
@@ -252,16 +247,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      
         // TODO: Make this optional, perhaps by defining
         // "selected: true" in the items list
-        // var firstitem = this.getList().getStore().getAt(0);
-        // if ( firstitem.isLeaf() ) {
-        //     this.getList().select(0);
-        // } else {
-        //     firstitem.expand();
-        //     this.getList().select(1);
-        // }
-
         this.getList().select(0);
 
+        //TODO bounce when user is inactive, eperimental
         if(this.config.bounceWhenInactive) {
             var bounceTask = Ext.create('Ext.util.DelayedTask', function() {
                     this.doBounce(1);
@@ -318,15 +306,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 item.index = me._indexCount;
                 me._indexCount++;
             }
-           // if ( Ext.isDefined(item.leaf) && 
-           //      !Ext.isDefined(item.index)) { 
-           //      item.index = me._indexCount;
-           //      me._indexCount++;
-           // } else {
-           //      //also assign header an index to enable sorting
-           //      // if(!Ext.isDefined(item.header)) 
-           //     me.assignIndexes ( item.items );
-           // }
        });
     },
     /**
@@ -344,6 +323,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         return false;
     },
     
+    //Removed the treestore so no collapsing logic required
     /**
      * Called when an list item has been tapped
      * @param {Ext.List} list The subList the item is on
@@ -352,26 +332,26 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      * @param {Ext.data.Record} record The record whichw as tapped
      * @param {Ext.event.Event} e The event
      */
-    onItemTap: function(list, index, target, record, e) {
-        var me = this,
-            store = list.getStore(),
-            item = store.getAt(index);
+    // onItemTap: function(list, index, target, record, e) {
+    //     var me = this,
+    //         store = list.getStore(),
+    //         item = store.getAt(index);
 
-        if(record.get('header')) {
-            //this is a header item, no action required
-            return;
-        }
+    //     if(record.get('header')) {
+    //         //this is a header item, no action required
+    //         return;
+    //     }
 
-        return;
+    //     return;
 
-        if (!item.isLeaf()) {
-            if (item.isExpanded()) {
-                item.collapse();
-            } else {
-                item.expand(false, this.onExpand, this);
-            }
-        }
-    },
+    //     if (!item.isLeaf()) {
+    //         if (item.isExpanded()) {
+    //             item.collapse();
+    //         } else {
+    //             item.expand(false, this.onExpand, this);
+    //         }
+    //     }
+    // },
 
     overrideClose: false,
     prevsel: null,
@@ -463,15 +443,19 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     },
     
     onContainerDrag: function(draggable, e, offsetX, offsetY, eOpts) {
-        // if (offsetX < 1) {
-        //     this.setClosed(true);
-        // } else {
-        //     this.setClosed(false);
-        // }
+        if (offsetX < 1) {
+            this.setClosed(true);
+        } else {
+            this.setClosed(false);
+        }
     },
     
     onContainerDragstart: function(draggable, e, offset, eOpts) {
         if (this.config.slideSelector == false) {
+            return false;
+        }
+
+        if(this.getDisableDrag() == true) {
             return false;
         }
         
@@ -567,26 +551,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         var duration = duration || this.config.slideDuration,
             slideBezelPanel;
 
-        //defer to prevent false masking and flickering
-        // Ext.defer(function() {
-        //     this.getContainer().getActiveItem().setMasked(false);
-        // }, 10, this);
-
-        // slideBezelPanel = Ext.getCmp('slidenavigationbezel')
-
-        // slideBezelPanel.setWidth('15px');
-        // this.fireEvent('containertoggle', 'closed');
-
-        // slideBezelPanel.element.un({
-        //     tap: this.
-        // });
-
         this.moveContainer(0, duration);   
-
-        
-        // this.getContainer().element.un({
-        //     'tap': this.closeContainerNoDuration
-        // });
     },
     
     /**
@@ -595,14 +560,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     openContainer: function(duration) {
         var duration = duration || this.config.slideDuration;
         this.getContainer().addCls('open');
-
-        //defer to prevent false masking and flickering
-        // Ext.defer(function() {
-        //         this.getContainer().getActiveItem().setMasked(true);
-        // }, 10, this);
-        // this.moveContainer(this.config.list.width, duration);
-        // Ext.getCmp('slidenavigationbezel').setWidth('100%');
-        // this.fireEvent('containertoggle', 'open');
 
         this.moveContainer(this.config.list.width, duration);
     },
@@ -695,19 +652,10 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      */
     createNavigationList: function(store) {
         var itemTpl = new Ext.XTemplate(
-                // '<tpl if="leaf">',
-                //     '<div class="accordion-list-content">',
-                //         this.getContentItemTpl(),
-                //     '</div>',
                 '<tpl if="header">',
                     '<div>',
                         this.getStaticHeaderItemTpl(),
                     '</div>',
-                // '<tpl else>',
-                //     '<div class="accordion-list-header">',
-                //         this.getHeaderItemTpl(),
-                //     '</div>',
-                // '</tpl>',
                 '<tpl else>',
                     '<div class="accordion-list-content">',
                         this.getContentItemTpl(),
@@ -730,8 +678,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 scope: this
             }
         }));
-
-        list.on('itemtap', this.onItemTap, this);
+        // list.on('itemtap', this.onItemTap, this);
         list.setStore( this.store );
         list.setScrollable (true);
 
@@ -881,7 +828,12 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             list.select(recordToSelect);    
         }        
     },
-
+    /**
+    * Bounce the container and reveal the sliding menu to provide a visual hint.
+    * @param {Number} times
+    * @param {Number} delay
+    * @param {Function} callback
+    */
     doBounce: function(times, delay, callback) {
         var me = this,
             counter = 0,
