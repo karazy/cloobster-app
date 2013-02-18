@@ -475,7 +475,8 @@ Ext.define('EatSense.controller.InfoPage', {
     			store.filterBy(function(record) {
     				var title = record.get('title'),
     					shortText = record.get('shortText'),
-    					regEx = new RegExp("^"+filterValue, 'i');
+    					//removed "^"+
+    					regEx = new RegExp(filterValue, 'i');
 
     				if(title && title.match(regEx)) {
     					return true;

@@ -48,9 +48,8 @@ Ext.define('EatSense.controller.Lounge', {
 			this.markSlideNavAreaActive(checkInCtr.getActiveArea(), spot);
 		 },
 		 'statusChanged' : function(status) {
-			if(status == appConstants.CHECKEDIN) {
-			  appHelper.toggleMask(i10n.translate('checkin.init.loading', checkInCtr.getActiveCheckIn().get('businessName')));
-			  this.initDashboard();			  
+			if(status == appConstants.CHECKEDIN) {			  
+			  this.initDashboard();			  			  
 			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  this.toggleSlidenavButtons(true);
 			  // this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
@@ -66,7 +65,6 @@ Ext.define('EatSense.controller.Lounge', {
 			  }
 			  this.getLoungeview().selectByAction('show-clubdashboard');
 			  this.getLoungeview().setDisableDrag(false);
-			  appHelper.toggleMask(false);
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 				this.getLoungeview().setDisableDrag(true);
@@ -244,7 +242,7 @@ Ext.define('EatSense.controller.Lounge', {
 	this.getClubArea().setActiveItem(0);
 	lounge.setActiveItem(0);
 
-	main.switchTo(lounge, 'left');
+	main.switchTo(lounge, 'left');	
   },
   /*
   * Set title of menu tilebutton in club dashboard to name of active area.

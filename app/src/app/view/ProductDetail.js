@@ -25,7 +25,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					xtype: 'basicbutton',
 					action: 'cart',
 					ui: 'action',
-					iconCls : 'cart-bell',
+					iconCls : 'shop1',
 					iconMask: true,
 					align: 'right',
 					welcomeFn: function() {
