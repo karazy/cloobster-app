@@ -193,7 +193,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                             return -1;
                         }
 
-                        if(item1.get('dynamic') && item2.get('dynamic') && item1.get('subtitle') && !item2.get('subtitle') && !item2.get('header')) {
+                        if(item1.get('dynamic') && item2.get('dynamic') && item1.get('marked') && !item2.get('marked') && !item2.get('header')) {
                             return -1;
                         }
 
