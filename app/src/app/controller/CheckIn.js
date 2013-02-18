@@ -984,25 +984,25 @@ Ext.define('EatSense.controller.CheckIn', {
 
         //check business ids of new spot against old spot!
         if(newSpot.get('businessId') != me.getActiveSpot().get('businessId')) {
-           Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.businesses.mismatch'));
+           Ext.Msg.alert(i10n.translate('checkin.switchspot.msgtitle'), i10n.translate('error.checkin.switchspot.businesses.mismatch'));
           return false;
         }
 
         //prevent switch to welcome spots
         if(newSpot.get('welcome') == true) {
-          Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.welcome'));
+          Ext.Msg.alert(i10n.translate('checkin.switchspot.msgtitle'), i10n.translate('error.checkin.switchspot.welcome'));
           return false;
         }
 
         //prevent switch to master spots
         if(newSpot.get('master') == true) {
-          Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.welcome'));
+          Ext.Msg.alert(i10n.translate('checkin.switchspot.msgtitle'), i10n.translate('error.checkin.switchspot.welcome'));
           return false;
         }
 
         //check that new spot belongs to selected area
         if(!me.checkActiveSpotInActiveArea(newSpot, activeArea)) {
-          Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.checkin.switchspot.area.mismatch'));
+          Ext.Msg.alert(i10n.translate('checkin.switchspot.msgtitle'), i10n.translate('error.checkin.switchspot.area.mismatch'));
           return false;
         }
 
@@ -1179,7 +1179,7 @@ Ext.define('EatSense.controller.CheckIn', {
     function onListSelect(list, record) {
 
       Ext.Msg.show({
-        title: i10n.translate('hint'),
+        title: i10n.translate('checkin.switchspot.msgtitle'),
         message: i10n.translate('checkin.switchspot.confirmselected', record.get('name')),
         buttons: [{
           text: i10n.translate('yes'),

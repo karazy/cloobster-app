@@ -881,31 +881,35 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"checkin.switchmasterspot.barcode" : {			
 			"DE" :  "Um	dieses	Produkt	zu bestellen, scannen Sie bitte den Barcode ihres Spots (Standort).",
-			"EN" : ""
+			"EN" : "To order this product, please scan the barcode of your current spot."
 		},
 		"checkin.switchmasterspot.list" : {
-			"DE" : "Um	dieses	Produkt	zu	bestellen, wählen Sie bitte  Ihren Spot (Standort) aus der Liste.",
-			"EN" : ""
+			"DE" : "Um	dieses	Produkt	zu	bestellen, wählen Sie bitte Ihren Spot (Standort) aus der Liste.",
+			"EN" : "To order this product, please select your spot from the list."
 		},
 		"checkin.switchspot.barcode" : {			
 			"DE" :  "Um	dieses	Produkt	zu bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
 					"Scannen Sie hierfür den Barcode des neuen Spots.",
-			"EN" : ""
+			"EN" : "To order this product you have to switch from \"{0}\" to \"{1}\". "+
+					"Please scan the barcode of your new spot."
 		},
 		"checkin.switchspot.list" : {
 			"DE" : "Um	dieses	Produkt	zu	bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
 					"Wählen Sie hierfür den neuen Spot (Standort) aus der Liste.",
-			"EN" : ""
+			"EN" : "To order this product you have to switch from \"{0}\" to \"{1}\". "+
+					"Please select your new spot from the list."
 		},
 		"checkin.switchspot.orders.barcode" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
 					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch scannen des neuen Spots.",
-			"EN" : ""
+			"EN" : "To order this product you have to complete your current order balance of {0}. " + 
+					"Afterwards please scan your new spot to switch from \"{1}\" to \"{2}\"."
 		},
 		"checkin.switchspot.orders.list" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
 					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch Auswahl des neuen Spots.",
-			"EN" : ""
+			"EN" : "To order this product you have to complete your current order balance of {0}. " +
+					"Afterwards please select your new spot from the list to switch from \"{1}\" to \"{2}\"."
 		},
 		"checkin.switchspot.confirmselected" : {
 			"DE" :  "An Spot {0} einchecken?",
@@ -978,15 +982,15 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"error.checkin.switchspot.businesses.mismatch" : {
 			"DE" :  "Dieser Spot ist ungültig.",
-			"EN" : ""
+			"EN" : "This spot is invalid."
 		},
 		"error.checkin.switchspot.area.mismatch" : {
 			"DE" :  "Dieser Spot gehört nicht zum ausgewählten Servicebereich.",
-			"EN" : ""
+			"EN" : "This spot does not belong to your selected service area."
 		},
 		"error.checkin.switchspot.welcome" : {
 			"DE" :  "Dieser Spot repräsentiert keinen Standort. Bitte checken Sie an anderer Stelle ein.",
-			"EN" : ""
+			"EN" : "This spot doesn't represent a real spot. Please check in at another place."
 		},
 		//system
 		"network.slow" : {
