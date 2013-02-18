@@ -880,23 +880,23 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Stay"
 		},
 		"checkin.switchspot.barcode" : {			
-			"DE" :  "Um	dieses	Produkt	zu bestellen müssen Sie von \"{0}” nach \"{1}\" wechseln. "+
+			"DE" :  "Um	dieses	Produkt	zu bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
 					"Scannen Sie hierfür den Barcode des neuen Spots.",
 			"EN" : ""
 		},
 		"checkin.switchspot.list" : {
-			"DE" : "Um	dieses	Produkt	zu	bestellen müssen Sie von \"{0}” nach \"{1}\" wechseln. "+
+			"DE" : "Um	dieses	Produkt	zu	bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
 					"Wählen Sie hierfür den neuen Spot (Standort) aus der Liste.",
 			"EN" : ""
 		},
 		"checkin.switchspot.orders.barcode" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
-					"Dann wechseln Sie von \"{1}” nach \"{2}\" durch scannen des neuen Spots.",
+					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch scannen des neuen Spots.",
 			"EN" : ""
 		},
 		"checkin.switchspot.orders.list" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
-					"Dann wechseln Sie von \"{1}” nach \"{2}\" durch Auswahl des neuen Spots.",
+					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch Auswahl des neuen Spots.",
 			"EN" : ""
 		},
 		"checkin.switchspot.confirmselected" : {
