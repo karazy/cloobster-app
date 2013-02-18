@@ -128,7 +128,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             '<tpl if="iconCls">',
                 '<div class="slidenav-icon {iconCls}"></div>',
             '</tpl>',
-            '<div style="height: 30px; padding: 7px 0.8em 2px 0em; max-width: 180px; float:left; font-size: 16px; line-height: 16px;">',
+            '<div style="height: 30px; padding: 8px 0.8em 2px 0em; max-width: 180px; float:left; font-size: 16px; line-height: 16px;">',
                 '{title}',
                 '<div style="font-size: 12px;">{subtitle}</div>',
             '</div>',

@@ -360,8 +360,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "<h2>{0},</h2><p>welcome to</p><p>\"{1}\"</p>"
 		},
 		"clubdashboard.button.vip" : {
-			"DE" :  "VIP Call",
-			"EN" :  "VIP Call"
+			"DE" :  "Service Call",
+			"EN" :  "Service Call"
 		},
 		"clubdashboard.button.vip.text" : {
 			"DE" :  "Fragen Sie uns",
@@ -650,16 +650,16 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "VIP"
 		},
 		"requestsTitle" : {
-			"DE" :  "VIP",
-			"EN" :  "VIP"
+			"DE" :  "Service Call",
+			"EN" :  "Service Call"
 		},
 		"requestCallWaiterSendMsd" : {
 			"DE" :  "Bitte einen Moment Geduld!<br>Es wird gleich jemand kommen.",
 			"EN" :  "One moment please!<br>We'll be serving you soon."
 		},
 		"callWaiterButton" : {
-			"DE" :  "VIP Call",
-			"EN" :  "VIP Call"
+			"DE" :  "Service Call",
+			"EN" :  "Service Call"
 		},
 		"callWaiterRequestBadge" : {
 			"DE" :  "Sie haben uns gerufen.",
@@ -674,7 +674,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "What can we do for you?"
 		},
 		"callWaiterCancelHint" : {
-			"DE" :  "Wir wurden gerufen und <br/>kommen so schnell wie möglich!",
+			"DE" :  "Wir wurden gerufen und <br/>melden uns so schnell wie möglich!",
 			"EN" :  "We have been notified!<br>We'll be serving you soon."
 		},
 		"vipGreetingMessage" : {
