@@ -24,7 +24,8 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         'Ext.data.ModelManager',
         'Ext.Toolbar',
         'Ext.data.Model',
-        'Ext.data.TreeStore',
+        'Ext.data.Store',
+        // 'Ext.data.TreeStore',
         'Ext.dataview.List'
     ],
     
@@ -173,10 +174,17 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         /**
          *  Create the store.
          */
-        me.store = Ext.create('Ext.data.TreeStore', {
+        // me.store = Ext.create('Ext.data.TreeStore', {
+        //     model: me.getModel(),
+        //     defaultRootProperty: 'items',
+        //     root: { items: this.config.items },
+        //     //TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
+        //     destroyRemovedRecords: false            
+        // });
+
+        me.store = Ext.create('Ext.data.Store', {
             model: me.getModel(),
-            defaultRootProperty: 'items',
-            root: { items: this.config.items },
+            data: this.config.items,
             //TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
             destroyRemovedRecords: false            
         });
@@ -244,13 +252,15 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      
         // TODO: Make this optional, perhaps by defining
         // "selected: true" in the items list
-        var firstitem = this.getList().getStore().getAt(0);
-        if ( firstitem.isLeaf() ) {
-            this.getList().select(0);
-        } else {
-            firstitem.expand();
-            this.getList().select(1);
-        }
+        // var firstitem = this.getList().getStore().getAt(0);
+        // if ( firstitem.isLeaf() ) {
+        //     this.getList().select(0);
+        // } else {
+        //     firstitem.expand();
+        //     this.getList().select(1);
+        // }
+
+        this.getList().select(0);
 
         if(this.config.bounceWhenInactive) {
             var bounceTask = Ext.create('Ext.util.DelayedTask', function() {
@@ -266,7 +276,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             });
 
             function delayBounce() {
-                console.log('delayBounce');
                 window.clearInterval(interval); 
                 interval = window.setInterval(bounceContainer, 10000);
             }
@@ -285,13 +294,19 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             });
         }
     },
-
+    /**
+    * Adds new items to the store and assigns indexes to them.
+    * @param {Array} array of {@link View.getModel} items to add to list store 
+    */
     addNewItems: function(_items) {
         this.assignIndexes(_items);
         this.getList().getStore().add(_items);
         this.getList().refresh();
     },
-
+    /**
+    * Assign indexes to given items.
+    * @param {Array} array of {@link View.getModel} items to add indices
+    */
     assignIndexes: function (_items) {
        var me = this,
            index,
@@ -307,7 +322,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
            }
        });
     },
-
     /**
      *  Creates a button that can toggle the navigation menu.  For an example
      *  config, see ``slideButtonDefaults``.
@@ -340,6 +354,8 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             //this is a header item, no action required
             return;
         }
+
+        return;
 
         if (!item.isLeaf()) {
             if (item.isExpanded()) {
@@ -507,6 +523,8 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                             name: 'subtitle',
                             type: 'string'
                         },
+                        //icon to display on element
+                        'iconCls',
                         'slideButton', 
                         'handler',
                         //used to display a badgeText like in {@link Ext.Button}
@@ -670,17 +688,22 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      */
     createNavigationList: function(store) {
         var itemTpl = new Ext.XTemplate(
-                '<tpl if="leaf">',
-                    '<div class="accordion-list-content">',
-                        this.getContentItemTpl(),
-                    '</div>',
-                '<tpl elseif="header">',
+                // '<tpl if="leaf">',
+                //     '<div class="accordion-list-content">',
+                //         this.getContentItemTpl(),
+                //     '</div>',
+                '<tpl if="header">',
                     '<div>',
                         this.getStaticHeaderItemTpl(),
                     '</div>',
+                // '<tpl else>',
+                //     '<div class="accordion-list-header">',
+                //         this.getHeaderItemTpl(),
+                //     '</div>',
+                // '</tpl>',
                 '<tpl else>',
-                    '<div class="accordion-list-header">',
-                        this.getHeaderItemTpl(),
+                    '<div class="accordion-list-content">',
+                        this.getContentItemTpl(),
                     '</div>',
                 '</tpl>',
                 {
