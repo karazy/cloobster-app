@@ -157,7 +157,11 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         /**
          * @cfg {Boolean} set to true when basic mode is active
          */
-        basicMode: false
+        basicMode: false,
+        /**
+         * @cfg {Boolean} set to true, to provide a visuell hint for menu when user is inactice
+         */
+        bounceWhenInactive: false
     },
         
     initConfig: function() {
@@ -246,6 +250,39 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         } else {
             firstitem.expand();
             this.getList().select(1);
+        }
+
+        if(this.config.bounceWhenInactive) {
+            var bounceTask = Ext.create('Ext.util.DelayedTask', function() {
+                    this.doBounce(1);
+                }, this),
+            interval,
+            me = this;
+
+            interval = window.setInterval(bounceContainer, 10000);
+
+            this.getContainer().element.on({
+                touchstart: delayBounce
+            });
+
+            function delayBounce() {
+                console.log('delayBounce');
+                window.clearInterval(interval); 
+                interval = window.setInterval(bounceContainer, 10000);
+            }
+
+            function bounceContainer() {
+                 me.doBounce(1);
+            }
+
+            this.on('containertoggle', function(status) {
+                if(status == 'open') {
+                    window.clearInterval(interval);
+                    this.getContainer().element.un({
+                        touchstart: delayBounce
+                    });
+                }
+            });
         }
     },
 
@@ -680,7 +717,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         return Ext.create('Ext.Container', Ext.merge({}, this.config.container, {
             docked: 'left',
             cls: 'x-slidenavigation-container',
-            style: 'width: 100%; height: 100%; position: absolute; opacity: 1; z-index: 5; left: 35px;',
+            style: 'width: 100%; height: 100%; position: absolute; opacity: 1; z-index: 5;',
             docked: 'left',
             layout: 'card',
             draggable: {
@@ -815,7 +852,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         }        
     },
 
-    doBounce: function(times, delay) {
+    doBounce: function(times, delay, callback) {
         var me = this,
             counter = 0,
             times = times || 1,
@@ -825,15 +862,15 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         bounceBaby();
 
         //TODO register cotainer tap and stop animation on tap
-        containerEle.on({
-            touchstart: stopTheBounce,
-            single: true
-        });
+        // containerEle.on({
+        //     touchstart: stopTheBounce,
+        //     single: true
+        // });
 
         function bounceBaby() {
-            me.getBounceAnimationIn().run(containerEle, {
-            });
-            return;
+            // me.getBounceAnimationIn().run(containerEle, {
+            // });
+            // return;
 
             if(counter < times) {
                 me.getBounceAnimationOut().run(containerEle, {
@@ -841,17 +878,23 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                     counter++;
                     me.getBounceAnimationIn().run(containerEle, {
                         after: function() {
-                            Ext.defer(function() {
-                                bounceBaby();
-                            }, delay);                            
+                            if(counter < times) {
+                                Ext.defer(function() {
+                                    bounceBaby();
+                                }, delay);
+                            } else {
+                                if(callback) {
+                                    callback();
+                                }
+                            }                          
                         }
                     });
                 }
                 });
             } else {
-                containerEle.un({
-                    touchstart: stopTheBounce
-                });
+                // containerEle.un({
+                //     touchstart: stopTheBounce
+                // });
             }
         }
 
@@ -871,8 +914,8 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
           reverse: false,
           easing: 'ease-in',
           from:{'left':'0px'},
-          to: {'left':'35px'},
-          duration: 500,
+          to: {'left':'15px'},
+          duration: 400,
         });
         return anim;
     },
@@ -882,9 +925,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         anim = Ext.create('Ext.Anim',{
           autoClear: false,
           easing: 'ease-out',
-          from:{'left':'35px'},
+          from:{'left':'15px'},
           to: {'left':'0px'},
-          duration: 300
+          duration: 150
         });
         return anim;
     }

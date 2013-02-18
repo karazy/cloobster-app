@@ -26,13 +26,14 @@ Ext.define('EatSense.view.Lounge', {
          */
         selectSlideDuration: 0,
         slideDuration: 0,
+        bounceWhenInactive: false,
         container: {
         	items: [ 
         		//order matters, put bezel first to make button stay on top!
         		{
         			xtype: 'container',
         			cls: 'x-slidenavigation-bezel',
-        			id: 'slidenavigationbezel',
+        			id: 'slidenavigationbezel',        			
         			left: 0,
         			top: 0,
         			bottom: 0,
@@ -51,16 +52,7 @@ Ext.define('EatSense.view.Lounge', {
 		        			tapMaskFactor: 3
 	        			}  
         			]
-        		},
-				// {
-				// 	xtype: 'panel',
-				// 	layout: {
-				// 		type: 'fit'
-				// 	},
-				// 	height: 5,
-				// 	docked: 'bottom',
-				// 	style: 'background-color: orange'
-				// }         	        		
+        		}        	        		
         	]
         },
 		items : [	

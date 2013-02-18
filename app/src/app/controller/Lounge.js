@@ -73,10 +73,6 @@ Ext.define('EatSense.controller.Lounge', {
 				this.registerSlideBezelTap(false);
 				this.cleanup();
 			}
-
-			Ext.defer(function() {
-				me.getLoungeview().doBounce(3, 2000);
-			}, 3000, this);
 			
 		 },
 		 'basicmode' : function(basicMode) {
