@@ -223,6 +223,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Spitzname",
 			"EN" :  "Alias"
 		},
+		"checkin.init.loading" : {
+			"DE" :  "CheckIn bei {0} ...",
+			"EN" : "Check-in at {0} ..."
+		},
 		"restoreStateLoading" : {
 			"DE" :  "Aktiver Check-in wird geladen ...",
 			"EN" :  "Check-in in progress ..."
