@@ -111,7 +111,7 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('settingsButton'),
 				leaf: true,
 				action: 'show-settings',
-				iconCls: 'user-icon',
+				iconCls: 'user-icon'
 			},
 						{	
 				xtype: 'myorderstab',

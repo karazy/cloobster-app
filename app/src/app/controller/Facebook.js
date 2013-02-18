@@ -186,7 +186,6 @@ Ext.define('EatSense.controller.Facebook', {
                 			//unmask settings
                 			Ext.Viewport.unmask();
                 			Ext.Msg.alert(i10n.translate('success'), i10n.translate('facebook.connect.success'));
-                			me.toggleConnectWithFbButtons(false);
                 			settingsCtr.loadSettings(callingview);
                 		},
                 		failure: function(record, operation) {
@@ -288,30 +287,10 @@ Ext.define('EatSense.controller.Facebook', {
         
 	},
 	/**
-    * Show or hide connect with fb buttons.
-    * This is useful when the account auth is handled via facebook or google.
-    * @param show
-    *   true to show, false to hide
-    */
-	toggleConnectWithFbButtons: function(show) {
-		var connectFbDashboardButton = this.getConnectFbDashboardButton(),
-			connectFbClubButton = this.getConnectFbClubButton();
-
-		connectFbDashboardButton.setHidden(!show);
-		connectFbDashboardButton.setDisabled(!show);
-		connectFbClubButton.setHidden(!show);
-		connectFbClubButton.setDisabled(!show);
-	},
-	/**
 	* Call FB.logout.
 	* Reanable fb connect buttons.
 	*/
 	fbLogout: function() {
-		var connectFbDashboardButton = this.getConnectFbDashboardButton(),
-			connectFbClubButton = this.getConnectFbClubButton();
-
-		this.toggleConnectWithFbButtons(true);
-
 		console.log('Facebook.fbLogout');
 		FB.logout();
 	}

@@ -175,6 +175,8 @@ Ext.define('EatSense.controller.Settings', {
                 } else {
                     this.toggleEmailAndPwButtons(view, true);
                     fbConnectedLabel.hide();
+                    connectWithFbButton.enable();
+                    connectWithFbButton.show();
                 }
                 loginButton.hide();
             }

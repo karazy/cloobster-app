@@ -897,7 +897,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
           easing: 'ease-in',
           from:{'left':'0px'},
           to: {'left':'15px'},
-          duration: 400,
+          duration: 400
         });
         return anim;
     },

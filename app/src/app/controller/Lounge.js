@@ -358,8 +358,6 @@ Ext.define('EatSense.controller.Lounge', {
 						loungeview.getList().getStore().sort([
 						   {
 			                    sorterFn: function(item1, item2) {
-			                    	console.log('index ' + item1.get('index')+ ' ' +item2.get('index'));
-			                       
 			                        if(item1.get('dynamic') && !item2.get('dynamic')) {
 			                        	return 1;
 			                        }
