@@ -181,7 +181,34 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             model: me.getModel(),
             data: this.config.items,
             //TODO ST 2.1 Workaround http://www.sencha.com/forum/showthread.php?249230-ST-2.1-Store-remove-record-fails-with-Cannot-call-method-hasOwnProperty-of-null&p=912339#post912339
-            destroyRemovedRecords: false            
+            destroyRemovedRecords: false,
+            sorters: [
+                {
+                    sorterFn: function(item1, item2) {
+                        if(item1.get('dynamic') && !item2.get('dynamic')) {
+                            return 1;
+                        }
+
+                        if(!item1.get('dynamic') && item2.get('dynamic')) {
+                            return -1;
+                        }
+
+                        if(item1.get('dynamic') && item2.get('dynamic') && item1.get('subtitle') && !item2.get('subtitle') && !item2.get('header')) {
+                            return -1;
+                        }
+
+                        if(item1.get('index') > item2.get('index')) {
+                            return 1;
+                        }
+
+                        if(item1.get('index') == item2.get('index')) {
+                            return 0;
+                        }
+
+                        return -1;
+                    }
+                }
+            ]         
         });
 
         // me.store.on('addrecords', this.addNewItems, this);

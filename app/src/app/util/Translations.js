@@ -879,6 +879,14 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Bleiben",
 			"EN" : "Stay"
 		},
+		"checkin.switchmasterspot.barcode" : {			
+			"DE" :  "Um	dieses	Produkt	zu bestellen, scannen Sie bitte den Barcode ihres Spots (Standort).",
+			"EN" : ""
+		},
+		"checkin.switchmasterspot.list" : {
+			"DE" : "Um	dieses	Produkt	zu	bestellen, wählen Sie bitte  Ihren Spot (Standort) aus der Liste.",
+			"EN" : ""
+		},
 		"checkin.switchspot.barcode" : {			
 			"DE" :  "Um	dieses	Produkt	zu bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
 					"Scannen Sie hierfür den Barcode des neuen Spots.",

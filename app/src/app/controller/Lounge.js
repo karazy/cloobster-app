@@ -353,38 +353,6 @@ Ext.define('EatSense.controller.Lounge', {
 					 if(records.length > 0) {
 						items = me.createItemsFromAreaStore(areaStore);
 						loungeview.addNewItems(items);
-						loungeview.getList().getStore().setSorters(null);
-	
-						loungeview.getList().getStore().sort([
-						   {
-			                    sorterFn: function(item1, item2) {
-			                        if(item1.get('dynamic') && !item2.get('dynamic')) {
-			                        	return 1;
-			                        }
-
-			                        if(!item1.get('dynamic') && item2.get('dynamic')) {
-			                        	return -1;
-			                        }
-
-			                        if(item1.get('dynamic') && item2.get('dynamic') && item1.get('subtitle') && !item2.get('subtitle') && !item2.get('header')) {
-			                            return -1;
-			                        }
-
-			                        if(item1.get('index') > item2.get('index')) {
-			                        	return 1;
-			                        }
-
-			                        if(item1.get('index') == item2.get('index')) {
-			                        	return 0;
-			                        }
-
-			                        return -1;
-			                    }
-				            }
-						]);
-						
-
-
 					 }
 					 callback();
 				  } else {

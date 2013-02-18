@@ -816,7 +816,7 @@ Ext.define('EatSense.controller.CheckIn', {
         tmpArea,
         orderCtr = this.getApplication().getController('Order'),
         ordersTotal,
-        completeCheckInMessage,
+        spotSwitchMessage,
         barcodeRequired,
         ordersExist;
 
@@ -849,12 +849,12 @@ Ext.define('EatSense.controller.CheckIn', {
     //if orders exist show alert and ask user to select payment method
     if(ordersExist) {
       ordersTotal = appHelper.formatPrice(orderCtr.calculateOrdersTotal(Ext.StoreManager.lookup('orderStore')), true);
-      completeCheckInMessage = barcodeRequired ?
+      spotSwitchMessage = barcodeRequired ?
        i10n.translate('checkin.switchspot.orders.barcode', ordersTotal, activeSpot.get('areaName'), activeArea.get('name')) : i10n.translate('checkin.switchspot.orders.list', ordersTotal, activeSpot.get('areaName'), activeArea.get('name'));
 
       Ext.Msg.show({
           title: i10n.translate('checkin.switchspot.msgtitle'),
-          message: completeCheckInMessage,
+          message: spotSwitchMessage,
           buttons: [{
             text: i10n.translate('checkin.switchspot.switch'),
             itemId: 'yes',
@@ -883,9 +883,18 @@ Ext.define('EatSense.controller.CheckIn', {
         });
       }
     } else {
+        //show special message depending on spot type
+        if(!activeSpot.get('master')) {
+          spotSwitchMessage = barcodeRequired ? i10n.translate('checkin.switchspot.barcode', activeSpot.get('areaName'), activeArea.get('name')) : 
+          i10n.translate('checkin.switchspot.list', activeSpot.get('areaName'), activeArea.get('name'));
+        } else {
+          spotSwitchMessage = barcodeRequired ? i10n.translate('checkin.switchmasterspot.barcode', activeSpot.get('areaName'), activeArea.get('name')) : 
+          i10n.translate('checkin.switchmasterspot.list', activeSpot.get('areaName'), activeArea.get('name'));
+        }
+
         Ext.Msg.show({
           title: i10n.translate('checkin.switchspot.msgtitle'),
-          message: barcodeRequired ? i10n.translate('checkin.switchspot.barcode', activeSpot.get('areaName'), activeArea.get('name')) : i10n.translate('checkin.switchspot.list', activeSpot.get('areaName'), activeArea.get('name')),
+          message: spotSwitchMessage,
           buttons: [{
             text: i10n.translate('checkin.switchspot.switch'),
             itemId: 'yes',
