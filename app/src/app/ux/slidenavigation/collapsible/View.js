@@ -126,14 +126,14 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          */
         contentItemTpl: [
             '<tpl if="iconCls">',
-                '<div class="slidenav-icon {iconCls}"></div>',
+                '<div class="x-slidenav-icon {iconCls}"></div>',
             '</tpl>',
-            '<div style="height: 30px; padding: 8px 0.8em 2px 0em; max-width: 180px; float:left; font-size: 16px; line-height: 16px;">',
+            '<div class="x-slidenav-text">',
                 '{title}',
-                '<div style="font-size: 12px;">{subtitle}</div>',
+                '<div class="subtitle">{subtitle}</div>',
             '</div>',
             '<tpl if="marked">',
-                '<div class="slidenav-icon marked-icon"></div>',
+                '<div class="x-slidenav-icon marked-icon"></div>',
             '</tpl>',
             '<tpl if="badgeText">',
                 '<span class="slidenav-badge">{badgeText}</span>',

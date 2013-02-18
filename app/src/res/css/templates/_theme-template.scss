@@ -1296,14 +1296,13 @@ h9 {
 
 /* Slidenavigation */
 
-.slidenav-icon {
+.x-slidenav-icon {
   width: 35px;
   height: 30px;
   float: left;
   background-color: white;
   background-image: none;
   -webkit-mask-size: 25px;
-  margin: 0 5px 0 0;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
 
@@ -1311,6 +1310,7 @@ h9 {
     float: right;
   }
 }
+
 
 /* Slidenavigation button */ 
 .x-slidenavigation-toggle {
@@ -1405,12 +1405,27 @@ h9 {
     border-bottom: 1px solid black !important;
   }
 
-.x-dock-horizontal .x-dock-body .x-list-item-body {
+  .x-dock-horizontal .x-dock-body .x-list-item-body {
     min-height: 46px;
     padding: 5px 0px 5px 10px;
+  } 
+
+  .x-slidenav-text {
+    height: 30px;
+    padding: 8px 0.8em 2px 5px;
+    max-width: 180px;
+    float:left;
+    font-size: 16px;
+    line-height: 16px;
+    
+    .subtitle {
+       font-size: 12px;
+    }
   }
 
-  
+  .x-slidenav-icon + .x-slidenav-text {
+    padding-left: 10px;
+  }
 }
 
 .x-slidenavigation-list {
