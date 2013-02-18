@@ -313,13 +313,20 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
            items = Ext.isArray(_items) ? _items : [_items];
 
        Ext.each(items, function(item, index) {
-           if ( Ext.isDefined(item.leaf) && 
-                !Ext.isDefined(item.index)) { 
+            //assign index to all items for proper sorting!
+            if(!Ext.isDefined(item.index)) { 
                 item.index = me._indexCount;
                 me._indexCount++;
-           } else if(!Ext.isDefined(item.header)) {
-               me.assignIndexes ( item.items );
-           }
+            }
+           // if ( Ext.isDefined(item.leaf) && 
+           //      !Ext.isDefined(item.index)) { 
+           //      item.index = me._indexCount;
+           //      me._indexCount++;
+           // } else {
+           //      //also assign header an index to enable sorting
+           //      // if(!Ext.isDefined(item.header)) 
+           //     me.assignIndexes ( item.items );
+           // }
        });
     },
     /**
@@ -375,7 +382,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             container = me.getContainer(),
             index = item.raw.index;
 
-        if ( index == undefined ) {
+        if ( index == undefined || item.raw.header) {
             list.deselect(item);
             this.overrideClose = true;
             list.select ( this.prevsel );
