@@ -433,23 +433,30 @@ Ext.define('EatSense.controller.Account', {
 		//error handler for ajax request
 		function onFailure(accountData) {
 			console.log('Account.login > failure ' + accountData.status);
+			var error;
 	    	Ext.Viewport.setMasked(false);
 
-			if(accountData.status) {
-				//not authorized
-				if(accountData.status == "401" || accountData.status == "403") {
-					errorMessage = i10n.translate('general.credentials.invalid');
-				} else if (accountData.status == "404") {
-					errorMessage = i10n.translate('resourceNotAvailable');
-				}
-			};
+	    	//TODO this is dirty lirty aber wat solls. REFACTORING
+	    	try {
+	    		//an errorkey exsists when account is inactive
+	    		error = Ext.JSON.decode(accountData.responseText);	
+	    	} catch(e) {
+	    		if(accountData.status) {
+					//not authorized
+					if(accountData.status == "401" || accountData.status == "403") {
+						errorMessage = i10n.translate('general.credentials.invalid');
+					} else if (accountData.status == "404") {
+						errorMessage = i10n.translate('resourceNotAvailable');
+					}
+				};
+	    	}
 
 	    	if(!fbdata || (accountData.status != "401" && accountData.status != "403")) {
 	    		me.getApplication().handleServerError({
 					'error': {
 						'status': accountData.status,
-						'statusText': accountData.statusText
-					}, 
+						'responseText': accountData.responseText
+					},
 					'forceLogout': false, 
 					'hideMessage':false,
 					'message': errorMessage || null
