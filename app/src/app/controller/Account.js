@@ -18,7 +18,7 @@ Ext.define('EatSense.controller.Account', {
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
 			settingsViewBackButton: 'mainview settingsview settings #backButton',
 			logoutDashboardButton: 'settingsview button[action=logout]',
-			loginViewBackButton : 'login button[action=back]',
+			// loginViewBackButton : 'login button[action=back]',
 			signupButton : 'login button[action=signup]',
 			loginButton : 'login button[action=login]',
 			requestPwButton : 'login button[action=request-password]',
@@ -41,9 +41,9 @@ Ext.define('EatSense.controller.Account', {
 			logoutDashboardButton : {
 				tap: 'logoutDashboardButtonHandler'
 			},
-			loginViewBackButton : {
-				tap: 'loginViewBackButtonHandler'
-			},
+			// loginViewBackButton : {
+			// 	tap: 'loginViewBackButtonHandler'
+			// },
 			signupButton : {
 				tap: 'signupButtonHandler'
 			},
@@ -135,21 +135,39 @@ Ext.define('EatSense.controller.Account', {
 	showLoginView: function(button) {
 		var me = this,
 			loginView = this.getLoginView(),
+			backButton,
 			androidCtr = this.getApplication().getController('Android');
 
 		Ext.Viewport.add(loginView);
-		loginView.show();
-		androidCtr.addBackHandler(function() {
-			me.hideLoginView()
+		backButton = loginView.down('backbutton');
+
+		//wire up backbutton and android event
+		backButton.on({
+			tap: closeLogin,
+			single: true
 		});
+
+		androidCtr.addBackFn(closeLogin);
+
+		function closeLogin() {
+			me.hideLoginView();
+
+			backButton.un({
+				tap: closeLogin
+			});
+			androidCtr.removeBackFn();
+		}
+
+		loginView.show();
+		
 	},
 	/**
 	* Tap event handler for login backbutton.
 	*/
-	loginViewBackButtonHandler: function(button) {
-		this.getApplication().getController('Android').removeLastBackHandler();
-		this.hideLoginView();
-	},
+	// loginViewBackButtonHandler: function(button) {
+	// 	this.getApplication().getController('Android').removeLastBackHandler();
+	// 	this.hideLoginView();
+	// },
 	/**
 	* Hide loginview.
 	*/
@@ -527,8 +545,8 @@ Ext.define('EatSense.controller.Account', {
 	*/
 	showSettingsView: function(button) {
 		var me = this;
-
-		this.getApplication().getController('Settings').loadSettings(this.getSettingsView().down('#settingCards'));
+// .down('#settingCards')
+		this.getApplication().getController('Settings').loadSettings(this.getSettingsView());
 		this.getMainView().switchTo(this.getSettingsView(), 'left');
 
 		this.getApplication().getController('Android').addBackHandler(function() {
