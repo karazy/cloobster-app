@@ -6,10 +6,12 @@ Ext.define('EatSense.controller.Android', {
 	requires: ['EatSense.util.Helper'],
 	config: {
 		refs: {
-			loungeview: 'lounge'
+			loungeview: 'lounge',
+			mainview: 'mainview'
 		},
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
+		androidBackFn: null,
 		//when true, will exit application on next backbutton event
 		exitOnBack: false,
 		//if true won't remove a backhandler. Only used for message boxes. Setting this somewhere else won't have any effect.
@@ -52,6 +54,19 @@ Ext.define('EatSense.controller.Android', {
 		}, this);
 	},
 
+	addBackFn: function(backFn) {
+		if(!EatSense.util.Helper.isFunction(backFn)) {
+			console.log('Android.addBackFn:  backFn is no function');
+			return;
+		}
+
+		this.setAndroidBackFn(backFn);
+	},
+
+	removeBackFn: function() {
+		this.setAndroidBackFn(null);
+	},
+
 	addBackHandler: function(handler) {
 		var _array = this.getAndroidBackHandler();
 		// this.setExitOnBack(false);
@@ -91,6 +106,7 @@ Ext.define('EatSense.controller.Android', {
 			msgBox,
 			backbutton,
 			loungeview = this.getLoungeview(),
+			mainview = this.getMainview(),
 			activeview,
 			backbutton,
 			dashboardRecord;
@@ -109,9 +125,37 @@ Ext.define('EatSense.controller.Android', {
 				return;
 			}
 
-			if(loungeview && loungeview.getContainer() && loungeview.getContainer().getActiveItem()) {
-				if(loungeview.getContainer().getActiveItem().getActiveItem()) {
-					activeview = loungeview.getContainer().getActiveItem().getActiveItem();
+			if(EatSense.util.Helper.isFunction(this.getAndroidBackFn())){	
+				this.getAndroidBackFn()();
+				this.setAndroidBackFn(null);
+				return;
+			}
+
+			//is mainview or loungeview active?
+			if(mainview.getActiveItem() == loungeview) {
+				//get activeItem of loungeview.container which is a card layout,
+				//then getActiveItem of activeItem which should be a card layout as well
+				//look for a backbutton
+				if(loungeview && loungeview.getContainer() && loungeview.getContainer().getActiveItem()) {
+					if(loungeview.getContainer().getActiveItem().getActiveItem()) {
+						activeview = loungeview.getContainer().getActiveItem().getActiveItem();
+						backbutton = activeview.down('backbutton');
+						if(backbutton) {
+							backbutton.fireEvent('tap', backbutton);
+							return;
+						}					
+					}
+				}
+
+				dashboardRecord = loungeview.getItemByAction('show-clubdashboard');
+
+				if(dashboardRecord && loungeview.getList().getSelection()[0] != dashboardRecord) {
+					loungeview.selectByAction('show-clubdashboard');
+					return;
+				}
+			} else {
+				if(mainview.getActiveItem()) {
+					activeview = mainview.getActiveItem();
 					backbutton = activeview.down('backbutton');
 					if(backbutton) {
 						backbutton.fireEvent('tap', backbutton);
@@ -120,31 +164,12 @@ Ext.define('EatSense.controller.Android', {
 				}
 			}
 
-			dashboardRecord = loungeview.getItemByAction('show-clubdashboard');
-
-			if(dashboardRecord && loungeview.getList().getSelection()[0] != dashboardRecord) {
-				loungeview.selectByAction('show-clubdashboard');
-				return;
-			}
-			
-
-			//1. check if back handlers exist and execute it
-
 			// if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
 			// 	console.log('Android Controller -> executeBackHandler');
 			// 	handler = this.getAndroidBackHandler().pop();
 			// 	handler();
-			// } else {						
-
-			//2. if backbutton exists do a tap
-			// if(this.getRootContainer()) {
-			// 	backbutton = this.getRootContainer().down('backbutton');
-			// 	if(backbutton) {
-			// 		//trigger tap on the back button
-			// 		backbutton.doTap(backbutton);
-			// 		return;
-			// 	}				
-			// }
+			// 	return;
+			// }			
 
 			// no backbuttons or backhandlers
 			//ask user before exiting the app

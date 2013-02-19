@@ -12,10 +12,7 @@ Ext.define('EatSense.view.History',{
 			title : i10n.translate('history.title'),
 			items : [
 				{
-					xtype : 'fixedbutton',
-					action: 'back',
-					text : i10n.translate('back'),
-					ui : 'back'
+					xtype : 'backbutton'
 				}
 			]
 		},

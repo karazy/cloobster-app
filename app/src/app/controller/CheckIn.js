@@ -50,7 +50,7 @@ Ext.define('EatSense.controller.CheckIn', {
         	checkinwithothers: 'checkinwithothers',
         	dashboard: 'dashboard',
         	settingsBt: 'dashboard button[action=settings]',
-          aboutBt: 'dashboard button[action=about]',
+          // aboutBt: 'dashboard button[action=about]',
         	// settingsBackBt: 'settings button[action=back]',
         	nicknameTogglefield: 'checkinconfirmation togglefield[action=toggle-nickname]',
         	nicknameSettingsField: 'settings #nicknameSetting',
@@ -96,9 +96,9 @@ Ext.define('EatSense.controller.CheckIn', {
             regenerateNicknameBt: {
             	tap: 'generateNickname'
             },
-            aboutBt: {
-              tap: 'showAbout'
-            },
+            // aboutBt: {
+            //   tap: 'showAbout'
+            // },
             settingsBt: {
             	tap: 'showSettings'
             },
@@ -433,9 +433,9 @@ Ext.define('EatSense.controller.CheckIn', {
   /**
   * Shows an about screen.
   */
-  showAbout: function() {
-    this.getApplication().getController('Settings').showAbout();
-  },
+  // showAbout: function() {
+  //   this.getApplication().getController('Settings').showAbout();
+  // },
 	/**
 	 * Show settings screen.
 	 * 
