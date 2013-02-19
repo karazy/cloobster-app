@@ -291,7 +291,8 @@
     for (id key in options) {
         if ([[options objectForKey:key] isKindOfClass:[NSString class]]) {
             //Karazy 20130215 bugfix options is not a NSMutableDictionary
-            if ([options objectForKey:@"method"]) {
+            //[options objectForKey:@"method"]
+            if ([key isEqualToString:@"method"]) {
                 //dont add if you're a method
             } else {
                  [params setObject:[options objectForKey:key] forKey:key];
