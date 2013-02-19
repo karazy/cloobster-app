@@ -55,9 +55,6 @@ Ext.define('EatSense.view.ProductDetail', {
 				tpl: new Ext.XTemplate(
 					'<div>{product.data.productLongDesc}</div>'
 				)
-				// style: {
-				// 	'margin-top' : '35px'
-				// }
 			}, 
 			{
 				xtype : 'panel',
