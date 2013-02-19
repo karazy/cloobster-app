@@ -8,15 +8,15 @@ Ext.define('EatSense.controller.Facebook', {
 		refs: {
 			settingsview: 'settingsview',
 			settingsTab: 'lounge settingstab',
-			signupFbButton : 'login button[action=signup-fb]',
+			// signupFbButton : 'login button[action=signup-fb]',
 			connectFbDashboardButton : 'settingsview settings button[action=connect-fb]',
 			connectFbClubButton : 'lounge settings button[action=connect-fb]',
 			fbWallpostClubButton: 'clubarea clubdashboard button[action="fb-wallpost"]'
 		},
 		control: {
-			signupFbButton: {
-				tap: 'signupFbButtonHandler'
-			},
+			// signupFbButton: {
+			// 	tap: 'signupFbButtonHandler'
+			// },
 			connectFbDashboardButton: {
 				tap: 'connectFbDashboardButtonHandler'
 			},
@@ -28,67 +28,70 @@ Ext.define('EatSense.controller.Facebook', {
 			}
 		}
 	},
-	/**
-	* Tap event handler for signupFb button.
-	* Calls the fb login method.
-	*/
-	signupFbButtonHandler: function() {
+	launch: function() {
 		var me = this,
-			accountCtr = this.getApplication().getController('Account'),
+			accountCtr = this.getApplication().getController('Account');
+
+		accountCtr.on({
+			'userloginprovider': function(provider, callback) {
+				if(provider == 'facebook') {
+					me.signupWithFacebook(callback);
+				}
+			},
+			scope: this
+		})
+	},
+	/**
+	* Signup via facebook. Lets user login to facebook
+	* and creates an account with retrieved data.
+	* @param {Function} loginCallback
+	*  Executed on success. Gets passed facebook data.
+	*/
+	signupWithFacebook: function(loginCallback) {
+		var me = this,
 			authResponse;
 
-		Ext.Viewport.setMasked({
-	    		xtype: 'loadmask',
-	    		message: i10n.translate('general.processing')
-	    });
+	    appHelper.toggleMask('general.processing');
 
-		console.log('Facebook.signupFbButtonHandler');
+		console.log('Facebook.signupWithFacebook');
 		FB.login(function(response) {
             if (response.authResponse) {
-
-
                 // Fb login success.
                 // Now get user data.
                 authResponse = response.authResponse;
 
                 FB.api('/me', function(response) {
-                	console.log('Facebook.signupFbButtonHandler > retrieved fb user with id='+response.id);
+                	console.log('Facebook.signupWithFacebook: retrieved fb user with id='+response.id);
 
                 	//code: 190
 					// error_subcode: 467
 					// message: "Error validating access token: The session is invalid because the user logged out."
 					// type: "OAuthException"
                 	if(response.error) {
-                		Ext.Viewport.unmask();
+                		appHelper.toggleMask(false);
                 		Ext.Msg.alert(i10n.translate('hint'), i10n.translate('facebook.connect.canceled'));
                 		return;
 					}
 
                 	//add access token from authResponse
                 	response.accessToken = authResponse.accessToken;
-
-                	accountCtr.login(response, callback);
-                	//unmask will be called from login method!
-                	function callback() {
-                		//user does not exist, ask user to create account
-	                	if(!accountCtr.getAccount()) {
-	                		accountCtr.showSignupConfimDialog(response);	
-	                	}
-                	}
+                	loginCallback(response);
                 	
-                });
-            } else {
-            	//no further interaction needed since the sdk does all the stuff
-                console.log('Facebook.signupFbButtonHandler > user canceled or did not finish.')
-                Ext.Viewport.unmask();
-            }
-            },
-                { scope: "email" }
+	                });
+	            } else {
+	            	//no further interaction needed since the sdk does all the stuff
+	                console.log('Facebook.signupFbButtonHandler: user canceled or did not finish.')
+	                appHelper.toggleMask(false);
+	            }
+	        },
+	        { 
+	        	scope: "email" 
+	    	}
         );
-		
+		//TODO does this make sense?
 		//to prevent a locked screen after unforseeable error hide the mask
 		Ext.defer((function() {
-			Ext.Viewport.unmask();
+			appHelper.toggleMask(false);
 		}), appConfig.msgboxHideTimeout, this);
 	},
 	/**

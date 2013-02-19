@@ -5,6 +5,23 @@
 Ext.define('EatSense.controller.Account', {
 	extend: 'Ext.app.Controller',
 	requires: ['EatSense.view.Login', 'EatSense.model.Account'],
+
+	 /**
+     * @event userloginprovider
+     * Fires when user tries to login via an external provider (facebook, google).
+     * @param {String} provider
+     *	External provider e.g. facebook
+     * @param {Function} callback
+     *	Callback fn getting passed the response
+     */
+
+    /**
+     * @event userlogin
+     * Fires when user successfully logged in.
+     * @param {EatSense.model.Account} account
+     *	User account object
+     */
+
 	config: {
 		refs: {
 			mainView: 'mainview',
@@ -19,11 +36,11 @@ Ext.define('EatSense.controller.Account', {
 			settingsViewBackButton: 'mainview settingsview settings #backButton',
 			logoutDashboardButton: 'settingsview button[action=logout]',
 			// loginViewBackButton : 'login button[action=back]',
-			signupButton : 'login button[action=signup]',
-			loginButton : 'login button[action=login]',
-			requestPwButton : 'login button[action=request-password]',
-			loginForm : 'login formpanel',
-			passwordField: 'login passwordfield'
+			// signupButton : 'login button[action=signup]',
+			// loginButton : 'login button[action=login]',
+			// requestPwButton : 'login button[action=request-password]',
+			// loginForm : 'login formpanel',
+			// passwordField: 'login passwordfield'
 		},
 		control: {
 			showLoginButtonDashboard : {
@@ -35,21 +52,21 @@ Ext.define('EatSense.controller.Account', {
 			settingsViewBackButton: {
 				tap: 'settingsViewBackButtonHandler'
 			},
-			requestPwButton : {
-				tap: 'requestPwButtonHandler'
-			},
+			// requestPwButton : {
+			// 	tap: 'requestPwButtonHandler'
+			// },
 			logoutDashboardButton : {
 				tap: 'logoutDashboardButtonHandler'
 			},
 			// loginViewBackButton : {
 			// 	tap: 'loginViewBackButtonHandler'
 			// },
-			signupButton : {
-				tap: 'signupButtonHandler'
-			},
-			loginButton : {
-				tap: 'loginButtonHandler'
-			}
+			// signupButton : {
+			// 	tap: 'signupButtonHandler'
+			// },
+			// loginButton : {
+			// 	tap: 'loginButtonHandler'
+			// }
 		},
 		//user account if logged in
 		account: null,
@@ -130,36 +147,124 @@ Ext.define('EatSense.controller.Account', {
 		});
 	},
 	/**
-	* Show loginview.
+	* Tap event handler for show login button.
+	* Show loginview and wires up all events dynamically.
 	*/
 	showLoginView: function(button) {
 		var me = this,
+			//gets auto created
 			loginView = this.getLoginView(),
 			backButton,
+			signupButton,
+			loginButton,
+			requestPwButton,
+			fbSignupButton,
 			androidCtr = this.getApplication().getController('Android');
-
-		Ext.Viewport.add(loginView);
+		
 		backButton = loginView.down('backbutton');
+		signupButton = loginView.down('button[action=signup]');
+		loginButton = loginView.down('button[action=login]');
+		requestPwButton = loginView.down('button[action=request-password]');
+		fbSignupButton = loginView.down('button[action=signup-fb]');
+		passwordfield = loginView.down('passwordfield');
 
-		//wire up backbutton and android event
+		//wire up events
 		backButton.on({
 			tap: closeLogin,
 			single: true
 		});
 
+		signupButton.on({
+			tap: signupButtonHandler
+		});
+
+		loginButton.on({
+			tap: loginButtonHandler
+		});
+
+		requestPwButton.on({
+			tap: requestPwButtonHandler
+		});
+
+		fbSignupButton.on({
+			tap: fbSignupButtonHandler
+		});
+
 		androidCtr.addBackFn(closeLogin);
 
-		function closeLogin() {
-			me.hideLoginView();
+		//handle successful login
+		me.on('userlogin', userLoggedIn, this);
 
+
+		//handler functions
+		function signupButtonHandler() {
+			me.showSignupConfirmDialog(loginView);
+		}
+
+		function loginButtonHandler() {
+			me.login(loginView);
+		}
+
+		function requestPwButtonHandler() {
+			me.requestNewPassword();
+		}
+
+		function fbSignupButtonHandler() {
+			me.fireEvent('userloginprovider', 'facebook', fbLoginCallback);
+		}
+
+		function fbLoginCallback(fbData) {
+			me.login(loginView, fbData, function(success) {
+				if(!success){
+					//no account exists so signup via fb
+					me.showSignupConfirmDialog(loginView, fbData);
+				}
+			})
+		}
+
+		function userLoggedIn() {
+			appHelper.toggleMask(false);
+			closeLogin();
+			me.hideDashboardLoginButton();			
+		}
+
+		//remove all events
+		function cleanup() {
 			backButton.un({
 				tap: closeLogin
 			});
+
+			signupButton.un({
+				tap: signupButtonHandler
+			});
+
+			loginButton.un({
+				tap: loginButtonHandler
+			});
+
+			requestPwButton.un({
+				tap: requestPwButtonHandler
+			});
+
+			fbSignupButton.un({
+				tap: fbSignupButtonHandler
+			});
+
 			androidCtr.removeBackFn();
+
+			me.un('userlogin', userLoggedIn, this);
 		}
 
+		//close login view and reset password field
+		function closeLogin() {
+			cleanup();
+			loginView.hide();
+			//make sure never to store password
+			passwordfield.setValue('');			
+		}
+
+		Ext.Viewport.add(loginView);
 		loginView.show();
-		
 	},
 	/**
 	* Tap event handler for login backbutton.
@@ -171,25 +276,27 @@ Ext.define('EatSense.controller.Account', {
 	/**
 	* Hide loginview.
 	*/
-	hideLoginView: function(button) {
-		this.getLoginView().hide();
-		//make sure never to store password
-		this.getPasswordField().setValue('');	
-	},
+	// hideLoginView: function(button) {
+	// 	this.getLoginView().hide();
+	// 	//make sure never to store password
+	// 	this.getPasswordField().setValue('');	
+	// },
 	/**
 	* Tap event handler for signupButton.
 	*/
-	signupButtonHandler: function() {
-		this.showSignupConfimDialog();
-	},
+	// signupButtonHandler: function() {
+	// 	this.showSignupConfimDialog();
+	// },
 	/**
 	* Shows a confirm signup dialog. If user confirms a cloobster account will be created.
+	* @param {EatSense.view.Login} view
+	*	The loginview containing the loginform.
 	* @param fbdata
 	*	(optional) indicates if this is a login/signup via facebook. If present will use fb data instead of the email/pw fields.
 	*/
-	showSignupConfimDialog: function(fbdata) {
+	showSignupConfirmDialog: function(view, fbdata) {
 		var me = this,
-			loginView = this.getLoginView(),
+			loginView = view,
 			confirmMessage = (!fbdata) ? i10n.translate('account.signup.confirm.message') : i10n.translate('account.signupfb.confirm.message'),
 			about;
 
@@ -218,7 +325,7 @@ Ext.define('EatSense.controller.Account', {
                 		xtype: 'loadmask',
                 		message: i10n.translate('general.processing')
                 	});
-                	this.signup(callback, fbdata);
+                	this.signup(view, callback, fbdata);
                 } else if(btnId=='terms') {
                 	me.getApplication().getController('Settings').showPrivacy();
                 }
@@ -227,12 +334,12 @@ Ext.define('EatSense.controller.Account', {
 
 	    //Called after succesful signup
         function callback(success) {
-        	loginView.setMasked(false);
+        	// loginView.setMasked(false);
 
         	if(success) {
-        		me.hideDashboardLoginButton();
-	        	me.hideLoginView();
-	        	me.getApplication().getController('Android').removeLastBackHandler();
+        		// me.hideDashboardLoginButton();
+	        	// me.hideLoginView();
+	        	// me.getApplication().getController('Android').removeLastBackHandler();
 
 	    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
 	    	    	i10n.translate('account.signup.success.message')
@@ -242,15 +349,18 @@ Ext.define('EatSense.controller.Account', {
 	},
 	/**
 	* Signup for a cloubster account.
-	* @param callback
-	*	executed after request completes
+	* @param {EatSense.view.Login} view
+	*	The loginview containing the loginform.
+	* @param {Function} callback
+	*	executed after request completes, called with true|false depending on success
 	* @param fbdata
 	* 	facebook data is set on a signup with facebook, otherwise it is a standard signup
 	*/
-	signup: function(callback, fbdata) {
+	signup: function(view, callback, fbdata) {
 		var me = this,
-			form = this.getLoginForm(),
-			formValues = form.getValues(),
+			form,
+			formValues,
+			passwordfield,
 			newAccount = Ext.create('EatSense.model.Account'),
 			errMsg = "",
 			checkInCtr = this.getApplication().getController('CheckIn'),
@@ -258,8 +368,17 @@ Ext.define('EatSense.controller.Account', {
 			responseError,
 			responseErrorKey;
 
+		if(!view) {
+			console.error('Login.signup: no view given');
+			return;
+		}
+
+		form = view.down('formpanel');
+		formValues = form.getValues();
+		passwordfield = view.down('passwordfield');
+
 		//Bugfix on some devices textfield overlaps alert window on error message
-		this.getPasswordField().blur();
+		passwordfield.blur();
 
 		if(!fbdata) {
 			//validate for password length and match regex
@@ -290,7 +409,7 @@ Ext.define('EatSense.controller.Account', {
 	            return;
 	        }
 		} else {
-			console.log('Account.signup > fb user with data id='+fbdata.id+' email='+fbdata.email+' token='+fbdata.access_token);
+			// console.log('Account.signup > fb user with data id='+fbdata.id+' email='+fbdata.email+' token='+fbdata.access_token);
 			newAccount.set('email', fbdata.email);
 			newAccount.set('fbUserId', fbdata.id);
 			newAccount.set('fbAccessToken', fbdata.accessToken);
@@ -299,7 +418,6 @@ Ext.define('EatSense.controller.Account', {
 
         if(appState.get('nickname')) {
         	//save nickname in profile
-
         	appState.set('nickname', null);
         }
 
@@ -360,19 +478,22 @@ Ext.define('EatSense.controller.Account', {
 	* Tap event handler for loginButton.
 	* Calls Account.login()
 	*/
-	loginButtonHandler: function() {
-		this.login();
-	},
+	// loginButtonHandler: function() {
+	// 	this.login();
+	// },
 	/**
 	* Tries to login the user.
+	* @param {EatSense.view.Login} view
+	*	The loginview containing the loginform.
 	* @param fbdata
 	* @param {Function} loginCallback (optional)
 	*	called after login finished. Get passed true/false depending on success
+	*	Especially useful for external providers when trying to login with an connected account.
 	*/
-	login: function(fbdata, loginCallback) {
+	login: function(view, fbdata, loginCallback) {
 		var me = this,
-			form = this.getLoginForm(),
-			formValues = form.getValues(),
+			form,
+			formValues,
 			errMsg = "",
 			account,
 			checkInCtr = this.getApplication().getController('CheckIn'),
@@ -381,31 +502,35 @@ Ext.define('EatSense.controller.Account', {
 			loginView = this.getLoginView(),
 			timestamp = new Date().getTime();
 
+		if(!view) {
+			console.error('Login.signup: no view given');
+			return;
+		}
+
+		form = view.down('formpanel');
+		formValues = form.getValues();
+
+		passwordfield = view.down('passwordfield');
 		//Bgufix on some devices textfield overlaps alert window on error message
-		this.getPasswordField().blur();
+		passwordfield.blur();
+
 
 		if(headerUtil.getHeaderValue('X-Auth')) {
 			//already logged in, skip			
 			return;
 		};
 
-		Ext.Viewport.setMasked({
-	    		xtype: 'loadmask',
-	    		message: i10n.translate('general.processing')
-	    });
+		appHelper.toggleMask('general.processing');
 
 		if(!fbdata) {
-
 			if(!formValues.email || Ext.String.trim(formValues.email).length == 0 || !formValues.password || Ext.String.trim(formValues.password).length == 0) {
 				//no credentials provided
 				Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.account.nocredentials'));
-				Ext.Viewport.setMasked(false);
+				appHelper.toggleMask(false);
 				return;
 			}			
-
 	    	this.getAccessToken(formValues.email, formValues.password, onSuccess, onFailure);
 		} else {
-
 			this.getAccessTokenFb(fbdata.id, fbdata.accessToken, onSuccess, onFailure);
 		}
 		
@@ -423,13 +548,13 @@ Ext.define('EatSense.controller.Account', {
 	    	me.setAccount(account);
 			//Set default headers so that always credentials are send
 			headerUtil.addHeader('X-Auth', account.get('accessToken'));
-
+			//TODO checkInCtr should take data from fired userlogin event
 			checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
 			checkInCtr.getAppState().set('accountId', account.get('id'));
 			
-			me.hideDashboardLoginButton();
-			me.hideLoginView();
-			me.getApplication().getController('Android').removeLastBackHandler();
+			// me.hideDashboardLoginButton();
+			// me.hideLoginView();
+			// me.getApplication().getController('Android').removeLastBackHandler();
 
 			me.loadProfile(account.get('profileId'));
 
@@ -450,9 +575,9 @@ Ext.define('EatSense.controller.Account', {
 
 		//error handler for ajax request
 		function onFailure(accountData) {
-			console.log('Account.login > failure ' + accountData.status);
+			console.log('Account.login: failure ' + accountData.status);
 			var error;
-	    	Ext.Viewport.setMasked(false);
+			appHelper.toggleMask(false);
 
 	    	//TODO this is dirty lirty aber wat solls. REFACTORING
 	    	try {
@@ -468,7 +593,8 @@ Ext.define('EatSense.controller.Account', {
 					}
 				};
 	    	}
-
+	    	//if this is a facebook login and no permission denied is thrown
+	    	// don't show an error message. since no account exists
 	    	if(!fbdata || (accountData.status != "401" && accountData.status != "403")) {
 	    		me.getApplication().handleServerError({
 					'error': {
@@ -489,6 +615,13 @@ Ext.define('EatSense.controller.Account', {
 	/**
 	* Get an access token via POST /c/accounts with credentials to get access token
 	* using email and password as credentials.
+	* @param {String} login
+	*	username
+	* @param {String} password
+	* @param {Function} onSuccess
+	*	success callback, gets passed response
+	* @param {Function} onFailure
+	*	failure callback, gets passed response
 	*/
 	getAccessToken: function(login, password, onSuccess, onFailure) {
 		var timestamp = new Date().getTime();
@@ -516,6 +649,14 @@ Ext.define('EatSense.controller.Account', {
 	/**
 	* Get an access token via POST /c/accounts with credentials to get access token
 	* using facebook user id and access token as credentials.
+	* @param {String} fbUserId
+	*	facebook user id
+	* @param {String} fbAccessToken
+	*	Access Token used by facebook
+	* @param {Function} onSuccess
+	*	success callback, gets passed response
+	* @param {Function} onFailure
+	*	failure callback, gets passed response
 	*/
 	getAccessTokenFb: function(fbUserId, fbAccessToken, onSuccess, onFailure) {
 			var timestamp = new Date().getTime();
@@ -545,7 +686,7 @@ Ext.define('EatSense.controller.Account', {
 	*/
 	showSettingsView: function(button) {
 		var me = this;
-// .down('#settingCards')
+		//TODO event werfen?
 		this.getApplication().getController('Settings').loadSettings(this.getSettingsView());
 		this.getMainView().switchTo(this.getSettingsView(), 'left');
 
