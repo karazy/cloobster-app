@@ -14,19 +14,18 @@ Ext.define('EatSense.view.OrderDetail', {
 			docked: 'top',
 			items: [
 				{
+					xtype: 'backbutton',
+					text: i10n.translate('cancel'),
+					action: 'undo'
+				},
+				{
 					xtype: 'fixedbutton',
 					action: 'edit',
 					ui: 'action',
 					iconCls: 'check2',
 					align: 'right',
 					iconMask: true
-				},
-				{
-					xtype: 'fixedbutton',
-					text: i10n.translate('cancel'),
-					action: 'undo',
-					ui: 'back'
-				}
+				}				
 			]
 		},
 		{

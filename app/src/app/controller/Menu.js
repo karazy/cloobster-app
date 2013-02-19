@@ -19,7 +19,7 @@ Ext.define('EatSense.controller.Menu', {
         	prodPriceLabel :'productdetail #prodPriceLabel',    
         	amountSpinner: 'productdetail spinnerfield',
         	createOrderBt :'productdetail button[action="cart"]',
-        	closeProductDetailBt: 'productdetail button[action=close]',
+        	closeProductDetailBt: 'productdetail button[action=back]',
         	menuview: 'menutab',
         	productcomment: 'carttab #productComment',
         	cartBackButton: 'menutab button[action=back]',
@@ -369,7 +369,7 @@ Ext.define('EatSense.controller.Menu', {
 			commentField;
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
-					me.closeProductDetail();
+				me.closeProductDetail();
 			});
 
 		//DEBUG

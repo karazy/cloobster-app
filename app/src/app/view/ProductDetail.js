@@ -14,12 +14,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			docked: 'top',
 			items: [
 				{
-					xtype: 'fixedbutton',
-					action: 'close',
-					text: i10n.translate('back'),
-					ui: 'back',
-					iconMask: true,
-					align: 'left'
+					xtype: 'backbutton'
 				},
 				{
 					xtype: 'basicbutton',

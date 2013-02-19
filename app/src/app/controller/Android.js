@@ -5,6 +5,9 @@ Ext.define('EatSense.controller.Android', {
 	extend: 'Ext.app.Controller',
 	requires: ['EatSense.util.Helper'],
 	config: {
+		refs: {
+			loungeview: 'lounge'
+		},
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
 		//when true, will exit application on next backbutton event
@@ -86,12 +89,41 @@ Ext.define('EatSense.controller.Android', {
 	executeBackHandler: function() {
 		var handler,
 			msgBox,
-			backbutton;
+			backbutton,
+			loungeview = this.getLoungeview(),
+			activeview,
+			backbutton,
+			dashboardRecord;
+
+			//Backhandler execution order
+			//1. Message Boxes
+			//2. explicitly defined Functions
+			//3. search backbutton in active card view
+			//4. jump back to dashboard
+			//5. exit logic
 			
 			//close open message box
 			if(this.getMsgBoxVisible()) {
 				this.setMsgBoxVisible(false);
 				Ext.Msg.hide();	
+				return;
+			}
+
+			if(loungeview && loungeview.getContainer() && loungeview.getContainer().getActiveItem()) {
+				if(loungeview.getContainer().getActiveItem().getActiveItem()) {
+					activeview = loungeview.getContainer().getActiveItem().getActiveItem();
+					backbutton = activeview.down('backbutton');
+					if(backbutton) {
+						backbutton.fireEvent('tap', backbutton);
+						return;
+					}					
+				}
+			}
+
+			dashboardRecord = loungeview.getItemByAction('show-clubdashboard');
+
+			if(dashboardRecord && loungeview.getList().getSelection()[0] != dashboardRecord) {
+				loungeview.selectByAction('show-clubdashboard');
 				return;
 			}
 			
