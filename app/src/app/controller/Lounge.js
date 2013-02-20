@@ -52,7 +52,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.initDashboard();			  			  
 			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  this.toggleSlidenavButtons(true);
-			  // this.getLoungeview().on('containertoggle', this.toggleSlidenavButtonState, this);
+			  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
 			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
 			  this.registerSlideBezelTap();
 			  //initially only the area id exists so use areaName from spot
@@ -70,7 +70,7 @@ Ext.define('EatSense.controller.Lounge', {
 				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
-				// this.getLoungeview().un('containertoggle', this.toggleSlidenavButtonState, this);
+				// this.getLoungeview().un('containertoggle', this.containerStateBasedActions, this);
 				this.getLoungeview().un('containertoggle', this.disableTextFields, this);
 				this.registerSlideBezelTap(false);
 				this.getLoungeview().setDisableDrag(false);
@@ -117,19 +117,33 @@ Ext.define('EatSense.controller.Lounge', {
 	 }    
   },
   /**
-  * Toggles navigation button cls based on he given containerState either 'open' or 'closed'.
+  * Toggles navigation button cls based on the given containerState either 'open' or 'closed'.
   * @param {String} containerState
   */
-  toggleSlidenavButtonState: function(containerState) {
-	 var buttons = this.getLoungeview().query('button[action=toggle-navigation]');
+  containerStateBasedActions: function(containerState) {
+  	var me = this,
+  		androidCtr = this.getApplication().getController('Android');
+	 // var buttons = this.getLoungeview().query('button[action=toggle-navigation]');
 
-	 Ext.Array.each(buttons, function(button) {
-		if(containerState == 'open') {
-		  button.addCls('mask-open');
-		} else {
-		  button.removeCls('mask-open');
-		}      
-	 });	 
+	 // Ext.Array.each(buttons, function(button) {
+		// if(containerState == 'open') {
+		//   button.addCls('mask-open');
+		// } else {
+		//   button.removeCls('mask-open');
+		// }      
+	 // });	 
+	console.log('Lounge.containerStateBasedActions: state ' + containerState);
+	if(containerState == 'open') {
+		androidCtr.addBackFn(toggleContainer);
+	} else {
+		androidCtr.removeBackFn(toggleContainer);
+	}
+
+	//create closure to execute in right scope
+	function toggleContainer() {
+		me.toggleNavigation();
+		androidCtr.removeBackFn(toggleContainer);
+	}
   },
   /**
   * Disables all textarea fields in the active container. 
