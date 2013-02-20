@@ -26,7 +26,7 @@ Ext.define('EatSense.controller.Settings', {
             passwordBackClubBt: 'lounge passwordsetting button[action=back]',            
             emailLabel: 'settings #accountEmail',
             saveEmailBt: 'emailsetting button[action=save]',
-            savePasswordBt: 'passwordsetting button[action=save]',
+            savePasswordBt: 'passwordsetting button[action=save]'
             // aboutCloseBt: 'about button[action=close]',
             // privacyCloseBt: 'privacy button[action=close]'
     	},
@@ -73,7 +73,7 @@ Ext.define('EatSense.controller.Settings', {
             },
             settingsNavView: {
                 back: 'navBackButtonTap'
-            },
+            }
             // aboutCloseBt: {
             //     tap: 'aboutCloseBtHandler'
             // },

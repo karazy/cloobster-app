@@ -1362,7 +1362,7 @@ h9 {
   }
 
 
-.slidenav-badge {
+.x-slidenav-badge {
   top: 10px;
   /*  sencha copy paste, some adjustments */
   -webkit-background-clip: padding;
@@ -1379,7 +1379,8 @@ h9 {
   overflow: hidden;
   color: #FCC;
   border: 1px solid #900;
-  position: absolute;
+  /*position: absolute;*/
+  float: left;
   width: auto;
   min-width: 2em;
   line-height: 1.2em;

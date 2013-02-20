@@ -1250,11 +1250,10 @@
 							if(!choosenMethod) {
 								choosenMethod = availableMethods.getAt(0).get('name');
 							}
-							picker.hide();
 							//20130215 destroy picker to prevent duplicates
 							//a bug existed that caused checkin to fail because picker tried to refresh
 							//on business load
-							picker.destroy();
+							destroyPicker();
 							if(appHelper.isFunction(onChoose)) {
 								onChoose(choosenMethod);
 							} else {
@@ -1267,7 +1266,7 @@
 					text: i10n.translate('cancel'),
 					listeners: {
 						tap: function() {
-							picker.destroy();					
+							destroyPicker();				
 						}
 					}
 				},
@@ -1283,9 +1282,12 @@
 			    ]
 			});
 
-			me.getApplication().getController('Android').addBackHandler(function() {
-				picker.destroy();	
-			});
+			me.getApplication().getController('Android').addBackFn(destroyPicker);
+
+			function destroyPicker() {
+				picker.destroy();
+				me.getApplication().getController('Android').removeBackFn(destroyPicker);
+			}
 									
 			Ext.Viewport.add(picker);
 			picker.show();
