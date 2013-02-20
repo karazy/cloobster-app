@@ -28,32 +28,6 @@ Ext.define('EatSense.view.SettingsView', {
 		{
 			xtype: 'passwordsetting'
 		},
-		// {
-		// 	xtype: 'panel',
-		// 	layout: {
-		// 		type: 'card',
-		// 		//override default tabpanel animation setting
-		// 		animation : null
-		// 		// {
-		// 		// 	type : 'slide',
-		// 		// 	direction : 'left'
-		// 		// }
-		// 	},
-		// 	itemId: 'settingCards',
-		// 	activeItem: 0,
-		// 	items:[
-		// 		{
-		// 			xtype: 'settings',
-		// 			backButton: true							
-		// 		},
-		// 		{
-		// 			xtype: 'emailsetting'
-		// 		},
-		// 		{
-		// 			xtype: 'passwordsetting'
-		// 		}
-		// 	]
-		// },
 		{
 			xtype: 'toolbar',
 			docked: 'bottom'

@@ -147,6 +147,7 @@ Ext.define('EatSense.controller.Android', {
 			loungeview = this.getLoungeview(),
 			mainview = this.getMainview(),
 			activeview,
+			settingsview,
 			backbutton,
 			dashboardRecord;
 
@@ -188,7 +189,13 @@ Ext.define('EatSense.controller.Android', {
 				}
 			} else {
 				if(mainview.getActiveItem()) {
-					activeview = mainview.getActiveItem();
+					settingsview = mainview.down('settingsview');
+					if(mainview.getActiveItem() == settingsview) {
+						//card layout
+						activeview = mainview.getActiveItem().getActiveItem();	
+					} else {
+						activeview = mainview.getActiveItem();	
+					}					
 					backbutton = activeview.down('backbutton');
 					if(backbutton) {
 						backbutton.fireEvent('tap', backbutton);
@@ -200,7 +207,7 @@ Ext.define('EatSense.controller.Android', {
 			// no backbuttons or backhandlers
 			//ask user before exiting the app
 			if(this.getExitOnBack()) {
-				console.log('Android Controller -> executeBackHandler: exit app');
+				console.log('Android.executeBackHandler: exit app');
 				navigator.app.exitApp();
 			} else {
 				//make it to look like android toast message

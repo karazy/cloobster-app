@@ -198,7 +198,7 @@ Ext.define('EatSense.controller.Account', {
 
 		//handler functions
 		function signupButtonHandler() {
-			me.showSignupConfirmDialog(loginView);
+			me.showSignupConfirmDialog(loginView, signupCallback);
 		}
 
 		function loginButtonHandler() {
@@ -208,8 +208,8 @@ Ext.define('EatSense.controller.Account', {
 		function requestPwButtonHandler() {
 			me.requestNewPassword();
 		}
-
-		function fbSignupButtonHandler() {
+		//signup with facebook
+		function fbSignupButtonHandler() {			
 			me.fireEvent('userloginprovider', 'facebook', fbLoginCallback);
 		}
 
@@ -217,9 +217,18 @@ Ext.define('EatSense.controller.Account', {
 			me.login(loginView, fbData, function(success) {
 				if(!success){
 					//no fb account exists so signup via fb
-					me.showSignupConfirmDialog(loginView, fbData);
+					me.showSignupConfirmDialog(loginView, signupCallback, fbData);
 				}
 			});
+		}
+
+		function signupCallback(success) {
+        	if(success) {
+
+	    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
+	    	    	i10n.translate('account.signup.success.message')
+	    	  	);
+        	} 
 		}
 
 		function userLoggedIn() {
@@ -257,6 +266,8 @@ Ext.define('EatSense.controller.Account', {
 
 		//close login view and reset password field
 		function closeLogin() {
+			//just in case I forgot to remove the mask somewhere else
+			appHelper.toggleMask(false);
 			cleanup();
 			loginView.hide();
 			//make sure never to store password
@@ -267,34 +278,15 @@ Ext.define('EatSense.controller.Account', {
 		loginView.show();
 	},
 	/**
-	* Tap event handler for login backbutton.
-	*/
-	// loginViewBackButtonHandler: function(button) {
-	// 	this.getApplication().getController('Android').removeLastBackHandler();
-	// 	this.hideLoginView();
-	// },
-	/**
-	* Hide loginview.
-	*/
-	// hideLoginView: function(button) {
-	// 	this.getLoginView().hide();
-	// 	//make sure never to store password
-	// 	this.getPasswordField().setValue('');	
-	// },
-	/**
-	* Tap event handler for signupButton.
-	*/
-	// signupButtonHandler: function() {
-	// 	this.showSignupConfimDialog();
-	// },
-	/**
 	* Shows a confirm signup dialog. If user confirms a cloobster account will be created.
 	* @param {EatSense.view.Login} view
 	*	The loginview containing the loginform.
+	* @param {Function} callback
+	*	executed after request completes, called with true|false depending on success (gets passed through to Account.signup)
 	* @param fbdata
 	*	(optional) indicates if this is a login/signup via facebook. If present will use fb data instead of the email/pw fields.
 	*/
-	showSignupConfirmDialog: function(view, fbdata) {
+	showSignupConfirmDialog: function(view, callback, fbdata) {
 		var me = this,
 			loginView = view,
 			confirmMessage = (!fbdata) ? i10n.translate('account.signup.confirm.message') : i10n.translate('account.signupfb.confirm.message'),
@@ -320,32 +312,13 @@ Ext.define('EatSense.controller.Account', {
             }],
             scope: this,
 			fn: function(btnId, value, opt) {
-				if(btnId=='yes') {
-					loginView.setMasked({
-                		xtype: 'loadmask',
-                		message: i10n.translate('general.processing')
-                	});
+				if(btnId=='yes') {						
                 	this.signup(view, callback, fbdata);
                 } else if(btnId=='terms') {
                 	me.getApplication().getController('Settings').showPrivacy();
                 }
             }
         }); 
-
-	    //Called after succesful signup
-        function callback(success) {
-        	// loginView.setMasked(false);
-
-        	if(success) {
-        		// me.hideDashboardLoginButton();
-	        	// me.hideLoginView();
-	        	// me.getApplication().getController('Android').removeLastBackHandler();
-
-	    		Ext.Msg.alert(i10n.translate('account.signup.success.title'),
-	    	    	i10n.translate('account.signup.success.message')
-	    	  	);
-        	}        	
-        };
 	},
 	/**
 	* Signup for a cloubster account.
@@ -373,6 +346,8 @@ Ext.define('EatSense.controller.Account', {
 			return;
 		}
 
+		appHelper.toggleMask('general.processing');	
+
 		form = view.down('formpanel');
 		formValues = form.getValues();
 		passwordfield = view.down('passwordfield');
@@ -398,12 +373,14 @@ Ext.define('EatSense.controller.Account', {
 	        		};
 	        		errMsg += i10n.translate('error.account.password');
 	        	}
+	        	appHelper.toggleMask(false);
 	        	callback(false);
 	            Ext.Msg.alert(i10n.translate('error'), errMsg);
 	            return;
 	        }
 
 	        if(formValues.password.length < 6) {
+	        	appHelper.toggleMask(false);
 	        	callback(false);
 	        	Ext.Msg.alert(i10n.translate('error'), i10n.translate('error.account.password'));
 	            return;
@@ -447,10 +424,12 @@ Ext.define('EatSense.controller.Account', {
 				me.loadProfile(me.getAccount().get('profileId'));
 				//reset fields
         		form.reset();
+        		appHelper.toggleMask(false);
         		callback(true);
         		me.fireEvent('userlogin', record);
         	},
         	failure: function(record, operation) {
+        		appHelper.toggleMask(false);
         		callback(false);
         		//"error.account.password" use correct error message
         		try {
