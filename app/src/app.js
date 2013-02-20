@@ -182,21 +182,6 @@ Ext.application({
 
         headerUtil.addHeader('cloobster-api', appConfig.cloobsterApi);
 
-      //----- Launch functions start ------   
-      //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is moved here.
-      //Android controller launch
-      //Android specific behaviour
-      if(Ext.os.is.Android) {
-          console.log('Android Controller -> setup android specific behaviour');
-          document.addEventListener('backbutton', onBackKeyDown, false);
-          function onBackKeyDown() {
-                console.log('fire backbutton event');
-                me.getController('Android').executeBackHandler();
-        };
-      }
-
-    //----- Launch functions end ------
-
       //try to restore application state
       try {
         appStateStore.load();

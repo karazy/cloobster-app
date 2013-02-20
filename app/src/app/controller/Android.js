@@ -12,11 +12,7 @@ Ext.define('EatSense.controller.Android', {
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
 		//when true, will exit application on next backbutton event
-		exitOnBack: false,
-
-		msgBoxVisible: false,
-
-		rootContainer: null
+		exitOnBack: false
 	},
 	launch: function() {
 		var me = this,
@@ -33,13 +29,11 @@ Ext.define('EatSense.controller.Android', {
 
 		//add backhandler for message boxes
 		Ext.Msg.on('show', function() {
-			// this.setMsgBoxVisible(true);
 			this.addBackFn(hideMsgBox);
 
 		}, this);
 
 		Ext.Msg.on('hide', function() {
-			// this.setMsgBoxVisible(false);
 			this.removeBackFn(hideMsgBox);
 		}, this);
 
@@ -54,6 +48,14 @@ Ext.define('EatSense.controller.Android', {
 				me.resetBackHandler();
 			}
 		}, this);
+
+		if(Ext.os.is.Android) {
+          console.log('Android.launch: setup android specific behaviour');
+          document.addEventListener('backbutton', onBackKeyDown, false);
+          function onBackKeyDown() {
+                me.executeBackHandler();
+        	};
+      	}
 	},
 	/**
 	* Add function to stack auf back handlers.
