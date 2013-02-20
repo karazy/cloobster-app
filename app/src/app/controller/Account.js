@@ -216,10 +216,10 @@ Ext.define('EatSense.controller.Account', {
 		function fbLoginCallback(fbData) {
 			me.login(loginView, fbData, function(success) {
 				if(!success){
-					//no account exists so signup via fb
+					//no fb account exists so signup via fb
 					me.showSignupConfirmDialog(loginView, fbData);
 				}
-			})
+			});
 		}
 
 		function userLoggedIn() {
@@ -579,7 +579,7 @@ Ext.define('EatSense.controller.Account', {
 			var error;
 			appHelper.toggleMask(false);
 
-	    	//TODO this is dirty lirty aber wat solls. REFACTORING
+	    	//TODO 20130218 this is dirty lirty aber wat solls. REFACTORING
 	    	try {
 	    		//an errorkey exsists when account is inactive
 	    		error = Ext.JSON.decode(accountData.responseText);	
@@ -686,7 +686,7 @@ Ext.define('EatSense.controller.Account', {
 	*/
 	showSettingsView: function(button) {
 		var me = this;
-		//TODO event werfen?
+		//TODO throw event instead of direct call
 		this.getApplication().getController('Settings').loadSettings(this.getSettingsView());
 		this.getMainView().switchTo(this.getSettingsView(), 'left');
 
@@ -857,8 +857,6 @@ Ext.define('EatSense.controller.Account', {
 			button.hide();
 		});
 
-		// this.getShowLoginButtonDashboard().disable();
-		// this.getShowLoginButtonDashboard().hide();
 		this.getShowSettingsButtonDashboard().enable();
 		this.getShowSettingsButtonDashboard().show();	
 	},
@@ -872,8 +870,7 @@ Ext.define('EatSense.controller.Account', {
 			button.enable();
 			button.show();
 		});
-		// this.getShowLoginButtonDashboard().enable();
-		// this.getShowLoginButtonDashboard().show();	
+
 		this.getShowSettingsButtonDashboard().disable();
 		this.getShowSettingsButtonDashboard().hide();	
 	}

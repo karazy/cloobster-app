@@ -21,6 +21,6 @@ Ext.define('EatSense.util.Configuration', {
 		channelMessageTimeout: 40000,
 		//version indicator of the backend api, will be increased when the api changes
 		//in such a way that an old cloobster version is not compatible anymore
-		cloobsterApi: 2
+		cloobsterApi: 1
 	}
 });

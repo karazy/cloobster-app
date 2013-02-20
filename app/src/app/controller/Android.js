@@ -11,11 +11,8 @@ Ext.define('EatSense.controller.Android', {
 		},
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
-		androidBackFn: null,
 		//when true, will exit application on next backbutton event
 		exitOnBack: false,
-		//if true won't remove a backhandler. Only used for message boxes. Setting this somewhere else won't have any effect.
-		keepHandler: false,
 
 		msgBoxVisible: false,
 
@@ -24,9 +21,8 @@ Ext.define('EatSense.controller.Android', {
 	launch: function() {
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn');
-		// var keepHandler = false;
 
-		this.resetBackHandler(new Array());
+		this.resetBackHandler();
 		
 		Ext.Viewport.element.on('tap', function() {
 			this.setExitOnBack(false);
@@ -35,15 +31,21 @@ Ext.define('EatSense.controller.Android', {
 			delay: 50
 		});
 
-		//let the button also work on message boxes
+		//add backhandler for message boxes
 		Ext.Msg.on('show', function() {
-			var me = this;
-			this.setMsgBoxVisible(true);
+			// this.setMsgBoxVisible(true);
+			this.addBackFn(hideMsgBox);
+
 		}, this);
 
 		Ext.Msg.on('hide', function() {
-			this.setMsgBoxVisible(false);
+			// this.setMsgBoxVisible(false);
+			this.removeBackFn(hideMsgBox);
 		}, this);
+
+		function hideMsgBox() {
+			Ext.Msg.hide();	
+		}
 
 		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
@@ -53,21 +55,55 @@ Ext.define('EatSense.controller.Android', {
 			}
 		}, this);
 	},
-
+	/**
+	* Add function to stack auf back handlers.
+	* @param {Function} backFn
+	*	Function to add
+	*/
 	addBackFn: function(backFn) {
 		if(!EatSense.util.Helper.isFunction(backFn)) {
 			console.log('Android.addBackFn:  backFn is no function');
 			return;
 		}
 
-		this.setAndroidBackFn(backFn);
+		this.getAndroidBackHandler().push(backFn);
 	},
+	/**
+	* Remove function from stack auf backhandlers.
+	* Removes the top most if none is given.
+	* @param {Function} backFn (optional)
+	*	If not null removes given function
+	*/
+	removeBackFn: function(backFn) {
+		var fnIndex = -1;
+		if(!appHelper.isArray(this.getAndroidBackHandler())) {
+			console.error('Android.removeBackFn: getAndroidBackHandler returned no array');
+			return
+		}		
+		
+		if(EatSense.util.Helper.isFunction(backFn)) {
+			for (var i = this.getAndroidBackHandler().length - 1; i >= 0; i--) {
+				if(this.getAndroidBackHandler()[i] == backFn) {
+					fnIndex = i;
+					break;
+				}
+			};
+			console.log('Android.removeBackFn: backFn found index '+ fnIndex);
+			if(fnIndex > -1) {
+				this.getAndroidBackHandler().splice(fnIndex, 1);				
+			}
+			return;
+		}
 
-	removeBackFn: function() {
-		this.setAndroidBackFn(null);
+		if(this.getAndroidBackHandler().length > 0) {
+			this.getAndroidBackHandler().pop();	
+		}
+		
+		
 	},
 
 	addBackHandler: function(handler) {
+		return;
 		var _array = this.getAndroidBackHandler();
 		// this.setExitOnBack(false);
 		if(!EatSense.util.Helper.isArray(_array)) {
@@ -83,6 +119,7 @@ Ext.define('EatSense.controller.Android', {
 	},
 
 	removeLastBackHandler: function() {
+		return;
 		// this.setExitOnBack(false);
 		if(EatSense.util.Helper.isArray(this.getAndroidBackHandler())) {
 			console.log('Android Controller -> removeLastBackHandler');
@@ -112,24 +149,18 @@ Ext.define('EatSense.controller.Android', {
 			dashboardRecord;
 
 			//Backhandler execution order
-			//1. Message Boxes
-			//2. explicitly defined Functions
-			//3. search backbutton in active card view
-			//4. jump back to dashboard
-			//5. exit logic
+			//1. explicitly defined backhandler functions
+			//2. search backbutton in active card view
+			//3. jump back to dashboard
+			//4. exit logic
 			
-			//close open message box
-			if(this.getMsgBoxVisible()) {
-				this.setMsgBoxVisible(false);
-				Ext.Msg.hide();	
-				return;
-			}
 
-			if(EatSense.util.Helper.isFunction(this.getAndroidBackFn())){	
-				this.getAndroidBackFn()();
-				this.setAndroidBackFn(null);
+			if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
+				console.log('Android.executeBackHandler: number of handlers ' + this.getAndroidBackHandler().length);
+				handler = this.getAndroidBackHandler().pop();
+				handler();
 				return;
-			}
+			}	
 
 			//is mainview or loungeview active?
 			if(mainview.getActiveItem() == loungeview) {
@@ -160,16 +191,9 @@ Ext.define('EatSense.controller.Android', {
 					if(backbutton) {
 						backbutton.fireEvent('tap', backbutton);
 						return;
-					}					
+					}
 				}
 			}
-
-			// if(EatSense.util.Helper.isArray(this.getAndroidBackHandler()) &&  this.getAndroidBackHandler().length > 0) {
-			// 	console.log('Android Controller -> executeBackHandler');
-			// 	handler = this.getAndroidBackHandler().pop();
-			// 	handler();
-			// 	return;
-			// }			
 
 			// no backbuttons or backhandlers
 			//ask user before exiting the app
