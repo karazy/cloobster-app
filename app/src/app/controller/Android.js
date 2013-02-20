@@ -52,7 +52,7 @@ Ext.define('EatSense.controller.Android', {
 		if(Ext.os.is.Android) {
           console.log('Android.launch: setup android specific behaviour');
           document.addEventListener('backbutton', onBackKeyDown, false);
-          function onBackKeyDown() {
+          	function onBackKeyDown() {
                 me.executeBackHandler();
         	};
       	}
