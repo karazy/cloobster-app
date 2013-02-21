@@ -50,7 +50,7 @@ Ext.define('EatSense.controller.CheckIn', {
         	checkinwithothers: 'checkinwithothers',
         	dashboard: 'dashboard',
         	settingsBt: 'dashboard button[action=settings]',
-          aboutBt: 'dashboard button[action=about]',
+          // aboutBt: 'dashboard button[action=about]',
         	// settingsBackBt: 'settings button[action=back]',
         	nicknameTogglefield: 'checkinconfirmation togglefield[action=toggle-nickname]',
         	nicknameSettingsField: 'settings #nicknameSetting',
@@ -96,9 +96,9 @@ Ext.define('EatSense.controller.CheckIn', {
             regenerateNicknameBt: {
             	tap: 'generateNickname'
             },
-            aboutBt: {
-              tap: 'showAbout'
-            },
+            // aboutBt: {
+            //   tap: 'showAbout'
+            // },
             settingsBt: {
             	tap: 'showSettings'
             },
@@ -433,9 +433,9 @@ Ext.define('EatSense.controller.CheckIn', {
   /**
   * Shows an about screen.
   */
-  showAbout: function() {
-    this.getApplication().getController('Settings').showAbout();
-  },
+  // showAbout: function() {
+  //   this.getApplication().getController('Settings').showAbout();
+  // },
 	/**
 	 * Show settings screen.
 	 * 
@@ -1108,7 +1108,7 @@ Ext.define('EatSense.controller.CheckIn', {
                     userLogout : {
                       403: true
                     }
-                }); 
+                });
               },
               callback: function() {
                 appHelper.toggleMask(false);
@@ -1130,7 +1130,8 @@ Ext.define('EatSense.controller.CheckIn', {
         searchField,
         spotList,
         userTypes = null,
-        searckKeyUpFn =  Ext.Function.createBuffered( filterSpotList, 50, this);
+        searckKeyUpFn =  Ext.Function.createBuffered( filterSpotList, 50, this),
+        androidCtr = this.getApplication().getController('Android');
 
     //load all spots
     this.loadSpotsForArea(area);
@@ -1139,6 +1140,8 @@ Ext.define('EatSense.controller.CheckIn', {
     backbutton = spotSelectionView.down('backbutton');
     searchField = spotSelectionView.down('searchfield');
     spotList = spotSelectionView.down('list');
+
+    androidCtr.addBackFn(hideSpotSelectionView);
 
     backbutton.on({
       tap: hideSpotSelectionView,
@@ -1170,6 +1173,8 @@ Ext.define('EatSense.controller.CheckIn', {
         keyup: searchFieldKeyupHandler,
         clearicontap: clearSpotListFilter
       });
+
+      androidCtr.removeBackFn(hideSpotSelectionView);
 
       clearSpotListFilter();
       spotSelectionView.hide();

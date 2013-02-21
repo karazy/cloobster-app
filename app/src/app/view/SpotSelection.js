@@ -36,6 +36,7 @@ Ext.define('EatSense.view.SpotSelection', {
 			},
 			{
 				xtype: 'list',
+				allowDeselect: true,
 				store: 'spotStore',
 				itemTpl: '{name}'
 			}

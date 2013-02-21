@@ -95,6 +95,7 @@ Ext.application({
       //TODO since cordova 2.2 network.connection is decprecated
       //but iOS version still running on 2.1
       //on android returned strange values
+      //instead use navigator.connection (http://docs.phonegap.com/en/2.4.0/cordova_connection_connection.md.html#Connection)
 
     //possible states
     // Connection.UNKNOWN
@@ -181,21 +182,6 @@ Ext.application({
         Ext.Ajax.setDefaultHeaders(defaultHeaders);
 
         headerUtil.addHeader('cloobster-api', appConfig.cloobsterApi);
-
-      //----- Launch functions start ------   
-      //TODO: Bug in current state. Controller launch function not executed in correct order. So this logic is moved here.
-      //Android controller launch
-      //Android specific behaviour
-      if(Ext.os.is.Android) {
-          console.log('Android Controller -> setup android specific behaviour');
-          document.addEventListener('backbutton', onBackKeyDown, false);
-          function onBackKeyDown() {
-                console.log('fire backbutton event');
-                me.getController('Android').executeBackHandler();
-        };
-      }
-
-    //----- Launch functions end ------
 
       //try to restore application state
       try {

@@ -11,7 +11,7 @@ Ext.define('EatSense.controller.Settings', {
             //settings accessed from mainview
             settingsView: 'mainview settingsview',
     		nicknameField: 'settings #nickname',
-            aboutBt: 'settings button[action=about]',
+            aboutBt: 'button[action=about]',
             //account related stuff
             accountPanel: 'settings #accountPanel',
             //event handler for settings called from dashboard settingsview
@@ -26,9 +26,9 @@ Ext.define('EatSense.controller.Settings', {
             passwordBackClubBt: 'lounge passwordsetting button[action=back]',            
             emailLabel: 'settings #accountEmail',
             saveEmailBt: 'emailsetting button[action=save]',
-            savePasswordBt: 'passwordsetting button[action=save]',
-            aboutCloseBt: 'about button[action=close]',
-            privacyCloseBt: 'privacy button[action=close]'
+            savePasswordBt: 'passwordsetting button[action=save]'
+            // aboutCloseBt: 'about button[action=close]',
+            // privacyCloseBt: 'privacy button[action=close]'
     	},
 
     	control: {
@@ -73,13 +73,13 @@ Ext.define('EatSense.controller.Settings', {
             },
             settingsNavView: {
                 back: 'navBackButtonTap'
-            },
-            aboutCloseBt: {
-                tap: 'aboutCloseBtHandler'
-            },
-            privacyCloseBt: {
-                tap: 'privacyCloseBtHandler'
             }
+            // aboutCloseBt: {
+            //     tap: 'aboutCloseBtHandler'
+            // },
+            // privacyCloseBt: {
+            //     tap: 'privacyCloseBtHandler'
+            // }
     	},
         //android back handler
         settingsNavigationFunctions : new Array(),
@@ -101,7 +101,8 @@ Ext.define('EatSense.controller.Settings', {
 
         //refresh settings upon login
         function refreshSettings(account) {
-            me.loadSettings(me.getSettingsTab().down('#settingCards'));
+            //.down('#settingCards')
+            me.loadSettings(me.getSettingsTab());
         }
 
     },
@@ -110,8 +111,8 @@ Ext.define('EatSense.controller.Settings', {
     */
     settingsTabActivated: function(tab, options) {
         var androidCtr = this.getApplication().getController('Android');
-                
-        this.loadSettings(tab.down('#settingCards'));
+        //.down('#settingCards')
+        this.loadSettings(tab);
 
         androidCtr.setExitOnBack(false);    
         androidCtr.setAndroidBackHandler(this.getSettingsNavigationFunctions());
@@ -226,50 +227,79 @@ Ext.define('EatSense.controller.Settings', {
             
         } else {
             appState.set('nickname', newData);
-        }		
+        }
 	},
     /**
     * Shows an about screen.
     */
     showAbout: function() {
         var about = Ext.create('EatSense.view.About', {
-                    zIndex: 100
-                });
-                    
-        this.getApplication().getController('Android').addBackHandler(function() {
-            Ext.Viewport.remove(about);
+                zIndex: 100
+            }),
+            closeBt,
+            androidCtr = this.getApplication().getController('Android');
+        
+        closeBt = about.down('button[action=close]');
+
+        closeBt.on({
+            tap: removeAbout,
+            single: true
         });
+
+        androidCtr.addBackFn(removeAbout);
+
+        function removeAbout() {
+            Ext.Viewport.remove(about);
+            closeBt.un('tap', removeAbout);
+            androidCtr.removeBackFn();
+        }
 
         Ext.Viewport.add(about);
     },
     /**
     * Tap event handler for close button in about panel.
     */
-    aboutCloseBtHandler: function(button) {
-        Ext.Viewport.remove(button.getParent());
-        this.getApplication().getController('Android').removeLastBackHandler();
-    },
+    // aboutCloseBtHandler: function(button) {
+    //     Ext.Viewport.remove(button.getParent());
+    //     this.getApplication().getController('Android').removeLastBackHandler();
+    // },
     /**
     * Shows a privacy screen.
     */
     showPrivacy: function() {
         var privacy = Ext.create('EatSense.view.Privacy', {
-                    zIndex: 110
-                });
-                    
-        this.getApplication().getController('Android').addBackHandler(function() {
-            Ext.Viewport.remove(privacy);
+                zIndex: 110
+            }),
+            closeButton,
+            androidCtr = this.getApplication().getController('Android');
+        
+        closeButton = privacy.down('button[action=close]');
+
+        closeButton.on({
+            tap: privacyCloseBtHandler,
+            single: true
         });
 
+
+        androidCtr.addBackFn(privacyCloseBtHandler);
+
         Ext.Viewport.add(privacy);
+
+        function privacyCloseBtHandler() {
+            closeButton.un({
+                tap: privacyCloseBtHandler
+            });
+            Ext.Viewport.remove(privacy);
+            androidCtr.removeBackFn(privacyCloseBtHandler);
+        }
     },    
     /**
     * Tap event handler for close button in privacy panel.
     */
-    privacyCloseBtHandler: function(button) {
-        Ext.Viewport.remove(button.getParent());
-        this.getApplication().getController('Android').removeLastBackHandler();
-    },
+    // privacyCloseBtHandler: function(button) {
+    //     Ext.Viewport.remove(button.getParent());
+    //     this.getApplication().getController('Android').removeLastBackHandler();
+    // },
 
     //Account actions start
 

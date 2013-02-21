@@ -136,7 +136,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 '<div class="x-slidenav-icon marked-icon"></div>',
             '</tpl>',
             '<tpl if="badgeText">',
-                '<span class="slidenav-badge">{badgeText}</span>',
+                '<span class="x-slidenav-badge">{badgeText}</span>',
             '</tpl>'
         ].join(''),
 

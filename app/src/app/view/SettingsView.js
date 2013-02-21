@@ -7,33 +7,26 @@ Ext.define('EatSense.view.SettingsView', {
 	requires: ['EatSense.view.Settings'],
 	xtype: 'settingsview',
 	config: {
-		layout: 'fit',
+		layout: {
+			type: 'card',
+			//override default tabpanel animation setting
+			animation : null
+			// {
+			// 	type : 'slide',
+			// 	direction : 'left'
+			// }
+		},
+		activeItem: 0,
 		items: [
 		{
-			xtype: 'panel',
-			layout: {
-				type: 'card',
-				//override default tabpanel animation setting
-				animation : null
-				// {
-				// 	type : 'slide',
-				// 	direction : 'left'
-				// }
-			},
-			itemId: 'settingCards',
-			activeItem: 0,
-			items:[
-				{
-					xtype: 'settings',
-					backButton: true							
-				},
-				{
-					xtype: 'emailsetting'
-				},
-				{
-					xtype: 'passwordsetting'
-				}
-			]
+			xtype: 'settings',
+			backButton: true							
+		},
+		{
+			xtype: 'emailsetting'
+		},
+		{
+			xtype: 'passwordsetting'
 		},
 		{
 			xtype: 'toolbar',
