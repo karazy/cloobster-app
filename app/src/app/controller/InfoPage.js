@@ -217,7 +217,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			//clear carousel
 			this.removeInfoPageDetailPanels();
 
-			console.log('InfoPage.createCarouselPanels > intial creation of info detail panels');
+			console.log('InfoPage.createCarouselPanels: intial creation of info detail panels');
 			try {
 				EatSense.util.Helper.toggleMask('infopage.loadingmsg');
 				//defer for a better perceived performance
@@ -233,6 +233,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						// carousel.add(currentPanel);
 						carousel.add(me.createInfoPageDetail(record));
 					});				
+
 					EatSense.util.Helper.toggleMask(false);
 
 					if(EatSense.util.Helper.isFunction(callback)) {

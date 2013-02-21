@@ -95,6 +95,7 @@ Ext.application({
       //TODO since cordova 2.2 network.connection is decprecated
       //but iOS version still running on 2.1
       //on android returned strange values
+      //instead use navigator.connection (http://docs.phonegap.com/en/2.4.0/cordova_connection_connection.md.html#Connection)
 
     //possible states
     // Connection.UNKNOWN
