@@ -103,8 +103,6 @@ Ext.define('EatSense.controller.Feedback', {
 			'spotswitched' : this.resetActiveFeedback,
 			scope: this
 		})
-
-		// this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);
 	},
 	/**
 	* Tap event handler for show feedback button on dashboard.
@@ -118,24 +116,9 @@ Ext.define('EatSense.controller.Feedback', {
 	* @param panel
 	*	The feedbackform
 	*/
-	showFeedbackForm: function(panel) {
-		// var me = this,
-		// 	lounge = this.getLounge(),
-		// 	feedbackform = lounge.down('feedbackform');
-
-		console.log('Feedback.showFeedbackForm');
-		// this.setFeedbackOrigin('home');
-		//make sure feedback form exists		
+	showFeedbackForm: function(panel) {	
 		this.setActiveFeedbackView(panel);
-
-		// clubArea.switchTo(1, 'left');
-		// lounge.getList().select(3);
-
 		this.propateFeedbackForm();
-					
-		// this.getApplication().getController('Android').addBackHandler(function() {
-  //           me.backToDashboard();
-  //       });
 	},
 
 	/**
@@ -453,7 +436,7 @@ Ext.define('EatSense.controller.Feedback', {
     */
     backToDashboard: function(button) {
 		var lounge = this.getLounge();
-		lounge.selectByAction('show-feedback');
+		lounge.selectByAction('show-clubdashboard');
     },
      /**
 	* Tap handler for backbutton.
