@@ -101,15 +101,16 @@ Ext.define('EatSense.util.Helper', {
 	* @param messageKey
 	*	If messagekey is of type string, shows the loading mask with the given message. Otherwise hides the mask.
 	*/
-	toggleMask: function(messageKey) {
+	toggleMask: function(messageKey, view) {
+		var viewToMask = view || Ext.Viewport;
 
 	    if(typeof messageKey == "string") {
-	      Ext.Viewport.setMasked({
+	      viewToMask.setMasked({
 	        xtype: 'loadmask',
 	        message: i10n.translate(messageKey)
 	      });
 	    } else {
-	      Ext.Viewport.setMasked(false);
+	      viewToMask.setMasked(false);
 	    };
   	},
   	/**

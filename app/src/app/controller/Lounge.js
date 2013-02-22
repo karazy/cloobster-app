@@ -49,22 +49,28 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'statusChanged' : function(status) {
 			if(status == appConstants.CHECKEDIN) {			  
-			  this.initDashboard();			  			  
-			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
-			  this.toggleSlidenavButtons(true);
-			  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
-			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
-			  this.registerSlideBezelTap();
-			  //initially only the area id exists so use areaName from spot
-			  this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
-			  //start load area task
-			  if(this.getLoadAreaTask()) {
-			  	this.getLoadAreaTask().delay(100);
-			  } else {
-			  	console.error('Lounge.launch: no load area task exists');
-			  }
-			  this.getLoungeview().selectByAction('show-clubdashboard');
-			  this.getLoungeview().setDisableDrag(false);
+			  this.initDashboard();
+			  // appHelper.toggleMask(i10n.translate('checkin.init.loading', checkInCtr.getActiveSpot().get('businessName')), this.getLoungeview().getContainer().getActiveItem());
+			  //defer to correctly show the mask
+			  Ext.defer(function() {
+ 				this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
+			  	this.toggleSlidenavButtons(true);
+				  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
+				  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
+				  this.registerSlideBezelTap();
+				  //initially only the area id exists so use areaName from spot
+				  this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
+				  //start load area task
+				  if(this.getLoadAreaTask()) {
+				  	this.getLoadAreaTask().delay(100);
+				  } else {
+				  	console.error('Lounge.launch: no load area task exists');
+				  }
+				  this.getLoungeview().selectByAction('show-clubdashboard');
+				  this.getLoungeview().setDisableDrag(false);
+				  // appHelper.toggleMask(false, me.getLoungeview().getContainer().getActiveItem());
+			  }, 100, this);
+			 
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 				this.getLoungeview().setDisableDrag(true);
@@ -256,7 +262,7 @@ Ext.define('EatSense.controller.Lounge', {
 	this.getClubArea().setActiveItem(0);
 	lounge.setActiveItem(0);
 
-	main.switchTo(lounge, 'left');	
+	main.switchTo(lounge, 'left');
   },
   /*
   * Set title of menu tilebutton in club dashboard to name of active area.

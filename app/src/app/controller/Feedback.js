@@ -64,24 +64,6 @@ Ext.define('EatSense.controller.Feedback', {
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn');
 
-		// checkInCtr.on('statusChanged', function(status) {
-		// 	if(status == appConstants.CHECKEDIN) {
-		// 		this.setSubmitted(false);
-		// 		this.loadFeedbackTemplate(restoreFeedback);
-
-		// 	    function restoreFeedback() {
-		// 	      //restore existing feedback
-		// 	      if(checkInCtr.getAppState().get('feedbackId')) {
-		// 	      	me.setSubmitted(true);
-		// 	        me.loadFeedback(checkInCtr.getAppState().get('feedbackId'));
-		// 	      }
-		// 	    };
-		// 	}
-		// 	else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-		// 		this.cleanup();
-		// 	}
-		// }, this);
-
 		checkInCtr.on({
 			'statusChanged': function(status) {
 				if(status == appConstants.CHECKEDIN) {
