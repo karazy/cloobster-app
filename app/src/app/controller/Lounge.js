@@ -76,7 +76,6 @@ Ext.define('EatSense.controller.Lounge', {
 				this.getLoungeview().setDisableDrag(false);
 				this.cleanup();
 			}
-			
 		 },
 		 'basicmode' : function(basicMode) {
 		 	this.manageBasicMode(basicMode);

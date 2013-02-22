@@ -1540,7 +1540,7 @@
 				console.log('updatedOrder ' + updatedOrder.id + ' does not exist');
 			}
 		} else if(action == 'delete') {
-			console.log('delete order with id ' + updatedOrder.id);
+			console.log('Order.handleOrderMessage: delete order with id ' + updatedOrder.id);
 
 			oldOrder = orderStore.getById(updatedOrder.id);
 			if(oldOrder) {
@@ -1575,17 +1575,16 @@
 			checkInCtr =  this.getApplication().getController('CheckIn'),
 			myordersComplete = this.getMyordersComplete(),
 			payButton = this.getPaymentButton(),
-			lounge = this.getLoungeview(), 
-			tab = this.getMyordersview();				
+			lounge = this.getLoungeview();			
 
 		if(action == "new") {
 			//this occurs when business manually completes a checkin
-			console.log("Order.handleBillMessage > new bill arrived. Businesses completed checkin.");
+			console.log("Order.handleBillMessage: new bill arrived. Businesses completed checkin.");
 			bill.set('id', bill.id);
 			bill.set('checkInId', bill.checkInId);
 			bill.set('paymentMethod', billdata.paymentMethod.name);
 			this.setActiveBill(bill);						
-			lounge.setActiveItem(tab);
+			lounge.selectByAction('show-myorders');
 			myordersComplete.show();
 			this.refreshMyOrdersBadgeText(true);
 			payButton.hide();
