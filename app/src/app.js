@@ -68,12 +68,14 @@ Ext.application({
       console.log('Console.error not available. Redirecting to console.log');
       console.error = console.log;
     }
-	
-		   	
+
+  	   	
     // Destroy the #appLoadingIndicator and #cloobsterLoadingText elements
     Ext.fly('appLoadingWrapper').destroy();
     //create main screen
    	Ext.create('EatSense.view.Main');
+  
+  
 
     //check if a network state exists when cordova is runnning
     //only proceed if a network connection is detected
