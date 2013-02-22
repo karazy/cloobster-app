@@ -67,13 +67,13 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.getLoungeview().setDisableDrag(false);
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
-				this.registerSlideBezelTap(false);
+				this.registerSlideBezelTap(true);
 				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
 				// this.getLoungeview().un('containertoggle', this.containerStateBasedActions, this);
 				this.getLoungeview().un('containertoggle', this.disableTextFields, this);
-				this.registerSlideBezelTap(false);
+				this.registerSlideBezelTap(true);
 				this.getLoungeview().setDisableDrag(false);
 				this.cleanup();
 			}
@@ -100,11 +100,16 @@ Ext.define('EatSense.controller.Lounge', {
 	 //stop propagation
 	 return false;
   },
-  registerSlideBezelTap: function(un) {
+  /**
+  * Enable tapping on slidebezel to show slide nav.
+  * @param {Boolean} unregister
+  *		True to remove tap event.
+  */
+  registerSlideBezelTap: function(unregister) {
 	 var me = this,
 		  slideBezel = Ext.getCmp('slidenavigationbezel');
 
-	 if(!un) {
+	 if(!unregister) {
 		slideBezel.element.on({
 		  tap: me.toggleNavigation,
 		  scope: this
