@@ -67,6 +67,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.getLoungeview().setDisableDrag(false);
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
+				this.registerSlideBezelTap(false);
 				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
