@@ -71,7 +71,14 @@
 				if(status == appConstants.CHECKEDIN) {
 					// if(check)
 					
-				} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+				} else if(status == appConstants.PAYMENT_REQUEST) {
+					//trigger leave on backbutton, otherwise user gets thrown to club dashboard also this is forbidden
+					//remove handler is not required as they get resetet on status change
+					me.getApplication().getController('Android').addBackFn(function() {
+						me.completePayment();
+					});
+				}
+				else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 					this.cleanup();
 				}
 			},
@@ -1570,7 +1577,8 @@
 	*	Object with bill data
 	*/
 	handleBillMessage: function(action, billdata) {
-		var bill = Ext.create('EatSense.model.Bill'),
+		var me = this,
+			bill = Ext.create('EatSense.model.Bill'),
 			// paymentMethod = Ext.create('EatSense.model.PaymentMethod'),
 			checkInCtr =  this.getApplication().getController('CheckIn'),
 			myordersComplete = this.getMyordersComplete(),
@@ -1588,8 +1596,7 @@
 			myordersComplete.show();
 			this.refreshMyOrdersBadgeText(true);
 			payButton.hide();
-			
-			
+
 			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
 
 			//show a message 

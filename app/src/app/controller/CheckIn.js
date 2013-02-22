@@ -621,8 +621,7 @@ Ext.define('EatSense.controller.CheckIn', {
 		else if(status == appConstants.PAYMENT_REQUEST) {	
 			this.getActiveCheckIn().set('status', status);
 		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-			this.showDashboard();			
-			// this.getLoungeview().setActiveItem(this.getMenuTab());      
+			this.showDashboard();			     
 
       //clear checkInId
       this.getAppState().set('checkInId', null);
