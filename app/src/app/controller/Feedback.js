@@ -378,11 +378,16 @@ Ext.define('EatSense.controller.Feedback', {
 				//when feedback exists hide button in orders view
 				me.getShowFeedbackLeaveButton().setHidden(true);
 			},
-			failure: function(record, operation) {
-				me.getApplication().handleServerError({
-					'error': operation.error,
-					'forceLogout': {403: true}
-				});
+			failure: function(record, operation) {				
+				if(operation.error.status != 404)  {
+	    			me.getApplication().handleServerError({
+                		'error': operation.error, 
+                		'forceLogout': {403:true}
+                	});
+	    		} else {
+	    			//Feedback not found, wrong feedback id in appstate
+	    			console.error('Feedback.loadFeedback: could not load feedback ' + id );
+	    		}
 			}
 		})
 	},
