@@ -93,6 +93,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		if(store) {
 			//regnerate the teaser on store load
 			store.on('refresh', this.generateRandomPage, this);
+			store.on('beforeload', this.maskTeaser, this)
 			store.on('load', this.generateRandomPage, this);
 			store.on('clear', this.clearPage, this);
 		}
@@ -107,6 +108,15 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
             touchstart : 'onPress',
             touchend   : 'onRelease'
         });
+	},
+	/**
+	* Sets a mask on the teaser.
+	*/
+	maskTeaser: function() {
+		this.setMasked({
+	        xtype: 'mask'
+	     });
+		return true;
 	},
 	/**
 	* @private
@@ -129,10 +139,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		// if(this.getFilter() && !this.nestedStores.length > 0) {
 		// 	store.filter(this.getFilter());
 		// }
-		
-		this.setMasked({
-	        xtype: 'loadmask'
-	     });
 
 		randomPageIndex = this.getRandomStoreNumber(store);
 

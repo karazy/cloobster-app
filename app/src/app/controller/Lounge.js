@@ -52,7 +52,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.initDashboard();
 			  // appHelper.toggleMask(i10n.translate('checkin.init.loading', checkInCtr.getActiveSpot().get('businessName')), this.getLoungeview().getContainer().getActiveItem());
 			  //defer to correctly show the mask
-			  Ext.defer(function() {
+			  // Ext.defer(function() {
  				this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  	this.toggleSlidenavButtons(true);
 				  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
@@ -69,7 +69,7 @@ Ext.define('EatSense.controller.Lounge', {
 				  this.getLoungeview().selectByAction('show-clubdashboard');
 				  this.getLoungeview().setDisableDrag(false);
 				  // appHelper.toggleMask(false, me.getLoungeview().getContainer().getActiveItem());
-			  }, 100, this);
+			  // }, 100, this);
 			 
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);

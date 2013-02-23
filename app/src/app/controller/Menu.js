@@ -472,7 +472,7 @@ Ext.define('EatSense.controller.Menu', {
 			message: i10n.translate('menu.product.detail.loading')
 		});
 		// console.log('Menu.loadProductDetail: 8');
-		Ext.defer((function() {
+		// Ext.defer((function() {
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices
@@ -517,7 +517,7 @@ Ext.define('EatSense.controller.Menu', {
 			}), 400, this);
 
 			detail.setMasked(false);
-		}), 100, this);
+		// }), 100, this);
 	},
 	/**
 	* @private
