@@ -228,7 +228,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Check-in at {0} ..."
 		},
 		"restoreStateLoading" : {
-			"DE" :  "Check-in widerherstellen ...",
+			"DE" :  "Check-in wiederherstellen ...",
 			"EN" :  "Restore check-in..."
 		},
 		"restoreStateFailed" : {
