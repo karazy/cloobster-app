@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="CloobsterAppDesktop" default="buildDesktop" basedir=".">    
+<project name="CloobsterWP8" default="buildProduction" basedir=".">    
     
     <!-- Path to src dir -->
 	<property name="appDir" value="../../src/" />
@@ -7,6 +7,10 @@
 	<property name="appFile" value="app.js" />
 	<!-- 	Configuration file -->
 	<property name="configFile" value="app/util/Configuration.js" />
+	
+	<property name="productionDir" value="../../../wp8/www/" />
+	
+	<property name="serviceUrl" value="https://karazy-cloobster.appspot.com"></property>
 	
 	<import file="${appDir}/.sencha/app/build-impl.xml"/>
 	
@@ -45,7 +49,7 @@
             <target name="-after-build"/>
     -->
     
-   	<target name="compile" depends="setVersion">
+   	<target name="compile" depends="setConfig">
 	    <!-- 	Load config from sencha.cfg -->
 		<x-sencha-init/>
 	    <echo message="call sencha app build production" />
@@ -66,9 +70,9 @@
 		<echo message="Copy App" />
 		<copy todir="." overwrite="true">
 			<fileset dir="${appDir}">
+				<exclude name="**/*.desktop.*" />
 				<exclude name="**/*.phone.*" />
 				<exclude name="**/*.iphone.*" />
-				<exclude name="**/*.wp8.*" />
 				<exclude name="**/*.ignore.*" />
 				<exclude name="**/.sass-cache/**" />
 			</fileset>
@@ -77,19 +81,27 @@
 		<move todir="." includeemptydirs="false">
 			<fileset dir=".">
 			</fileset>
-			<regexpmapper from="^(.+)\.desktop\.(.+)$$" to="\1.\2" />
+			<regexpmapper from="^(.+)\.wp8\.(.+)$$" to="\1.\2" />
 		</move>
 	</target>
 	
-<!-- 	<target name="copyProduction" depends="compile"> -->
-<!-- 		<echo message="Delete old files" /> -->
-<!-- 		<delete dir="${androidDir}"></delete> -->
-<!-- 		<echo message="Copy App" /> -->
-<!-- 		<copy todir="${androidDir}" overwrite="true"> -->
-<!-- 			<fileset dir="build/EatSense/production"> -->
-<!-- 			</fileset> -->
-<!-- 		</copy> -->
-<!-- 	</target> -->
+	<target name="copyProduction" depends="compile">
+		<echo message="Delete old files" />
+		<delete dir="${productionDir}"></delete>
+		<echo message="Copy App" />
+		<copy todir="${productionDir}" overwrite="true">
+			<fileset dir="build/EatSense/package">
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="setConfig" depends="setVersion">
+		<echo message="Setting config values" />
+		<replaceregexp file="${configFile}" match="(serviceUrl :) .*" replace="\1 '${serviceUrl}'," byline="true">
+		</replaceregexp>
+		<replaceregexp file="${appFile}" match="(disableCaching :) .*" replace="\1 false," byline="true">
+		</replaceregexp>
+	</target>
 	
 	<target name="setVersion" depends="copySource">
 		<echo message="Setting version number" />
@@ -103,9 +115,28 @@
 	</target>
 	
 	<!-- Build configurations -->
-	<target name="buildDesktop">
-		<antcall target="compile">
+	<target name="buildLocal">
+		<antcall target="copyProduction">
+		    <param name="serviceUrl" value="http://192.168.2.133:8888"></param>
 		</antcall>
 	</target>
+	
+	<target name="buildTest">
+		<antcall target="copyProduction">
+		    <param name="serviceUrl" value="https://cloobster-test.appspot.com"></param>
+		</antcall>
+	</target>
+	
+	<target name="buildQuality">
+		<antcall target="copyProduction">
+		    <param name="serviceUrl" value="https://cloobster-quality.appspot.com"></param>
+		</antcall>
+	</target>
+	
+	<target name="buildProduction">
+		<antcall target="copyProduction">
+		    <param name="serviceUrl" value="https://karazy-cloobster.appspot.com"></param>
+		</antcall>
+	</target>	
 
 </project>

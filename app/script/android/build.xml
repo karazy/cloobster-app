@@ -72,6 +72,7 @@
 			<fileset dir="${appDir}">
 				<exclude name="**/*.desktop.*" />
 				<exclude name="**/*.iphone.*" />
+				<exclude name="**/*.wp8.*" />
 				<exclude name="**/*.ignore.*" />
 				<exclude name="**/.sass-cache/**" />
 			</fileset>
