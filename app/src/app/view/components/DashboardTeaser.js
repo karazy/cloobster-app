@@ -93,7 +93,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		if(store) {
 			//regnerate the teaser on store load
 			store.on('refresh', this.generateRandomPage, this);
-			store.on('beforeload', this.maskTeaser, this)
+			store.on('beforeload', this.maskTeaser, this);
 			store.on('load', this.generateRandomPage, this);
 			store.on('clear', this.clearPage, this);
 		}
@@ -135,6 +135,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		
 		if(this.getFilter() && !this.nestedStores.length > 0) {
+			store.un('refresh', this.generateRandomPage, this);
 			storeFilters = store.getFilters();
 			store.filter(this.getFilter());
 		}
@@ -191,6 +192,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		if(this.getFilter() && !this.nestedStores.length > 0) {
 			store.clearFilter(true);
 			store.setFilters(storeFilters);
+			store.on('refresh', this.generateRandomPage, this);
 		}
 		
 	},
