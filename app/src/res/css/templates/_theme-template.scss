@@ -411,7 +411,7 @@
   }
 }
 
-.infopage-teaser {
+.x-infopage-teaser {
   background-color: #f5f5f5;
   border: 1px solid lightgray;
   border-radius: 2px;
@@ -775,7 +775,7 @@
       width: 100%;
       height: auto;
       max-height: 150px;
-      -webkit-box-shadow: 0px 0px 10px 2px gray;
+      -webkit-box-shadow: 0px 0px 5px 1px gray;
     }
 
     img.header-logo {
@@ -1335,8 +1335,8 @@ h9 {
   border-radius: 0;
   border-bottom-right-radius: 2px !important;
   border-top-right-radius: 2px !important;
-  -webkit-box-shadow: 2px 2px 4px 1px lightgrey;
-  box-shadow: 2px 2px 4px 1px lightgrey;
+/*  -webkit-box-shadow: 2px 2px 4px 1px lightgrey;
+  box-shadow: 2px 2px 4px 1px lightgrey;*/
 
   /* Overwrite background of floating panel div */
   div {

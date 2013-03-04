@@ -52,7 +52,8 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		*/
 		clearBeforeFiltering: false,
 
-		cls: 'infopage-teaser',
+		cls: Ext.baseCSSPrefix + 'infopage-teaser',
+		
 		padding: 3,
 
 		/**

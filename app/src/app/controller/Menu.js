@@ -827,33 +827,6 @@ Ext.define('EatSense.controller.Menu', {
 	    //remove menu to prevent problems on reload
 	    menuStore.removeAll(false);
 	},
-	/**
-	* @Deprecated
-	* @private
-	*	Extracts all nested products from given menuStore and adds them to productStore.
-	* @param {Ext.data.Store} menuStore
-	*	Store to extract menus from
-	* @param {Array} menuIds
-	*	Ids of menus to filter product store
-	*/
-	// setupProductStore: function(menuStore, menuIds) {
-	// 	var productStore = Ext.StoreManager.lookup('productStore');
-
-	// 	if(!menuStore) {
-	// 		return;
-	// 	}
-
-	// 	this.filterProductStore(menuIds, false);
-
-	// 	menuStore.each(function(menu) {
-	// 		menu.productsStore.each(function(product) {
-	// 			productStore.add(product);
-	// 		});
-	// 	});
-
-	// 	//fire load event for listening components
-	// 	productStore.fireEvent('load', productStore, productStore.data.items, true);
-	// },
 
 	/**
 	* Filter the product store.
@@ -910,7 +883,7 @@ Ext.define('EatSense.controller.Menu', {
 
 	/**
 	* @private
-	* Load products for activeCheckIn
+	* Load products for activeCheckIn.
 	*
 	*/
 	loadProducts: function() {
