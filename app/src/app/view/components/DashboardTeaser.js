@@ -150,14 +150,10 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 				//if nested stores exist iterate over all of them to get the final random record
 				Ext.Array.each(this.nestedStores, function(nested, index) {
 					nestedStoreInstance = page[nested + ''];
-					//clear possible filters
-					// nestedStoreFilter = nestedStoreInstance.getFilters();
-					// nestedStoreInstance.clearFilter(true);
 
-					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
-						// nestedStoreInstance.findBy(me.getFilter());
-						// nestedStoreInstance.filter('special', true);
-					// }
+					if(me.getFilter() && index == (me.nestedStores.length - 1)) {
+						nestedStoreInstance.filter(me.getFilter());
+					}
 
 					if(!nestedStoreInstance) {
 						console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: non existing nested store ' + nested);
@@ -166,11 +162,11 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 					randomPageIndex = me.getRandomStoreNumber(nestedStoreInstance);
 					page = nestedStoreInstance.getAt(randomPageIndex);
 
-					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
-					// 	nestedStoreInstance.clearFilter(true);
-					// }
+					if(me.getFilter() && index == (me.nestedStores.length - 1)) {
+						nestedStoreInstance.clearFilter(true);
+						nestedStoreInstance.setFilters(storeFilters);
+					}
 
-					// nestedStoreInstance.setFilters(nestedStoreFilter);
 				});
 			}
 			
