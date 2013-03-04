@@ -41,7 +41,7 @@
 @CHARSET "UTF-8";
 
 
-.productListItem {
+.product-list-item {
   h2.title {
     font-size: 1em;
     word-break: break-word;
@@ -56,6 +56,17 @@
   div p {
     font-size: 0.6em;
     word-break: break-word;
+  }
+
+  div.special {
+    float: left;
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../images/feedback/star_shining.png');
   }
 }
 
@@ -459,6 +470,7 @@
         text-overflow: ellipsis;
       }
   }
+
   .teaser-icon {
     position: absolute;
     right: 5px;

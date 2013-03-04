@@ -174,7 +174,7 @@ Ext.define('EatSense.controller.Menu', {
 
     	this.setActiveMenu(record);
     	this.filterProductStore(record); 
-		// this.getProductlist().refresh();
+		this.getProductlist().refresh();
     	
     	titleLabel = pov.down('#titleLabel');
 
