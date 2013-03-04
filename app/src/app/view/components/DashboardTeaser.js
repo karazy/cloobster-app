@@ -41,7 +41,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		pageGenerated: false,
 		
 		/**
-		* //TODO reserved for future use
 		* @cfg {String|Object} filter
 		* 	Filter to apply to the store. If nested stores exist it only gets applied to the last store.
 		*/
@@ -128,7 +127,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			storeCount,
 			page,
 			randomPageIndex,
-			storeFilters,
 			store = this.getStore(),
 			nestedStoreInstance,
 			nestedStoreFilter;
@@ -136,7 +134,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		
 		if(this.getFilter() && !this.nestedStores.length > 0) {
 			store.un('refresh', this.generateRandomPage, this);
-			storeFilters = store.getFilters();
 			store.filter(this.getFilter());
 		}
 
@@ -163,8 +160,8 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 					page = nestedStoreInstance.getAt(randomPageIndex);
 
 					if(me.getFilter() && index == (me.nestedStores.length - 1)) {
-						nestedStoreInstance.clearFilter(true);
-						nestedStoreInstance.setFilters(storeFilters);
+						nestedStoreInstance.data.removeFilters(me.getFilter());
+						nestedStoreInstance.filter();
 					}
 
 				});
@@ -190,8 +187,8 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		this.setMasked(false);
 
 		if(this.getFilter() && !this.nestedStores.length > 0) {
-			store.clearFilter(true);
-			store.setFilters(storeFilters);
+			store.data.removeFilters(this.getFilter());
+			store.filter();
 			store.on('refresh', this.generateRandomPage, this);
 		}
 		
