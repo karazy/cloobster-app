@@ -9,12 +9,6 @@ Ext.define('EatSense.store.Product', {
 		    	property: 'order',
                 direction: 'ASC'
             }
-		],
-		filters: [
-        	{
-        	    property: 'special',
-            	value   : true
-  	      	}
-    	]
+		]
 	}
 });

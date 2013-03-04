@@ -46,6 +46,12 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		*/
 		filter: '',
 
+		/**
+		* @cfg {Boolean} clearBeforeFiltering
+		* 	Set to true, to remove existing filters before filtering.
+		*/
+		clearBeforeFiltering: false,
+
 		cls: 'infopage-teaser',
 		padding: 3,
 
@@ -128,11 +134,16 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			page,
 			randomPageIndex,
 			store = this.getStore(),
+			storeFilters,
 			nestedStoreInstance,
 			nestedStoreFilter;
 
 		
 		if(this.getFilter() && !this.nestedStores.length > 0) {
+			if(this.getClearBeforeFiltering()) {
+				storeFilters = store.getFilters();
+				store.clearFilter(true);
+			}
 			store.un('refresh', this.generateRandomPage, this);
 			store.filter(this.getFilter());
 		}
@@ -187,8 +198,14 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		this.setMasked(false);
 
 		if(this.getFilter() && !this.nestedStores.length > 0) {
+			
+			if(this.getClearBeforeFiltering()) {
+				store.setFilters(storeFilters);
+			}
+			
 			store.data.removeFilters(this.getFilter());
-			store.filter();
+			store.filter();	
+			
 			store.on('refresh', this.generateRandomPage, this);
 		}
 		

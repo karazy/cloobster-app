@@ -31,6 +31,7 @@ Ext.define('EatSense.view.ProductOverview', {
 		{
 			xtype : 'list',
 			itemId : 'productlist',
+			store: 'productStore',
 			allowDeselect : true,
 			cls: 'productlist',
 			itemCls: 'productListItem',

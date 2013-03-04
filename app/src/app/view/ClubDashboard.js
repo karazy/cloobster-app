@@ -136,6 +136,17 @@ Ext.define('EatSense.view.ClubDashboard', {
 							{
 								xtype : 'dashboardteaser',
 								store : 'productStore',
+								filter: [
+									{
+									property: 'hideInDashboard',
+									value: false
+									}, 
+									{
+										property: 'special',
+										value: true
+									}
+								],
+								// clearBeforeFiltering: true,
 								type: 'product',
 								tpl: new Ext.XTemplate(
 									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
@@ -148,7 +159,12 @@ Ext.define('EatSense.view.ClubDashboard', {
 							},	
 							{
 								xtype : 'dashboardteaser',
-								store : 'menuStore.productsStore',
+								store : 'productStore',
+								// clearBeforeFiltering: true,
+								filter: [{
+									property: 'hideInDashboard',
+									value: false
+								}],
 								type: 'product',
 								tpl: new Ext.XTemplate(
 									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+

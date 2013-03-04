@@ -81,10 +81,13 @@ Ext.define('EatSense.controller.Menu', {
     	var checkInCtr = this.getApplication().getController('CheckIn'),
     		loungeCtr = this.getApplication().getController('Lounge');
 
-    	checkInCtr.on('statusChanged', function(status) {
+    	checkInCtr.on('statusChanged', function(status, activeCheckIn) {
 			if(status == appConstants.CHECKEDIN) {
 				this.registerProductTeaserTap();
-				this.showMenu();				
+				this.showMenu();
+				//add area filter to product store before loading
+                this.addProductAreaFilter(checkInCtr.getActiveSpot().raw.areaMenuIds);
+				this.loadProducts(activeCheckIn);
 				loungeCtr.on('areaswitched', doAreaFiltering, this);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();
@@ -95,7 +98,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		function doAreaFiltering(area) {
 			this.filterMenuBasedOnArea(area);
-			this.filterProductStore(area.raw.menuIds, true);
+			this.addProductAreaFilter(area.raw.menuIds, true);
 			this.backToMenu();
 		}
     },
@@ -139,12 +142,12 @@ Ext.define('EatSense.controller.Menu', {
     	//get all associated data!
     	product.getData(true);
 
-    	if(!product.get('menu_id')) {
-    		console.log('Menu.jumpToProductDetail: product has no menu_id');
+    	if(!product.get('menuId')) {
+    		console.log('Menu.jumpToProductDetail: product has no menuId');
     		return;
     	}
 
-    	parentMenu = menuStore.getById(product.get('menu_id'));
+    	parentMenu = menuStore.getById(product.get('menuId'));
     	//show the product list
     	this.showProductlist(null, parentMenu);
     	loungeview.selectByAction('show-menu');
@@ -170,9 +173,8 @@ Ext.define('EatSense.controller.Menu', {
 		});
 
     	this.setActiveMenu(record);
-
-    	this.getProductlist().setStore(prodStore);  
-		this.getProductlist().refresh();
+    	this.filterProductStore(record); 
+		// this.getProductlist().refresh();
     	
     	titleLabel = pov.down('#titleLabel');
 
@@ -197,7 +199,7 @@ Ext.define('EatSense.controller.Menu', {
     showMenu: function() {
     	var me = this,
     	    menu = this.getMenuview(),
-    		lounge = this.getLoungeview(),
+    		// lounge = this.getLoungeview(),
     		main = this.getMain(),
     		checkInCtr = this.getApplication().getController('CheckIn'),
     		businessId = Ext.String.trim(checkInCtr.getActiveCheckIn().get('businessId')),
@@ -215,7 +217,7 @@ Ext.define('EatSense.controller.Menu', {
 			menuStore.load({
 				scope   : this,
 				params: {
-					'includeProducts' : true,
+					// 'includeProducts' : true,
 					'pathId': businessId
 				},
 			    callback: function(records, operation, success) {
@@ -226,8 +228,7 @@ Ext.define('EatSense.controller.Menu', {
                         }); 
                     }
 
-                    //setup store before filtering the store
-                    me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);                    
+                    // me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);                    
                     //only display assigned menus
 			    	menuStore.filter([
 				    	{
@@ -820,6 +821,7 @@ Ext.define('EatSense.controller.Menu', {
 	    menuStore.removeAll(false);
 	},
 	/**
+	* @Deprecated
 	* @private
 	*	Extracts all nested products from given menuStore and adds them to productStore.
 	* @param {Ext.data.Store} menuStore
@@ -827,57 +829,107 @@ Ext.define('EatSense.controller.Menu', {
 	* @param {Array} menuIds
 	*	Ids of menus to filter product store
 	*/
-	setupProductStore: function(menuStore, menuIds) {
-		var productStore = Ext.StoreManager.lookup('productStore');
+	// setupProductStore: function(menuStore, menuIds) {
+	// 	var productStore = Ext.StoreManager.lookup('productStore');
 
-		if(!menuStore) {
-			return;
-		}
+	// 	if(!menuStore) {
+	// 		return;
+	// 	}
 
-		this.filterProductStore(menuIds, false);
+	// 	this.filterProductStore(menuIds, false);
 
-		menuStore.each(function(menu) {
-			menu.productsStore.each(function(product) {
-				productStore.add(product);
-			});
-		});
+	// 	menuStore.each(function(menu) {
+	// 		menu.productsStore.each(function(product) {
+	// 			productStore.add(product);
+	// 		});
+	// 	});
 
-		//fire load event for listening components
-		productStore.fireEvent('load', productStore, productStore.data.items, true);
-	},
-	filterProductStore: function(menuIds, clear) {
+	// 	//fire load event for listening components
+	// 	productStore.fireEvent('load', productStore, productStore.data.items, true);
+	// },
+
+	/**
+	* Filter the product store.
+	* @param {EatSense.model.Menu} menu
+	*	show products for given menu
+	* @param {Boolean} clear
+	*	True to remove existing filters.
+	*/
+	filterProductStore: function(menu, clear) {
 		var productStore = Ext.StoreManager.lookup('productStore');
 
 		if(clear) {
 			productStore.clearFilter(true);	
 		}
-		//TODO refactor filtering when this will be used in a more general way
-		// so a hardcodet "special" filter is not needed anymore
+
+		if(menu) {
+			productStore.data.removeFilters(['menuId']);
+
+			productStore.filter([
+				{
+					property: 'menuId',
+					value: menu.get('id')
+				}
+			]);
+		}		
+	},
+	/**
+	* @private
+	* Adds a filter to product store hiding all menus, not belonging to current area.
+	* @param {Array<Number>} menuIds
+	*	Array of menuIds belonging to current area.
+	* @param {Boolean} clear
+	*	True to remove existing filters.
+	*/
+	addProductAreaFilter: function(menuIds, clear) {
+ 		var productStore = Ext.StoreManager.lookup('productStore');
+ 
+ 		if(clear) {
+ 			productStore.clearFilter(true);	
+ 		}
+
 		if(menuIds) {
 			productStore.filter([
 		    	{
 		    		filterFn: function(product) {
-		    			if(Ext.Array.contains(menuIds, product.get('menu_id'))) {
+		    			if(Ext.Array.contains(menuIds, product.get('menuId'))) {
 		    				return true;
 		    			}
 		    		}
-		    	},
-		    	{
-        	    	property: 'special',
-            		value   : true
 		    	}
     		]);
-		}
-		
-	},
+		}		
+ 	},
+
 	/**
 	* @private
-	* Clear productStore
+	* Load products for activeCheckIn
+	*
+	*/
+	loadProducts: function() {
+		var productStore = Ext.StoreManager.lookup('productStore');
+
+		productStore.load({
+			callback: function(records, operation, success) {
+		    	if(operation.error) { 
+                    me.getApplication().handleServerError({
+                    	'error': operation.error, 
+                    	'forceLogout': {403:true}
+                    }); 
+                }
+		    }
+		});
+	},
+
+	/**
+	* @private
+	* Clear productStore.
 	*/
 	clearProductStore: function() {
 		var productStore = Ext.StoreManager.lookup('productStore');
 		
 		try {
+			productStore.clearFilter(true);
 			productStore.each(function(product) {
 		        product.choices().each(function(choice) {
 		            choice.options().removeAll(true);

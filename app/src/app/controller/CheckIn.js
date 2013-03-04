@@ -12,6 +12,8 @@ Ext.define('EatSense.controller.CheckIn', {
      * Fires whenever the checkin changed its status.
      * It is one of the list available under EatSense.util.Constants
      * @param {String} the status
+     * @param {EatSense.model.CheckIn} activeCheckIn
+     *  On CHECKEDIN the active checkin is provided
      */
 
      /**
@@ -354,7 +356,7 @@ Ext.define('EatSense.controller.CheckIn', {
                       'pathId' : me.getActiveCheckIn().get('businessId')
                     });
 
-                    me.fireEvent('statusChanged', appConstants.CHECKEDIN);
+                    me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
   					   	    me.loadBusiness(); 
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
@@ -520,7 +522,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
         me.fireEvent('resumecheckin', me.getActiveCheckIn());
 
-        me.fireEvent('statusChanged', appConstants.CHECKEDIN);
+        me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
 
 
          //open a channel for push messags

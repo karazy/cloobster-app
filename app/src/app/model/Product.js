@@ -39,6 +39,13 @@ Ext.define('EatSense.model.Product', {
 		{
 			name: 'imageUrl',
 			type: 'string'
+		},
+		{
+			name: 'hideInDashboard',
+			type: 'boolean'
+		},
+		{
+			name: 'menuId'
 		}],
 		 associations: [
 		 {
