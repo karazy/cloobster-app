@@ -42,7 +42,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		
 		/**
 		* @cfg {String|Object} filter
-		* 	Filter to apply to the store. If nested stores exist it only gets applied to the last store.
+		* 	Filter to apply to the store. Has no effect when using nested stores.
 		*/
 		filter: '',
 
@@ -53,7 +53,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		clearBeforeFiltering: false,
 
 		cls: Ext.baseCSSPrefix + 'infopage-teaser',
-		
+
 		padding: 3,
 
 		/**
@@ -160,9 +160,10 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 				Ext.Array.each(this.nestedStores, function(nested, index) {
 					nestedStoreInstance = page[nested + ''];
 
-					if(me.getFilter() && index == (me.nestedStores.length - 1)) {
-						nestedStoreInstance.filter(me.getFilter());
-					}
+					//Nested store filtering is experimental
+					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
+					// 	nestedStoreInstance.filter(me.getFilter());
+					// }
 
 					if(!nestedStoreInstance) {
 						console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: non existing nested store ' + nested);
@@ -171,10 +172,10 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 					randomPageIndex = me.getRandomStoreNumber(nestedStoreInstance);
 					page = nestedStoreInstance.getAt(randomPageIndex);
 
-					if(me.getFilter() && index == (me.nestedStores.length - 1)) {
-						nestedStoreInstance.data.removeFilters(me.getFilter());
-						nestedStoreInstance.filter();
-					}
+					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
+					// 	nestedStoreInstance.data.removeFilters(me.getFilter());
+					// 	nestedStoreInstance.filter();
+					// }
 
 				});
 			}
