@@ -41,7 +41,10 @@ Ext.define('EatSense.view.ProductDetail', {
 				xtype: 'label',
 				itemId: 'titleLabel',
 				docked: 'top',	
-				tpl: new Ext.XTemplate('<div class="productlist-header">{productName}</div>')
+				tpl: new Ext.XTemplate('<div class="productlist-header">'+
+					'<tpl if="productSpecial"><div class="special"></div></tpl>'+
+					'{productName}'+
+					'</div>')
 			},
 			{
 				xtype : 'label',
@@ -64,6 +67,15 @@ Ext.define('EatSense.view.ProductDetail', {
 					// 'margin-top' : '35px'
 				},
 				items : [
+				// {
+				// 	xtype: 'numberfield',
+				// 	label: 'Menge',
+				// 	labelAlign: 'top',
+				// 	// labelWidth: '60%',
+				// 	value: 1,
+				// 	minValue: 1,
+				// 	maxValue: 10
+				// },
 				{	
 					xtype : 'spinnerfield',
 					itemId : 'productAmountSpinner',
