@@ -96,6 +96,10 @@ Ext.define('EatSense.view.ClubDashboard', {
 							xtype : 'dashboardteaser',
 							type: 'info',
 							store : 'infopageStore',
+							filter: [{
+								property: 'hideInDashboard',
+								value: false
+							}],
 							iconFit: true,
 							tpl: new Ext.XTemplate(
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+

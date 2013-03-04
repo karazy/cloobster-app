@@ -133,12 +133,11 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			nestedStoreInstance,
 			nestedStoreFilter;
 
-		// storeFilters = store.getFilters();
-		// store.clearFilter(true);
 		
-		// if(this.getFilter() && !this.nestedStores.length > 0) {
-		// 	store.filter(this.getFilter());
-		// }
+		if(this.getFilter() && !this.nestedStores.length > 0) {
+			storeFilters = store.getFilters();
+			store.filter(this.getFilter());
+		}
 
 		randomPageIndex = this.getRandomStoreNumber(store);
 
@@ -189,10 +188,11 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		this.setMasked(false);
 
-		// if(this.getFilter() && !this.nestedStores.length > 0) {
-		// 	store.clearFilter(true);
-		// }
-		// store.setFilters(storeFilters);
+		if(this.getFilter() && !this.nestedStores.length > 0) {
+			store.clearFilter(true);
+			store.setFilters(storeFilters);
+		}
+		
 	},
 	/**
 	* @private 
