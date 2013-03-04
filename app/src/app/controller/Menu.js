@@ -148,6 +148,13 @@ Ext.define('EatSense.controller.Menu', {
     	}
 
     	parentMenu = menuStore.getById(product.get('menuId'));
+
+    	//TODO error meldung
+    	if(!parentMenu) {
+    		console.log('Menu.jumpToProductDetail: menu not found. perhabs load is pending!');
+    		return;
+    	}
+
     	//show the product list
     	this.showProductlist(null, parentMenu);
     	loungeview.selectByAction('show-menu');
