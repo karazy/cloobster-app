@@ -17,7 +17,6 @@ Ext.define('EatSense.controller.Menu', {
         	prodDetailLabel :'productdetail #prodDetailLabel',
         	prodDetailLabelImage :'productdetail #prodDetailLabelImage',
         	prodPriceLabel :'productdetail #prodPriceLabel',    
-        	amountSpinner: 'productdetail spinnerfield',
         	createOrderBt :'productdetail button[action="cart"]',
         	closeProductDetailBt: 'productdetail button[action=back]',
         	menuview: 'menutab',
@@ -50,9 +49,6 @@ Ext.define('EatSense.controller.Menu', {
              },
              cartBackButton: {
              	tap: 'cartBackButtonHandler'
-             },
-             amountSpinner : {
-            	 spin: 'amountChanged'
              },
              showCartButton: {
              	tap: 'showCart'
@@ -365,8 +361,6 @@ Ext.define('EatSense.controller.Menu', {
 			main = this.getMain(), 
 			menu = this.getMenuview(), 
 			choicesPanel =  null,
-			// choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
-			// titlebar = detail.down('titlebar'),
 			activeProduct,
 			detailPanel,		
 			activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness(),
@@ -374,7 +368,8 @@ Ext.define('EatSense.controller.Menu', {
 			titleLabel,
 			prodDetailLabel = this.getProdDetailLabel(),
 			prodDetailLabelImage = this.getProdDetailLabelImage(),
-			commentField;
+			commentField,
+			amountField;
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
 				me.closeProductDetail();
@@ -386,11 +381,9 @@ Ext.define('EatSense.controller.Menu', {
 		// } else {
 		// 	console.log('Menu.loadProductDetail: ERROR no record given');
 		// }
-		
-		// console.log('Menu.loadProductDetail: 1');
+
 		order = EatSense.model.Order.createOrder(record);
 		this.setActiveOrder(order);
-		// console.log('Menu.loadProductDetail: 2');
 
 		choicesPanel =  this.getProductdetail().down('#choicesPanel');
 		//fix for Ticket #397 sometimes product detail seems to be broken
@@ -399,32 +392,38 @@ Ext.define('EatSense.controller.Menu', {
 			detail = null;
 			detail = this.getProductdetail();
 			choicesPanel =  this.getProductdetail().down('#choicesPanel');
-			// titlebar = detail.down('titlebar');
 			console.log('Menu.loadProductDetail: detail panel was null. generate new');
 		}
 
 		choicesPanel.removeAll(false);
-		// console.log('Menu.loadProductDetail: 3');
-
-		// titlebar.setTitle(order.get('productName'));
 
 		titleLabel = detail.down('#titleLabel');
 		detailPanel = detail.down('#productDetailPanel');
+		amountField = detail.down('#amountField');
 
     	if(titleLabel) {
     		if(detailPanel.element.first('.productlist-header')) {
     			detailPanel.element.first('.productlist-header').destroy();
     		}    		
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
-    		// titleLabel.getTpl().overwrite(titleLabel.element, order.getData());
+    	}    	
 
-    	}
-
-		// console.log('Menu.loadProductDetail: 4');
+		
 		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
-		// console.log('Menu.loadProductDetail: 5');
-		//reset product spinner
-		this.getAmountSpinner().setValue(1);
+		
+		//reset product amount
+		amountField.setValue(1);
+
+		//register listener for amount field
+		amountField.un({
+			change: me.amoundFieldChanged,
+			scope: this
+		});
+
+		amountField.on({
+			change: me.amoundFieldChanged,
+			scope: this
+		});
 
 
 		// detailPanel.element.insertFirst
@@ -437,17 +436,17 @@ Ext.define('EatSense.controller.Menu', {
 		// order.set('productImageUrl', 'res/images/background.png');
 
 		if(!order.get('productImageUrl')) {
-			//if no image exists display product text on the left of amount spinner
-			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: this.getAmountSpinner().getValue()});
+			//if no image exists display product text on the left of amount field
+			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: amountField.getValue()});
 			prodDetailLabelImage.element.setHtml('');
 			detailPanel.setStyle({
 				'background-image': 'none'
 			});	
 			//prevents the box from having the height of the long desc
-			this.getAmountSpinner().setHeight('100%');
+			amountField.setHeight('100%');
 		} else {
-			//when an image exists, display the description beneath the amount spinner
-			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: this.getAmountSpinner().getValue()});
+			//when an image exists, display the description beneath the amount field
+			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
 			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
 			{
@@ -460,31 +459,26 @@ Ext.define('EatSense.controller.Menu', {
 				'background-repeat': 'no-repeat'
 			});
 
-			this.getAmountSpinner().setHeight('');
+			amountField.setHeight('');
 		}
 		
-		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
-		//if basic mode is active, hide amount spinner
-		//TODO 24.01.2013 how to deal with this. always show spinner otherwise when 0€ product an ugly gray bar is displayed
+		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: amountField.getValue()});
+		//if basic mode is active, hide amount field
+		//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
 		// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
-		// console.log('Menu.loadProductDetail: 6');
 
-		// Ext.Viewport.add(detail);
 		this.switchView(detail);
 
 		detail.getScrollable().getScroller().scrollToTop();
 		detail.show();
-		// console.log('Menu.loadProductDetail: 7');
 		detail.setMasked({
 			xtype: 'loadmask',
 			message: i10n.translate('menu.product.detail.loading')
 		});
-		// console.log('Menu.loadProductDetail: 8');
 		// Ext.defer((function() {
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices
-			 	 // console.log('Menu.loadProductDetail: 9');
 			 	 order.choices().each(function(choice) {
 						var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 							choicePriceLabel = "";
@@ -504,7 +498,7 @@ Ext.define('EatSense.controller.Menu', {
 						choicesPanel.add(optionsDetailPanel);
 			 	 });		 	 
 			};
-			 // console.log('Menu.loadProductDetail: 10');
+
 			//insert comment field after options have been added so it is positioned correctly
 			commentField = Ext.create('Ext.field.TextArea', {
 				label: i10n.translate('orderComment'),
@@ -781,17 +775,23 @@ Ext.define('EatSense.controller.Menu', {
 		console.log('Menu.recalculate');
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order});
 	},
-	/**
-	 * Called when the product spinner value changes. 
-	 * Recalculates the price.
-	 * @param spinner
-	 * @param value
-	 * @param direction
-	 */
-	amountChanged: function(spinner, value, direction) {
-		console.log('MenuController > amountChanged (value:'+value+')');
-		this.getActiveOrder().set('amount', value);
-		this.recalculate(this.getActiveOrder());
+
+	amoundFieldChanged: function(field, newVal, oldVal) {
+		console.log('Menu.amoundFieldChanged: ' + newVal);
+
+		if(newVal != oldVal) {
+			//TODO validation
+			if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 10) {
+				//reset old value
+				field.suspendEvents();
+				field.setValue(oldVal);
+				field.resumeEvents();
+				return;
+			}
+
+			this.getActiveOrder().set('amount', newVal);
+			this.recalculate(this.getActiveOrder());
+		}
 	},
 
 	/**

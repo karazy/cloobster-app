@@ -3,7 +3,7 @@
  */
 Ext.define('EatSense.view.ProductDetail', {
 	extend : 'Ext.Panel',
-	requires: ['Ext.field.Spinner', 'Ext.field.Radio', 'Ext.form.Panel', 'Ext.field.Checkbox'],
+	requires: ['Ext.field.Spinner', 'Ext.field.Radio', 'Ext.form.Panel', 'Ext.field.Checkbox', 'Ext.field.Number'],
 	xtype : 'productdetail',	
 	config : {
     	scrollable : 'vertical',
@@ -67,28 +67,16 @@ Ext.define('EatSense.view.ProductDetail', {
 					// 'margin-top' : '35px'
 				},
 				items : [
-				// {
-				// 	xtype: 'numberfield',
-				// 	label: 'Menge',
-				// 	labelAlign: 'top',
-				// 	// labelWidth: '60%',
-				// 	value: 1,
-				// 	minValue: 1,
-				// 	maxValue: 10
-				// },
-				{	
-					xtype : 'spinnerfield',
-					itemId : 'productAmountSpinner',
-					style: {
-						'background': 'transparent'
-					},
-					inputCls: 'productdetail-spinner-input',
-					padding: '5 0 0 2',
-					stepValue : 1,
-					value : 1,
-					minValue : '1',
-					maxValue : '10',					
-					cycle : true
+				{
+					xtype: 'numberfield',
+					label: i10n.translate('amount'),
+					labelAlign: 'top',
+					itemId: 'amountField',
+					value: 1,
+					minValue: 1,
+					maxValue: 10,
+					clearIcon: false,
+					autoCorrect: true
 				},
 				{
 					xtype: 'label',

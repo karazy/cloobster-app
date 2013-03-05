@@ -601,7 +601,7 @@
 				prodPriceLabel,
 				undoButton,
 				prevActiveView,
-				amountSpinner,
+				amountField,
 				commentField,
 		 		menuCtr = this.getApplication().getController('Menu'),
 		 		activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness();
@@ -622,7 +622,7 @@
 		prodDetailLabel = detail.down('#prodDetailLabel');
 		prodDetailLabelImage = detail.down('#prodDetailLabelImage');
 		prodPriceLabel = detail.down('#prodPriceLabel');
-		amountSpinner = detail.down('spinnerfield');
+		amountField = detail.down('#amountField');
 		prevActiveView = cardview.getActiveItem();
 
 		undoButton = detail.down('button[action="undo"]');
@@ -657,17 +657,28 @@
 			}			
 		}
 
-		if(amountSpinner) {
-			//reset product spinner
-			amountSpinner.setValue(order.get('amount'));
+		if(amountField) {
+			//reset product amount field
+			amountField.setValue(order.get('amount'));
 
-			amountSpinner.on({
-				spin: amountChanged
+			amountField.on({
+				change: amountChanged
 			});
 
-			function amountChanged(spinner, value, direction) {
-				me.getActiveOrder().set('amount', value);
+			function amountChanged(field, newVal, oldVal) {
+
+				if(newVal != oldVal) {
+				if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 10) {
+					//reset old value
+					field.suspendEvents();
+					field.setValue(oldVal);
+					field.resumeEvents();
+					return;
+				}
+
+					me.getActiveOrder().set('amount', newVal);
 					me.recalculate(me.getActiveOrder(), prodPriceLabel);
+				}
 			}
 		}
 
@@ -678,9 +689,10 @@
 
 		//remove listeners and unecessary objects...
 		function cleanup() {
-			if(amountSpinner) {
-				amountSpinner.un({
-					spin: amountChanged
+
+			if(amountField) {
+				amountField.un({
+					change: amountChanged
 				});
 			}
 
@@ -714,16 +726,16 @@
     	}
 
     	if(!order.get('productImageUrl')) {
-			//if no image exists display product text on the left of amount spinner
+			//if no image exists display product text on the left of amount field
 			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
 			prodDetailLabelImage.element.setHtml('');
 			detailPanel.setStyle({
 				'background-image': 'none'
 			});	
 			//prevents the box from having the height of the long desc
-			amountSpinner.setHeight('100%');		
+			amountField.setHeight('100%');
 		} else {
-			//when an image exists, display the description beneath the amount spinner
+			//when an image exists, display the description beneath the amount field
 			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
 			prodDetailLabel.element.setHtml('');			
 			detailPanel.setStyle(
@@ -735,7 +747,7 @@
 				'background-repeat': 'no-repeat'
 			});
 
-			amountSpinner.setHeight('');
+			amountField.setHeight('');
 		}
 
 		 //dynamically add choices if present		 
@@ -930,18 +942,6 @@
 		this.recalculate(order, prodPriceLabel);
 		this.refreshCart();
 	},
-	/**
-	 * Called when the product spinner value changes. 
-	 * Recalculates the price.
-	 * @param spinner
-	 * @param value
-	 * @param direction
-	 */
-	// amountChanged: function(spinner, value, direction) {
-	// 	console.log('Cart Controller > amountChanged (value:'+value+')');
-	// 	this.getActiveOrder().set('amount', value);
-	// 	// this.recalculate(this.getActiveOrder());
-	// },
 	/**
 	 * Recalculates the total price for the active product.
 	 */
