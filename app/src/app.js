@@ -270,7 +270,7 @@ Ext.application({
     *   @param options
     *       Configuration object
     *      
-    *       error: error object containing status and statusText.
+    *       error: error object containing status and responseText.
     *       forceLogout: a critical permission error occured and the checkIn will be terminated
     *       true to logout on all errors 
     *       OR
