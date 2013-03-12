@@ -382,6 +382,13 @@ Ext.define('EatSense.controller.Menu', {
 		// 	console.log('Menu.loadProductDetail: ERROR no record given');
 		// }
 
+		/*
+		http://dionbeetson.blogspot.de/2012/10/sencha-touch-performance-tips-and-tricks.html
+			Ext.create('Ext.util.DelayedTask', function () {
+                me.getIndex().fireEvent('showDelay');
+            }).delay(500);
+		*/
+
 		order = EatSense.model.Order.createOrder(record);
 		this.setActiveOrder(order);
 
@@ -412,6 +419,7 @@ Ext.define('EatSense.controller.Menu', {
 		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
 		
 		//reset product amount
+		amountField.setDisabled(true);
 		amountField.setValue(1);
 
 		//register listener for amount field
@@ -425,6 +433,27 @@ Ext.define('EatSense.controller.Menu', {
 			scope: this
 		});
 
+		detail.on({
+			'show' : showDetail,
+			'showDetailDelayed' : showDetailDelayedFn,
+			single: true,
+			scope: this
+		});
+
+		this.switchView(detail);
+
+
+		function showDetail() {
+			detail.setMasked({
+				xtype: 'loadmask',
+				message: i10n.translate('menu.product.detail.loading')
+			});
+			Ext.create('Ext.util.DelayedTask', function () {
+                detail.fireEvent('showDetailDelayed');
+            }).delay(400);
+		}
+
+		function showDetailDelayedFn() {
 
 		// detailPanel.element.insertFirst
 		// detailPanel.setStyle('background-image: url("http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg");'+
@@ -434,6 +463,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		//DEBUG
 		// order.set('productImageUrl', 'res/images/background.png');
+		amountField.setDisabled(false);
 
 		if(!order.get('productImageUrl')) {
 			//if no image exists display product text on the left of amount field
@@ -467,14 +497,14 @@ Ext.define('EatSense.controller.Menu', {
 		//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
 		// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
 
-		this.switchView(detail);
+		// this.switchView(detail);
 
 		detail.getScrollable().getScroller().scrollToTop();
-		detail.show();
-		detail.setMasked({
-			xtype: 'loadmask',
-			message: i10n.translate('menu.product.detail.loading')
-		});
+		// detail.show();
+		// detail.setMasked({
+		// 	xtype: 'loadmask',
+		// 	message: i10n.translate('menu.product.detail.loading')
+		// });
 		// Ext.defer((function() {
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
@@ -513,12 +543,13 @@ Ext.define('EatSense.controller.Menu', {
 			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
 			commentField.setHidden(activeBusiness.get('basic'));
 
-			Ext.defer((function() {
+			// Ext.defer((function() {
 				//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
-				choicesPanel.add(commentField);
-			}), 400, this);
+			choicesPanel.add(commentField);
+			// }), 400, this);
 
 			detail.setMasked(false);
+		}
 		// }), 100, this);
 	},
 	/**
