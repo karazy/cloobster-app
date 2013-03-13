@@ -492,8 +492,7 @@ Ext.define('EatSense.controller.Menu', {
 			//if basic mode is active, hide amount field
 			//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
 			// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
-
-			detail.getScrollable().getScroller().scrollToTop();
+			
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices
@@ -532,8 +531,10 @@ Ext.define('EatSense.controller.Menu', {
 			commentField.setHidden(activeBusiness.get('basic'));
 
 			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
-			choicesPanel.add(commentField);
-			commentField.setDisabled(true);			
+			choicesPanel.add(commentField);			
+			commentField.setDisabled(true);
+
+			detail.getScrollable().getScroller().scrollToTop();			
 
 			//TODO Workaround because input gets focus
 			//http://www.sencha.com/forum/showthread.php?258560-Input-gets-false-focus-after-switching-to-card!&p=946604#post946604

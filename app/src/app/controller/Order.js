@@ -777,9 +777,7 @@
 				});
 
 				amountField.setHeight('');
-			}
-
-			detail.getScrollable().getScroller().scrollToTop();
+			}			
 
 			 //dynamically add choices if present		 
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
@@ -819,6 +817,8 @@
 			//known ST Bug
 			choicesPanel.add(commentField);
 			commentField.setDisabled(true);
+
+			detail.getScrollable().getScroller().scrollToTop();
 
 			this.recalculate(order, prodPriceLabel);
 
