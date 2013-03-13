@@ -368,6 +368,7 @@ Ext.define('EatSense.controller.Menu', {
 			titleLabel,
 			prodDetailLabel = this.getProdDetailLabel(),
 			prodDetailLabelImage = this.getProdDetailLabelImage(),
+			prodPriceLabel,
 			commentField,
 			amountField;
 	
@@ -402,13 +403,23 @@ Ext.define('EatSense.controller.Menu', {
 		titleLabel = detail.down('#titleLabel');
 		detailPanel = detail.down('#productDetailPanel');
 		amountField = detail.down('#amountField');
+		prodPriceLabel = detail.down('#prodPriceLabel');
 
+		//set basic data
     	if(titleLabel) {
     		if(detailPanel.element.first('.productlist-header')) {
     			detailPanel.element.first('.productlist-header').destroy();
     		}    		
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
     	}
+
+    	if(prodPriceLabel) {
+    		prodPriceLabel.getTpl().overwrite(prodPriceLabel.element, {order: order, amount: amountField.getValue()});
+    	}
+
+    	//clear old prod descriptions otherwise the text of prev prod is visible
+    	prodDetailLabelImage.element.setHtml('');
+    	prodDetailLabel.element.setHtml('');
 
     	//remove existing background images
     	detailPanel.setStyle({
@@ -454,7 +465,7 @@ Ext.define('EatSense.controller.Menu', {
 			//delay creation of options to pretend quicker reaction
 			Ext.create('Ext.util.DelayedTask', function () {
                 detail.fireEvent('showdetaildelayed');
-            }).delay(200);
+            }).delay(300);
 		}
 
 		//create the detail options
@@ -475,7 +486,7 @@ Ext.define('EatSense.controller.Menu', {
 			} else {
 				//when an image exists, display the description beneath the amount field
 				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
-				prodDetailLabel.element.setHtml('');			
+				prodDetailLabel.element.setHtml('');		
 				detailPanel.setStyle(
 				{
 					'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
@@ -489,8 +500,7 @@ Ext.define('EatSense.controller.Menu', {
 
 				amountField.setHeight('');
 			}
-		
-			this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: amountField.getValue()});
+
 			//if basic mode is active, hide amount field
 			//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
 			// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));

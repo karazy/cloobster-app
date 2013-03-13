@@ -749,7 +749,7 @@
 			//delay creation of options to pretend quicker reaction
 			Ext.create('Ext.util.DelayedTask', function () {
                 detail.fireEvent('showdetaildelayed');
-            }).delay(200);
+            }).delay(300);
 		}
 
 		function createOptionsDelayed() {

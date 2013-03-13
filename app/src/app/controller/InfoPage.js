@@ -53,13 +53,6 @@ Ext.define('EatSense.controller.InfoPage', {
 				this.setPanelsCreated(false);
 				this.loadInfoPages();
 				this.setImageForInfoButton(checkInCtr.getActiveSpot());
-				// lounge = this.getLounge();
-				// if(lounge) {
-				// 	lounge.getList().on({
-				// 		select: me.loungeListSelect,
-				// 		scope: me
-				// 	});
-				// }
 				//on first show make sure to create info page panels
 				me.getInfoPageOverview().on({
 					show: me.createCarouselPanels,
@@ -81,26 +74,7 @@ Ext.define('EatSense.controller.InfoPage', {
 	* Show event handler for infopage overview card container.
 	*/
 	infoPageOverviewShowHandler: function(panel) {
-
 		this.resetInfoPageOverview();
-		// this.createCarouselPanels();
-
-		// if(!this.getPanelsCreated()) {
-		// 	list.on({
-		// 		painted: function() {					
-		// 			appHelper.toggleMask('infopage.loadingmsg', list);
-		// 			// detail.setMasked({
-		// 			// 		xtype: 'loadmask',
-		// 			// 		message: i10n.translate('menu.product.detail.loading')
-		// 			// 	});
-		// 			Ext.create('Ext.util.DelayedTask', function () {
-		// 	            panel.fireEvent('infopagedelayedshow');
-		// 	        }).delay(2500);
-		// 		},
-		// 		single: true,
-		// 		scope: this
-		// 	});
-		// }
 	},
 
 	/**
@@ -108,10 +82,29 @@ Ext.define('EatSense.controller.InfoPage', {
 	* Calls refresh on infopage list.
 	*/
 	refreshInfoPageList: function() {
-		var list = this.getInfoPageList();
+		var me = this,
+			list = this.getInfoPageList();
 		console.log('InfoPage.refreshInfoPageList');
 		if(list) {
-			list.refresh();
+
+			list.on({				
+				'refresh' : function() {
+					//delay creation for better perceived performance
+					//and to provide enough time for createCarouselPanels to complete
+					Ext.create('Ext.util.DelayedTask', function () {
+						EatSense.util.Helper.toggleMask(false, list);
+	        		}).delay(400);
+				},
+				single: true,
+				scope: this
+			});
+
+			//mask carousels during creation
+			EatSense.util.Helper.toggleMask('loadingMsg', list);
+			Ext.create('Ext.util.DelayedTask', function () {
+				list.refresh();
+    		}).delay(200);					
+		
 		}
 	},
 	/**
@@ -121,7 +114,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		var me = this,
 			clubArea = this.getClubArea(),
 			teaser = clubArea.down('dashboardteaser[type=info]');
-			// androidCtr = this.getApplication().getController('Android');
 
 		if(teaser) {
 			//unregister old listener
@@ -184,7 +176,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		store.load({
 				callback: function(records, operation, success) {
 			    	if(!operation.error) {
-			    		me.refreshInfoPageList();
+			    		// me.refreshInfoPageList();
 			    		me.registerInfoPageTeaser();
 			    		try {
 							me.getInfoPageList().on({
@@ -238,10 +230,8 @@ Ext.define('EatSense.controller.InfoPage', {
 	},
 	/**
 	* Create a panel for each entry in infoPageStore.
-	* @param callback (optional)
-	*	Called after all panels have been created
 	*/
-	createCarouselPanels: function(callback) {
+	createCarouselPanels: function() {
 		var me = this,
 			store = Ext.StoreManager.lookup('infopageStore'),
 			infoPageOverview = this.getInfoPageOverview(),
@@ -287,7 +277,7 @@ Ext.define('EatSense.controller.InfoPage', {
 					});
 
 					//private method of carousel
-					//TODO try to use refreshCarouselItems()
+					//TODO test use of refreshCarouselItems()
 					carousel.refresh();
 
 					//unmask carousel
@@ -295,10 +285,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 					//notify observers that panel creation finished
 					me.fireEvent('carouselpanelscreated');
-
-					if(EatSense.util.Helper.isFunction(callback)) {
-						callback();
-					}
+										
 				} catch(e) {
 					this.setPanelsCreated(false);
 					console.log('InfoPage.createCarouselPanels: failed to create panels ' + e);
@@ -347,7 +334,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			ipcarousel = this.getInfoPageCarousel(),
 			lounge = this.getLounge(),
 			carousel = ipcarousel.down('carousel'),
-			// androidCtr = this.getApplication().getController('Android'),
 			infoPageList = this.getInfoPageList(),
 			store = Ext.StoreManager.lookup('infopageStore'),
 			filters = store.getFilters(),
@@ -378,10 +364,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		if(direct) {
 			this.setListIndex(carousel, index, null);
 		}
-
-		// androidCtr.addBackHandler(function() {
-  //           me.backToOverview();
-  //       });
 
 	},
 	/**
@@ -416,7 +398,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		var me = this,
 			infopageOverview = this.getInfoPageOverview(),
 			lounge = this.getLounge(),
-			androidCtr = this.getApplication().getController('Android'),
 			store = Ext.StoreManager.lookup('infopageStore'),
 			searchfield = this.getInfoPageSearchField(),
 			list = this.getInfoPageList();		
@@ -432,19 +413,13 @@ Ext.define('EatSense.controller.InfoPage', {
 	* Tap event handler for infoPageBackButton.
 	*/
 	infoPageBackButtonHandler: function(button) {
-		var androidCtr = this.getApplication().getController('Android');
-
 		this.backToDashboard();
-		androidCtr.removeLastBackHandler();
 	},
 	/**
 	* Tap event handler for infoPageCarouselBackButton.
 	*/
 	infoPageCarouselBackButtonHandler: function(button) {
-		var androidCtr = this.getApplication().getController('Android');
-
 		this.backToOverview();
-		androidCtr.removeLastBackHandler();
 	},
 
 	/**
@@ -610,7 +585,8 @@ Ext.define('EatSense.controller.InfoPage', {
     	var store = Ext.StoreManager.lookup('infopageStore'),
     		clubArea = this.getClubArea(),
 			teasers = clubArea.query('dashboardteaser[type="info"]'),
-			lounge = this.getLounge();
+			lounge = this.getLounge(),
+			infoPageOverview = this.getInfoPageOverview();
 
 			//clean up
 			store.clearFilter();
@@ -632,5 +608,13 @@ Ext.define('EatSense.controller.InfoPage', {
 					scope: this
 				});
 			}
+
+			if(infoPageOverview) {
+				infoPageOverview.un({
+					show: this.createCarouselPanels,
+					scope: this
+				});	
+			}
+			
     }
 });
