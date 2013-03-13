@@ -468,8 +468,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Payment method"
 		},
 		"paymentRequestSend" : {
-			"DE" :  "Bitte einen Moment warten,</br>die Rechnung wird vorbereitet ...",
-			"EN" :  "One moment please,</br>bill is being prepared ..."
+			"DE" :  "Ihr Bezahlwunsch wurde übermittelt.",
+			"EN" :  "Your payment request has been send."
 		},
 		"myorders.messages.billnew.message" : {
 		 	"DE" :  "Ihre Rechnung ({0}) wurde erstellt.",
