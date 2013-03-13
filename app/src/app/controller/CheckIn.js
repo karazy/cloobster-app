@@ -89,18 +89,12 @@ Ext.define('EatSense.controller.CheckIn', {
             checkinDlg2Userlist: {
             	select: 'linkToUser'
             },
-            // checkinDlg2CancelBt: {
-            // 	tap: 'showLounge'
-            // },
             cancelCheckInBt: {
             	tap: 'showDashboard'
             },
             regenerateNicknameBt: {
             	tap: 'generateNickname'
             },
-            // aboutBt: {
-            //   tap: 'showAbout'
-            // },
             settingsBt: {
             	tap: 'showSettings'
             },
@@ -511,7 +505,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
 		//load active spot
 		EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
-		scope: this,
+  		scope: this,
    		 success: function(record, operation) {
    			 this.setActiveSpot(record);
          this.setActiveArea(record.get('areaId'));

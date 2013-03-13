@@ -33,15 +33,11 @@ Ext.define('EatSense.controller.Lounge', {
 		}
 		},
 		/* Android Back handlers */
-		navigationFunctions : new Array(),
-		loadAreaTask: null
+		navigationFunctions : new Array()
 	},
   launch: function() {
 	 var me = this,
-		  checkInCtr = this.getApplication().getController('CheckIn'),
-		  loadAreasTask;
-
-	  me.createLoadAreaTask();
+		  checkInCtr = this.getApplication().getController('CheckIn');
 
 	  checkInCtr.on({
 		 'spotswitched' : function(spot) {
@@ -51,8 +47,6 @@ Ext.define('EatSense.controller.Lounge', {
 			if(status == appConstants.CHECKEDIN) {			  
 			  this.initDashboard();
 			  // appHelper.toggleMask(i10n.translate('checkin.init.loading', checkInCtr.getActiveSpot().get('businessName')), this.getLoungeview().getContainer().getActiveItem());
-			  //defer to correctly show the mask
-			  // Ext.defer(function() {
  				this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  	this.toggleSlidenavButtons(true);
 				  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
@@ -60,16 +54,9 @@ Ext.define('EatSense.controller.Lounge', {
 				  this.registerSlideBezelTap();
 				  //initially only the area id exists so use areaName from spot
 				  this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
-				  //start load area task
-				  if(this.getLoadAreaTask()) {
-				  	this.getLoadAreaTask().delay(100);
-				  } else {
-				  	console.error('Lounge.launch: no load area task exists');
-				  }
+
 				  this.getLoungeview().selectByAction('show-clubdashboard');
 				  this.getLoungeview().setDisableDrag(false);
-				  // appHelper.toggleMask(false, me.getLoungeview().getContainer().getActiveItem());
-			  // }, 100, this);
 			 
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
@@ -86,11 +73,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'basicmode' : function(basicMode) {
 		 	this.manageBasicMode(basicMode);
-		 	if(this.getLoadAreaTask()) {
-		 		this.getLoadAreaTask().delay(100);	
-		  	} else {
-		  		console.error('Lounge.launch: no load area task exists');
-		  	}
+		 	this.tryLoadingAreas();
 		 },
 		 scope: this
 	  });
@@ -320,27 +303,26 @@ Ext.define('EatSense.controller.Lounge', {
 		var lounge = this.getLoungeview();
 	 	lounge.selectByAction('show-menu');
 	},
-	createLoadAreaTask: function() {
+	/**
+	* @private
+	* Tries to load areas. Areas can only be loaded after business and spot exist.
+	*
+	*/
+	tryLoadingAreas: function() {
 		var me = this,
-			 task,
-			 checkInCtr = this.getApplication().getController('CheckIn');
+			checkInCtr = this.getApplication().getController('CheckIn');
 
-		task = Ext.create('Ext.util.DelayedTask', function() {
-			if(!checkInCtr.getActiveSpot() || !checkInCtr.getActiveBusiness()) {
-				console.log('Lounge.createLoadAreaTask: delaying task for 100ms');
-				task.delay(100);				
-			} else {
-				console.log('Lounge.createLoadAreaTask: executing task');
-				task.cancel();				
-				if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
-					me.loadAreas(function() {
-						me.markSlideNavAreaActive(checkInCtr.getActiveArea(), checkInCtr.getActiveSpot());
-				 	}); 
-				}
-			}			   
-		}, this, checkInCtr);
+		if(checkInCtr.getActiveSpot() && checkInCtr.getActiveBusiness()) {			
+			if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
+				console.log('Lounge.tryLoadingAreas');
+				me.loadAreas(function() {
+					me.markSlideNavAreaActive(checkInCtr.getActiveArea(), checkInCtr.getActiveSpot());
+			 	}); 
+			}
+		} else {
+			console.error('Lounge.tryLoadingAreas: could not load areas. Maybe no activeSpot exits?');
+		}
 
-		this.setLoadAreaTask(task);
 	},
 	 /**
 	 * Load all available areas for this location.
@@ -410,8 +392,6 @@ Ext.define('EatSense.controller.Lounge', {
 			 };
 			 item.areaId = area.get('id');
 			 items.push(item);
-
-			 // area.setSlideNavItem(item);
 		  });
 
 		  return items;
