@@ -815,20 +815,20 @@
 			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
 			commentField.setHidden(activeBusiness.get('basic'));
 
-		// Ext.defer((function() {
 			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
+			//known ST Bug
 			choicesPanel.add(commentField);
 			commentField.setDisabled(true);
-		// }), 400, this);
 
-			this.recalculate(order, prodPriceLabel);			
+			this.recalculate(order, prodPriceLabel);
+
+			
 
 			Ext.create('Ext.util.DelayedTask', function () {
 				amountField.setDisabled(false);
-				commentField.setDisabled(false);                
-            }).delay(100);
-
-			detail.setMasked(false);
+				commentField.setDisabled(false); 
+				detail.setMasked(false);
+            }).delay(200);
 
 		}
 
