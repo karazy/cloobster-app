@@ -533,16 +533,11 @@ Ext.define('EatSense.controller.Menu', {
 
 			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
 			choicesPanel.add(commentField);
-			// commentField.suspendEvents();
-			commentField.setDisabled(true);
-
-			
+			commentField.setDisabled(true);			
 
 			//TODO Workaround because input gets focus
 			//http://www.sencha.com/forum/showthread.php?258560-Input-gets-false-focus-after-switching-to-card!&p=946604#post946604
 			Ext.create('Ext.util.DelayedTask', function () {
-				// amountField.resumeEvents();
-				// commentField.resumeEvents();
 				amountField.setDisabled(false);
 				commentField.setDisabled(false);                
             }).delay(100);

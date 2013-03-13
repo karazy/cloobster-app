@@ -687,6 +687,13 @@
 
 		detail.on('hide', cleanup);
 
+		detail.on({
+			'show' : showDetailHandler,
+			'showdetaildelayed' : createOptionsDelayed,
+			single: true,
+			scope: this
+		});
+
 		//remove listeners and unecessary objects...
 		function cleanup() {
 
@@ -725,35 +732,58 @@
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
     	}
 
-    	if(!order.get('productImageUrl')) {
-			//if no image exists display product text on the left of amount field
-			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
-			prodDetailLabelImage.element.setHtml('');
-			detailPanel.setStyle({
-				'background-image': 'none'
-			});	
-			//prevents the box from having the height of the long desc
-			amountField.setHeight('100%');
-		} else {
-			//when an image exists, display the description beneath the amount field
-			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
-			prodDetailLabel.element.setHtml('');			
-			detailPanel.setStyle(
-			{
-				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
-				'background-size': '100% auto',
-				'background-position': 'center top',
-				'min-height': '150px',
-				'background-repeat': 'no-repeat'
-			});
+    	//remove existing background images
+    	detailPanel.setStyle({
+			'background-image': 'none'
+		});
 
-			amountField.setHeight('');
+    	cardview.switchTo(detail); 
+
+    	//handler for detail show event
+		function showDetailHandler() {
+			//mask detail
+			detail.setMasked({
+				xtype: 'loadmask',
+				message: i10n.translate('menu.product.detail.loading')
+			});
+			//delay creation of options to pretend quicker reaction
+			Ext.create('Ext.util.DelayedTask', function () {
+                detail.fireEvent('showdetaildelayed');
+            }).delay(200);
 		}
 
-		 //dynamically add choices if present		 
-		 if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
+		function createOptionsDelayed() {
 
-		 	order.choices().each(function(choice) {
+	    	if(!order.get('productImageUrl')) {
+				//if no image exists display product text on the left of amount field
+				prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
+				prodDetailLabelImage.element.setHtml('');
+				detailPanel.setStyle({
+					'background-image': 'none'
+				});	
+				//prevents the box from having the height of the long desc
+				amountField.setHeight('100%');
+			} else {
+				//when an image exists, display the description beneath the amount field
+				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
+				prodDetailLabel.element.setHtml('');			
+				detailPanel.setStyle(
+				{
+					'background-image': 'url('+order.get('productImageUrl')+'=s720)',
+					'background-size': '100% auto',
+					'background-position': 'center top',
+					'min-height': '150px',
+					'background-repeat': 'no-repeat'
+				});
+
+				amountField.setHeight('');
+			}
+
+			detail.getScrollable().getScroller().scrollToTop();
+
+			 //dynamically add choices if present		 
+			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
+		 		order.choices().each(function(choice) {
 					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
 
@@ -767,33 +797,40 @@
 					menuCtr.createOptions.apply(me, [choice, optionsDetailPanel]);
 
 					choicesPanel.add(optionsDetailPanel);
-		 	 });
-		}
+			 	 });
+			}
 		 
 		 
-		 //insert comment field after options have been added so it is positioned correctly
-		commentField = Ext.create('Ext.field.TextArea', {
-				label: i10n.translate('orderComment'),
-				labelAlign: 'top',
-				itemId: 'productComment',
-				maxRows: 3,
-				value: order.get('comment'),
-				inputCls: 'comment-input',
-				labelCls: 'comment'
-			});
+			 //insert comment field after options have been added so it is positioned correctly
+			commentField = Ext.create('Ext.field.TextArea', {
+					label: i10n.translate('orderComment'),
+					labelAlign: 'top',
+					itemId: 'productComment',
+					maxRows: 3,
+					value: order.get('comment'),
+					inputCls: 'comment-input',
+					labelCls: 'comment'
+				});
 
-		//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
-		commentField.setHidden(activeBusiness.get('basic'));
+			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
+			commentField.setHidden(activeBusiness.get('basic'));
 
-		Ext.defer((function() {
+		// Ext.defer((function() {
 			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
 			choicesPanel.add(commentField);
-		}), 400, this);
+			commentField.setDisabled(true);
+		// }), 400, this);
 
-		this.recalculate(order, prodPriceLabel);
+			this.recalculate(order, prodPriceLabel);			
 
-		cardview.switchTo(detail);
-		detail.getScrollable().getScroller().scrollToTop();
+			Ext.create('Ext.util.DelayedTask', function () {
+				amountField.setDisabled(false);
+				commentField.setDisabled(false);                
+            }).delay(100);
+
+			detail.setMasked(false);
+
+		}
 
 	},
 	/**
