@@ -992,6 +992,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Dieser Spot repräsentiert keinen Standort. Bitte checken Sie an anderer Stelle ein.",
 			"EN" : "This spot doesn't represent a real spot. Please check in at another place."
 		},
+		"error.appengine" : {
+			"DE" :  "Es liegt eine Serverstörung vor. Wir arbeiten an einer Lösung.",
+			"EN" : "Currently server errors exist. We'll working on a solution."
+		},
 		//system
 		"network.slow" : {
 			"DE" :  "Die Verbindung ist langsam. Dies kann die Anwendung verlangsamen.",

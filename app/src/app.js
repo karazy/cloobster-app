@@ -320,6 +320,10 @@ Ext.application({
                 case 401:
                   defaultErrorKey = 'error.account.required';
                   break;
+                case 503:
+                  //AppEngine problems
+                  defaultErrorKey = 'error.appengine';
+                  break;
                 default:
                   code = 500
                   defaultErrorKey = 'errorMsg';
