@@ -1608,21 +1608,18 @@
 	*/
 	handleBillMessage: function(action, billdata) {
 		var bill = Ext.create('EatSense.model.Bill'),
-			// paymentMethod = Ext.create('EatSense.model.PaymentMethod'),
 			checkInCtr =  this.getApplication().getController('CheckIn'),
 			myordersComplete = this.getMyordersComplete(),
-			payButton = this.getPaymentButton(),
-			lounge = this.getLoungeview(), 
-			tab = this.getMyordersview();				
+			payButton = this.getPaymentButton();			
 
 		if(action == "new") {
 			//this occurs when business manually completes a checkin
-			console.log("Order.handleBillMessage > new bill arrived. Businesses completed checkin.");
+			console.log("Order.handleBillMessage: Bill was created. Businesses completed checkin.");
 			bill.set('id', bill.id);
 			bill.set('checkInId', bill.checkInId);
 			bill.set('paymentMethod', billdata.paymentMethod.name);
-			this.setActiveBill(bill);						
-			lounge.setActiveItem(tab);
+			this.setActiveBill(bill);
+			this.showMyorders();
 			myordersComplete.show();
 			this.refreshMyOrdersBadgeText(true);
 			payButton.hide();
