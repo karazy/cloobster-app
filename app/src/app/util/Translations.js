@@ -131,8 +131,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Home"
 		},
 		"slidenav.header.areas" : {
-			"DE" :  "Sie sind eingecheckt bei",
-			"EN" : "You checked in at"
+			"DE" :  "Sie sind eingecheckt",
+			"EN" : "You checked in"
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
