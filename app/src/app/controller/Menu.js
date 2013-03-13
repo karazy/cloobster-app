@@ -36,7 +36,7 @@ Ext.define('EatSense.controller.Menu', {
              	disclose: 'showProductlist'
              },
              productlist : {
-            	select: 'loadProductDetail' 
+            	select: 'loadProductDetail'
              },
              createOrderBt : {
             	 tap: 'createOrder'
@@ -382,13 +382,6 @@ Ext.define('EatSense.controller.Menu', {
 		// 	console.log('Menu.loadProductDetail: ERROR no record given');
 		// }
 
-		/*
-		http://dionbeetson.blogspot.de/2012/10/sencha-touch-performance-tips-and-tricks.html
-			Ext.create('Ext.util.DelayedTask', function () {
-                me.getIndex().fireEvent('showDelay');
-            }).delay(500);
-		*/
-
 		order = EatSense.model.Order.createOrder(record);
 		this.setActiveOrder(order);
 
@@ -413,13 +406,19 @@ Ext.define('EatSense.controller.Menu', {
     			detailPanel.element.first('.productlist-header').destroy();
     		}    		
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
-    	}    	
+    	}
+
+    	//remove existing background images
+    	detailPanel.setStyle({
+			'background-image': 'none'
+		});
 
 		
 		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
 		
 		//reset product amount
 		amountField.setDisabled(true);
+		// amountField.suspendEvents();
 		amountField.setValue(1);
 
 		//register listener for amount field
@@ -434,78 +433,67 @@ Ext.define('EatSense.controller.Menu', {
 		});
 
 		detail.on({
-			'show' : showDetail,
-			'showDetailDelayed' : showDetailDelayedFn,
+			'show' : showDetailHandler,
+			'showdetaildelayed' : createOptionsDelayed,
 			single: true,
 			scope: this
 		});
 
+		//show detail
 		this.switchView(detail);
 
-
-		function showDetail() {
+		//handler for detail show event
+		function showDetailHandler() {
+			//mask detail
 			detail.setMasked({
 				xtype: 'loadmask',
 				message: i10n.translate('menu.product.detail.loading')
 			});
+			//delay creation of options to pretend quicker reaction
 			Ext.create('Ext.util.DelayedTask', function () {
-                detail.fireEvent('showDetailDelayed');
-            }).delay(400);
+                detail.fireEvent('showdetaildelayed');
+            }).delay(200);
 		}
 
-		function showDetailDelayedFn() {
-
-		// detailPanel.element.insertFirst
-		// detailPanel.setStyle('background-image: url("http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg");'+
-		// 			 'background-size: 100% auto;');
-		// '<div style="background-image: url(\"http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg\");'+
-		// 			 'background-size: 600px 200px;"></div>'
+		//create the detail options
+		function createOptionsDelayed() {
 
 		//DEBUG
-		// order.set('productImageUrl', 'res/images/background.png');
-		amountField.setDisabled(false);
+		// order.set('productImageUrl', 'res/images/background.png');		
 
-		if(!order.get('productImageUrl')) {
-			//if no image exists display product text on the left of amount field
-			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: amountField.getValue()});
-			prodDetailLabelImage.element.setHtml('');
-			detailPanel.setStyle({
-				'background-image': 'none'
-			});	
-			//prevents the box from having the height of the long desc
-			amountField.setHeight('100%');
-		} else {
-			//when an image exists, display the description beneath the amount field
-			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
-			prodDetailLabel.element.setHtml('');			
-			detailPanel.setStyle(
-			{
-				'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
-				//DEBUG
-				// 'background-image': 'url('+order.get('productImageUrl')+')', 
-				'background-size': '100% auto',
-				'background-position': 'center top',
-				'min-height': '150px',
-				'background-repeat': 'no-repeat'
-			});
+			if(!order.get('productImageUrl')) {
+				//if no image exists display product text on the left of amount field
+				prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: amountField.getValue()});
+				prodDetailLabelImage.element.setHtml('');
+				detailPanel.setStyle({
+					'background-image': 'none'
+				});
+				//prevents the box from having the height of the long desc
+				amountField.setHeight('100%');
+			} else {
+				//when an image exists, display the description beneath the amount field
+				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
+				prodDetailLabel.element.setHtml('');			
+				detailPanel.setStyle(
+				{
+					'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
+					//DEBUG
+					// 'background-image': 'url('+order.get('productImageUrl')+')', 
+					'background-size': '100% auto',
+					'background-position': 'center top',
+					'min-height': '150px',
+					'background-repeat': 'no-repeat'
+				});
 
-			amountField.setHeight('');
-		}
+				amountField.setHeight('');
+			}
 		
-		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: amountField.getValue()});
-		//if basic mode is active, hide amount field
-		//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
-		// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
+			this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: amountField.getValue()});
+			//if basic mode is active, hide amount field
+			//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
+			// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
 
-		// this.switchView(detail);
-
-		detail.getScrollable().getScroller().scrollToTop();
-		// detail.show();
-		// detail.setMasked({
-		// 	xtype: 'loadmask',
-		// 	message: i10n.translate('menu.product.detail.loading')
-		// });
-		// Ext.defer((function() {
+			detail.getScrollable().getScroller().scrollToTop();
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices
@@ -538,19 +526,30 @@ Ext.define('EatSense.controller.Menu', {
 				value: '',
 				inputCls: 'comment-input',
 				labelCls: 'comment'
-			});
+			});			
 
 			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
 			commentField.setHidden(activeBusiness.get('basic'));
 
-			// Ext.defer((function() {
-				//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
+			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
 			choicesPanel.add(commentField);
-			// }), 400, this);
+			// commentField.suspendEvents();
+			commentField.setDisabled(true);
 
-			detail.setMasked(false);
+			
+
+			//TODO Workaround because input gets focus
+			//http://www.sencha.com/forum/showthread.php?258560-Input-gets-false-focus-after-switching-to-card!&p=946604#post946604
+			Ext.create('Ext.util.DelayedTask', function () {
+				// amountField.resumeEvents();
+				// commentField.resumeEvents();
+				amountField.setDisabled(false);
+				commentField.setDisabled(false);                
+            }).delay(100);
+
+            detail.setMasked(false);
+			
 		}
-		// }), 100, this);
 	},
 	/**
 	* @private
