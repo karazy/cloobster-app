@@ -127,8 +127,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Menu"
 		},
 		"slidenav.button.home" : {
-			"DE" :  "Magazin",
-			"EN" : "Magazine"
+			"DE" :  "Startseite",
+			"EN" : "Home"
 		},
 		"slidenav.header.areas" : {
 			"DE" :  "Sie sind eingecheckt bei",

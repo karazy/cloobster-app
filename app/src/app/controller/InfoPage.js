@@ -266,6 +266,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			//mask carousels during creation
 			EatSense.util.Helper.toggleMask('infopage.loadingmsg', carousel);
 
+			//delay creation for better perceived performance
 			Ext.create('Ext.util.DelayedTask', function () {
 	            me.fireEvent('infopagedelayedshow');
 	        }).delay(500);
