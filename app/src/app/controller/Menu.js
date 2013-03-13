@@ -351,13 +351,13 @@ Ext.define('EatSense.controller.Menu', {
 	},
 	/**
 	 * Displays detailed information for a product (e.g. Burger). 
-	 * Creates an order object which gests manipulated.
+	 * Creates an independent order object for manipulation.
 	 * @param dataview
 	 * @param record
 	 */
 	loadProductDetail: function(dataview, record) {
 		var me = this,
-			detail = this.getProductdetail(), 
+			detail, 
 			main = this.getMain(), 
 			menu = this.getMenuview(), 
 			choicesPanel =  null,
@@ -384,6 +384,8 @@ Ext.define('EatSense.controller.Menu', {
 
 		order = EatSense.model.Order.createOrder(record);
 		this.setActiveOrder(order);
+
+		detail = menu.down('productdetail');
 
 		choicesPanel =  this.getProductdetail().down('#choicesPanel');
 		//fix for Ticket #397 sometimes product detail seems to be broken
