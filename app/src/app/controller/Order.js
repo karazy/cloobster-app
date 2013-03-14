@@ -658,8 +658,11 @@
 		}
 
 		if(amountField) {
-			//reset product amount field
+			//set amount field
 			amountField.setValue(order.get('amount'));
+
+			//disable because of focus bug
+			amountField.setDisabled(true);
 
 			amountField.on({
 				change: amountChanged

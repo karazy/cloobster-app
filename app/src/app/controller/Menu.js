@@ -430,9 +430,10 @@ Ext.define('EatSense.controller.Menu', {
 		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
 		
 		//reset product amount
-		amountField.setDisabled(true);
-		// amountField.suspendEvents();
 		amountField.setValue(1);
+		//disable because of focus bug
+		amountField.setDisabled(true);
+		
 
 		//register listener for amount field
 		amountField.un({
