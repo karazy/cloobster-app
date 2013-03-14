@@ -732,6 +732,12 @@
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
     	}
 
+    	//clear old price
+    	prodPriceLabel.element.setHtml('');
+    	//clear old prod descriptions otherwise the text of prev prod is visible
+    	prodDetailLabelImage.element.setHtml('');
+    	prodDetailLabel.element.setHtml('');
+
     	//remove existing background images
     	detailPanel.setStyle({
 			'background-image': 'none'
@@ -742,14 +748,14 @@
     	//handler for detail show event
 		function showDetailHandler() {
 			//mask detail
-			detail.setMasked({
-				xtype: 'loadmask',
-				message: i10n.translate('menu.product.detail.loading')
-			});
+			// detail.setMasked({
+			// 	xtype: 'loadmask',
+			// 	message: i10n.translate('menu.product.detail.loading')
+			// });
 			//delay creation of options to pretend quicker reaction
 			Ext.create('Ext.util.DelayedTask', function () {
                 detail.fireEvent('showdetaildelayed');
-            }).delay(300);
+            }).delay(150);
 		}
 
 		function createOptionsDelayed() {
@@ -827,8 +833,8 @@
 			Ext.create('Ext.util.DelayedTask', function () {
 				amountField.setDisabled(false);
 				commentField.setDisabled(false); 
-				detail.setMasked(false);
-            }).delay(200);
+				// detail.setMasked(false);
+            }).delay(300);
 
 		}
 

@@ -458,14 +458,14 @@ Ext.define('EatSense.controller.Menu', {
 		//handler for detail show event
 		function showDetailHandler() {
 			//mask detail
-			detail.setMasked({
-				xtype: 'loadmask',
-				message: i10n.translate('menu.product.detail.loading')
-			});
+			// detail.setMasked({
+			// 	xtype: 'loadmask',
+			// 	message: i10n.translate('menu.product.detail.loading')
+			// });
 			//delay creation of options to pretend quicker reaction
 			Ext.create('Ext.util.DelayedTask', function () {
                 detail.fireEvent('showdetaildelayed');
-            }).delay(300);
+            }).delay(150);
 		}
 
 		//create the detail options
@@ -553,8 +553,8 @@ Ext.define('EatSense.controller.Menu', {
 			Ext.create('Ext.util.DelayedTask', function () {
 				amountField.setDisabled(false);
 				commentField.setDisabled(false);
-				detail.setMasked(false);             
-            }).delay(200);            
+				// detail.setMasked(false);             
+            }).delay(300);            
 		}
 	},
 	/**
