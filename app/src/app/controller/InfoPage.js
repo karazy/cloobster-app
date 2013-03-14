@@ -86,14 +86,14 @@ Ext.define('EatSense.controller.InfoPage', {
 			list = this.getInfoPageList();
 		console.log('InfoPage.refreshInfoPageList');
 		if(list) {
-
-			list.on({				
+			list.on({
 				'refresh' : function() {
 					//delay creation for better perceived performance
 					//and to provide enough time for createCarouselPanels to complete
 					Ext.create('Ext.util.DelayedTask', function () {
 						EatSense.util.Helper.toggleMask(false, list);
-	        		}).delay(400);
+						// list.refresh();
+	        		}).delay(300);
 				},
 				single: true,
 				scope: this
@@ -103,7 +103,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			EatSense.util.Helper.toggleMask('loadingMsg', list);
 			Ext.create('Ext.util.DelayedTask', function () {
 				list.refresh();
-    		}).delay(200);					
+    		}).delay(300);					
 		
 		}
 	},
@@ -256,16 +256,16 @@ Ext.define('EatSense.controller.InfoPage', {
 			//mask carousels during creation
 			EatSense.util.Helper.toggleMask('infopage.loadingmsg', carousel);
 
+			//do cleanup. Just for safety! Normally a cleanup is performed upon status change.
+			//clear carousel
+			carousel.removeAll();
+
 			//delay creation for better perceived performance
 			Ext.create('Ext.util.DelayedTask', function () {
 	            me.fireEvent('infopagedelayedshow');
 	        }).delay(500);
 
 	        function createPanels() {	        	
-
-				//do cleanup. Just for safety! Normally a cleanup is performed upon status change.
-				//clear carousel
-				this.removeInfoPageDetailPanels();
 
 				console.log('InfoPage.createCarouselPanels: intial creation of info detail panels');
 				try {
@@ -278,7 +278,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 					//private method of carousel
 					//TODO test use of refreshCarouselItems()
-					carousel.refresh();
+					carousel.refreshCarouselItems();
 
 					//unmask carousel
 					EatSense.util.Helper.toggleMask(false, carousel);
@@ -317,7 +317,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		var infoPageCarousel = this.getInfoPageCarousel(),
 			carousel = infoPageCarousel.down('carousel');
 
-		carousel.removeAll(true);
+		carousel.removeAll();
 	},
 	/**
  	* Select event handler of infoPageList.
