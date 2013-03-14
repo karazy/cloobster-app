@@ -420,7 +420,7 @@
 	    	    },
 	    	    failure: function(response) {
 					me.getApplication().handleServerError({
-						'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+						'error': response, 
 	                    'forceLogout': {403:true}
 	                }); 
 				}
@@ -883,7 +883,7 @@
 	    	    jsonData: order.getRawJsonData(),
 	    	    failure: function(response) {
 					me.getApplication().handleServerError({
-                    	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+                    	'error': response, 
                     	'forceLogout': {403:true}
                     }); 
 				}
@@ -930,9 +930,8 @@
 	    	    	// order.destroy();
 	    	    },
 	    	    failure: function(response) {
-	    	    	// activeCheckIn.orders().add(order);
 					me.getApplication().handleServerError({
-	                	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+	                	'error': response, 
 	                	'forceLogout': {403:true}
 	                }); 
 				}
