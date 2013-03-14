@@ -42,7 +42,8 @@ Ext.define('EatSense.model.Product', {
 		},
 		{
 			name: 'hideInDashboard',
-			type: 'boolean'
+			type: 'boolean',
+			defaultValue: false
 		},
 		{
 			name: 'menuId'

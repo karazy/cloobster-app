@@ -96,10 +96,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 							xtype : 'dashboardteaser',
 							type: 'info',
 							store : 'infopageStore',
-							filter: [{
-								property: 'hideInDashboard',
-								value: false
-							}],
+							filter: [
+								function(item) {
+									if(item.get('hideInDashboard') === false) {
+										return true;
+									}
+									return false;
+							    }
+							],
 							iconFit: true,
 							tpl: new Ext.XTemplate(
 								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
@@ -137,10 +141,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 								xtype : 'dashboardteaser',
 								store : 'productStore',
 								filter: [
-									{
-									property: 'hideInDashboard',
-									value: false
-									}, 
+										
+									function(item) {
+										if(item.get('hideInDashboard') === false) {
+											return true;
+										}
+										return false;
+								    }
+									, 
 									{
 										property: 'special',
 										value: true
@@ -161,10 +169,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 								xtype : 'dashboardteaser',
 								store : 'productStore',
 								// clearBeforeFiltering: true,
-								filter: [{
-									property: 'hideInDashboard',
-									value: false
-								}],
+								filter: [
+									function(item) {
+										if(item.get('hideInDashboard') === false) {
+											return true;
+										}
+										return false;
+								    }
+								],
 								type: 'product',
 								tpl: new Ext.XTemplate(
 									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
