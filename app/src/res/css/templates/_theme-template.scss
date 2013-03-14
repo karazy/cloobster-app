@@ -82,6 +82,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
+  font-size: 1em;
+  line-height: 1.2em;
 
   .detail {
     font-weight: normal;
@@ -89,7 +91,7 @@
 
   .special {
     float: left;
-    height: 20px;
+    height: 1.2em;
     width: 25px;
     background-size: 20px;
     -webkit-mask-image: url('../images/feedback/star_shining.png');
