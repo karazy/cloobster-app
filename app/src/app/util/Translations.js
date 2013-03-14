@@ -994,7 +994,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"error.appengine" : {
 			"DE" :  "Es liegt eine Serverstörung vor. Wir arbeiten an einer Lösung.",
-			"EN" : "Currently server errors exist. We'll working on a solution."
+			"EN" : "Currently server errors exist. We are working on a solution."
 		},
 		//system
 		"network.slow" : {
