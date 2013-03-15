@@ -888,27 +888,27 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"checkin.switchspot.barcode" : {			
 			"DE" :  "Um	dieses	Produkt	zu bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
-					"Scannen Sie hierfür den Barcode des neuen Spots. Ihr Warenkorb wird geleert.",
+					"Scannen Sie hierfür den Barcode des neuen Spots. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to switch from \"{0}\" to \"{1}\". "+
-					"Please scan the barcode of your new spot. Your cart will be cleared."
+					"Please scan the barcode of your new spot. Cart will be cleared."
 		},
 		"checkin.switchspot.list" : {
 			"DE" : "Um	dieses	Produkt	zu	bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
-					"Wählen Sie hierfür den neuen Spot (Standort) aus der Liste. Ihr Warenkorb wird geleert.",
+					"Wählen Sie hierfür den neuen Spot (Standort) aus der Liste. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to switch from \"{0}\" to \"{1}\". "+
-					"Please select your new spot from the list. Your cart will be cleared."
+					"Please select your new spot from the list. Cart will be cleared."
 		},
 		"checkin.switchspot.orders.barcode" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
-					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch scannen des neuen Spots. Ihr Warenkorb wird geleert.",
+					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch scannen des neuen Spots. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to complete your current order balance of {0}. " + 
-					"Afterwards please scan your new spot to switch from \"{1}\" to \"{2}\". Your cart will be cleared."
+					"Afterwards please scan your new spot to switch from \"{1}\" to \"{2}\". Cart will be cleared."
 		},
 		"checkin.switchspot.orders.list" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
-					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch Auswahl des neuen Spots. Ihr Warenkorb wird geleert.",
+					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch Auswahl des neuen Spots. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to complete your current order balance of {0}. " +
-					"Afterwards please select your new spot from the list to switch from \"{1}\" to \"{2}\". Your cart will be cleared."
+					"Afterwards please select your new spot from the list to switch from \"{1}\" to \"{2}\". Cart will be cleared."
 		},
 		"checkin.switchspot.confirmselected" : {
 			"DE" :  "An Spot {0} einchecken?",

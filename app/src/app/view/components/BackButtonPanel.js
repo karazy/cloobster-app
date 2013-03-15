@@ -14,16 +14,7 @@ Ext.define('EatSense.view.components.BackButtonPanel', {
          * @accessor
          */
 		backButton: false,
-		scrollable: 'vertical',
 		layout: 'fit'
-		// items: [
-		// 	{
-		// 		xtype: 'titlebar',
-		// 		docked: 'top',
-		// 		items: [
-		// 		]
-		// 	}
-		// ]
 	},
 
 	constructor: function(config) {
