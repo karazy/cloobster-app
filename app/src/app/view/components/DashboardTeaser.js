@@ -184,10 +184,11 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 				console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: no page found, perhabs you provided a wrong filter');
 				this.setState({'pageGenerated' : false});
 				return;
-			} else {
-				//DEBUG
-				console.log('EatSense.view.DashboardTeaser.generateRandomPage: generate page with data ' + appHelper.debugObject(page.getData()));
-			}
+			} 
+			//DEBUG
+			// else {
+			// 	console.log('EatSense.view.DashboardTeaser.generateRandomPage: generate page with data ' + appHelper.debugObject(page.getData()));
+			// }
 
 			this.setPage(page);
 
@@ -211,7 +212,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			store.data.removeFilters(this.getFilter());
 			store.filter();			
 		}
-		
+
 		store.resumeEvents();
 		
 	},
