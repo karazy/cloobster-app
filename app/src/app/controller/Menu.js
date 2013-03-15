@@ -96,6 +96,7 @@ Ext.define('EatSense.controller.Menu', {
 			this.filterMenuBasedOnArea(area);
 			this.addProductAreaFilter(area.raw.menuIds, true);
 			this.backToMenu();
+			this.refreshProductTeasers();
 		}
     },
     /**
@@ -117,6 +118,21 @@ Ext.define('EatSense.controller.Menu', {
     		} else {
     			teaser.un('teasertapped', me.jumpToProductDetail, me);
     		}
+    	});
+    },
+    /**
+    * @private
+    * Forces product teasers to refresh themselfs and pulling a new product from store.
+    */
+    refreshProductTeasers: function() {
+    	   var me = this,
+    		loungeview = this.getLoungeview(),
+    		teasers;
+
+    	teasers = loungeview.query('dashboardteaser[type="product"]');
+
+    	Ext.Array.each(teasers, function(teaser){
+    		teaser.fireEvent('refresh');
     	});
     },
     /**
@@ -145,7 +161,7 @@ Ext.define('EatSense.controller.Menu', {
 
     	parentMenu = menuStore.getById(product.get('menuId'));
 
-    	//TODO error meldung
+    	//TODO error message
     	if(!parentMenu) {
     		console.log('Menu.jumpToProductDetail: menu not found. perhabs load is pending!');
     		return;

@@ -86,7 +86,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			console.log('DashboardTeaser.constructor: No store configuration provided.');
 			return;
 		}
-		// console.log('DashboardTeaser.constructor: store ' + this.getStore());
 
 		nestedStores = me.config.store.split('.');
 
@@ -98,7 +97,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		if(store) {
 			//regnerate the teaser on store load
-			store.on('refresh', this.generateRandomPage, this);
+			me.on('refresh', this.generateRandomPage, this);
 			store.on('beforeload', this.maskTeaser, this);
 			store.on('load', this.generateRandomPage, this);
 			store.on('clear', this.clearPage, this);
@@ -140,12 +139,13 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			nestedStoreFilter;
 
 		
+		store.suspendEvents();
+
 		if(this.getFilter() && !this.nestedStores.length > 0) {
 			if(this.getClearBeforeFiltering()) {
 				storeFilters = store.getFilters();
 				store.clearFilter(true);
-			}
-			store.un('refresh', this.generateRandomPage, this);
+			}			
 			store.filter(this.getFilter());
 		}
 
@@ -184,6 +184,9 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 				console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: no page found, perhabs you provided a wrong filter');
 				this.setState({'pageGenerated' : false});
 				return;
+			} else {
+				//DEBUG
+				console.log('EatSense.view.DashboardTeaser.generateRandomPage: generate page with data ' + appHelper.debugObject(page.getData()));
 			}
 
 			this.setPage(page);
@@ -206,10 +209,10 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			}
 			
 			store.data.removeFilters(this.getFilter());
-			store.filter();	
-			
-			store.on('refresh', this.generateRandomPage, this);
+			store.filter();			
 		}
+		
+		store.resumeEvents();
 		
 	},
 	/**

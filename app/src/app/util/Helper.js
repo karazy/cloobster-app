@@ -123,10 +123,15 @@ Ext.define('EatSense.util.Helper', {
   			return;
   		}
 
-  		for (var key in obj) {
-		  if (obj.hasOwnProperty(key)) {
-		  	console.log(key + ' -> ' + obj[key]);
-		  }
-		}
+  		try {
+	  		for (var key in obj) {
+			  if (obj.hasOwnProperty(key)) {
+			  	console.log(key + ' -> ' + obj[key]);
+			  }
+			}
+  		} catch(e) {
+  			console.error('EatSense.util.Helper.debugObject: failed to debug object ' + e);
+  		}
+
   	}
 });
