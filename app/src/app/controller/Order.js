@@ -427,7 +427,7 @@
 	    	    },
 	    	    failure: function(response) {
 					me.getApplication().handleServerError({
-						'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+						'error': response, 
 	                    'forceLogout': {403:true}
 	                }); 
 				}
@@ -576,7 +576,7 @@
 			    	    	cancelOrderBt.enable();
 							// me.getOrderlist().setStore(orders);
 							me.getApplication().handleServerError({
-								'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+								'error': response, 
 			                    'forceLogout': {403:true}
 			                }); 
 						}
@@ -608,7 +608,7 @@
 				prodPriceLabel,
 				undoButton,
 				prevActiveView,
-				amountSpinner,
+				amountField,
 				commentField,
 		 		menuCtr = this.getApplication().getController('Menu'),
 		 		activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness();
@@ -629,7 +629,7 @@
 		prodDetailLabel = detail.down('#prodDetailLabel');
 		prodDetailLabelImage = detail.down('#prodDetailLabelImage');
 		prodPriceLabel = detail.down('#prodPriceLabel');
-		amountSpinner = detail.down('spinnerfield');
+		amountField = detail.down('#amountField');
 		prevActiveView = cardview.getActiveItem();
 
 		undoButton = detail.down('button[action="undo"]');
@@ -664,17 +664,31 @@
 			}			
 		}
 
-		if(amountSpinner) {
-			//reset product spinner
-			amountSpinner.setValue(order.get('amount'));
+		if(amountField) {
+			//set amount field
+			amountField.setValue(order.get('amount'));
 
-			amountSpinner.on({
-				spin: amountChanged
+			//disable because of focus bug
+			amountField.setDisabled(true);
+
+			amountField.on({
+				change: amountChanged
 			});
 
-			function amountChanged(spinner, value, direction) {
-				me.getActiveOrder().set('amount', value);
+			function amountChanged(field, newVal, oldVal) {
+
+				if(newVal != oldVal) {
+				if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 10) {
+					//reset old value
+					field.suspendEvents();
+					field.setValue(oldVal);
+					field.resumeEvents();
+					return;
+				}
+
+					me.getActiveOrder().set('amount', newVal);
 					me.recalculate(me.getActiveOrder(), prodPriceLabel);
+				}
 			}
 		}
 
@@ -683,11 +697,19 @@
 
 		detail.on('hide', cleanup);
 
+		detail.on({
+			'show' : showDetailHandler,
+			'showdetaildelayed' : createOptionsDelayed,
+			single: true,
+			scope: this
+		});
+
 		//remove listeners and unecessary objects...
 		function cleanup() {
-			if(amountSpinner) {
-				amountSpinner.un({
-					spin: amountChanged
+
+			if(amountField) {
+				amountField.un({
+					change: amountChanged
 				});
 			}
 
@@ -720,35 +742,62 @@
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
     	}
 
-    	if(!order.get('productImageUrl')) {
-			//if no image exists display product text on the left of amount spinner
-			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
-			prodDetailLabelImage.element.setHtml('');
-			detailPanel.setStyle({
-				'background-image': 'none'
-			});	
-			//prevents the box from having the height of the long desc
-			amountSpinner.setHeight('100%');		
-		} else {
-			//when an image exists, display the description beneath the amount spinner
-			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
-			prodDetailLabel.element.setHtml('');			
-			detailPanel.setStyle(
-			{
-				'background-image': 'url('+order.get('productImageUrl')+'=s720)',
-				'background-size': '100% auto',
-				'background-position': 'center top',
-				'min-height': '150px',
-				'background-repeat': 'no-repeat'
-			});
+    	//clear old price
+    	prodPriceLabel.element.setHtml('');
+    	//clear old prod descriptions otherwise the text of prev prod is visible
+    	prodDetailLabelImage.element.setHtml('');
+    	prodDetailLabel.element.setHtml('');
 
-			amountSpinner.setHeight('');
+    	//remove existing background images
+    	detailPanel.setStyle({
+			'background-image': 'none'
+		});
+
+    	cardview.switchTo(detail); 
+
+    	//handler for detail show event
+		function showDetailHandler() {
+			//mask detail
+			// detail.setMasked({
+			// 	xtype: 'loadmask',
+			// 	message: i10n.translate('menu.product.detail.loading')
+			// });
+			//delay creation of options to pretend quicker reaction
+			Ext.create('Ext.util.DelayedTask', function () {
+                detail.fireEvent('showdetaildelayed');
+            }).delay(150);
 		}
 
-		 //dynamically add choices if present		 
-		 if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
+		function createOptionsDelayed() {
 
-		 	order.choices().each(function(choice) {
+	    	if(!order.get('productImageUrl')) {
+				//if no image exists display product text on the left of amount field
+				prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
+				prodDetailLabelImage.element.setHtml('');
+				detailPanel.setStyle({
+					'background-image': 'none'
+				});	
+				//prevents the box from having the height of the long desc
+				amountField.setHeight('100%');
+			} else {
+				//when an image exists, display the description beneath the amount field
+				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
+				prodDetailLabel.element.setHtml('');			
+				detailPanel.setStyle(
+				{
+					'background-image': 'url('+order.get('productImageUrl')+'=s720)',
+					'background-size': '100% auto',
+					'background-position': 'center top',
+					'min-height': '150px',
+					'background-repeat': 'no-repeat'
+				});
+
+				amountField.setHeight('');
+			}			
+
+			 //dynamically add choices if present		 
+			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
+		 		order.choices().each(function(choice) {
 					var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 						choicePriceLabel = (choice.get('overridePrice') == 'OVERRIDE_FIXED_SUM') ? ' (+' + appHelper.formatPrice(choice.get('price')) + ')' : '';
 
@@ -762,33 +811,42 @@
 					menuCtr.createOptions.apply(me, [choice, optionsDetailPanel]);
 
 					choicesPanel.add(optionsDetailPanel);
-		 	 });
-		}
+			 	 });
+			}
 		 
 		 
-		 //insert comment field after options have been added so it is positioned correctly
-		commentField = Ext.create('Ext.field.TextArea', {
-				label: i10n.translate('orderComment'),
-				labelAlign: 'top',
-				itemId: 'productComment',
-				maxRows: 3,
-				value: order.get('comment'),
-				inputCls: 'comment-input',
-				labelCls: 'comment'
-			});
+			 //insert comment field after options have been added so it is positioned correctly
+			commentField = Ext.create('Ext.field.TextArea', {
+					label: i10n.translate('orderComment'),
+					labelAlign: 'top',
+					itemId: 'productComment',
+					maxRows: 3,
+					value: order.get('comment'),
+					inputCls: 'comment-input',
+					labelCls: 'comment'
+				});
 
-		//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
-		commentField.setHidden(activeBusiness.get('basic'));
+			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
+			commentField.setHidden(activeBusiness.get('basic'));
 
-		Ext.defer((function() {
 			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
+			//known ST Bug
 			choicesPanel.add(commentField);
-		}), 400, this);
+			commentField.setDisabled(true);
 
-		this.recalculate(order, prodPriceLabel);
+			detail.getScrollable().getScroller().scrollToTop();
 
-		cardview.switchTo(detail);
-		detail.getScrollable().getScroller().scrollToTop();
+			this.recalculate(order, prodPriceLabel);
+
+			
+
+			Ext.create('Ext.util.DelayedTask', function () {
+				amountField.setDisabled(false);
+				commentField.setDisabled(false); 
+				// detail.setMasked(false);
+            }).delay(300);
+
+		}
 
 	},
 	/**
@@ -835,7 +893,7 @@
 	    	    jsonData: order.getRawJsonData(),
 	    	    failure: function(response) {
 					me.getApplication().handleServerError({
-                    	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+                    	'error': response, 
                     	'forceLogout': {403:true}
                     }); 
 				}
@@ -882,9 +940,8 @@
 	    	    	// order.destroy();
 	    	    },
 	    	    failure: function(response) {
-	    	    	// activeCheckIn.orders().add(order);
 					me.getApplication().handleServerError({
-	                	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+	                	'error': response, 
 	                	'forceLogout': {403:true}
 	                }); 
 				}
@@ -937,18 +994,6 @@
 		this.recalculate(order, prodPriceLabel);
 		this.refreshCart();
 	},
-	/**
-	 * Called when the product spinner value changes. 
-	 * Recalculates the price.
-	 * @param spinner
-	 * @param value
-	 * @param direction
-	 */
-	// amountChanged: function(spinner, value, direction) {
-	// 	console.log('Cart Controller > amountChanged (value:'+value+')');
-	// 	this.getActiveOrder().set('amount', value);
-	// 	// this.recalculate(this.getActiveOrder());
-	// },
 	/**
 	 * Recalculates the total price for the active product.
 	 */
@@ -1577,22 +1622,19 @@
 	*	Object with bill data
 	*/
 	handleBillMessage: function(action, billdata) {
-		var me = this,
-			bill = Ext.create('EatSense.model.Bill'),
-			// paymentMethod = Ext.create('EatSense.model.PaymentMethod'),
+		var bill = Ext.create('EatSense.model.Bill'),
 			checkInCtr =  this.getApplication().getController('CheckIn'),
 			myordersComplete = this.getMyordersComplete(),
-			payButton = this.getPaymentButton(),
-			lounge = this.getLoungeview();			
+			payButton = this.getPaymentButton();			
 
 		if(action == "new") {
 			//this occurs when business manually completes a checkin
-			console.log("Order.handleBillMessage: new bill arrived. Businesses completed checkin.");
+			console.log("Order.handleBillMessage: Bill was created. Businesses completed checkin.");
 			bill.set('id', bill.id);
 			bill.set('checkInId', bill.checkInId);
 			bill.set('paymentMethod', billdata.paymentMethod.name);
-			this.setActiveBill(bill);						
-			lounge.selectByAction('show-myorders');
+			this.setActiveBill(bill);
+			this.showMyorders();
 			myordersComplete.show();
 			this.refreshMyOrdersBadgeText(true);
 			payButton.hide();

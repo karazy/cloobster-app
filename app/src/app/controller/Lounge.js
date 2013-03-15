@@ -33,15 +33,11 @@ Ext.define('EatSense.controller.Lounge', {
 		}
 		},
 		/* Android Back handlers */
-		navigationFunctions : new Array(),
-		loadAreaTask: null
+		navigationFunctions : new Array()
 	},
   launch: function() {
 	 var me = this,
-		  checkInCtr = this.getApplication().getController('CheckIn'),
-		  loadAreasTask;
-
-	  me.createLoadAreaTask();
+		  checkInCtr = this.getApplication().getController('CheckIn');
 
 	  checkInCtr.on({
 		 'spotswitched' : function(spot) {
@@ -49,22 +45,19 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'statusChanged' : function(status) {
 			if(status == appConstants.CHECKEDIN) {			  
-			  this.initDashboard();			  			  
-			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
-			  this.toggleSlidenavButtons(true);
-			  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
-			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
-			  this.registerSlideBezelTap();
-			  //initially only the area id exists so use areaName from spot
-			  this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
-			  //start load area task
-			  if(this.getLoadAreaTask()) {
-			  	this.getLoadAreaTask().delay(100);
-			  } else {
-			  	console.error('Lounge.launch: no load area task exists');
-			  }
-			  this.getLoungeview().selectByAction('show-clubdashboard');
-			  this.getLoungeview().setDisableDrag(false);
+			  this.initDashboard();
+			  // appHelper.toggleMask(i10n.translate('checkin.init.loading', checkInCtr.getActiveSpot().get('businessName')), this.getLoungeview().getContainer().getActiveItem());
+ 				this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
+			  	this.toggleSlidenavButtons(true);
+				  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
+				  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
+				  this.registerSlideBezelTap();
+				  //initially only the area id exists so use areaName from spot
+				  this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
+
+				  this.getLoungeview().selectByAction('show-clubdashboard');
+				  this.getLoungeview().setDisableDrag(false);
+			 
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 				this.registerSlideBezelTap(true);
@@ -80,11 +73,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'basicmode' : function(basicMode) {
 		 	this.manageBasicMode(basicMode);
-		 	if(this.getLoadAreaTask()) {
-		 		this.getLoadAreaTask().delay(100);	
-		  	} else {
-		  		console.error('Lounge.launch: no load area task exists');
-		  	}
+		 	this.tryLoadingAreas();
 		 },
 		 scope: this
 	  });
@@ -261,7 +250,7 @@ Ext.define('EatSense.controller.Lounge', {
 	this.getClubArea().setActiveItem(0);
 	lounge.setActiveItem(0);
 
-	main.switchTo(lounge, 'left');	
+	main.switchTo(lounge, 'left');
   },
   /*
   * Set title of menu tilebutton in club dashboard to name of active area.
@@ -319,27 +308,26 @@ Ext.define('EatSense.controller.Lounge', {
 		var lounge = this.getLoungeview();
 	 	lounge.selectByAction('show-menu');
 	},
-	createLoadAreaTask: function() {
+	/**
+	* @private
+	* Tries to load areas. Areas can only be loaded after business and spot exist.
+	*
+	*/
+	tryLoadingAreas: function() {
 		var me = this,
-			 task,
-			 checkInCtr = this.getApplication().getController('CheckIn');
+			checkInCtr = this.getApplication().getController('CheckIn');
 
-		task = Ext.create('Ext.util.DelayedTask', function() {
-			if(!checkInCtr.getActiveSpot() || !checkInCtr.getActiveBusiness()) {
-				console.log('Lounge.createLoadAreaTask: delaying task for 100ms');
-				task.delay(100);				
-			} else {
-				console.log('Lounge.createLoadAreaTask: executing task');
-				task.cancel();				
-				if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
-					me.loadAreas(function() {
-						me.markSlideNavAreaActive(checkInCtr.getActiveArea(), checkInCtr.getActiveSpot());
-				 	}); 
-				}
-			}			   
-		}, this, checkInCtr);
+		if(checkInCtr.getActiveSpot() && checkInCtr.getActiveBusiness()) {			
+			if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
+				console.log('Lounge.tryLoadingAreas');
+				me.loadAreas(function() {
+					me.markSlideNavAreaActive(checkInCtr.getActiveArea(), checkInCtr.getActiveSpot());
+			 	}); 
+			}
+		} else {
+			console.error('Lounge.tryLoadingAreas: could not load areas. Maybe no activeSpot exits?');
+		}
 
-		this.setLoadAreaTask(task);
 	},
 	 /**
 	 * Load all available areas for this location.
@@ -409,8 +397,6 @@ Ext.define('EatSense.controller.Lounge', {
 			 };
 			 item.areaId = area.get('id');
 			 items.push(item);
-
-			 // area.setSlideNavItem(item);
 		  });
 
 		  return items;

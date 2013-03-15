@@ -93,11 +93,9 @@ Ext.application({
   */
   checkConnection: function(callback) {
     var me = this,
-        networkState = navigator.network.connection.type;
-      //TODO since cordova 2.2 network.connection is decprecated
-      //but iOS version still running on 2.1
-      //on android returned strange values
-      //instead use navigator.connection (http://docs.phonegap.com/en/2.4.0/cordova_connection_connection.md.html#Connection)
+        networkState = navigator.connection.type;
+      //since cordova 2.2 network.connection is decprecated
+      //simply use connection (http://docs.phonegap.com/en/2.4.0/cordova_connection_connection.md.html#Connection)
 
     //possible states
     // Connection.UNKNOWN
@@ -270,7 +268,7 @@ Ext.application({
     *   @param options
     *       Configuration object
     *      
-    *       error: error object containing status and statusText.
+    *       error: error object containing status and responseText.
     *       forceLogout: a critical permission error occured and the checkIn will be terminated
     *       true to logout on all errors 
     *       OR
@@ -315,10 +313,14 @@ Ext.application({
                   defaultErrorKey = 'errorCommunication';
                 	break;
                 case 460:
-                  defaultErrorKey = 'error.apiversion';
+                  defaultErrorKey = 'error.version';
                   break;
                 case 401:
                   defaultErrorKey = 'error.account.required';
+                  break;
+                case 503:
+                  //AppEngine problems
+                  defaultErrorKey = 'error.appengine';
                   break;
                 default:
                   code = 500

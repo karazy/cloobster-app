@@ -41,13 +41,19 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		pageGenerated: false,
 		
 		/**
-		* //TODO reserved for future use
 		* @cfg {String|Object} filter
-		* 	Filter to apply to the store. If nested stores exist it only gets applied to the last store.
+		* 	Filter to apply to the store. Has no effect when using nested stores.
 		*/
 		filter: '',
 
-		cls: 'infopage-teaser',
+		/**
+		* @cfg {Boolean} clearBeforeFiltering
+		* 	Set to true, to remove existing filters before filtering.
+		*/
+		clearBeforeFiltering: false,
+
+		cls: Ext.baseCSSPrefix + 'infopage-teaser',
+
 		padding: 3,
 
 		/**
@@ -80,7 +86,6 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			console.log('DashboardTeaser.constructor: No store configuration provided.');
 			return;
 		}
-		// console.log('DashboardTeaser.constructor: store ' + this.getStore());
 
 		nestedStores = me.config.store.split('.');
 
@@ -92,7 +97,8 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		if(store) {
 			//regnerate the teaser on store load
-			store.on('refresh', this.generateRandomPage, this);
+			me.on('refresh', this.generateRandomPage, this);
+			store.on('beforeload', this.maskTeaser, this);
 			store.on('load', this.generateRandomPage, this);
 			store.on('clear', this.clearPage, this);
 		}
@@ -109,6 +115,15 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
         });
 	},
 	/**
+	* Sets a mask on the teaser.
+	*/
+	maskTeaser: function() {
+		this.setMasked({
+	        xtype: 'mask'
+	     });
+		return true;
+	},
+	/**
 	* @private
 	*	Renders the teaser by getting a random record from the store and applying it to 
 	*	the tpl.
@@ -118,21 +133,21 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			storeCount,
 			page,
 			randomPageIndex,
-			storeFilters,
 			store = this.getStore(),
+			storeFilters,
 			nestedStoreInstance,
 			nestedStoreFilter;
 
-		// storeFilters = store.getFilters();
-		// store.clearFilter(true);
 		
-		// if(this.getFilter() && !this.nestedStores.length > 0) {
-		// 	store.filter(this.getFilter());
-		// }
-		
-		this.setMasked({
-	        xtype: 'loadmask'
-	     });
+		store.suspendEvents();
+
+		if(this.getFilter() && !this.nestedStores.length > 0) {
+			if(this.getClearBeforeFiltering()) {
+				storeFilters = store.getFilters();
+				store.clearFilter(true);
+			}			
+			store.filter(this.getFilter());
+		}
 
 		randomPageIndex = this.getRandomStoreNumber(store);
 
@@ -144,13 +159,10 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 				//if nested stores exist iterate over all of them to get the final random record
 				Ext.Array.each(this.nestedStores, function(nested, index) {
 					nestedStoreInstance = page[nested + ''];
-					//clear possible filters
-					// nestedStoreFilter = nestedStoreInstance.getFilters();
-					// nestedStoreInstance.clearFilter(true);
 
+					//Nested store filtering is experimental
 					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
-						// nestedStoreInstance.findBy(me.getFilter());
-						// nestedStoreInstance.filter('special', true);
+					// 	nestedStoreInstance.filter(me.getFilter());
 					// }
 
 					if(!nestedStoreInstance) {
@@ -161,10 +173,10 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 					page = nestedStoreInstance.getAt(randomPageIndex);
 
 					// if(me.getFilter() && index == (me.nestedStores.length - 1)) {
-					// 	nestedStoreInstance.clearFilter(true);
+					// 	nestedStoreInstance.data.removeFilters(me.getFilter());
+					// 	nestedStoreInstance.filter();
 					// }
 
-					// nestedStoreInstance.setFilters(nestedStoreFilter);
 				});
 			}
 			
@@ -172,7 +184,11 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 				console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: no page found, perhabs you provided a wrong filter');
 				this.setState({'pageGenerated' : false});
 				return;
-			}
+			} 
+			//DEBUG
+			// else {
+			// 	console.log('EatSense.view.DashboardTeaser.generateRandomPage: generate page with data ' + appHelper.debugObject(page.getData()));
+			// }
 
 			this.setPage(page);
 
@@ -187,10 +203,18 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 		this.setMasked(false);
 
-		// if(this.getFilter() && !this.nestedStores.length > 0) {
-		// 	store.clearFilter(true);
-		// }
-		// store.setFilters(storeFilters);
+		if(this.getFilter() && !this.nestedStores.length > 0) {
+			
+			if(this.getClearBeforeFiltering()) {
+				store.setFilters(storeFilters);
+			}
+			
+			store.data.removeFilters(this.getFilter());
+			store.filter();			
+		}
+
+		store.resumeEvents();
+		
 	},
 	/**
 	* @private 

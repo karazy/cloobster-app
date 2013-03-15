@@ -34,11 +34,20 @@ Ext.define('EatSense.model.Product', {
 		},
 		{
 			name: 'special',
-			type: 'boolean'
+			type: 'boolean',
+			defaultValue: false
 		},
 		{
 			name: 'imageUrl',
 			type: 'string'
+		},
+		{
+			name: 'hideInDashboard',
+			type: 'boolean',
+			defaultValue: false
+		},
+		{
+			name: 'menuId'
 		}],
 		 associations: [
 		 {

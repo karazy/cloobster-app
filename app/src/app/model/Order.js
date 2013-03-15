@@ -36,6 +36,10 @@ Ext.define('EatSense.model.Order', {
 			name: 'productShortDesc'
 		},
 		{
+			name: 'productSpecial',
+			type : 'boolean'
+		},
+		{
 			name: 'productImageUrl',
 			type: 'string'
 		},
@@ -88,6 +92,7 @@ Ext.define('EatSense.model.Order', {
 			newOrder.set('productShortDesc', product.get('shortDesc'));
 			newOrder.set('productLongDesc', product.get('longDesc'));
 			newOrder.set('productImageUrl', product.get('imageUrl'));
+			newOrder.set('productSpecial', product.get('special'));
 			newOrder.set('id', "");
 
 			product.choices().each(function(choice) {
@@ -203,6 +208,7 @@ Ext.define('EatSense.model.Order', {
 		rawJson.productLongDesc = this.get('productLongDesc');
 		rawJson.orderTime = (this.get('orderTime')) ? this.get('orderTime').getTime() : null;
 		rawJson.productImageUrl = this.get('productImageUrl');
+		rawJson.productSpecial = this.get('productSpecial');
 
 		rawJson.choices = new Array(this.choices().data.length);
 		
@@ -254,7 +260,7 @@ Ext.define('EatSense.model.Order', {
 		this.set('productShortDesc', rawData.productShortDesc);
 		this.set('productLongDesc', rawData.productLongDesc);
 		this.set('productImageUrl', rawData.productImageUrl);
-		// this.set('checkin_id', rawData.checkin_id);
+		this.set('productSpecial', rawData.productSpecial);
 
 		return true;	
 	}

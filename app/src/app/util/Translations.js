@@ -127,12 +127,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Menu"
 		},
 		"slidenav.button.home" : {
-			"DE" :  "Magazin",
-			"EN" : "Magazine"
+			"DE" :  "Startseite",
+			"EN" : "Home"
 		},
 		"slidenav.header.areas" : {
-			"DE" :  "Sie sind eingecheckt bei",
-			"EN" : "You checked in at"
+			"DE" :  "Sie sind eingecheckt",
+			"EN" : "You checked in"
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
@@ -167,7 +167,6 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Please enter bar code."
 		},
 		"checkInStep1Label1" : {
-			// "DE" :  "Bitte einen Spitznamen wählen.",
 			"DE" : "Mit welchem Namen<br/>möchtest du einchecken?",
 			"EN" :  "Please choose an alias."
 		},
@@ -200,12 +199,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Bar code is not valid or inactive."
 		},
 		"checkInErrorNickname" : {
-			"DE" :  "Der Spitzname muss zwischen {0} und {1} Zeichen lang sein.",
-			"EN" :  "Alias must be between {0} and {1} characters."
+			"DE" :  "Der Name muss zwischen {0} und {1} Zeichen lang sein.",
+			"EN" :  "Name must be between {0} and {1} characters."
 		},
 		"checkInErrorNicknameExists" : {
-			"DE" :  "Der Spitzname wird an diesem Ort bereits benutzt.",
-			"EN" :  "Alias already in use at this location."
+			"DE" :  "Der Name wird an diesem Ort bereits benutzt.",
+			"EN" :  "Name already in use at this location."
 		},
 		"saveNicknameToggle" : {
 			"DE" :  "Namen merken?",
@@ -220,16 +219,16 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Welcome"
 		},
 		"nickname" : {
-			"DE" :  "Spitzname",
-			"EN" :  "Alias"
+			"DE" :  "Name",
+			"EN" :  "Name"
 		},
 		"checkin.init.loading" : {
 			"DE" :  "CheckIn bei {0} ...",
 			"EN" : "Check-in at {0} ..."
 		},
 		"restoreStateLoading" : {
-			"DE" :  "Aktiver Check-in wird geladen ...",
-			"EN" :  "Check-in in progress ..."
+			"DE" :  "Check-in wiederherstellen ...",
+			"EN" :  "Restore check-in..."
 		},
 		"restoreStateFailed" : {
 			"DE" :  "Check-in nicht mehr gültig.<br/>Bitte neu einchecken.",
@@ -468,8 +467,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Payment method"
 		},
 		"paymentRequestSend" : {
-			"DE" :  "Bitte einen Moment warten,</br>die Rechnung wird vorbereitet ...",
-			"EN" :  "One moment please,</br>bill is being prepared ..."
+			"DE" :  "Ihr Bezahlwunsch wurde übermittelt.",
+			"EN" :  "Your payment request has been send."
 		},
 		"myorders.messages.billnew.message" : {
 		 	"DE" :  "Ihre Rechnung ({0}) wurde erstellt.",
@@ -481,8 +480,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Profile"
 		},
 		"nicknameDesc" : {
-			"DE" :  "Der Spitzname ist der Anzeigename für das Servicepersonal. Änderungen wirken sich erst beim nächsten Check-In aus.",
-			"EN" :  "Alias is used to identify your order. Change will take effect after you have checked in again."
+			"DE" :  "Der Name ist der Anzeigename für das Servicepersonal. Änderungen wirken sich erst beim nächsten Check-In aus.",
+			"EN" :  "Name is used to identify your orders. Change will take effect after you have checked in again."
 		},
 		"newsletterRegisterBt" : {
 			"DE" :  "Registrieren",
@@ -889,27 +888,27 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"checkin.switchspot.barcode" : {			
 			"DE" :  "Um	dieses	Produkt	zu bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
-					"Scannen Sie hierfür den Barcode des neuen Spots.",
+					"Scannen Sie hierfür den Barcode des neuen Spots. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to switch from \"{0}\" to \"{1}\". "+
-					"Please scan the barcode of your new spot."
+					"Please scan the barcode of your new spot. Cart will be cleared."
 		},
 		"checkin.switchspot.list" : {
 			"DE" : "Um	dieses	Produkt	zu	bestellen müssen Sie von \"{0}\" nach \"{1}\" wechseln. "+
-					"Wählen Sie hierfür den neuen Spot (Standort) aus der Liste.",
+					"Wählen Sie hierfür den neuen Spot (Standort) aus der Liste. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to switch from \"{0}\" to \"{1}\". "+
-					"Please select your new spot from the list."
+					"Please select your new spot from the list. Cart will be cleared."
 		},
 		"checkin.switchspot.orders.barcode" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
-					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch scannen des neuen Spots.",
+					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch scannen des neuen Spots. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to complete your current order balance of {0}. " + 
-					"Afterwards please scan your new spot to switch from \"{1}\" to \"{2}\"."
+					"Afterwards please scan your new spot to switch from \"{1}\" to \"{2}\". Cart will be cleared."
 		},
 		"checkin.switchspot.orders.list" : {
 			"DE" :  "Um	dieses	Produkt	zu bestellen, schliessen Sie bitte zuerst ihre aktuellen Bestellungen in Höhe von {0} ab. "+
-					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch Auswahl des neuen Spots.",
+					"Dann wechseln Sie von \"{1}\" nach \"{2}\" durch Auswahl des neuen Spots. Warenkorb wird geleert.",
 			"EN" : "To order this product you have to complete your current order balance of {0}. " +
-					"Afterwards please select your new spot from the list to switch from \"{1}\" to \"{2}\"."
+					"Afterwards please select your new spot from the list to switch from \"{1}\" to \"{2}\". Cart will be cleared."
 		},
 		"checkin.switchspot.confirmselected" : {
 			"DE" :  "An Spot {0} einchecken?",
@@ -991,6 +990,10 @@ Ext.define('EatSense.util.Translations',{
 		"error.checkin.switchspot.welcome" : {
 			"DE" :  "Dieser Spot repräsentiert keinen Standort. Bitte checken Sie an anderer Stelle ein.",
 			"EN" : "This spot doesn't represent a real spot. Please check in at another place."
+		},
+		"error.appengine" : {
+			"DE" :  "Es liegt eine Serverstörung vor. Wir arbeiten an einer Lösung.",
+			"EN" : "Currently server errors exist. We are working on a solution."
 		},
 		//system
 		"network.slow" : {

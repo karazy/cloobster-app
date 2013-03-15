@@ -12,6 +12,8 @@ Ext.define('EatSense.controller.CheckIn', {
      * Fires whenever the checkin changed its status.
      * It is one of the list available under EatSense.util.Constants
      * @param {String} the status
+     * @param {EatSense.model.CheckIn} activeCheckIn
+     *  On CHECKEDIN the active checkin is provided
      */
 
      /**
@@ -87,18 +89,12 @@ Ext.define('EatSense.controller.CheckIn', {
             checkinDlg2Userlist: {
             	select: 'linkToUser'
             },
-            // checkinDlg2CancelBt: {
-            // 	tap: 'showLounge'
-            // },
             cancelCheckInBt: {
             	tap: 'showDashboard'
             },
             regenerateNicknameBt: {
             	tap: 'generateNickname'
             },
-            // aboutBt: {
-            //   tap: 'showAbout'
-            // },
             settingsBt: {
             	tap: 'showSettings'
             },
@@ -354,7 +350,7 @@ Ext.define('EatSense.controller.CheckIn', {
                       'pathId' : me.getActiveCheckIn().get('businessId')
                     });
 
-                    me.fireEvent('statusChanged', appConstants.CHECKEDIN);
+                    me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
   					   	    me.loadBusiness(); 
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
@@ -509,7 +505,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
 		//load active spot
 		EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
-		scope: this,
+  		scope: this,
    		 success: function(record, operation) {
    			 this.setActiveSpot(record);
          this.setActiveArea(record.get('areaId'));
@@ -520,7 +516,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
         me.fireEvent('resumecheckin', me.getActiveCheckIn());
 
-        me.fireEvent('statusChanged', appConstants.CHECKEDIN);
+        me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
 
 
          //open a channel for push messags
@@ -1132,9 +1128,6 @@ Ext.define('EatSense.controller.CheckIn', {
         searckKeyUpFn =  Ext.Function.createBuffered( filterSpotList, 50, this),
         androidCtr = this.getApplication().getController('Android');
 
-    //load all spots
-    this.loadSpotsForArea(area);
-
     //register events
     backbutton = spotSelectionView.down('backbutton');
     searchField = spotSelectionView.down('searchfield');
@@ -1156,6 +1149,12 @@ Ext.define('EatSense.controller.CheckIn', {
       keyup: searchFieldKeyupHandler,
       clearicontap: clearSpotListFilter
     });
+
+    Ext.Viewport.add(spotSelectionView);
+    spotSelectionView.show();
+
+    //load all spots
+    this.loadSpotsForArea(area);
 
     //hide the spot selection view and deregister listeners
     function hideSpotSelectionView() {
@@ -1224,10 +1223,7 @@ Ext.define('EatSense.controller.CheckIn', {
     function clearSpotListFilter() {
       spotStore.clearFilter();
       spotList.refresh();
-    }
-
-    Ext.Viewport.add(spotSelectionView);
-    spotSelectionView.show();
+    }    
   },
   /**
   * Load all spots for active area. Only if area does not require a barcode.

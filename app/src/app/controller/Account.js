@@ -755,10 +755,7 @@ Ext.define('EatSense.controller.Account', {
                 		},
                 		failure: function(response) {
                 			me.getApplication().handleServerError({
-                				'error': {
-									'status': response.status,
-									'statusText': response.statusText
-								},
+                				'error': response,
 								message: {
 									400: i10n.translate('account.passwordrequest.notexisting')
 								}

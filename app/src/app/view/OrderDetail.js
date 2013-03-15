@@ -63,17 +63,15 @@ Ext.define('EatSense.view.OrderDetail', {
 				},
 				items : [ 
 					{
-						xtype : 'spinnerfield',
-						style: {
-							'background': 'transparent'
-						},
-						inputCls: 'productdetail-spinner-input',
-						padding: '5 0 0 2',
-						stepValue : 1,
-						value : 1,
-						minValue : '1',
-						maxValue : '10',
-						cycle : true
+						xtype: 'numberfield',
+						label: i10n.translate('amount'),
+						labelAlign: 'top',
+						itemId: 'amountField',
+						value: 1,
+						minValue: 1,
+						maxValue: 10,
+						clearIcon: false,
+						autoCorrect: true
 					},
 					{
 						xtype: 'label',

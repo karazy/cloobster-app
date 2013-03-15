@@ -22,6 +22,10 @@ Ext.define('EatSense.model.InfoPage', {
 		},
 		{
 			name: 'imageUrl'
+		},
+		{
+			name: 'hideInDashboard',
+			type: 'boolean'
 		}
 		],
 		proxy: {

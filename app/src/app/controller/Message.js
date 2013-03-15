@@ -117,10 +117,7 @@ Ext.define('EatSense.controller.Message', {
 		    },
 		    failure: function(response, opts) {
 		    	me.getApplication().handleServerError({
-					'error': {
-						'status' : response.status,
-						'statusText': response.statusText
-					}, 
+					'error': response, 
 					'forceLogout': false, 
 					'hideMessage':true, 
 					'message': i10n.translate('channelTokenError')

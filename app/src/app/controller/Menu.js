@@ -6,6 +6,7 @@
  */
 Ext.define('EatSense.controller.Menu', {
     extend: 'Ext.app.Controller',
+    requires: ['Ext.util.Filter'],
     config: {
 		refs: {
 	        main : 'mainview', 
@@ -17,7 +18,6 @@ Ext.define('EatSense.controller.Menu', {
         	prodDetailLabel :'productdetail #prodDetailLabel',
         	prodDetailLabelImage :'productdetail #prodDetailLabelImage',
         	prodPriceLabel :'productdetail #prodPriceLabel',    
-        	amountSpinner: 'productdetail spinnerfield',
         	createOrderBt :'productdetail button[action="cart"]',
         	closeProductDetailBt: 'productdetail button[action=back]',
         	menuview: 'menutab',
@@ -37,7 +37,7 @@ Ext.define('EatSense.controller.Menu', {
              	disclose: 'showProductlist'
              },
              productlist : {
-            	select: 'loadProductDetail' 
+            	select: 'loadProductDetail'
              },
              createOrderBt : {
             	 tap: 'createOrder'
@@ -50,9 +50,6 @@ Ext.define('EatSense.controller.Menu', {
              },
              cartBackButton: {
              	tap: 'cartBackButtonHandler'
-             },
-             amountSpinner : {
-            	 spin: 'amountChanged'
              },
              showCartButton: {
              	tap: 'showCart'
@@ -81,10 +78,13 @@ Ext.define('EatSense.controller.Menu', {
     	var checkInCtr = this.getApplication().getController('CheckIn'),
     		loungeCtr = this.getApplication().getController('Lounge');
 
-    	checkInCtr.on('statusChanged', function(status) {
+    	checkInCtr.on('statusChanged', function(status, activeCheckIn) {
 			if(status == appConstants.CHECKEDIN) {
 				this.registerProductTeaserTap();
-				this.showMenu();				
+				this.showMenu();
+				//add area filter to product store before loading
+                this.addProductAreaFilter(checkInCtr.getActiveSpot().raw.areaMenuIds);
+				this.loadProducts(activeCheckIn);
 				loungeCtr.on('areaswitched', doAreaFiltering, this);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();
@@ -95,8 +95,9 @@ Ext.define('EatSense.controller.Menu', {
 
 		function doAreaFiltering(area) {
 			this.filterMenuBasedOnArea(area);
-			this.filterProductStore(area.raw.menuIds, true);
+			this.addProductAreaFilter(area.raw.menuIds, true);
 			this.backToMenu();
+			this.refreshProductTeasers();
 		}
     },
     /**
@@ -121,6 +122,21 @@ Ext.define('EatSense.controller.Menu', {
     	});
     },
     /**
+    * @private
+    * Forces product teasers to refresh themselfs and pulling a new product from store.
+    */
+    refreshProductTeasers: function() {
+    	   var me = this,
+    		loungeview = this.getLoungeview(),
+    		teasers;
+
+    	teasers = loungeview.query('dashboardteaser[type="product"]');
+
+    	Ext.Array.each(teasers, function(teaser){
+    		teaser.fireEvent('refresh');
+    	});
+    },
+    /**
     * Shows product detail and product list no matter where the user is.
     * @param product
     *	Product to show.
@@ -139,12 +155,19 @@ Ext.define('EatSense.controller.Menu', {
     	//get all associated data!
     	product.getData(true);
 
-    	if(!product.get('menu_id')) {
-    		console.log('Menu.jumpToProductDetail: product has no menu_id');
+    	if(!product.get('menuId')) {
+    		console.log('Menu.jumpToProductDetail: product has no menuId');
     		return;
     	}
 
-    	parentMenu = menuStore.getById(product.get('menu_id'));
+    	parentMenu = menuStore.getById(product.get('menuId'));
+
+    	//TODO error message
+    	if(!parentMenu) {
+    		console.log('Menu.jumpToProductDetail: menu not found. perhabs load is pending!');
+    		return;
+    	}
+
     	//show the product list
     	this.showProductlist(null, parentMenu);
     	loungeview.selectByAction('show-menu');
@@ -170,8 +193,7 @@ Ext.define('EatSense.controller.Menu', {
 		});
 
     	this.setActiveMenu(record);
-
-    	this.getProductlist().setStore(prodStore);  
+    	this.filterProductStore(record); 
 		this.getProductlist().refresh();
     	
     	titleLabel = pov.down('#titleLabel');
@@ -197,7 +219,7 @@ Ext.define('EatSense.controller.Menu', {
     showMenu: function() {
     	var me = this,
     	    menu = this.getMenuview(),
-    		lounge = this.getLoungeview(),
+    		// lounge = this.getLoungeview(),
     		main = this.getMain(),
     		checkInCtr = this.getApplication().getController('CheckIn'),
     		businessId = Ext.String.trim(checkInCtr.getActiveCheckIn().get('businessId')),
@@ -215,7 +237,7 @@ Ext.define('EatSense.controller.Menu', {
 			menuStore.load({
 				scope   : this,
 				params: {
-					'includeProducts' : true,
+					// 'includeProducts' : true,
 					'pathId': businessId
 				},
 			    callback: function(records, operation, success) {
@@ -226,8 +248,7 @@ Ext.define('EatSense.controller.Menu', {
                         }); 
                     }
 
-                    //setup store before filtering the store
-                    me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);                    
+                    // me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);                    
                     //only display assigned menus
 			    	menuStore.filter([
 				    	{
@@ -347,18 +368,16 @@ Ext.define('EatSense.controller.Menu', {
 	},
 	/**
 	 * Displays detailed information for a product (e.g. Burger). 
-	 * Creates an order object which gests manipulated.
+	 * Creates an independent order object for manipulation.
 	 * @param dataview
 	 * @param record
 	 */
 	loadProductDetail: function(dataview, record) {
 		var me = this,
-			detail = this.getProductdetail(), 
+			detail, 
 			main = this.getMain(), 
 			menu = this.getMenuview(), 
 			choicesPanel =  null,
-			// choicesWrapper =  this.getProductdetail().getComponent('choicesWrapper'),
-			// titlebar = detail.down('titlebar'),
 			activeProduct,
 			detailPanel,		
 			activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness(),
@@ -366,7 +385,9 @@ Ext.define('EatSense.controller.Menu', {
 			titleLabel,
 			prodDetailLabel = this.getProdDetailLabel(),
 			prodDetailLabelImage = this.getProdDetailLabelImage(),
-			commentField;
+			prodPriceLabel,
+			commentField,
+			amountField;
 	
 			this.getApplication().getController('Android').addBackHandler(function() {
 				me.closeProductDetail();
@@ -378,11 +399,11 @@ Ext.define('EatSense.controller.Menu', {
 		// } else {
 		// 	console.log('Menu.loadProductDetail: ERROR no record given');
 		// }
-		
-		// console.log('Menu.loadProductDetail: 1');
+
 		order = EatSense.model.Order.createOrder(record);
 		this.setActiveOrder(order);
-		// console.log('Menu.loadProductDetail: 2');
+
+		detail = menu.down('productdetail');
 
 		choicesPanel =  this.getProductdetail().down('#choicesPanel');
 		//fix for Ticket #397 sometimes product detail seems to be broken
@@ -391,92 +412,120 @@ Ext.define('EatSense.controller.Menu', {
 			detail = null;
 			detail = this.getProductdetail();
 			choicesPanel =  this.getProductdetail().down('#choicesPanel');
-			// titlebar = detail.down('titlebar');
 			console.log('Menu.loadProductDetail: detail panel was null. generate new');
 		}
 
 		choicesPanel.removeAll(false);
-		// console.log('Menu.loadProductDetail: 3');
-
-		// titlebar.setTitle(order.get('productName'));
 
 		titleLabel = detail.down('#titleLabel');
 		detailPanel = detail.down('#productDetailPanel');
+		amountField = detail.down('#amountField');
+		prodPriceLabel = detail.down('#prodPriceLabel');
 
+		//set basic data
     	if(titleLabel) {
     		if(detailPanel.element.first('.productlist-header')) {
     			detailPanel.element.first('.productlist-header').destroy();
     		}    		
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
-    		// titleLabel.getTpl().overwrite(titleLabel.element, order.getData());
-
     	}
 
-		// console.log('Menu.loadProductDetail: 4');
-		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
-		// console.log('Menu.loadProductDetail: 5');
-		//reset product spinner
-		this.getAmountSpinner().setValue(1);
+    	if(prodPriceLabel) {
+    		prodPriceLabel.getTpl().overwrite(prodPriceLabel.element, {order: order, amount: amountField.getValue()});
+    	}
 
+    	//clear old prod descriptions otherwise the text of prev prod is visible
+    	prodDetailLabelImage.element.setHtml('');
+    	prodDetailLabel.element.setHtml('');
 
-		// detailPanel.element.insertFirst
-		// detailPanel.setStyle('background-image: url("http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg");'+
-		// 			 'background-size: 100% auto;');
-		// '<div style="background-image: url(\"http://www.whitegadget.com/attachments/pc-wallpapers/16215d1222951905-nature-photos-wallpapers-images-beautiful-pictures-nature-444-photos.jpg\");'+
-		// 			 'background-size: 600px 200px;"></div>'
+    	//remove existing background images
+    	detailPanel.setStyle({
+			'background-image': 'none'
+		});
 
-		//DEBUG
-		// order.set('productImageUrl', 'res/images/background.png');
-
-		if(!order.get('productImageUrl')) {
-			//if no image exists display product text on the left of amount spinner
-			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: this.getAmountSpinner().getValue()});
-			prodDetailLabelImage.element.setHtml('');
-			detailPanel.setStyle({
-				'background-image': 'none'
-			});	
-			//prevents the box from having the height of the long desc
-			this.getAmountSpinner().setHeight('100%');
-		} else {
-			//when an image exists, display the description beneath the amount spinner
-			prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: this.getAmountSpinner().getValue()});
-			prodDetailLabel.element.setHtml('');			
-			detailPanel.setStyle(
-			{
-				'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
-				//DEBUG
-				// 'background-image': 'url('+order.get('productImageUrl')+')', 
-				'background-size': '100% auto',
-				'background-position': 'center top',
-				'min-height': '150px',
-				'background-repeat': 'no-repeat'
-			});
-
-			this.getAmountSpinner().setHeight('');
-		}
 		
-		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order, amount: this.getAmountSpinner().getValue()});
-		//if basic mode is active, hide amount spinner
-		//TODO 24.01.2013 how to deal with this. always show spinner otherwise when 0€ product an ugly gray bar is displayed
-		// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
-		// console.log('Menu.loadProductDetail: 6');
+		this.getApplication().getController('CheckIn').activateWelcomeAndBasicMode(detail);
+		
+		//reset product amount
+		amountField.setValue(1);
+		//disable because of focus bug
+		amountField.setDisabled(true);
+		
 
-		// Ext.Viewport.add(detail);
+		//register listener for amount field
+		amountField.un({
+			change: me.amoundFieldChanged,
+			scope: this
+		});
+
+		amountField.on({
+			change: me.amoundFieldChanged,
+			scope: this
+		});
+
+		detail.on({
+			'show' : showDetailHandler,
+			'showdetaildelayed' : createOptionsDelayed,
+			single: true,
+			scope: this
+		});
+
+		//show detail
 		this.switchView(detail);
 
-		detail.getScrollable().getScroller().scrollToTop();
-		detail.show();
-		// console.log('Menu.loadProductDetail: 7');
-		detail.setMasked({
-			xtype: 'loadmask',
-			message: i10n.translate('menu.product.detail.loading')
-		});
-		// console.log('Menu.loadProductDetail: 8');
-		Ext.defer((function() {
+		//handler for detail show event
+		function showDetailHandler() {
+			//mask detail
+			// detail.setMasked({
+			// 	xtype: 'loadmask',
+			// 	message: i10n.translate('menu.product.detail.loading')
+			// });
+			//delay creation of options to pretend quicker reaction
+			Ext.create('Ext.util.DelayedTask', function () {
+                detail.fireEvent('showdetaildelayed');
+            }).delay(150);
+		}
+
+		//create the detail options
+		function createOptionsDelayed() {
+
+		//DEBUG
+		// order.set('productImageUrl', 'res/images/background.png');		
+
+			if(!order.get('productImageUrl')) {
+				//if no image exists display product text on the left of amount field
+				prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: amountField.getValue()});
+				prodDetailLabelImage.element.setHtml('');
+				detailPanel.setStyle({
+					'background-image': 'none'
+				});
+				//prevents the box from having the height of the long desc
+				amountField.setHeight('100%');
+			} else {
+				//when an image exists, display the description beneath the amount field
+				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
+				prodDetailLabel.element.setHtml('');		
+				detailPanel.setStyle(
+				{
+					'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
+					//DEBUG
+					// 'background-image': 'url('+order.get('productImageUrl')+')', 
+					'background-size': '100% auto',
+					'background-position': 'center top',
+					'min-height': '150px',
+					'background-repeat': 'no-repeat'
+				});
+
+				amountField.setHeight('');
+			}
+
+			//if basic mode is active, hide amount field
+			//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
+			// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
+			
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
 			 	 //render all main choices
-			 	 // console.log('Menu.loadProductDetail: 9');
 			 	 order.choices().each(function(choice) {
 						var optionsDetailPanel = Ext.create('EatSense.view.OptionDetail'),
 							choicePriceLabel = "";
@@ -496,7 +545,7 @@ Ext.define('EatSense.controller.Menu', {
 						choicesPanel.add(optionsDetailPanel);
 			 	 });		 	 
 			};
-			 // console.log('Menu.loadProductDetail: 10');
+
 			//insert comment field after options have been added so it is positioned correctly
 			commentField = Ext.create('Ext.field.TextArea', {
 				label: i10n.translate('orderComment'),
@@ -506,18 +555,25 @@ Ext.define('EatSense.controller.Menu', {
 				value: '',
 				inputCls: 'comment-input',
 				labelCls: 'comment'
-			});
+			});			
 
 			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
 			commentField.setHidden(activeBusiness.get('basic'));
 
-			Ext.defer((function() {
-				//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
-				choicesPanel.add(commentField);
-			}), 400, this);
+			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
+			choicesPanel.add(commentField);			
+			commentField.setDisabled(true);
 
-			detail.setMasked(false);
-		}), 100, this);
+			detail.getScrollable().getScroller().scrollToTop();			
+
+			//TODO Workaround because input gets focus
+			//http://www.sencha.com/forum/showthread.php?258560-Input-gets-false-focus-after-switching-to-card!&p=946604#post946604
+			Ext.create('Ext.util.DelayedTask', function () {
+				amountField.setDisabled(false);
+				commentField.setDisabled(false);
+				// detail.setMasked(false);             
+            }).delay(300);            
+		}
 	},
 	/**
 	* @private
@@ -697,7 +753,7 @@ Ext.define('EatSense.controller.Menu', {
 
 	    	    	} else {
 		    	    	me.getApplication().handleServerError({
-	                        	'error': { 'status' : response.status, 'statusText' : response.statusText}, 
+	                        	'error': response, 
 	                        	'forceLogout': {403:true}
 	                    });	
 	    	    	}	
@@ -773,17 +829,23 @@ Ext.define('EatSense.controller.Menu', {
 		console.log('Menu.recalculate');
 		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order});
 	},
-	/**
-	 * Called when the product spinner value changes. 
-	 * Recalculates the price.
-	 * @param spinner
-	 * @param value
-	 * @param direction
-	 */
-	amountChanged: function(spinner, value, direction) {
-		console.log('MenuController > amountChanged (value:'+value+')');
-		this.getActiveOrder().set('amount', value);
-		this.recalculate(this.getActiveOrder());
+
+	amoundFieldChanged: function(field, newVal, oldVal) {
+		console.log('Menu.amoundFieldChanged: ' + newVal);
+
+		if(newVal != oldVal) {
+			//TODO validation
+			if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 10) {
+				//reset old value
+				field.suspendEvents();
+				field.setValue(oldVal);
+				field.resumeEvents();
+				return;
+			}
+
+			this.getActiveOrder().set('amount', newVal);
+			this.recalculate(this.getActiveOrder());
+		}
 	},
 
 	/**
@@ -819,65 +881,93 @@ Ext.define('EatSense.controller.Menu', {
 	    //remove menu to prevent problems on reload
 	    menuStore.removeAll(false);
 	},
+
 	/**
-	* @private
-	*	Extracts all nested products from given menuStore and adds them to productStore.
-	* @param {Ext.data.Store} menuStore
-	*	Store to extract menus from
-	* @param {Array} menuIds
-	*	Ids of menus to filter product store
+	* Filter the product store.
+	* @param {EatSense.model.Menu} menu
+	*	show products for given menu
+	* @param {Boolean} clear
+	*	True to remove existing filters.
 	*/
-	setupProductStore: function(menuStore, menuIds) {
-		var productStore = Ext.StoreManager.lookup('productStore');
-
-		if(!menuStore) {
-			return;
-		}
-
-		this.filterProductStore(menuIds, false);
-
-		menuStore.each(function(menu) {
-			menu.productsStore.each(function(product) {
-				productStore.add(product);
-			});
-		});
-
-		//fire load event for listening components
-		productStore.fireEvent('load', productStore, productStore.data.items, true);
-	},
-	filterProductStore: function(menuIds, clear) {
-		var productStore = Ext.StoreManager.lookup('productStore');
+	filterProductStore: function(menu, clear) {
+		var productStore = Ext.StoreManager.lookup('productStore'),
+			menuFilter;
 
 		if(clear) {
 			productStore.clearFilter(true);	
 		}
-		//TODO refactor filtering when this will be used in a more general way
-		// so a hardcodet "special" filter is not needed anymore
+
+		if(menu) {
+
+			menuFilter = new Ext.util.Filter({
+		    	root : 'data',
+		    	property: 'menuId',
+		    	value: menu.get('id'),
+		    	exactMatch: true
+			});
+
+			productStore.data.removeFilters(['menuId']);
+
+			productStore.filter(menuFilter);
+		}		
+	},
+	/**
+	* @private
+	* Adds a filter to product store hiding all menus, not belonging to current area.
+	* @param {Array<Number>} menuIds
+	*	Array of menuIds belonging to current area.
+	* @param {Boolean} clear
+	*	True to remove existing filters.
+	*/
+	addProductAreaFilter: function(menuIds, clear) {
+ 		var productStore = Ext.StoreManager.lookup('productStore');
+ 
+ 		if(clear) {
+ 			productStore.clearFilter(true);	
+ 		}
+
 		if(menuIds) {
 			productStore.filter([
 		    	{
 		    		filterFn: function(product) {
-		    			if(Ext.Array.contains(menuIds, product.get('menu_id'))) {
+		    			if(Ext.Array.contains(menuIds, product.get('menuId'))) {
 		    				return true;
 		    			}
 		    		}
-		    	},
-		    	{
-        	    	property: 'special',
-            		value   : true
 		    	}
     		]);
-		}
-		
-	},
+		}		
+ 	},
+
 	/**
 	* @private
-	* Clear productStore
+	* Load products for activeCheckIn.
+	*
+	*/
+	loadProducts: function() {
+		var productStore = Ext.StoreManager.lookup('productStore');
+
+		productStore.load({
+			callback: function(records, operation, success) {
+		    	if(operation.error) { 
+                    me.getApplication().handleServerError({
+                    	'error': operation.error, 
+                    	'forceLogout': {403:true}
+                    }); 
+                }
+		    }
+		});
+	},
+
+	/**
+	* @private
+	* Clear productStore.
 	*/
 	clearProductStore: function() {
 		var productStore = Ext.StoreManager.lookup('productStore');
 		
 		try {
+			productStore.clearFilter(true);
 			productStore.each(function(product) {
 		        product.choices().each(function(choice) {
 		            choice.options().removeAll(true);
