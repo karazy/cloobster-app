@@ -6,6 +6,7 @@
  */
 Ext.define('EatSense.controller.Menu', {
     extend: 'Ext.app.Controller',
+    requires: ['Ext.util.Filter'],
     config: {
 		refs: {
 	        main : 'mainview', 
@@ -889,21 +890,25 @@ Ext.define('EatSense.controller.Menu', {
 	*	True to remove existing filters.
 	*/
 	filterProductStore: function(menu, clear) {
-		var productStore = Ext.StoreManager.lookup('productStore');
+		var productStore = Ext.StoreManager.lookup('productStore'),
+			menuFilter;
 
 		if(clear) {
 			productStore.clearFilter(true);	
 		}
 
 		if(menu) {
+
+			menuFilter = new Ext.util.Filter({
+		    	root : 'data',
+		    	property: 'menuId',
+		    	value: menu.get('id'),
+		    	exactMatch: true
+			});
+
 			productStore.data.removeFilters(['menuId']);
 
-			productStore.filter([
-				{
-					property: 'menuId',
-					value: menu.get('id')
-				}
-			]);
+			productStore.filter(menuFilter);
 		}		
 	},
 	/**
