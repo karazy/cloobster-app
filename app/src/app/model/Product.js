@@ -34,7 +34,8 @@ Ext.define('EatSense.model.Product', {
 		},
 		{
 			name: 'special',
-			type: 'boolean'
+			type: 'boolean',
+			defaultValue: false
 		},
 		{
 			name: 'imageUrl',

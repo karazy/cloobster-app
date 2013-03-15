@@ -147,8 +147,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 											return true;
 										}
 										return false;
-								    }
-									, 
+								    }, 
 									{
 										property: 'special',
 										value: true
@@ -171,7 +170,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 								// clearBeforeFiltering: true,
 								filter: [
 									function(item) {
-										if(item.get('hideInDashboard') === false) {
+										if(item.get('hideInDashboard') === false && item.get('special') === false) {
 											return true;
 										}
 										return false;
