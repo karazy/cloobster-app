@@ -167,7 +167,6 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Please enter bar code."
 		},
 		"checkInStep1Label1" : {
-			// "DE" :  "Bitte einen Spitznamen wählen.",
 			"DE" : "Mit welchem Namen<br/>möchtest du einchecken?",
 			"EN" :  "Please choose an alias."
 		},
@@ -200,12 +199,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Bar code is not valid or inactive."
 		},
 		"checkInErrorNickname" : {
-			"DE" :  "Der Spitzname muss zwischen {0} und {1} Zeichen lang sein.",
-			"EN" :  "Alias must be between {0} and {1} characters."
+			"DE" :  "Der Name muss zwischen {0} und {1} Zeichen lang sein.",
+			"EN" :  "Name must be between {0} and {1} characters."
 		},
 		"checkInErrorNicknameExists" : {
-			"DE" :  "Der Spitzname wird an diesem Ort bereits benutzt.",
-			"EN" :  "Alias already in use at this location."
+			"DE" :  "Der Name wird an diesem Ort bereits benutzt.",
+			"EN" :  "Name already in use at this location."
 		},
 		"saveNicknameToggle" : {
 			"DE" :  "Namen merken?",
@@ -220,8 +219,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Welcome"
 		},
 		"nickname" : {
-			"DE" :  "Spitzname",
-			"EN" :  "Alias"
+			"DE" :  "Name",
+			"EN" :  "Name"
 		},
 		"checkin.init.loading" : {
 			"DE" :  "CheckIn bei {0} ...",
@@ -481,8 +480,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Profile"
 		},
 		"nicknameDesc" : {
-			"DE" :  "Der Spitzname ist der Anzeigename für das Servicepersonal. Änderungen wirken sich erst beim nächsten Check-In aus.",
-			"EN" :  "Alias is used to identify your order. Change will take effect after you have checked in again."
+			"DE" :  "Der Name ist der Anzeigename für das Servicepersonal. Änderungen wirken sich erst beim nächsten Check-In aus.",
+			"EN" :  "Name is used to identify your orders. Change will take effect after you have checked in again."
 		},
 		"newsletterRegisterBt" : {
 			"DE" :  "Registrieren",
