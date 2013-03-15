@@ -1129,9 +1129,6 @@ Ext.define('EatSense.controller.CheckIn', {
         searckKeyUpFn =  Ext.Function.createBuffered( filterSpotList, 50, this),
         androidCtr = this.getApplication().getController('Android');
 
-    //load all spots
-    this.loadSpotsForArea(area);
-
     //register events
     backbutton = spotSelectionView.down('backbutton');
     searchField = spotSelectionView.down('searchfield');
@@ -1153,6 +1150,12 @@ Ext.define('EatSense.controller.CheckIn', {
       keyup: searchFieldKeyupHandler,
       clearicontap: clearSpotListFilter
     });
+
+    Ext.Viewport.add(spotSelectionView);
+    spotSelectionView.show();
+
+    //load all spots
+    this.loadSpotsForArea(area);
 
     //hide the spot selection view and deregister listeners
     function hideSpotSelectionView() {
@@ -1221,10 +1224,7 @@ Ext.define('EatSense.controller.CheckIn', {
     function clearSpotListFilter() {
       spotStore.clearFilter();
       spotList.refresh();
-    }
-
-    Ext.Viewport.add(spotSelectionView);
-    spotSelectionView.show();
+    }    
   },
   /**
   * Load all spots for active area. Only if area does not require a barcode.
