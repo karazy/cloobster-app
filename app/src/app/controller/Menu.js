@@ -84,6 +84,7 @@ Ext.define('EatSense.controller.Menu', {
 				this.showMenu();
 				//add area filter to product store before loading
                 this.addProductAreaFilter(checkInCtr.getActiveSpot().raw.areaMenuIds);
+                this.setSorterForMenuBasedOnIdArray(checkInCtr.getActiveSpot().raw.areaMenuIds, true);
 				this.loadProducts(activeCheckIn);
 				loungeCtr.on('areaswitched', doAreaFiltering, this);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
@@ -94,7 +95,9 @@ Ext.define('EatSense.controller.Menu', {
 		}, this);
 
 		function doAreaFiltering(area) {
-			this.filterMenuBasedOnArea(area);
+			//set sorter before filtering
+			this.setSorterForMenuBasedOnIdArray(area.raw.menuIds);
+			this.filterMenuBasedOnArea(area);			
 			this.addProductAreaFilter(area.raw.menuIds, true);
 			this.backToMenu();
 			this.refreshProductTeasers();
@@ -336,6 +339,67 @@ Ext.define('EatSense.controller.Menu', {
 
     	this.updateMenuLabel(area.get('name'));
     },
+
+    /**
+    * Sets sorters for the menu based on given array.
+    * The actual sort has to be called afterswars.
+    * @param {Array<number>} array of menu ids
+    *	area to sort menus with
+    * @param {Boolean} sort
+    *	true to sort right away
+    */
+    setSorterForMenuBasedOnIdArray: function(menuIds, sort) {
+    	var menuStore = Ext.StoreManager.lookup('menuStore');
+    	
+    	if(!menuIds) {
+    		console.error('Menu.setSorterForMenuBasedOnIdArray: no ids given');	
+    		return;
+    	}
+
+    	if(!Ext.isArray(menuIds)) {
+    		console.error('Menu.setSorterForMenuBasedOnIdArray: menuIds is no array');	
+    		return;
+    	}
+
+    	if(menuIds.length == 0) {
+    		console.log('Menu.setSorterForMenuBasedOnIdArray: array contains no valuers');
+    	}
+
+    	menuStore.data.setAutoSort(false);
+    	menuStore.setSorters([
+	    	{
+	    		sorterFn: function(menu1, menu2) {
+	    			var indexOf1,
+	    				indexOf2;
+
+	    			if(!menuIds || !Ext.isArray(menuIds) || menuIds.length == 0) {
+						return false;
+	    			}
+
+	    			indexOf1 = menuIds.indexOf(menu1.get('id'));
+	    			indexOf2 = menuIds.indexOf(menu2.get('id'));
+
+	    			if(indexOf1 < indexOf2) {
+	    				return -1;
+	    			}
+
+	    			if(indexOf1 > indexOf2) {
+	    				return 1;
+	    			}
+
+	    			//should not occur
+	    			return 0;
+
+	    		}	
+	    	}
+    	]);
+    	menuStore.data.setAutoSort(true);
+
+    	if(sort) {
+    		menuStore.sort();
+    	}
+    },
+
     /**
      * Shows the menu. At this point the store is already filled with data.
      */
@@ -868,6 +932,11 @@ Ext.define('EatSense.controller.Menu', {
 		var menuStore = Ext.StoreManager.lookup('menuStore');
 
 		menuStore.clearFilter(true);
+		//clear sorters
+		menuStore.data.setAutoSort(false);
+		menuStore.setSorters([]);
+		menuStore.data.setAutoSort(true);
+		
 		menuStore.each(function(menu) {
         menu.products().each(function(product) {
 	        product.choices().each(function(choice) {
@@ -880,10 +949,11 @@ Ext.define('EatSense.controller.Menu', {
 
 	    //remove menu to prevent problems on reload
 	    menuStore.removeAll(false);
+	    //clear sorters	    
 	},
 
 	/**
-	* Filter the product store.
+	* Filter and sort the product store.
 	* @param {EatSense.model.Menu} menu
 	*	show products for given menu
 	* @param {Boolean} clear
@@ -907,8 +977,35 @@ Ext.define('EatSense.controller.Menu', {
 			});
 
 			productStore.data.removeFilters(['menuId']);
+			productStore.data.setAutoSort(false);
+			productStore.setSorters([
+		    	{
+		    		sorterFn: function(product1, product2) {
+		    			var indexOf1,
+		    				indexOf2;
+		    			if(!menu || !menu.raw || !menu.raw.productIds || menu.raw.productIds.length == 0) {
+							return false;
+		    			}
 
-			productStore.filter(menuFilter);
+		    			indexOf1 = menu.raw.productIds.indexOf(product1.get('id'));
+		    			indexOf2 = menu.raw.productIds.indexOf(product2.get('id'));
+
+		    			if(indexOf1 < indexOf2) {
+		    				return -1;
+		    			}
+
+		    			if(indexOf1 > indexOf2) {
+		    				return 1;
+		    			}
+
+		    			//should not occur
+		    			return 0;
+		    		}	
+		    	}
+	    	]);
+	    	productStore.data.setAutoSort(true);
+
+			productStore.filter(menuFilter);	
 		}		
 	},
 	/**
@@ -966,8 +1063,13 @@ Ext.define('EatSense.controller.Menu', {
 	clearProductStore: function() {
 		var productStore = Ext.StoreManager.lookup('productStore');
 		
-		try {
+		try {			
 			productStore.clearFilter(true);
+			//clear sorters
+			productStore.data.setAutoSort(false);
+			productStore.setSorters([]);
+			productStore.data.setAutoSort(true);
+
 			productStore.each(function(product) {
 		        product.choices().each(function(choice) {
 		            choice.options().removeAll(true);
@@ -977,6 +1079,7 @@ Ext.define('EatSense.controller.Menu', {
 	        });
 		       
 			productStore.removeAll();
+			
 		}catch(e) {
 			console.log('Menu.clearProductStore: failed to clear store. ' + e);
 		}

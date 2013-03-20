@@ -5,10 +5,10 @@ Ext.define('EatSense.store.Product', {
 		storeId: 'productStore',
 		model: 'EatSense.model.Product',
 		sorters: [
-		    {
-		    	property: 'order',
-                direction: 'ASC'
-            }
+		    // {
+		    // 	property: 'order',
+      //           direction: 'ASC'
+      //       }
 		]
 	}
 });

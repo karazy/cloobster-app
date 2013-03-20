@@ -105,7 +105,6 @@ Ext.define('EatSense.view.Lounge', {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
 			},
-			
 			{
 				xtype: 'settingstab',
 				title: i10n.translate('settingsButton'),

@@ -28,7 +28,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						pressedCls: 'fb-wimpel-button-pressed',
 						top: 0,
 						right: 15
-				}				
+				}			
 			]
 		},
 		{
