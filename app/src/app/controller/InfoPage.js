@@ -1,4 +1,4 @@
-/**
+	/**
 * Controller for infopages.
 * Manages loading, showing and navigation for infopages.
 */
@@ -103,8 +103,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			EatSense.util.Helper.toggleMask('loadingMsg', list);
 			Ext.create('Ext.util.DelayedTask', function () {
 				list.refresh();
-    		}).delay(300);					
-		
+    		}).delay(300);
 		}
 	},
 	/**
@@ -131,8 +130,9 @@ Ext.define('EatSense.controller.InfoPage', {
 				});
 
 				me.getLounge().selectByAction('show-infopage');
-				me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
-				// me.createCarouselPanels(doShowInfoPage);
+				if(page.get('type').toUpperCase() != 'LINK') {
+					me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
+				}
 			} else {
 				doShowInfoPage();
 			}
@@ -360,7 +360,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
 			recordUrl = record.get('url');
-			if(recordUrl) {
+			if(recordUrl && recordUrl.trim().length > 0) {
 				//if url does not start with http or https add it
 				if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
 					recordUrl = 'http://' + recordUrl;
@@ -392,7 +392,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		me.getInfoPageOverview().setActiveItem(ipcarousel);
 
 		// carousel.on('activeitemchange', this.setListIndex, this);
-		
+
 		//direct call e.g. from dashboard teaser type=info
 		// if(direct) {
 		// 	this.setListIndex(carousel, index, null);
