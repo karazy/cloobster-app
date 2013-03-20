@@ -38,8 +38,7 @@ Ext.define('EatSense.view.MenuOverview', {
 			),
 			store: 'menuStore',
 			listeners: {
-				select : function(dv, index, target, record, e, eOpts) {	
-				console.log('MenuOverview');				
+				select : function(dv, index, target, record, e, eOpts) {					
 					Ext.defer((function() {
 						dv.deselectAll();
 					}), 1000, this);					

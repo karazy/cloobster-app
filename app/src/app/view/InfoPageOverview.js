@@ -43,7 +43,14 @@ Ext.define('EatSense.view.InfoPageOverview', {
 								'<h3>{title}</h3>'+
 								'<div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div>'+								
 							'</div>'
-							)
+							),
+						listeners: {
+							select : function(dv, index, target, record, e, eOpts) {					
+								Ext.defer((function() {
+									dv.deselectAll();
+								}), 1000, this);					
+							}
+						}
 					}
 				]},
 			{

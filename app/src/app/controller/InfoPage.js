@@ -391,14 +391,16 @@ Ext.define('EatSense.controller.InfoPage', {
 		lounge.selectByAction('show-infopage');
 		me.getInfoPageOverview().setActiveItem(ipcarousel);
 
-		carousel.on('activeitemchange', this.setListIndex, this);
+		// carousel.on('activeitemchange', this.setListIndex, this);
+		
 		//direct call e.g. from dashboard teaser type=info
-		if(direct) {
-			this.setListIndex(carousel, index, null);
-		}
+		// if(direct) {
+		// 	this.setListIndex(carousel, index, null);
+		// }
 
 	},
 	/**
+	* @deprecated
 	* @private
 	* Event handler for activeitemchange of carousel. Sets the selected item in infoPageList
 	* based on the current selected carousel item.
@@ -477,7 +479,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			list = this.getInfoPageList();
 		
 
-		carousel.un('activeitemchange', this.setListIndex, this);
+		// carousel.un('activeitemchange', this.setListIndex, this);
 		infopageOverview.setActiveItem(0);	
 
 		//TEST
