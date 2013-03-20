@@ -29,23 +29,24 @@ Ext.define('EatSense.model.Menu', {
 		   reader: {
 			   type: 'json'
 	   		}
-	 	},
-		hasMany: {
-			model: 'EatSense.model.Product',
-			name: 'products',
-			store: {
-				syncRemovedRecords: false,
-				sorters: [
-			     			{
-			    				property: 'order',
-			    				direction: 'ASC'
-			    			},
-			    			{
-			    				property: 'name',
-			    				direction: 'ASC'
-			    			}
-			    	    ]
-			} 
-		}
+	 	}
+	 	//Products are no loaded seperately
+		// hasMany: {
+		// 	model: 'EatSense.model.Product',
+		// 	name: 'products',
+		// 	store: {
+		// 		syncRemovedRecords: false,
+		// 		sorters: [
+		// 	     			{
+		// 	    				property: 'order',
+		// 	    				direction: 'ASC'
+		// 	    			},
+		// 	    			{
+		// 	    				property: 'name',
+		// 	    				direction: 'ASC'
+		// 	    			}
+		// 	    	    ]
+		// 	} 
+		// }
 	}
 });

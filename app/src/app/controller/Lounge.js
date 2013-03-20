@@ -446,7 +446,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 */
 	 cleanup: function() {
 		var areaStore = Ext.StoreManager.lookup('areaStore'),
-			 slideNavStore = this.getLoungeview().getList().getStore();
+			slideNavStore = this.getLoungeview().getList().getStore();
 		
 		try {
 		  areaStore.clearFilter();
@@ -455,6 +455,7 @@ Ext.define('EatSense.controller.Lounge', {
 			 area.destroy();
 		  });
 		  areaStore.removeAll(false);
+
 		  //remove all dynamic items
 		  slideNavStore.each(function(item) {
 			 if(item.get('dynamic')) {

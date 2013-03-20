@@ -629,10 +629,14 @@ Ext.define('EatSense.controller.CheckIn', {
             pm.destroy();
           });
         this.getActiveBusiness().payments().removeAll(); 
-      }      
+      }
 
+      this.getActiveBusiness().destroy();
       this.setActiveBusiness(null);
+
+      this.getActiveSpot().destroy();
       this.setActiveSpot(null);
+
       this.setActiveArea(null);
 
       if(spotStore) {

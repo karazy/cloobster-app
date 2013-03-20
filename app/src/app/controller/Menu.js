@@ -931,25 +931,26 @@ Ext.define('EatSense.controller.Menu', {
 	clearMenuStores: function() {
 		var menuStore = Ext.StoreManager.lookup('menuStore');
 
-		menuStore.clearFilter(true);
+		menuStore.clearFilter();
 		//clear sorters
 		menuStore.data.setAutoSort(false);
 		menuStore.setSorters([]);
 		menuStore.data.setAutoSort(true);
 		
 		menuStore.each(function(menu) {
-        menu.products().each(function(product) {
-	        product.choices().each(function(choice) {
-	            choice.options().removeAll(true);
-	        });  
-	    	    product.choices().removeAll(true);
-	        });
-	       	menu.products().removeAll(true);
+			//removed the hasMany relation in menu model
+       		// menu.products().each(function(product) {
+	        // product.choices().each(function(choice) {
+	        //     choice.options().removeAll(true);
+	        // });  
+	    	   //  product.choices().removeAll(true);
+	        // });
+	       	// menu.products().removeAll(true);
+	       	menu.destroy();
 	    });
 
 	    //remove menu to prevent problems on reload
-	    menuStore.removeAll(false);
-	    //clear sorters	    
+	    menuStore.removeAll(); 
 	},
 
 	/**
@@ -1063,8 +1064,8 @@ Ext.define('EatSense.controller.Menu', {
 	clearProductStore: function() {
 		var productStore = Ext.StoreManager.lookup('productStore');
 		
-		try {			
-			productStore.clearFilter(true);
+		try {
+			productStore.clearFilter();
 			//clear sorters
 			productStore.data.setAutoSort(false);
 			productStore.setSorters([]);
@@ -1080,7 +1081,7 @@ Ext.define('EatSense.controller.Menu', {
 		       
 			productStore.removeAll();
 			
-		}catch(e) {
+		} catch(e) {
 			console.log('Menu.clearProductStore: failed to clear store. ' + e);
 		}
 	}
