@@ -2,22 +2,24 @@
 * Represents an InfoPage used in @see{EatSense.view.InfoPageLink}
 */
 Ext.define('EatSense.view.InfoPageLink', {
-	extend: 'Ext.Panel',
+	extend: 'EatSense.view.InfoPageDetail',
 	xtype: 'infopagelink',
 	alternateClassName: 'IPLink',
 	config: {
+		// scrollable: null,
 		layout: {
 			type: 'vbox',
-			pack: 'center',
+			pack: 'start',
 			align: 'center'
-		},		
+		},
+		cls: '',
 		tpl: new Ext.XTemplate(
 			'<h1>{title}</h1><tpl if="imageUrl"><img src="{imageUrl}"/></tpl><div>{shortText}</div>'
 		),
 		items: [
 			{
 				xtype: 'label',
-				docked: 'top',
+				// docked: 'top',
 				cls: 'infopage-detail',
 				styleHtmlContent: false
 			},
@@ -31,6 +33,20 @@ Ext.define('EatSense.view.InfoPageLink', {
 			}
 		],
 		//record assigned to this infopage
-		ipRecord: null
+		// ipRecord: null
+	},
+
+	updateIpRecord: function(newRecord, oldRecord) {
+		var panel = this,
+			label,
+			html;
+
+		label = panel.down('label');
+
+		html = panel.getTpl().apply(newRecord.getData());
+		label.setHtml(html);
+
+		this.registerImageZoomTap(panel);
+
 	}
 });

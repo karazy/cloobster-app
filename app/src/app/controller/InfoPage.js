@@ -315,14 +315,14 @@ Ext.define('EatSense.controller.InfoPage', {
 				//link page
 				panel = Ext.create('EatSense.view.InfoPageLink');
 				panel.setIpRecord(page);
-				html = panel.getTpl().apply(page.getData());
-				panel.down('label').setHtml(html);
+				// html = panel.getTpl().apply(page.getData());
+				// panel.down('label').setHtml(html);
 			} else {
 				//default
 				panel = Ext.create('EatSense.view.InfoPageDetail');
 				panel.setIpRecord(page);
-				html = panel.getTpl().apply(page.getData());
-				panel.setHtml(html);
+				// html = panel.getTpl().apply(page.getData());
+				// panel.setHtml(html);
 			}
 			
 			return panel;

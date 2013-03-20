@@ -32,6 +32,7 @@ Ext.application({
     'Ext.Anim',
     'Ext.MessageBox',
     'Ext.DateExtras',
+    'Ext.util.DelayedTask',
     //util
     'EatSense.util.AjaxHeaderHelper',
     'EatSense.util.Constants',
