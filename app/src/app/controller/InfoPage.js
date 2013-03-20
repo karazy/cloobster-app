@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.InfoPage', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.view.InfoPageDetail', 'EatSense.util.Helper'],
+	requires: ['EatSense.view.InfoPageDetail', 'EatSense.view.InfoPageLink', 'EatSense.util.Helper'],
 	config: {
 		refs: {
 			lounge: 'lounge',
@@ -273,7 +273,9 @@ Ext.define('EatSense.controller.InfoPage', {
 					//alternative clear filter
 							
 					store.each(function(record) {
-						carousel.add(me.createInfoPageDetail(record));
+						if(!record.get('type') || record.get('type').toUpperCase() != 'LINK') {
+							carousel.add(me.createInfoPageDetail(record));	
+						}						
 					});
 
 					//private method of carousel
@@ -304,10 +306,22 @@ Ext.define('EatSense.controller.InfoPage', {
 		var panel = Ext.create('EatSense.view.InfoPageDetail'),
 			html;
 
-			if(page) {
-				html = panel.getTpl().apply(page.getData());
-				panel.setHtml(html);
+			if(!page) {
+				console.error('InfoPage.createInfoPageDetail: no page given');
+				return;
 			}
+
+			// if(page.get('type') == 'link') {
+			// 	//link page
+			// 	panel = Ext.create('EatSense.view.InfoPageLink');
+			// } else {
+			// 	//default
+				
+			// }
+			panel = Ext.create('EatSense.view.InfoPageDetail');
+			html = panel.getTpl().apply(page.getData());
+			panel.setHtml(html);
+
 			return panel;
 	},
 	/**
@@ -341,6 +355,15 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		//TODO maybe use itemtap (me, index, target, record, e)?
 		//TODO check if panels are created?
+
+		if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
+			if(record.get('url')) {
+				var ref = window.open(record.get('url'), '_blank');	
+			} else {
+				//error message??
+			}			
+			return;
+		}
 
 		//clear filters to get the real index
 		store.clearFilter(true);

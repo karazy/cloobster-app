@@ -37,11 +37,20 @@ Ext.define('EatSense.view.InfoPageOverview', {
 		   				scrollToTopOnRefresh: true,
 		   				store: 'infopageStore',
 						itemCls: 'infopage-list-item',
-						itemTpl: '<div class="info"><h3>{title}</h3><div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div></div>'
+						itemTpl: new Ext.XTemplate(
+							'<div class="info">'+
+								'<tpl if="type && type.toUpperCase() == \'LINK\'"><div class="link"></div></tpl>'+
+								'<h3>{title}</h3>'+
+								'<div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div>'+								
+							'</div>'
+							)
 					}
 				]},
 			{
 				xtype: 'infopagecarousel'
+			},
+			{
+				xtype: 'infopagelink'
 			}
 			
 		]

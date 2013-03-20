@@ -451,6 +451,19 @@
   p {
     font-size: 0.6em;
   }
+
+  /* style for external links */
+  div.link {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    float: left;
+    margin-right: 5px;
+    -webkit-mask-size: 20px;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-image: url('../images/link1.png');
+  }
 }
 
 .x-infopage-teaser {
