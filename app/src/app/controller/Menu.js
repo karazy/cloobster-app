@@ -186,7 +186,6 @@ Ext.define('EatSense.controller.Menu', {
     	console.log("Menu Controller -> showProductlist");
     	var me = this,
     		pov = this.getProductoverview(),
-    		prodStore = record.productsStore,
     		firstItem,
     		oldHeader = null,
     		titleLabel;
