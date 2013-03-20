@@ -48,10 +48,10 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				]},
 			{
 				xtype: 'infopagecarousel'
-			},
-			{
-				xtype: 'infopagelink'
 			}
+			// {
+			// 	xtype: 'infopagelink'
+			// }
 			
 		]
 	}

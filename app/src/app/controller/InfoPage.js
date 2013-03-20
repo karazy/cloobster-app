@@ -351,17 +351,26 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageList = this.getInfoPageList(),
 			store = Ext.StoreManager.lookup('infopageStore'),
 			filters = store.getFilters(),
-			index;
+			index,
+			windowRef,
+			recordUrl;
 
 		//TODO maybe use itemtap (me, index, target, record, e)?
 		//TODO check if panels are created?
 
 		if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
-			if(record.get('url')) {
-				var ref = window.open(record.get('url'), '_blank');	
+			recordUrl = record.get('url');
+			if(recordUrl) {
+				//if url does not start with http or https add it
+				if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
+					recordUrl = 'http://' + recordUrl;
+				}
+
+				windowRef = window.open(recordUrl, '_blank');	
+				
 			} else {
 				//error message??
-			}			
+			}
 			return;
 		}
 

@@ -13,7 +13,7 @@ Ext.define('EatSense.view.InfoPageLink', {
 		styleHtmlContent: false,
 		cls: 'infopage-detail',
 		tpl: new Ext.XTemplate(
-			'<h1>{title}</h1><img src="{imageUrl}"/><div>{html}</div>'
+			'<h1>{title}</h1><img src="{configimageUrl}"/><div>{html}</div>'
 		)
 	}
 });
