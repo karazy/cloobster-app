@@ -27,9 +27,9 @@ Ext.define('EatSense.controller.InfoPage', {
 				keyup: 'infoPageSearchFieldHandler',
 				clearicontap: 'clearInfoPageFilter'
 			},
-			infoPageCarouselBackButton: {
-				tap: 'infoPageCarouselBackButtonHandler'
-			},
+			// infoPageCarouselBackButton: {
+			// 	tap: 'infoPageCarouselBackButtonHandler'
+			// },
 			infoPageOverview: {
 				show: 'infoPageOverviewShowHandler',
 				// hide: 'infoPageOverviewHideHandler',
@@ -273,9 +273,9 @@ Ext.define('EatSense.controller.InfoPage', {
 					//alternative clear filter
 							
 					store.each(function(record) {
-						if(!record.get('type') || record.get('type').toUpperCase() != 'LINK') {
+						// if(!record.get('type') || record.get('type').toUpperCase() != 'LINK') {
 							carousel.add(me.createInfoPageDetail(record));	
-						}						
+						// }						
 					});
 
 					//private method of carousel
@@ -311,17 +311,20 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
-			// if(page.get('type') == 'link') {
-			// 	//link page
-			// 	panel = Ext.create('EatSense.view.InfoPageLink');
-			// } else {
-			// 	//default
-				
-			// }
-			panel = Ext.create('EatSense.view.InfoPageDetail');
-			html = panel.getTpl().apply(page.getData());
-			panel.setHtml(html);
-
+			if(page.get('type') && page.get('type').toUpperCase() == 'LINK') {
+				//link page
+				panel = Ext.create('EatSense.view.InfoPageLink');
+				panel.setIpRecord(page);
+				html = panel.getTpl().apply(page.getData());
+				panel.down('label').setHtml(html);
+			} else {
+				//default
+				panel = Ext.create('EatSense.view.InfoPageDetail');
+				panel.setIpRecord(page);
+				html = panel.getTpl().apply(page.getData());
+				panel.setHtml(html);
+			}
+			
 			return panel;
 	},
 	/**
@@ -349,38 +352,88 @@ Ext.define('EatSense.controller.InfoPage', {
 			lounge = this.getLounge(),
 			carousel = ipcarousel.down('carousel'),
 			infoPageList = this.getInfoPageList(),
+			infoPage,
 			store = Ext.StoreManager.lookup('infopageStore'),
 			filters = store.getFilters(),
 			index,
 			windowRef,
-			recordUrl;
+			recordUrl,
+			backButton;
 
 		//TODO maybe use itemtap (me, index, target, record, e)?
 		//TODO check if panels are created?
-
-		if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
-			recordUrl = record.get('url');
-			if(recordUrl && recordUrl.trim().length > 0) {
-				//if url does not start with http or https add it
-				if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
-					recordUrl = 'http://' + recordUrl;
-				}
-
-				windowRef = window.open(recordUrl, '_blank');	
-				
-			} else {
-				//error message??
-			}
-			return;
-		}
 
 		//clear filters to get the real index
 		store.clearFilter(true);
 		index = store.indexOf(record);
 		store.setFilters(filters);
 
-		if(index >= 0) {
-			carousel.setActiveItem(index);
+		infoPage = carousel.getAt(index);
+
+		if(index < 0) {
+			console.error('InfoPage.showInfoPageDetail: no infoPage exists at ' + index);
+			return;
+		}
+
+		//2013.03.20 BUG? when using infopage index 0 ist the load mask
+		carousel.setActiveItem(index);
+
+		backButton = ipcarousel.down('backbutton');		
+
+		//wire up listeners
+		carousel.on({
+			delegate: 'infopagelink > button[action=open-link]',
+			tap: openUrl,
+			scope: this
+		});
+
+		backButton.on({
+			tap: cleanup,
+			scope: this
+		});
+
+
+
+		function openUrl(button) {
+			var record,
+				recordUrl;
+
+			if(!button) {
+				return;
+			}
+
+			record = button.getParent().getIpRecord();
+
+			if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
+				recordUrl = record.get('url');
+				if(recordUrl && recordUrl.trim().length > 0) {
+					//if url does not start with http or https add it
+					if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
+						recordUrl = 'http://' + recordUrl;
+					}
+
+					windowRef = window.open(recordUrl, '_blank');	
+				}
+			}
+
+
+		}
+		
+		function cleanup() {
+			//remove listeners...
+			carousel.un({
+				delegate: 'infopagelink > button[action=open-link]',
+				tap: openUrl,
+				scope: this
+			});
+
+			backButton.un({
+				tap: cleanup,
+				scope: this
+			});
+
+			me.backToOverview();
+
 		}
 
 		console.log('InfoPage.showInfoPageDetail: active carousel index=' +index);

@@ -6,15 +6,17 @@ Ext.define('EatSense.store.InfoPage', {
 		model: 'EatSense.model.InfoPage',
 		// grouper: {
   //           groupFn: function(record) {
-  //           	var title = record.get('title') || '';
+  //           	var type = record.get('type') || '';
 
-  //           	if(title) {
-  //           		title = title.substr(0, 1)
-  //           	}
+  //           	if(type.toUpperCase() == 'LINK') {
+  //           		type = "Links";
+  //           	} else {
+  //               type = "A-Z"
+  //             }
 
-  //               return title;
+  //               return type;
   //           },
-  //           sortProperty: 'title'
+  //           sortProperty: 'type'
   //   },
     sorters: [
       {

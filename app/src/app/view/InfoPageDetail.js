@@ -13,8 +13,10 @@ Ext.define('EatSense.view.InfoPageDetail', {
 		styleHtmlContent: false,
 		cls: 'infopage-detail',
 		tpl: new Ext.XTemplate(
-			'<h1>{title}</h1><img src="{imageUrl}"/><div>{html}</div>'
-		)
+			'<h1>{title}</h1><tpl if="imageUrl"><img src="{imageUrl}"/></tpl><div>{html}</div>'
+		),
+		//record assigned to this infopage
+		ipRecord: null
 		
 	}
 });

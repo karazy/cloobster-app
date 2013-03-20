@@ -35,6 +35,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						xtype: 'list',
 		   				allowDeselect: true,
 		   				scrollToTopOnRefresh: true,
+		   				// grouped: true,
 		   				store: 'infopageStore',
 						itemCls: 'infopage-list-item',
 						itemTpl: new Ext.XTemplate(
@@ -55,10 +56,10 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				]},
 			{
 				xtype: 'infopagecarousel'
+			},
+			{
+				xtype: 'infopagelink'
 			}
-			// {
-			// 	xtype: 'infopagelink'
-			// }
 			
 		]
 	}
