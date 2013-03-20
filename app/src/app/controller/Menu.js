@@ -190,9 +190,7 @@ Ext.define('EatSense.controller.Menu', {
     		oldHeader = null,
     		titleLabel;
 
-		this.getApplication().getController('Android').addBackHandler(function() {
-			me.backToMenu();
-		});
+		this.switchView(pov, 'left');
 
     	this.setActiveMenu(record);
     	this.filterProductStore(record); 
@@ -202,9 +200,7 @@ Ext.define('EatSense.controller.Menu', {
 
     	if(titleLabel) {
     		titleLabel.getTpl().overwrite(titleLabel.element, record.getData());
-    	}
-
-    	this.switchView(pov, 'left');
+    	}    	
     },
     /**
     * Activate event handler for menuview.

@@ -128,7 +128,9 @@ Ext.define('EatSense.controller.Android', {
 		
 		
 	},
-
+	/**
+	* @Deprecated
+	*/
 	addBackHandler: function(handler) {
 		return;
 		var _array = this.getAndroidBackHandler();
@@ -144,7 +146,9 @@ Ext.define('EatSense.controller.Android', {
 			console.log('Android.addBackHandler > handler is not of type function');
 		};
 	},
-
+	/**
+	* @Deprecated
+	*/
 	removeLastBackHandler: function() {
 		return;
 		// this.setExitOnBack(false);
