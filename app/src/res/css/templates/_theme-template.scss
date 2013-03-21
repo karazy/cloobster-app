@@ -36,7 +36,8 @@
 @include pictos-iconmask('check2');
 @include pictos-iconmask('delete1');
 @include pictos-iconmask('help');
-@include pictos-iconmask('link1');
+@include pictos-iconmask('globe2');
+
 
 
 @CHARSET "UTF-8";
@@ -463,7 +464,7 @@
     -webkit-mask-size: 20px;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
-    -webkit-mask-image: url('../images/link1.png');
+    -webkit-mask-image: url('../images/glob2.png');
   }
 }
 
@@ -1532,6 +1533,10 @@ h9 {
 
   > .x-dock.x-sized {
     margin: 2px;
+  }
+
+  .x-panel-inner {
+    border-radius: 0;
   }
 }
 

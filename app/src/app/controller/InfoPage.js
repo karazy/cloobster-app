@@ -311,19 +311,19 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
-			if(page.get('type') && page.get('type').toUpperCase() == 'LINK') {
-				//link page
-				panel = Ext.create('EatSense.view.InfoPageLink');
-				panel.setIpRecord(page);
-				// html = panel.getTpl().apply(page.getData());
-				// panel.down('label').setHtml(html);
-			} else {
+			// if(page.get('type') && page.get('type').toUpperCase() == 'LINK') {
+			// 	//link page
+			// 	panel = Ext.create('EatSense.view.InfoPageLink');
+			// 	panel.setIpRecord(page);
+			// 	// html = panel.getTpl().apply(page.getData());
+			// 	// panel.down('label').setHtml(html);
+			// } else {
 				//default
 				panel = Ext.create('EatSense.view.InfoPageDetail');
 				panel.setIpRecord(page);
 				// html = panel.getTpl().apply(page.getData());
 				// panel.setHtml(html);
-			}
+			// }
 			
 			return panel;
 	},
@@ -382,7 +382,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		//wire up listeners
 		carousel.on({
-			delegate: 'infopagelink > button[action=open-link]',
+			delegate: 'infopagedetail > button[action=open-link]',
 			tap: openUrl,
 			scope: this
 		});
@@ -422,7 +422,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		function cleanup() {
 			//remove listeners...
 			carousel.un({
-				delegate: 'infopagelink > button[action=open-link]',
+				delegate: 'infopagedetail > button[action=open-link]',
 				tap: openUrl,
 				scope: this
 			});

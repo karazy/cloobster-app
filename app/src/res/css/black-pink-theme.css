@@ -12691,12 +12691,16 @@ h9 {
 .x-panel.x-floating > .x-dock.x-sized {
   margin: 2px;
 }
+/* line 1537, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-panel.x-floating .x-panel-inner {
+  border-radius: 0;
+}
 
 /*
 * Bugfix for icons in Android 4 not displayed.
 * http://www.sencha.com/forum/showthread.php?192463-Blank-icons-in-tabbar-if-container-has-scrollable-set-to-true&p=782717#post782717
 */
-/* line 1542, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1546, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar > * {
   z-index: 1;
 }
@@ -12704,7 +12708,7 @@ h9 {
 /**
 * Prevent text shadow toolbar title.
 */
-/* line 1549, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1553, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-toolbar-dark .x-title {
   color: white;
   /*Ticket 105 */
@@ -12716,7 +12720,7 @@ h9 {
 /*.x-list-round .x-scroll-view {
   background-color: $page-bg-color !important;
 }*/
-/* line 1561, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1565, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab {
   /*color: $tab-border-bottom-color;*/
   text-shadow: rgba(0, 0, 0, 0.1) 0 -0.08em 0 !important;
@@ -12724,16 +12728,16 @@ h9 {
   color: white !important;
 }
 
-/* line 1568, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1572, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed {
   color: #ff34cc !important;
 }
-/* line 1571, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1575, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark .x-tab-pressed .x-button-icon {
   background-color: #ff34cc !important;
 }
 
-/* line 1577, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1581, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active {
   /*@include background-gradient($active-color, $base-gradient);*/
   background-color: #ff34cc;
@@ -12747,26 +12751,26 @@ h9 {
   bottom: 5px;
 }
 
-/* line 1592, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1596, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab-active .x-button-icon {
   background-color: white;
 }
 
-/* line 1596, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1600, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon {
   background-color: white;
   background-image: none;
 }
 
 /* Override background color of icons. */
-/* line 1602, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1606, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button .x-button-icon {
   background-color: white !important;
   background-image: none !important;
 }
 
 /* Force action button to have white text color. */
-/* line 1608, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1612, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-button.x-button-action, .x-toolbar .x-button.x-button-action, .x-button.x-button-action-round, .x-toolbar .x-button.x-button-action-round, .x-button.x-button-action-small, .x-toolbar .x-button.x-button-action-small {
   color: white;
 }
@@ -12783,21 +12787,21 @@ h9 {
 * Same functionality as $list-zebrastribe: true; Since this doesn't work on Android 2.x we still have 
 * seperator between list items. .x-list-item:nth-child(even) 
 */
-/* line 1629, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1633, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item {
   /*background-color: darken($list-bg-color, 5%);*/
 }
-/* line 1631, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1635, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item .x-dock-horizontal {
   border-top: 1px solid lightgrey;
 }
-/* line 1635, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1639, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list-normal .x-list-item.x-list-footer-wrap .x-dock-horizontal {
   border-bottom: 1px solid lightgrey;
 }
 
 /* Override because otherwise a white background ist set. Don't know why ;) */
-/* line 1641, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+/* line 1645, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-list .x-list-item.x-item-pressed .x-dock-horizontal {
   border-top-color: #ffcdf2;
   background-color: #ffcdf2;

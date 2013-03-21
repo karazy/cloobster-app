@@ -40,7 +40,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						itemCls: 'infopage-list-item',
 						itemTpl: new Ext.XTemplate(
 							'<div class="info">'+
-								'<tpl if="type && type.toUpperCase() == \'LINK\'"><div class="link"></div></tpl>'+
+								// '<tpl if="type && type.toUpperCase() == \'LINK\'"><div class="link"></div></tpl>'+
 								'<h3>{title}</h3>'+
 								'<div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div>'+								
 							'</div>'
