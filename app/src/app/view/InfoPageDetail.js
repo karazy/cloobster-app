@@ -4,15 +4,23 @@
 Ext.define('EatSense.view.InfoPageDetail', {
 	extend: 'Ext.Panel',
 	xtype: 'infopagedetail',
+
+	/**
+     * @event imagezoomopen
+     * Fires when image is zoomed for fullscreen display.
+     * @param {Ext.Panel} imagePanel 
+     *	The panel containing the image.
+     */
+
+     /**
+     * @event imagezoomclose
+     * Fires when a fullscreen image gets closed.
+     * @param {Ext.Panel} imagePanel 
+     *	The panel containing the image.
+     */
+
 	alternateClassName: 'IPDetail',
 	config: {
-		// layout: 'vbox',
-		// scrollable: {
-		//     direction: 'vertical',
-		//     directionLock: true
-		// },
-		// styleHtmlContent: false,
-		// cls: 'infopage-detail',
 		tpl: new Ext.XTemplate(
 			'<h1>{title}</h1><tpl if="imageUrl"><img src="{imageUrl}"/></tpl><div>{html}</div>'
 		),
@@ -24,16 +32,14 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				ui: 'action',
 				iconMask: true,
 				iconCls: 'globe2',
-				// top: 5,
-				// right: 5,
 				hidden: true,
-				style: {
-					position: 'absolute',
-					right: '5px',
-					top: '5px',
-					width: '40px',
-					height: '40px'
-				}
+				right: '5px',
+				top: '10px'
+				// style: {
+				// 	position: 'absolute',
+				// 	right: '5px',
+				// 	top: '10px'
+				// }
 			},
 			{
 				xtype: 'label',
@@ -82,7 +88,6 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			{
 				xtype: 'panel',
 				itemId: 'content',
-				// layout: 'fit',
 				scrollable: {
 				    direction: 'vertical',
 				    directionLock: true
@@ -90,7 +95,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				height: '100%',
 				width: '100%',
 				styleHtmlContent: false,
-				cls: 'infopage-detail',
+				cls: 'infopage-detail'
 			}
 		],
 		/**
@@ -113,7 +118,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			panel.down('fixedbutton[action=open-link]').setHidden(true);
 		}	
 
-		//HINT dont user tpl.overwrite, scrolling will not work
+		//set html in content panel
 		html = panel.getTpl().apply(newRecord.getData());
 		contentPanel = panel.down('#content');
 		contentPanel.setHtml(html);		
@@ -134,7 +139,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			//if an image exists, add tap listener
 			image.on({
 				tap: function(ele) {
-					console.log('InfoPageDetail.registerImageZoomTap: image tap');
+					console.log('InfoPageDetail.registerImageZoomTap: image tap');					
 
 					var img = new Image(),
 						imgPanel,
@@ -150,15 +155,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 						width: '50%',
 						centered: true,
 						hideOnMaskTap: true,
-						// floatingCls: '',
-						// cls: 'image-zoom',
-						style: {
-							// border: '1px solid black',
-							// 'background-color' : '#FFF',
-							// padding: '6px 6px 0px 6px'
-						},
 						modal: true,
-						// html: '<img src="'+image.dom.src+'" width="100%"/>',
 						listeners: {
 							hide: function() {
 								imgPanel.destroy();
@@ -170,11 +167,15 @@ Ext.define('EatSense.view.InfoPageDetail', {
 					imgPanel.element.on({
 						tap: function() {
 							imgPanel.hide();
+							//notify listeners that image panel close
+							panel.fireEvent('imagezoomclose', imgPanel);
 						}
 					});					
 
 					Ext.Viewport.add(imgPanel);
-					appHelper.toggleMask('loadingMsg', imgPanel);					
+					appHelper.toggleMask('loadingMsg', imgPanel);	
+					//notify listeners that an image panel is open
+					panel.fireEvent('imagezoomopen', imgPanel);				
 
 
 

@@ -382,8 +382,15 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		//wire up listeners
 		carousel.on({
-			delegate: 'infopagedetail > button[action=open-link]',
+			delegate: 'infopagedetail fixedbutton[action=open-link]',
 			tap: openUrl,
+			scope: this
+		});
+
+		carousel.on({
+			delegate: 'infopagedetail',
+			'imagezoomopen': registerImageZoomBackButton,
+			'imagezoomclose': unRegisterImageZoomBackButton,
 			scope: this
 		});
 
@@ -404,7 +411,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 			record = button.getParent().getIpRecord();
 
-			if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
+			// if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
 				recordUrl = record.get('url');
 				if(recordUrl && recordUrl.trim().length > 0) {
 					//if url does not start with http or https add it
@@ -414,16 +421,31 @@ Ext.define('EatSense.controller.InfoPage', {
 
 					windowRef = window.open(recordUrl, '_blank');	
 				}
-			}
+			// }
+		}
 
+		function registerImageZoomBackButton(imagePanel) {
+			this.getApplication().getController('Android').addBackFn(function() {
+				imagePanel.hide();
+			});
+		};
 
+		function unRegisterImageZoomBackButton(imagePanel) {
+			this.getApplication().getController('Android').removeBackFn();
 		}
 		
 		function cleanup() {
 			//remove listeners...
 			carousel.un({
-				delegate: 'infopagedetail > button[action=open-link]',
+				delegate: 'infopagedetail fixedbutton[action=open-link]',
 				tap: openUrl,
+				scope: this
+			});
+
+			carousel.un({
+				delegate: 'infopagedetail',
+				'imagezoomopen': registerImageZoomBackButton,
+				'imagezoomclose': unRegisterImageZoomBackButton,
 				scope: this
 			});
 

@@ -566,9 +566,13 @@
 
 .infopage-detail {
   display: block;
-  padding: 5px 15px;
+  padding: 10px 25px 5px 25px;
   font-size: 100%;
   color: $label-color !important;
+
+  .x-html {
+    padding: 0;
+  }
 
   * {
     color: $label-color !important;    
@@ -578,6 +582,7 @@
     font-size: 1.2em;
     font-weight: bold;
     margin: 7px 0px;
+    margin-right: 25px;
   }
 
   h2 {

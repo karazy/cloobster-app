@@ -106,7 +106,9 @@ Ext.define('EatSense.controller.Android', {
 		if(!appHelper.isArray(this.getAndroidBackHandler())) {
 			console.error('Android.removeBackFn: getAndroidBackHandler returned no array');
 			return
-		}		
+		}
+		//DEBUG
+		// console.log('Android.removeBackFn');
 		
 		if(EatSense.util.Helper.isFunction(backFn)) {
 			for (var i = this.getAndroidBackHandler().length - 1; i >= 0; i--) {
@@ -123,6 +125,8 @@ Ext.define('EatSense.controller.Android', {
 		}
 
 		if(this.getAndroidBackHandler().length > 0) {
+			//DEBUG
+			// console.log('Android.removeBackFn: remove fn on top');
 			this.getAndroidBackHandler().pop();	
 		}
 		

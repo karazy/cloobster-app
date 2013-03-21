@@ -31,9 +31,7 @@ Ext.define('EatSense.view.InfoPageLink', {
 				iconMask: true,
 				iconCls: 'link1'
 			}
-		],
-		//record assigned to this infopage
-		// ipRecord: null
+		]
 	},
 
 	updateIpRecord: function(newRecord, oldRecord) {
