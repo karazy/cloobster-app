@@ -27,10 +27,6 @@ Ext.define('EatSense.model.InfoPage', {
 			name: 'hideInDashboard',
 			type: 'boolean'
 		},
-		{	//link or static
-			name: 'type',
-			type: 'string'
-		},
 		{
 			name: 'url',
 			type: 'string'

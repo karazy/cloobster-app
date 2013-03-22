@@ -27,12 +27,8 @@ Ext.define('EatSense.controller.InfoPage', {
 				keyup: 'infoPageSearchFieldHandler',
 				clearicontap: 'clearInfoPageFilter'
 			},
-			// infoPageCarouselBackButton: {
-			// 	tap: 'infoPageCarouselBackButtonHandler'
-			// },
 			infoPageOverview: {
 				show: 'infoPageOverviewShowHandler',
-				// hide: 'infoPageOverviewHideHandler',
 				'infopagedelayedshow': 'createCarouselPanels'
 			}
 		},
@@ -120,7 +116,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			teaser.on('teasertapped', tapFunction);
 		}
 
-		function tapFunction(page) {			
+		function tapFunction(page) {
 
 			if(!me.getPanelsCreated()) {
 				me.on({
@@ -130,9 +126,7 @@ Ext.define('EatSense.controller.InfoPage', {
 				});
 
 				me.getLounge().selectByAction('show-infopage');
-				if(page.get('type').toUpperCase() != 'LINK') {
-					me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
-				}
+				me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
 			} else {
 				doShowInfoPage();
 			}
@@ -176,7 +170,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		store.load({
 				callback: function(records, operation, success) {
 			    	if(!operation.error) {
-			    		// me.refreshInfoPageList();
+
 			    		me.registerInfoPageTeaser();
 			    		try {
 							me.getInfoPageList().on({
@@ -273,9 +267,7 @@ Ext.define('EatSense.controller.InfoPage', {
 					//alternative clear filter
 							
 					store.each(function(record) {
-						// if(!record.get('type') || record.get('type').toUpperCase() != 'LINK') {
-							carousel.add(me.createInfoPageDetail(record));	
-						// }						
+						carousel.add(me.createInfoPageDetail(record));		
 					});
 
 					//private method of carousel
@@ -311,20 +303,9 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
-			// if(page.get('type') && page.get('type').toUpperCase() == 'LINK') {
-			// 	//link page
-			// 	panel = Ext.create('EatSense.view.InfoPageLink');
-			// 	panel.setIpRecord(page);
-			// 	// html = panel.getTpl().apply(page.getData());
-			// 	// panel.down('label').setHtml(html);
-			// } else {
-				//default
-				panel = Ext.create('EatSense.view.InfoPageDetail');
-				panel.setIpRecord(page);
-				// html = panel.getTpl().apply(page.getData());
-				// panel.setHtml(html);
-			// }
-			
+			panel = Ext.create('EatSense.view.InfoPageDetail');
+			panel.setIpRecord(page);
+
 			return panel;
 	},
 	/**
@@ -411,27 +392,31 @@ Ext.define('EatSense.controller.InfoPage', {
 
 			record = button.getParent().getIpRecord();
 
-			// if(record.get('type') && record.get('type').toUpperCase() == 'LINK') {
-				recordUrl = record.get('url');
-				if(recordUrl && recordUrl.trim().length > 0) {
-					//if url does not start with http or https add it
-					if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
-						recordUrl = 'http://' + recordUrl;
-					}
-
-					windowRef = window.open(recordUrl, '_blank');	
+			recordUrl = record.get('url');
+			if(recordUrl && recordUrl.trim().length > 0) {
+				//if url does not start with http or https add it
+				if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
+					recordUrl = 'http://' + recordUrl;
 				}
-			// }
+
+				windowRef = window.open(encodeURI(recordUrl), '_blank');
+				windowRef.addEventListener('exit', inAppBrowserClose);
+			}
 		}
 
 		function registerImageZoomBackButton(imagePanel) {
 			this.getApplication().getController('Android').addBackFn(function() {
 				imagePanel.hide();
 			});
-		};
+		}
 
 		function unRegisterImageZoomBackButton(imagePanel) {
 			this.getApplication().getController('Android').removeBackFn();
+		}
+
+		function inAppBrowserClose() {
+			console.log('InfoPage.showInfoPageDetail: in app browser closed');
+			windowRef.removeEventListener('exit', inAppBrowserClose);
 		}
 		
 		function cleanup() {
