@@ -231,7 +231,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageOverview = this.getInfoPageOverview(),
 			infoPageCarousel = this.getInfoPageCarousel(),
 			carousel = infoPageCarousel.down('carousel'),
-			searchfield = this.getInfoPageSearchField(),
 			html;
 
 			//skip if panels already exist

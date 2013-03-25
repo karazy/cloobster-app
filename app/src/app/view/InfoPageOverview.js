@@ -15,7 +15,17 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					{
 						xtype: 'titlebar',
 						docked: 'top',
-						title: i10n.translate('infopage.overview.title')
+						title: i10n.translate('infopage.overview.title'),
+						items: [
+							{
+								xtype: 'fixedbutton',
+								iconCls: 'search',
+								iconMask: true,
+								align: 'right',
+								action: 'toggle-search',
+								ui: 'action'
+							}
+						]
 					},
 					{
 						xtype: 'label',
@@ -24,13 +34,13 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						cls: 'infopage-hotel-info',
 						tpl: '<img src="{imageUrl}" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
 					},
-					{
-						xtype: 'searchfield',
-						docked: 'top',
-						margin: '0 15 10 10',
-						style: 'border-radius: .3em;',
-						cls: 'general-textfield'
-					},
+					// {
+					// 	xtype: 'searchfield',
+					// 	docked: 'top',
+					// 	margin: '0 15 10 10',
+					// 	style: 'border-radius: .3em;',
+					// 	cls: 'general-textfield'			
+					// },
 					{
 						xtype: 'list',
 		   				allowDeselect: true,
@@ -59,8 +69,47 @@ Ext.define('EatSense.view.InfoPageOverview', {
 			},
 			{
 				xtype: 'infopagelink'
+			},
+			{
+				xtype: 'panel',
+				itemId: 'searchPanel',
+				layout: {
+					type: 'fit'
+				},
+				style: {
+					width: '80%'
+				},
+				// hidden: true,
+				modal: true,
+				hideOnMaskTap: true,
+				items: [
+					{
+						xtype: 'searchfield',
+						docked: 'top',
+						style: 'border-radius: .3em;',
+						cls: 'general-textfield'
+					}
+				]
 			}
-			
 		]
+	},
+	initialize: function() {
+		var searchBt = this.down('button[action=toggle-search]'),
+			searchPanel = this.down('#searchPanel');
+
+		if(searchBt) {
+			searchBt.on({
+				tap: function(button) {
+					if(searchPanel.getHidden()) {
+						searchPanel.setHidden(false);
+						searchPanel.showBy(button);
+					} else {
+						searchPanel.setHidden(true);
+					}
+					
+				},
+				scope: this
+			});
+		}
 	}
 });

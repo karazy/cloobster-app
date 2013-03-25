@@ -131,17 +131,17 @@ Ext.define('EatSense.view.InfoPageDetail', {
 		// imagePanel = panel.down('#imageHeader');
 		imagePanel = panel.element.down('.image');
 
-		if(newRecord.get('imageUrl')) {			
+		if(newRecord.get('imageUrl')) {
 			if(imagePanel) {
 				imagePanel.setStyle({
 					'background-image': 'url(' + newRecord.get('imageUrl') + scaleFactorS + ')'
 				});
 				// imagePanel.dom.style.backgroundImage.src =  newRecord.get('imageUrl');
-				this.registerImageZoomTap(imagePanel, newRecord.get('imageUrl') + scaleFactorL);
+				this.registerImageZoomTap(panel, newRecord.get('imageUrl') + scaleFactorL);
 			}
 		} else {
 			urlButton.setTop('5px');
-		}	
+		}
 	},
 	/**
 	* Register a tap event for image to zoom it.
@@ -153,7 +153,9 @@ Ext.define('EatSense.view.InfoPageDetail', {
 	registerImageZoomTap: function(panel, url) {
 		var image;
 
-		image = panel;
+		image = panel.element.down('.image');
+
+		//TODO event
 
 		if(image) {
 			//if an image exists, add tap listener
