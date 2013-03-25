@@ -41,6 +41,7 @@ Ext.application({
     'EatSense.util.Localization',
     'EatSense.util.Translations',
     'EatSense.util.Channel',
+    'EatSense.util.EventBus',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
 		// 'EatSense.override.OperationImprovement',

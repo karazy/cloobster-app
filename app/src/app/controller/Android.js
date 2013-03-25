@@ -3,7 +3,7 @@
 */
 Ext.define('EatSense.controller.Android', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.util.Helper'],
+	requires: ['EatSense.util.Helper', 'EatSense.util.EventBus'],
 	config: {
 		refs: {
 			loungeview: 'lounge',
@@ -80,7 +80,14 @@ Ext.define('EatSense.controller.Android', {
 		    	}
 		        
 		    }, false);
+		   
       	}
+
+      	 Ext.Viewport.on({
+	    	'addbackhandler': this.addBackFn,
+	    	'removebackhandler': this.removeBackFn,
+	    	scope: this	
+	    });
 	},
 	/**
 	* Add function to stack auf back handlers.

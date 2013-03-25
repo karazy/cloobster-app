@@ -11,6 +11,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					layout: {
 						type: 'fit'
 					},
+					// scrollable: true,
 					items: [
 					{
 						xtype: 'titlebar',
@@ -27,12 +28,20 @@ Ext.define('EatSense.view.InfoPageOverview', {
 							}
 						]
 					},
+					// {
+					// 	xtype: 'label',
+					// 	docked: 'top',
+					// 	itemId: 'hotelInfo',
+					// 	cls: 'infopage-hotel-info',
+					// 	tpl: '<img src="{imageUrl}" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
+					// },
 					{
-						xtype: 'label',
+						xtype: 'carousel',
+						itemId: 'profilePictures',
 						docked: 'top',
-						itemId: 'hotelInfo',
-						cls: 'infopage-hotel-info',
-						tpl: '<img src="{imageUrl}" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
+						style: {
+							'height' : '150px'
+						}
 					},
 					// {
 					// 	xtype: 'searchfield',
@@ -45,14 +54,16 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						xtype: 'list',
 		   				allowDeselect: true,
 		   				scrollToTopOnRefresh: true,
-		   				// grouped: true,
 		   				store: 'infopageStore',
 						itemCls: 'infopage-list-item',
 						itemTpl: new Ext.XTemplate(
 							'<div class="info">'+
+								'<div class="thumbnail"><img src="{imageUrl}"/></div>'+
 								// '<tpl if="type && type.toUpperCase() == \'LINK\'"><div class="link"></div></tpl>'+
-								'<h3>{title}</h3>'+
-								'<div><div class="thumbnail"><img src="{imageUrl}"/></div><p>{shortText}</p></div>'+								
+								'<div>'+
+									'<h3>{title}</h3>'+
+									'<p>{shortText}</p>'+
+								'</div>'+
 							'</div>'
 							),
 						listeners: {
@@ -62,32 +73,28 @@ Ext.define('EatSense.view.InfoPageOverview', {
 								}), 1000, this);					
 							}
 						}
-					}
+					},
 				]},
 			{
 				xtype: 'infopagecarousel'
 			},
 			{
-				xtype: 'infopagelink'
-			},
-			{
 				xtype: 'panel',
 				itemId: 'searchPanel',
-				layout: {
-					type: 'fit'
-				},
+				// layout: {
+				// 	type: 'fit'
+				// },
 				style: {
 					width: '80%'
 				},
-				// hidden: true,
 				modal: true,
 				hideOnMaskTap: true,
 				items: [
 					{
 						xtype: 'searchfield',
-						docked: 'top',
-						style: 'border-radius: .3em;',
-						cls: 'general-textfield'
+						itemId: 'infoPageSearchField',
+						// style: 'border-radius: .3em;',
+						// cls: 'general-textfield'
 					}
 				]
 			}

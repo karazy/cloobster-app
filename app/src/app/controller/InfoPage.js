@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.InfoPage', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.view.InfoPageDetail', 'EatSense.view.InfoPageLink', 'EatSense.util.Helper'],
+	requires: ['EatSense.view.InfoPageDetail', 'EatSense.util.Helper'],
 	config: {
 		refs: {
 			lounge: 'lounge',
@@ -14,7 +14,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			showInfoPageButton: 'clubarea clubdashboard button[action=show-infopage]',
 			infoPageCarouselBackButton: 'infopageoverview infopagecarousel button[action=back]',
 			infoPageList: 'infopageoverview list',
-			infoPageSearchField: 'infopageoverview searchfield'
+			infoPageSearchField: 'infopageoverview #searchPanel searchfield'
 		},
 		control: {
 			showInfoPageButton: {
@@ -138,22 +138,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		}
 	},
 	/**
-	* @deprecated
-	* @private
-	* Listens for slide navigation list select event.
-	* When item with action show-infopage is selected, 
-	* check if pages have been created.
-	*
-	*/
-	// loungeListSelect: function(list, record) {
-
-	// 	if(record.get('action') == 'show-infopage') {
-	// 		//creates carousels on first access
-	// 		this.createCarouselPanels();				
-	// 		this.resetInfoPageOverview();
-	// 	}       
-	// },
-	/**
 	* Load infopages into infopageStore.
 	*/
 	loadInfoPages: function() {
@@ -202,24 +186,86 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoHeader,
 			tpl,
 			html,
-			imageUrl;
+			imageUrl,
+			imagePanel,
+			scaleFactorS = '=s720';
 
 			//get the label
-			infoHeader = infopageoverview.down('#hotelInfo');
+			// infoHeader = infopageoverview.down('#hotelInfo');
+
+			profilePictures = infopageoverview.down('#profilePictures');
 
 			if(business && business.raw && business.raw.images && business.raw.images.fbwallpost) {
 				imageUrl = business.raw.images.fbwallpost.url || '';
 			}
 
-			if(infoHeader && business) {
-				tpl = infoHeader.getTpl();
-				html = tpl.apply({
-					'imageUrl' : imageUrl,
-					'name' : business.get('name'),
-					'slogan' : business.get('slogan'),
-					'description' : business.get('description')
-				});
-				infoHeader.setHtml(html);
+
+			// if(infoHeader && business) {
+			// 	tpl = infoHeader.getTpl();
+			// 	html = tpl.apply({
+			// 		'imageUrl' : imageUrl,
+			// 		'name' : business.get('name'),
+			// 		'slogan' : business.get('slogan'),
+			// 		'description' : business.get('description')
+			// 	});
+			// 	infoHeader.setHtml(html);
+			// }
+
+			if(business && business.raw && business.raw.images) {
+				profilePictures.setHidden(false);
+				if(business.raw.images.picture1) {
+
+					console.log('InfoPage.showHotelInfoHeader: picture1 ' + business.raw.images.picture1);
+					
+					imagePanel = Ext.create('Ext.Panel', {
+						style: {
+							'background-image': 'url(' + business.raw.images.picture1.url + scaleFactorS + ')',
+							'background-size' : 'cover',
+							'background-position' : 'center'
+						}
+					});
+
+					appHelper.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture1.url + scaleFactorS);
+
+					profilePictures.add(imagePanel);
+				}
+
+				if(business.raw.images.picture2) {
+
+					console.log('InfoPage.showHotelInfoHeader: picture2 ' + business.raw.images.picture2);
+					
+					imagePanel = Ext.create('Ext.Panel', {
+						style: {
+							'background-image': 'url(' + business.raw.images.picture2.url + scaleFactorS + ')',
+							'background-size' : 'cover',
+							'background-position' : 'center'					
+						}
+					});
+
+					appHelper.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture2.url + scaleFactorS);
+
+					profilePictures.add(imagePanel);
+				}
+
+				if(business.raw.images.picture3) {
+
+					console.log('InfoPage.showHotelInfoHeader: picture3 ' + business.raw.images.picture3);
+					
+					imagePanel = Ext.create('Ext.Panel', {
+						style: {
+							'background-image': 'url(' + business.raw.images.picture3.url + scaleFactorS + ')',
+							'background-size' : 'cover',
+							'background-position' : 'center'
+						}
+					});
+
+					appHelper.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture3.url + scaleFactorS);
+
+					profilePictures.add(imagePanel);
+				}
+			} else {
+				profilePictures.setHidden(true);
+				profilePictures.removeAll();
 			}
 	},
 	/**
@@ -367,12 +413,12 @@ Ext.define('EatSense.controller.InfoPage', {
 			scope: this
 		});
 
-		carousel.on({
-			delegate: 'infopagedetail',
-			'imagezoomopen': registerImageZoomBackButton,
-			'imagezoomclose': unRegisterImageZoomBackButton,
-			scope: this
-		});
+		// carousel.on({
+		// 	delegate: 'infopagedetail',
+		// 	'imagezoomopen': registerImageZoomBackButton,
+		// 	'imagezoomclose': unRegisterImageZoomBackButton,
+		// 	scope: this
+		// });
 
 		backButton.on({
 			tap: cleanup,
@@ -426,12 +472,12 @@ Ext.define('EatSense.controller.InfoPage', {
 				scope: this
 			});
 
-			carousel.un({
-				delegate: 'infopagedetail',
-				'imagezoomopen': registerImageZoomBackButton,
-				'imagezoomclose': unRegisterImageZoomBackButton,
-				scope: this
-			});
+			// carousel.un({
+			// 	delegate: 'infopagedetail',
+			// 	'imagezoomopen': registerImageZoomBackButton,
+			// 	'imagezoomclose': unRegisterImageZoomBackButton,
+			// 	scope: this
+			// });
 
 			backButton.un({
 				tap: cleanup,

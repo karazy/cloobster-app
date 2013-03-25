@@ -155,8 +155,6 @@ Ext.define('EatSense.view.InfoPageDetail', {
 
 		image = panel.element.down('.image');
 
-		//TODO event
-
 		if(image) {
 			//if an image exists, add tap listener
 			image.on({
@@ -193,14 +191,21 @@ Ext.define('EatSense.view.InfoPageDetail', {
 						tap: function() {
 							imgPanel.hide();
 							//notify listeners that image panel close
-							panel.fireEvent('imagezoomclose', imgPanel);
+							// panel.fireEvent('imagezoomclose', imgPanel);
+							Ext.Viewport.fireEvent('removebackhandler', doHidePanel);
 						}
 					});					
 
 					Ext.Viewport.add(imgPanel);
 					appHelper.toggleMask('loadingMsg', imgPanel);	
 					//notify listeners that an image panel is open
-					panel.fireEvent('imagezoomopen', imgPanel);				
+					Ext.Viewport.fireEvent('addbackhandler', doHidePanel);
+					// panel.fireEvent('imagezoomopen', imgPanel);				
+
+					
+					function doHidePanel() {
+						imgPanel.hide();
+					}
 
 
 
