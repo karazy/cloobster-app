@@ -22,7 +22,12 @@ Ext.define('EatSense.view.InfoPageDetail', {
 	alternateClassName: 'IPDetail',
 	config: {
 		tpl: new Ext.XTemplate(
-			'<h1>{title}</h1><tpl if="imageUrl"><img src="{imageUrl}"/></tpl><div>{html}</div>'
+			'<tpl if="imageUrl">'+
+				'<div class="image">'+
+					// '<img src="{imageUrl}"/>'+
+				'</div>'+
+			'</tpl>'+
+			'<div class="text"><h1>{title}</h1>{html}</div>'
 		),
 		items: [
 			{
@@ -33,13 +38,8 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				iconMask: true,
 				iconCls: 'globe2',
 				hidden: true,
-				right: '5px',
-				top: '10px'
-				// style: {
-				// 	position: 'absolute',
-				// 	right: '5px',
-				// 	top: '10px'
-				// }
+				right: '10px',
+				top: '184px'
 			},
 			{
 				xtype: 'label',
@@ -109,31 +109,51 @@ Ext.define('EatSense.view.InfoPageDetail', {
 		var panel = this,
 			contentPanel,
 			html,
-			image;
+			imagePanel,
+			scaleFactorS = '=s720',
+			scaleFactorL = '=s1024',
+			urlButton;
+
+		urlButton = panel.down('fixedbutton[action=open-link]');
 
 		// show/hide link button if an url is present or not
 		if(newRecord.get('url')) {
-			panel.down('fixedbutton[action=open-link]').setHidden(false);
+			urlButton.setHidden(false);
 		} else {
-			panel.down('fixedbutton[action=open-link]').setHidden(true);
-		}	
+			urlButton.setHidden(true);
+		}
 
 		//set html in content panel
 		html = panel.getTpl().apply(newRecord.getData());
 		contentPanel = panel.down('#content');
-		contentPanel.setHtml(html);		
+		contentPanel.setHtml(html);	
 
-		this.registerImageZoomTap(panel);
+		// imagePanel = panel.down('#imageHeader');
+		imagePanel = panel.element.down('.image');
+
+		if(newRecord.get('imageUrl')) {			
+			if(imagePanel) {
+				imagePanel.setStyle({
+					'background-image': 'url(' + newRecord.get('imageUrl') + scaleFactorS + ')'
+				});
+				// imagePanel.dom.style.backgroundImage.src =  newRecord.get('imageUrl');
+				this.registerImageZoomTap(imagePanel, newRecord.get('imageUrl') + scaleFactorL);
+			}
+		} else {
+			urlButton.setTop('5px');
+		}	
 	},
 	/**
 	* Register a tap event for image to zoom it.
-	* @param {Ext.Component} panel
-	*	Panel to look for image
+	* @param {Ext.dom.Element} panel
+	*	Panel to register tap event
+	* @param {String} url (optional)
+	*	url to image. If none provided uses url of image tag
 	*/
-	registerImageZoomTap: function(panel) {
-		var image;		
+	registerImageZoomTap: function(panel, url) {
+		var image;
 
-		image = panel.element.down('img');
+		image = panel;
 
 		if(image) {
 			//if an image exists, add tap listener
@@ -159,8 +179,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 						listeners: {
 							hide: function() {
 								imgPanel.destroy();
-							},
-							'setimagesrc': setImageSrc
+							}
 						}
 					});
 
@@ -197,15 +216,15 @@ Ext.define('EatSense.view.InfoPageDetail', {
 							if(ratio >= 2/3 ) {
 								imageW = "100%";
 
-								if(this.width > viewportW * 0.9) {
-									panelW  = viewportW*0.9;
+								if(this.width > viewportW * 0.95) {
+									panelW  = viewportW*0.95;
 								} else {
 									panelW = this.width;
 								}
 							} else {
 								imageH = "100%";
 
-								if(this.height > viewportH * 0.9) {
+								if(this.height > viewportH * 0.95) {
 									panelH  = viewportH * 0.66;
 									//add 4 pixels because of margins
 									panelW = panelH * ratio + 4;
@@ -216,24 +235,14 @@ Ext.define('EatSense.view.InfoPageDetail', {
 							
 							imgPanel.setWidth(panelW);
 							imgPanel.setHeight(panelH);
-							imgPanel.setHtml('<img src="'+image.dom.src+'" width="'+imageW+'" height="'+imageH+'"/>');
+							imgPanel.setHtml('<img src="'+img.src+'" width="'+imageW+'" height="'+imageH+'"/>');
 
 						} catch(e) {
 							console.log('EatSense.view.InfoPageDetail: failed to load image ' + e);
 						}
 					}
-
-					// Ext.create('Ext.util.DelayedTask', function () {
-					// 	imgPanel.fireEvent('setimagesrc');
-    	// 			}).delay(100);
-
-					//start loading the image
-					// img.src = image.dom.src + '?size=500x1000';
-					function setImageSrc() {
-						img.src = image.dom.src;	
-					}
-
-					img.src = image.dom.src;
+					
+					img.src = url;
 					
 				}
 			});

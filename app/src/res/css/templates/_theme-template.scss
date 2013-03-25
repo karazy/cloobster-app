@@ -566,12 +566,15 @@
 
 .infopage-detail {
   display: block;
-  padding: 10px 25px 5px 25px;
   font-size: 100%;
   color: $label-color !important;
 
   .x-html {
     padding: 0;
+  }
+
+  .text {
+    padding: 10px 25px 5px 25px;
   }
 
   * {
@@ -597,11 +600,20 @@
     margin: 4px 0px;
   }
 
-  img {
-    max-width: 50%;
+  .image {
+    text-align: center;
+    height: 200px;
+    overflow: hidden;
+    /*background-size: 100%;*/
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .image img {
+    /*max-width: 50%;*/
     margin: 0px 5px 5px 0px;
     height: auto;
-    float: left;
+    /*float: left;*/
   }
 
   p {
@@ -630,6 +642,14 @@
     font-weight: bold;
   }
 }
+
+  .infopage-detail-header-image {
+    text-align: center;
+    height: 200px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 
 .infopage-hotel-info {
   margin: 10px;
