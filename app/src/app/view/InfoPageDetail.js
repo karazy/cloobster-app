@@ -176,6 +176,10 @@ Ext.define('EatSense.view.InfoPageDetail', {
 						centered: true,
 						hideOnMaskTap: true,
 						modal: true,
+						// floatingCls: '',
+						// style: {
+						// 	'background-color' : 'white'
+						// },
 						listeners: {
 							hide: function() {
 								imgPanel.destroy();
@@ -217,18 +221,24 @@ Ext.define('EatSense.view.InfoPageDetail', {
 								imageW = "100%";
 
 								if(this.width > viewportW * 0.95) {
-									panelW  = viewportW*0.95;
+									// console.log('EatSense.view.InfoPageDetail.registerImageZoomTap: 1');
+									panelW  = viewportW * 0.95;
+									panelH = panelW / ratio;
 								} else {
+									// console.log('EatSense.view.InfoPageDetail.registerImageZoomTap: 2');
 									panelW = this.width;
+									panelH = this.height;
 								}
 							} else {
 								imageH = "100%";
 
 								if(this.height > viewportH * 0.95) {
+									// console.log('EatSense.view.InfoPageDetail.registerImageZoomTap: 3');
 									panelH  = viewportH * 0.66;
 									//add 4 pixels because of margins
 									panelW = panelH * ratio + 4;
 								} else {
+									// console.log('EatSense.view.InfoPageDetail.registerImageZoomTap: 4');
 									panelH = this.height;
 								}
 							}
@@ -241,7 +251,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 							console.log('EatSense.view.InfoPageDetail: failed to load image ' + e);
 						}
 					}
-					
+
 					img.src = url;
 					
 				}
