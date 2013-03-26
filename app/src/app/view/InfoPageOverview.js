@@ -44,7 +44,9 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						itemCls: 'infopage-list-item',
 						itemTpl: new Ext.XTemplate(
 							'<div class="info">'+
-								'<div class="thumbnail"><img src="{imageUrl}=s180"/></div>'+
+								'<tpl if="imageUrl">'+
+									'<div class="thumbnail"><img src="{imageUrl}=s180"/></div>'+
+								'</tpl>'+
 								'<div>'+
 									'<h3>{title}</h3>'+
 									'<p>{shortText}</p>'+
