@@ -717,7 +717,10 @@ Ext.define('EatSense.controller.InfoPage', {
     		clubArea = this.getClubArea(),
 			teasers = clubArea.query('dashboardteaser[type="info"]'),
 			lounge = this.getLounge(),
-			infoPageOverview = this.getInfoPageOverview();
+			infoPageOverview = this.getInfoPageOverview(),
+			profilePictures;
+
+			profilePictures = infopageoverview.down('#profilePictures');
 
 			//clean up
 			store.clearFilter();
@@ -753,6 +756,10 @@ Ext.define('EatSense.controller.InfoPage', {
 					clearicontap: this.clearInfoPageFilter,
 					scope: this
 				});	
-			}			
+			}
+
+			if(profilePictures) {
+				profilePictures.removeAll();
+			}		
     }
 });
