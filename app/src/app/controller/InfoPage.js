@@ -197,26 +197,11 @@ Ext.define('EatSense.controller.InfoPage', {
 			imagePanel,
 			scaleFactorS = '=s720';
 
-			//get the label
-			// infoHeader = infopageoverview.down('#hotelInfo');
-
 			profilePictures = infopageoverview.down('#profilePictures');
 
 			if(business && business.raw && business.raw.images && business.raw.images.fbwallpost) {
 				imageUrl = business.raw.images.fbwallpost.url || '';
 			}
-
-
-			// if(infoHeader && business) {
-			// 	tpl = infoHeader.getTpl();
-			// 	html = tpl.apply({
-			// 		'imageUrl' : imageUrl,
-			// 		'name' : business.get('name'),
-			// 		'slogan' : business.get('slogan'),
-			// 		'description' : business.get('description')
-			// 	});
-			// 	infoHeader.setHtml(html);
-			// }
 
 			if(business && business.raw && business.raw.images) {
 				profilePictures.setHidden(false);

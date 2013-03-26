@@ -1680,4 +1680,12 @@ h9 {
   background-color: lighten($active-color, 30%);
 }
 
+.x-carousel-indicator-dark span {
+  background-color: lighten($active-color, 30%) !important;
+}
+
+.x-carousel-indicator-dark span.x-carousel-indicator-active {
+  background-color: $active-color !important;
+}
+
 

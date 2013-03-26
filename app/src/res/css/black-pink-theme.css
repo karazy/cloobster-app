@@ -12839,3 +12839,13 @@ h9 {
   border-top-color: #ffcdf2;
   background-color: #ffcdf2;
 }
+
+/* line 1683, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-carousel-indicator-dark span {
+  background-color: #ffcdf2 !important;
+}
+
+/* line 1687, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-carousel-indicator-dark span.x-carousel-indicator-active {
+  background-color: #ff34cc !important;
+}

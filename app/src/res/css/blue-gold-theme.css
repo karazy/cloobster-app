@@ -12841,6 +12841,16 @@ h9 {
   background-color: #efe1b5;
 }
 
+/* line 1683, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-carousel-indicator-dark span {
+  background-color: #efe1b5 !important;
+}
+
+/* line 1687, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
+.x-carousel-indicator-dark span.x-carousel-indicator-active {
+  background-color: #d4af37 !important;
+}
+
 /* line 41, blue-gold-theme.scss */
 .x-msgbox {
   /*background-color: $base-color;*/

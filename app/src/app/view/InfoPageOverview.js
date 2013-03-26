@@ -44,8 +44,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						itemCls: 'infopage-list-item',
 						itemTpl: new Ext.XTemplate(
 							'<div class="info">'+
-								'<div class="thumbnail"><img src="{imageUrl}"/></div>'+
-								// '<tpl if="type && type.toUpperCase() == \'LINK\'"><div class="link"></div></tpl>'+
+								'<div class="thumbnail"><img src="{imageUrl}=s180"/></div>'+
 								'<div>'+
 									'<h3>{title}</h3>'+
 									'<p>{shortText}</p>'+
@@ -87,7 +86,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 		var searchBt = this.down('button[action=toggle-search]'),
 			searchPanel = this.down('#searchPanel'),
 			searchField = searchPanel.down('searchfield');
-		
+
 
 		if(searchBt) {
 			searchBt.on({
@@ -95,6 +94,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					if(searchPanel.getHidden()) {
 						searchPanel.setHidden(false);
 						searchPanel.showBy(button);
+						searchField.focus();
 					} else {
 						searchPanel.setHidden(true);
 					}
