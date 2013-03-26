@@ -12,7 +12,7 @@ Ext.define('EatSense.controller.Lounge', {
 	* @param {EatSense.model.Area} the new area
 	*/
 
-	requires: [],
+	requires: ['EatSense.util.DashboardItemTemplates'],
 	config: {
 		refs: {
 			mainview: 'mainview',
@@ -73,7 +73,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'basicmode' : function(basicMode) {
 		 	this.manageBasicMode(basicMode);
-		 	this.loadDashboardConfiguration();
+		 	this.buildDashboard();
 		 	this.tryLoadingAreas();		 	
 		 },
 		 scope: this
@@ -444,8 +444,10 @@ Ext.define('EatSense.controller.Lounge', {
 	 /**
 	 * @private
 	 * Loads the dashboard configuration for active business.
+	 * @param {Function} callback
+	 *	Executed on success. Gets passed retrieved records and the store
 	 */
-	 loadDashboardConfiguration: function() {
+	 loadDashboardConfiguration: function(callback) {
 	 	var me = this,
 	 		dbStore = Ext.StoreManager.lookup('dashboardItemStore');
 
@@ -458,7 +460,9 @@ Ext.define('EatSense.controller.Lounge', {
 				callback: function(records, operation, success) {
 				  if(!operation.error) {
 					 if(records.length > 0) {
-
+					 	if(appHelper.isFunction(callback)) {
+					 		callback(records, dbStore);
+					 	}
 					 }
 				  } else {
 				  me.getApplication().handleServerError({
@@ -468,6 +472,64 @@ Ext.define('EatSense.controller.Lounge', {
 					}
 				}
 			});
+	 },
+	 /**
+	 * @private
+	 *	Dynamically creates the dashboard based on dashboard configuration.
+	 */
+	 buildDashboard: function() {
+	 	var me = this,
+	 		clubDashboard = this.getClubDashboard(),
+	 		leftTileColum,
+	 		rightTileColumn;
+
+	 		leftTileColum = clubDashboard.down('#leftTileColumn');
+	 		rightTileColumn = clubDashboard.down('#rightTileColumn');
+
+	 		//load dashboard configuration
+	 		this.loadDashboardConfiguration(build);
+
+
+	 		function build(dashboardItems) {
+	 			Ext.Array.each(dashboardItems, function(dbItem, index) {
+	 				//create item and add to tile panel
+	 				tileConfig = me.createDashboardTile(dbItem);
+	 				if((index % 2) == 0) {
+	 					leftTileColum.add(tileConfig);
+	 				} else {
+						rightTileColumn.add(tileConfig);
+	 				}
+	 				
+	 			});
+	 		}
+
+	 },
+	 /**
+	 * @private
+	 * Create a dashboard tile.
+	 * @param {EatSense.model.DashboardItem} 
+	 *	config
+	 * @return
+	 *	Created component.
+	 */
+	 createDashboardTile: function(config) {
+	 	var tplMap;
+
+	 	if(!config) {
+	 		console.log('Lounge.createDashboardTile: no config given');
+	 		return;
+	 	}
+
+	 	if(!dItemTpl) {
+	 		console.error('Lounge.createDashboardTile: dashboard item templates dont exist');
+	 		return;	
+	 	}
+
+		if(dItemTpl.hasOwnProperty(config.get('type'))) {
+			return dItemTpl[config.get('type')];
+		}
+
+	 	return null;
 	 },
 
 	 /**

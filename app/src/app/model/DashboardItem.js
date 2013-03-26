@@ -1,5 +1,6 @@
 /**
-* A model.
+* Represents the configuration for a dashboard item.
+* Displayed on the {@link EatSense.view.ClubDashboard}
 */
 Ext.define('EatSense.model.DashboardItem', {
 	extend: 'Ext.data.Model',

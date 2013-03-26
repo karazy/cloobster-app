@@ -51,19 +51,19 @@ Ext.define('EatSense.view.ClubDashboard', {
 					html: i10n.translate('clubdashboard.label.description')
 				},
 				{
-					xtype: 'panel',
+					xtype: 'panel',					
 					width: '100%',
 					layout: {
 						type: 'hbox',
 						align: 'start',
 						pack: 'center'
 					},					
-					// scrollable: 'vertical',
 					padding: '5px 0 0 0',			
 					items: [
 					{
 						xtype: 'panel',
 						flex: 1,
+						itemId: 'leftTileColumn',
 						padding: '0 4 0 0',
 						layout: {
 							type: 'vbox',
@@ -75,51 +75,52 @@ Ext.define('EatSense.view.ClubDashboard', {
 							margin: '8 0 0 0'
 						},
 						items: [
-						{
-							xtype : 'tilebutton',
-							action: 'show-infopage',
-							title: i10n.translate('clubdashboard.button.infopage'),
-							text: i10n.translate('clubdashboard.button.infopage.text'),
-							iconCls: 'info'
-						},
-						{
-							xtype : 'basictilebutton',
-							action: 'show-requests',
-							title: i10n.translate('clubdashboard.button.vip'),
-							text: i10n.translate('clubdashboard.button.vip.text'),
-							iconCls: 'vip',
-							welcomeFn: function() {
-								Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-							}
-						},
-						{
-							xtype : 'dashboardteaser',
-							type: 'infopages',
-							store : 'infopageStore',
-							filter: [
-								function(item) {
-									if(item.get('hideInDashboard') === false) {
-										return true;
-									}
-									return false;
-							    }
-							],
-							iconFit: true,
-							tpl: new Ext.XTemplate(
-								'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-								'<div class="text-container">'+
-									'<h3>{title}</h3>'+
-									'<p>{shortText}</p>'+
-								'</div>'+
-								'<div class="teaser-icon info-icon"></div>'
-							)
-						}											
+						// {
+						// 	xtype : 'tilebutton',
+						// 	action: 'show-infopage',
+						// 	title: i10n.translate('clubdashboard.button.infopage'),
+						// 	text: i10n.translate('clubdashboard.button.infopage.text'),
+						// 	iconCls: 'info'
+						// },
+						// {
+						// 	xtype : 'basictilebutton',
+						// 	action: 'show-requests',
+						// 	title: i10n.translate('clubdashboard.button.vip'),
+						// 	text: i10n.translate('clubdashboard.button.vip.text'),
+						// 	iconCls: 'vip',
+						// 	welcomeFn: function() {
+						// 		Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+						// 	}
+						// },
+						// {
+						// 	xtype : 'dashboardteaser',
+						// 	type: 'infopages',
+						// 	store : 'infopageStore',
+						// 	filter: [
+						// 		function(item) {
+						// 			if(item.get('hideInDashboard') === false) {
+						// 				return true;
+						// 			}
+						// 			return false;
+						// 	    }
+						// 	],
+						// 	iconFit: true,
+						// 	tpl: new Ext.XTemplate(
+						// 		'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+						// 		'<div class="text-container">'+
+						// 			'<h3>{title}</h3>'+
+						// 			'<p>{shortText}</p>'+
+						// 		'</div>'+
+						// 		'<div class="teaser-icon info-icon"></div>'
+						// 	)
+						// }											
 						]
 					},
 					{
 						xtype: 'panel',
 						flex: 1,
 						padding: '0 0 0 4',
+						itemId: 'rightTileColumn',
 						layout: {
 							type: 'vbox',
 							align: 'center',
@@ -130,72 +131,72 @@ Ext.define('EatSense.view.ClubDashboard', {
 							margin: '8 0 0 0'
 						},
 						items: [
-							{
-								xtype : 'tilebutton',
-								action: 'show-menu',
-								text: i10n.translate('clubdashboard.menu.text'),
-								title: i10n.translate('menuTab'),
-								iconCls: 'menu'
-							},
-							{
-								xtype : 'dashboardteaser',
-								store : 'productStore',
-								filter: [
+							// {
+							// 	xtype : 'tilebutton',
+							// 	action: 'show-menu',
+							// 	text: i10n.translate('clubdashboard.menu.text'),
+							// 	title: i10n.translate('menuTab'),
+							// 	iconCls: 'menu'
+							// },
+							// {
+							// 	xtype : 'dashboardteaser',
+							// 	store : 'productStore',
+							// 	filter: [
 										
-									function(item) {
-										if(item.get('hideInDashboard') === false) {
-											return true;
-										}
-										return false;
-								    }, 
-									{
-										property: 'special',
-										value: true
-									}
-								],
-								// clearBeforeFiltering: true,
-								type: 'products',
-								tpl: new Ext.XTemplate(
-									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-									'<div class="text-container">'+
-										'<h3>{name}</h3>'+
-										'<p>{shortDesc}</p>'+									
-									'</div>'+
-									'<div class="teaser-icon star-icon"></div>'
-								)
-							},	
-							{
-								xtype : 'dashboardteaser',
-								store : 'productStore',
-								// clearBeforeFiltering: true,
-								filter: [
-									function(item) {
-										if(item.get('hideInDashboard') === false && item.get('special') === false) {
-											return true;
-										}
-										return false;
-								    }
-								],
-								type: 'products',
-								tpl: new Ext.XTemplate(
-									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
-									'<div class="text-container">'+
-										'<h3>{name}</h3>'+
-										'<p>{shortDesc}</p>'+
-									'</div>'+
-									'<div class="teaser-icon menu-icon"></div>'
-								)
-							},				
-							{
-								xtype : 'basictilebutton',
-								action: 'show-feedback',
-								title: i10n.translate('clubdashboard.button.feedback'),
-								text: i10n.translate('clubdashboard.button.feedback.text'),
-								iconCls: 'feedback',
-								welcomeFn: function() {
-									Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-								}
-							}	
+							// 		function(item) {
+							// 			if(item.get('hideInDashboard') === false) {
+							// 				return true;
+							// 			}
+							// 			return false;
+							// 	    }, 
+							// 		{
+							// 			property: 'special',
+							// 			value: true
+							// 		}
+							// 	],
+							// 	// clearBeforeFiltering: true,
+							// 	type: 'products',
+							// 	tpl: new Ext.XTemplate(
+							// 		'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+							// 		'<div class="text-container">'+
+							// 			'<h3>{name}</h3>'+
+							// 			'<p>{shortDesc}</p>'+									
+							// 		'</div>'+
+							// 		'<div class="teaser-icon star-icon"></div>'
+							// 	)
+							// },	
+							// {
+							// 	xtype : 'dashboardteaser',
+							// 	store : 'productStore',
+							// 	// clearBeforeFiltering: true,
+							// 	filter: [
+							// 		function(item) {
+							// 			if(item.get('hideInDashboard') === false && item.get('special') === false) {
+							// 				return true;
+							// 			}
+							// 			return false;
+							// 	    }
+							// 	],
+							// 	type: 'products',
+							// 	tpl: new Ext.XTemplate(
+							// 		'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+							// 		'<div class="text-container">'+
+							// 			'<h3>{name}</h3>'+
+							// 			'<p>{shortDesc}</p>'+
+							// 		'</div>'+
+							// 		'<div class="teaser-icon menu-icon"></div>'
+							// 	)
+							// },				
+							// {
+							// 	xtype : 'basictilebutton',
+							// 	action: 'show-feedback',
+							// 	title: i10n.translate('clubdashboard.button.feedback'),
+							// 	text: i10n.translate('clubdashboard.button.feedback.text'),
+							// 	iconCls: 'feedback',
+							// 	welcomeFn: function() {
+							// 		Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+							// 	}
+							// }	
 						]
 					}
 			]
