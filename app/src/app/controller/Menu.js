@@ -57,8 +57,11 @@ Ext.define('EatSense.controller.Menu', {
              menuview: {
              	activate: 'menuviewActivated'
              },
-             clubdashboard: {
-             	initialize: 'registerProductTeaserTap'
+             // clubdashboard: {
+             // 	initialize: 'registerProductTeaserTap'
+             // }
+             'dashboardteaser': {
+                'teasertapped.products' : 'jumpToProductDetail'
              }
 		},
 		/**
@@ -80,7 +83,7 @@ Ext.define('EatSense.controller.Menu', {
 
     	checkInCtr.on('statusChanged', function(status, activeCheckIn) {
 			if(status == appConstants.CHECKEDIN) {
-				this.registerProductTeaserTap();
+				// this.registerProductTeaserTap();
 				this.showMenu();
 				//add area filter to product store before loading
                 this.addProductAreaFilter(checkInCtr.getActiveSpot().raw.areaMenuIds);
@@ -89,7 +92,7 @@ Ext.define('EatSense.controller.Menu', {
 				loungeCtr.on('areaswitched', doAreaFiltering, this);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();
-				this.registerProductTeaserTap(true);
+				// this.registerProductTeaserTap(true);
 				loungeCtr.un('areaswitched', doAreaFiltering, this);
 			}
 		}, this);
@@ -104,6 +107,7 @@ Ext.define('EatSense.controller.Menu', {
 		}
     },
     /**
+    * @Deprecated
     * @private
     * Register dashboardteaser tap event
     * @param {Boolean} unregister
@@ -114,13 +118,19 @@ Ext.define('EatSense.controller.Menu', {
     		loungeview = this.getLoungeview(),
     		teasers;
 
-    	teasers = loungeview.query('dashboardteaser[type="product"]');
+    	teasers = loungeview.query('dashboardteaser[type="products"]');
+
+        // if(!unregister) {
+        //     Ext.Viewport.on('teasertapped.products', me.jumpToProductDetail, me);
+        // } else {
+        //     Ext.Viewport.un('teasertapped.products', me.jumpToProductDetail, me);
+        // }
 
     	Ext.Array.each(teasers, function(teaser){
     		if(!unregister) {
-	    		teaser.on('teasertapped', me.jumpToProductDetail, me);
+	    		teaser.on('teasertapped.products', me.jumpToProductDetail, me);
     		} else {
-    			teaser.un('teasertapped', me.jumpToProductDetail, me);
+    			teaser.un('teasertapped.products', me.jumpToProductDetail, me);
     		}
     	});
     },
@@ -133,7 +143,7 @@ Ext.define('EatSense.controller.Menu', {
     		loungeview = this.getLoungeview(),
     		teasers;
 
-    	teasers = loungeview.query('dashboardteaser[type="product"]');
+    	teasers = loungeview.query('dashboardteaser[type="products"]');
 
     	Ext.Array.each(teasers, function(teaser){
     		teaser.fireEvent('refresh');

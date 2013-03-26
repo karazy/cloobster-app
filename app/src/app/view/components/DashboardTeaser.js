@@ -7,8 +7,8 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 	extend: 'Ext.Panel',
 
 	 /**
-     * @event teasertapped
-     * Fires whenever a teaser is tapped.
+     * @event teasertapped.{type}
+     * Fires whenever a teaser is tapped. If this teaser has a type set it will be appended to the event name.
      * @param {Ext.data.Model} the record displayed by this teaser.
      * @param {EatSense.view.components.DashboardTeaser} a reference to the teaser itself
      */
@@ -39,6 +39,12 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 		basicMode: false,
 		//used to determine the visible state of the teaser
 		pageGenerated: false,
+
+		/**
+		* @cfg {String} type
+		* 	Type of content displayed by this teaser. e.g. infopages, products
+		*/
+		type: '',
 		
 		/**
 		* @cfg {String|Object} filter
@@ -256,14 +262,19 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 	*	Called when tap event is fired on element.
 	*/
 	onTap: function() {
-		var me = this;
+		var me = this,
+			suffix = '';
 
 		if(!this.getPage()) {
 			console.log('DashboardTeaser.onTap: no page exists');
 			return;
 		}
 
-		me.fireEvent('teasertapped', this.getPage(), me);
+		if(me.getType()) {
+			suffix = '.' + me.getType();
+		}
+
+		me.fireEvent('teasertapped' + suffix, this.getPage(), me);
 	},
 	/**
 	* Resets teaser to initial state.

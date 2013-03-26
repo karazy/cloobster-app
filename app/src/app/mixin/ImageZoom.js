@@ -11,24 +11,18 @@ Ext.define('EatSense.mixin.ImageZoom', {
 
 	/**
      * @event imagezoomopen
-     * Fires whenever the overlay gets shown.
+     * Fires on {@link #config.eventReceiver} whenever the overlay gets shown.
      * @param {Ext.Component} panel
+     *	The panel displaying the image.
      */
 
 	/**
      * @event imagezoomclose
      * Fires whenever the overlay gets closed.
      * @param {Ext.Component} panel
+     *	The panel displaying the image.
      */
 
-    config: {
-		 /**
-         * @cfg {Ext.Component} eventReceiver
-         *	The component receiving the events.
-         * @accessor
-         */
-        eventReceiver: null
-	},
 
 	/**
 	* Register a tap event for image to view it as whole in an overlay.
@@ -39,7 +33,7 @@ Ext.define('EatSense.mixin.ImageZoom', {
 	* @param {String} url (optional)
 	*	url to image. If none provided uses url of image tag
 	* @param {Ext.Component} panel (optional)
-	*	Panel used to fire events.
+	*	Panel used for fireEvent. If none provided fires on the component itself.
 	*/
 	registerImageZoomTap: function(imageElement, url, panel) {
 		var me = this,
@@ -47,7 +41,8 @@ Ext.define('EatSense.mixin.ImageZoom', {
 			eventReceiver;
 
 		image = imageElement;
-		eventReceiver = panel || this.getEventReceiver() || me;
+		
+		eventReceiver = panel || me;
 
 
 		if(image) {
@@ -72,9 +67,6 @@ Ext.define('EatSense.mixin.ImageZoom', {
 						hideOnMaskTap: true,
 						modal: true,
 						floatingCls: '',
-						// style: {
-						// 	'background-color' : 'white'
-						// },
 						listeners: {
 							hide: function() {
 								imgPanel.destroy();

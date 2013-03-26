@@ -94,7 +94,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 						},
 						{
 							xtype : 'dashboardteaser',
-							type: 'info',
+							type: 'infopages',
 							store : 'infopageStore',
 							filter: [
 								function(item) {
@@ -154,7 +154,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 									}
 								],
 								// clearBeforeFiltering: true,
-								type: 'product',
+								type: 'products',
 								tpl: new Ext.XTemplate(
 									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 									'<div class="text-container">'+
@@ -176,7 +176,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 										return false;
 								    }
 								],
-								type: 'product',
+								type: 'products',
 								tpl: new Ext.XTemplate(
 									'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
 									'<div class="text-container">'+

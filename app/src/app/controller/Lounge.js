@@ -25,12 +25,12 @@ Ext.define('EatSense.controller.Lounge', {
 			navButtons: 'lounge button[action=toggle-navigation]'    
 		},
 		control: {
-		menuDashboardButton : {
-			tap: 'showMenu'
-		},
-		clubArea: {
-		  activate: 'clubAreaActivated'
-		}
+			menuDashboardButton : {
+				tap: 'showMenu'
+			},
+			clubArea: {
+			  activate: 'clubAreaActivated'
+			}
 		},
 		/* Android Back handlers */
 		navigationFunctions : new Array()
@@ -73,12 +73,11 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'basicmode' : function(basicMode) {
 		 	this.manageBasicMode(basicMode);
-		 	this.tryLoadingAreas();
+		 	this.loadDashboardConfiguration();
+		 	this.tryLoadingAreas();		 	
 		 },
 		 scope: this
 	  });
-
-	 
   },
   /**
   * Show/hide the slidenavigation menu.
@@ -341,16 +340,16 @@ Ext.define('EatSense.controller.Lounge', {
 			 items;
 
 			 if(!areaStore) {
-				console.log('CheckIn.loadAreas: could not optain area store');
+				console.log('Lounge.loadAreas: could not optain area store');
 				return;
 			 }
 
 			 if(!loungeview) {
-				console.log('CheckIn.loadAreas: no loungeview exists');
+				console.log('Lounge.loadAreas: no loungeview exists');
 				return;            
 			 }
 
-			 console.log('CheckIn.loadAreas');
+			 console.log('Lounge.loadAreas');
 
 			 areaStore.load({
 				callback: function(records, operation, success) {
@@ -441,6 +440,36 @@ Ext.define('EatSense.controller.Lounge', {
 
 		loungeview.selectByAction('show-clubdashboard');
 	 },
+
+	 /**
+	 * @private
+	 * Loads the dashboard configuration for active business.
+	 */
+	 loadDashboardConfiguration: function() {
+	 	var me = this,
+	 		dbStore = Ext.StoreManager.lookup('dashboardItemStore');
+
+	 		if(!dbStore) {
+				console.log('Lounge.loadDashboardConfiguration: could not optain dashboarditem store');
+				return;
+			}
+
+			dbStore.load({
+				callback: function(records, operation, success) {
+				  if(!operation.error) {
+					 if(records.length > 0) {
+
+					 }
+				  } else {
+				  me.getApplication().handleServerError({
+							'error': operation.error, 
+							'forceLogout': {403:true}
+						 });
+					}
+				}
+			});
+	 },
+
 	 /**
 	 * Cleanup on checkout.
 	 */

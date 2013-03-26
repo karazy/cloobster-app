@@ -14,8 +14,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			showInfoPageButton: 'clubarea clubdashboard button[action=show-infopage]',
 			infoPageCarouselBackButton: 'infopageoverview infopagecarousel button[action=back]',
 			infoPageList: 'infopageoverview list',
-			infoPageSearchField: 'infopageoverview #searchPanel searchfield'
-			// infoPageSearchField: '#infoPageSearchField'			
+			infoPageSearchField: 'infopageoverview #searchPanel searchfield',
+			infoPageTeaser: 'clubdashboard dashboardteaser'		
 		},
 		control: {
 			showInfoPageButton: {
@@ -32,6 +32,9 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageOverview: {
 				show: 'infoPageOverviewShowHandler',
 				'infopagedelayedshow': 'createCarouselPanels'
+			},
+			'dashboardteaser' : {
+				'teasertapped.infopages' : 'teaserTapHandler'
 			}
 		},
 		//true when all carousel panels have been created
@@ -110,6 +113,7 @@ Ext.define('EatSense.controller.InfoPage', {
 		}
 	},
 	/**
+	* @Deprecated
 	* Register tap on infopageteaser.
 	*/
 	registerInfoPageTeaser: function() {
@@ -118,10 +122,13 @@ Ext.define('EatSense.controller.InfoPage', {
 			teaser = clubArea.down('dashboardteaser[type=info]');
 
 		if(teaser) {
-			//unregister old listener
+			// unregister old listener
 			teaser.un('teasertapped', tapFunction);
-			teaser.on('teasertapped', tapFunction);
+			teaser.on('teasertapped', tapFunction);			
 		}
+
+		// Ext.Viewport.un('teasertapped.infopages', tapFunction);
+		// Ext.Viewport.on('teasertapped.infopages', tapFunction);
 
 		function tapFunction(page) {
 
@@ -145,6 +152,33 @@ Ext.define('EatSense.controller.InfoPage', {
 		}
 	},
 	/**
+	* @private
+	* Typ eventhandler for dashboard teasers displaying info pages.
+	*/
+	teaserTapHandler: function(page) {
+		var me = this;
+			// clubArea = this.getClubArea(),
+			// teaser = clubArea.down('dashboardteaser[type=info]');
+
+		if(!me.getPanelsCreated()) {
+				me.on({
+					'carouselpanelscreated': doShowInfoPage,
+					single: true,
+					scope: this
+				});
+
+				me.getLounge().selectByAction('show-infopage');
+				me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
+			} else {
+				doShowInfoPage();
+			}
+
+			function doShowInfoPage() {
+				//null is the dataview, it gets not used inside method!
+				me.showInfoPageDetail(null, page, true);
+			}
+	},
+	/**
 	* Load infopages into infopageStore.
 	*/
 	loadInfoPages: function() {
@@ -162,7 +196,7 @@ Ext.define('EatSense.controller.InfoPage', {
 				callback: function(records, operation, success) {
 			    	if(!operation.error) {
 
-			    		me.registerInfoPageTeaser();
+			    		// me.registerInfoPageTeaser();
 			    		try {
 							me.getInfoPageList().on({
 								'painted' : {

@@ -351,7 +351,7 @@ Ext.define('EatSense.controller.CheckIn', {
                     });
 
                     me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
-  					   	    me.loadBusiness(); 
+  					   	    me.loadBusiness();
   					   	    me.getAppState().set('checkInId', response.get('userId'));
   					   	     
   					//save nickname in settings

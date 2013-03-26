@@ -6,20 +6,6 @@ Ext.define('EatSense.view.InfoPageDetail', {
 	xtype: 'infopagedetail',
 	mixins: ['EatSense.mixin.ImageZoom'],
 
-	/**
-     * @event imagezoomopen
-     * Fires when image is zoomed for fullscreen display.
-     * @param {Ext.Panel} imagePanel 
-     *	The panel containing the image.
-     */
-
-     /**
-     * @event imagezoomclose
-     * Fires when a fullscreen image gets closed.
-     * @param {Ext.Panel} imagePanel 
-     *	The panel containing the image.
-     */
-
 	alternateClassName: 'IPDetail',
 	config: {
 		tpl: new Ext.XTemplate(
@@ -58,7 +44,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 					// 'line-height': '2em'
 					width: 0,
 					height: 0,
-					'border-right': '1em solid #a3a3a3',
+					'border-right': '1em solid #c3c3c3',
 					'border-top': '2em solid transparent',
 					'border-bottom': '2em solid transparent'
 				}
@@ -80,7 +66,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 					// 'line-height': '2em'
 					width: 0,
 					height: 0,
-					'border-left': '1em solid #a3a3a3',
+					'border-left': '1em solid #c3c3c3',
 					'border-top': '2em solid transparent',
 					'border-bottom': '2em solid transparent'
 				}
