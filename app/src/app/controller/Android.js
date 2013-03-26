@@ -18,6 +18,8 @@ Ext.define('EatSense.controller.Android', {
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn');
 
+		console.log('Android.launch: setup');	
+
 		this.resetBackHandler();
 		
 		Ext.Viewport.element.on('tap', function() {
@@ -80,14 +82,15 @@ Ext.define('EatSense.controller.Android', {
 		    	}
 		        
 		    }, false);
-		   
-      	}
 
-      	 Ext.Viewport.on({
-	    	'addbackhandler': this.addBackFn,
-	    	'removebackhandler': this.removeBackFn,
-	    	scope: this	
-	    });
+		    //listen for global addbackhandler and removebackhandler events
+		    Ext.Viewport.on({
+	    		'addbackhandler': this.addBackFn,
+	    		'removebackhandler': this.removeBackFn,
+	    		scope: this	
+	    	});
+		   
+      	}      	
 	},
 	/**
 	* Add function to stack auf back handlers.

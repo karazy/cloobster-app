@@ -1561,7 +1561,7 @@ h9 {
 .x-panel.x-floating {
   -webkit-box-shadow: none;
   border-radius: 0.1em !important;
-  background-color: $base-color !important;
+  /*background-color: $base-color !important;*/
 
   > .x-dock.x-sized {
     margin: 2px;

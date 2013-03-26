@@ -15,6 +15,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageCarouselBackButton: 'infopageoverview infopagecarousel button[action=back]',
 			infoPageList: 'infopageoverview list',
 			infoPageSearchField: 'infopageoverview #searchPanel searchfield'
+			// infoPageSearchField: '#infoPageSearchField'			
 		},
 		control: {
 			showInfoPageButton: {
@@ -23,10 +24,11 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageList: {
 				select: 'showInfoPageDetail'
 			},
-			infoPageSearchField: {
-				keyup: 'infoPageSearchFieldHandler',
-				clearicontap: 'clearInfoPageFilter'
-			},
+			//25.03.2013 not working when field is in floating input, see launch function
+			// infoPageSearchField: {
+			// 	keyup: 'infoPageSearchFieldHandler',
+			// 	clearicontap: 'clearInfoPageFilter'
+			// },
 			infoPageOverview: {
 				show: 'infoPageOverviewShowHandler',
 				'infopagedelayedshow': 'createCarouselPanels'
@@ -42,7 +44,9 @@ Ext.define('EatSense.controller.InfoPage', {
 	launch: function() {		
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn'),
-			lounge;			
+			lounge;
+
+		console.log('Infopage.launch: setup');	
 
 		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
@@ -55,15 +59,18 @@ Ext.define('EatSense.controller.InfoPage', {
 					single: true,
 					scope: me
 				});
+				//25.03.2013 wiring events in control not working
+				me.getInfoPageSearchField().on({
+					keyup: this.infoPageSearchFieldHandler,
+					clearicontap: this.clearInfoPageFilter,
+					scope: this
+				});
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.cleanup();				
 			}
 		}, this);
 
-		checkInCtr.on('businessloaded', this.showHotelInfoHeader, this);
-
-		// always show teaser
-		//this.getApplication().getController('CheckIn').on('basicmode', this.toggleInfoPageTeasers, this);		    
+		checkInCtr.on('businessloaded', this.showHotelInfoHeader, this);		    	
 	},
 	/**
 	* @private
@@ -225,7 +232,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						}
 					});
 
-					appHelper.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture1.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture1.url + scaleFactorS);
 
 					profilePictures.add(imagePanel);
 				}
@@ -242,7 +249,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						}
 					});
 
-					appHelper.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture2.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture2.url + scaleFactorS);
 
 					profilePictures.add(imagePanel);
 				}
@@ -259,7 +266,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						}
 					});
 
-					appHelper.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture3.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture3.url + scaleFactorS);
 
 					profilePictures.add(imagePanel);
 				}
@@ -488,7 +495,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		}
 
-		console.log('InfoPage.showInfoPageDetail: active carousel index=' +index);
+		// console.log('InfoPage.showInfoPageDetail: active carousel index=' +index);
 
 		//must be called before setActiveItem, because a reset is triggered
 		//that sets activeItem to 0! currently reset is only triggered if item is not already selected.
@@ -754,6 +761,13 @@ Ext.define('EatSense.controller.InfoPage', {
 					scope: this
 				});	
 			}
-			
+
+			if(this.getInfoPageSearchField()) {
+				this.getInfoPageSearchField().un({
+					keyup: this.infoPageSearchFieldHandler,
+					clearicontap: this.clearInfoPageFilter,
+					scope: this
+				});	
+			}			
     }
 });

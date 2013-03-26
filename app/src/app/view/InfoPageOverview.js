@@ -2,6 +2,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 	extend: 'Ext.Panel',
 	xtype: 'infopageoverview',
 	requires: ['Ext.field.Search', 'EatSense.view.components.SlidenavButton'],
+	mixins: ['EatSense.mixin.ImageZoom'],
 	config: {
 		layout: 'card',
 		activeItem: 0,
@@ -11,7 +12,6 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					layout: {
 						type: 'fit'
 					},
-					// scrollable: true,
 					items: [
 					{
 						xtype: 'titlebar',
@@ -28,13 +28,6 @@ Ext.define('EatSense.view.InfoPageOverview', {
 							}
 						]
 					},
-					// {
-					// 	xtype: 'label',
-					// 	docked: 'top',
-					// 	itemId: 'hotelInfo',
-					// 	cls: 'infopage-hotel-info',
-					// 	tpl: '<img src="{imageUrl}" /><h2>{name}</h2><h3>{slogan}</h3><p>{description}</p>'
-					// },
 					{
 						xtype: 'carousel',
 						itemId: 'profilePictures',
@@ -43,13 +36,6 @@ Ext.define('EatSense.view.InfoPageOverview', {
 							'height' : '150px'
 						}
 					},
-					// {
-					// 	xtype: 'searchfield',
-					// 	docked: 'top',
-					// 	margin: '0 15 10 10',
-					// 	style: 'border-radius: .3em;',
-					// 	cls: 'general-textfield'			
-					// },
 					{
 						xtype: 'list',
 		   				allowDeselect: true,
@@ -92,7 +78,6 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				items: [
 					{
 						xtype: 'searchfield',
-						itemId: 'infoPageSearchField',
 						// style: 'border-radius: .3em;',
 						// cls: 'general-textfield'
 					}

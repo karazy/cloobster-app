@@ -12719,7 +12719,7 @@ h9 {
 .x-panel.x-floating {
   -webkit-box-shadow: none;
   border-radius: 0.1em !important;
-  background-color: #406291 !important;
+  /*background-color: $base-color !important;*/
 }
 /* line 1566, /Users/fred/karazy/cloobster_app/app/src/res/css/templates/_theme-template.scss */
 .x-panel.x-floating > .x-dock.x-sized {
