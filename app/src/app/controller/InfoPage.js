@@ -232,7 +232,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						}
 					});
 
-					infopageoverview.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture1.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactorS);
 
 					profilePictures.add(imagePanel);
 				}
@@ -249,7 +249,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						}
 					});
 
-					infopageoverview.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture2.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactorS);
 
 					profilePictures.add(imagePanel);
 				}
@@ -266,7 +266,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						}
 					});
 
-					infopageoverview.registerImageZoomTap(infopageoverview, imagePanel.element, business.raw.images.picture3.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactorS);
 
 					profilePictures.add(imagePanel);
 				}

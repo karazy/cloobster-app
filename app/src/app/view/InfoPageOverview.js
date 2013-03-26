@@ -59,7 +59,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 								}), 1000, this);					
 							}
 						}
-					},
+					}
 				]},
 			{
 				xtype: 'infopagecarousel'
@@ -67,9 +67,6 @@ Ext.define('EatSense.view.InfoPageOverview', {
 			{
 				xtype: 'panel',
 				itemId: 'searchPanel',
-				// layout: {
-				// 	type: 'fit'
-				// },
 				style: {
 					width: '80%'
 				},
@@ -77,7 +74,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				hideOnMaskTap: true,
 				items: [
 					{
-						xtype: 'searchfield',
+						xtype: 'searchfield'
 						// style: 'border-radius: .3em;',
 						// cls: 'general-textfield'
 					}
@@ -85,9 +82,12 @@ Ext.define('EatSense.view.InfoPageOverview', {
 			}
 		]
 	},
+
 	initialize: function() {
 		var searchBt = this.down('button[action=toggle-search]'),
-			searchPanel = this.down('#searchPanel');
+			searchPanel = this.down('#searchPanel'),
+			searchField = searchPanel.down('searchfield');
+		
 
 		if(searchBt) {
 			searchBt.on({
@@ -101,6 +101,14 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					
 				},
 				scope: this
+			});
+		}
+
+		if(searchField) {
+			searchField.on({
+				blur: function() {
+					searchPanel.hide();
+				}
 			});
 		}
 	}

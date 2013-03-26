@@ -34,14 +34,14 @@ Ext.define('EatSense.mixin.ImageZoom', {
 	* Register a tap event for image to view it as whole in an overlay.
 	* Fires addbackhandler and removebackhandler events on Ext.Viewport.
 	*
-	* @param {Ext.Component} panel
-	*	Panel used to fire events.
 	* @param {Ext.dom.Element} imageElement
 	*	The element to bin the tap event to.
 	* @param {String} url (optional)
 	*	url to image. If none provided uses url of image tag
+	* @param {Ext.Component} panel (optional)
+	*	Panel used to fire events.
 	*/
-	registerImageZoomTap: function(panel, imageElement, url) {
+	registerImageZoomTap: function(imageElement, url, panel) {
 		var me = this,
 			image,
 			eventReceiver;

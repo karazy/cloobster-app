@@ -44,35 +44,45 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			},
 			{
 				xtype: 'label',
-				html: '&lt;',
+				// html: '&lt;',
 				top: '50%',
 				left: 3,
 				style: {
-					'border-radius': '0 2em 2em 0',
-					color: '#a3a3a3',
-					border: '1px solid #a3a3a3',
-					height: '2em',
-					width: '1em',
-					'text-align': 'center',
-					'font-size': '1em',
-					'line-height': '2em'
+					// 'border-radius': '0 2em 2em 0',
+					// color: '#a3a3a3',
+					// border: '1px solid #a3a3a3',
+					// height: '2em',
+					// width: '1em',
+					// 'text-align': 'center',
+					// 'font-size': '1em',
+					// 'line-height': '2em'
+					width: 0,
+					height: 0,
+					'border-right': '1em solid #a3a3a3',
+					'border-top': '2em solid transparent',
+					'border-bottom': '2em solid transparent'
 				}
 			},
 			{
 				xtype: 'label',
-				html: '&gt;',
+				// html: '&gt;',
 				top: '50%',
 				right: 3,
 				style: {
-					'border-radius': '2em 0 0 2em',					
-					color: '#a3a3a3',
-					right: '3px',
-					border: '1px solid #a3a3a3',
-					height: '2em',
-					width: '1em',
-					'text-align': 'center',
-					'font-size': '1em',
-					'line-height': '2em'
+					// 'border-radius': '2em 0 0 2em',					
+					// color: '#a3a3a3',
+					// right: '3px',
+					// border: '1px solid #a3a3a3',
+					// height: '2em',
+					// width: '1em',
+					// 'text-align': 'center',
+					// 'font-size': '1em',
+					// 'line-height': '2em'
+					width: 0,
+					height: 0,
+					'border-left': '1em solid #a3a3a3',
+					'border-top': '2em solid transparent',
+					'border-bottom': '2em solid transparent'
 				}
 			},
 			{
@@ -95,7 +105,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 		ipRecord: null
 		
 	},
-	
+
 	updateIpRecord: function(newRecord, oldRecord) {
 		var panel = this,
 			contentPanel,
@@ -128,10 +138,10 @@ Ext.define('EatSense.view.InfoPageDetail', {
 					'background-image': 'url(' + newRecord.get('imageUrl') + scaleFactorS + ')'
 				});
 				// imagePanel.dom.style.backgroundImage.src =  newRecord.get('imageUrl');
-				this.registerImageZoomTap(null, panel.element.down('.image'), newRecord.get('imageUrl') + scaleFactorL);
+				this.registerImageZoomTap(panel.element.down('.image'), newRecord.get('imageUrl') + scaleFactorL);
 			}
 		} else {
 			urlButton.setTop('5px');
 		}
-	},
+	}
 });

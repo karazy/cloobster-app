@@ -182,7 +182,14 @@ Ext.define('EatSense.controller.Android', {
 			}
 		}
 	},
-
+	/**
+	* Execute the latest backhandler in the follwing precedence.
+	* 1. explicitly defined backhandler functions
+	* 2. search backbutton in active card view
+	* 3. jump back to dashboard
+	* 4. exit logic (tap twice)
+	*
+	*/
 	executeBackHandler: function() {
 		var handler,
 			msgBox,
