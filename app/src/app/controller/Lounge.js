@@ -486,42 +486,66 @@ Ext.define('EatSense.controller.Lounge', {
 	 		leftTileColum = clubDashboard.down('#leftTileColumn');
 	 		rightTileColumn = clubDashboard.down('#rightTileColumn');
 
+
+	 		me.on({
+	 			'delayeddashboarbuild' : doLoad,
+	 			single: true,
+	 			scope: this
+	 		});
+
+	 		//mask carousels during creation
+			EatSense.util.Helper.toggleMask('dashboard.loadingmsg', clubDashboard);
+
+	 		//delay creation for better perceived performance
+			Ext.create('Ext.util.DelayedTask', function () {
+	            me.fireEvent('delayeddashboarbuild');
+	        }).delay(100);
+
 	 		//load dashboard configuration
-	 		this.loadDashboardConfiguration(build);
+	 		function doLoad() {
+	 			this.loadDashboardConfiguration(build);
+	 		}
+	 		
 
-
+	 		//build dashboard
 	 		function build(dashboardItems) {
 	 			Ext.Array.each(dashboardItems, function(dbItem, index) {
 	 				//create item and add to tile panel
-	 				tileConfig = me.createDashboardTile(dbItem);
-	 				if((index % 2) == 0) {
-	 					leftTileColum.add(tileConfig);
-	 				} else {
-						rightTileColumn.add(tileConfig);
+	 				tileConfig = me.getDashboardItemTpl(dbItem);
+	 				if(tileConfig) {
+	 					if((index % 2) == 0) {
+		 					leftTileColum.add(tileConfig);
+		 				} else {
+							rightTileColumn.add(tileConfig);
+		 				}
 	 				}
 	 				
 	 			});
+
+	 			EatSense.util.Helper.toggleMask(false, clubDashboard);
 	 		}
 
 	 },
 	 /**
 	 * @private
-	 * Create a dashboard tile.
+	 * Get the template assigned to this DashboardItem config.
+	 * {@link EatSense.util.DashboardItemTemplates}
+	 *
 	 * @param {EatSense.model.DashboardItem} 
 	 *	config
 	 * @return
-	 *	Created component.
+	 *	The template. Null if none was found
 	 */
-	 createDashboardTile: function(config) {
+	 getDashboardItemTpl: function(config) {
 	 	var tplMap;
 
 	 	if(!config) {
-	 		console.log('Lounge.createDashboardTile: no config given');
+	 		console.log('Lounge.getDashboardItemTpl: no config given');
 	 		return;
 	 	}
 
 	 	if(!dItemTpl) {
-	 		console.error('Lounge.createDashboardTile: dashboard item templates dont exist');
+	 		console.error('Lounge.getDashboardItemTpl: dashboard item templates dont exist');
 	 		return;	
 	 	}
 
