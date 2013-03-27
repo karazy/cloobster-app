@@ -124,14 +124,13 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					xtype : 'dashboardteaser',
 					store : 'productStore',
 					filter: [
-						function(item) {
-							if(item.get('hideInDashboard') === false && item.get('special') === false) {
-								return true;
-							}
-							return false;
-					    },
+						// function(item) {
+						// 	if(item.get('hideInDashboard') === false && item.get('special') === false) {
+						// 		return true;
+						// 	}
+						// 	return false;
+					 //    },
 					    function(item) {
-					    	//TODO pass entity ids
 			    			if(Ext.Array.contains(entityIds, item.get('id'))) {
 			    				return true;
 			    			}
@@ -147,16 +146,6 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						'<div class="teaser-icon star-icon"></div>'
 					)
 				}
-
-				if(entityIds) {
-					tpl.filter.push(
-						function(item) {
-							if(Ext.Array.contains(entityIds, item.get('id'))) {
-							return true;
-						}
-					});
-				}
-				
 				return tpl;
 			},
 
@@ -172,6 +161,37 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 							}
 							return false;
 					    }
+					],
+					iconFit: true,
+					tpl: new Ext.XTemplate(
+						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+						'<div class="text-container">'+
+							'<h3>{title}</h3>'+
+							'<p>{shortText}</p>'+
+						'</div>'+
+						'<div class="teaser-icon info-icon"></div>'
+					)
+				}
+				return tpl;
+			},
+
+			infopagesselected : function(entityIds) {
+				var tpl = {
+					xtype : 'dashboardteaser',
+					type: 'infopages',
+					store : 'infopageStore',
+					filter: [
+						// function(item) {
+						// 	if(item.get('hideInDashboard') === false) {
+						// 		return true;
+						// 	}
+						// 	return false;
+					 //    },
+					    function(item) {
+			    			if(Ext.Array.contains(entityIds, item.get('id'))) {
+			    				return true;
+			    			}
+			    		}
 					],
 					iconFit: true,
 					tpl: new Ext.XTemplate(
