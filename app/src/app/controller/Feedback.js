@@ -98,9 +98,15 @@ Ext.define('EatSense.controller.Feedback', {
 	* @param panel
 	*	The feedbackform
 	*/
-	showFeedbackForm: function(panel) {	
+	showFeedbackForm: function(panel) {
+		var me = this;
+
 		this.setActiveFeedbackView(panel);
-		this.propateFeedbackForm();
+
+		Ext.create('Ext.util.DelayedTask', function () {
+            me.propateFeedbackForm();
+        }).delay(200);
+		
 	},
 
 	/**
