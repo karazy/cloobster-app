@@ -47,23 +47,29 @@ Ext.define('EatSense.controller.Lounge', {
 			if(status == appConstants.CHECKEDIN) {			  
 			  this.initDashboard();
 			  this.buildDashboard();
-			  this.loadDashboardConfiguration();
 
-			  // appHelper.toggleMask(i10n.translate('checkin.init.loading', checkInCtr.getActiveSpot().get('businessName')), this.getLoungeview().getContainer().getActiveItem());
- 				this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
-			  	this.toggleSlidenavButtons(true);
-				  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
-				  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
-				  this.registerSlideBezelTap();
-				  //initially only the area id exists so use areaName from spot
-				  this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
+			  me.getClubDashboard().on({
+			  	'tilesrendered' : function() {
+			  		//initially only the area id exists so use areaName from spot
+			  		this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
+			  	},
+			  	single: true,
+			  	scope: this
+			  });
 
-				  this.getLoungeview().selectByAction('show-clubdashboard');
-				  this.getLoungeview().setDisableDrag(false);
+ 			  this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
+			  this.toggleSlidenavButtons(true);
+			  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
+			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
+			  this.registerSlideBezelTap();
+
+			  this.getLoungeview().selectByAction('show-clubdashboard');
+			  this.getLoungeview().setDisableDrag(false);
 			 
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 				this.registerSlideBezelTap(true);
+				//prevented dragging
 				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
@@ -128,6 +134,7 @@ Ext.define('EatSense.controller.Lounge', {
 		// }      
 	 // });	 
 	console.log('Lounge.containerStateBasedActions: state ' + containerState);
+	//TODO 1.3.2013 experimental, backbutton does not work like expected
 	if(containerState == 'open') {
 		androidCtr.addBackFn(toggleContainer);
 	} else {
@@ -237,7 +244,7 @@ Ext.define('EatSense.controller.Lounge', {
 		main = this.getMainview(),
 		lounge = this.getLoungeview();
 
-	if(checkInCtr.getActiveCheckIn()){
+	if(checkInCtr.getActiveCheckIn()) {
 		 nickname = checkInCtr.getActiveCheckIn().get('nickname');
 		 business = checkInCtr.getActiveCheckIn().get('businessName');
 		 spotName = checkInCtr.getActiveSpot().get('name');
@@ -252,7 +259,9 @@ Ext.define('EatSense.controller.Lounge', {
 	lounge.setActiveItem(0);
 
 	main.switchTo(lounge, 'left');
-  },
+
+  }, 
+
   /*
   * Set title of menu tilebutton in club dashboard to name of active area.
   * @param {EatSense.model.Area|String} area 
@@ -500,7 +509,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 		// 	scope: this
 	 		// });
 
-	 		//mask carousels during creation
+	 		//mask dashboard during loading. no defer required since ajax already is async
 			EatSense.util.Helper.toggleMask('clubdashboard.loading', clubDashboard);
 
 	 		//delay creation for better perceived performance
@@ -534,6 +543,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 				}	 				
 	 			});
 
+	 			clubDashboard.fireEvent('tilesrendered');
 	 			EatSense.util.Helper.toggleMask(false, clubDashboard);
 	 		}
 

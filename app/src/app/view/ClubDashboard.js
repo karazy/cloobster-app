@@ -3,10 +3,16 @@
  * user can navigate, access his order history or change his settings.
  */
 Ext.define('EatSense.view.ClubDashboard', {
-	extend : 'Ext.Panel',
+	extend : 'Ext.Panel',	
 	xtype : 'clubdashboard',
 	requires: ['Ext.Img', 'EatSense.view.components.BasicButton', 'EatSense.view.components.TileButton',
 		'EatSense.view.components.BasicTileButton', 'EatSense.view.components.DashboardTeaser'],
+
+	/**
+	* @event tilesrendered
+	* Tiles have been rendered.
+	*/
+
 	config : {
 		layout : {
 			type : 'fit'
@@ -21,13 +27,13 @@ Ext.define('EatSense.view.ClubDashboard', {
 			layout: 'fit',
 			items: [
 				{
-						xtype: 'fixedbutton',
-						ui: 'action',
-						action: 'fb-wallpost',
-						baseCls: 'fb-wimpel-button',
-						pressedCls: 'fb-wimpel-button-pressed',
-						top: 0,
-						right: 15
+					xtype: 'fixedbutton',
+					ui: 'action',
+					action: 'fb-wallpost',
+					baseCls: 'fb-wimpel-button',
+					pressedCls: 'fb-wimpel-button-pressed',
+					top: 0,
+					right: 15
 				}			
 			]
 		},

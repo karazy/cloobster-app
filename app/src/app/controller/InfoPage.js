@@ -15,7 +15,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageCarouselBackButton: 'infopageoverview infopagecarousel button[action=back]',
 			infoPageList: 'infopageoverview list',
 			infoPageSearchField: 'infopageoverview #searchPanel searchfield',
-			infoPageTeaser: 'clubdashboard dashboardteaser'		
+			infoPageTeaser: 'clubdashboard dashboardteaser'	
 		},
 		control: {
 			showInfoPageButton: {
@@ -35,6 +35,9 @@ Ext.define('EatSense.controller.InfoPage', {
 			},
 			'dashboardteaser' : {
 				'teasertapped.infopages' : 'teaserTapHandler'
+			},
+			'clubarea clubdashboard' : {
+				'tilesrendered' : 'initInfoPageDashboardTiles'
 			}
 		},
 		//true when all carousel panels have been created
@@ -49,13 +52,13 @@ Ext.define('EatSense.controller.InfoPage', {
 			checkInCtr = this.getApplication().getController('CheckIn'),
 			lounge;
 
-		console.log('Infopage.launch: setup');	
+		console.log('Infopage.launch: setup');
 
 		checkInCtr.on('statusChanged', function(status) {
 			if(status == appConstants.CHECKEDIN) {
 				this.setPanelsCreated(false);
 				this.loadInfoPages();
-				this.setImageForInfoButton(checkInCtr.getActiveSpot());
+				
 				//on first show make sure to create info page panels
 				me.getInfoPageOverview().on({
 					show: me.createCarouselPanels,
@@ -151,6 +154,16 @@ Ext.define('EatSense.controller.InfoPage', {
 			}
 		}
 	},
+
+	/**
+	* Init the infopage dashboard tile, after tiles have been rendered.
+	*/
+	initInfoPageDashboardTiles: function() {
+		var checkInCtr = this.getApplication().getController('CheckIn');
+
+		this.setImageForInfoButtons(checkInCtr.getActiveSpot());
+	},
+
 	/**
 	* @private
 	* Typ eventhandler for dashboard teasers displaying info pages.
@@ -227,21 +240,17 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoHeader,
 			tpl,
 			html,
-			imageUrl,
 			imagePanel,
 			scaleFactorS = '=s720';
 
 			profilePictures = infopageoverview.down('#profilePictures');
 
-			if(business && business.raw && business.raw.images && business.raw.images.fbwallpost) {
-				imageUrl = business.raw.images.fbwallpost.url || '';
-			}
-
+			//show profile pictures in infopageoverview
 			if(business && business.raw && business.raw.images) {
 				profilePictures.setHidden(false);
 				if(business.raw.images.picture1) {
 
-					console.log('InfoPage.showHotelInfoHeader: picture1 ' + business.raw.images.picture1);
+					// console.log('InfoPage.showHotelInfoHeader: picture1 ' + business.raw.images.picture1);
 					
 					imagePanel = Ext.create('Ext.Panel', {
 						style: {
@@ -258,7 +267,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 				if(business.raw.images.picture2) {
 
-					console.log('InfoPage.showHotelInfoHeader: picture2 ' + business.raw.images.picture2);
+					// console.log('InfoPage.showHotelInfoHeader: picture2 ' + business.raw.images.picture2);
 					
 					imagePanel = Ext.create('Ext.Panel', {
 						style: {
@@ -275,7 +284,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 				if(business.raw.images.picture3) {
 
-					console.log('InfoPage.showHotelInfoHeader: picture3 ' + business.raw.images.picture3);
+					// console.log('InfoPage.showHotelInfoHeader: picture3 ' + business.raw.images.picture3);
 					
 					imagePanel = Ext.create('Ext.Panel', {
 						style: {
@@ -715,12 +724,20 @@ Ext.define('EatSense.controller.InfoPage', {
 		}
     },
     /**
-    *
+    * Set hotel logo on InfoPages button.
+    * @param {EatSense.model.Spot} spot
+    *	contains logo url
     */
-    setImageForInfoButton: function(spot) {
+    setImageForInfoButtons: function(spot) {
+    	var clubArea = this.getClubArea(),
+    		buttons;
+
     	var button = this.getShowInfoPageButton();
 
-    	if(!button) {
+    	buttons = clubArea.query('clubdashboard button[action=show-infopage]');
+
+    	if(!buttons) {
+    		console.log('InfoPage.setImageForInfoButtons: no buttons found');
     		return;
     	}
     	//DEBUG
@@ -728,20 +745,23 @@ Ext.define('EatSense.controller.InfoPage', {
     	// 	spot.set('logoUrl', 'http://lh4.ggpht.com/8M0z_I9aSu7S3jNFjrVQ_HV9f1-qx09VzkkU8WNNFWoBL1F3D5vhKPn4gfKoe38AN4WdzUqcnnlqhX1C6ldDswfjUsexpI4W');	
     	// }
 
-    	//a custom logo exists
-    	if(spot && spot.get('logoUrl')) {
-    		console.log('InfoPage.setImageForInfoButton: found logo ' + spot.get('logoUrl'));
-    		//=s360 we load from google blob store and define a maximum logo size
-    		button.setIcon(spot.get('logoUrl')+'=s360');
-    		button.setExpandIcon(true);
-    	} else {
-    		console.log('InfoPage.setImageForInfoButton: no logo in spot');
-    		//reset image
-    		button.setIcon('');
-    		button.setExpandIcon(false);
-    		//private button method
-    		button.showIconElement();
-    	}
+    	Ext.Array.each(buttons, function(button) {
+    		//a custom logo exists
+	    	if(spot && spot.get('logoUrl')) {
+	    		// console.log('InfoPage.setImageForInfoButtons: found logo ' + spot.get('logoUrl'));
+	    		//=s360 we load from google blob store and define a maximum logo size
+	    		button.setIcon(spot.get('logoUrl')+'=s360');
+	    		button.setExpandIcon(true);
+	    	} else {
+	    		console.log('InfoPage.setImageForInfoButtons: no logo in spot');
+	    		//reset image
+	    		button.setIcon('');
+	    		button.setExpandIcon(false);
+	    		//private button method
+	    		button.showIconElement();
+	    	}
+    	});
+
     },
     /**
     * Cleanup on checkout.
@@ -767,7 +787,7 @@ Ext.define('EatSense.controller.InfoPage', {
 					teaser.reset();	
 				});
 			}
-			this.setImageForInfoButton(null);
+			this.setImageForInfoButtons(null);
 
 			if(lounge) {
 				//deregister listener for lounge list select

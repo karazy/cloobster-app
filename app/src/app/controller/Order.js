@@ -68,11 +68,10 @@
 
 		checkInCtr.on({
 			'statusChanged': function(status) {
-				if(status == appConstants.CHECKEDIN) {
-					// if(check)
+				if(status == appConstants.CHECKEDIN) {					
 					
 				} else if(status == appConstants.PAYMENT_REQUEST) {
-					//trigger leave on backbutton, otherwise user gets thrown to club dashboard also this is forbidden
+					//trigger leave on backbutton, otherwise user gets thrown to club dashboard although this is forbidden
 					//remove handler is not required as they get resetet on status change
 					me.getApplication().getController('Android').addBackFn(function() {
 						me.completePayment();
@@ -1002,7 +1001,7 @@
 		prodPriceLabel.getTpl().overwrite(prodPriceLabel.element, {order: order, amount: order.get('amount')});
 	},
 	/**
-	 * Updates the badge text on cart buttons based on amount of orders.
+	 * Updates the badge text on cart buttons and dashboard menu button based on amount of orders.
 	 * If no orders are present hide the button.
 	 * Displays the number of orders.
 	 * @param clear
@@ -1055,8 +1054,10 @@
 		}
 	},
 	/**
-	* Refresehes the badge text of myorders tab icon.
+	* Refresehes the badge text of myorders navigation item.
 	* Displays the number of placed orders.
+	* @param {Boolean} clear
+	*	true to remove badgeText
 	*/
 	refreshMyOrdersBadgeText: function(clear) {
 		var loungeview = this.getLoungeview(),

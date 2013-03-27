@@ -9,7 +9,8 @@ Ext.define('EatSense.controller.CheckIn', {
 
     /**
      * @event statusChanged
-     * Fires whenever the checkin changed its status.
+     * Fires whenever the checkin changed its status. This is the MAIN event.
+     * Most actions start after user checked-in.
      * It is one of the list available under EatSense.util.Constants
      * @param {String} the status
      * @param {EatSense.model.CheckIn} activeCheckIn

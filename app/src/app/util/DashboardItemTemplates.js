@@ -3,6 +3,7 @@
 */
 Ext.define('EatSense.util.DashboardItemTemplates', {
 	alternateClassName: ['dItemTpl'],
+	requires: ['EatSense.util.Helper'],
 	singleton: true,
 
 		factory: function(brand) {
@@ -203,7 +204,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 
 		type = config.get('type');
 		//create template by calling the template function
-		if(this.hasOwnProperty(type)) {
+		if(appHelper.isFunction(this[type])) {
 			tpl = this[type](config.raw.entityIds);	
 		} else {
 			console.log('EatSense.util.DashboardItemTemplates.getTemplate: no template found for ' + type);
