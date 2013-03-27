@@ -580,6 +580,26 @@ Ext.define('EatSense.controller.Lounge', {
 	 },
 
 	 /**
+	 * Removes all dashboard tiles.
+	 */
+	 removeDashboardTiles: function() {
+	 	var clubdashboard = this.getClubDashboard(),
+	 		leftTileColum,
+	 		rightTileColumn;
+
+	 		leftTileColum = clubDashboard.down('#leftTileColumn');
+	 		rightTileColumn = clubDashboard.down('#rightTileColumn');
+
+	 		if(leftTileColum) {
+	 			leftTileColum.removeAll();
+	 		}
+
+	 		if(rightTileColumn) {
+	 			rightTileColumn.removeAll();
+	 		}
+	 },
+
+	 /**
 	 * Cleanup on checkout.
 	 */
 	 cleanup: function() {
@@ -601,8 +621,11 @@ Ext.define('EatSense.controller.Lounge', {
 				item.destroy();
 			 }
 		  });
-		  //reset area title
-		  this.applyAreaNameToMenuTileButton();
+
+		  //DEPRECATED we remove all tiles on cleanup, reset area title
+		  // this.applyAreaNameToMenuTileButton();
+
+		  this.removeDashboardTiles();
 		} catch(e) {
 		  console.error('Lounge.cleanup: failed ' + e);
 		}

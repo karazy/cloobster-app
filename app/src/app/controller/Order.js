@@ -49,6 +49,9 @@
              },
              loungeview: {
              	activeitemchange: 'toggleQuickLeaveMode'
+             },
+             'clubarea clubdashboard' : {
+             	'tilesrendered' : 'updateDashboardMenuTiles'
              }
 		},
 		/**
@@ -1012,18 +1015,8 @@
 			clubarea = this.getClubarea(),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			menuCtr = this.getApplication().getController('Menu'),
-			badgeText,
-			dashboardMenuButton;
+			badgeText;
 
-		if(clubarea) {
-			dashboardMenuButton = clubarea.down('clubdashboard button[action="show-menu"]');
-			if(!dashboardMenuButton) {
-				console.log('Order.updateCartButtons > dashboardMenuButton not found');	
-			}
-		} else {
-			console.log('Order.updateCartButtons > clubarea null');
-		}
-		
 		if(clear == true) {
 			Ext.Array.each(cartButtons, function(button) {
 				button.setBadgeText("");	
@@ -1031,9 +1024,8 @@
 
 			menuCtr.showCartButtons(false);	
 			//clear dashboard menu button
-			if(dashboardMenuButton) {
-				dashboardMenuButton.setBadgeText("");
-			}
+			this.updateDashboardMenuTiles(clear);
+
 		} else {
 			if(!checkIn || checkIn.orders().getCount() == 0 ) {
 				badgeText = "";
@@ -1048,10 +1040,47 @@
 			});
 
 			//set dashboard menu button
-			if(dashboardMenuButton) {
-				dashboardMenuButton.setBadgeText(badgeText);
-			}
+			this.updateDashboardMenuTiles(clear);
 		}
+	},
+
+	/**
+	 * Updates the badge text on dashboard menu tiles based of order amount.
+	 * @param clear
+	 *	true to hide badge text
+	 */
+	updateDashboardMenuTiles: function(clear) {
+		var clubarea = this.getClubarea(),
+			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
+			badgeText,
+			dashboardMenuTiles;
+
+		if(clubarea) {
+			dashboardMenuTiles = clubarea.query('clubdashboard button[action="show-menu"]');
+			if(!dashboardMenuTiles || dashboardMenuTiles.length == 0) {
+				console.log('Order.updateDashboardMenuButtons: no tiles exist');	
+				return;
+			}
+		} else {
+			console.log('Order.updateDashboardMenuButtons: clubarea null');
+		}
+
+		if(clear === true) {
+			Ext.Array.each(dashboardMenuTiles, function(tile) {
+				tile.setBadgeText("");	
+			});
+		} else {
+			if(!checkIn || checkIn.orders().getCount() == 0 ) {
+				badgeText = "";	
+			} else {
+				badgeText = checkIn.orders().getCount();
+			}
+
+			Ext.Array.each(dashboardMenuTiles, function(tile) {
+				tile.setBadgeText(badgeText);	
+			});
+		}
+
 	},
 	/**
 	* Refresehes the badge text of myorders navigation item.
@@ -1319,26 +1348,7 @@
 			}
 		});
 	},
-	// /**
-	// * Starts a payment workflow.
-	// * 1. Asks user to select a
-	// */
-	// doPayment: function(callback) {
-	// 	var me = this;
 
-	// 	this.choosePaymentMethod(doSaveBillForCheckIn)
-
-	// 	function doSaveBillForCheckIn(paymentMethod) {
-	// 		me.saveBillForCheckIn(paymentMethod, onSuccess);			
-	// 	}
-
-	// 	function onSuccess() {
-	// 		if(appHelper.isFunction(callback)) {
-	// 			callback();
-	// 		}
-	// 	}
-	// },
-	
 	/**
 	 * Request the payment.
 	 * Creates a new bill object and sends via POST to the server. 
