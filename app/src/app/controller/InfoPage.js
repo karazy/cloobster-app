@@ -24,11 +24,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageList: {
 				select: 'showInfoPageDetail'
 			},
-			//25.03.2013 not working when field is in floating input, see launch function
-			// infoPageSearchField: {
-			// 	keyup: 'infoPageSearchFieldHandler',
-			// 	clearicontap: 'clearInfoPageFilter'
-			// },
 			infoPageOverview: {
 				show: 'infoPageOverviewShowHandler',
 				'infopagedelayedshow': 'createCarouselPanels'
@@ -232,69 +227,74 @@ Ext.define('EatSense.controller.InfoPage', {
 		});		
 	},
 	/**
-	* Show hotel information above info page items in overview.
+	* Show hotel profile pictures above info page items in overview.
+	* @param {EatSense.model.Business} business
+	*	Contains the profile information.
 	*/
-	showHotelInfoHeader: function() {
+	showHotelInfoHeader: function(business) {
 		var infopageoverview = this.getInfoPageOverview(),
-			business = this.getApplication().getController('CheckIn').getActiveBusiness(),
+			// business = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			infoHeader,
 			tpl,
 			html,
 			imagePanel,
-			scaleFactorS = '=s720';
+			scaleFactor = '=s720';
 
 			profilePictures = infopageoverview.down('#profilePictures');
+
+			if(!infopageoverview) {
+				console.error('Infopage.showHotelInfoHeader: infopageoverview not existing');
+				return;
+			}
+
+			if(!business) {
+				console.error('Infopage.showHotelInfoHeader: no business given');
+				return;	
+			}
 
 			//show profile pictures in infopageoverview
 			if(business && business.raw && business.raw.images) {
 				profilePictures.setHidden(false);
 				if(business.raw.images.picture1) {
-
-					// console.log('InfoPage.showHotelInfoHeader: picture1 ' + business.raw.images.picture1);
 					
 					imagePanel = Ext.create('Ext.Panel', {
 						style: {
-							'background-image': 'url(' + business.raw.images.picture1.url + scaleFactorS + ')',
+							'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
 							'background-size' : 'cover',
 							'background-position' : 'center'
 						}
 					});
 
-					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactor);
 
 					profilePictures.add(imagePanel);
 				}
 
 				if(business.raw.images.picture2) {
-
-					// console.log('InfoPage.showHotelInfoHeader: picture2 ' + business.raw.images.picture2);
 					
 					imagePanel = Ext.create('Ext.Panel', {
 						style: {
-							'background-image': 'url(' + business.raw.images.picture2.url + scaleFactorS + ')',
+							'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
 							'background-size' : 'cover',
 							'background-position' : 'center'					
 						}
 					});
 
-					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactor);
 
 					profilePictures.add(imagePanel);
 				}
 
-				if(business.raw.images.picture3) {
-
-					// console.log('InfoPage.showHotelInfoHeader: picture3 ' + business.raw.images.picture3);
-					
+				if(business.raw.images.picture3) {				
 					imagePanel = Ext.create('Ext.Panel', {
 						style: {
-							'background-image': 'url(' + business.raw.images.picture3.url + scaleFactorS + ')',
+							'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
 							'background-size' : 'cover',
 							'background-position' : 'center'
 						}
 					});
 
-					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactorS);
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactor);
 
 					profilePictures.add(imagePanel);
 				}
