@@ -409,7 +409,6 @@ Ext.define('EatSense.controller.Menu', {
      * Shows the menu. At this point the store is already filled with data.
      */
 	backToMenu: function() {
-		var androidCtr = this.getApplication().getController('Android');
 
 		this.switchView(this.getMenuoverview(), 'right');
 		//directly remove handlers, because this function can be called from another controller
@@ -458,9 +457,6 @@ Ext.define('EatSense.controller.Menu', {
 			commentField,
 			amountField;
 	
-			this.getApplication().getController('Android').addBackHandler(function() {
-				me.closeProductDetail();
-			});
 
 		//DEBUG
 		// if(record) {
@@ -723,7 +719,6 @@ Ext.define('EatSense.controller.Menu', {
 	* tap event handler for closeProductDetailBt.
 	*/
 	closeProductDetailHandler: function() {
-		this.getApplication().getController('Android').removeLastBackHandler();
 		this.closeProductDetail();
 	},
 	/**
@@ -764,7 +759,6 @@ Ext.define('EatSense.controller.Menu', {
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			detail = this.getProductdetail(),
 			message,
-			androidCtr = this.getApplication().getController('Android'),
 			orderCtr = this.getApplication().getController('Order');
 		
 
@@ -836,7 +830,6 @@ Ext.define('EatSense.controller.Menu', {
 			message = i10n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
 			this.setActiveOrder(null);
 			
-			androidCtr.removeLastBackHandler();
 
 			if (message) {
 				Ext.Msg.show({
