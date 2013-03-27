@@ -501,7 +501,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 		// });
 
 	 		//mask carousels during creation
-			EatSense.util.Helper.toggleMask('dashboard.loadingmsg', clubDashboard);
+			EatSense.util.Helper.toggleMask('clubdashboard.loading', clubDashboard);
 
 	 		//delay creation for better perceived performance
 			// Ext.create('Ext.util.DelayedTask', function () {
