@@ -48,7 +48,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  me.getClubDashboard().on({
 			  	'tilesrendered' : function() {
 			  		//initially only the area id exists so use areaName from spot
-			  		this.applyAreaNameToMenuTileButton(checkInCtr.getActiveSpot().get('areaName'));
+			  		this.applyAreaNameToMenuTileButtons(checkInCtr.getActiveSpot().get('areaName'));
 			  	},
 			  	single: true,
 			  	scope: this
@@ -258,30 +258,38 @@ Ext.define('EatSense.controller.Lounge', {
   }, 
 
   /*
-  * Set title of menu tilebutton in club dashboard to name of active area.
+  * Set title of menu tiles in club dashboard to name of active area.
   * @param {EatSense.model.Area|String} area 
   *		Area whos name to display as title. If none provided resets to default.
   *		Can either be an area model or a string
   */
-  applyAreaNameToMenuTileButton: function(area) {
+  applyAreaNameToMenuTileButtons: function(area) {
   	var dashboard = this.getClubDashboard(),
-  		menuTileButton;
+  		title,
+  		menuTileButtons;
 
-  		menuTileButton = dashboard.down('tilebutton[action=show-menu]');
+  		menuTileButtons = dashboard.query('tilebutton[action=show-menu]');
 
-  		if(!menuTileButton) {
+  		if(!menuTileButtons || menuTileButtons.length == 0) {
   			return;
   		}
+  		  	if(area) {  
+	  			if(typeof area == 'string') {
+	  				title = area;
+	  				// menuTileButton.setTitle(area);
+	  			} else {
+	  				title = area.get('name')
+	  				// menuTileButton.setTitle(area.get('name'));	
+	  			}	  		
+	  		} else {
+	  			title = i10n.translate('menuTab');
+	  			// menuTileButton.setTitle(i10n.translate('menuTab'));
+	  		}
+  		Ext.Array.each(menuTileButtons, function(button) {
+			button.setTitle(title);
+  		});
 
-  		if(area) {  
-  			if(typeof area == 'string') {
-  				menuTileButton.setTitle(area);
-  			} else {
-  				menuTileButton.setTitle(area.get('name'));	
-  			}	  		
-  		} else {
-  			menuTileButton.setTitle(i10n.translate('menuTab'));
-  		}
+
   },
   /**
   * Draws custom business header in club dashboard if it exists.
@@ -441,7 +449,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 switchArea: function(area) {
 		var loungeview = this.getLoungeview();
 
-		this.applyAreaNameToMenuTileButton(area);
+		this.applyAreaNameToMenuTileButtons(area);
 		this.fireEvent('areaswitched', area);
 
 		loungeview.selectByAction('show-clubdashboard');
@@ -621,7 +629,7 @@ Ext.define('EatSense.controller.Lounge', {
 		  });
 
 		  //DEPRECATED we remove all tiles on cleanup, reset area title
-		  // this.applyAreaNameToMenuTileButton();
+		  // this.applyAreaNameToMenuTileButtons();
 
 		  this.removeDashboardTiles();
 		} catch(e) {
