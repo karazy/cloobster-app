@@ -1,7 +1,6 @@
 /**
-* Controller handles general initializations during checkin.
-* Other responsibilities include stuff like setting correct android back handlers on 
-* tab switch. Everything which does not fit in a specific controller should be handled here.
+* Controller handles setup for slide navigation, dashboard tile rendering
+* and loading of areas.
 */
 Ext.define('EatSense.controller.Lounge', {
 	extend: 'Ext.app.Controller',
@@ -31,9 +30,7 @@ Ext.define('EatSense.controller.Lounge', {
 			clubArea: {
 			  activate: 'clubAreaActivated'
 			}
-		},
-		/* Android Back handlers */
-		navigationFunctions : new Array()
+		}
 	},
   launch: function() {
 	 var me = this,
@@ -224,8 +221,6 @@ Ext.define('EatSense.controller.Lounge', {
 	  //always jump to dashboard on home tab pressed
 	  tab.setActiveItem(0);
 	  androidCtr.setExitOnBack(false); 
-	  this.setNavigationFunctions(new Array());
-	  androidCtr.setAndroidBackHandler(this.getNavigationFunctions());
 
 	  //scroll to top when activating the home menu
 	  if(tilePanel && tilePanel.getScrollable()) {
