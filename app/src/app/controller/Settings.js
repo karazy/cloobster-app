@@ -82,7 +82,7 @@ Ext.define('EatSense.controller.Settings', {
             // }
     	},
         //android back handler
-        settingsNavigationFunctions : new Array(),
+        // settingsNavigationFunctions : new Array(),
         //used for back button logic, dynamically wiring button tap events ...
         callingView : null
     },
@@ -114,8 +114,8 @@ Ext.define('EatSense.controller.Settings', {
         //.down('#settingCards')
         this.loadSettings(tab);
 
-        androidCtr.setExitOnBack(false);    
-        androidCtr.setAndroidBackHandler(this.getSettingsNavigationFunctions());
+        // androidCtr.setExitOnBack(false);    
+        // androidCtr.setAndroidBackHandler(this.getSettingsNavigationFunctions());
         
     },
     /**

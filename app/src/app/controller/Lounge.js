@@ -575,12 +575,15 @@ Ext.define('EatSense.controller.Lounge', {
 	 },
 
 	 /**
-	 * Removes all dashboard tiles.
+	 * Removes all dashboard tiles and clears the dashboard item store.
 	 */
 	 removeDashboardTiles: function() {
-	 	var clubdashboard = this.getClubDashboard(),
+	 	var dbItemStore = Ext.StoreManager.lookup('ditemStore'),
+	 		clubDashboard = this.getClubDashboard(),
 	 		leftTileColum,
 	 		rightTileColumn;
+
+	 		dbItemStore.removeAll();
 
 	 		leftTileColum = clubDashboard.down('#leftTileColumn');
 	 		rightTileColumn = clubDashboard.down('#rightTileColumn');

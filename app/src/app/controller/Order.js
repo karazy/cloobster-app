@@ -61,9 +61,7 @@
 		/**
 		*	Current active bill.
 		*/
-		activeBill: null,
-		/* Android Back Handlers */
-		myordersNavigationFunctions : new Array()
+		activeBill: null
 	},
 	launch: function() {
 		var me = this,
@@ -142,14 +140,8 @@
     * Activate event handler for myordersview.
     */
 	myordersviewActivated: function(view, options) {
-		var androidCtr = this.getApplication().getController('Android');
-
 		view.setActiveItem(0);
 		this.refreshMyOrdersList();
-		
-		
-		androidCtr.setExitOnBack(false);
-    	androidCtr.setAndroidBackHandler(this.getMyordersNavigationFunctions());
 	},
 	/**
 	 * Load cart orders.

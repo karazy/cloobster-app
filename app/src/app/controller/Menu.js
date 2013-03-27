@@ -73,9 +73,7 @@ Ext.define('EatSense.controller.Menu', {
 		*/
 		activeOrder: null,
 		//used for back button logic, is either productoverview or menuoverview
-		viewCallingCart: null,
-		/* Android Back handlers */
-		menuNavigationFunctions : new Array()
+		viewCallingCart: null
     },
     launch: function() {
     	var checkInCtr = this.getApplication().getController('CheckIn'),
@@ -413,13 +411,13 @@ Ext.define('EatSense.controller.Menu', {
 		this.switchView(this.getMenuoverview(), 'right');
 		//directly remove handlers, because this function can be called from another controller
 		//so the wrong context is set
-		this.setMenuNavigationFunctions(new Array());
+		// this.setMenuNavigationFunctions(new Array());
 	},
 	/**
 	* Tap event handler for cart back button.
 	*/
 	cartBackButtonHandler: function(button) {
-		this.getMenuNavigationFunctions().pop();
+		// this.getMenuNavigationFunctions().pop();
 		this.backToPreviousView();
 	},
 	/**
