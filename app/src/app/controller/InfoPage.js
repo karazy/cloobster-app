@@ -254,6 +254,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			//show profile pictures in infopageoverview
 			if(business && business.raw && business.raw.images) {
 				profilePictures.setHidden(false);
+				profilePictures.removeAll();				
+
 				if(business.raw.images.picture1) {
 					
 					imagePanel = Ext.create('Ext.Panel', {
@@ -297,6 +299,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 					profilePictures.add(imagePanel);
 				}
+				profilePictures.setActiveItem(0);
 			} else {
 				profilePictures.setHidden(true);
 				profilePictures.removeAll();
@@ -796,6 +799,10 @@ Ext.define('EatSense.controller.InfoPage', {
 				});
 			}
 
+			if(profilePictures) {
+				profilePictures.removeAll();
+			}	
+
 			if(infoPageOverview) {
 				infoPageOverview.un({
 					show: this.createCarouselPanels,
@@ -809,10 +816,6 @@ Ext.define('EatSense.controller.InfoPage', {
 					clearicontap: this.clearInfoPageFilter,
 					scope: this
 				});	
-			}
-
-			if(profilePictures) {
-				profilePictures.removeAll();
-			}		
+			}	
     }
 });

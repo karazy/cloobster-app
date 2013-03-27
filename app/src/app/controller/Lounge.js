@@ -239,6 +239,12 @@ Ext.define('EatSense.controller.Lounge', {
 		main = this.getMainview(),
 		lounge = this.getLoungeview();
 
+	//always show dashboard first
+	this.getClubArea().setActiveItem(0);
+	lounge.setActiveItem(0);
+
+	main.switchTo(lounge, 'left');
+
 	if(checkInCtr.getActiveCheckIn()) {
 		 nickname = checkInCtr.getActiveCheckIn().get('nickname');
 		 business = checkInCtr.getActiveCheckIn().get('businessName');
@@ -248,12 +254,6 @@ Ext.define('EatSense.controller.Lounge', {
 	descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business, spotName));
 		
 	this.setCustomHeader();
-
-		//always show dashboard first
-	this.getClubArea().setActiveItem(0);
-	lounge.setActiveItem(0);
-
-	main.switchTo(lounge, 'left');
 
   }, 
 
