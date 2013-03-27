@@ -233,7 +233,6 @@ Ext.define('EatSense.controller.InfoPage', {
 	*/
 	showHotelInfoHeader: function(business) {
 		var infopageoverview = this.getInfoPageOverview(),
-			// business = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			infoHeader,
 			tpl,
 			html,
