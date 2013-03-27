@@ -46,6 +46,9 @@ Ext.define('EatSense.controller.Lounge', {
 		 'statusChanged' : function(status) {
 			if(status == appConstants.CHECKEDIN) {			  
 			  this.initDashboard();
+			  this.buildDashboard();
+			  this.loadDashboardConfiguration();
+
 			  // appHelper.toggleMask(i10n.translate('checkin.init.loading', checkInCtr.getActiveSpot().get('businessName')), this.getLoungeview().getContainer().getActiveItem());
  				this.getLoungeview().setWelcomeMode(checkInCtr.getActiveSpot().get('welcome'));
 			  	this.toggleSlidenavButtons(true);
@@ -72,8 +75,7 @@ Ext.define('EatSense.controller.Lounge', {
 			}
 		 },
 		 'basicmode' : function(basicMode) {
-		 	this.manageBasicMode(basicMode);
-		 	this.buildDashboard();
+		 	this.manageBasicMode(basicMode);		 	
 		 	this.tryLoadingAreas();		 	
 		 },
 		 scope: this
@@ -445,24 +447,28 @@ Ext.define('EatSense.controller.Lounge', {
 	 * @private
 	 * Loads the dashboard configuration for active business.
 	 * @param {Function} callback
-	 *	Executed on success. Gets passed retrieved records and the store
+	 *	Executed on success. Gets passed retrieved records
 	 */
 	 loadDashboardConfiguration: function(callback) {
 	 	var me = this,
-	 		dbStore = Ext.StoreManager.lookup('dashboardItemStore');
+	 		store = Ext.StoreManager.lookup('ditemStore');
 
-	 		if(!dbStore) {
+	 		if(!store) {
 				console.log('Lounge.loadDashboardConfiguration: could not optain dashboarditem store');
 				return;
 			}
 
-			dbStore.load({
+			console.log('Lounge.loadDashboardConfiguration');
+
+			store.load({
 				callback: function(records, operation, success) {
 				  if(!operation.error) {
 					 if(records.length > 0) {
-					 	if(appHelper.isFunction(callback)) {
-					 		callback(records, dbStore);
+					 	if(EatSense.util.Helper.isFunction(callback)) {
+					 		callback(records);
 					 	}
+					 } else {
+					 	console.log('Lounge.loadDashboardConfiguration: no configurations found');
 					 }
 				  } else {
 				  me.getApplication().handleServerError({
@@ -474,8 +480,8 @@ Ext.define('EatSense.controller.Lounge', {
 			});
 	 },
 	 /**
-	 * @private
-	 *	Dynamically creates the dashboard based on dashboard configuration.
+	 *	Creates the dynamic hotel dashboard by loading the configuration from 
+	 * the server and afterwards creating the tiles.
 	 */
 	 buildDashboard: function() {
 	 	var me = this,
@@ -486,29 +492,34 @@ Ext.define('EatSense.controller.Lounge', {
 	 		leftTileColum = clubDashboard.down('#leftTileColumn');
 	 		rightTileColumn = clubDashboard.down('#rightTileColumn');
 
+	 		console.log('Lounge.buildDashboard');
 
-	 		me.on({
-	 			'delayeddashboarbuild' : doLoad,
-	 			single: true,
-	 			scope: this
-	 		});
+	 		// me.on({
+	 		// 	'delayeddashboarbuild' : doLoad,
+	 		// 	single: true,
+	 		// 	scope: this
+	 		// });
 
 	 		//mask carousels during creation
 			EatSense.util.Helper.toggleMask('dashboard.loadingmsg', clubDashboard);
 
 	 		//delay creation for better perceived performance
-			Ext.create('Ext.util.DelayedTask', function () {
-	            me.fireEvent('delayeddashboarbuild');
-	        }).delay(100);
+			// Ext.create('Ext.util.DelayedTask', function () {
+	            // me.fireEvent('delayeddashboarbuild');
+	        // }).delay(100);
 
 	 		//load dashboard configuration
-	 		function doLoad() {
-	 			this.loadDashboardConfiguration(build);
-	 		}
+	 		// function doLoad() {
+	 		// 	this.loadDashboardConfiguration(build);
+	 		// }
+
+	 		this.loadDashboardConfiguration(build);
 	 		
 
 	 		//build dashboard
 	 		function build(dashboardItems) {
+	 			console.log('Lounge.buildDashboard: build');
+
 	 			Ext.Array.each(dashboardItems, function(dbItem, index) {
 	 				//create item and add to tile panel
 	 				tileConfig = me.getDashboardItemTpl(dbItem);
@@ -518,8 +529,9 @@ Ext.define('EatSense.controller.Lounge', {
 		 				} else {
 							rightTileColumn.add(tileConfig);
 		 				}
-	 				}
-	 				
+	 				} else {
+						console.log('Lounge.buildDashboard: build no template found for type ' + dbItem.get('type'));	 					
+	 				}	 				
 	 			});
 
 	 			EatSense.util.Helper.toggleMask(false, clubDashboard);
@@ -531,13 +543,14 @@ Ext.define('EatSense.controller.Lounge', {
 	 * Get the template assigned to this DashboardItem config.
 	 * {@link EatSense.util.DashboardItemTemplates}
 	 *
-	 * @param {EatSense.model.DashboardItem} 
-	 *	config
+	 * @param {EatSense.model.DashboardItem} config
+	 *	config item used to retrieve template
 	 * @return
 	 *	The template. Null if none was found
 	 */
 	 getDashboardItemTpl: function(config) {
-	 	var tplMap;
+	 	var tplMap,
+	 		tpl = null;
 
 	 	if(!config) {
 	 		console.log('Lounge.getDashboardItemTpl: no config given');
@@ -549,11 +562,11 @@ Ext.define('EatSense.controller.Lounge', {
 	 		return;	
 	 	}
 
-		if(dItemTpl.hasOwnProperty(config.get('type'))) {
-			return dItemTpl[config.get('type')];
-		}
+	 	// console.log('Lounge.getDashboardItemTpl: type ' + config.get('type'));
 
-	 	return null;
+		tpl = dItemTpl.getTemplate(config);
+
+	 	return tpl;
 	 },
 
 	 /**
