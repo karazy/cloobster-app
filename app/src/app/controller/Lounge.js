@@ -276,20 +276,16 @@ Ext.define('EatSense.controller.Lounge', {
   		  	if(area) {  
 	  			if(typeof area == 'string') {
 	  				title = area;
-	  				// menuTileButton.setTitle(area);
 	  			} else {
 	  				title = area.get('name')
-	  				// menuTileButton.setTitle(area.get('name'));	
 	  			}	  		
 	  		} else {
 	  			title = i10n.translate('menuTab');
-	  			// menuTileButton.setTitle(i10n.translate('menuTab'));
 	  		}
+
   		Ext.Array.each(menuTileButtons, function(button) {
 			button.setTitle(title);
   		});
-
-
   },
   /**
   * Draws custom business header in club dashboard if it exists.
