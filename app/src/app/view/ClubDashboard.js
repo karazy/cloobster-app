@@ -11,6 +11,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 	/**
 	* @event tilesrendered
 	* Tiles have been rendered.
+	* @param {EatSense.view.ClubDashboard} dashboard
 	*/
 
 	config : {

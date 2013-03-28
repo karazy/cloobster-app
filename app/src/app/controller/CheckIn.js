@@ -101,6 +101,12 @@ Ext.define('EatSense.controller.CheckIn', {
             },
             nicknameSettingsField: {            	
             	change: 'saveNickname'
+            },
+            'clubarea clubdashboard' : {
+              'tilesrendered' : function(dashboard) {
+                this.activateWelcomeAndBasicMode(dashboard);
+              },
+              scope: this
             }
     	},
         /**

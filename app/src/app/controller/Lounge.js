@@ -542,7 +542,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 				}	 				
 	 			});
 
-	 			clubDashboard.fireEvent('tilesrendered');
+	 			clubDashboard.fireEvent('tilesrendered', clubDashboard);
 	 			EatSense.util.Helper.toggleMask(false, clubDashboard);
 	 		}
 
