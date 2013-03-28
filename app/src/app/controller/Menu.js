@@ -895,7 +895,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		if(newVal != oldVal) {
 			//TODO validation
-			if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 10) {
+			if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 100) {
 				//reset old value
 				field.suspendEvents();
 				field.setValue(oldVal);

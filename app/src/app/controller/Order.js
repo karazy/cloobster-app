@@ -672,7 +672,7 @@
 			function amountChanged(field, newVal, oldVal) {
 
 				if(newVal != oldVal) {
-				if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 10) {
+				if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 100) {
 					//reset old value
 					field.suspendEvents();
 					field.setValue(oldVal);

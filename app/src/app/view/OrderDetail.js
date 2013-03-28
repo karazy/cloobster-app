@@ -69,7 +69,7 @@ Ext.define('EatSense.view.OrderDetail', {
 						itemId: 'amountField',
 						value: 1,
 						minValue: 1,
-						maxValue: 10,
+						maxValue: 100,
 						clearIcon: false,
 						autoCorrect: true
 					},
