@@ -690,7 +690,9 @@ Ext.define('EatSense.controller.CheckIn', {
        var viewToSetMode = view || this.getLoungeview();
 
        this.activateWelcomeMode(this.getActiveSpot().get('welcome'), viewToSetMode);
-       this.activateBasicMode(this.getActiveBusiness().get('basic'), viewToSetMode);
+       if(this.getActiveBusiness()) {
+        this.activateBasicMode(this.getActiveBusiness().get('basic'), viewToSetMode); 
+       }
     },
 
     /**
