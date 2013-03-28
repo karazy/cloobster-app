@@ -212,6 +212,22 @@
 .productPrice {
   font-size: 1.5em;
   background: transparent;
+
+  div {
+    margin-right: auto;
+    margin-left: auto;
+    color: black;
+    background-color: $product-sub-bg;
+    padding: 5px;
+    border-radius: 3px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 1.5em;
+  }
 }
 
 /*
@@ -227,7 +243,7 @@
     background-color: $product-sub-bg;
     /*font-weight: bold;*/
     padding: 3px 3px 3px 7px;
-    border-radius: 0.3em;
+    border-radius: 3px;
     overflow: hidden;
     word-break: break-word;
   }
@@ -250,11 +266,11 @@
     font-weight: bold;
     margin-bottom: 3px;
     padding: 3px;
-    border-radius: 0.3em;
+    border-radius: 3px;
     /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
   }
 
-  .comment-input {
+  .comment-input, .amount-input {
     border: 1px solid #d3d3d3;
     padding-top: 3px;
   }
@@ -270,6 +286,22 @@
 .choice-panel-title {
   text-align: center;
 }
+
+ .amount {
+    font-size: 1em;
+    color: $font-color;
+    background-color: $product-sub-bg;
+    font-weight: bold;
+    margin-bottom: 3px;
+    padding: 3px;
+    border-radius: 3px !important;
+  }
+
+  .amount-input {
+    border: 1px solid #d3d3d3;
+    padding-top: 3px;
+    text-align: center;
+  }
 
 /*
 * Orderlist

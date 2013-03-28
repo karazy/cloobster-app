@@ -483,6 +483,22 @@ Ext.define('EatSense.controller.Menu', {
 		titleLabel = detail.down('#titleLabel');
 		detailPanel = detail.down('#productDetailPanel');
 		amountField = detail.down('#amountField');
+        // amountField = Ext.create('Ext.field.Number', {
+        //     label: i10n.translate('amount'),
+        //     labelAlign: 'top',
+        //     value: 1,
+        //     minValue: 1,
+        //     maxValue: 100,
+        //     clearIcon: false,
+        //     autoCorrect: true,
+        //     inputCls: 'amount-input',
+        //     labelCls: 'comment',
+        //     style: {
+        //         'text-align' : 'center'
+        //     },
+        //     margin: '0 0 5 0'
+        // });
+
 		prodPriceLabel = detail.down('#prodPriceLabel');
 
 		//set basic data
@@ -553,7 +569,8 @@ Ext.define('EatSense.controller.Menu', {
 		function createOptionsDelayed() {
 
 		//DEBUG
-		// order.set('productImageUrl', 'res/images/background.png');		
+		// order.set('productImageUrl', 'res/images/background.png');	
+            // choicesPanel.add(amountField);	
 
 			if(!order.get('productImageUrl')) {
 				//if no image exists display product text on the left of amount field
@@ -563,7 +580,7 @@ Ext.define('EatSense.controller.Menu', {
 					'background-image': 'none'
 				});
 				//prevents the box from having the height of the long desc
-				amountField.setHeight('100%');
+				// amountField.setHeight('100%');
 			} else {
 				//when an image exists, display the description beneath the amount field
 				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
@@ -579,7 +596,7 @@ Ext.define('EatSense.controller.Menu', {
 					'background-repeat': 'no-repeat'
 				});
 
-				amountField.setHeight('');
+				// amountField.setHeight('');
 			}
 
 			//if basic mode is active, hide amount field
@@ -608,6 +625,9 @@ Ext.define('EatSense.controller.Menu', {
 						choicesPanel.add(optionsDetailPanel);
 			 	 });		 	 
 			};
+
+            //don't show amountfield in basic mode
+            amountField.setHidden(activeBusiness.get('basic'));
 
 			//insert comment field after options have been added so it is positioned correctly
 			commentField = Ext.create('Ext.field.TextArea', {
