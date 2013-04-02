@@ -32,9 +32,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						xtype: 'carousel',
 						itemId: 'profilePictures',
 						docked: 'top',
-						style: {
-							'height' : '150px'
-						}
+						height: 150
 					},
 					{
 						xtype: 'list',
@@ -77,8 +75,6 @@ Ext.define('EatSense.view.InfoPageOverview', {
 				items: [
 					{
 						xtype: 'searchfield'
-						// style: 'border-radius: .3em;',
-						// cls: 'general-textfield'
 					}
 				]
 			}

@@ -256,63 +256,60 @@ Ext.define('EatSense.controller.InfoPage', {
 			if(business && business.raw && business.raw.images) {
 				//check for pictures
 				profilePicturesExist = business.raw.images.picture1 || business.raw.images.picture2 || business.raw.images.picture3;
+			}
 
-				if(profilePicturesExist) {
-					profilePictures.removeAll();
-					// profilePictures.setStyle({
-					// 	'height' : '150px'
-					// });
-					profilePictures.setHidden(false);									
+			if(profilePicturesExist) {
+				profilePictures.removeAll();
+				profilePictures.setHidden(false);									
 
-					if(business.raw.images.picture1) {
-						
-						imagePanel = Ext.create('Ext.Panel', {
-							style: {
-								'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
-								'background-size' : 'cover',
-								'background-position' : 'center'
-							}
-						});
+				if(business.raw.images.picture1) {
+					
+					imagePanel = Ext.create('Ext.Panel', {
+						style: {
+							'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
+							'background-size' : 'cover',
+							'background-position' : 'center'
+						}
+					});
 
-						infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactor);
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactor);
 
-						profilePictures.add(imagePanel);
-					}
-
-					if(business.raw.images.picture2) {
-						
-						imagePanel = Ext.create('Ext.Panel', {
-							style: {
-								'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
-								'background-size' : 'cover',
-								'background-position' : 'center'					
-							}
-						});
-
-						infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactor);
-
-						profilePictures.add(imagePanel);
-					}
-
-					if(business.raw.images.picture3) {				
-						imagePanel = Ext.create('Ext.Panel', {
-							style: {
-								'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
-								'background-size' : 'cover',
-								'background-position' : 'center'
-							}
-						});
-
-						infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactor);
-
-						profilePictures.add(imagePanel);
-					}
-					profilePictures.setActiveItem(0);
-				} else {
-					profilePictures.removeAll();
-					profilePictures.setHidden(true);				
+					profilePictures.add(imagePanel);
 				}
-			} 
+
+				if(business.raw.images.picture2) {
+					
+					imagePanel = Ext.create('Ext.Panel', {
+						style: {
+							'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
+							'background-size' : 'cover',
+							'background-position' : 'center'					
+						}
+					});
+
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactor);
+
+					profilePictures.add(imagePanel);
+				}
+
+				if(business.raw.images.picture3) {				
+					imagePanel = Ext.create('Ext.Panel', {
+						style: {
+							'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
+							'background-size' : 'cover',
+							'background-position' : 'center'
+						}
+					});
+
+					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactor);
+
+					profilePictures.add(imagePanel);
+				}
+				profilePictures.setActiveItem(0);
+			} else {
+				profilePictures.removeAll();
+				profilePictures.setHidden(true);
+			}
 	},
 	/**
 	* Create a panel for each entry in infoPageStore.
