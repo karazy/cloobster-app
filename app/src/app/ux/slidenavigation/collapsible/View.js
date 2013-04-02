@@ -25,7 +25,8 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         'Ext.Toolbar',
         'Ext.data.Model',
         'Ext.data.Store',
-        'Ext.dataview.List'
+        'Ext.dataview.List',
+        'Ext.Mask'
     ],
     
     xtype: 'slidenavigationviewcollapsible',
@@ -658,7 +659,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             Ext.getCmp('slidenavigationbezel').setWidth('100%');
             //defer to prevent false masking and flickering
             Ext.defer(function() {
-                this.getContainer().getActiveItem().setMasked(true);
+                this.getContainer().getActiveItem().setMasked({
+                    xtype: 'mask'
+                });
             }, 10, this);
             this.fireEvent('containertoggle', 'open');
 

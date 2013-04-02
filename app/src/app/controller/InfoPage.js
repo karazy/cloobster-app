@@ -25,8 +25,8 @@ Ext.define('EatSense.controller.InfoPage', {
 				select: 'showInfoPageDetail'
 			},
 			infoPageOverview: {
-				show: 'infoPageOverviewShowHandler',
-				'infopagedelayedshow': 'createCarouselPanels'
+				show: 'infoPageOverviewShowHandler'
+				// 'infopagedelayedshow': 'createCarouselPanels'
 			},
 			'dashboardteaser' : {
 				'teasertapped.infopages' : 'teaserTapHandler'
@@ -322,10 +322,13 @@ Ext.define('EatSense.controller.InfoPage', {
 			carousel = infoPageCarousel.down('carousel'),
 			html;
 
+			console.log('Infopage.createCarouselPanels: before check');
 			//skip if panels already exist
 			if(this.getPanelsCreated()) {
 				return;
 			}
+
+			console.log('Infopage.createCarouselPanels: after check');
 
 			this.setPanelsCreated(true);
 
