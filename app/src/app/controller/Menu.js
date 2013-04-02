@@ -904,19 +904,17 @@ Ext.define('EatSense.controller.Menu', {
 			}
 
             if(newVal < 1) {
-                //reset old value
                 field.suspendEvents();
                 field.setValue(1);
+                newVal = 1;
                 field.resumeEvents();
-                return;
             }
 
             if(newVal > 100) {
-                //reset old value
                 field.suspendEvents();
                 field.setValue(100);
+                newVal = 100;
                 field.resumeEvents();
-                return;
             }
 
 			this.getActiveOrder().set('amount', newVal);
