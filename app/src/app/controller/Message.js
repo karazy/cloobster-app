@@ -175,9 +175,9 @@ Ext.define('EatSense.controller.Message', {
 
 		// DEBUG remember to disable before building. Used to prevent 
 		// spamming of console with messages
-		if(Ext.os.deviceType.toLowerCase() == 'desktop') {
-			return;
-		}
+		// if(Ext.os.deviceType.toLowerCase() == 'desktop') {
+		// 	return;
+		// }
 
 		this.setChannelId(id);
 

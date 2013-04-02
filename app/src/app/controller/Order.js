@@ -672,13 +672,30 @@
 			function amountChanged(field, newVal, oldVal) {
 
 				if(newVal != oldVal) {
-				if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 100) {
-					//reset old value
-					field.suspendEvents();
-					field.setValue(oldVal);
-					field.resumeEvents();
-					return;
-				}
+
+					if(!Ext.isNumeric(newVal)) {
+						//reset old value
+						field.suspendEvents();
+						field.setValue(oldVal);
+						field.resumeEvents();
+						return;
+					}
+
+		            if(newVal < 1) {
+		                //reset old value
+		                field.suspendEvents();
+		                field.setValue(1);
+		                field.resumeEvents();
+		                return;
+		            }
+
+		            if(newVal > 100) {
+		                //reset old value
+		                field.suspendEvents();
+		                field.setValue(100);
+		                field.resumeEvents();
+		                return;
+		            }
 
 					me.getActiveOrder().set('amount', newVal);
 					me.recalculate(me.getActiveOrder(), prodPriceLabel);

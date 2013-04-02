@@ -894,14 +894,30 @@ Ext.define('EatSense.controller.Menu', {
 		console.log('Menu.amoundFieldChanged: ' + newVal);
 
 		if(newVal != oldVal) {
-			//TODO validation
-			if(!Ext.isNumeric(newVal) || newVal < 1 || newVal > 100) {
+			
+			if(!Ext.isNumeric(newVal)) {
 				//reset old value
 				field.suspendEvents();
 				field.setValue(oldVal);
 				field.resumeEvents();
 				return;
 			}
+
+            if(newVal < 1) {
+                //reset old value
+                field.suspendEvents();
+                field.setValue(1);
+                field.resumeEvents();
+                return;
+            }
+
+            if(newVal > 100) {
+                //reset old value
+                field.suspendEvents();
+                field.setValue(100);
+                field.resumeEvents();
+                return;
+            }
 
 			this.getActiveOrder().set('amount', newVal);
 			this.recalculate(this.getActiveOrder());
