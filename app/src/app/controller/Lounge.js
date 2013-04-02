@@ -510,7 +510,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 		// });
 
 	 		//mask dashboard during loading. no defer required since ajax already is async
-			EatSense.util.Helper.toggleMask('clubdashboard.loading', clubDashboard);
+			EatSense.util.Helper.toggleMask('loadingMsg', clubDashboard);
 
 	 		//delay creation for better perceived performance
 			// Ext.create('Ext.util.DelayedTask', function () {

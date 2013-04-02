@@ -143,7 +143,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 							'<h3>{name}</h3>'+
 							'<p>{shortDesc}</p>'+									
 						'</div>'+
-						'<div class="teaser-icon star-icon"></div>'
+						'<div class="teaser-icon menu-icon"></div>'
 					)
 				}
 				return tpl;

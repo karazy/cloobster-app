@@ -524,10 +524,6 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		//Lounge Dashboard
-		"clubdashboard.loading" : {
-			"DE" :  "Lade Dashboard",
-			"EN" : "Dashboard loading"
-		},
 		"clubdashboard.tab.title" : {
 			"DE" :  "Home",
 			"EN" :  "Home",
