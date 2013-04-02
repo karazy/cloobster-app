@@ -477,6 +477,7 @@ Ext.define('EatSense.controller.Lounge', {
 					 	}
 					 } else {
 					 	console.log('Lounge.loadDashboardConfiguration: no configurations found');
+					 	callback();
 					 }
 				  } else {
 				  me.getApplication().handleServerError({
@@ -527,6 +528,12 @@ Ext.define('EatSense.controller.Lounge', {
 	 		//build dashboard
 	 		function build(dashboardItems) {
 	 			console.log('Lounge.buildDashboard: build');
+
+	 			if(!dashboardItems) {
+	 				//no items exist
+	 				EatSense.util.Helper.toggleMask(false, clubDashboard);
+	 				return;
+	 			}
 
 	 			Ext.Array.each(dashboardItems, function(dbItem, index) {
 	 				//create item and add to tile panel
