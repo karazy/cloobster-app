@@ -44,7 +44,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 					// 'line-height': '2em'
 					width: 0,
 					height: 0,
-					'border-right': '1em solid #c3c3c3',
+					'border-right': '1em solid #e5e5e5',
 					'border-top': '2em solid transparent',
 					'border-bottom': '2em solid transparent'
 				}
@@ -66,7 +66,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 					// 'line-height': '2em'
 					width: 0,
 					height: 0,
-					'border-left': '1em solid #c3c3c3',
+					'border-left': '1em solid #e5e5e5',
 					'border-top': '2em solid transparent',
 					'border-bottom': '2em solid transparent'
 				}

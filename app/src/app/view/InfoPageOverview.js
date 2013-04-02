@@ -51,6 +51,7 @@ Ext.define('EatSense.view.InfoPageOverview', {
 									'<h3>{title}</h3>'+
 									'<p>{shortText}</p>'+
 								'</div>'+
+								'<div style="clear: both;"></div>'+
 							'</div>'
 							),
 						listeners: {

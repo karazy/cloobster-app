@@ -10,7 +10,7 @@
         android:normalScreens="true"
         android:resizeable="true"
         android:smallScreens="true"/>
-
+ 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 <!--     <uses-permission android:name="android.permission.HARDWARE_TEST" /> -->
