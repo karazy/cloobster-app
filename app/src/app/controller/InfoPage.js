@@ -237,7 +237,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			tpl,
 			html,
 			imagePanel,
-			scaleFactor = '=s720';
+			scaleFactor = '=s720',
+			profilePicturesExist;
 
 			profilePictures = infopageoverview.down('#profilePictures');
 
@@ -253,57 +254,65 @@ Ext.define('EatSense.controller.InfoPage', {
 
 			//show profile pictures in infopageoverview
 			if(business && business.raw && business.raw.images) {
-				profilePictures.setHidden(false);
-				profilePictures.removeAll();				
+				//check for pictures
+				profilePicturesExist = business.raw.images.picture1 || business.raw.images.picture2 || business.raw.images.picture3;
 
-				if(business.raw.images.picture1) {
-					
-					imagePanel = Ext.create('Ext.Panel', {
-						style: {
-							'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
-							'background-size' : 'cover',
-							'background-position' : 'center'
-						}
-					});
+				if(profilePicturesExist) {
+					profilePictures.removeAll();
+					// profilePictures.setStyle({
+					// 	'height' : '150px'
+					// });
+					profilePictures.setHidden(false);									
 
-					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactor);
+					if(business.raw.images.picture1) {
+						
+						imagePanel = Ext.create('Ext.Panel', {
+							style: {
+								'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
+								'background-size' : 'cover',
+								'background-position' : 'center'
+							}
+						});
 
-					profilePictures.add(imagePanel);
+						infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactor);
+
+						profilePictures.add(imagePanel);
+					}
+
+					if(business.raw.images.picture2) {
+						
+						imagePanel = Ext.create('Ext.Panel', {
+							style: {
+								'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
+								'background-size' : 'cover',
+								'background-position' : 'center'					
+							}
+						});
+
+						infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactor);
+
+						profilePictures.add(imagePanel);
+					}
+
+					if(business.raw.images.picture3) {				
+						imagePanel = Ext.create('Ext.Panel', {
+							style: {
+								'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
+								'background-size' : 'cover',
+								'background-position' : 'center'
+							}
+						});
+
+						infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactor);
+
+						profilePictures.add(imagePanel);
+					}
+					profilePictures.setActiveItem(0);
+				} else {
+					profilePictures.removeAll();
+					profilePictures.setHidden(true);				
 				}
-
-				if(business.raw.images.picture2) {
-					
-					imagePanel = Ext.create('Ext.Panel', {
-						style: {
-							'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
-							'background-size' : 'cover',
-							'background-position' : 'center'					
-						}
-					});
-
-					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactor);
-
-					profilePictures.add(imagePanel);
-				}
-
-				if(business.raw.images.picture3) {				
-					imagePanel = Ext.create('Ext.Panel', {
-						style: {
-							'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
-							'background-size' : 'cover',
-							'background-position' : 'center'
-						}
-					});
-
-					infopageoverview.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactor);
-
-					profilePictures.add(imagePanel);
-				}
-				profilePictures.setActiveItem(0);
-			} else {
-				profilePictures.setHidden(true);
-				profilePictures.removeAll();
-			}
+			} 
 	},
 	/**
 	* Create a panel for each entry in infoPageStore.
@@ -449,13 +458,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			tap: openUrl,
 			scope: this
 		});
-
-		// carousel.on({
-		// 	delegate: 'infopagedetail',
-		// 	'imagezoomopen': registerImageZoomBackButton,
-		// 	'imagezoomclose': unRegisterImageZoomBackButton,
-		// 	scope: this
-		// });
 
 		backButton.on({
 			tap: cleanup,
