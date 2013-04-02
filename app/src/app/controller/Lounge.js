@@ -495,6 +495,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 buildDashboard: function() {
 	 	var me = this,
 	 		clubDashboard = this.getClubDashboard(),
+	 		clubArea = this.getClubArea(),
 	 		leftTileColum,
 	 		rightTileColumn;
 
@@ -510,7 +511,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 		// });
 
 	 		//mask dashboard during loading. no defer required since ajax already is async
-			EatSense.util.Helper.toggleMask('loadingMsg', clubDashboard);
+			EatSense.util.Helper.toggleMask('loadingMsg', clubArea);
 
 	 		//delay creation for better perceived performance
 			// Ext.create('Ext.util.DelayedTask', function () {
@@ -531,7 +532,7 @@ Ext.define('EatSense.controller.Lounge', {
 
 	 			if(!dashboardItems) {
 	 				//no items exist
-	 				EatSense.util.Helper.toggleMask(false, clubDashboard);
+	 				EatSense.util.Helper.toggleMask(false, clubArea);
 	 				return;
 	 			}
 
@@ -550,7 +551,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 			});
 
 	 			clubDashboard.fireEvent('tilesrendered', clubDashboard);
-	 			EatSense.util.Helper.toggleMask(false, clubDashboard);
+	 			EatSense.util.Helper.toggleMask(false, clubArea);
 	 		}
 
 	 },
