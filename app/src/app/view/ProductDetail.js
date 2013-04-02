@@ -121,16 +121,18 @@ Ext.define('EatSense.view.ProductDetail', {
 			items: [
 				{
 					xtype: 'numberfield',
-		            label: i10n.translate('amount'),
+		            // label: i10n.translate('amount'),
+		            label: 'x',
 		            itemId: 'amountField',
-		            labelAlign: 'top',
+		            labelAlign: 'right',
 		            value: 1,
 		            minValue: 1,
 		            maxValue: 100,
 		            clearIcon: false,
 		            autoCorrect: true,
 		            inputCls: 'amount-input',
-		            labelCls: 'amount',
+		            labelWidth: 10,
+		            // labelCls: 'amount',
 		            style: {
 		                'text-align' : 'center'
 		            },
