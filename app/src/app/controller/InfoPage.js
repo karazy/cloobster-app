@@ -339,7 +339,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			});
 
 			//mask carousels during creation
-			EatSense.util.Helper.toggleMask('infopage.loadingmsg', carousel);
+			EatSense.util.Helper.toggleMask('loadingMsg', carousel);
 
 			//do cleanup. Just for safety! Normally a cleanup is performed upon status change.
 			//clear carousel

@@ -42,6 +42,8 @@
 
 @CHARSET "UTF-8";
 
+$general-border-radius: 3px;
+
 
 .product-list-item {
   h2.title {
@@ -75,8 +77,8 @@
 
 .productlist-header {
   background-color: $active-color;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: $general-border-radius;
+  border-bottom-right-radius: $general-border-radius;
   margin: 0 10px 5px 10px;
   color: white;
   text-align: center;
@@ -212,6 +214,20 @@
 .productPrice {
   font-size: 1.5em;
   background: transparent;
+
+  div {
+    color: $font-color;
+    background-color: $product-sub-bg;
+    padding: 0;
+    border-radius: $general-border-radius;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    line-height: 2em;
+    height: 2em;
+  }
+
 }
 
 /*
@@ -267,6 +283,69 @@
 
 
 }
+
+.amount {
+  font-size: 1em;
+  color: $font-color;
+  background-color: $product-sub-bg;
+  font-weight: bold;
+  margin-bottom: 3px;
+  padding: 3px;
+  border-radius: 3px !important;
+}
+
+.amount-label {
+  /*border: 1px solid #d3d3d3;*/
+  padding: 0;
+  color: $font-color;
+  background-color: $product-sub-bg;
+  padding: 5px;
+  border-top-left-radius: $general-border-radius !important;
+  border-bottom-left-radius: $general-border-radius !important;
+  text-align: right;
+  min-height: 0;
+  /*height: 2em;*/
+  font-size: 1em;
+  line-height: 2.3em;
+  vertical-align: bottom;
+
+}
+
+
+.amount-input {
+  color: $font-color;
+  background-color: $product-sub-bg;
+  padding: 0;
+  border-top-right-radius: $general-border-radius !important;
+  border-bottom-right-radius: $general-border-radius !important;
+  font-size: 1.5em;
+  min-height: 0;
+  height: 2em;
+  /*position: absolute;*/
+  /*bottom: 5px;*/
+  /*left: 30px;*/
+  /*width: 40%;*/
+  /*overflow: hidden;*/
+  /*text-overflow: ellipsis;*/
+  /*height: 1.5em !important;*/
+/*
+    .x-form-label {
+      color: white;
+      background-color: transparent;
+
+      span {
+        font-size: 1em;
+        text-align: right;
+      }
+    }
+
+    input {
+      color: white;
+      background-color: transparent;
+      font-size: 1.5em;
+    }*/
+}
+
 
 .choice-panel-title {
   text-align: center;

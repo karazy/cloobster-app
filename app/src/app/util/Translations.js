@@ -48,8 +48,8 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		"general.processing" : {
-			"DE" :  "In Bearbeitung ...",
-			"EN" :  "Processing ...",
+			"DE" :  "In Bearbeitung",
+			"EN" :  "Processing",
 			"ES" : "",
 			"IT" : ""
 		},
@@ -625,12 +625,6 @@ Ext.define('EatSense.util.Translations',{
 		"infopage.overview.title" : {
 			"DE" :  "Wissenswertes",
 			"EN" : "Information",
-			"ES" : "",
-			"IT" : ""
-		},
-		"infopage.loadingmsg" : {
-			"DE" :  "Lade Infoseiten...",
-			"EN" : "Loading infopages...",
 			"ES" : "",
 			"IT" : ""
 		},
