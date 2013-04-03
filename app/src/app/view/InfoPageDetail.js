@@ -30,18 +30,9 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			},			
 			{
 				xtype: 'label',
-				// html: '&lt;',
 				top: '50%',
 				right: 0,
 				style: {
-					// 'border-radius': '0 2em 2em 0',
-					// color: '#a3a3a3',
-					// border: '1px solid #a3a3a3',
-					// height: '2em',
-					// width: '1em',
-					// 'text-align': 'center',
-					// 'font-size': '1em',
-					// 'line-height': '2em'
 					width: 0,
 					height: 0,
 					'border-right': '.7em solid #e5e5e5',
@@ -51,19 +42,9 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			},
 			{
 				xtype: 'label',
-				// html: '&gt;',
 				top: '50%',
 				left: 0,
 				style: {
-					// 'border-radius': '2em 0 0 2em',					
-					// color: '#a3a3a3',
-					// right: '3px',
-					// border: '1px solid #a3a3a3',
-					// height: '2em',
-					// width: '1em',
-					// 'text-align': 'center',
-					// 'font-size': '1em',
-					// 'line-height': '2em'
 					width: 0,
 					height: 0,
 					'border-left': '.7em solid #e5e5e5',
