@@ -514,17 +514,23 @@ Ext.define('EatSense.controller.Menu', {
 		//disable because of focus bug
 		amountField.setDisabled(true);
 		
+        //if basic mode is active, hide amount field
+        if(activeBusiness.get('basic')) {
+            amountField.setHidden(true);
+        } else {
+            amountField.setHidden(false);
+            //register listener for amount field
+            amountField.un({
+                change: me.amoundFieldChanged,
+                scope: this
+            });
 
-		//register listener for amount field
-		amountField.un({
-			change: me.amoundFieldChanged,
-			scope: this
-		});
+            amountField.on({
+                change: me.amoundFieldChanged,
+                scope: this
+            });
+        }
 
-		amountField.on({
-			change: me.amoundFieldChanged,
-			scope: this
-		});
 
 		detail.on({
 			'show' : showDetailHandler,
@@ -538,11 +544,6 @@ Ext.define('EatSense.controller.Menu', {
 
 		//handler for detail show event
 		function showDetailHandler() {
-			//mask detail
-			// detail.setMasked({
-			// 	xtype: 'loadmask',
-			// 	message: i10n.translate('menu.product.detail.loading')
-			// });
 			//delay creation of options to pretend quicker reaction
 			Ext.create('Ext.util.DelayedTask', function () {
                 detail.fireEvent('showdetaildelayed');
@@ -563,7 +564,7 @@ Ext.define('EatSense.controller.Menu', {
 					'background-image': 'none'
 				});
 				//prevents the box from having the height of the long desc
-				amountField.setHeight('100%');
+				// amountField.setHeight('100%');
 			} else {
 				//when an image exists, display the description beneath the amount field
 				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
@@ -579,12 +580,8 @@ Ext.define('EatSense.controller.Menu', {
 					'background-repeat': 'no-repeat'
 				});
 
-				amountField.setHeight('');
-			}
-
-			//if basic mode is active, hide amount field
-			//TODO 24.01.2013 how to deal with this. always show amount otherwise when 0€ product an ugly gray bar is displayed
-			// this.getAmountSpinner().setHidden(activeBusiness.get('basic'));
+				// amountField.setHeight('');
+			}			
 			
 			//dynamically add choices
 			if(typeof order.choices() !== 'undefined' && order.choices().getCount() > 0) {
