@@ -16,7 +16,6 @@ Ext.define('EatSense.controller.Menu', {
         	menuoverview :'menuoverview' ,	       
             productdetail: 'productdetail',
         	prodDetailLabel :'productdetail #prodDetailLabel',
-        	prodDetailLabelImage :'productdetail #prodDetailLabelImage',
         	prodPriceLabel :'productdetail #prodPriceLabel',    
         	createOrderBt :'productdetail button[action="cart"]',
         	closeProductDetailBt: 'productdetail button[action=back]',
@@ -450,7 +449,6 @@ Ext.define('EatSense.controller.Menu', {
 			order,
 			titleLabel,
 			prodDetailLabel = this.getProdDetailLabel(),
-			prodDetailLabelImage = this.getProdDetailLabelImage(),
 			prodPriceLabel,
 			commentField,
 			amountField;
@@ -493,12 +491,7 @@ Ext.define('EatSense.controller.Menu', {
     		titleLabel.getTpl().insertFirst(detailPanel.element, order.getData());
     	}
 
-    	if(prodPriceLabel) {
-    		prodPriceLabel.getTpl().overwrite(prodPriceLabel.element, {order: order, amount: amountField.getValue()});
-    	}
-
     	//clear old prod descriptions otherwise the text of prev prod is visible
-    	prodDetailLabelImage.element.setHtml('');
     	prodDetailLabel.element.setHtml('');
 
     	//remove existing background images
@@ -531,6 +524,10 @@ Ext.define('EatSense.controller.Menu', {
             });
         }
 
+        if(prodPriceLabel) {
+            me.recalculate(order);
+        }
+
 
 		detail.on({
 			'show' : showDetailHandler,
@@ -552,35 +549,29 @@ Ext.define('EatSense.controller.Menu', {
 
 		//create the detail options
 		function createOptionsDelayed() {
+        	//DEBUG
+        	// order.set('productImageUrl', 'res/images/background.png');
 
-		//DEBUG
-		// order.set('productImageUrl', 'res/images/background.png');		
+            //set product description
+            prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order});
 
 			if(!order.get('productImageUrl')) {
-				//if no image exists display product text on the left of amount field
-				prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order, amount: amountField.getValue()});
-				prodDetailLabelImage.element.setHtml('');
+
 				detailPanel.setStyle({
 					'background-image': 'none'
 				});
-				//prevents the box from having the height of the long desc
-				// amountField.setHeight('100%');
+
 			} else {
-				//when an image exists, display the description beneath the amount field
-				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, {product: order, amount: amountField.getValue()});
-				prodDetailLabel.element.setHtml('');		
+
 				detailPanel.setStyle(
 				{
 					'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
-					//DEBUG
-					// 'background-image': 'url('+order.get('productImageUrl')+')', 
 					'background-size': '100% auto',
 					'background-position': 'center top',
 					'min-height': '150px',
 					'background-repeat': 'no-repeat'
 				});
 
-				// amountField.setHeight('');
 			}			
 			
 			//dynamically add choices
@@ -679,7 +670,7 @@ Ext.define('EatSense.controller.Menu', {
 				 			labelWidth: '80%',
 							label : opt.get('name') + optionPriceLabel,
 							checked: opt.get('selected'),
-							cls: 'option',
+							cls: 'options',
 							labelCls: 'option-label'
 					}, me);							 
 			field.addListener('check',function(cbox, event) {
@@ -884,9 +875,29 @@ Ext.define('EatSense.controller.Menu', {
 	/**
 	 * Recalculates the total price for the active product.
 	 */
-	recalculate: function(order) {
-		console.log('Menu.recalculate');
-		this.getProdPriceLabel().getTpl().overwrite(this.getProdPriceLabel().element, {order: order});
+	recalculate: function(order) {		
+        var price,
+            pLabel = this.getProdPriceLabel();
+
+        if(!order) {
+            console.error('Menu.recalculate: no order given');
+            return;
+        }
+
+        if(!pLabel) {
+            console.error('Menu.recalculate: no product price label found');
+            return;   
+        }
+
+        price = order.calculate();
+
+        if(price > 0) {
+            pLabel.getTpl().overwrite(pLabel.element, {order: order});    
+            pLabel.setHidden(false);
+        } else {
+            pLabel.setHidden(true);
+        }
+		
 	},
 
 	amoundFieldChanged: function(field, newVal, oldVal) {

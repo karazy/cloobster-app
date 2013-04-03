@@ -31,92 +31,32 @@ Ext.define('EatSense.view.ProductDetail', {
 		},
 		{
 			xtype : 'panel',
-			// cls: 'productDetailPanel',
 			itemId: 'productDetailPanel',
-			// margin: ''
-			layout : {
-				type : 'hbox'
-			},
 			items : [ 
-			{
-				xtype: 'label',
-				itemId: 'titleLabel',
-				docked: 'top',	
-				tpl: new Ext.XTemplate('<div class="productlist-header">'+
-					'<tpl if="productSpecial"><div class="special"></div></tpl>'+
-					'{productName}'+
-					'</div>')
-			},
-			{
-				xtype : 'label',
-				itemId : 'prodDetailLabel',
-				cls: 'productDetail',
-				padding: '0 10 0 10',
-				tpl: new Ext.XTemplate(
-					'<div>{product.data.productLongDesc}</div>'
-				)
-			} 
-			// {
-			// 	xtype : 'panel',
-			// 	width: 130,
-			// 	docked: 'right',
-			// 	padding: 3,
-			// 	style: {
-			// 		'border-radius': '3px',
-			// 		'background': 'rgba(211, 211, 211, 0.7)',
-			// 		//prevents the box from having the height of the long desc
-			// 		'height' : '100%'
-			// 		// 'margin-top' : '35px'
-			// 	},
-			// 	items : [
-				// {
-				// 	xtype: 'numberfield',
-				// 	label: i10n.translate('amount'),
-				// 	labelAlign: 'top',
-				// 	itemId: 'amountField',
-				// 	value: 1,
-				// 	minValue: 1,
-				// 	maxValue: 100,
-				// 	clearIcon: false,
-				// 	autoCorrect: true
-				// },
-			// 	{
-			// 		xtype: 'label',
-			// 		// cls: 'productPrice',
-			// 		itemId : 'prodPriceLabel',
-			// 		padding: '5 0 0 2',
-			// 		style: {
-			// 			'position' : 'absolute',
-			// 			'background-color' : 'red',
-			// 			'width' : '100px',
-			// 			'height' : '50px'
-			// 		},
-			// 		tpl: new Ext.XTemplate(
-			// 		'{[this.formatPrice(values.order.calculate())]}',
-			// 		{
-			// 			formatPrice: function(price) {
-			// 				return appHelper.formatPrice(price);
-			// 			}
-			// 		}
-			// 		)
-			// 	} 
-			// 	]
-			// }
+				{
+					xtype: 'label',
+					itemId: 'titleLabel',
+					docked: 'top',	
+					tpl: new Ext.XTemplate('<div class="productlist-header">'+
+						'<tpl if="productSpecial"><div class="special"></div></tpl>'+
+						'{productName}'+
+						'</div>')
+				}
 			]
 		}, 
 		{
 			xtype : 'label',
-			itemId : 'prodDetailLabelImage',
+			itemId : 'prodDetailLabel',
 			cls: 'productDetail',
-			padding: 5,
+			padding: '0 10 0 10',
 			tpl: new Ext.XTemplate(
 				'<div>{product.data.productLongDesc}</div>'
 			)
 		}, 
 		{
 			xtype: 'panel',
-			padding: 5,
-			margin: '0 0 10 0',
+			padding: '0 10',
+			margin: '10 0 15 0',
 			layout: {
 				type: 'hbox',
 				align: 'center',
@@ -124,11 +64,25 @@ Ext.define('EatSense.view.ProductDetail', {
 			},
 			items: [
 				{
+					xtype: 'label',
+					cls: 'productPrice',
+					itemId : 'prodPriceLabel',
+					flex: 1,
+					margin: '0 10px 0 0px',
+					tpl: new Ext.XTemplate(
+					'<div>{[this.formatPrice(values.order.data.price_calculated)]}</div>',
+					{
+						formatPrice: function(price) {
+							//price must be calculated in advance
+							return appHelper.formatPrice(price);
+						}
+					}
+					)
+				},
+				{
 					xtype: 'numberfield',
 		            label: i10n.translate('amount'),
-		            // label: 'x',
 		            itemId: 'amountField',
-		            // labelAlign: 'right',
 		            value: 1,
 		            minValue: 1,
 		            maxValue: 100,
@@ -136,39 +90,18 @@ Ext.define('EatSense.view.ProductDetail', {
 		            autoCorrect: true,
 		            inputCls: 'amount-input',
 		            labelCls: 'amount-label',
-		            labelWidth: '50%',
-		            width: '40%',
-		            margin: '0 20px 0 0'
-		            // labelCls: 'amount',
-		            // style: {
-		            //     'text-align' : 'right'
-		            // },
-		            // margin: '0 0 5 0',
-		            // flex:1
-		        },
-				{
-					xtype: 'label',
-					cls: 'productPrice',
-					itemId : 'prodPriceLabel',
-					width: '40%',
-					margin: '0 0 0 20px',
-					// padding: '5 0 0 2',
-					// flex: 1,
-					// style: {
-					// 	'position' : 'absolute',
-					// 	'background-color' : 'red',
-					// 	'width' : '100px',
-					// 	'height' : '50px'
-					// },
-					tpl: new Ext.XTemplate(
-					'<div>{[this.formatPrice(values.order.calculate())]}</div>',
-					{
-						formatPrice: function(price) {
-							return appHelper.formatPrice(price);
-						}
-					}
-					)
-				} 
+		            labelWidth: '45%',
+		            margin: '0 0px 0 10px',
+		            flex: 1,
+		            listeners: {
+		            	tap: {
+		            		element: "label",
+		            		fn: function() {
+		            			this.focus();
+		            		}
+		            	}
+		            }
+		        }				
 			]
 		},
 		{

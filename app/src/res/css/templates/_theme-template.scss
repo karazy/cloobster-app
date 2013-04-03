@@ -120,12 +120,9 @@ $general-border-radius: 3px;
 }
 
 .productDetailPanel {
-  /*background: $product-sub-bg;*/
-  background: transparent;
+  background: $page-bg-color;
   padding: 0 0.5em 0.5em 0.5em;
-  /*padding-top: 35px;*/
   margin-bottom: 3px;
-  /*border-radius: 0.3em;*/
 
   .x-field {
     background-color: transparent;
@@ -165,6 +162,7 @@ $general-border-radius: 3px;
 }
 
 .productDetail {
+  color: $label-color;
   font-size: 0.8em;
   padding-right: 0.5em;
   /*background: $product-sub-bg;*/
@@ -216,10 +214,10 @@ $general-border-radius: 3px;
   background: transparent;
 
   div {
-    color: $font-color;
-    background-color: $product-sub-bg;
+    color: $label-color;
+    background-color: $page-bg-color;
     padding: 0;
-    border-radius: $general-border-radius;
+    /*border-radius: $general-border-radius;*/
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -250,14 +248,16 @@ $general-border-radius: 3px;
 
   .option {
     white-space: normal;
+    background-color: $page-bg-color;
   }
 
   .option-label {
-    background-color: white;
-    color: black;
+    background-color: $page-bg-color;
+    color: $label-color;
     white-space: normal;
     word-break: break-word;
   }
+
 
   .comment {
     font-size: 1em;
@@ -295,55 +295,34 @@ $general-border-radius: 3px;
 }
 
 .amount-label {
-  /*border: 1px solid #d3d3d3;*/
   padding: 0;
-  color: $font-color;
-  background-color: $product-sub-bg;
-  padding: 5px;
+  color: $label-color;
+  background-color: $page-bg-color;
+  padding-right: 5px;
   border-top-left-radius: $general-border-radius !important;
-  border-bottom-left-radius: $general-border-radius !important;
+  /*border-bottom-left-radius: $general-border-radius !important;*/
   text-align: right;
   min-height: 0;
   /*height: 2em;*/
   font-size: 1em;
-  line-height: 2.3em;
-  vertical-align: bottom;
-
+  line-height: 40px;
+  height: 40px;
 }
 
 
 .amount-input {
-  color: $font-color;
-  background-color: $product-sub-bg;
+  color: $label-color !important;
+  background-color: $page-bg-color;
   padding: 0;
+  border-radius: 3px !important;
+  border: 1px solid black;
   border-top-right-radius: $general-border-radius !important;
   border-bottom-right-radius: $general-border-radius !important;
   font-size: 1.5em;
   min-height: 0;
-  height: 2em;
-  /*position: absolute;*/
-  /*bottom: 5px;*/
-  /*left: 30px;*/
-  /*width: 40%;*/
-  /*overflow: hidden;*/
-  /*text-overflow: ellipsis;*/
-  /*height: 1.5em !important;*/
-/*
-    .x-form-label {
-      color: white;
-      background-color: transparent;
-
-      span {
-        font-size: 1em;
-        text-align: right;
-      }
-    }
-
-    input {
-      color: white;
-      background-color: transparent;
-      font-size: 1.5em;
-    }*/
+  height: 40px;
+  text-align: center;
+  width: 63px !important;
 }
 
 
