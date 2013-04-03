@@ -88,6 +88,10 @@ Ext.define('EatSense.view.ProductDetail', {
 		            maxValue: 100,
 		            clearIcon: false,
 		            autoCorrect: true,
+		            style: {
+		            	'height' : '40px',
+		            	'min-heigt' : '40px'
+		            },
 		            inputCls: 'amount-input',
 		            labelCls: 'amount-label',
 		            labelWidth: '45%',
