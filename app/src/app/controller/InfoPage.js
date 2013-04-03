@@ -454,7 +454,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 		//wire up listeners
 		carousel.on({
-			delegate: 'infopagedetail fixedbutton[action=open-link]',
+			delegate: 'infopagedetail #content fixedbutton[action=open-link]',
 			tap: openUrl,
 			scope: this
 		});
@@ -474,7 +474,8 @@ Ext.define('EatSense.controller.InfoPage', {
 				return;
 			}
 
-			record = button.getParent().getIpRecord();
+			//get hold of infopagedetail containing the record
+			record = button.getParent().getParent().getIpRecord();
 
 			recordUrl = record.get('url');
 			if(recordUrl && recordUrl.trim().length > 0) {
@@ -506,17 +507,10 @@ Ext.define('EatSense.controller.InfoPage', {
 		function cleanup() {
 			//remove listeners...
 			carousel.un({
-				delegate: 'infopagedetail fixedbutton[action=open-link]',
+				delegate: 'infopagedetail  #content fixedbutton[action=open-link]',
 				tap: openUrl,
 				scope: this
 			});
-
-			// carousel.un({
-			// 	delegate: 'infopagedetail',
-			// 	'imagezoomopen': registerImageZoomBackButton,
-			// 	'imagezoomclose': unRegisterImageZoomBackButton,
-			// 	scope: this
-			// });
 
 			backButton.un({
 				tap: cleanup,

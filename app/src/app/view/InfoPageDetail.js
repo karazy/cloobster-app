@@ -17,17 +17,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			'<div class="text"><h1>{title}</h1>{html}</div>'
 		),
 		items: [
-			{
-				xtype: 'fixedbutton',
-				action: 'open-link',
-				// text: i10n.translate('infopage.link.button'),
-				ui: 'action',
-				iconMask: true,
-				iconCls: 'globe2',
-				hidden: true,
-				right: '10px',
-				top: '184px'
-			},			
+			
 			{
 				xtype: 'label',
 				top: '50%',
@@ -62,7 +52,26 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				height: '100%',
 				width: '100%',
 				styleHtmlContent: false,
-				cls: 'infopage-detail'
+				cls: 'infopage-detail',
+				items: [
+				{
+					xtype: 'fixedbutton',
+					action: 'open-link',
+					ui: 'action',
+					iconMask: true,
+					iconCls: 'globe2',
+					hidden: true,
+					//set via css, otherwise button locks scrolling, 
+					//if not placed inside panel button won't scroll with conten
+					style: {
+						'position' : 'absolute',
+						'right' : '10px',
+						'top' : '184px',
+						'width' : '44px',
+						'height' : '33px'
+					}
+				}
+				]
 			}
 		],
 		/**
@@ -108,7 +117,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				this.registerImageZoomTap(panel.element.down('.image'), newRecord.get('imageUrl') + scaleFactorL);
 			}
 		} else {
-			urlButton.setTop('5px');
+			urlButton.element.dom.style.top = '5px';
 		}
 	}
 });
