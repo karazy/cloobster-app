@@ -792,15 +792,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			}
 			this.setImageForInfoButtons(null);
 
-			if(lounge) {
-				//deregister listener for lounge list select
-				lounge.getList().un({
-					select: this.loungeListSelect,
-					scope: this
-				});
-			}
-			
-
 			if(infoPageOverview) {
 				infoPageOverview.un({
 					show: this.createCarouselPanels,

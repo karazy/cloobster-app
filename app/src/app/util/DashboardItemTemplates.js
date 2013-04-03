@@ -131,9 +131,15 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						// 	return false;
 					 //    },
 					    function(item) {
+					    	if(!entityIds) {
+					    		return false;
+					    	}
+
 			    			if(Ext.Array.contains(entityIds, item.get('id'))) {
 			    				return true;
 			    			}
+
+			    			return false;
 			    		}
 					],
 					type: 'products',
@@ -188,9 +194,15 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						// 	return false;
 					 //    },
 					    function(item) {
+					    	if(!entityIds) {
+					    		return false;
+					    	}
+
 			    			if(Ext.Array.contains(entityIds, item.get('id'))) {
 			    				return true;
 			    			}
+
+			    			return false;
 			    		}
 					],
 					iconFit: true,
