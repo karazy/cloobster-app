@@ -42,8 +42,8 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		"loadingMsg" : {
-			"DE" :  "Laden ...",
-			"EN" :  "Loading ...",
+			"DE" :  "Laden",
+			"EN" :  "Loading",
 			"ES" : "",
 			"IT" : ""
 		},
@@ -433,8 +433,8 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		"orderComment" : {
-			"DE" :  "Besondere Wünsche?",
-			"EN" :  "Add your comments here:",
+			"DE" :  "Besondere Wünsche",
+			"EN" :  "Add your comments here",
 			"ES" : "",
 			"IT" : ""
 		},

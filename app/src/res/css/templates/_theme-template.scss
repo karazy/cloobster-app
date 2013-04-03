@@ -219,7 +219,7 @@
 */
 
 .choice-panel {
-  padding: 5px;
+  /*padding: 5px;*/
 
   .choice {
     font-size: 1em;
@@ -227,7 +227,7 @@
     background-color: $product-sub-bg;
     /*font-weight: bold;*/
     padding: 3px 3px 3px 7px;
-    border-radius: 0.3em;
+    /*border-radius: 0.3em;*/
     overflow: hidden;
     word-break: break-word;
   }
@@ -257,6 +257,7 @@
   .comment-input {
     border: 1px solid #d3d3d3;
     padding-top: 3px;
+    font-size: 16px;
   }
 
   .option-panel {
