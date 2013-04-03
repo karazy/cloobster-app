@@ -483,7 +483,7 @@ Ext.define('EatSense.controller.Menu', {
 		amountField = detail.down('#amountField');
 		prodPriceLabel = detail.down('#prodPriceLabel');
 
-		//set basic data
+		//set title
     	if(titleLabel) {
     		if(detailPanel.element.first('.productlist-header')) {
     			detailPanel.element.first('.productlist-header').destroy();

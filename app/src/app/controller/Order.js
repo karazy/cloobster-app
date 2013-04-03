@@ -598,7 +598,6 @@
 		 		detailPanel,
 		 		titleLabel,
 		 		prodDetailLabel,
-				prodDetailLabelImage,
 				prodPriceLabel,
 				undoButton,
 				prevActiveView,
@@ -621,7 +620,6 @@
 		titleLabel = detail.down('#titleLabel');
 		detailPanel = detail.down('#productDetailPanel');
 		prodDetailLabel = detail.down('#prodDetailLabel');
-		prodDetailLabelImage = detail.down('#prodDetailLabelImage');
 		prodPriceLabel = detail.down('#prodPriceLabel');
 		amountField = detail.down('#amountField');
 		prevActiveView = cardview.getActiveItem();
@@ -754,23 +752,18 @@
     	//clear old price
     	prodPriceLabel.element.setHtml('');
     	//clear old prod descriptions otherwise the text of prev prod is visible
-    	prodDetailLabelImage.element.setHtml('');
     	prodDetailLabel.element.setHtml('');
 
     	//remove existing background images
     	detailPanel.setStyle({
-			'background-image': 'none'
+			'background-image': 'none',
+			'min-height' : '0px'
 		});
 
     	cardview.switchTo(detail); 
 
     	//handler for detail show event
 		function showDetailHandler() {
-			//mask detail
-			// detail.setMasked({
-			// 	xtype: 'loadmask',
-			// 	message: i10n.translate('menu.product.detail.loading')
-			// });
 			//delay creation of options to pretend quicker reaction
 			Ext.create('Ext.util.DelayedTask', function () {
                 detail.fireEvent('showdetaildelayed');
@@ -778,20 +771,10 @@
 		}
 
 		function createOptionsDelayed() {
+			//set order description
+			prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
 
-	    	if(!order.get('productImageUrl')) {
-				//if no image exists display product text on the left of amount field
-				prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData(true));
-				prodDetailLabelImage.element.setHtml('');
-				detailPanel.setStyle({
-					'background-image': 'none'
-				});	
-				//prevents the box from having the height of the long desc
-				amountField.setHeight('100%');
-			} else {
-				//when an image exists, display the description beneath the amount field
-				prodDetailLabelImage.getTpl().overwrite(prodDetailLabelImage.element, order.getData(true));
-				prodDetailLabel.element.setHtml('');			
+	    	if(order.get('productImageUrl')) {	
 				detailPanel.setStyle(
 				{
 					'background-image': 'url('+order.get('productImageUrl')+'=s720)',
@@ -800,8 +783,6 @@
 					'min-height': '150px',
 					'background-repeat': 'no-repeat'
 				});
-
-				amountField.setHeight('');
 			}			
 
 			 //dynamically add choices if present		 
@@ -826,13 +807,15 @@
 		 
 			 //insert comment field after options have been added so it is positioned correctly
 			commentField = Ext.create('Ext.field.TextArea', {
-					label: i10n.translate('orderComment'),
-					labelAlign: 'top',
+					// label: i10n.translate('orderComment'),
+					// labelAlign: 'top',
 					itemId: 'productComment',
 					maxRows: 3,
 					value: order.get('comment'),
 					inputCls: 'comment-input',
-					labelCls: 'comment'
+					// labelCls: 'comment'
+					placeHolder: i10n.translate('orderComment'),
+					margin: '0 9 15 9'
 				});
 
 			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
@@ -1007,8 +990,9 @@
 	 * Recalculates the total price for the active product.
 	 */
 	recalculate: function(order, prodPriceLabel) {
-		console.log('Cart.recalculate');
-		prodPriceLabel.getTpl().overwrite(prodPriceLabel.element, {order: order, amount: order.get('amount')});
+		// console.log('Cart.recalculate');
+		order.calculate();
+		prodPriceLabel.getTpl().overwrite(prodPriceLabel.element, {order: order});
 	},
 	/**
 	 * Updates the badge text on cart buttons and dashboard menu button based on amount of orders.
