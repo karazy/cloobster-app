@@ -96,7 +96,6 @@ Ext.define('EatSense.controller.InfoPage', {
 					//and to provide enough time for createCarouselPanels to complete
 					Ext.create('Ext.util.DelayedTask', function () {
 						EatSense.util.Helper.toggleMask(false, list);
-						// list.refresh();
 	        		}).delay(300);
 				},
 				single: true,
@@ -205,13 +204,14 @@ Ext.define('EatSense.controller.InfoPage', {
 			    	if(!operation.error) {
 
 			    		// me.registerInfoPageTeaser();
+			    		me.getInfoPageList().refresh();
 			    		try {
 							me.getInfoPageList().on({
 								'painted' : {
 									single: true,
 									fn: me.refreshInfoPageList,
 									scope: me
-								}								
+								}
 							});
 						} catch(e) {
 							console.log('InfoPage.loadInfoPages: failed to attach painted listener ' + e);
@@ -238,14 +238,14 @@ Ext.define('EatSense.controller.InfoPage', {
 			html,
 			imagePanel,
 			scaleFactor = '=s720',
-			profilePicturesExist;
-
-			profilePictures = infopageoverview.down('#profilePictures');
+			profilePicturesExist;			
 
 			if(!infopageoverview) {
 				console.error('Infopage.showHotelInfoHeader: infopageoverview not existing');
 				return;
 			}
+
+			profilePictures = infopageoverview.down('#profilePictures');
 
 			if(!business) {
 				console.error('Infopage.showHotelInfoHeader: no business given');
@@ -352,7 +352,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 	        function createPanels() {	        	
 
-				console.log('InfoPage.createCarouselPanels: intial creation of info detail panels');
+				console.log('InfoPage.createCarouselPanels: initial creation of info detail panels');
 				try {
 					//make sure to create panels before store gets filtered
 					//alternative clear filter
@@ -776,9 +776,8 @@ Ext.define('EatSense.controller.InfoPage', {
 			teasers = clubArea.query('dashboardteaser[type="info"]'),
 			lounge = this.getLounge(),
 			infoPageOverview = this.getInfoPageOverview(),
-			profilePictures;
-
-			profilePictures = infopageoverview.down('#profilePictures');
+			profilePictures,
+			infoPageList = this.getInfoPageList();			
 
 			//clean up
 			store.clearFilter();
@@ -800,17 +799,20 @@ Ext.define('EatSense.controller.InfoPage', {
 					scope: this
 				});
 			}
-
-			if(profilePictures) {
-				profilePictures.removeAll();
-			}	
+			
 
 			if(infoPageOverview) {
 				infoPageOverview.un({
 					show: this.createCarouselPanels,
 					scope: this
 				});	
+
+				profilePictures = infoPageOverview.down('#profilePictures');
 			}
+
+			if(profilePictures) {
+				profilePictures.removeAll();
+			}	
 
 			if(this.getInfoPageSearchField()) {
 				this.getInfoPageSearchField().un({
@@ -818,6 +820,10 @@ Ext.define('EatSense.controller.InfoPage', {
 					clearicontap: this.clearInfoPageFilter,
 					scope: this
 				});	
+			}
+
+			if(infoPageList) {
+
 			}	
     }
 });
