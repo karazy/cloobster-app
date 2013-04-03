@@ -29,7 +29,7 @@ Ext.define('EatSense.view.ProductDetail', {
 				}
 			]
 		},
-		{
+		{	//panel also cotains product image
 			xtype : 'panel',
 			itemId: 'productDetailPanel',
 			items : [ 
@@ -48,7 +48,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			xtype : 'label',
 			itemId : 'prodDetailLabel',
 			cls: 'productDetail',
-			padding: '0 10 0 10',
+			padding: '0 10',
 			tpl: new Ext.XTemplate(
 				'<div>{product.data.productLongDesc}</div>'
 			)
@@ -68,7 +68,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					cls: 'productPrice',
 					itemId : 'prodPriceLabel',
 					flex: 1,
-					margin: '0 10px 0 0px',
+					// margin: '0 10px 0 0px',
 					tpl: new Ext.XTemplate(
 					'<div>{[this.formatPrice(values.order.data.price_calculated)]}</div>',
 					{
@@ -91,7 +91,7 @@ Ext.define('EatSense.view.ProductDetail', {
 		            inputCls: 'amount-input',
 		            labelCls: 'amount-label',
 		            labelWidth: '45%',
-		            margin: '0 0px 0 10px',
+		            // margin: '0 0px 0 10px',
 		            flex: 1,
 		            listeners: {
 		            	tap: {

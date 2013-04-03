@@ -496,7 +496,8 @@ Ext.define('EatSense.controller.Menu', {
 
     	//remove existing background images
     	detailPanel.setStyle({
-			'background-image': 'none'
+			'background-image': 'none',
+             'min-height': '0px'
 		});
 
 		
@@ -555,22 +556,16 @@ Ext.define('EatSense.controller.Menu', {
             //set product description
             prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order});
 
-			if(!order.get('productImageUrl')) {
-
-				detailPanel.setStyle({
-					'background-image': 'none'
-				});
-
-			} else {
-
+			if(order.get('productImageUrl')) {
 				detailPanel.setStyle(
-				{
-					'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
-					'background-size': '100% auto',
-					'background-position': 'center top',
-					'min-height': '150px',
-					'background-repeat': 'no-repeat'
-				});
+    				{
+    					'background-image': 'url('+order.get('productImageUrl')+'=s720)', 
+    					'background-size': '100% auto',
+    					'background-position': 'center top',
+    					'min-height': '150px',
+    					'background-repeat': 'no-repeat'
+    				}
+                );
 
 			}			
 			
