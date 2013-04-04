@@ -59,7 +59,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			margin: '10 0 15 0',
 			layout: {
 				type: 'hbox',
-				align: 'center',
+				align: 'start',
 				pack: 'center'
 			},
 			items: [
