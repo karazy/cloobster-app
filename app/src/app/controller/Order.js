@@ -149,7 +149,7 @@
 	 * 		<code>false</code> if cart is empty, <code>true</code> otherwise
 	 */
 	refreshCart: function() {
-		console.log('Cart Controller -> showCart');
+		console.log('Order.refreshCart');
 		var cartviews = this.getLoungeview().query('carttab'),
 			orderlists = this.getLoungeview().query('carttab #orderlist'),
 			orderlist = this.getOrderlist(),
@@ -713,6 +713,7 @@
 
 		//remove listeners and unecessary objects...
 		function cleanup() {
+			// console.log('Order.showOrderDetail: orderdetail cleanup');
 
 			if(amountField) {
 				amountField.un({

@@ -373,7 +373,7 @@ Ext.define('EatSense.controller.InfoPage', {
 										
 				} catch(e) {
 					this.setPanelsCreated(false);
-					console.log('InfoPage.createCarouselPanels: failed to create panels ' + e);
+					console.error('InfoPage.createCarouselPanels: failed to create panels ' + e);
 				}				
 	        }
 	},
@@ -447,14 +447,21 @@ Ext.define('EatSense.controller.InfoPage', {
 			return;
 		}
 
-		//2013.03.20 BUG? when using infopage index 0 ist the load mask
+		//2013.03.20 BUG? when using infopage index 0 it is the load mask
 		carousel.setActiveItem(index);
 
 		backButton = ipcarousel.down('backbutton');		
 
 		//wire up listeners
+
+
+		infoPageOverview.on({
+			hide: cleanup,
+			scope: this
+		});
+
 		carousel.on({
-			delegate: 'infopagedetail #content fixedbutton[action=open-link]',
+			delegate: 'infopagedetail fixedbutton[action=open-link]',
 			tap: openUrl,
 			scope: this
 		});
@@ -506,11 +513,19 @@ Ext.define('EatSense.controller.InfoPage', {
 		
 		function cleanup() {
 			//remove listeners...
+			// console.log('Infopage.showInfoPageDetail: cleanup');
+
+			infoPageOverview.un({
+				hide: cleanup,
+				scope: this
+			});
+
 			carousel.un({
-				delegate: 'infopagedetail  #content fixedbutton[action=open-link]',
+				delegate: 'infopagedetail fixedbutton[action=open-link]',
 				tap: openUrl,
 				scope: this
 			});
+
 
 			backButton.un({
 				tap: cleanup,
@@ -771,7 +786,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			lounge = this.getLounge(),
 			infoPageOverview = this.getInfoPageOverview(),
 			profilePictures,
-			infoPageList = this.getInfoPageList();			
+			infoPageList = this.getInfoPageList();		
 
 			//clean up
 			store.clearFilter();
@@ -792,7 +807,8 @@ Ext.define('EatSense.controller.InfoPage', {
 					scope: this
 				});	
 
-				profilePictures = infoPageOverview.down('#profilePictures');
+				profilePictures = infoPageOverview.down('#profilePictures');				
+
 			}
 
 			if(profilePictures) {
@@ -805,10 +821,6 @@ Ext.define('EatSense.controller.InfoPage', {
 					clearicontap: this.clearInfoPageFilter,
 					scope: this
 				});	
-			}
-
-			if(infoPageList) {
-
 			}	
     }
 });
