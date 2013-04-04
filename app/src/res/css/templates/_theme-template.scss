@@ -437,21 +437,23 @@
 
   div.thumbnail {
     float: left;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    /*margin-right: 5px;*/
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+
   }
 
   div.thumbnail + * {
     margin-left: 55px;
   }
 
-  img {
-    /*float: left;*/
+  /*img {
     max-width: 45px;
     height: auto;
-    /*margin-left: 5px;*/
-  }
+  }*/
   
   h3 {
     font-size: 1em;
