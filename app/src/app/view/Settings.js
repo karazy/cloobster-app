@@ -3,7 +3,7 @@
 */
 Ext.define('EatSense.view.Settings', {
 	extend : 'Ext.Panel',
-	requires: ['EatSense.view.components.SlidenavButton'],
+	requires: ['EatSense.view.components.SlidenavButton', 'EatSense.view.components.HomeButton'],
 	xtype : 'settings',
 	config : {
 		layout: {
@@ -18,6 +18,12 @@ Ext.define('EatSense.view.Settings', {
          * @accessor
          */
 		backButton: false,
+		/**
+         * @cfg {Boolean} If true adds a home button to the components titlebar.
+         * Gets ignored if backButton is true.
+         * @accessor
+         */
+		homeButton: false,
 		/**
          * @cfg {Boolean} If false, hides the logout button from settings panel.
          * @accessor
@@ -150,13 +156,16 @@ Ext.define('EatSense.view.Settings', {
 		if(config.backButton) {
 			this.setBackButton(true);
 			this.down('titlebar').add(Ext.create('EatSense.view.BackButton'));	
-		};
+		} else if(config.homeButton) {
+			this.setHomeButton(true);
+			this.down('titlebar').add(Ext.create('EatSense.view.components.HomeButton'));	
+		}
 
 		if(config.logoutButton === false) {
 			this.setLogoutButton(false);
 			this.down('button[action=logout]').setHidden(true);	
 			this.down('button[action=logout]').disable();
-		};
+		}
 
 	}
 });

@@ -22,7 +22,8 @@ Ext.define('EatSense.view.SettingsTab', {
 		items : [
 			{
 				xtype: 'settings',
-				logoutButton: false
+				logoutButton: false,
+				homeButton: true
 			},
 			{
 				xtype: 'emailsetting'
