@@ -8,5 +8,5 @@ load File.join(dir, '../../touch/resources', 'themes')
 sass_path    = dir
 css_path     = File.join(dir, "..", "css")
 environment  = :development
-output_style = :expanded
+output_style = :compressed
 images_dir = "../images"
