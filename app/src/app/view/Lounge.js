@@ -47,7 +47,7 @@ Ext.define('EatSense.view.Lounge', {
 		        			cls: 'x-slidenavigation-toggle',
 		        			action: 'toggle-navigation',
 		        			floatingCls: 'dummy-cls',
-		        			bottom: 5,
+		        			bottom: 8,
 		        			left: 0,
 		        			tapMaskFactor: 3
 	        			}  

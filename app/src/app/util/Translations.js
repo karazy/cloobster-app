@@ -623,7 +623,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Info Pages
 		"infopage.overview.title" : {
-			"DE" :  "Wissenswertes",
+			"DE" :  "Informationen",
 			"EN" : "Information",
 			"ES" : "",
 			"IT" : ""
