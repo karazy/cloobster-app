@@ -59,6 +59,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			margin: '10 0 15 0',
 			layout: {
 				type: 'hbox',
+				//algin start, center will only center price label, don't know why
 				align: 'start',
 				pack: 'center'
 			},
