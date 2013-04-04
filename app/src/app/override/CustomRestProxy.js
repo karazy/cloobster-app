@@ -46,7 +46,7 @@ Ext.define('EatSense.override.CustomRestProxy', {
 	        	
 	        request.setUrl(_serviceUrl + url);
 
-	        console.log('CustomRestProxy.buildUrl -> ' + _serviceUrl + url);
+	        // console.log('CustomRestProxy.buildUrl -> ' + _serviceUrl + url);
 
 	        return me.callParent([request]);
 	    },
