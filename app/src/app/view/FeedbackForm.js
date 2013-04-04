@@ -13,6 +13,9 @@ Ext.define('EatSense.view.FeedbackForm', {
 			docked: 'top',
 			items: [
 				{
+					xtype: 'homebutton'
+				},
+				{
 					xtype: 'fixedbutton',
 					ui: 'action',
 					action: 'submit',

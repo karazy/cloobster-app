@@ -19,6 +19,9 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						title: i10n.translate('infopage.overview.title'),
 						items: [
 							{
+								xtype: 'homebutton'
+							},
+							{
 								xtype: 'fixedbutton',
 								iconCls: 'search',
 								iconMask: true,

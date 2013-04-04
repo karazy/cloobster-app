@@ -21,7 +21,8 @@ Ext.define('EatSense.controller.Lounge', {
 			dashboardHeader: 'clubarea clubdashboard #header',
 			descriptionPanel: 'clubarea clubdashboard #description',
 			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]',
-			navButtons: 'lounge button[action=toggle-navigation]'    
+			navButtons: 'lounge button[action=toggle-navigation]',
+			homeButtons: 'lounge button[action=home]'
 		},
 		control: {
 			menuDashboardButton : {
@@ -29,6 +30,9 @@ Ext.define('EatSense.controller.Lounge', {
 			},
 			clubArea: {
 			  activate: 'clubAreaActivated'
+			},
+			homeButtons: {
+				tap: 'showDashboard'
 			}
 		}
 	},
@@ -317,6 +321,13 @@ Ext.define('EatSense.controller.Lounge', {
 		var lounge = this.getLoungeview();
 	 	lounge.selectByAction('show-menu');
 	},
+	/**
+	* Show dashboard by selecting it in slide navgiation.
+	*/
+	showDashboard: function(button) {
+		var lounge = this.getLoungeview();
+	 	lounge.selectByAction('show-clubdashboard');
+	},	
 	/**
 	* @private
 	* Tries to load areas. Areas can only be loaded after business and spot exist.
