@@ -35,12 +35,6 @@ Ext.define('EatSense.controller.Account', {
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
 			settingsViewBackButton: 'mainview settingsview settings #backButton',
 			logoutDashboardButton: 'settingsview button[action=logout]'
-			// loginViewBackButton : 'login button[action=back]',
-			// signupButton : 'login button[action=signup]',
-			// loginButton : 'login button[action=login]',
-			// requestPwButton : 'login button[action=request-password]',
-			// loginForm : 'login formpanel',
-			// passwordField: 'login passwordfield'
 		},
 		control: {
 			showLoginButtonDashboard : {
@@ -52,21 +46,9 @@ Ext.define('EatSense.controller.Account', {
 			settingsViewBackButton: {
 				tap: 'settingsViewBackButtonHandler'
 			},
-			// requestPwButton : {
-			// 	tap: 'requestPwButtonHandler'
-			// },
 			logoutDashboardButton : {
 				tap: 'logoutDashboardButtonHandler'
 			}
-			// loginViewBackButton : {
-			// 	tap: 'loginViewBackButtonHandler'
-			// },
-			// signupButton : {
-			// 	tap: 'signupButtonHandler'
-			// },
-			// loginButton : {
-			// 	tap: 'loginButtonHandler'
-			// }
 		},
 		//user account if logged in
 		account: null,

@@ -376,6 +376,8 @@ Ext.define('EatSense.controller.Lounge', {
 				callback: function(records, operation, success) {
 				  if(!operation.error) {
 					 if(records.length > 0) {
+					 	console.log('Lounge.loadAreas: load success');
+
 						items = me.createItemsFromAreaStore(areaStore);
 						loungeview.addNewItems(items);
 					 }
@@ -483,6 +485,7 @@ Ext.define('EatSense.controller.Lounge', {
 				callback: function(records, operation, success) {
 				  if(!operation.error) {
 					 if(records.length > 0) {
+					 	console.log('Lounge.loadDashboardConfiguration: load success');
 					 	if(EatSense.util.Helper.isFunction(callback)) {
 					 		callback(records);
 					 	}
@@ -515,35 +518,19 @@ Ext.define('EatSense.controller.Lounge', {
 
 	 		console.log('Lounge.buildDashboard');
 
-	 		// me.on({
-	 		// 	'delayeddashboarbuild' : doLoad,
-	 		// 	single: true,
-	 		// 	scope: this
-	 		// });
-
 	 		//mask dashboard during loading. no defer required since ajax already is async
-			EatSense.util.Helper.toggleMask('loadingMsg', clubArea);
-
-	 		//delay creation for better perceived performance
-			// Ext.create('Ext.util.DelayedTask', function () {
-	            // me.fireEvent('delayeddashboarbuild');
-	        // }).delay(100);
-
-	 		//load dashboard configuration
-	 		// function doLoad() {
-	 		// 	this.loadDashboardConfiguration(build);
-	 		// }
+			// EatSense.util.Helper.toggleMask('loadingMsg', clubArea);
 
 	 		this.loadDashboardConfiguration(build);
 	 		
 
 	 		//build dashboard
 	 		function build(dashboardItems) {
-	 			console.log('Lounge.buildDashboard: build');
+	 			console.log('Lounge.buildDashboard: build()');
 
 	 			if(!dashboardItems) {
 	 				//no items exist
-	 				EatSense.util.Helper.toggleMask(false, clubArea);
+	 				// EatSense.util.Helper.toggleMask(false, clubArea);
 	 				return;
 	 			}
 
@@ -561,8 +548,12 @@ Ext.define('EatSense.controller.Lounge', {
 	 				}	 				
 	 			});
 
+	 			//prevent panel from having a wrong sizes
+	 			Ext.Viewport.element.repaint();
 	 			clubDashboard.fireEvent('tilesrendered', clubDashboard);
-	 			EatSense.util.Helper.toggleMask(false, clubArea);
+	 			// EatSense.util.Helper.toggleMask(false, clubArea);
+
+	 			return;
 	 		}
 
 	 },
@@ -606,17 +597,21 @@ Ext.define('EatSense.controller.Lounge', {
 	 		leftTileColum,
 	 		rightTileColumn;
 
+	 		dbItemStore.each(function(item) {
+	 			item.destroy()
+	 		});
+
 	 		dbItemStore.removeAll();
 
 	 		leftTileColum = clubDashboard.down('#leftTileColumn');
 	 		rightTileColumn = clubDashboard.down('#rightTileColumn');
 
 	 		if(leftTileColum) {
-	 			leftTileColum.removeAll();
+	 			leftTileColum.removeAll(true);
 	 		}
 
 	 		if(rightTileColumn) {
-	 			rightTileColumn.removeAll();
+	 			rightTileColumn.removeAll(true);
 	 		}
 	 },
 
@@ -643,7 +638,7 @@ Ext.define('EatSense.controller.Lounge', {
 			 }
 		  });
 
-		  //DEPRECATED we remove all tiles on cleanup, reset area title
+		  //DEPRECATED since we remove all tiles on cleanup, reset area title
 		  // this.applyAreaNameToMenuTileButtons();
 
 		  this.removeDashboardTiles();

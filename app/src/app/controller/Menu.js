@@ -190,7 +190,7 @@ Ext.define('EatSense.controller.Menu', {
      * e. g. Beverages, Drinks, Burgers
      */
     showProductlist: function(dataview, record) {
-    	console.log("Menu Controller -> showProductlist");
+    	console.log("Menu.showProductlist");
     	var me = this,
     		pov = this.getProductoverview(),
     		firstItem,
@@ -250,9 +250,10 @@ Ext.define('EatSense.controller.Menu', {
                         me.getApplication().handleServerError({
                         	'error': operation.error, 
                         	'forceLogout': {403:true}
-                        }); 
+                        });      
+                        return;                   
                     }
-
+                    console.log('Menu.showMenu: load success');
                     // me.setupProductStore(menuStore, activeSpot.raw.areaMenuIds);                    
                     //only display assigned menus
 			    	menuStore.filter([
@@ -428,7 +429,7 @@ Ext.define('EatSense.controller.Menu', {
 			this.switchView(this.getViewCallingCart(), 'right');
 			this.setViewCallingCart(null);			
 		} else {
-			console.log('Menu.backToPreviousView > called without viewCallingCart set')
+			console.log('Menu.backToPreviousView: called without viewCallingCart set')
 		}	
 	},
 	/**
@@ -1067,6 +1068,8 @@ Ext.define('EatSense.controller.Menu', {
                     	'error': operation.error, 
                     	'forceLogout': {403:true}
                     }); 
+                } else {
+                    console.log('Menu.loadProducts: load success');
                 }
 		    }
 		});

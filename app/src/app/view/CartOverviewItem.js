@@ -89,7 +89,7 @@ Ext.define('EatSense.view.CartOverviewItem', {
 	},
 
 	updateRecord: function(newRecord) {
-		console.log('CartOverviewItem --> updateRecord');
+		// console.log('CartOverviewItem.updateRecord');
 		if(!newRecord) {
 			return;
 		};

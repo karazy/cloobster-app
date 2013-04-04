@@ -609,7 +609,7 @@ Ext.define('EatSense.controller.CheckIn', {
    *  The new status to set.
 	 */
 	handleStatusChange: function(status) {
-		console.log('CheckIn Controller -> handleStatusChange' + ' new status '+status);
+		console.log('CheckIn.handleStatusChange:' + ' new status '+status);
     var accountCtr = this.getApplication().getController('Account'),
         appState = this.getAppState(),
         spotStore = Ext.StoreManager.lookup('spotStore');
