@@ -47,7 +47,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				align: 'center',
 				pack: 'start'
 			},
-			padding: '0 8 12 8',
+			padding: '7 8 12 8',
 			scrollable: 'vertical',
 			items: [
 				{
