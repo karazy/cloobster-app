@@ -37,7 +37,7 @@ Ext.define('EatSense.view.Lounge', {
         			left: 0,
         			top: 0,
         			bottom: 0,
-        			width: 15,
+        			width: 10,
         			style: 'background-color: transparent;',
         			items: [
 	        			{	
