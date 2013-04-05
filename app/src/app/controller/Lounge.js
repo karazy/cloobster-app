@@ -432,7 +432,8 @@ Ext.define('EatSense.controller.Lounge', {
 		var me = this,
 			 // areaStore = Ext.StoreManager.lookup('areaStore'),
 			 areaId,
-			 slideNavStore = this.getLoungeview().getList().getStore();
+			 slideNavStore = this.getLoungeview().getList().getStore(),
+			 itemToSet;
 
 			 if(!area) {
 				console.error('Lounge.markSlideNavAreaActive: no area given');
@@ -443,14 +444,21 @@ Ext.define('EatSense.controller.Lounge', {
 
 			 //deselect all items
 			 slideNavStore.each(function(item) {
-				if(item.get('areaId') == areaId) {
-				  item.set('marked', true); 
-				  item.set('subtitle', spot.get('name'));
-				} else {
-				  item.set('marked', false);
-				  item.set('subtitle', '');
-				}
+			 	//remove mark state of current active area
+			 	if(item.get('dynamic') == true && item.get('marked') == true) {
+			 		item.set('marked', false);
+				 	 item.set('subtitle', '');				 	 
+			 	}
+
+			 	if(item.get('areaId') == areaId) {
+			 		//grab the active area
+			 		itemToSet = item;
+			 	}
 			 });
+
+			 //set active area
+			itemToSet.set('marked', true); 
+			itemToSet.set('subtitle', spot.get('name'));
 	 },
 	 /**
 	 * Jumps back to dashboard and switches to new area.
