@@ -23,7 +23,8 @@
 			clubarea: 'clubarea',
 			checkoutDescription: 'myorderstab #description',
 			myordersShowCartButton: 'myorderstab button[action=show-cart]',
-			myordersCartBackButton: 'myorderstab carttab button[action=back]'
+			myordersCartBackButton: 'myorderstab carttab button[action=back]',
+			homeButton: 'myorderstab homebutton'
 		},
 		control: {
              paymentButton: {
@@ -69,9 +70,13 @@
 
 		checkInCtr.on({
 			'statusChanged': function(status) {
-				if(status == appConstants.CHECKEDIN) {					
+				if(status == appConstants.CHECKEDIN) {
+					//show homebutton
+					me.getHomeButton().setHidden(false);
 					
 				} else if(status == appConstants.PAYMENT_REQUEST) {
+					//show homebutton
+					me.getHomeButton().setHidden(true);
 					//trigger leave on backbutton, otherwise user gets thrown to club dashboard although this is forbidden
 					//remove handler is not required as they get resetet on status change
 					me.getApplication().getController('Android').addBackFn(function() {
@@ -1617,10 +1622,17 @@
 	cleanup: function() {
 		var myordersStore = Ext.data.StoreManager.lookup('orderStore');
 		
-		//clear orders
-		myordersStore.removeAll();
+		try {
+			//clear orders
+			myordersStore.removeAll();
 
-		this.updateCartButtons(true);
-      	this.refreshMyOrdersBadgeText(true);		
+			this.updateCartButtons(true);
+	      	this.refreshMyOrdersBadgeText(true);		
+
+	      	//show homebutton
+			this.getHomeButton().setHidden(false);
+		} catch (e) {
+			console.error('Order.cleanup: failed ' + e);
+		}
 	}
 });
