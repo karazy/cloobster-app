@@ -173,7 +173,8 @@ Ext.define('EatSense.view.MyOrders', {
 			},
 			{
 				xtype: 'feedbackform',
-				backButton: true
+				backButton: true,
+				homeButton: false
 			},
 			{
 				xtype: 'carttab'

@@ -86,6 +86,7 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('clubdashboard.button.feedback'),
 				leaf: true,
 				backButton: false,
+				homeButton: true,
 				hideOnBasic: true,
 				preCreate: true,
 				action: 'show-feedback',
