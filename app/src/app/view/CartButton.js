@@ -10,6 +10,7 @@ Ext.define('EatSense.view.CartButton', {
 		align: 'right',
 		iconCls : 'shop1',
 		iconMask : true,
+		//initially hidden, gets displayed when orders exist
 		hidden: true,
 		ui: 'action'
 	}

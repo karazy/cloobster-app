@@ -842,21 +842,6 @@ Ext.define('EatSense.controller.Menu', {
 		this.getApplication().getController('Order').showCart(button, this.getMenuview(), this.getLoungeview());		
 	},
 	/**
-	* Shows or hides the product cart button.
-	* @param show
-	* 		true = show | false = hide
-	*/
-	showCartButtons: function(show) {
-		var lounge = this.getLoungeview(),
-			cartButtons;
-
-		cartButtons = lounge.query('button[action=show-cart]');
-
-		Ext.Array.each(cartButtons, function(button) {
-			button.setHidden(!show);
-		});
-	},
-	/**
 	 * Switches to another view
 	 * @param view
 	 * 		new view

@@ -348,9 +348,10 @@
 	* Show orders (leave) tab.
 	*/
 	showMyorders: function() {
-		var lounge = this.getLoungeview();
+		var lounge = this.getLoungeview()
 
 		lounge.selectByAction('show-myorders');
+		this.backToMyorders();
 	},
 	/**
 	* Set Myordersview active in myorders tab cart layout.
@@ -540,7 +541,7 @@
 							me.refreshCart();
 							//FR 20121109 Only refresh list when called from myordersview. since we show myorders gets called automatically
 							//otherwise will load orders two times, since options don't have an id they are duplicated
-							if(loungeview.getActiveItem() == myordersview) {
+							if(loungeview.getContainer() && loungeview.getContainer().getActiveItem() == myordersview) {								
 								me.refreshMyOrdersList();	
 							}
 							
@@ -1011,34 +1012,61 @@
 		var cartButtons = this.getLoungeview().query('button[action=show-cart]'),
 			clubarea = this.getClubarea(),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
-			menuCtr = this.getApplication().getController('Menu'),
-			badgeText;
+			badgeText,
+			myordersShowCartButton = this.getMyordersShowCartButton();
 
 		if(clear == true) {
 			Ext.Array.each(cartButtons, function(button) {
 				button.setBadgeText("");	
 			});
 
-			menuCtr.showCartButtons(false);	
+			this.showCartButtons(false);	
 			//clear dashboard menu button
 			this.updateDashboardMenuTiles(clear);
 
 		} else {
 			if(!checkIn || checkIn.orders().getCount() == 0 ) {
 				badgeText = "";
-				menuCtr.showCartButtons(false);				
+				this.showCartButtons(false);				
 			} else {
 				badgeText = checkIn.orders().getCount();
-				menuCtr.showCartButtons(true);
+				this.showCartButtons(true);
 			}
 			
 			Ext.Array.each(cartButtons, function(button) {
 				button.setBadgeText(badgeText);	
 			});
 
+			//TODO 20130405 Bug  Query in lounge only finds cartbutton in menu- and productoverview
+			if(myordersShowCartButton) {
+				myordersShowCartButton.setBadgeText(badgeText);	
+			}
+
 			//set dashboard menu button
 			this.updateDashboardMenuTiles(clear);
 		}
+	},
+	/**
+	* Shows or hides the product cart button.
+	* @param show
+	* 		true = show | false = hide
+	*/
+	showCartButtons: function(show) {
+		var lounge = this.getLoungeview(),
+			cartButtons,
+			myordersShowCartButton = this.getMyordersShowCartButton();
+
+		cartButtons = lounge.query('cartbutton');
+
+		Ext.Array.each(cartButtons, function(button) {
+			button.setHidden(!show);
+		});
+
+		//TODO 20130405 Bug  Query in lounge only finds cartbutton in menu- and productoverview
+		if(myordersShowCartButton) {
+			myordersShowCartButton.setHidden(!show);
+		}
+
 	},
 
 	/**
@@ -1361,7 +1389,6 @@
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			myordersComplete = this.getMyordersComplete(),
 			payButton = this.getPaymentButton(),
-			menuCtr = this.getApplication().getController('Menu'),
 			me = this,
 			date = new Date();		
 
@@ -1381,7 +1408,7 @@
 					payButton.hide();
 					myordersComplete.show();
 					me.refreshMyOrdersBadgeText(true);
-					menuCtr.showCartButtons(false);		
+					me.showCartButtons(false);		
 					me.getApplication().getController('Android').removeLastBackHandler();		
 			},
 			failure: function(record, operation) {

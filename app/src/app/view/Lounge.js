@@ -70,7 +70,7 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				preCreate: true,
 				action: 'show-menu'
-			},
+			},			
 			{
 				xtype: 'infopageoverview',
 				title: i10n.translate('infopage.overview.title'),
@@ -113,14 +113,15 @@ Ext.define('EatSense.view.Lounge', {
 				action: 'show-settings',
 				iconCls: 'user-icon'
 			},
-						{	
+			{	
 				xtype: 'myorderstab',
 				iconCls: 'exit-icon',
 				title: i10n.translate('myOrdersTabLeaveBt'),
 				leaf: true,
 				preCreate: true,
 				action: 'show-myorders'
-			}		
+			}
+	
 		]
 	},
 	/**
