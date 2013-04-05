@@ -22,7 +22,9 @@ Ext.define('EatSense.view.ProductDetail', {
 					ui: 'action',
 					iconCls : 'shop1',
 					iconMask: true,
+					// iconAlign: 'right',
 					align: 'right',
+					// text: '&gt;',
 					welcomeFn: function() {
 						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 					}
@@ -32,6 +34,9 @@ Ext.define('EatSense.view.ProductDetail', {
 		{	//panel also cotains product image
 			xtype : 'panel',
 			itemId: 'productDetailPanel',
+			style: {
+				'padding': '0 0.5em'
+			},
 			items : [ 
 				{
 					xtype: 'label',
@@ -94,7 +99,7 @@ Ext.define('EatSense.view.ProductDetail', {
 		            },
 		            inputCls: 'amount-input',
 		            labelCls: 'amount-label',
-		            labelWidth: '45%',
+		            labelWidth: '50%',
 		            flex: 1,
 		            listeners: {
 		            	tap: {

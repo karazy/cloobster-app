@@ -82,7 +82,7 @@ Ext.define('EatSense.controller.InfoPage', {
 
 	/**
 	* @private
-	* Calls refresh on infopage list.
+	* Calls refresh on infopage list and masks infopageoverview.
 	*/
 	refreshInfoPageList: function() {
 		var me = this,
@@ -107,7 +107,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			EatSense.util.Helper.toggleMask('loadingMsg', list);			
 			Ext.create('Ext.util.DelayedTask', function () {				
 				list.refresh();
-    		}).delay(300);
+    		}).delay(200);
 		}
 	},
 	/**
@@ -204,7 +204,7 @@ Ext.define('EatSense.controller.InfoPage', {
 				callback: function(records, operation, success) {
 			    	if(!operation.error) {
 			    		//do double refresh. sometimes list is knot rendered correctly
-			    		console.log('InfoPage.loadInfoPages: infopage load success');
+			    		// console.log('InfoPage.loadInfoPages: infopage load success');
 			    		infoPageList.refresh();
 			    		try {
 							me.getInfoPageList().on({
@@ -323,13 +323,13 @@ Ext.define('EatSense.controller.InfoPage', {
 			carousel = infoPageCarousel.down('carousel'),
 			html;
 
-			console.log('Infopage.createCarouselPanels: before check');
+			// console.log('Infopage.createCarouselPanels: before check');
 			//skip if panels already exist
 			if(this.getPanelsCreated()) {
 				return;
 			}
 
-			console.log('Infopage.createCarouselPanels: after check');
+			// console.log('Infopage.createCarouselPanels: after check');
 
 			this.setPanelsCreated(true);
 

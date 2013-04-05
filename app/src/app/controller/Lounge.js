@@ -518,6 +518,7 @@ Ext.define('EatSense.controller.Lounge', {
 
 	 		console.log('Lounge.buildDashboard');
 
+	 		//masking dashboard often breaks the whole App on Android after re-checkin, products and infopages won't be shown
 	 		//mask dashboard during loading. no defer required since ajax already is async
 			// EatSense.util.Helper.toggleMask('loadingMsg', clubArea);
 
@@ -548,7 +549,7 @@ Ext.define('EatSense.controller.Lounge', {
 	 				}	 				
 	 			});
 
-	 			//prevent panel from having a wrong sizes
+	 			//prevent panel from having a wrong size
 	 			Ext.Viewport.element.repaint();
 	 			clubDashboard.fireEvent('tilesrendered', clubDashboard);
 	 			// EatSense.util.Helper.toggleMask(false, clubArea);

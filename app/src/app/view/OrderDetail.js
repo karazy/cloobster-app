@@ -32,6 +32,9 @@ Ext.define('EatSense.view.OrderDetail', {
 		{
 			xtype : 'panel',
 			itemId: 'productDetailPanel',
+			style: {
+				'padding': '0 0.5em'
+			},
 			items : [
 				{
 					xtype: 'label',
@@ -93,7 +96,7 @@ Ext.define('EatSense.view.OrderDetail', {
 		            },
 		            inputCls: 'amount-input',
 		            labelCls: 'amount-label',
-		            labelWidth: '45%',
+		            labelWidth: '50%',
 		            flex: 1,
 		            listeners: {
 		            	tap: {
