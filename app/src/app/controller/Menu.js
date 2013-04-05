@@ -56,9 +56,6 @@ Ext.define('EatSense.controller.Menu', {
              menuview: {
              	activate: 'menuviewActivated'
              },
-             // clubdashboard: {
-             // 	initialize: 'registerProductTeaserTap'
-             // }
              'dashboardteaser': {
                 'teasertapped.products' : 'jumpToProductDetail'
              }
@@ -97,10 +94,10 @@ Ext.define('EatSense.controller.Menu', {
 		function doAreaFiltering(area) {
 			//set sorter before filtering
 			this.setSorterForMenuBasedOnIdArray(area.raw.menuIds);
-			this.filterMenuBasedOnArea(area);			
+			this.filterMenuBasedOnArea(area);
 			this.addProductAreaFilter(area.raw.menuIds, true);
+            this.refreshProductTeasers();
 			this.backToMenu();
-			this.refreshProductTeasers();
 		}
     },
     /**
@@ -407,11 +404,7 @@ Ext.define('EatSense.controller.Menu', {
      * Shows the menu. At this point the store is already filled with data.
      */
 	backToMenu: function() {
-
 		this.switchView(this.getMenuoverview(), 'right');
-		//directly remove handlers, because this function can be called from another controller
-		//so the wrong context is set
-		// this.setMenuNavigationFunctions(new Array());
 	},
 	/**
 	* Tap event handler for cart back button.

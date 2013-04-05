@@ -506,8 +506,8 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		"submitOrderProcess" : {
-			"DE" :  "Schicke Bestellung ...",
-			"EN" :  "Sending order ...",
+			"DE" :  "Schicke Bestellung",
+			"EN" :  "Sending order",
 			"ES" : "",
 			"IT" : ""
 		},
