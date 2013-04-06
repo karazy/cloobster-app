@@ -233,6 +233,7 @@ Ext.define('EatSense.controller.CheckIn', {
         Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
       } else {
           appHelper.toggleMask('loadingMsg', main);
+          //TODO 20130407 use loadSpot!
           EatSense.model.Spot.load(barcode, {
              success: function(record, operation) {
                me.setActiveSpot(record);
