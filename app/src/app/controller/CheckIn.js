@@ -163,10 +163,6 @@ Ext.define('EatSense.controller.CheckIn', {
         if(!barcode) {
          button.enable();
         } else {
-          // Ext.Viewport.setMasked({
-          //   message : i10n.translate('loadingMsg'),
-          //   xtype : 'loadmask'
-          // });
           me.doCheckInIntent(barcode, button, deviceId);
         }
       }	
@@ -661,23 +657,6 @@ Ext.define('EatSense.controller.CheckIn', {
       }
     });    
   },
-  /**
-  * Show a loading mask on the viewport or remove it.
-  * @param messageKey
-  *   MessageKey used to get messager for loading message.
-  *   If this is not a string (e. g. boolean false), loading mask gets removed.
-  */
-  toggleDashboardMask: function(messageKey) {
-
-    if(typeof messageKey == "string") {
-      Ext.Viewport.setMasked({
-        xtype: 'loadmask',
-        message: i10n.translate(messageKey)
-      });
-    } else {
-      Ext.Viewport.setMasked(false);
-    }
-  },
 	/**
 	 * This method handle status changes. It checks if valid transsions are made.
 	 * E. g. You cannot switch from PAYMENT_REQUEST to ORDER_PLACED.
@@ -1166,7 +1145,7 @@ Ext.define('EatSense.controller.CheckIn', {
       }
   },
   /**
-  * Load a spot via given barcode. Masks Viewport while loading. Does handles errors.
+  * Load a spot via given barcode. Does handles errors.
   * @param {String} barcode
   *   barcode identifiying spot
   * @param {Function} callback
@@ -1177,10 +1156,10 @@ Ext.define('EatSense.controller.CheckIn', {
     var me = this;
 
       if(!barcode || barcode.length == 0) {
-        Ext.Viewport.setMasked(false);
+        // Ext.Viewport.setMasked(false);
         Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
       } else {
-          appHelper.toggleMask('loadingMsg');
+          // appHelper.toggleMask('loadingMsg');
 
           EatSense.model.Spot.load(barcode, {
              success: function(record, operation) {
@@ -1201,7 +1180,7 @@ Ext.define('EatSense.controller.CheckIn', {
                 });
               },
               callback: function() {
-                appHelper.toggleMask(false);
+                // appHelper.toggleMask(false);
               }
           });
       }

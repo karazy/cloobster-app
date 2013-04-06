@@ -612,8 +612,7 @@ Ext.define('EatSense.controller.Menu', {
 			//http://www.sencha.com/forum/showthread.php?258560-Input-gets-false-focus-after-switching-to-card!&p=946604#post946604
 			Ext.create('Ext.util.DelayedTask', function () {
 				amountField.setDisabled(false);
-				commentField.setDisabled(false);
-				// detail.setMasked(false);             
+				commentField.setDisabled(false);          
             }).delay(300);            
 		}
 	},
