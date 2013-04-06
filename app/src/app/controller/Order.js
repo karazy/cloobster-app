@@ -842,7 +842,6 @@
 			Ext.create('Ext.util.DelayedTask', function () {
 				amountField.setDisabled(false);
 				commentField.setDisabled(false); 
-				// detail.setMasked(false);
             }).delay(300);
 
 		}
@@ -1398,7 +1397,6 @@
 		bill.set('time', date);
 		//workaround to prevent sencha from sending phantom id
 		bill.setId('');
-		//TODO show load mask to prevent users from issuing orders?!
 		
 		bill.save({
 			scope: this,
