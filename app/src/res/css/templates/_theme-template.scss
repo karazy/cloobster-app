@@ -1489,7 +1489,7 @@ h9 {
 /* Slidenavigation button */ 
 .x-slidenavigation-toggle {
   position: absolute;
-  width: 35px;
+  width: 31px;
   height: 50px;
   padding: 0;
   background: none;
@@ -1509,12 +1509,12 @@ h9 {
     /*display: none;*/
     display: block;
     background-color: white !important;
-    -webkit-mask-size: 25px;
-    -webkit-mask-image: inline-image('../images/slidenav/bookmark_black.png');
+    -webkit-mask-size: 44px;
+    -webkit-mask-image: inline-image('../images/buttons/bullseye2.png');
     
-    -webkit-mask-position: center center;
+    -webkit-mask-position: -20px 2px;
     -webkit-mask-repeat: no-repeat;
-    width: 25px;
+    width: 31px;
     height: 50px;
   }
 }
