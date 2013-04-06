@@ -631,7 +631,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Info Pages
 		"infopage.overview.title" : {
-			"DE" :  "Informationen",
+			"DE" :  "Information",
 			"EN" : "Information",
 			"ES" : "",
 			"IT" : ""
