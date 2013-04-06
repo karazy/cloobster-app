@@ -37,6 +37,7 @@
 @include pictos-iconmask('delete1');
 @include pictos-iconmask('help');
 @include pictos-iconmask('globe2');
+@include pictos-iconmask('look');
 @include pictos-iconmask('home2');
 
 
@@ -168,6 +169,7 @@ $general-border-radius: 3px;
   padding-right: 0.5em;
   /*background: $product-sub-bg;*/
   word-break: break-word;
+  text-align: justify;
 }
 
 .productdetail-spinner {
@@ -524,19 +526,26 @@ $general-border-radius: 3px;
   p {
     font-size: 0.6em;
   }
+}
 
-  /* style for external links */
-/*  div.link {
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    float: left;
-    margin-right: 5px;
-    -webkit-mask-size: 20px;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    -webkit-mask-image: url('../images/glob2.png');
-  }*/
+/* style for external links */
+.infopage-link-button {
+  position: absolute;
+  right: 25px;
+  top: 184px;
+  width: 65px;
+  height: 33px;
+}
+
+
+.infopage-link-button-icon {
+  width: 25px !important;
+  height: 25px !important;
+  background-color: white !important;
+  -webkit-mask-size: 25px !important;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-image: url('../images/buttons/look.png');
 }
 
 .x-infopage-teaser {
@@ -1501,7 +1510,7 @@ h9 {
     display: block;
     background-color: white !important;
     -webkit-mask-size: 25px;
-    -webkit-mask-image: inline-image('../images/sidenav.png');
+    -webkit-mask-image: inline-image('../images/slidenav/bookmark_black.png');
     
     -webkit-mask-position: center center;
     -webkit-mask-repeat: no-repeat;
