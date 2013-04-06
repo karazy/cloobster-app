@@ -761,7 +761,7 @@ Ext.define('EatSense.controller.Menu', {
 		
 		//if valid create order and attach to checkin
 		if(productIsValid === true) {
-			order.set('status','CART');			
+			order.set('status','CART');
 			order.set('comment', this.getProductdetail().getComponent('choicesPanel').getComponent('productComment').getValue());
 			
 			Ext.Ajax.request({
@@ -796,9 +796,7 @@ Ext.define('EatSense.controller.Menu', {
 	    	    	}	
 	    	    }
 	    	});
-									
-			// detail.hide();
-			// detail.destroy();
+
 			me.switchView(this.getProductoverview());
 
 			message = i10n.translate('productPutIntoCardMsg', this.getActiveOrder().get('productName'));
@@ -815,12 +813,11 @@ Ext.define('EatSense.controller.Menu', {
 				Ext.defer((function() {
 					if(!appHelper.getAlertActive()) {
 						Ext.Msg.hide();
-					}					
+					}
 				}), appConfig.msgboxHideTimeout, this);
 			}
 		} else {
 			//show validation error
-			//i10n.translate('orderInvalid')
 			Ext.Msg.alert('',validationError, Ext.emptyFn);
 		}
 		

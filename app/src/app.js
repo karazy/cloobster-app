@@ -85,7 +85,7 @@ Ext.application({
     if(navigator && navigator.network) {        
       this.checkConnection(this.initCloobster);
     } else {
-      this.initCloobster()
+      this.initCloobster();
     }
 	},
   /**
@@ -204,7 +204,8 @@ Ext.application({
 
        //found a valid checkIn Id. Restore state.
        if(restoredCheckInId) {
-          this.restoreCheckIn(restoredCheckInId, defaultHeaders);
+          checkInCtr.restoreState(restoredCheckInId);
+          // this.restoreCheckIn(restoredCheckInId, defaultHeaders);
        }                     
        else {        
         if (appStateStore.getCount() > 1){
@@ -220,50 +221,51 @@ Ext.application({
   },
 
   /**
+  * @DEPRECATED
   * @private
   * Restore checkin.
   * @param {String} restoredCheckInId
   *   CheckIn to restore.
   */
-  restoreCheckIn: function(restoredCheckInId, defaultHeaders) {
-    var me = this,
-        checkInCtr = this.getController('CheckIn');
+  // restoreCheckIn: function(restoredCheckInId, defaultHeaders) {
+  //   var me = this,
+  //       checkInCtr = this.getController('CheckIn');
 
-        checkInCtr.showDashboard();
-        //show loading mask, because it can take a while if server is not responding immediately
-        EatSense.util.Helper.toggleMask('restoreStateLoading');
+  //       //show loading mask, because it can take a while if server is not responding immediately
+  //       checkInCtr.showDashboard(true, 'restoreStateLoading');
+  //       // EatSense.util.Helper.toggleMask('restoreStateLoading');
 
-        defaultHeaders['checkInId'] = restoredCheckInId;
+  //       defaultHeaders['checkInId'] = restoredCheckInId;
 
-         //reload old state
-         EatSense.model.CheckIn.load(restoredCheckInId, {
-          scope: this,
-          success : function(record, operation) {
-            console.log('found existing checkin '+record);            
-            checkInCtr.restoreState(record);
-            //ATTENTION hide mask after business is loaded
-            // EatSense.util.Helper.toggleMask(false);           
-          },
-          failure: function(record, operation) {
-            console.log('error restoring state');
+  //        //reload old state
+  //        EatSense.model.CheckIn.load(restoredCheckInId, {
+  //         scope: this,
+  //         success : function(record, operation) {
+  //           console.log('found existing checkin '+record);            
+  //           checkInCtr.restoreState(record);
+  //           //ATTENTION hide mask after business is loaded
+  //           // EatSense.util.Helper.toggleMask(false);           
+  //         },
+  //         failure: function(record, operation) {
+  //           console.log('error restoring state');
 
-            EatSense.util.Helper.toggleMask(false);
+  //           // EatSense.util.Helper.toggleMask(false);
 
-            delete defaultHeaders['checkInId'];
+  //           delete defaultHeaders['checkInId'];
 
-            //delete invalid checkInId in appState
-            checkInCtr.getAppState().set('checkInId', '');
+  //           //delete invalid checkInId in appState
+  //           checkInCtr.getAppState().set('checkInId', '');
+  //           //TODO remove since we call it at method entrance
+  //           checkInCtr.showDashboard();
 
-            checkInCtr.showDashboard();
-
-            me.getApplication().handleServerError({
-              'error': operation.error,
-              'forceLogout': false,
-              'message' : {403: i10n.translate('restoreStateFailed')}
-            });
-          }
-        });
-  },
+  //           me.getApplication().handleServerError({
+  //             'error': operation.error,
+  //             'forceLogout': false,
+  //             'message' : {403: i10n.translate('restoreStateFailed')}
+  //           });
+  //         }
+  //       });
+  // },
 
 	//Global utility methods
 	/**
@@ -298,7 +300,7 @@ Ext.application({
           code = 500;
         }
 
-        	console.log('handle error: '+ code + ' ');
+        	console.log('App.handleServerError: '+ code + ' ');
         	if(!hideMessage) {
         		EatSense.util.Helper.toggleAlertActive(true);
         	}

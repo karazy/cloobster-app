@@ -163,10 +163,10 @@ Ext.define('EatSense.controller.CheckIn', {
         if(!barcode) {
          button.enable();
         } else {
-          Ext.Viewport.setMasked({
-            message : i10n.translate('loadingMsg'),
-            xtype : 'loadmask'
-          });
+          // Ext.Viewport.setMasked({
+          //   message : i10n.translate('loadingMsg'),
+          //   xtype : 'loadmask'
+          // });
           me.doCheckInIntent(barcode, button, deviceId);
         }
       }	
@@ -228,13 +228,15 @@ Ext.define('EatSense.controller.CheckIn', {
    },
 
    doCheckInIntent : function(barcode, button, deviceId) {         
+      var me = this,
+          main = this.getMain();
       //validate barcode field
       if(barcode.length == 0) {
-        Ext.Viewport.setMasked(false);
+        // Ext.Viewport.setMasked(false);
         button.enable();
         Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
       } else {
-          var me = this;
+          appHelper.toggleMask('loadingMsg', main);
           EatSense.model.Spot.load(barcode, {
              success: function(record, operation) {
                me.setActiveSpot(record);
@@ -254,7 +256,8 @@ Ext.define('EatSense.controller.CheckIn', {
                 }); 
               },
               callback: function() {
-                Ext.Viewport.setMasked(false);
+                // Ext.Viewport.setMasked(false);
+                appHelper.toggleMask(false, main);
                 button.enable();
               }
           });
@@ -418,7 +421,7 @@ Ext.define('EatSense.controller.CheckIn', {
     * CheckIn Process
     * Step 2 alt: cancel process
     */
-   showDashboard: function(options) {
+   showDashboard: function(mask, key) {
 	   var dashboardView = this.getDashboard(),
 	       main = this.getMain(),
 	       nicknameToggle = this.getNicknameTogglefield();
@@ -432,6 +435,10 @@ Ext.define('EatSense.controller.CheckIn', {
 	   if(main.getParent() !== Ext.Viewport) {
 		   Ext.Viewport.add(main);
 	   }
+
+     if(mask === true) {
+      appHelper.toggleMask(key, main);
+     }
    },
   /**
   * Shows an about screen.
@@ -485,61 +492,133 @@ Ext.define('EatSense.controller.CheckIn', {
 	 * The method makes sure that all relevant information is restored like products in cart,
 	 * or the active spot.
 	 * 
-	 * @param checkin
-	 * 		Restored checkin
+	 * @param restoredCheckInId
+	 * 		Id of checkIn to restore
 	 */
-	restoreState: function(checkIn) {
+	restoreState: function(restoredCheckInId) {
 		var me = this,
         main = this.getMain(),
         messageCtr = this.getApplication().getController('Message');
 
-        this.setActiveCheckIn(checkIn);
-        //reload of application before hitting leave button
-        if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
-            console.log('CheckIn in status '+checkIn.get('status')+'. Don\'t restore state!');
-            this.handleStatusChange(appConstants.COMPLETE);
-            this.setActiveCheckIn(null);
-            appHelper.toggleMask(false);
-            return;
+        //show loading mask, because it can take a while if server is not responding immediately
+        this.showDashboard(true, 'restoreStateLoading');
+
+        // defaultHeaders['checkInId'] = restoredCheckInId;
+        headerUtil.addHeader('checkInId', restoredCheckInId);
+
+        this.loadCheckIn(restoredCheckInId, processCheckIn);
+
+        //check retrieved checkin
+        function processCheckIn(checkIn, success) {
+          if(success) {
+              me.setActiveCheckIn(checkIn);
+              //occurs on reload of application before hitting leave button
+              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
+                    console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
+                    appHelper.toggleMask(false, main);
+                    me.handleStatusChange(appConstants.COMPLETE);
+                    me.setActiveCheckIn(null);                    
+                    return;
+                }
+            
+              //Set default headers so that always checkInId is send
+              headerUtil.addHeaders({
+                'checkInId' : checkIn.get('userId'),
+                'pathId' : checkIn.get('businessId')
+              });
+              //TODO 20130406 use loadSpot method
+              // me.loadSpot(encodeURIComponent(checkIn.get('spotId'), doRestore)
+
+            //load active spot
+            EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
+              scope: me,
+               success: function(record, operation) {        
+                 me.setActiveSpot(record);
+                 me.setActiveArea(record.get('areaId'));
+                 me.activateWelcomeMode(record.get('welcome'));
+                 me.loadBusiness(); 
+                          
+                appHelper.toggleMask(false, main);
+                me.fireEvent('resumecheckin', me.getActiveCheckIn());
+
+                me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
+
+                 //open a channel for push messags
+                 try {
+                      messageCtr.openChannel(checkIn.get('userId'));
+                  } catch(e) {
+                      console.log('could not open a channel ' + e);
+                  }
+                },
+                failure: function(record, operation) {
+                  me.getApplication().handleServerError({
+                          'error':operation.error
+                  });               
+                }
+            });
+
+          } else {
+            //restore failed
+            appHelper.toggleMask(false, main);
+            headerUtil.resetHeaders(['checkInId']);
+            me.getAppState().set('checkInId', '');
+          }
         }
 
-		
-        //Set default headers so that always checkInId is send
-        headerUtil.addHeaders({
-          'checkInId' : checkIn.get('userId'),
-          'pathId' : checkIn.get('businessId')
-        });
-
-		//load active spot
-		EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
-  		scope: this,
-   		 success: function(record, operation) {
-   			 this.setActiveSpot(record);
-         this.setActiveArea(record.get('areaId'));
-         this.activateWelcomeMode(record.get('welcome'));
-   			 this.loadBusiness(); 
-   			    			
-   			Ext.Viewport.add(main);
-
-        me.fireEvent('resumecheckin', me.getActiveCheckIn());
-
-        me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
+        //TODO 20130406 use loadSpot method, see further above
+        // function doRestore(spot) {
+        //   me.setActiveSpot(spot);
+        //  me.setActiveArea(spot.get('areaId'));
+        //  me.activateWelcomeMode(spot.get('welcome'));
+        //  me.loadBusiness(); 
+                  
+        //   appHelper.toggleMask(false, main);
+        //   me.fireEvent('resumecheckin', me.getActiveCheckIn());
+        //   me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
 
 
-         //open a channel for push messags
-         try {
-              messageCtr.openChannel(checkIn.get('userId'));
-          } catch(e) {
-              console.log('could not open a channel ' + e);
-          }
-  	    },
-  	    failure: function(record, operation) {
-  	    	me.getApplication().handleServerError({
-                  'error':operation.error
-          });        	    	
-  	    }
-		});
+        //  //open a channel for push messags
+        //  try {
+        //       messageCtr.openChannel(me.getActiveCheckIn().get('userId'));
+        //   } catch(e) {
+        //       console.log('could not open a channel ' + e);
+        //   }
+        // }
+
 	},
+
+  /**
+  * Load a checkIn.
+  * @param {String} checkInId
+  * Id of checkIn to load
+  * @param {Function} callback
+  *  Called after load returns. Gets passed record on success and true/false as second param.
+  */
+  loadCheckIn: function(checkInId, callback) {
+    var me = this;
+
+     //reload old state
+     EatSense.model.CheckIn.load(checkInId, {
+      scope: this,
+      success : function(record, operation) {
+        // console.log('CheckIn.loadCheckIn: found existing checkin ' + record);
+        callback(record, true);
+      },
+      failure: function(record, operation) {
+
+        callback(null, false)
+
+        me.getApplication().handleServerError({
+          'error': operation.error,
+          'forceLogout': false,
+          'message' : {
+            403: i10n.translate('restoreStateFailed'),
+            404: i10n.translate('restoreStateFailed')
+          }
+        });
+      }
+    });
+  },
   /**
   * @private
   * Loads the business by businessId of activeSpot.
@@ -636,12 +715,15 @@ Ext.define('EatSense.controller.CheckIn', {
             pm.destroy();
           });
         this.getActiveBusiness().payments().removeAll(); 
+        this.getActiveBusiness().destroy();
       }
 
-      this.getActiveBusiness().destroy();
       this.setActiveBusiness(null);
 
-      this.getActiveSpot().destroy();
+      if(this.getActiveSpot()) {
+        this.getActiveSpot().destroy();  
+      }
+      
       this.setActiveSpot(null);
 
       this.setActiveArea(null);
@@ -1084,7 +1166,7 @@ Ext.define('EatSense.controller.CheckIn', {
       }
   },
   /**
-  * Load a spot via given barcode. Masks Viewport while loading. Also handles errors.
+  * Load a spot via given barcode. Masks Viewport while loading. Does handles errors.
   * @param {String} barcode
   *   barcode identifiying spot
   * @param {Function} callback
