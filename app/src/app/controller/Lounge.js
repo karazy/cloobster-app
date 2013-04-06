@@ -11,7 +11,7 @@ Ext.define('EatSense.controller.Lounge', {
 	* @param {EatSense.model.Area} the new area
 	*/
 
-	requires: ['EatSense.util.DashboardItemTemplates'],
+	requires: ['EatSense.util.DashboardItemTemplates', 'EatSense.view.Help'],
 	config: {
 		refs: {
 			mainview: 'mainview',
@@ -48,6 +48,13 @@ Ext.define('EatSense.controller.Lounge', {
 			if(status == appConstants.CHECKEDIN) {			  
 			  this.initDashboard();
 			  this.buildDashboard();
+
+			  // if(checkInCtr.getAppState().get('firstCheckin')) {
+			  	//display a help message on first checkin
+		        var helpPanel = Ext.create('EatSense.view.Help');
+		        Ext.Viewport.add(helpPanel);
+		        checkInCtr.getAppState().set('firstCheckin', false);
+		      // }
 
 			  me.getClubDashboard().on({
 			  	'tilesrendered' : function() {

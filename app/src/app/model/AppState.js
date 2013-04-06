@@ -37,6 +37,11 @@ Ext.define('EatSense.model.AppState', {
 		{
 			name: 'prevStatus',
 			type: 'string'
+		},
+		{
+			name: 'firstCheckin',
+			type: 'boolean',
+			defaultValue: true
 		} ]
 	}
 });

@@ -83,6 +83,14 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"general.help.dashboard.msg" : {
+			"DE" :  "<b>Willkommen</b><br/>Um auf das Menü zuzugreifen, tippen Sie auf die Lasche links unten oder wischen Sie vom linken Rand nach rechts.",
+			"EN" : "<b>Welcome</b> to your first Check-In."
+		},
+		"general.help.dashboard.gotit" : {
+			"DE" :  "Alles klar!",
+			"EN" : "Lets go!"
+		},
 		"save" : {
 			"DE" :  "Speichern",
 			"EN" :  "Save",
