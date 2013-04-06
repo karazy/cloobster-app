@@ -1,9 +1,8 @@
 /**
-* A floating panel displaing a help text.
-*
-*
+* A floating panel displaing a help text and arrow graphics for dashboard.
+* 
 */
-Ext.define('EatSense.view.Help', {
+Ext.define('EatSense.view.DashboardHelp', {
 	extend: 'Ext.Panel',
 	config: {
 		modal: true,
@@ -27,7 +26,7 @@ Ext.define('EatSense.view.Help', {
 				html: i10n.translate('general.help.dashboard.msg'),
 				style: {
 					'color' : 'white',
-					'text-align' : 'center',
+					'text-align' : 'center'
 					// 'font-size' : '20px',
 					// 'padding' : '20px'
 				}
@@ -41,7 +40,7 @@ Ext.define('EatSense.view.Help', {
 			},
 			{
 				xtype: 'label',
-				html: '<div style="position: fixed; height: 35%; width: 50%; bottom: 5px; left: 40px;">'+
+				html: '<div style="position: fixed; height: 35%; width: 50%; bottom: 22px; left: 55px;">'+
 				'<img src="res/images/help/arrow_sw.png" width="100%" height="100%"></div>'
 			}
 		]

@@ -11,7 +11,7 @@ Ext.define('EatSense.controller.Lounge', {
 	* @param {EatSense.model.Area} the new area
 	*/
 
-	requires: ['EatSense.util.DashboardItemTemplates', 'EatSense.view.Help'],
+	requires: ['EatSense.util.DashboardItemTemplates', 'EatSense.view.DashboardHelp'],
 	config: {
 		refs: {
 			mainview: 'mainview',
@@ -49,12 +49,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.initDashboard();
 			  this.buildDashboard();
 
-			  // if(checkInCtr.getAppState().get('firstCheckin')) {
-			  	//display a help message on first checkin
-		        var helpPanel = Ext.create('EatSense.view.Help');
-		        Ext.Viewport.add(helpPanel);
-		        checkInCtr.getAppState().set('firstCheckin', false);
-		      // }
+			  this.checkFirstDashboardView(checkInCtr.getAppState());
 
 			  me.getClubDashboard().on({
 			  	'tilesrendered' : function() {
@@ -661,6 +656,18 @@ Ext.define('EatSense.controller.Lounge', {
 		} catch(e) {
 		  console.error('Lounge.cleanup: failed ' + e);
 		}
+	 },
+	 /**
+	 * Checks if this is the first time user sees the dashboard.
+	 * Displays a helping text in an overlay.
+	 */
+	 checkFirstDashboardView: function(appState) {
+	 	var helpPanel;
 
+	 	 if(appState.get('firstDashboardView')) {			  	
+	        helpPanel = Ext.create('EatSense.view.DashboardHelp');
+	        Ext.Viewport.add(helpPanel);
+	        appState.set('firstDashboardView', false);
+	      }
 	 }
 });

@@ -38,8 +38,8 @@ Ext.define('EatSense.model.AppState', {
 			name: 'prevStatus',
 			type: 'string'
 		},
-		{
-			name: 'firstCheckin',
+		{	//indicates if this is the first dashboard view
+			name: 'firstDashboardView',
 			type: 'boolean',
 			defaultValue: true
 		} ]
