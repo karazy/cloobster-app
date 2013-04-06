@@ -35,7 +35,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			xtype : 'panel',
 			itemId: 'productDetailPanel',
 			style: {
-				'padding': '0 0.5em'
+				'padding': '0 0.5em'				
 			},
 			items : [ 
 				{
@@ -53,7 +53,7 @@ Ext.define('EatSense.view.ProductDetail', {
 			xtype : 'label',
 			itemId : 'prodDetailLabel',
 			cls: 'productDetail',
-			padding: '5px .6em 0px',
+			padding: '5px 12px 0px',
 			tpl: new Ext.XTemplate(
 				'<div>{product.data.productLongDesc}</div>'
 			)

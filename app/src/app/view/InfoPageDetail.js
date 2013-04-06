@@ -58,18 +58,9 @@ Ext.define('EatSense.view.InfoPageDetail', {
 					xtype: 'fixedbutton',
 					action: 'open-link',
 					ui: 'action',
-					iconMask: true,
-					iconCls: 'globe2',
-					hidden: true,
-					//set via css, otherwise button locks scrolling, 
-					//if not placed inside panel button won't scroll with conten
-					style: {
-						'position' : 'absolute',
-						'right' : '10px',
-						'top' : '184px',
-						'width' : '44px',
-						'height' : '33px'
-					}
+					cls: 'infopage-link-button',
+					iconCls: 'infopage-link-button-icon',
+					hidden: true
 				}
 				]
 			}
