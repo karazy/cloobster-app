@@ -41,7 +41,12 @@ Ext.define('EatSense.override.MessageBox', {
             }
 
             if (config.input) {
-                config.input.dom.blur();
+                if(config.input.dom) {
+                    config.input.dom.blur();    
+                } else {
+                    console.log('EatSense.override.MessageBox.onClick: no dom found on input');
+                }
+                
             }
         }
 

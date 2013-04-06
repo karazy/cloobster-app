@@ -3,12 +3,21 @@ Ext.define('EatSense.override.RadioOverride', {
     override: 'Ext.field.Radio',
     onMaskTap: function(component, e) {
         var me = this,
-            dom = component.input.dom;
+            dom;
 
 
         if (me.getDisabled()) {
             return false;
         }
+
+        if(component && component.input && component.input.dom) {
+            dom = component.input.dom;
+        } else {
+            console.error('EatSense.override.RadioOverride.onMaskTap: dom not found');
+            return;
+        }
+
+        
         
         if(!me.getChecked())
             dom.checked = !dom.checked;

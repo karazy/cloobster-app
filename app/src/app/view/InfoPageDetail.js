@@ -104,11 +104,16 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				imagePanel.setStyle({
 					'background-image': 'url(' + newRecord.get('imageUrl') + scaleFactorS + ')'
 				});
-				// imagePanel.dom.style.backgroundImage.src =  newRecord.get('imageUrl');
+
 				this.registerImageZoomTap(panel.element.down('.image'), newRecord.get('imageUrl') + scaleFactorL);
 			}
 		} else {
-			urlButton.element.dom.style.top = '5px';
+			if(urlButton && urlButton.element) {
+				urlButton.element.dom.style.top = '5px';	
+			} else {
+				console.log('EatSense.view.InfoPageDetail.updateIpRecord: urlButton or urlButton.element do not exist');
+			}
+			
 		}
 	}
 });
