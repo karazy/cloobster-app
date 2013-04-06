@@ -783,9 +783,6 @@ Ext.define('EatSense.controller.Menu', {
 	    	    			function() {
 								appHelper.toggleAlertActive(false);
 						});
-	    	    		//clear the menu store, don't send clear event
-	    	    		// Ext.StoreManager.lookup('menuStore').removeAll();
-	    	    		// Ext.StoreManager.lookup('productStore').removeAll();
 	    	    		me.clearMenuStores();
 	    	    		me.clearProductStore();
 	    	    		//refresh menu
