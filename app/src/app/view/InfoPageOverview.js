@@ -70,9 +70,12 @@ Ext.define('EatSense.view.InfoPageOverview', {
 			{
 				xtype: 'panel',
 				itemId: 'searchPanel',
-				style: {
-					width: '80%'
-				},
+				left: 5,
+				right: 5,
+				hidden: true,
+				// style: {
+				// 	width: '100%'
+				// },
 				modal: true,
 				hideOnMaskTap: true,
 				items: [
