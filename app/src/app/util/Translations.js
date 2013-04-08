@@ -360,6 +360,12 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"checkin.demo.msg" : {
+			"DE" :  "Im Demo Hotel einchecken?",
+			"EN" : "Check-In at demo hotel?",
+			"ES" : "",
+			"IT" : ""
+		},
 		// Menu
 		"menuTab" : {
 			"DE" :  "Angebote",

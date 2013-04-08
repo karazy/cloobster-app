@@ -16,12 +16,21 @@ Ext.define('EatSense.view.Dashboard', {
 		items : [
 		{
 			xtype : 'panel',
-			// src : 'res/images/dashboard/header-bg.jpg',
-			//use a real html img tag!
 			html: '<img src="res/images/dashboard/header-bg.png" />',
 			cls: 'dashboard-header',
 			docked: 'top',
-			layout: 'fit'
+			layout: 'fit',
+			items: [
+				{
+					xtype: 'fixedbutton',
+					ui: 'action',
+					action: 'demo-checkin',
+					baseCls: 'demo-wimpel-button',
+					pressedCls: 'demo-wimpel-button-pressed',
+					top: 0,
+					right: 15
+				}
+			]
 		},		
 		{
 			xtype: 'label',

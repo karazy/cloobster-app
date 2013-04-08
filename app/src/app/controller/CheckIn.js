@@ -78,7 +78,8 @@ Ext.define('EatSense.controller.CheckIn', {
             selector: 'spotselection',
             xtype: 'spotselection',
             autoCreate: true
-          }
+          },
+          demoButton: 'dashboard button[action=demo-checkin]'
     	},
     	control: {
     		checkInBtn: {
@@ -107,6 +108,9 @@ Ext.define('EatSense.controller.CheckIn', {
                 this.activateWelcomeAndBasicMode(dashboard);
               },
               scope: this
+            },
+            demoButton: {
+              tap: 'demoCheckIn'
             }
     	},
         /**
@@ -391,6 +395,58 @@ Ext.define('EatSense.controller.CheckIn', {
 				}	   
 			   );
 	   }
+   },
+    /**
+   * Request demo barcode from server and do a checkIn @ demo location.
+   */
+   demoCheckIn: function(button) {
+    var me = this,
+        device,
+        deviceId;
+
+    deviceId = (device) ? device.platform : 'desktop';
+
+    Ext.Msg.show({
+      message: i10n.translate('checkin.demo.msg'),
+      buttons: [{
+        text: i10n.translate('yes'),
+        itemId: 'yes',
+        ui: 'action'
+      }, {
+        text:  i10n.translate('no'),
+        itemId: 'no',
+        ui: 'action'
+      }],
+      scope: this,
+      fn: function(btnId, value, opt) {
+      if(btnId=='yes') {
+          doDemoCheckIn();
+        }
+      }
+    });  
+
+    function doDemoCheckIn() {
+      button.disable();
+      Ext.Ajax.request({
+        url: appConfig.serviceUrl + '/spots/',
+        method: 'GET',
+        // disableCaching: false,
+        params: {
+          'demo' : true
+        },
+        success: function(response) {
+          me.doCheckInIntent(response.responseText, button, deviceId);
+        },
+        failure: function(response) {
+          button.enable();
+          me.getApplication().handleServerError({
+            'error': response 
+            // 'message': i10n.translate('channelTokenError')
+          });
+        },
+        scope: this
+      });
+    }
    },
    /**
    * Returns the current nickname.
