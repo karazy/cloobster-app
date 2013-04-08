@@ -48,13 +48,7 @@ Ext.define('EatSense.view.History',{
 		            autoPaging: true
 		        }
 		    ]
-		},
-		{
-			xtype: 'toolbar',
-			docked: 'bottom',
-			items: [
-			]
-		}	
+		}
 		]
 
 	}

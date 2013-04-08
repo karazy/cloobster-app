@@ -70,14 +70,7 @@ Ext.define('EatSense.view.HistoryDetail', {
 					})
 				}
 				]
-			},
-			{
-				xtype: 'toolbar',
-				docked: 'bottom',
-				items: [
-				]
 			}
-
 		]
 	}
 });
