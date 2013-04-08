@@ -208,10 +208,14 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "<h2>Check-in</h2><p>Wenn du an einer cloobster Location bist</p>",
-			"EN" :  "<h2>Check-in</h2><p>Scan QR code</p>",
+			"DE" :  "Check-in",
+			"EN" :  "Check-in",
 			"ES" : "",
 			"IT" : ""
+		},
+		"dashboard.button.demo" : {
+			"DE" :  "Demo",
+			"EN" : "Demo"
 		},
 		"dashboardLabel1" : {
 			"DE" :  "<h2>You Are Guest</h2><p>"+
@@ -1220,8 +1224,8 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		"dashboard.button.history" : {
-			"DE" :  "<h2>MyPlaces</h2><p>Deine besuchten Hotels und Restaurants</p>",
-			"EN" :  "<h2>MyPlaces</h2><p>Hotels and restaurants visited</p>",
+			"DE" :  "Places",
+			"EN" :  "Places",
 			"ES" : "",
 			"IT" : ""
 		},

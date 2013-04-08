@@ -9,44 +9,55 @@ Ext.define('EatSense.view.Dashboard', {
 	config : {
 		layout: {
 				type: 'vbox',
-				align: 'center',
+				align: 'stretch',
 				pack: 'center'
 		},
+		padding: '20 10 30',
 		cls: 'dashboard',		
 		items : [
 		{
-			xtype : 'panel',
-			html: '<img src="res/images/dashboard/header-bg.png" />',
-			cls: 'dashboard-header',
+			xtype: 'titlebar',
 			docked: 'top',
-			layout: 'fit',
+			cls: 'dashboard-header',
+			title: '<img src="res/images/dashboard/Logo_cloobster_weiss.png" height="47px" width="auto">',
 			items: [
 				{
 					xtype: 'fixedbutton',
-					ui: 'action',
-					action: 'demo-checkin',
-					baseCls: 'demo-wimpel-button',
-					pressedCls: 'demo-wimpel-button-pressed',
-					top: 0,
-					right: 15
+					action: 'about',
+					iconCls: 'about',
+					iconMask: true,
+					// styleHtmlContent: true,
+					align: 'left'
+				},
+				{
+					xtype : 'fixedbutton',
+					action: 'show-login',
+					// text: i10n.translate('dashboard.button.settings'),
+					iconCls: 'settings',
+					iconMask: true,
+					align: 'right'
+				},
+				{
+					xtype : 'fixedbutton',
+					action: 'profile',
+					// text: i10n.translate('dashboard.button.settings'),
+					hidden: true,
+					iconCls: 'user',
+					iconMask: true,
+					align: 'right'
 				}
 			]
 		},		
-		{
-			xtype: 'label',
-			cls: 'dashboard-description',
-			docked: 'top',
-			style: 'text-align: center;',
-			html: i10n.translate('dashboardLabel1')
-		},
 		{
 			xtype : 'fixedbutton',
 			action: 'checkin',
 			html: i10n.translate('dashboard.button.checkin'),
 			baseCls: 'dashboard-button',
 			cls: 'dashboard-button-checkin',
+			iconCls: 'dashboard-button-icon',			
 			pressedCls: 'dashboard-button-pressed',
-			labelCls: 'dashboard-button-label'
+			labelCls: 'dashboard-button-label',
+			flex: 1
 		},
 		{
 			xtype : 'fixedbutton',
@@ -54,43 +65,22 @@ Ext.define('EatSense.view.Dashboard', {
 			text: i10n.translate('dashboard.button.history'),
 			baseCls: 'dashboard-button',
 			cls: 'dashboard-button-history',
+			iconCls: 'dashboard-button-icon',
 			pressedCls: 'dashboard-button-pressed',
-			labelCls: 'dashboard-button-label'
+			labelCls: 'dashboard-button-label',
+			flex: 1
 		},
 		{
-			xtype : 'fixedbutton',
-			action: 'show-login',
-			text: i10n.translate('dashboard.button.settings'),
+			xtype: 'fixedbutton',
+			ui: 'action',
+			action: 'demo-checkin',
+			text: i10n.translate('dashboard.button.demo'),
 			baseCls: 'dashboard-button',
-			cls: 'dashboard-button-login',
+			cls: 'dashboard-button-demo',
+			iconCls: 'dashboard-button-icon',
 			pressedCls: 'dashboard-button-pressed',
-			labelCls: 'dashboard-button-label'
-		},
-		{
-			xtype : 'fixedbutton',
-			action: 'profile',
-			text: i10n.translate('dashboard.button.settings'),
-			hidden: true,
-			baseCls: 'dashboard-button',
-			cls: 'dashboard-button-login',
-			pressedCls: 'dashboard-button-pressed',
-			labelCls: 'dashboard-button-label'
-		},
-		{
-			xtype: 'toolbar',
-			docked: 'bottom',
-			items: [
-				{
-					xtype: 'spacer'
-				},
-				{
-					xtype: 'fixedbutton',
-					action: 'about',
-					iconCls: 'about',
-					iconMask: true,
-					styleHtmlContent: true
-				}
-			]
+			labelCls: 'dashboard-button-label',
+			flex: 1
 		}
 		]
 	},

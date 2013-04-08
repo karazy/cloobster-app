@@ -767,12 +767,13 @@ $general-border-radius: 3px;
 }
 
 .dashboard-header {
-    img {
+  -webkit-box-shadow: 0px 0px 10px 2px gray;
+  /*  img {
       width: 100%;
       height: auto;
       -webkit-box-shadow: 0px 0px 10px 2px gray;
     }
-    margin: 0 0 5px 0;
+    margin: 0 0 5px 0;*/
 }
 
 .dashboard-description {
@@ -790,15 +791,18 @@ $general-border-radius: 3px;
 }
 
 .dashboard-button {
-  margin: 0.3em;
+  /*margin: 0.3em;*/
+  margin-bottom: 8px;
   background-repeat: no-repeat;
   background-position: 2% center;
   font-size: 0.95em;
-  color: $dashboard-color;
-  background-color: #f5f5f5;
+  /*color: $dashboard-color;*/
+  color: white;
+  /*background-color: #f5f5f5;*/
   border: 1px solid lightgray;
   border-radius: 2px;
-  width: 80%;
+  width: 100%;
+  /*height: 25%;*/
   position: relative;
   -webkit-box-shadow: 0 4px 2px -2px #eee;
   box-shadow: 0 4px 2px -2px #eee;
@@ -807,31 +811,47 @@ $general-border-radius: 3px;
   /* Portrait tablet to landscape and desktop */
   /*and (max-width: 979px)*/
   @media only screen and (min-width: 768px) {
-    background-size: 100px 100px;
-    height: 115px;
+ /*   background-size: 100px 100px;
+    height: 145px;*/
   }
 
   /* Landscape phone to portrait tablet */
   @media only screen and (max-width: 767px) { 
-    background-size: 70px 70px;
-    height: 85px;
+/*    background-size: 70px 70px;
+    height: 115px;*/
   }
 
   /* Landscape phones and down */
   @media only screen and (max-width: 320px) { 
-    background-size: 45px 45px;
-    height: 60px;
+    /*background-size: 45px 45px;
+    height: 90px;*/
   }
 
+
 }
+.dashboard-button-icon {
+    background-size: 60px;
+    background-position: center;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: -30px;
+    right: 30px;
+    border-radius: 40px;
+    background-repeat: no-repeat;
+    background-color: white;
+    z-index: 1;
+  }
 
 .dashboard-button-label {
-  left: 35%;
   position: absolute;
+  left: 13px;  
+  top: 33%;
+  font-size: 2.2em;
   
 
   h2 {
-    font-size: 1.2em;     
+    font-size: 2.2em;     
   }
 
   p {
@@ -846,7 +866,7 @@ $general-border-radius: 3px;
   /* Landscape phone to portrait tablet */
   @media (max-width: 767px) { 
     /*top: 25%;*/
-    bottom: 10px;
+    /*bottom: 10px;*/
   }
  
   /* Landscape phones and down */
@@ -864,34 +884,55 @@ $general-border-radius: 3px;
   }
 }
 
+.dashboard-button-checkin {
+  background-color: #c4d7e9;
+
+  &.dashboard-button-pressed {
+    background-color: darken(#c4d7e9 , 30%);
+  }
+
+  .x-button-icon {
+    background-image: url('../images/dashboard/checkin.png');  
+  }
+  
+}
+
+.dashboard-button-history {
+  background-color: #faa657;
+
+  &.dashboard-button-pressed {
+    background-color: darken(#faa657 , 30%);
+  }
+
+  .x-button-icon {
+    background-image: url('../images/dashboard/history.png');  
+  }
+  
+}
+
+.dashboard-button-demo {
+  background-color: #cddcab;
+
+  &.dashboard-button-pressed {
+    background-color: darken(#cddcab , 30%);
+  }
+
+  .x-button-icon {
+    background-image: url('../images/dashboard/checkin.png');  
+  }
+}
+
 .dashboard-button-pressed {
-/*  -webkit-box-shadow: 0px 0px 15px 5px $dashboard-color;
-  box-shadow: 0px 0px 15px 5px $dashboard-color;
-  border-radius: 10px;
-  color: #C3C3C3;
-  border: 1px solid #C3C3C3;*/
   color: #FFF;
   background-color: #DDD;
 }
 
-.dashboard-button-checkin {
-  background-image: url('../images/dashboard/checkin.png');
-  /*margin-right: 0.6em;*/
-}
-
-.dashboard-button-history {
-  background-image: url('../images/dashboard/history.png');
-  /*margin-left: 0.6em;*/
-}
-
 .dashboard-button-login {
   background-image: url('../images/dashboard/login.png');
-  /*margin-left: 0.6em;*/
 }
 
 .dashboard-button-facebook {
   background-image: url('../images/dashboard/facebook.png');
-  /*margin-right: 0.6em;*/
 }
 
 .dashboard-button-badge {

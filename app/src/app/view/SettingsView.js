@@ -27,10 +27,6 @@ Ext.define('EatSense.view.SettingsView', {
 		},
 		{
 			xtype: 'passwordsetting'
-		},
-		{
-			xtype: 'toolbar',
-			docked: 'bottom'
 		}
 		]
 
