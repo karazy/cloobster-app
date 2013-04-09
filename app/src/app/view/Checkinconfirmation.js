@@ -64,13 +64,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			width: '80%',
 			value : 0,
 			label : i10n.translate('saveNicknameToggle')			
-		},
-		{
-			xtype: 'toolbar',
-			docked: 'bottom',
-			items: [
-			]
-		}	
+		}
 		]
 	},
 	

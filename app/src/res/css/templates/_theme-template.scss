@@ -892,7 +892,10 @@ $general-border-radius: 3px;
   }
 
   .x-button-icon {
-    background-image: url('../images/dashboard/checkin.png');  
+    background-image: url('../images/dashboard/production_barcode.png'); 
+    -webkit-transform:rotate(45deg);
+    transform:rotate(45deg);
+    background-size: 50px;
   }
   
 }
