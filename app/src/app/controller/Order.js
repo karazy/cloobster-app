@@ -1453,15 +1453,15 @@
 				}],
 				fn: function(btnId) {
 					if(btnId == "yes") {
-						checkIn.erase( {
+						checkIn.erase({
 							failure: function(response, operation) {
+								//fail silent 
 								me.getApplication().handleServerError({
 									'error': operation.error,
-									'forceLogout': {403: true}
+									'hideMessage': true
 								});
 							}
-						}
-						);
+						});
 						me.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
 					}
 				}
