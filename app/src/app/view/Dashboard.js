@@ -12,7 +12,7 @@ Ext.define('EatSense.view.Dashboard', {
 				align: 'stretch',
 				pack: 'center'
 		},
-		padding: '20 10 30',
+		padding: '20 8 30',
 		cls: 'dashboard',		
 		items : [
 		{

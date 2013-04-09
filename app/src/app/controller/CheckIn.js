@@ -186,7 +186,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
       if(this.getProfile() == 'desktop' || !window.plugins || !window.plugins.barcodeScanner || (device && device.platform == "iPhone Simulator")) {
             Ext.Msg.show({
-                title: i10n.translate('barcodePromptTitle'),
+                // title: i10n.translate('barcodePromptTitle'),
                 message: i10n.translate('barcodePromptText'),
                 buttons: [{
                     text: i10n.translate('yes'),
