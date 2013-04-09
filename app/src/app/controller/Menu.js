@@ -548,7 +548,7 @@ Ext.define('EatSense.controller.Menu', {
         	// order.set('productImageUrl', 'res/images/background.png');
 
             //set product description
-            prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, {product: order});
+            prodDetailLabel.getTpl().overwrite(prodDetailLabel.element, order.getData());
 
 			if(order.get('productImageUrl')) {
 				detailPanel.setStyle(
