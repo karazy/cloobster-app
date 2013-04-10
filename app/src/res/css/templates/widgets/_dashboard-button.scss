@@ -1,40 +1,73 @@
 .dashboard-button {
-  /*margin: 0.3em;*/
   margin-bottom: 8px;
   background-repeat: no-repeat;
   background-position: 2% center;
   font-size: 0.95em;
-  /*color: $dashboard-color;*/
   color: white;
   /*background-color: #f5f5f5;*/
   border: 1px solid lightgray;
   border-radius: 2px;
   width: 100%;
-  /*height: 25%;*/
   position: relative;
   -webkit-box-shadow: 0 4px 2px -2px #eee;
   box-shadow: 0 4px 2px -2px #eee;
 }
 
 .dashboard-button-icon {
-    background-size: 64px;
+    $dashboard-button-icon-bgsize : 64px;
+    $dashboard-button-icon-size : 92px;
+    $dashboard-button-icon-radius: 46px;
+    background-size:  $dashboard-button-icon-bgsize;
     background-position: center;
-    width: 92px;
-    height: 92px;
+    width: $dashboard-button-icon-size;
+    height: $dashboard-button-icon-size;
     position: absolute;
     bottom: -16px;
     left: 22px;
-    border-radius: 46px;
+    border-radius: $dashboard-button-icon-radius;
     background-repeat: no-repeat;
     background-color: white;
-    /*z-index: 1;*/
+
+   @media only screen and (min-width: 768px) {
+      background-size: $dashboard-button-icon-bgsize * 1.2;
+      width: $dashboard-button-icon-size * 1.2;
+      height: $dashboard-button-icon-size * 1.2;
+      border-radius: $dashboard-button-icon-radius * 1.2;
+    }
+
+  /* Landscape phone to portrait tablet */
+/*  @media only screen and (max-width: 767px) { 
+    background-size: 54px;
+    width: 78px;
+    height: 78px;
+  }*/
+
+  /* Landscape phones and down */
+  @media only screen and (max-width: 320px) { 
+    background-size:  $dashboard-button-icon-bgsize * 0.8;
+    border-radius: $dashboard-button-icon-radius * 0.8;
+    width: $dashboard-button-icon-size * 0.8;
+    height: $dashboard-button-icon-size * 0.8;
+  }
+    
   }
 
 .dashboard-button-label {
   position: absolute;
   right: 21px;  
-  bottom: 10px;
-  font-size: 3em; 
+  /*bottom: 10px;*/
+  bottom: 6%;
+  font-size: 2.5em; 
+
+
+   @media only screen and (min-width: 768px) {
+      font-size: 3.5em; 
+   }
+
+  /* Landscape phones and down */
+  @media only screen and (max-width: 320px) { 
+    font-size: 2em; 
+  }
 }
 
 .dashboard-button-checkin {
@@ -46,21 +79,15 @@
 
   .x-button-icon {
     background-image: url('../images/dashboard/production_barcode.png'); 
-  /*  -webkit-transform:rotate(45deg);
-    transform:rotate(45deg);*/
-    /*background-size: 50px;*/
   }
   
 }
 
 .dashboard-button-history {
-  /*background-color: #abc270;*/
   background-color: lighten(#659bce , 10%);
 
   &.dashboard-button-pressed {
     background-color: darken(#659bce , 20%);
-
-    /*background-color: darken(#abc270 , 30%);*/
   }
 
   .x-button-icon {
@@ -68,22 +95,33 @@
   }
 
   .dashboard-button-label {
-    font-size: 2.5em !important;
+    font-size: 2em;
+
+     @media only screen and (min-width: 768px) {
+      font-size: 2.5em; 
+    }
+      @media only screen and (max-width: 320px) { 
+        font-size: 1.5em; 
+      }
   }
   
 }
 
 .dashboard-button-demo {
-  /*background-color: #cddcab;*/
   background-color: lighten(#659bce, 20%);
 
   &.dashboard-button-pressed {
      background-color: darken(#659bce , 10%);
-    /*background-color: darken(#cddcab , 30%);*/
   }
 
   .dashboard-button-label {
-    font-size: 2.5em !important;
+    font-size: 2em;
+     @media only screen and (min-width: 768px) {
+      font-size: 2.5em; 
+      }
+    @media only screen and (max-width: 320px) { 
+        font-size: 1.5em; 
+    }
   }
 
   .x-button-icon {
@@ -91,18 +129,18 @@
   }
 }
 
-.dashboard-button-pressed {
+/*.dashboard-button-pressed {
   color: #FFF;
   background-color: #DDD;
-}
+}*/
 
-.dashboard-button-login {
+/*.dashboard-button-login {
   background-image: url('../images/dashboard/login.png');
 }
 
 .dashboard-button-facebook {
   background-image: url('../images/dashboard/facebook.png');
-}
+}*/
 
 .dashboard-button-badge {
   margin-left: 34px;
@@ -113,8 +151,6 @@
   -webkit-border-radius: 0.2em;
   border-radius: 0.2em;
   padding: .1em .3em;
-  /* To prevent overlapping in login window. */
-  /*z-index: 2;*/
   text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
@@ -126,8 +162,6 @@
   min-width: 2em;
   line-height: 1.2em;
   font-size: .6em;
-  /*right: 0px;*/
-  /*top: -0.2em;*/
   max-width: 95%;
   background-color: #C00;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F66), color-stop(2%, #F00000), color-stop(100%, #A80000));
