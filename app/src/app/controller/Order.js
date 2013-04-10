@@ -554,7 +554,6 @@
 							//switch back to menu and remove previous backhandler
 							menuCtr.backToMenu();
 
-							// me.getLoungeview().switchTab(me.getMenutab() ,'left');
 
 							//show success message
 							Ext.Msg.show({

@@ -390,7 +390,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             container = me.getContainer(),
             index = item.raw.index;
 
-        if ( index == undefined || item.raw.header) {
+        if(index == undefined || item.raw.header) {
             list.deselect(item);
             this.overrideClose = true;
             list.select ( this.prevsel );
@@ -400,19 +400,28 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         //if basic mode is active look for a basic fn, otherwise proceed as normal
         if(me.getBasicMode() === true && Ext.isFunction(item.raw.basicFn)) {
             //don't select item!
-            list.deselect(item);
-            list.select ( this.prevsel );
+            deselectItem();
             item.raw.basicFn();
             return
         }
 
         //welcome mode is active look for a welcome fn, otherwise proceed as normal
         if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
-            //don't select item!
-            list.deselect(item);
-            list.select ( this.prevsel );
+            deselectItem();
             item.raw.welcomeFn();
             return
+        }
+
+        //check pre conditions that must be met
+        if(Ext.isFunction(item.raw.preCondition) && !item.raw.preCondition()) {
+            deselectItem();
+            return;
+        }
+
+        function deselectItem() {
+             //don't select item!
+            list.deselect(item);
+            list.select ( this.prevsel );            
         }
 
         this.prevsel = item;
@@ -544,7 +553,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         },
                         //icon to display on element
                         'iconCls',
+                        //true to create a default slidebutton inside view
                         'slideButton', 
+                        //fn to execute instead of displaying a view
                         'handler',
                         //used to display a badgeText like in {@link Ext.Button}
                         'badgeText',
@@ -558,12 +569,14 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         },
                         //a string used to select this button
                         'action',
-                        //true if this is a record added dynamically
+                        //true if this is a record added dynamically during runtime
                         'dynamic',
-                        //used to explicity mark an item, renders a icon after the name
+                        //used to explicity mark an item, renders an icon after the name
                         'marked',
                         //area represented by this item
-                        'areaId'
+                        'areaId',
+                        //can either be cloobster or club depending if user is checked in or not, used to toggle visibility
+                        'viewState'
                     ] 
                 }
             });
@@ -704,10 +717,18 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                    'width: 100% !important; z-index: 5',
             itemTpl: itemTpl,
             listeners: {
-                select: this.onSelect,
+                select: this.onSelect,                
                 scope: this
             }
         }));
+        //TODO test before listener
+        // list.on({
+        // select: {
+        //         order: 'before',
+        //         fn: this.onBeforeSelect
+        //     }
+        // });
+
         // list.on('itemtap', this.onItemTap, this);
         list.setStore( this.store );
         list.setScrollable (true);

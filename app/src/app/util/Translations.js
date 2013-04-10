@@ -1216,6 +1216,12 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"account.required" : {
+			"DE" :  "Dieses Feature benötigt einen Account.",
+			"EN" : "This feature requires an account.",
+			"ES" : "",
+			"IT" : ""
+		},
 		//history
 		"history.title" : {
 			"DE" :  "MyPlaces",

@@ -4,6 +4,8 @@
 Ext.define('EatSense.view.Lounge', {
 	extend: 'EatSense.ux.slidenavigation.collapsible.View',
 	requires : [ 
+		'EatSense.view.CloobsterArea',
+		'EatSense.view.PlacesOverview',
 		'EatSense.view.MyOrders', 
 		'EatSense.view.Menu', 
 		'EatSense.view.MenuOverview', 
@@ -14,6 +16,7 @@ Ext.define('EatSense.view.Lounge', {
 	],
 	xtype : 'lounge',
 	config : {
+		fullscreen: true,
 		 /**
          *  Any component within the container with an 'x-toolbar' class
          *  will be draggable.  To disable draggin all together, set this
@@ -55,13 +58,29 @@ Ext.define('EatSense.view.Lounge', {
         		}        	        		
         	]
         },
-		items : [	
+		items : [
+			{
+				xtype: 'cloobsterarea',
+				title: i10n.translate('dashboard.button.checkin'),
+				leaf: true,
+				action: 'show-dashboard',
+				viewState: 'cloobster'
+			},
+			{
+				xtype: 'placesoverview',
+				title: i10n.translate('dashboard.button.history'),
+				leaf: true,
+				action: 'show-places',
+				viewState: 'cloobster'
+			},
 			{
 				xtype: 'clubarea',
 				title: i10n.translate('slidenav.button.home'),
 				leaf: true,
+				preCreate: true,
 				action: 'show-clubdashboard',
-				iconCls: 'home-icon'
+				iconCls: 'home-icon',
+				viewState: 'club'
 			},		
 			{
 				iconCls: 'offer-icon',
@@ -69,7 +88,8 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('menuTab'),
 				leaf: true,
 				preCreate: true,
-				action: 'show-menu'
+				action: 'show-menu',
+				viewState: 'club'
 			},			
 			{
 				xtype: 'infopageoverview',
@@ -77,7 +97,8 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				preCreate: true,
 				action: 'show-infopage',
-				iconCls: 'slidenav-info-icon'
+				iconCls: 'slidenav-info-icon',
+				viewState: 'club'
 			},
 			{
 				xtype: 'feedbackform',
@@ -90,6 +111,7 @@ Ext.define('EatSense.view.Lounge', {
 				hideOnBasic: true,
 				preCreate: true,
 				action: 'show-feedback',
+				viewState: 'club',
 				welcomeFn: function() {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
@@ -102,6 +124,7 @@ Ext.define('EatSense.view.Lounge', {
 				preCreate: true,
 				hideOnBasic: true,
 				action: 'show-requests',
+				viewState: 'club',
 				welcomeFn: function() {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
@@ -111,7 +134,8 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('settingsButton'),
 				leaf: true,
 				action: 'show-settings',
-				iconCls: 'user-icon'
+				iconCls: 'user-icon',
+				viewState: 'club'
 			},
 			{	
 				xtype: 'myorderstab',
@@ -119,16 +143,10 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('myOrdersTabLeaveBt'),
 				leaf: true,
 				preCreate: true,
-				action: 'show-myorders'
+				action: 'show-myorders',
+				viewState: 'club'
 			}
 	
 		]
-	},
-	/**
-	 * Switch the tab.
-	 * 
-	 */
-	switchTab : function(view) {
-		this.setActiveItem(view);
 	}
 });

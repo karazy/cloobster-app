@@ -8,20 +8,23 @@ Ext.define('EatSense.controller.History', {
 
 	config: {
 		refs: {
-			mainView : 'mainview',
-			dashboard : 'mainview dashboard',
-			historyView : 'mainview history',
-			historyList : 'mainview history list',
+			mainView : 'lounge',
+         placesOverview: 'placesoverview',
+			dashboard : 'lounge dashboard',
+			historyView : 'lounge history',
+			historyList : 'lounge history list',
 			backButton : 'history button[action=back]',
 			backDetailButton : 'historydetail button[action=back]',
 			showHistoryButton: 'dashboard button[action=history]',			
-			historyDetailView: 'mainview historydetail',
-			historyDetailOrderList : 'historydetail #historyOrders',
-         historyDescriptionPanel : 'history #historyListDescPanel'
+			historyDetailView: 'lounge historydetail',
+			historyDetailOrderList : 'historydetail #historyOrders'
 		},
 		control: {
+         mainView: {
+            show: 'initHistory'
+         },
 			showHistoryButton : {
-				tap: 'showHistory'
+				tap: 'showHistoryButtonHandler'
 			},
 			backButton : {
 				tap: 'showDashboard'
@@ -31,65 +34,140 @@ Ext.define('EatSense.controller.History', {
 			},
 			historyList : {
 				itemtap : 'showHistoryDetail'
-			}
+			},
+         placesOverview: {
+            show: 'showHistory'
+         }
 		}
 	},	
+
+   /**
+   * Does some initialization stuff after main container is shown.
+   */
+   initHistory: function() {
+      var me = this,
+          mainView = this.getMainView(),
+          historyItem;
+
+
+      if(mainView) {
+         historyItem = mainView.getItemByAction('show-places');
+
+         if(historyItem) {
+            historyItem.raw.preCondition = function() {
+               //add login check to item
+               return me.promptForLogin();
+            }
+         }
+      }
+   },
+
+   /**
+   * If user is not logged in, shows login prompt.
+   * @return
+   *  true if user is logged in, false otherwise
+   */
+   promptForLogin: function() {
+      var loggedIn = this.getApplication().getController('Account').isLoggedIn();
+
+      Ext.Viewport.fireEvent('accountrequired', function(success) {
+         return success;
+      });
+       //if user has no account or is not logged in show alert window
+      // if(!loggedIn) {
+
+      //    Ext.Msg.show({
+      //       message: i10n.translate('history.noaccount'),
+      //       buttons: [{
+      //          text: i10n.translate('account.register.yes'),
+      //          itemId: 'yes',
+      //          ui: 'action'
+      //       }, {
+      //          text:  i10n.translate('account.register.no'),
+      //          itemId: 'no',
+      //          ui: 'action'
+      //       }],
+      //       scope: this,
+      //       fn: function(btnId, value, opt) {
+      //       if(btnId=='yes') {
+      //             this.getApplication().getController('Account').showLoginView();
+      //          }
+      //       }
+      //    }); 
+      //    return false; 
+      // }
+
+      // return true;
+   },
+   /**
+   * Tap eventhandler for show places button.
+   * @param {Ext.Button} button
+   *  Button from tap event
+   */
+   showHistoryButtonHandler: function(button) {
+      var mainView = this.getMainView();
+
+      mainView.selectByAction('show-places');
+   },
 	/**
 	* Event handler for history button.
 	* Shows the history view.
 	*/
 	showHistory: function(button) {
 		var me = this,
-          mainView = this.getMainView(),
+          // mainView = this.getMainView(),
+          placesOverview,
 			 historyView = this.getHistoryView(),
-          loggedIn = this.getApplication().getController('Account').isLoggedIn(),
-          androidCtr = this.getApplication().getController('Android');
+          loggedIn = this.getApplication().getController('Account').isLoggedIn();
 
          //if user has no account or is not logged in show alert window
-         if(!loggedIn) {
-            // Ext.Msg.alert(i10n.translate('hint'), i10n.translate('history.noaccount'));
+         // if(!loggedIn) {
 
-            Ext.Msg.show({
-               title: i10n.translate('hint'),
-               message: i10n.translate('history.noaccount'),
-               buttons: [{
-                  text: i10n.translate('account.register.yes'),
-                  itemId: 'yes',
-                  ui: 'action'
-               }, {
-                  text:  i10n.translate('account.register.no'),
-                  itemId: 'no',
-                  ui: 'action'
-               }],
-               scope: this,
-               fn: function(btnId, value, opt) {
-               if(btnId=='yes') {
-                     this.getApplication().getController('Account').showLoginView();
-                  }
-               }
-            });   
-         } else {
-            //show history view
-            mainView.switchTo(historyView, 'left');
-            androidCtr.addBackHandler(function(){
-               me.showDashboard();
-            });
+         //    Ext.Msg.show({
+         //       message: i10n.translate('history.noaccount'),
+         //       buttons: [{
+         //          text: i10n.translate('account.register.yes'),
+         //          itemId: 'yes',
+         //          ui: 'action'
+         //       }, {
+         //          text:  i10n.translate('account.register.no'),
+         //          itemId: 'no',
+         //          ui: 'action'
+         //       }],
+         //       scope: this,
+         //       fn: function(btnId, value, opt) {
+         //       if(btnId=='yes') {
+         //             this.getApplication().getController('Account').showLoginView();
+         //          }
+         //       }
+         //    });   
+         // } else {
+            //show history view            
+            // mainView.selectByAction('show-places');
+
+            placesOverview = this.getPlacesOverview();
+            if(!placesOverview) {
+               console.error('History.showHistory: placesOverview does not exist, maybe has not been created?');
+               return;
+            }
+
+            placesOverview.switchTo(historyView);
             this.loadHistory();
-         }
+
+         // }
 	},
 
 	/**
 	* Jump back to dashboard.
 	*/
    showDashboard: function(options) {
-	   var dashboardView = this.getDashboard(),
-	       mainView = this.getMainView(),
+	   var mainView = this.getMainView(),
 	       historyView = this.getHistoryView(),
           historyList = this.getHistoryList();
 	     
-         //also this method can be called from different points, we can savely remove the handler it is always the last
-         this.getApplication().getController('Android').removeLastBackHandler();
-	   	mainView.switchTo(dashboardView, 'right');
+	   	// mainView.switchTo(dashboardView, 'right');
+
+         mainView.selectByAction('show-dashboard');
 
          historyList.deselectAll();
    },
@@ -101,7 +179,7 @@ Ext.define('EatSense.controller.History', {
    		var me = this,
              historyStore = Ext.StoreManager.lookup('historyStore'),
    			 historyList = this.getHistoryList(),
-             descPanel = this.getHistoryDescriptionPanel();
+             descPanel = this.getHistoryView().down('#historyListDescPanel');
 
    		historyStore.loadPage(1, {
    			callback: function(records, operation, success) {
@@ -123,12 +201,11 @@ Ext.define('EatSense.controller.History', {
                   } else {
                      descPanel.setHidden(true);
                      historyList.setHidden(false);
+                     historyList.refresh();
                   }
                }
    			}
-   		});
-
-   		historyList.refresh();
+   		});   		
 
    },
 
@@ -139,37 +216,43 @@ Ext.define('EatSense.controller.History', {
    */
    showHistoryDetail: function(view, index, htmlElement, history) {
    		var me = this,
-             mainView = this.getMainView(),
-   			 historyDetailView = this.getHistoryDetailView(),
-   			 header = historyDetailView.down('#header'),
-   			 footer = historyDetailView.down('#footer'),
-             androidCtr = this.getApplication().getController('Android');
+             placesOverview = this.getPlacesOverview(),
+   			 historyDetailView,
+   			 header,
+   			 footer;
+
+         historyDetailView = placesOverview.down('historydetail');
+
+         if(!historyDetailView) {
+            console.log('History.showHistoryDetail: historyDetailView not found');
+            return;
+         }
+
+         header = historyDetailView.down('#header');
+         footer = historyDetailView.down('#footer');
 
    		header.getTpl().overwrite(header.element, history.getData());
    		footer.getTpl().overwrite(footer.element, history.getData());
 
    		this.loadHistoryOrders(history);
 
-         androidCtr.addBackHandler(function(){
-            me.backToHistory();
-         });
-   		mainView.switchTo(historyDetailView, 'left');
+
+   		placesOverview.switchTo(historyDetailView, 'left');
    },
    /**
    * Event handler for back button tap in history detail view.
    */
    backToHistoryButton: function(button) {
       this.backToHistory();
-      this.getApplication().getController('Android').removeLastBackHandler();
    },
    /**
    * Jump back to history overview.
    */
    backToHistory: function() {
-   	var mainView = this.getMainView(),
-   		historyView = this.getHistoryView();
-   		mainView.switchTo(historyView, 'right');
-		      
+   	var placesOverview = this.getPlacesOverview(),
+   		 historyView = this.getHistoryView();
+
+   	mainView.switchTo(historyView, 'right');      
    },
    /**
    * Loads all orders for given history.
@@ -177,9 +260,13 @@ Ext.define('EatSense.controller.History', {
    *	History to load orders for.
    */
    loadHistoryOrders: function(history) {
-   		var	me = this,
-   			list = this.getHistoryDetailOrderList();
-   		console.log('load history for checkInId ' + history.get('checkInId'));
+   		var me = this,
+   			 list = this.getHistoryDetailOrderList();
+
+         if(!history) {
+            console.error('History.loadHistoryOrders: no history given');
+            return;
+         }
 
    		list.getStore().removeAll();
 
@@ -192,7 +279,6 @@ Ext.define('EatSense.controller.History', {
    			callback: function(records, operation, success) {
    				if(success) {
    					Ext.Array.each(records, function(order) {
-   						//TODO remove maybe later and store calculated price in backend
    						order.calculate();
    					});
    					list.refresh();

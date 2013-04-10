@@ -22,18 +22,27 @@ Ext.define('EatSense.controller.Account', {
      *	User account object
      */
 
+     /**
+     * @event accountrequired
+     * Event fired on Ext.Viewport for actions that require an account.
+     * Prompts for login if user is not logged in.
+     * @param {Function} callback
+     * 	Gets passed success (true|false) and account object.
+     *
+     */
+
 	config: {
 		refs: {
-			mainView: 'mainview',
+			mainView: 'lounge',
 			loginView : {
 				selector: 'login',
 				xtype: 'login',
 				autoCreate: true
 			},
-			settingsView: 'mainview settingsview',			
+			settingsView: 'lounge settingsview',			
 			showLoginButtonDashboard : 'button[action=show-login]',
 			showSettingsButtonDashboard : 'dashboard button[action=profile]',
-			settingsViewBackButton: 'mainview settingsview settings #backButton',
+			settingsViewBackButton: 'lounge settingsview settings #backButton',
 			logoutDashboardButton: 'settingsview button[action=logout]'
 		},
 		control: {
@@ -55,10 +64,22 @@ Ext.define('EatSense.controller.Account', {
 		//users profile if logged in
 		profile: null
 	},
-
+	/**
+	* Initialization.
+	*/
 	init: function() {
 		//occurs when a user has an invalid login
 		this.getApplication().on('userLogout', this.logout, this);
+	},
+	/**
+	* Initialization.
+	*/
+	launch: function() {
+
+		Ext.Viewport.on({
+			'accountrequired' : this.promptForLogin,
+			scope: this
+		});
 	},
 	/**
 	* Searches for accessToken in localstorage. If one is found
@@ -131,8 +152,12 @@ Ext.define('EatSense.controller.Account', {
 	/**
 	* Tap event handler for show login button.
 	* Show loginview and wires up all events dynamically.
+	* @param {Ext.Button} button 
+	*	If used as tap handler
+	* @param {Function} callback
+    * 	Gets passed success (true|false) and account object.
 	*/
-	showLoginView: function(button) {
+	showLoginView: function(button, callback) {
 		var me = this,
 			//gets auto created
 			loginView = this.getLoginView(),
@@ -253,7 +278,14 @@ Ext.define('EatSense.controller.Account', {
 			cleanup();
 			loginView.hide();
 			//make sure never to store password
-			passwordfield.setValue('');			
+			passwordfield.setValue('');
+			if(appHelper.isFunction(callback)) {
+				if(me.isLoggedIn()) {
+					callback(true, me.getAccount());
+				} else {
+					callback(false);
+				}
+			}
 		}
 
 		Ext.Viewport.add(loginView);
@@ -481,13 +513,13 @@ Ext.define('EatSense.controller.Account', {
 			return;
 		};
 
-		appHelper.toggleMask('general.processing');
+		appHelper.toggleMask('general.processing', view);
 
 		if(!fbdata) {
 			if(!formValues.email || Ext.String.trim(formValues.email).length == 0 || !formValues.password || Ext.String.trim(formValues.password).length == 0) {
 				//no credentials provided
 				Ext.Msg.alert(i10n.translate('hint'), i10n.translate('error.account.nocredentials'));
-				appHelper.toggleMask(false);
+				appHelper.toggleMask(false, view);
 				return;
 			}			
 	    	this.getAccessToken(formValues.email, formValues.password, onSuccess, onFailure);
@@ -498,10 +530,10 @@ Ext.define('EatSense.controller.Account', {
 		//success handler for ajax request
 		function onSuccess(accountData) {
 			if(fbdata) {
-				console.log('Account.login > success found existing fb user ' + fbdata.id);	
+				console.log('Account.login: success found existing fb user ' + fbdata.id);	
 			}
 			
-	    	Ext.Viewport.setMasked(false);
+			appHelper.toggleMask(false, view);
 
 	    	//parse account, currently we only need the access token
 	    	account = Ext.create('EatSense.model.Account', Ext.decode(accountData.responseText));
@@ -512,10 +544,7 @@ Ext.define('EatSense.controller.Account', {
 			//TODO checkInCtr should take data from fired userlogin event
 			checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
 			checkInCtr.getAppState().set('accountId', account.get('id'));
-			
-			// me.hideDashboardLoginButton();
-			// me.hideLoginView();
-			// me.getApplication().getController('Android').removeLastBackHandler();
+
 
 			me.loadProfile(account.get('profileId'));
 
@@ -538,7 +567,7 @@ Ext.define('EatSense.controller.Account', {
 		function onFailure(accountData) {
 			console.log('Account.login: failure ' + accountData.status);
 			var error;
-			appHelper.toggleMask(false);
+			appHelper.toggleMask(false, view);
 
 	    	//TODO 20130218 this is dirty lirty aber wat solls. REFACTORING
 	    	try {
@@ -769,29 +798,39 @@ Ext.define('EatSense.controller.Account', {
 		this.showDashboardLoginButton();
 	},
 	/**
-	@USELESS? ;) 
-	* @private
-	* Updates logged in account with given checkinid
-	* @param {String} checkInId
-	*	Id to update account with
+	* Show a login prompt.
+	* @param {Function} callback
 	*/
-	updateAccountWithCheckIn: function(checkInId) {
-		var account;
-
+	promptForLogin: function(callback) {
 		if(!this.isLoggedIn()) {
-			console.error('Account.updateAccountWithCheckIn: not logged in');
-			return;
+			Ext.Msg.show({
+	            message: i10n.translate('account.required'),
+	            buttons: [{
+	               text: i10n.translate('account.register.yes'),
+	               itemId: 'yes',
+	               ui: 'action'
+	            }, {
+	               text:  i10n.translate('account.register.no'),
+	               itemId: 'no',
+	               ui: 'action'
+	            }],
+	            scope: this,
+	            fn: function(btnId, value, opt) {
+	            	if(btnId=='yes') {
+	                  this.showLoginView(callback);
+	                } else {
+	                	if(appHelper.isFunction(callback)) {
+	                		callback(false);	
+	                	}
+	                	
+	                }
+	            }
+        	 }); 
+		} else {
+			if(appHelper.isFunction(callback)) {
+				callback(true, this.getAccount());
+			}			
 		}
-
-		if(!this.getAccount()) {
-			console.error('Account.updateAccountWithCheckIn: no account');
-			return;
-		}
-
-		account = this.getAccount();
-
-		account.set('checkInId', checkInId);
-		account.save();
 	},
 	/**
 	* Indicates if user is logged in. User is considered to be logged in

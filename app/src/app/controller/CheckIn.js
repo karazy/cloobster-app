@@ -11,8 +11,8 @@ Ext.define('EatSense.controller.CheckIn', {
      * @event statusChanged
      * Fires whenever the checkin changed its status. This is the MAIN event.
      * Most actions start after user checked-in.
-     * It is one of the list available under EatSense.util.Constants
      * @param {String} the status
+     *  One out of the list available under EatSense.util.Constants
      * @param {EatSense.model.CheckIn} activeCheckIn
      *  On CHECKEDIN the active checkin is provided
      */
@@ -47,33 +47,31 @@ Ext.define('EatSense.controller.CheckIn', {
     config: {
         profile: Ext.os.deviceType.toLowerCase(),
     	refs: {
-          main : 'mainview',
+          main : 'lounge',
+          cloobsterArea: 'cloobsterarea',
           checkinconfirmation : 'checkinconfirmation',
         	nickname : 'checkinconfirmation #nicknameTf',
-        	checkinwithothers: 'checkinwithothers',
         	dashboard: 'dashboard',
         	settingsBt: 'dashboard button[action=settings]',
-          // aboutBt: 'dashboard button[action=about]',
-        	// settingsBackBt: 'settings button[action=back]',
         	nicknameTogglefield: 'checkinconfirmation togglefield[action=toggle-nickname]',
         	nicknameSettingsField: 'settings #nicknameSetting',
         	settingsview: 'settings',
-        	checkInDlg1Label1: 'checkinconfirmation #checkInDlg1Label1',    	       
+        	// checkInDlg1Label1: 'checkinconfirmation #checkInDlg1Label1',    	       
         	checkInBtn: 'dashboard button[action=checkin]',
           //confirm checkn view
           cancelCheckInBt: 'checkinconfirmation button[action=cancel-checkin]',           
         	confirmCheckInBt : 'checkinconfirmation button[action=confirm-checkin]',
           regenerateNicknameBt : 'checkinconfirmation button[action=regenerate-nickname]',
           //checkIn w/ others
-          userlist: '#checkinDlg2Userlist',
-        	checkinDlg2Userlist: '#checkinDlg2Userlist',
-        	checkinDlg2CancelBt : '#checkinDlg2CancelBt',
+         //  userlist: '#checkinDlg2Userlist',
+        	// checkinDlg2Userlist: '#checkinDlg2Userlist',
+        	// checkinDlg2CancelBt : '#checkinDlg2CancelBt',
           //loungeview and tabs
           loungeview : 'lounge',
         	menuTab: 'menutab',
         	cartTab: 'carttab',
           settingsTab: 'settingstab',
-          homeTab: 'clubarea',
+          // homeTab: 'clubarea',
           spotSelectionView : {
             selector: 'spotselection',
             xtype: 'spotselection',
@@ -88,9 +86,9 @@ Ext.define('EatSense.controller.CheckIn', {
             confirmCheckInBt: {
             	tap: 'confirmCheckInBtHandler'
             }, 
-            checkinDlg2Userlist: {
-            	select: 'linkToUser'
-            },
+            // checkinDlg2Userlist: {
+            // 	select: 'linkToUser'
+            // },
             cancelCheckInBt: {
             	tap: 'showDashboard'
             },
@@ -292,7 +290,7 @@ Ext.define('EatSense.controller.CheckIn', {
     */
    checkInConfirm: function(options) {
 	  var checkInDialog = this.getCheckinconfirmation(), 
-		    main = this.getMain(),
+		    cloobsterArea = this.getCloobsterArea(),
         nicknameToggle = this.getNicknameTogglefield(),
         nicknameField = this.getNickname(),
         nickname,
@@ -318,7 +316,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
     //user has to choose a nickname
     if(!nickname) {
-      main.switchTo(checkInDialog, 'left');
+      cloobsterArea.switchTo(checkInDialog, 'left');
     } else {
       //user already has a stored nickname
       this.checkIn(nickname);
@@ -475,13 +473,13 @@ Ext.define('EatSense.controller.CheckIn', {
     * Step 2 alt: cancel process
     */
    showDashboard: function(mask, key) {
-	   var dashboardView = this.getDashboard(),
-	       main = this.getMain(),
+	   var main = this.getMain(),
+         cloobsterArea = this.getCloobsterArea(),
 	       nicknameToggle = this.getNicknameTogglefield();
 	   
 	   this.setActiveCheckIn(null);
 	   	   
-	   main.switchTo(dashboardView, 'right');
+     cloobsterArea.switchTo(0);
 	   nicknameToggle.reset();
 		
 	   //ensure that main is only added once to viewport

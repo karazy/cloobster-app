@@ -14,7 +14,7 @@ Ext.define('EatSense.controller.Lounge', {
 	requires: ['EatSense.util.DashboardItemTemplates', 'EatSense.view.DashboardHelp'],
 	config: {
 		refs: {
-			mainview: 'mainview',
+			// mainview: 'mainview',
 			loungeview: 'lounge',
 			clubArea: 'clubarea',
 			clubDashboard: 'clubarea clubdashboard',
@@ -40,13 +40,16 @@ Ext.define('EatSense.controller.Lounge', {
 	 var me = this,
 		  checkInCtr = this.getApplication().getController('CheckIn');
 
+		this.manageViewState('cloobster');
+
 	  checkInCtr.on({
 		 'spotswitched' : function(spot) {
 			this.markSlideNavAreaActive(checkInCtr.getActiveArea(), spot);
 		 },
 		 'statusChanged' : function(status) {
-			if(status == appConstants.CHECKEDIN) {			  
-			  this.initDashboard();
+			if(status == appConstants.CHECKEDIN) {
+			  this.manageViewState('club');
+			  this.initDashboard();			  
 			  this.buildDashboard();
 
 			  this.checkFirstDashboardView(checkInCtr.getAppState());
@@ -201,8 +204,46 @@ Ext.define('EatSense.controller.Lounge', {
 			 }
 		  ]);
 		} else {
-		  lounge.getList().getStore().clearFilter();
+			lounge.getList().getStore().data.removeFilters(['hideOnBasic']);
+		  	// lounge.getList().getStore().clearFilter();
 		}       
+  },
+  /**
+  * Manages the slidenavigation menu based on given parameters.
+  * @param state
+  *   Hides all items not assigned to given view state.
+  */
+  manageViewState: function(state) {
+  		var lounge = this.getLoungeview();
+
+		if(!lounge) {
+			 console.log('Lounge.manageViewState: no loungeview found!');
+			 return;
+		}
+
+		if(!lounge.getList()) {
+		  console.log('Lounge.manageViewState: loungeview contains no list with navigation items!');
+			 return; 
+		}
+
+		console.log('Lounge.manageViewState: state=' + state);
+
+		//hide all elements with flag hideOnBasic
+		if(state) {
+			//remove filter for prev viewState
+			if(lounge.getList().getStore().getFilters().length > 0) {
+				lounge.getList().getStore().data.removeFilters(['viewState']);		
+			}
+		  
+		  lounge.getList().getStore().filter([
+			 {
+			 	property: "viewState", 
+			 	value: state
+			 }
+		  ]);
+		} else {
+			lounge.getList().getStore().data.removeFilters(['viewState']);
+		}  
   },
   /**
   * Shows or hides all slidenav buttons.
@@ -242,14 +283,15 @@ Ext.define('EatSense.controller.Lounge', {
 		nickname = "",
 		business = "",
 		spotName = "",
-		main = this.getMainview(),
+		// main = this.getMainview(),
 		lounge = this.getLoungeview();
 
 	//always show dashboard first
-	this.getClubArea().setActiveItem(0);
-	lounge.setActiveItem(0);
 
-	main.switchTo(lounge, 'left');
+	lounge.selectByAction('show-clubdashboard');
+	this.getClubArea().setActiveItem(0);	
+
+	// main.switchTo(lounge, 'left');
 
 	if(checkInCtr.getActiveCheckIn()) {
 		 nickname = checkInCtr.getActiveCheckIn().get('nickname');
@@ -416,6 +458,7 @@ Ext.define('EatSense.controller.Lounge', {
 			 item.leaf = true;
 			 item.title = area.get('name');
 			 item.dynamic = true;
+			 item.viewState = 'club';
 			 item.handler = function() {
 				me.switchArea(area);
 			 };
@@ -634,25 +677,26 @@ Ext.define('EatSense.controller.Lounge', {
 			slideNavStore = this.getLoungeview().getList().getStore();
 		
 		try {
-		  areaStore.clearFilter();
-		  //as awlays be extra careful cleaning up sencha stores.
-		  areaStore.each(function(area) {
-			 area.destroy();
-		  });
-		  areaStore.removeAll(false);
+			this.manageViewState('cloobster');
 
-		  //remove all dynamic items
-		  slideNavStore.each(function(item) {
+			areaStore.clearFilter();
+			//as awlays be extra careful cleaning up sencha stores.
+			areaStore.each(function(area) {
+			 area.destroy();
+			});
+			areaStore.removeAll(false);
+
+			//remove all dynamic items
+			slideNavStore.each(function(item) {
 			 if(item.get('dynamic')) {
 				slideNavStore.remove(item);
 				item.destroy();
 			 }
-		  });
+			});
 
-		  //DEPRECATED since we remove all tiles on cleanup, reset area title
-		  // this.applyAreaNameToMenuTileButtons();
-
-		  this.removeDashboardTiles();
+			//DEPRECATED since we remove all tiles on cleanup, reset area title
+			// this.applyAreaNameToMenuTileButtons();
+			this.removeDashboardTiles();
 		} catch(e) {
 		  console.error('Lounge.cleanup: failed ' + e);
 		}

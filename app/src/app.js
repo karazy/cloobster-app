@@ -16,7 +16,7 @@ Ext.application({
   'Android', 'Feedback', 'Styles', 'Account', 'History', 'Lounge', 'Facebook', 'InfoPage' ],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
   'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem'],
-	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'CheckinWithOthers', 'MenuOverview', 'ProductOverview', 
+	views : [ 'Main', 'Dashboard', 'Checkinconfirmation', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
     'EatSense.view.BackButton', 'EatSense.view.SettingsView', 'About', 'Privacy'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 
@@ -76,7 +76,7 @@ Ext.application({
     // Destroy the #appLoadingIndicator and #cloobsterLoadingText elements
     Ext.fly('appLoadingWrapper').destroy();
     //create main screen
-   	Ext.create('EatSense.view.Main');
+   	Ext.create('EatSense.view.Lounge');
   
   
 
