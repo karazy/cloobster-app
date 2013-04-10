@@ -251,7 +251,7 @@ Ext.define('EatSense.controller.Settings', {
         function removeAbout() {
             Ext.Viewport.remove(about);
             closeBt.un('tap', removeAbout);
-            androidCtr.removeBackFn();
+            androidCtr.removeBackFn(removeAbout);
         }
 
         Ext.Viewport.add(about);
