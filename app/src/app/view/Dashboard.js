@@ -12,23 +12,23 @@ Ext.define('EatSense.view.Dashboard', {
 				align: 'stretch',
 				pack: 'center'
 		},
-		padding: '20 8 30',
+		padding: '25 8 30',
 		cls: 'dashboard',		
 		items : [
 		{
 			xtype: 'titlebar',
 			docked: 'top',
 			cls: 'dashboard-header',
-			title: '<img src="res/images/dashboard/Logo_cloobster_weiss.png" height="47px" width="auto">',
+			title: '<img src="res/images/dashboard/Logo_cloobster_weiss.png" height="30px" width="auto" style="margin-top: 8px;">',
 			items: [
-				{
-					xtype: 'fixedbutton',
-					action: 'about',
-					iconCls: 'about',
-					iconMask: true,
-					// styleHtmlContent: true,
-					align: 'left'
-				},
+				// {
+				// 	xtype: 'fixedbutton',
+				// 	action: 'about',
+				// 	iconCls: 'about',
+				// 	iconMask: true,
+				// 	// styleHtmlContent: true,
+				// 	align: 'left'
+				// },
 				{
 					xtype : 'fixedbutton',
 					action: 'show-login',
@@ -47,17 +47,6 @@ Ext.define('EatSense.view.Dashboard', {
 					align: 'right'
 				}
 			]
-		},		
-		{
-			xtype : 'fixedbutton',
-			action: 'checkin',
-			html: i10n.translate('dashboard.button.checkin'),
-			baseCls: 'dashboard-button',
-			cls: 'dashboard-button-checkin',
-			iconCls: 'dashboard-button-icon',			
-			pressedCls: 'dashboard-button-pressed',
-			labelCls: 'dashboard-button-label',
-			flex: 1
 		},
 		{
 			xtype : 'fixedbutton',
@@ -68,8 +57,19 @@ Ext.define('EatSense.view.Dashboard', {
 			iconCls: 'dashboard-button-icon',
 			pressedCls: 'dashboard-button-pressed',
 			labelCls: 'dashboard-button-label',
-			flex: 1
-		},
+			flex: 2
+		},		
+		{
+			xtype : 'fixedbutton',
+			action: 'checkin',
+			html: i10n.translate('dashboard.button.checkin'),
+			baseCls: 'dashboard-button',
+			cls: 'dashboard-button-checkin',
+			iconCls: 'dashboard-button-icon',			
+			pressedCls: 'dashboard-button-pressed',
+			labelCls: 'dashboard-button-label',
+			flex: 3
+		},		
 		{
 			xtype: 'fixedbutton',
 			ui: 'action',
@@ -80,7 +80,7 @@ Ext.define('EatSense.view.Dashboard', {
 			iconCls: 'dashboard-button-icon',
 			pressedCls: 'dashboard-button-pressed',
 			labelCls: 'dashboard-button-label',
-			flex: 1
+			flex: 2
 		}
 		]
 	},

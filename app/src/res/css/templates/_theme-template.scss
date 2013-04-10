@@ -830,24 +830,24 @@ $general-border-radius: 3px;
 
 }
 .dashboard-button-icon {
-    background-size: 60px;
+    background-size: 64px;
     background-position: center;
-    width: 80px;
-    height: 80px;
+    width: 92px;
+    height: 92px;
     position: absolute;
-    bottom: -25px;
-    right: 30px;
-    border-radius: 40px;
+    bottom: -16px;
+    left: 22px;
+    border-radius: 46px;
     background-repeat: no-repeat;
     background-color: white;
-    z-index: 1;
+    /*z-index: 1;*/
   }
 
 .dashboard-button-label {
   position: absolute;
-  left: 13px;  
-  top: 33%;
-  font-size: 2.2em;
+  right: 21px;  
+  bottom: 10px;
+  font-size: 3em; 
   
 
   h2 {
@@ -885,43 +885,56 @@ $general-border-radius: 3px;
 }
 
 .dashboard-button-checkin {
-  background-color: #c4d7e9;
+  background-color: #659bce;
 
   &.dashboard-button-pressed {
-    background-color: darken(#c4d7e9 , 30%);
-  }
+    background-color: darken(#659bce , 30%);
+  }   
 
   .x-button-icon {
     background-image: url('../images/dashboard/production_barcode.png'); 
-    -webkit-transform:rotate(45deg);
-    transform:rotate(45deg);
-    background-size: 50px;
+  /*  -webkit-transform:rotate(45deg);
+    transform:rotate(45deg);*/
+    /*background-size: 50px;*/
   }
   
 }
 
 .dashboard-button-history {
-  background-color: #faa657;
+  /*background-color: #abc270;*/
+  background-color: lighten(#659bce , 10%);
 
   &.dashboard-button-pressed {
-    background-color: darken(#faa657 , 30%);
+    background-color: darken(#659bce , 20%);
+
+    /*background-color: darken(#abc270 , 30%);*/
   }
 
   .x-button-icon {
-    background-image: url('../images/dashboard/history.png');  
+    background-image: url('../images/dashboard/places_3d.png');  
+  }
+
+  .dashboard-button-label {
+    font-size: 2.5em !important;
   }
   
 }
 
 .dashboard-button-demo {
-  background-color: #cddcab;
+  /*background-color: #cddcab;*/
+  background-color: lighten(#659bce, 20%);
 
   &.dashboard-button-pressed {
-    background-color: darken(#cddcab , 30%);
+     background-color: darken(#659bce , 10%);
+    /*background-color: darken(#cddcab , 30%);*/
+  }
+
+  .dashboard-button-label {
+    font-size: 2.5em !important;
   }
 
   .x-button-icon {
-    background-image: url('../images/dashboard/checkin.png');  
+    background-image: url('../images/dashboard/scan_handy_3d.png');  
   }
 }
 
@@ -973,7 +986,7 @@ $general-border-radius: 3px;
 /* Club Dashboard */
 
 .club-dashboard {
-  background: #FFF;
+  background: #f6f7f6;;
 }
 
 .club-dashboard-header {    
