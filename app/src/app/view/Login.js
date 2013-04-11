@@ -27,11 +27,21 @@ Ext.define('EatSense.view.Login', {
 		items: [
 			{
 				docked : 'top',
-				xtype : 'toolbar',
+				xtype : 'titlebar',
 				title : i10n.translate('login.title'),
-				items : [ {
-					xtype : 'backbutton'
-				}]
+				items : [ 
+					{
+						xtype : 'backbutton'
+					},
+					{
+						xtype: 'fixedbutton',
+						action: 'about',
+						iconCls: 'about',
+						iconMask: true,
+						// styleHtmlContent: true,
+						align: 'right'
+					}
+				]
 			},
 			{
 				xtype : 'panel',

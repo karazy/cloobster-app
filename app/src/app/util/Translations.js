@@ -208,8 +208,8 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "Check-in",
-			"EN" :  "Check-in",
+			"DE" :  "Check-In",
+			"EN" :  "Check-In",
 			"ES" : "",
 			"IT" : ""
 		},

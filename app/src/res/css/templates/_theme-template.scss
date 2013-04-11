@@ -10,8 +10,9 @@
 
 /*custom imports*/
 
-@import 'tilebutton';
 @import 'widgets/dashboard-teaser';
+@import 'widgets/dashboard-button';
+@import 'widgets/tilebutton';
 
 @include sencha-panel;
 @include sencha-buttons;
@@ -790,190 +791,10 @@ $general-border-radius: 3px;
   }
 }
 
-.dashboard-button {
-  /*margin: 0.3em;*/
-  margin-bottom: 8px;
-  background-repeat: no-repeat;
-  background-position: 2% center;
-  font-size: 0.95em;
-  /*color: $dashboard-color;*/
-  color: white;
-  /*background-color: #f5f5f5;*/
-  border: 1px solid lightgray;
-  border-radius: 2px;
-  width: 100%;
-  /*height: 25%;*/
-  position: relative;
-  -webkit-box-shadow: 0 4px 2px -2px #eee;
-  box-shadow: 0 4px 2px -2px #eee;
-
-  /* http://twitter.github.com/bootstrap/scaffolding.html#responsive */
-  /* Portrait tablet to landscape and desktop */
-  /*and (max-width: 979px)*/
-  @media only screen and (min-width: 768px) {
- /*   background-size: 100px 100px;
-    height: 145px;*/
-  }
-
-  /* Landscape phone to portrait tablet */
-  @media only screen and (max-width: 767px) { 
-/*    background-size: 70px 70px;
-    height: 115px;*/
-  }
-
-  /* Landscape phones and down */
-  @media only screen and (max-width: 320px) { 
-    /*background-size: 45px 45px;
-    height: 90px;*/
-  }
-
-
-}
-.dashboard-button-icon {
-    background-size: 60px;
-    background-position: center;
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    bottom: -25px;
-    right: 30px;
-    border-radius: 40px;
-    background-repeat: no-repeat;
-    background-color: white;
-    z-index: 1;
-  }
-
-.dashboard-button-label {
-  position: absolute;
-  left: 13px;  
-  top: 33%;
-  font-size: 2.2em;
-  
-
-  h2 {
-    font-size: 2.2em;     
-  }
-
-  p {
-    font-size: .8em; 
-    word-break: break-word;
-  }
-
-  @media (min-width: 768px) { 
-    top: 25%;
-  }
- 
-  /* Landscape phone to portrait tablet */
-  @media (max-width: 767px) { 
-    /*top: 25%;*/
-    /*bottom: 10px;*/
-  }
- 
-  /* Landscape phones and down */
-  @media (max-width: 320px) {
-    h2 {
-      font-size: 18px; 
-      line-height: 20px
-    }
-    top: 5px;
-    left: 25%;
-    p {
-      font-size: 12px; 
-      line-height: 14px
-    }
-  }
-}
-
-.dashboard-button-checkin {
-  background-color: #c4d7e9;
-
-  &.dashboard-button-pressed {
-    background-color: darken(#c4d7e9 , 30%);
-  }
-
-  .x-button-icon {
-    background-image: url('../images/dashboard/production_barcode.png'); 
-    -webkit-transform:rotate(45deg);
-    transform:rotate(45deg);
-    background-size: 50px;
-  }
-  
-}
-
-.dashboard-button-history {
-  background-color: #faa657;
-
-  &.dashboard-button-pressed {
-    background-color: darken(#faa657 , 30%);
-  }
-
-  .x-button-icon {
-    background-image: url('../images/dashboard/history.png');  
-  }
-  
-}
-
-.dashboard-button-demo {
-  background-color: #cddcab;
-
-  &.dashboard-button-pressed {
-    background-color: darken(#cddcab , 30%);
-  }
-
-  .x-button-icon {
-    background-image: url('../images/dashboard/checkin.png');  
-  }
-}
-
-.dashboard-button-pressed {
-  color: #FFF;
-  background-color: #DDD;
-}
-
-.dashboard-button-login {
-  background-image: url('../images/dashboard/login.png');
-}
-
-.dashboard-button-facebook {
-  background-image: url('../images/dashboard/facebook.png');
-}
-
-.dashboard-button-badge {
-  margin-left: 34px;
-  top: 17px;
-  /*  sencha copy paste, some adjustments */
-  -webkit-background-clip: padding;
-  background-clip: padding-box;
-  -webkit-border-radius: 0.2em;
-  border-radius: 0.2em;
-  padding: .1em .3em;
-  /* To prevent overlapping in login window. */
-  /*z-index: 2;*/
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 0.1em 0.1em;
-  overflow: hidden;
-  color: #FCC;
-  border: 1px solid #900;
-  position: absolute;
-  width: auto;
-  min-width: 2em;
-  line-height: 1.2em;
-  font-size: .6em;
-  /*right: 0px;*/
-  /*top: -0.2em;*/
-  max-width: 95%;
-  background-color: #C00;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F66), color-stop(2%, #F00000), color-stop(100%, #A80000));
-  background-image: -webkit-linear-gradient(#F66, #F00000 2%, #A80000);
-  background-image: linear-gradient(#F66, #F00000 2%, #A80000);
-  display: inline-block;
-}
-
 /* Club Dashboard */
 
 .club-dashboard {
-  background: #FFF;
+  background: #f6f7f6;;
 }
 
 .club-dashboard-header {    
@@ -1475,19 +1296,14 @@ h9 {
 /*
 * History
 */
-.history-detail-wrapper {
-  /*margin: 1em;*/
-}
 
 .history-detail-header {
-    /*background: url(../images/history/header-bg-2.png) repeat-x;*/
-    /*height: 2.2em;*/
     text-align: center;
-    /*height: 100%;*/
+    color: $label-color;
 
     h1 {      
       padding-top: 0.8em;
-      font-size: 1em;
+      font-size: 1.4em;
     }
     p {
       font-size: 0.8em; 
@@ -1495,21 +1311,10 @@ h9 {
 }
 
 .history-detail-footer {
-   /*background: url(../images/history/footer-bg-2.png) repeat-x;*/
-   /*background-position: left bottom;*/
-   /*background-color: #f3e8d5;*/
-   /*height: 2em;*/
-
+  color: $label-color;
   text-align: center;
+  font-size: 1.2em;
 
-  h1 {
-    font-size: 1em;
-  }
-
-}
-
-.history-detail-list {
-  /*background-color: #f3e8d5;*/
 }
 
 .history-detail-item {
