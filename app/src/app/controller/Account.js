@@ -678,11 +678,7 @@ Ext.define('EatSense.controller.Account', {
 		var me = this;
 		//TODO throw event instead of direct call
 		this.getApplication().getController('Settings').loadSettings(this.getSettingsView());
-		this.getMainView().switchTo(this.getSettingsView(), 'left');
-
-		this.getApplication().getController('Android').addBackHandler(function() {
-			me.hideSettingsView();
-		});
+		this.getMainView().selectByAction('show-settings');
 	},
 	/**
 	* Tap event handler for settings view back button.
@@ -773,7 +769,6 @@ Ext.define('EatSense.controller.Account', {
                 			});
                 		}                		
                 	});
-                	// me.hideLoginView();
                 }               
             }
         });        
@@ -800,8 +795,13 @@ Ext.define('EatSense.controller.Account', {
 	/**
 	* Show a login prompt.
 	* @param {Function} callback
+	*  gets passed success (true|false) and account when successful
 	*/
 	promptForLogin: function(callback) {
+		if(!callback) {
+			console.log('Account.promptForLogin: in general this fn should be called with a callback');
+		}
+
 		if(!this.isLoggedIn()) {
 			Ext.Msg.show({
 	            message: i10n.translate('account.required'),
@@ -817,10 +817,11 @@ Ext.define('EatSense.controller.Account', {
 	            scope: this,
 	            fn: function(btnId, value, opt) {
 	            	if(btnId=='yes') {
-	                  this.showLoginView(callback);
+	            	  //null is the button
+	                  this.showLoginView(null, callback);
 	                } else {
 	                	if(appHelper.isFunction(callback)) {
-	                		callback(false);	
+	                		callback(false);
 	                	}
 	                	
 	                }

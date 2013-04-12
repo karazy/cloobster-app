@@ -61,7 +61,7 @@ Ext.define('EatSense.view.Lounge', {
 		items : [
 			{
 				xtype: 'cloobsterarea',
-				title: i10n.translate('dashboard.button.checkin'),
+				title: i10n.translate('slidenav.button.dashboard'),
 				leaf: true,
 				action: 'show-dashboard',
 				viewState: 'cloobster'
@@ -71,7 +71,8 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('dashboard.button.history'),
 				leaf: true,
 				action: 'show-places',
-				viewState: 'cloobster'
+				viewState: 'cloobster',
+				accountRequired: true
 			},
 			{
 				xtype: 'clubarea',
@@ -135,7 +136,7 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				action: 'show-settings',
 				iconCls: 'user-icon',
-				viewState: 'club'
+				viewState: 'allways'
 			},
 			{	
 				xtype: 'myorderstab',

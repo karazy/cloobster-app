@@ -232,18 +232,27 @@ Ext.define('EatSense.controller.Lounge', {
 		if(state) {
 			//remove filter for prev viewState
 			if(lounge.getList().getStore().getFilters().length > 0) {
-				lounge.getList().getStore().data.removeFilters(['viewState']);		
+				lounge.getList().getStore().data.removeFilters([viewStateFilter]);					
 			}
 		  
 		  lounge.getList().getStore().filter([
+			 // {
+			 // 	property: "viewState", 
+			 // 	value: state
+			 // }
 			 {
-			 	property: "viewState", 
-			 	value: state
+		 		filterFn: viewStateFilter
 			 }
 		  ]);
 		} else {
 			lounge.getList().getStore().data.removeFilters(['viewState']);
 		}  
+
+		function viewStateFilter(item) {
+			if(item.get('viewState') == state || item.get('viewState') == 'allways') {
+				return true;
+			}
+		}
   },
   /**
   * Shows or hides all slidenav buttons.

@@ -20,9 +20,6 @@ Ext.define('EatSense.controller.History', {
 			historyDetailOrderList : 'historydetail #historyOrders'
 		},
 		control: {
-         mainView: {
-            show: 'initHistory'
-         },
 			showHistoryButton : {
 				tap: 'showHistoryButtonHandler'
 			},
@@ -40,65 +37,6 @@ Ext.define('EatSense.controller.History', {
          }
 		}
 	},	
-
-   /**
-   * Does some initialization stuff after main container is shown.
-   */
-   initHistory: function() {
-      var me = this,
-          mainView = this.getMainView(),
-          historyItem;
-
-
-      if(mainView) {
-         historyItem = mainView.getItemByAction('show-places');
-
-         if(historyItem) {
-            historyItem.raw.preCondition = function() {
-               //add login check to item
-               return me.promptForLogin();
-            }
-         }
-      }
-   },
-
-   /**
-   * If user is not logged in, shows login prompt.
-   * @return
-   *  true if user is logged in, false otherwise
-   */
-   promptForLogin: function() {
-      var loggedIn = this.getApplication().getController('Account').isLoggedIn();
-
-      Ext.Viewport.fireEvent('accountrequired', function(success) {
-         return success;
-      });
-       //if user has no account or is not logged in show alert window
-      // if(!loggedIn) {
-
-      //    Ext.Msg.show({
-      //       message: i10n.translate('history.noaccount'),
-      //       buttons: [{
-      //          text: i10n.translate('account.register.yes'),
-      //          itemId: 'yes',
-      //          ui: 'action'
-      //       }, {
-      //          text:  i10n.translate('account.register.no'),
-      //          itemId: 'no',
-      //          ui: 'action'
-      //       }],
-      //       scope: this,
-      //       fn: function(btnId, value, opt) {
-      //       if(btnId=='yes') {
-      //             this.getApplication().getController('Account').showLoginView();
-      //          }
-      //       }
-      //    }); 
-      //    return false; 
-      // }
-
-      // return true;
-   },
    /**
    * Tap eventhandler for show places button.
    * @param {Ext.Button} button
@@ -115,46 +53,35 @@ Ext.define('EatSense.controller.History', {
 	*/
 	showHistory: function(button) {
 		var me = this,
-          // mainView = this.getMainView(),
           placesOverview,
 			 historyView = this.getHistoryView(),
           loggedIn = this.getApplication().getController('Account').isLoggedIn();
 
+         // show history view    
+         placesOverview = this.getPlacesOverview();
+         if(!placesOverview) {
+            console.error('History.showHistory: placesOverview does not exist, maybe has not been created?');
+            return;
+         }
+
+         placesOverview.switchTo(historyView);
+
          //if user has no account or is not logged in show alert window
-         // if(!loggedIn) {
+         if(!loggedIn) {
+            Ext.Msg.show({
+               message: i10n.translate('account.required'),
+               buttons: [{
+                  text: i10n.translate('ok'),
+                  itemId: 'yes',
+                  ui: 'action'
+               }],
+               scope: this
+            });   
 
-         //    Ext.Msg.show({
-         //       message: i10n.translate('history.noaccount'),
-         //       buttons: [{
-         //          text: i10n.translate('account.register.yes'),
-         //          itemId: 'yes',
-         //          ui: 'action'
-         //       }, {
-         //          text:  i10n.translate('account.register.no'),
-         //          itemId: 'no',
-         //          ui: 'action'
-         //       }],
-         //       scope: this,
-         //       fn: function(btnId, value, opt) {
-         //       if(btnId=='yes') {
-         //             this.getApplication().getController('Account').showLoginView();
-         //          }
-         //       }
-         //    });   
-         // } else {
-            //show history view            
-            // mainView.selectByAction('show-places');
-
-            placesOverview = this.getPlacesOverview();
-            if(!placesOverview) {
-               console.error('History.showHistory: placesOverview does not exist, maybe has not been created?');
-               return;
-            }
-
-            placesOverview.switchTo(historyView);
+         } 
+         else {                              
             this.loadHistory();
-
-         // }
+         }
 	},
 
 	/**
@@ -162,10 +89,7 @@ Ext.define('EatSense.controller.History', {
 	*/
    showDashboard: function(options) {
 	   var mainView = this.getMainView(),
-	       historyView = this.getHistoryView(),
           historyList = this.getHistoryList();
-	     
-	   	// mainView.switchTo(dashboardView, 'right');
 
          mainView.selectByAction('show-dashboard');
 

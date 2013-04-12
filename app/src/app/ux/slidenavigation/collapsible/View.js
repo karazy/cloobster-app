@@ -384,6 +384,19 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     overrideClose: false,
     prevsel: null,
 
+    // onBeforeSelect: function(list, item, eOpts) {
+    //     if(item.get('accountRequired') === true) {
+    //         Ext.Viewport.fireEvent('accountrequired', select);
+    //     } else {
+    //         select(true);
+    //     }
+
+    //     //returns false to prevent selection, otherwise true
+    //     function select(doSelect) {
+    //         return doSelect;
+    //     }
+    // },
+
     onSelect: function(list, item, eOpts) {
         var me = this,
             store = list.getStore(),
@@ -397,34 +410,46 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             return; // not a leaf
         }
 
+        this.prevsel = item;
+
+        //deselect new item and select old one
+        function deselectItem() {             
+            list.deselect(item);
+            list.select ( this.prevsel );
+        }
+
+        if(item.get('accountRequired') === true) {
+            Ext.Viewport.fireEvent('accountrequired', select);
+        } else {
+            select(true);
+        }
+
+        //do selection if doSelect = true
+        function select(doSelect) {
+            if(!doSelect) {
+                deselectItem();
+                me.closeContainer(me.config.selectSlideDuration);
+                return false;
+            } else {
+
+
+
         //if basic mode is active look for a basic fn, otherwise proceed as normal
         if(me.getBasicMode() === true && Ext.isFunction(item.raw.basicFn)) {
             //don't select item!
             deselectItem();
             item.raw.basicFn();
-            return
+            return false;
         }
 
         //welcome mode is active look for a welcome fn, otherwise proceed as normal
         if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
             deselectItem();
             item.raw.welcomeFn();
-            return
+            return false;
         }
 
-        //check pre conditions that must be met
-        if(Ext.isFunction(item.raw.preCondition) && !item.raw.preCondition()) {
-            deselectItem();
-            return;
-        }
-
-        function deselectItem() {
-             //don't select item!
-            list.deselect(item);
-            list.select ( this.prevsel );            
-        }
-
-        this.prevsel = item;
+        
 
         if (me._cache[index] == undefined) {
             //container = this.down('container[cls="x-slidenavigation-container"]');
@@ -444,19 +469,22 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             }
         }
 
-        if (Ext.isFunction(this._cache[index])) {
-            this._cache[index]();
+        if (Ext.isFunction(me._cache[index])) {
+            me._cache[index]();
         } else {
-            container.setActiveItem(this._cache[index]);
-            this.fireEvent('activeitemchange', this._cache[index]);
+            container.setActiveItem(me._cache[index]);
+            me.fireEvent('activeitemchange', me._cache[index]);
         }
         
-        if (this.config.closeOnSelect) {
-            if (this.overrideClose) {
-                this.overrideClose = false;
+        if (me.config.closeOnSelect) {
+            if (me.overrideClose) {
+                me.overrideClose = false;
             } else {
-                this.closeContainer(this.config.selectSlideDuration);
+                me.closeContainer(me.config.selectSlideDuration);
             }
+        }
+
+             }
         }
     },
 
@@ -576,7 +604,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                         //area represented by this item
                         'areaId',
                         //can either be cloobster or club depending if user is checked in or not, used to toggle visibility
-                        'viewState'
+                        'viewState',
+                        //true if this section requires a user login
+                        'accountRequired'
                     ] 
                 }
             });
@@ -721,13 +751,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                 scope: this
             }
         }));
-        //TODO test before listener
-        // list.on({
-        // select: {
-        //         order: 'before',
-        //         fn: this.onBeforeSelect
-        //     }
-        // });
 
         // list.on('itemtap', this.onItemTap, this);
         list.setStore( this.store );

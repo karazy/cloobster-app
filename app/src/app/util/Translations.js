@@ -206,6 +206,10 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"slidenav.button.dashboard" : {
+			"DE" :  "Dashboard",
+			"EN" : "Dashboard"
+		},
 		//Dashboard
 		"dashboard.button.checkin" : {
 			"DE" :  "Check-In",
