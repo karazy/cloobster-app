@@ -13,7 +13,7 @@ Ext.define('EatSense.controller.History', {
 			dashboard : 'lounge dashboard',
 			historyView : 'lounge history',
 			historyList : 'lounge history list',
-			backButton : 'history homebutton',
+			// backButton : 'history homebutton',
 			backDetailButton : 'historydetail button[action=back]',
 			showHistoryButton: 'dashboard button[action=history]',			
 			historyDetailView: 'lounge historydetail',
@@ -23,9 +23,9 @@ Ext.define('EatSense.controller.History', {
 			showHistoryButton : {
 				tap: 'showHistoryButtonHandler'
 			},
-			backButton : {
-				tap: 'showDashboard'
-			},
+			// backButton : {
+			// 	tap: 'showDashboard'
+			// },
 			backDetailButton: {
 				tap: 'backToHistory'
 			},
@@ -33,7 +33,8 @@ Ext.define('EatSense.controller.History', {
 				itemtap : 'showHistoryDetail'
 			},
          placesOverview: {
-            show: 'showHistory'
+            show: 'showHistory',
+            hide: 'hidePlaces'
          }
 		}
 	},	
@@ -46,7 +47,7 @@ Ext.define('EatSense.controller.History', {
       var mainView = this.getMainView();
 
       mainView.selectByAction('show-places');
-   },
+   },   
 	/**
 	* Event handler for history button.
 	* Shows the history view.
@@ -84,17 +85,40 @@ Ext.define('EatSense.controller.History', {
          }
 	},
 
+   /**
+   * Hide event handler.
+   * @param {Ext.Panel} placesOverview
+   *  placesOverview throwing the hide event.
+   */
+   hidePlaces: function(placesOverview) {
+      var historyList;
+
+      if(!placesOverview) {
+         console.error('History.hidePlaces: no placesOverview given');
+         return;
+      }
+
+      historyList = placesOverview.down('history list');
+
+      if(!historyList) {
+         console.error('History.hidePlaces: no historyList not found');
+         return;  
+      }
+
+       historyList.deselectAll();
+   },
+
 	/**
 	* Jump back to dashboard.
 	*/
-   showDashboard: function(options) {
-	   var mainView = this.getMainView(),
-          historyList = this.getHistoryList();
+   // showDashboard: function(options) {
+	  //  var mainView = this.getMainView(),
+   //        historyList = this.getHistoryList();
 
-         mainView.selectByAction('show-dashboard');
+   //       mainView.selectByAction('show-dashboard');
 
-         historyList.deselectAll();
-   },
+   //       historyList.deselectAll();
+   // },
    /**
    * Loads the history for logged in user.
    * History will be stored in historyStore.

@@ -166,7 +166,12 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         /**
          * {Boolean} set to true, to prevent dragging
          */
-        disableDrag: false
+        disableDrag: false,
+        /**
+        * Indicates the current state of the list. Only items with this state or 'allways'
+        * are visible.
+        */
+        viewState: 'cloobster'
     },
         
     initConfig: function() {

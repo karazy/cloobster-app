@@ -22,7 +22,7 @@ Ext.define('EatSense.controller.Lounge', {
 			descriptionPanel: 'clubarea clubdashboard #description',
 			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]',
 			navButtons: 'lounge button[action=toggle-navigation]',
-			homeButtons: 'lounge button[action=home]'
+			homeButtons: 'lounge homebutton'
 		},
 		control: {
 			menuDashboardButton : {
@@ -229,6 +229,13 @@ Ext.define('EatSense.controller.Lounge', {
 			 return; 
 		}
 
+		if(!state) {
+		  console.log('Lounge.manageViewState: no state given');
+			 return; 
+		}
+
+		lounge.setViewState(state);
+
 		console.log('Lounge.manageViewState: state=' + state);
 
 		//hide all elements with flag hideOnBasic
@@ -251,7 +258,7 @@ Ext.define('EatSense.controller.Lounge', {
 		  ]);
 		} else {
 			lounge.getList().getStore().data.removeFilters(['viewState']);
-		}  
+		}
 
 		//filterFn
 		function viewStateFilter(item) {
@@ -382,10 +389,20 @@ Ext.define('EatSense.controller.Lounge', {
 	},
 	/**
 	* Show dashboard by selecting it in slide navgiation.
+	* Depending on current viewState either club- or cloobster dashboard is shown.
 	*/
 	showDashboard: function(button) {
-		var lounge = this.getLoungeview();
-	 	lounge.selectByAction('show-clubdashboard');
+		var lounge = this.getLoungeview(),
+			 viewState;
+
+		viewState = lounge.getViewState();
+		//select correct home scree depending on view state
+		if(viewState == "cloobster") {
+			lounge.selectByAction('show-dashboard');
+		} else {
+			//viewstate = club but to be sure always show club dashboard as this is mostly the case
+			lounge.selectByAction('show-clubdashboard');
+		}	 	
 	},	
 	/**
 	* @private
