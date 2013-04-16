@@ -72,6 +72,7 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('dashboard.button.history'),
 				leaf: true,
 				action: 'show-places',
+				iconCls: 'places-icon',
 				viewState: 'cloobster',
 				accountRequired: true
 			},
