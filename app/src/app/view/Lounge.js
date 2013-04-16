@@ -63,6 +63,7 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'cloobsterarea',
 				title: i10n.translate('slidenav.button.dashboard'),
 				leaf: true,
+				iconCls: 'home-icon',
 				action: 'show-dashboard',
 				viewState: 'cloobster'
 			},

@@ -491,12 +491,6 @@ Ext.define('EatSense.controller.CheckIn', {
       appHelper.toggleMask(key, main);
      }
    },
-  /**
-  * Shows an about screen.
-  */
-  // showAbout: function() {
-  //   this.getApplication().getController('Settings').showAbout();
-  // },
 	/**
 	 * Show settings screen.
 	 * 

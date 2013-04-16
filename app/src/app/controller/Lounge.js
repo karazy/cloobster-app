@@ -84,6 +84,8 @@ Ext.define('EatSense.controller.Lounge', {
 				this.registerSlideBezelTap(true);
 				this.getLoungeview().setDisableDrag(false);
 				this.cleanup();
+				//TODO 20130416 move elsewhere?
+				this.getLoungeview().selectByAction('show-dashboard');
 			}
 		 },
 		 'basicmode' : function(basicMode) {
