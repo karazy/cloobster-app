@@ -75,10 +75,10 @@ Ext.define('EatSense.controller.Lounge', {
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 				this.registerSlideBezelTap(true);
-				//prevented dragging
+				//prevent dragging
 				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-				this.toggleSlidenavButtons(true);
+				this.toggleSlidenavButtons(false);
 				// this.getLoungeview().un('containertoggle', this.containerStateBasedActions, this);
 				this.getLoungeview().un('containertoggle', this.disableTextFields, this);
 				this.registerSlideBezelTap(true);
@@ -714,8 +714,6 @@ Ext.define('EatSense.controller.Lounge', {
 			slideNavStore = this.getLoungeview().getList().getStore();
 		
 		try {
-			this.manageViewState('cloobster');
-
 			areaStore.clearFilter();
 			//as awlays be extra careful cleaning up sencha stores.
 			areaStore.each(function(area) {
@@ -730,6 +728,8 @@ Ext.define('EatSense.controller.Lounge', {
 				item.destroy();
 			 }
 			});
+
+			this.manageViewState('cloobster');
 
 			//DEPRECATED since we remove all tiles on cleanup, reset area title
 			// this.applyAreaNameToMenuTileButtons();
