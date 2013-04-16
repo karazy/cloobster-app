@@ -214,7 +214,8 @@ Ext.define('EatSense.controller.Lounge', {
   *   Hides all items not assigned to given view state.
   */
   manageViewState: function(state) {
-  		var lounge = this.getLoungeview();
+  		var lounge = this.getLoungeview(),
+  			filters;
 
 		if(!lounge) {
 			 console.log('Lounge.manageViewState: no loungeview found!');
@@ -231,16 +232,18 @@ Ext.define('EatSense.controller.Lounge', {
 		//hide all elements with flag hideOnBasic
 		if(state) {
 			//remove filter for prev viewState
-			if(lounge.getList().getStore().getFilters().length > 0) {
-				lounge.getList().getStore().data.removeFilters([viewStateFilter]);					
+			filters = lounge.getList().getStore().getFilters();
+			if(filters && filters.length > 0) {
+				Ext.Array.forEach(filters, function(f) {
+					if(f.getId() == "viewStateFilter") {
+						lounge.getList().getStore().data.removeFilters(f);	
+					}
+				});								
 			}
 		  
 		  lounge.getList().getStore().filter([
-			 // {
-			 // 	property: "viewState", 
-			 // 	value: state
-			 // }
-			 {
+			 {	
+			 	id: 'viewStateFilter',
 		 		filterFn: viewStateFilter
 			 }
 		  ]);
@@ -248,6 +251,7 @@ Ext.define('EatSense.controller.Lounge', {
 			lounge.getList().getStore().data.removeFilters(['viewState']);
 		}  
 
+		//filterFn
 		function viewStateFilter(item) {
 			if(item.get('viewState') == state || item.get('viewState') == 'allways') {
 				return true;
@@ -511,8 +515,13 @@ Ext.define('EatSense.controller.Lounge', {
 			 });
 
 			 //set active area
-			itemToSet.set('marked', true); 
-			itemToSet.set('subtitle', spot.get('name'));
+			 if(itemToSet) {
+				itemToSet.set('marked', true); 
+				itemToSet.set('subtitle', spot.get('name')); 	
+			 } else {
+			 	console.error('Lounge.markSlideNavAreaActive: no itemToSet');
+			 }
+			
 	 },
 	 /**
 	 * Jumps back to dashboard and switches to new area.
