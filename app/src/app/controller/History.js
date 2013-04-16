@@ -13,7 +13,7 @@ Ext.define('EatSense.controller.History', {
 			dashboard : 'lounge dashboard',
 			historyView : 'lounge history',
 			historyList : 'lounge history list',
-			backButton : 'history button[action=back]',
+			backButton : 'history homebutton',
 			backDetailButton : 'historydetail button[action=back]',
 			showHistoryButton: 'dashboard button[action=history]',			
 			historyDetailView: 'lounge historydetail',
@@ -176,7 +176,7 @@ Ext.define('EatSense.controller.History', {
    	var placesOverview = this.getPlacesOverview(),
    		 historyView = this.getHistoryView();
 
-   	mainView.switchTo(historyView, 'right');      
+   	placesOverview.switchTo(historyView, 'right');      
    },
    /**
    * Loads all orders for given history.
