@@ -199,11 +199,12 @@ Ext.define('EatSense.controller.Android', {
 			activeview,
 			settingsview,
 			backbutton,
+			homebutton,
 			dashboardRecord;
 
 			//Backhandler execution order
 			//1. explicitly defined backhandler functions
-			//2. search backbutton in active card view
+			//2. search backbutton/homebutton in active card view
 			//3. jump back to dashboard
 			//4. exit logic
 			
@@ -215,40 +216,22 @@ Ext.define('EatSense.controller.Android', {
 				return;
 			}	
 
-			//is mainview or loungeview active?
-			if(mainview.getActiveItem() == loungeview) {
-				//get activeItem of loungeview.container which is a card layout,
-				//then getActiveItem of activeItem which should be a card layout as well
-				//look for a backbutton
-				if(loungeview && loungeview.getContainer() && loungeview.getContainer().getActiveItem()) {
-					if(loungeview.getContainer().getActiveItem().getActiveItem()) {
-						activeview = loungeview.getContainer().getActiveItem().getActiveItem();
-						backbutton = activeview.down('backbutton');
-						if(backbutton) {
-							backbutton.fireEvent('tap', backbutton);
-							return;
-						}		
-					}
-				}
+			//get activeItem of loungeview.container which is a card layout,
+			//then getActiveItem of activeItem which should be a card layout as well
+			//look for a backbutton
+			if(loungeview && loungeview.getContainer() && loungeview.getContainer().getActiveItem()) {
+				if(loungeview.getContainer().getActiveItem().getActiveItem()) {
+					activeview = loungeview.getContainer().getActiveItem().getActiveItem();
 
-				dashboardRecord = loungeview.getItemByAction('show-clubdashboard');
-
-				if(dashboardRecord && loungeview.getList().getSelection()[0] != dashboardRecord) {
-					loungeview.selectByAction('show-clubdashboard');
-					return;
-				}
-			} else {
-				if(mainview.getActiveItem()) {
-					settingsview = mainview.down('settingsview');
-					if(mainview.getActiveItem() == settingsview) {
-						//card layout
-						activeview = mainview.getActiveItem().getActiveItem();	
-					} else {
-						activeview = mainview.getActiveItem();	
-					}					
 					backbutton = activeview.down('backbutton');
 					if(backbutton) {
 						backbutton.fireEvent('tap', backbutton);
+						return;
+					}
+
+					homebutton = activeview.down('homebutton');
+					if(homebutton) {
+						homebutton.fireEvent('tap', homebutton);
 						return;
 					}
 				}
