@@ -220,53 +220,6 @@ Ext.application({
        }  
   },
 
-  /**
-  * @DEPRECATED
-  * @private
-  * Restore checkin.
-  * @param {String} restoredCheckInId
-  *   CheckIn to restore.
-  */
-  // restoreCheckIn: function(restoredCheckInId, defaultHeaders) {
-  //   var me = this,
-  //       checkInCtr = this.getController('CheckIn');
-
-  //       //show loading mask, because it can take a while if server is not responding immediately
-  //       checkInCtr.showDashboard(true, 'restoreStateLoading');
-  //       // EatSense.util.Helper.toggleMask('restoreStateLoading');
-
-  //       defaultHeaders['checkInId'] = restoredCheckInId;
-
-  //        //reload old state
-  //        EatSense.model.CheckIn.load(restoredCheckInId, {
-  //         scope: this,
-  //         success : function(record, operation) {
-  //           console.log('found existing checkin '+record);            
-  //           checkInCtr.restoreState(record);
-  //           //ATTENTION hide mask after business is loaded
-  //           // EatSense.util.Helper.toggleMask(false);           
-  //         },
-  //         failure: function(record, operation) {
-  //           console.log('error restoring state');
-
-  //           // EatSense.util.Helper.toggleMask(false);
-
-  //           delete defaultHeaders['checkInId'];
-
-  //           //delete invalid checkInId in appState
-  //           checkInCtr.getAppState().set('checkInId', '');
-  //           //TODO remove since we call it at method entrance
-  //           checkInCtr.showDashboard();
-
-  //           me.getApplication().handleServerError({
-  //             'error': operation.error,
-  //             'forceLogout': false,
-  //             'message' : {403: i10n.translate('restoreStateFailed')}
-  //           });
-  //         }
-  //       });
-  // },
-
 	//Global utility methods
 	/**
     *   Gloabl handler that can be used to handle errors occuring from server requests.

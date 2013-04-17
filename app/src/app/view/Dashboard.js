@@ -24,7 +24,6 @@ Ext.define('EatSense.view.Dashboard', {
 				{
 					xtype : 'fixedbutton',
 					action: 'show-login',
-					// text: i10n.translate('dashboard.button.settings'),
 					iconCls: 'user',
 					iconMask: true,
 					align: 'right'
@@ -32,7 +31,6 @@ Ext.define('EatSense.view.Dashboard', {
 				{
 					xtype : 'fixedbutton',
 					action: 'profile',
-					// text: i10n.translate('dashboard.button.settings'),
 					hidden: true,
 					iconCls: 'user',
 					iconMask: true,

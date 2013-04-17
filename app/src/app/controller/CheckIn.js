@@ -55,23 +55,17 @@ Ext.define('EatSense.controller.CheckIn', {
         	settingsBt: 'dashboard button[action=settings]',
         	nicknameTogglefield: 'checkinconfirmation togglefield[action=toggle-nickname]',
         	nicknameSettingsField: 'settings #nicknameSetting',
-        	settingsview: 'settings',
-        	// checkInDlg1Label1: 'checkinconfirmation #checkInDlg1Label1',    	       
+        	settingsview: 'settings',  	       
         	checkInBtn: 'dashboard button[action=checkin]',
           //confirm checkn view
           cancelCheckInBt: 'checkinconfirmation button[action=cancel-checkin]',           
         	confirmCheckInBt : 'checkinconfirmation button[action=confirm-checkin]',
           regenerateNicknameBt : 'checkinconfirmation button[action=regenerate-nickname]',
-          //checkIn w/ others
-         //  userlist: '#checkinDlg2Userlist',
-        	// checkinDlg2Userlist: '#checkinDlg2Userlist',
-        	// checkinDlg2CancelBt : '#checkinDlg2CancelBt',
           //loungeview and tabs
           loungeview : 'lounge',
         	menuTab: 'menutab',
         	cartTab: 'carttab',
           settingsTab: 'settingstab',
-          // homeTab: 'clubarea',
           spotSelectionView : {
             selector: 'spotselection',
             xtype: 'spotselection',
@@ -86,9 +80,6 @@ Ext.define('EatSense.controller.CheckIn', {
             confirmCheckInBt: {
             	tap: 'confirmCheckInBtHandler'
             }, 
-            // checkinDlg2Userlist: {
-            // 	select: 'linkToUser'
-            // },
             cancelCheckInBt: {
             	tap: 'showDashboard'
             },
@@ -489,6 +480,16 @@ Ext.define('EatSense.controller.CheckIn', {
 
      if(mask === true) {
       appHelper.toggleMask(key, main);
+     } else {
+
+
+     if(this.getAppState().get('firstDashboardView')) {         
+          var helpPanel = Ext.create('EatSense.view.DashboardHelp');
+          Ext.Viewport.add(helpPanel);
+          this.getAppState().set('firstDashboardView', false);
+        }
+   
+
      }
    },
 	/**

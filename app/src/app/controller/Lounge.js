@@ -1,6 +1,6 @@
 /**
-* Controller handles setup for slide navigation, dashboard tile rendering
-* and loading of areas.
+* Controller manages the main view and the slide navigation.
+* Also repsonsible for dynamic dashboard tiles and areas.
 */
 Ext.define('EatSense.controller.Lounge', {
 	extend: 'Ext.app.Controller',
@@ -16,6 +16,7 @@ Ext.define('EatSense.controller.Lounge', {
 		refs: {
 			// mainview: 'mainview',
 			loungeview: 'lounge',
+			dashboard: 'cloobsterarea dashboard',
 			clubArea: 'clubarea',
 			clubDashboard: 'clubarea clubdashboard',
 			dashboardHeader: 'clubarea clubdashboard #header',
@@ -33,6 +34,9 @@ Ext.define('EatSense.controller.Lounge', {
 			},
 			homeButtons: {
 				tap: 'showDashboard'
+			},
+			loungeview: {
+				show: 'navigationShow'
 			}
 		}
 	},
@@ -40,7 +44,8 @@ Ext.define('EatSense.controller.Lounge', {
 	 var me = this,
 		  checkInCtr = this.getApplication().getController('CheckIn');
 
-		this.manageViewState('cloobster');
+		
+		// this.checkFirstDashboardView(checkInCtr.getAppState());
 
 	  checkInCtr.on({
 		 'spotswitched' : function(spot) {
@@ -52,7 +57,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.initDashboard();			  
 			  this.buildDashboard();
 
-			  this.checkFirstDashboardView(checkInCtr.getAppState());
+			  
 
 			  me.getClubDashboard().on({
 			  	'tilesrendered' : function() {
@@ -67,7 +72,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  this.toggleSlidenavButtons(true);
 			  // this.getLoungeview().on('containertoggle', this.containerStateBasedActions, this);
 			  this.getLoungeview().on('containertoggle', this.disableTextFields, this);
-			  this.registerSlideBezelTap();
+			  
 
 			  this.getLoungeview().selectByAction('show-clubdashboard');
 			  this.getLoungeview().setDisableDrag(false);
@@ -78,10 +83,10 @@ Ext.define('EatSense.controller.Lounge', {
 				//prevent dragging
 				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-				this.toggleSlidenavButtons(false);
+				this.toggleSlidenavButtons(true);
 				// this.getLoungeview().un('containertoggle', this.containerStateBasedActions, this);
 				this.getLoungeview().un('containertoggle', this.disableTextFields, this);
-				this.registerSlideBezelTap(true);
+				this.registerSlideBezelTap(false);
 				this.getLoungeview().setDisableDrag(false);
 				this.cleanup();
 				//TODO 20130416 move elsewhere?
@@ -94,6 +99,15 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 scope: this
 	  });
+  },
+  /**
+  * Show event handler for navigation. 
+  */
+  navigationShow: function() {
+  	console.log('Lounge.navigationShow');
+	this.manageViewState('cloobster');
+	this.registerSlideBezelTap();
+
   },
   /**
   * Show/hide the slidenavigation menu.
@@ -305,15 +319,11 @@ Ext.define('EatSense.controller.Lounge', {
 		nickname = "",
 		business = "",
 		spotName = "",
-		// main = this.getMainview(),
 		lounge = this.getLoungeview();
 
 	//always show dashboard first
-
 	lounge.selectByAction('show-clubdashboard');
 	this.getClubArea().setActiveItem(0);	
-
-	// main.switchTo(lounge, 'left');
 
 	if(checkInCtr.getActiveCheckIn()) {
 		 nickname = checkInCtr.getActiveCheckIn().get('nickname');
