@@ -774,6 +774,18 @@ Ext.define('EatSense.controller.Account', {
 		}
 
 		if(!this.isLoggedIn()) {
+			
+
+			Ext.Msg.on({
+				'show' : function() {
+					//remove default msg box backhandler
+					Ext.Viewport.fireEvent('removebackhandler');
+					Ext.Viewport.fireEvent('addbackhandler', backButtonCanel);
+				},
+				scope: this
+			});
+
+
 			Ext.Msg.show({
 	            message: i10n.translate('account.required'),
 	            buttons: [{
@@ -787,6 +799,8 @@ Ext.define('EatSense.controller.Account', {
 	            }],
 	            scope: this,
 	            fn: function(btnId, value, opt) {
+	            	Ext.Viewport.fireEvent('removebackhandler', backButtonCanel);
+
 	            	if(btnId=='yes') {
 	            	  //null is the button
 	                  this.showLoginView(null, callback);
@@ -802,6 +816,12 @@ Ext.define('EatSense.controller.Account', {
 			if(appHelper.isFunction(callback)) {
 				callback(true, this.getAccount());
 			}			
+		}
+
+		function backButtonCanel() {
+			// console.log('Account.promptForLogin: backButtonCanel');
+			Ext.Msg.hide();	
+			callback(false);
 		}
 	},
 	/**
