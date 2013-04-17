@@ -10,7 +10,6 @@ Ext.define('EatSense.controller.Settings', {
             mainView: 'lounge',
     		settingsTab: 'lounge settingstab',
             //settings accessed from mainview
-            settingsView: 'mainview settingsview',
     		nicknameField: 'settings #nickname',
             aboutBt: 'button[action=about]',
             //account related stuff

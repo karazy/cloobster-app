@@ -6,8 +6,7 @@ Ext.define('EatSense.controller.Android', {
 	requires: ['EatSense.util.Helper', 'EatSense.util.EventBus'],
 	config: {
 		refs: {
-			loungeview: 'lounge',
-			mainview: 'mainview'
+			loungeview: 'lounge'
 		},
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
@@ -195,9 +194,7 @@ Ext.define('EatSense.controller.Android', {
 			msgBox,
 			backbutton,
 			loungeview = this.getLoungeview(),
-			mainview = this.getMainview(),
 			activeview,
-			settingsview,
 			backbutton,
 			homebutton,
 			dashboardRecord;

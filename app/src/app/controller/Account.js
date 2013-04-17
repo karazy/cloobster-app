@@ -665,28 +665,6 @@ Ext.define('EatSense.controller.Account', {
 	    	});
 	},
 	/**
-	* Shows the settingsview from cloobster dashboard.
-	*/
-	// showSettingsView: function(button) {
-	// 	var me = this;
-	// 	//TODO throw event instead of direct call
-	// 	this.getApplication().getController('Settings').loadSettings(this.getSettingsView());
-	// 	this.getMainView().selectByAction('show-settings');
-	// },
-	/**
-	* Tap event handler for settings view back button.
-	*/
-	// settingsViewBackButtonHandler: function(button) {
-	// 	this.getApplication().getController('Android').removeLastBackHandler();
-	// 	this.hideSettingsView();
-	// },
-	/**
-	* Hide settingsview.
-	*/
-	// hideSettingsView: function(button) {
-	// 	Ext.Viewport.fireEvent('showdashboard');
-	// },
-	/**
 	* Tap event for logout button in dashboard settingsview.
 	*/
 	logoutDashboardButtonHandler:  function(button) {
@@ -834,36 +812,5 @@ Ext.define('EatSense.controller.Account', {
 	*/
 	isLoggedIn: function() {
 		return headerUtil.getHeaderValue('X-Auth') != null;
-	},
-
-	//ui actions start
-	/**
-	* Hide and disable all login buttons. Enable and show settings button.
-	*/
-	// hideDashboardLoginButton: function() {
-	// 	var buttons = this.getMainView().query('button[action=show-login]');
-
-	// 	Ext.Array.each(buttons, function(button) {
-	// 		button.disable();
-	// 		button.hide();
-	// 	});
-
-	// 	this.getShowSettingsButtonDashboard().enable();
-	// 	this.getShowSettingsButtonDashboard().show();	
-	// },
-	/**
-	* Show and enable all login buttons. Disable and hide settings button.
-	*/
-	// showDashboardLoginButton: function() {
-	// 	var buttons = this.getMainView().query('button[action=show-login]');
-
-	// 	Ext.Array.each(buttons, function(button) {
-	// 		button.enable();
-	// 		button.show();
-	// 	});
-
-	// 	this.getShowSettingsButtonDashboard().disable();
-	// 	this.getShowSettingsButtonDashboard().hide();	
-	// }
-	//ui actions end
+	}
 });

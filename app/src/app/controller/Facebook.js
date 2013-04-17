@@ -6,20 +6,18 @@ Ext.define('EatSense.controller.Facebook', {
 	requires: ['EatSense.view.Login', 'EatSense.model.Account'],
 	config: {
 		refs: {
-			settingsview: 'settingsview',
-			settingsTab: 'lounge settingstab',
 			// signupFbButton : 'login button[action=signup-fb]',
-			connectFbDashboardButton : 'settingsview settings button[action=connect-fb]',
-			connectFbClubButton : 'lounge settings button[action=connect-fb]',
+			// connectFbDashboardButton : 'settingsview settings button[action=connect-fb]',
+			connectFbClubButton : 'settings button[action=connect-fb]',
 			fbWallpostClubButton: 'clubarea clubdashboard button[action="fb-wallpost"]'
 		},
 		control: {
 			// signupFbButton: {
 			// 	tap: 'signupFbButtonHandler'
 			// },
-			connectFbDashboardButton: {
-				tap: 'connectFbDashboardButtonHandler'
-			},
+			// connectFbDashboardButton: {
+			// 	tap: 'connectFbDashboardButtonHandler'
+			// },
 			connectFbClubButton: {
 				tap: 'connectFbClubButtonHandler'
 			},
@@ -80,7 +78,7 @@ Ext.define('EatSense.controller.Facebook', {
 	                });
 	            } else {
 	            	//no further interaction needed since the sdk does all the stuff
-	                console.log('Facebook.signupFbButtonHandler: user canceled or did not finish.')
+	                console.log('Facebook.signupWithFacebook: user canceled or did not finish.')
 	                appHelper.toggleMask(false);
 	            }
 	        },
@@ -103,9 +101,9 @@ Ext.define('EatSense.controller.Facebook', {
 	/**
 	* Tap event handler for connectFbClubButton in settingsview.
 	*/
-	connectFbDashboardButtonHandler: function() {
-		this.showConfirmConnectFbMsgBox(this.getSettingsview());
-	},
+	// connectFbDashboardButtonHandler: function() {
+	// 	this.showConfirmConnectFbMsgBox(this.getSettingsview());
+	// },
 	/**
 	* Show a confirmation and ask user to connect a fb account.
 	* @callingview

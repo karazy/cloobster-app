@@ -1,3 +1,6 @@
+/**
+* Container for all visited cloobster places as well as cloobster places near you...
+*/
 Ext.define('EatSense.view.PlacesOverview', {
 	extend: 'Ext.Panel',
 	xtype: 'placesoverview',
