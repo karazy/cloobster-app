@@ -7,6 +7,7 @@ Ext.define('EatSense.controller.Settings', {
     config: {
     	refs: {
             //settings accessed from lounge when checked-in
+            mainView: 'lounge',
     		settingsTab: 'lounge settingstab',
             //settings accessed from mainview
             settingsView: 'mainview settingsview',
@@ -14,11 +15,6 @@ Ext.define('EatSense.controller.Settings', {
             aboutBt: 'button[action=about]',
             //account related stuff
             accountPanel: 'settings #accountPanel',
-            //event handler for settings called from dashboard settingsview
-            emailChangeDashboardBt: 'settingsview settings button[action=email-change]',
-            emailBackDashboardBt: 'settingsview emailsetting button[action=back]',
-            passwordChangeDashboardBt: 'settingsview settings button[action=password-change]',
-            passwordBackDashboardBt: 'settingsview passwordsetting button[action=back]',
             //event handler for settings called from lounge tabbar
             emailChangeClubBt: 'lounge settings button[action=email-change]',
             emailBackClubBt: 'lounge emailsetting button[action=back]',
@@ -38,18 +34,6 @@ Ext.define('EatSense.controller.Settings', {
     		},
             aboutBt: {
                 tap: 'showAbout'
-            },
-            emailChangeDashboardBt: {
-                tap: 'showEmailChangeView'
-            },
-            emailBackDashboardBt: {
-                tap: 'backButtonHandler'
-            },
-            passwordChangeDashboardBt: {
-                tap: 'showPasswordChangeView'
-            },
-            passwordBackDashboardBt: {
-                tap: 'backButtonHandler'
             },
             emailChangeClubBt: {
                 tap: 'showEmailChangeView'
@@ -81,13 +65,15 @@ Ext.define('EatSense.controller.Settings', {
             checkInCtr = this.getApplication().getController('CheckIn'),
             accountCtr = this.getApplication().getController('Account');
 
-        checkInCtr.on('statusChanged', function(status) {
-            if(status == appConstants.CHECKEDIN) {            
-                accountCtr.on('userlogin', refreshSettings, this);
-            } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-                accountCtr.un('userlogin', refreshSettings, this);
-            }
-        }, this);
+        // checkInCtr.on('statusChanged', function(status) {
+        //     if(status == appConstants.CHECKEDIN) {            
+        //         accountCtr.on('userlogin', refreshSettings, this);
+        //     } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
+        //         accountCtr.un('userlogin', refreshSettings, this);
+        //     }
+        // }, this);
+
+        accountCtr.on('userlogin', refreshSettings, this);
 
         //refresh settings upon login
         function refreshSettings(account) {
@@ -100,21 +86,17 @@ Ext.define('EatSense.controller.Settings', {
     * Activate event handler for settingstab.
     */
     settingsTabActivated: function(tab, options) {
-        var androidCtr = this.getApplication().getController('Android');
-        //.down('#settingCards')
-        this.loadSettings(tab);
 
-        // androidCtr.setExitOnBack(false);    
-        // androidCtr.setAndroidBackHandler(this.getSettingsNavigationFunctions());
-        
+        this.loadSettings(tab);        
     },
     /**
     *	Loads the settings and sets the corresponding fields.
     * @param view
     *       a card panel with the settings, emailsetting and passwordsetting xtypes
     */
-    loadSettings: function(view) {
-    	var checkInCtr = this.getApplication().getController('CheckIn'),
+    loadSettings: function(view) {        
+    	var main = this.getMainView(),
+            checkInCtr = this.getApplication().getController('CheckIn'),
     		appState = checkInCtr.getAppState(),
             accountCtr = this.getApplication().getController('Account'),
             account = this.getApplication().getController('Account').getAccount(),
@@ -126,15 +108,17 @@ Ext.define('EatSense.controller.Settings', {
             fbConnectedLabel = null,
             accountPanel = null,
             //shown when user is not logged in
-            loginButton = null; 
+            loginButton = null,
+            //hidden when user is checked in
+            logoutButton; 
 
         if(!view) {
-            console.log('Settings.loadSettings: no view given');
+            console.error('Settings.loadSettings: no view given');
             return;
         }
 
         if(!view.down('settings')) {
-            console.log('Settings.loadSettings: calling view has no settings panel');
+            console.error('Settings.loadSettings: calling view has no settings panel');
             return;
         }
 
@@ -150,6 +134,17 @@ Ext.define('EatSense.controller.Settings', {
         connectWithFbButton = callingView.down('settings button[action=connect-fb]');        
         fbConnectedLabel = callingView.down('settings #accountFbStatus');
         loginButton = callingView.down('settings button[action=show-login]');
+        logoutButton = callingView.down('settings button[action=logout]');
+
+        if(logoutButton) {
+            if(main.getViewState() == 'club') {
+                logoutButton.setDisabled(true);
+                logoutButton.setHidden(true);
+            } else {
+                logoutButton.setDisabled(false);
+                logoutButton.setHidden(false);
+            }
+        }
 
 
         if(accountCtr.isLoggedIn()) {
@@ -617,6 +612,5 @@ Ext.define('EatSense.controller.Settings', {
         });
 
         this.getCallingView().setActiveItem(0);
-        // this.getCallingView().animateActiveItem(0, {type: 'slide', direction: 'right'});
     }
 });

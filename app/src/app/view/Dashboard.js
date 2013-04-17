@@ -20,23 +20,23 @@ Ext.define('EatSense.view.Dashboard', {
 			docked: 'top',
 			cls: 'dashboard-header',
 			title: '<img src="res/images/dashboard/Logo_cloobster_weiss.png" height="30px" width="auto" style="margin-top: 8px;">',
-			items: [
-				{
-					xtype : 'fixedbutton',
-					action: 'show-login',
-					iconCls: 'user',
-					iconMask: true,
-					align: 'right'
-				},
-				{
-					xtype : 'fixedbutton',
-					action: 'profile',
-					hidden: true,
-					iconCls: 'user',
-					iconMask: true,
-					align: 'right'
-				}
-			]
+			// items: [
+			// 	{
+			// 		xtype : 'fixedbutton',
+			// 		action: 'show-login',
+			// 		iconCls: 'user',
+			// 		iconMask: true,
+			// 		align: 'right'
+			// 	},
+			// 	{
+			// 		xtype : 'fixedbutton',
+			// 		action: 'profile',
+			// 		hidden: true,
+			// 		iconCls: 'user',
+			// 		iconMask: true,
+			// 		align: 'right'
+			// 	}
+			// ]
 		},
 		{
 			xtype : 'fixedbutton',

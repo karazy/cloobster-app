@@ -17,8 +17,7 @@ Ext.define('EatSense.view.Checkinconfirmation', {
 			xtype : 'toolbar',
 			title : i10n.translate('checkin.confirm.title'),
 			items : [{
-				xtype : 'backbutton',
-				action: 'cancel-checkin'
+				xtype : 'backbutton'
 			}]
 		}, 
 		{

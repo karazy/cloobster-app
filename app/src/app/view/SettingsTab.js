@@ -10,10 +10,6 @@ Ext.define('EatSense.view.SettingsTab', {
 			type: 'card',
 			//override default tabpanel animation setting
 			animation : null
-			// {
-			// 	type : 'slide',
-			// 	direction : 'left'
-			// }
 		},
 		iconCls : 'user',
 		title: i10n.translate('settingsButton'),
@@ -22,7 +18,7 @@ Ext.define('EatSense.view.SettingsTab', {
 		items : [
 			{
 				xtype: 'settings',
-				logoutButton: false,
+				logoutButton: true,
 				homeButton: true
 			},
 			{

@@ -11,6 +11,11 @@ Ext.define('EatSense.controller.Lounge', {
 	* @param {EatSense.model.Area} the new area
 	*/
 
+	/**
+	* @event showdashboard
+	* Event fired on Ext.Viewport to show the dashboard.
+	*/
+
 	requires: ['EatSense.util.DashboardItemTemplates', 'EatSense.view.DashboardHelp'],
 	config: {
 		refs: {
@@ -99,6 +104,11 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 scope: this
 	  });
+
+		Ext.Viewport.on({
+			'showdashboard' : this.showDashboard,
+			scope: this
+		});
   },
   /**
   * Show event handler for navigation. 
@@ -401,7 +411,7 @@ Ext.define('EatSense.controller.Lounge', {
 	* Show dashboard by selecting it in slide navgiation.
 	* Depending on current viewState either club- or cloobster dashboard is shown.
 	*/
-	showDashboard: function(button) {
+	showDashboard: function() {
 		var lounge = this.getLoungeview(),
 			 viewState;
 

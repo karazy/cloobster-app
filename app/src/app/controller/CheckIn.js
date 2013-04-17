@@ -58,7 +58,7 @@ Ext.define('EatSense.controller.CheckIn', {
         	settingsview: 'settings',  	       
         	checkInBtn: 'dashboard button[action=checkin]',
           //confirm checkn view
-          cancelCheckInBt: 'checkinconfirmation button[action=cancel-checkin]',           
+          cancelCheckInBt: 'checkinconfirmation backbutton',           
         	confirmCheckInBt : 'checkinconfirmation button[action=confirm-checkin]',
           regenerateNicknameBt : 'checkinconfirmation button[action=regenerate-nickname]',
           //loungeview and tabs
