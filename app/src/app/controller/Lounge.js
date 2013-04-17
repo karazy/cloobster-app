@@ -49,8 +49,6 @@ Ext.define('EatSense.controller.Lounge', {
 	 var me = this,
 		  checkInCtr = this.getApplication().getController('CheckIn');
 
-		
-		// this.checkFirstDashboardView(checkInCtr.getAppState());
 
 	  checkInCtr.on({
 		 'spotswitched' : function(spot) {
@@ -757,18 +755,5 @@ Ext.define('EatSense.controller.Lounge', {
 		} catch(e) {
 		  console.error('Lounge.cleanup: failed ' + e);
 		}
-	 },
-	 /**
-	 * Checks if this is the first time user sees the dashboard.
-	 * Displays a helping text in an overlay.
-	 */
-	 checkFirstDashboardView: function(appState) {
-	 	var helpPanel;
-
-	 	 if(appState.get('firstDashboardView')) {			  	
-	        helpPanel = Ext.create('EatSense.view.DashboardHelp');
-	        Ext.Viewport.add(helpPanel);
-	        appState.set('firstDashboardView', false);
-	      }
 	 }
 });

@@ -481,15 +481,7 @@ Ext.define('EatSense.controller.CheckIn', {
      if(mask === true) {
       appHelper.toggleMask(key, main);
      } else {
-
-
-     if(this.getAppState().get('firstDashboardView')) {         
-          var helpPanel = Ext.create('EatSense.view.DashboardHelp');
-          Ext.Viewport.add(helpPanel);
-          this.getAppState().set('firstDashboardView', false);
-        }
-   
-
+      this.checkFirstDashboardView(this.getAppState());
      }
    },
 	/**
@@ -1453,6 +1445,19 @@ Ext.define('EatSense.controller.CheckIn', {
           callback(false);
         }
       });
+   },
+   /**
+   * Checks if this is the first time user sees the dashboard.
+   * Displays a helping text in an overlay.
+   */
+   checkFirstDashboardView: function(appState) {
+    var helpPanel;
+
+     if(appState.get('firstDashboardView')) {         
+          helpPanel = Ext.create('EatSense.view.DashboardHelp');
+          Ext.Viewport.add(helpPanel);
+          appState.set('firstDashboardView', false);
+        }
    }
 
 
