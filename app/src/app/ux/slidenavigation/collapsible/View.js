@@ -413,9 +413,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             this.overrideClose = true;
             list.select ( this.prevsel );
             return; // not a leaf
-        }
-
-        this.prevsel = item;
+        }        
 
         //deselect new item and select old one
         function deselectItem() {             
@@ -454,6 +452,8 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             return false;
         }
 
+        //set new selection as previous
+        this.prevsel = item;
         
 
         if (me._cache[index] == undefined) {
