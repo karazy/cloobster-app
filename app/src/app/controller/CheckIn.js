@@ -343,7 +343,8 @@ Ext.define('EatSense.controller.CheckIn', {
         this.getActiveCheckIn().set('nickname',nickname);		  	   
         this.getActiveCheckIn().save({
 				success: function(response) {                    
-  					   	    console.log("CheckIn Controller -> checkIn success");
+  					   	    console.log("CheckIn:checkIn: success");
+                    appHelper.toggleMask(false);
                     //Set default headers so that always checkInId is send
                     headerUtil.addHeaders({
                       'checkInId' : response.get('userId'),
@@ -536,27 +537,40 @@ Ext.define('EatSense.controller.CheckIn', {
 	restoreState: function(restoredCheckInId) {
 		var me = this,
         main = this.getMain(),
-        cloobsterArea = this.getCloobsterArea(),
+        dashboard = this.getDashboard(),
+        // cloobsterArea = this.getCloobsterArea().getActiveItem(),
         messageCtr = this.getApplication().getController('Message');
 
         //show loading mask, because it can take a while if server is not responding immediately
         // this.showDashboard(true, 'restoreStateLoading');
-        // appHelper.toggleMask('restoreStateLoading', cloobsterArea);
+        // appHelper.toggleMask('restoreStateLoading', dashboard);
 
         // defaultHeaders['checkInId'] = restoredCheckInId;
         headerUtil.addHeader('checkInId', restoredCheckInId);
 
-        this.loadCheckIn(restoredCheckInId, processCheckIn);
+        me.loadCheckIn(restoredCheckInId, processCheckIn); 
+
+        
 
         //check retrieved checkin
-        function processCheckIn(checkIn, success) {
-          appHelper.toggleMask(false, cloobsterArea);
+        function processCheckIn(checkIn, success) {           
+          
           if(success) {
+            Ext.fly('appLoadingWrapper').destroy();
+            Ext.create('EatSense.view.Lounge', {
+              //directly select cloobster area
+              firstSelect: 2
+            });
+
+            main = me.getMain();
+            dashboard = main.down('clubdashboard');
+            appHelper.toggleMask('restoreStateLoading', dashboard);
+
               me.setActiveCheckIn(checkIn);
               //occurs on reload of application before hitting leave button
               if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
                     console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
-                    appHelper.toggleMask(false, main.getContainer());
+                    appHelper.toggleMask(false, dashboard);
                     me.handleStatusChange(appConstants.COMPLETE);
                     me.setActiveCheckIn(null);                    
                     return;
@@ -573,8 +587,11 @@ Ext.define('EatSense.controller.CheckIn', {
             //load active spot
             EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
               scope: me,
-               success: function(record, operation) {        
-                appHelper.toggleMask(false, main.getContainer());
+               success: function(record, operation) {  
+                // Ext.create('Ext.util.DelayedTask', function () {
+                //   appHelper.toggleMask(false, dashboard);
+                // }).delay(500);      
+                
                  me.setActiveSpot(record);
                  me.setActiveArea(record.get('areaId'));
                  me.activateWelcomeMode(record.get('welcome'));
@@ -600,7 +617,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
           } else {
             //restore failed
-            appHelper.toggleMask(false, main.getContainer());
+            appHelper.toggleMask(false, dashboard);
             headerUtil.resetHeaders(['checkInId']);
             me.getAppState().set('checkInId', '');
           }
@@ -693,7 +710,7 @@ Ext.define('EatSense.controller.CheckIn', {
           console.log('CheckIn.loadBusiness > failed setting currency');
         }
 
-        appHelper.toggleMask(false);
+        // appHelper.toggleMask(false);
       },
       failure: function(record, operation) {
         me.handleServerError({

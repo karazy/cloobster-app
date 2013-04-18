@@ -171,7 +171,11 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         * Indicates the current state of the list. Only items with this state or 'allways'
         * are visible.
         */
-        viewState: 'cloobster'
+        viewState: 'cloobster',
+         /**
+         * @cfg {Boolean} firstSelect
+         */
+         firstSelect: null
     },
         
     initConfig: function() {
@@ -280,7 +284,12 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      
         // TODO: Make this optional, perhaps by defining
         // "selected: true" in the items list
-        this.getList().select(0);
+        if(this.config.firstSelect) {
+            this.getList().select(this.config.firstSelect);
+        } else {
+            this.getList().select(0);    
+        }
+        
 
         //TODO bounce when user is inactive, eperimental
         if(this.config.bounceWhenInactive) {

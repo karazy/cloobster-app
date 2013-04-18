@@ -74,9 +74,9 @@ Ext.application({
 
   	   	
     // Destroy the #appLoadingIndicator and #cloobsterLoadingText elements
-    Ext.fly('appLoadingWrapper').destroy();
+    // Ext.fly('appLoadingWrapper').destroy();
     //create main screen
-   	Ext.create('EatSense.view.Lounge');
+   	// Ext.create('EatSense.view.Lounge');
   
   
 
@@ -216,6 +216,8 @@ Ext.application({
           console.log('no app state found.');
         }
          appStateStore.add(checkInCtr.getAppState());
+         Ext.fly('appLoadingWrapper').destroy();
+         Ext.create('EatSense.view.Lounge');
          checkInCtr.showDashboard();
        }  
   },

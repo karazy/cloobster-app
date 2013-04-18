@@ -65,7 +65,8 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				iconCls: 'home-icon',
 				action: 'show-dashboard',
-				viewState: 'cloobster'
+				viewState: 'cloobster',
+				preCreate: true
 			},
 			{
 				xtype: 'placesoverview',
@@ -84,7 +85,7 @@ Ext.define('EatSense.view.Lounge', {
 				action: 'show-clubdashboard',
 				iconCls: 'home-icon',
 				viewState: 'club'
-			},		
+			},
 			{
 				iconCls: 'offer-icon',
 				xtype: 'menutab',

@@ -33,7 +33,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				'top' : '0px',
 				'right' : '15px',
 				'z-Index' : '5'
-			},
+			}
 		},
 			{
 				xtype: 'label',
@@ -59,7 +59,8 @@ Ext.define('EatSense.view.ClubDashboard', {
 					itemId: 'description',
 					cls: 'club-dashboard-description',
 					style: 'text-align: center;',
-					html: i10n.translate('clubdashboard.label.description')
+					//get set programmatically
+					// html: i10n.translate('clubdashboard.label.description')
 				},
 				{
 					xtype: 'panel',					
@@ -113,7 +114,8 @@ Ext.define('EatSense.view.ClubDashboard', {
 	},
 
 	initialize: function() {
-		var scrollPanel = this;
+		var me = this,
+			scrollPanel = this;
 			fbButton = this.down('button[action=fb-wallpost]');
 
 
@@ -132,7 +134,9 @@ Ext.define('EatSense.view.ClubDashboard', {
 		function onClubdashBoardScroll(panel, x, y) {
 			// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + x + ' ' + y);
 			var yCalc = (y > 100) ? '100' : y;
+
 			fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0px)';
+
 		}
 	},
 

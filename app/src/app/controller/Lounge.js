@@ -63,9 +63,13 @@ Ext.define('EatSense.controller.Lounge', {
 			  
 
 			  me.getClubDashboard().on({
-			  	'tilesrendered' : function() {
+			  	'tilesrendered' : function(dashboard) {
 			  		//initially only the area id exists so use areaName from spot
 			  		this.applyAreaNameToMenuTileButtons(checkInCtr.getActiveSpot().get('areaName'));
+			  		Ext.create('Ext.util.DelayedTask', function () {
+                		appHelper.toggleMask(false, dashboard);
+                	}).delay(400);
+			  		
 			  	},
 			  	single: true,
 			  	scope: this
@@ -382,12 +386,9 @@ Ext.define('EatSense.controller.Lounge', {
   setCustomHeader: function() {
 	var checkInCtr = this.getApplication().getController('CheckIn'),
 		headerUrl = null,
-		// header = this.getDashboardHeader(),
 		clubDashboard = this.getClubDashboard(),
 		tilePanel,
 		innerPanel,
-		// scrollPanel,
-		// fbButton,
 		//html for custom business header            
 		headerImg = 'url("res/images/dashboard/cloobster-frau.jpg")';
 		//TODO maybe load from business.images instead from spot
@@ -396,8 +397,6 @@ Ext.define('EatSense.controller.Lounge', {
 		headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
 
 		tilePanel = clubDashboard.down('#tilePanel');
-		// scrollPanel = clubDashboard.down('#scrollPanel');
-		// fbButton = clubDashboard.down('button[action=fb-wallpost]');
 
 		if(headerUrl) {
 			 headerImg = 'url("'+headerUrl+'=s720")';
@@ -413,7 +412,7 @@ Ext.define('EatSense.controller.Lounge', {
 		innerPanel = tilePanel.element.down('.x-panel-inner');
 
 		if(innerPanel) {
-			innerPanel.dom.style.backgroundColor = 'white';
+			innerPanel.dom.style.backgroundColor = 'white';			
 			// innerPanel.dom.style.boxShadow = 'inset 0px 5px 5px -5px gray';
 		}
 	 }
