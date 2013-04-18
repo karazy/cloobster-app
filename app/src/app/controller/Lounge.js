@@ -307,15 +307,15 @@ Ext.define('EatSense.controller.Lounge', {
   },
   clubAreaActivated: function(tab, options) {
 		var androidCtr = this.getApplication().getController('Android'),
-			tilePanel = tab.down('#tilePanel');
+			scrollPanel = tab.down('#scrollPanel');
 
 	  //always jump to dashboard on home tab pressed
 	  tab.setActiveItem(0);
 	  androidCtr.setExitOnBack(false); 
 
 	  //scroll to top when activating the home menu
-	  if(tilePanel && tilePanel.getScrollable()) {
-		tilePanel.getScrollable().getScroller().scrollToTop();
+	  if(scrollPanel && scrollPanel.getScrollable()) {
+		scrollPanel.getScrollable().getScroller().scrollToTop();
 	  }
   },
   /**
@@ -382,23 +382,66 @@ Ext.define('EatSense.controller.Lounge', {
 	var checkInCtr = this.getApplication().getController('CheckIn'),
 		headerUrl = null,
 		header = this.getDashboardHeader(),
+		clubDashboard = this.getClubDashboard(),
+		tilePanel,
+		innerPanel,
+		scrollPanel,
+		fbButton,
 		//html for custom business header            
-		headerHtml = null;
-	//TODO maybe load from business.images instead from spot
-	//set header images
+		headerHtml = null,
+		headerImg = 'url("res/images/dashboard/cloobster-frau.jpg")';
+		//TODO maybe load from business.images instead from spot
+		//set header images
 	 if(checkInCtr.getActiveSpot()) {
 		headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
 
+		tilePanel = clubDashboard.down('#tilePanel');
+		scrollPanel = clubDashboard.down('#scrollPanel');
+		fbButton = clubDashboard.down('button[action=fb-wallpost]');
+
 		if(headerUrl) {
-			 headerHtml = '<img class="header" src="'+headerUrl+'=s720" />';
+			 // headerHtml = '<img class="header" src="'+headerUrl+'=s720" />';
+			 headerImg = 'url("'+headerUrl+'=s720")';
 		};
 
-		//only show if header exists!
-		if(headerUrl) {
-		  header.setHtml(headerHtml);
-		} else {
-		  header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
+		clubDashboard.setStyle({
+			'background-image' : headerImg,
+			'background-repeat' : 'no-repeat',
+			'background-position' : 'center top',			
+			'background-size' : '100% auto'
+		});
+
+		//TODO register only once
+
+		// scrollPanel.getScrollable().getScroller().on({
+		// 	scroll: Ext.Function.createThrottled(onClubdashBoardScroll, 10, this),
+		// 	scrollend: onClubdashBoardScroll,
+		// 	scope: this
+		// });
+
+		// // if (Ext.os.is.Android4 && !Ext.browser.is.Chrome) {
+  // //           this.onDrag = Ext.Function.createThrottled(this.onDrag, 20, this);
+  // //       }
+
+		// function onClubdashBoardScroll(panel, x, y) {
+		// 	// console.log('Lounge.setCustomHeader: onClubdashBoardScroll ' + x + ' ' + y);
+		// 	var yCalc = (y > 100) ? '100' : y;
+		// 	fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0px)';
+		// }
+
+		innerPanel = tilePanel.element.down('.x-panel-inner');
+
+		if(innerPanel) {
+			innerPanel.dom.style.backgroundColor = 'white';
+			// innerPanel.dom.style.boxShadow = 'inset 0px 5px 5px -5px gray';
 		}
+
+		//only show if header exists!
+		// if(headerUrl) {
+		//   header.setHtml(headerHtml);
+		// } else {
+		//   header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
+		// }
 	 }
   },
 	showMenu: function(button) {

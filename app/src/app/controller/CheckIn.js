@@ -479,7 +479,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	   }
 
      if(mask === true) {
-      appHelper.toggleMask(key, main);
+      appHelper.toggleMask(key, main.getContainer());
      } else {
       this.checkFirstDashboardView(this.getAppState());
      }
@@ -536,10 +536,12 @@ Ext.define('EatSense.controller.CheckIn', {
 	restoreState: function(restoredCheckInId) {
 		var me = this,
         main = this.getMain(),
+        cloobsterArea = this.getCloobsterArea(),
         messageCtr = this.getApplication().getController('Message');
 
         //show loading mask, because it can take a while if server is not responding immediately
-        this.showDashboard(true, 'restoreStateLoading');
+        // this.showDashboard(true, 'restoreStateLoading');
+        // appHelper.toggleMask('restoreStateLoading', cloobsterArea);
 
         // defaultHeaders['checkInId'] = restoredCheckInId;
         headerUtil.addHeader('checkInId', restoredCheckInId);
@@ -548,12 +550,13 @@ Ext.define('EatSense.controller.CheckIn', {
 
         //check retrieved checkin
         function processCheckIn(checkIn, success) {
+          appHelper.toggleMask(false, cloobsterArea);
           if(success) {
               me.setActiveCheckIn(checkIn);
               //occurs on reload of application before hitting leave button
               if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
                     console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
-                    appHelper.toggleMask(false, main);
+                    appHelper.toggleMask(false, main.getContainer());
                     me.handleStatusChange(appConstants.COMPLETE);
                     me.setActiveCheckIn(null);                    
                     return;
@@ -571,12 +574,12 @@ Ext.define('EatSense.controller.CheckIn', {
             EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
               scope: me,
                success: function(record, operation) {        
+                appHelper.toggleMask(false, main.getContainer());
                  me.setActiveSpot(record);
                  me.setActiveArea(record.get('areaId'));
                  me.activateWelcomeMode(record.get('welcome'));
                  me.loadBusiness(); 
-                          
-                appHelper.toggleMask(false, main);
+                                          
                 me.fireEvent('resumecheckin', me.getActiveCheckIn());
 
                 me.fireEvent('statusChanged', appConstants.CHECKEDIN, me.getActiveCheckIn());
@@ -597,7 +600,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
           } else {
             //restore failed
-            appHelper.toggleMask(false, main);
+            appHelper.toggleMask(false, main.getContainer());
             headerUtil.resetHeaders(['checkInId']);
             me.getAppState().set('checkInId', '');
           }
