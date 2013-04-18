@@ -307,6 +307,7 @@ Ext.define('EatSense.controller.Lounge', {
   },
   clubAreaActivated: function(tab, options) {
 		var androidCtr = this.getApplication().getController('Android'),
+			clubDashboard = this.getClubDashboard(),
 			scrollPanel = tab.down('#scrollPanel');
 
 	  //always jump to dashboard on home tab pressed
@@ -314,8 +315,8 @@ Ext.define('EatSense.controller.Lounge', {
 	  androidCtr.setExitOnBack(false); 
 
 	  //scroll to top when activating the home menu
-	  if(scrollPanel && scrollPanel.getScrollable()) {
-		scrollPanel.getScrollable().getScroller().scrollToTop();
+	  if(clubDashboard && clubDashboard.getScrollable()) {
+		clubDashboard.getScrollable().getScroller().scrollToTop();
 	  }
   },
   /**
@@ -381,14 +382,13 @@ Ext.define('EatSense.controller.Lounge', {
   setCustomHeader: function() {
 	var checkInCtr = this.getApplication().getController('CheckIn'),
 		headerUrl = null,
-		header = this.getDashboardHeader(),
+		// header = this.getDashboardHeader(),
 		clubDashboard = this.getClubDashboard(),
 		tilePanel,
 		innerPanel,
-		scrollPanel,
-		fbButton,
+		// scrollPanel,
+		// fbButton,
 		//html for custom business header            
-		headerHtml = null,
 		headerImg = 'url("res/images/dashboard/cloobster-frau.jpg")';
 		//TODO maybe load from business.images instead from spot
 		//set header images
@@ -396,11 +396,10 @@ Ext.define('EatSense.controller.Lounge', {
 		headerUrl = checkInCtr.getActiveSpot().get('headerUrl');
 
 		tilePanel = clubDashboard.down('#tilePanel');
-		scrollPanel = clubDashboard.down('#scrollPanel');
-		fbButton = clubDashboard.down('button[action=fb-wallpost]');
+		// scrollPanel = clubDashboard.down('#scrollPanel');
+		// fbButton = clubDashboard.down('button[action=fb-wallpost]');
 
 		if(headerUrl) {
-			 // headerHtml = '<img class="header" src="'+headerUrl+'=s720" />';
 			 headerImg = 'url("'+headerUrl+'=s720")';
 		};
 
@@ -411,37 +410,12 @@ Ext.define('EatSense.controller.Lounge', {
 			'background-size' : '100% auto'
 		});
 
-		//TODO register only once
-
-		// scrollPanel.getScrollable().getScroller().on({
-		// 	scroll: Ext.Function.createThrottled(onClubdashBoardScroll, 10, this),
-		// 	scrollend: onClubdashBoardScroll,
-		// 	scope: this
-		// });
-
-		// // if (Ext.os.is.Android4 && !Ext.browser.is.Chrome) {
-  // //           this.onDrag = Ext.Function.createThrottled(this.onDrag, 20, this);
-  // //       }
-
-		// function onClubdashBoardScroll(panel, x, y) {
-		// 	// console.log('Lounge.setCustomHeader: onClubdashBoardScroll ' + x + ' ' + y);
-		// 	var yCalc = (y > 100) ? '100' : y;
-		// 	fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0px)';
-		// }
-
 		innerPanel = tilePanel.element.down('.x-panel-inner');
 
 		if(innerPanel) {
 			innerPanel.dom.style.backgroundColor = 'white';
 			// innerPanel.dom.style.boxShadow = 'inset 0px 5px 5px -5px gray';
 		}
-
-		//only show if header exists!
-		// if(headerUrl) {
-		//   header.setHtml(headerHtml);
-		// } else {
-		//   header.setHtml('<img class="header" src="res/images/dashboard/header-bg.png" />');
-		// }
 	 }
   },
 	showMenu: function(button) {

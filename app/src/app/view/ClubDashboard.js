@@ -20,45 +20,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 		},
 		scrollable: 'vertical',
 		items : [
-		// {
-		// 	xtype : 'panel',
-		// 	itemId: 'header',
-		// 	html: '<img class="header" src="res/images/dashboard/header-bg.png" />',
-		// 	cls: 'club-dashboard-header',
-		// 	docked: 'top',
-		// 	layout: 'fit',
-		// 	items: [
-		// 		{
-		// 			xtype: 'fixedbutton',
-		// 			ui: 'action',
-		// 			action: 'fb-wallpost',
-		// 			baseCls: 'fb-wimpel-button',
-		// 			pressedCls: 'fb-wimpel-button-pressed',
-		// 			top: 0,
-		// 			right: 15
-		// 		}			
-		// 	]
-		// // },
-
-		// {
-		// 	xtype: 'panel',
-		// 	itemId: 'scrollPanel',
-		// 	scrollable: {
-		// 		direction: 'vertical',
-		// 		// scoller: {
-		// 			// listeners: {
-		// 			// 	'scrollend': function() {
-		// 			// 		console.error('SCROLL END');
-		// 			// 	}
-		// 			// }
-		// 		// }
-		// 	},
-		// 	flex: 1,
-		// 	layout: {
-		// 		type: 'vbox'
-		// 	},
-		// 	items: [
-					{
+			{
 			xtype: 'fixedbutton',
 			ui: 'action',
 			action: 'fb-wallpost',
@@ -147,19 +109,11 @@ Ext.define('EatSense.view.ClubDashboard', {
 		}
 			]
 		}	
-
-
-
-
-		// 	]
-		// }
-		
-	
 		]
 	},
 
 	initialize: function() {
-		var scrollPanel = this;//.down('#scrollPanel'),
+		var scrollPanel = this;
 			fbButton = this.down('button[action=fb-wallpost]');
 
 
