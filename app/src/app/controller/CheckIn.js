@@ -564,6 +564,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
             main = me.getMain();
             dashboard = main.down('clubdashboard');
+            //mask gets removed after clubdashboard has been build or on error
             appHelper.toggleMask('restoreStateLoading', dashboard);
 
               me.setActiveCheckIn(checkIn);
@@ -587,11 +588,7 @@ Ext.define('EatSense.controller.CheckIn', {
             //load active spot
             EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
               scope: me,
-               success: function(record, operation) {  
-                // Ext.create('Ext.util.DelayedTask', function () {
-                //   appHelper.toggleMask(false, dashboard);
-                // }).delay(500);      
-                
+               success: function(record, operation) {                
                  me.setActiveSpot(record);
                  me.setActiveArea(record.get('areaId'));
                  me.activateWelcomeMode(record.get('welcome'));
@@ -609,6 +606,7 @@ Ext.define('EatSense.controller.CheckIn', {
                   }
                 },
                 failure: function(record, operation) {
+                  appHelper.toggleMask(false, dashboard);
                   me.getApplication().handleServerError({
                           'error':operation.error
                   });               
@@ -617,7 +615,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
           } else {
             //restore failed
-            appHelper.toggleMask(false, dashboard);
+            Ext.create('EatSense.view.Lounge');
             headerUtil.resetHeaders(['checkInId']);
             me.getAppState().set('checkInId', '');
           }

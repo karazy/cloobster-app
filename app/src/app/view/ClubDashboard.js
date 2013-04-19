@@ -58,7 +58,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 					xtype: 'label',
 					itemId: 'description',
 					cls: 'club-dashboard-description',
-					style: 'text-align: center;',
+					style: 'text-align: center;'
 					//get set programmatically
 					// html: i10n.translate('clubdashboard.label.description')
 				},
@@ -122,7 +122,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 		//configure dynamic scrolling behaviour of facebook button
 
 		scrollPanel.getScrollable().getScroller().on({
-			scroll: Ext.Function.createThrottled(onClubdashBoardScroll, 10, this),
+			scroll: Ext.Function.createThrottled(onClubdashBoardScroll, 15, this),
 			scrollend: onClubdashBoardScroll,
 			scope: this
 		});
@@ -135,7 +135,14 @@ Ext.define('EatSense.view.ClubDashboard', {
 			// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + x + ' ' + y);
 			var yCalc = (y > 100) ? '100' : y;
 
-			fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0px)';
+			fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0)';
+			// fbButton.element.dom.style.webkitTransform = 'translateY(' + yCalc + 'px)';
+			// if(y<0) {
+			// 	fbButton.setTop(0);	
+			// } else if(y > 100){
+			// 	fbButton.setTop(100);
+			// }
+			 
 
 		}
 	},
