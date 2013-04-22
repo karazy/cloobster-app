@@ -102,7 +102,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 },
 		 'basicmode' : function(basicMode) {
 		 	this.manageBasicMode(basicMode);		 	
-		 	this.tryLoadingAreas();		 	
+		 	this.tryLoadingAreas();	 	
 		 },
 		 scope: this
 	  });

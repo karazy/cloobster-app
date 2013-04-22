@@ -12,7 +12,8 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.SettingsTab', 
 		'EatSense.view.RequestsTab',
 		'EatSense.view.ClubArea',
-		'EatSense.ux.slidenavigation.collapsible.View'
+		'EatSense.ux.slidenavigation.collapsible.View',
+		// 'EatSense.view.ContactInfo'
 	],
 	xtype : 'lounge',
 	config : {
@@ -132,6 +133,14 @@ Ext.define('EatSense.view.Lounge', {
 				welcomeFn: function() {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
+			},
+			{
+				xtype: 'contactinfo',
+				title: i10n.translate('contactinfo.title'),
+				leaf: true,
+				// preCreate: true,
+				action: 'show-contactinfo',
+				viewState: 'club'
 			},
 			{
 				xtype: 'settingstab',
