@@ -5,17 +5,20 @@
 Ext.define('EatSense.controller.ContactInfo', {
 	extend: 'Ext.app.Controller',
 	requires: [],
-	refs: {
-		contactInfoView : 'contactinfo'
+	config: {
+			refs: {
+			contactInfoView : 'contactinfo'
+		},
+		control: {
+			contactInfoView: {
+				show: 'showContactInfo'
+			}
+		},	
 	},
-	control: {
-		contactInfoView: {
-			show: 'showContactInfo'
-		}
-	},
+	
 
 	showContactInfo: function(panel) {
-		var location = this.getApplication().getController('CheckIn').getBusiness();
+		var location = this.getApplication().getController('CheckIn').getActiveBusiness();
 		console.log('ContactInfo.showContactInfo');
 
 		if(location) {

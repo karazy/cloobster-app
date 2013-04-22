@@ -13,7 +13,7 @@ Ext.Loader.setPath({
 Ext.application({
 	name : 'EatSense',
 	controllers : [ 'CheckIn', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
-  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Lounge', 'Facebook', 'InfoPage' ],
+  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Lounge', 'Facebook', 'InfoPage', 'ContactInfo' ],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
   'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem'],
 	views : ['Dashboard', 'Checkinconfirmation', 'MenuOverview', 'ProductOverview', 

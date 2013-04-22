@@ -137,6 +137,7 @@ Ext.define('EatSense.view.Lounge', {
 			{
 				xtype: 'contactinfo',
 				title: i10n.translate('contactinfo.title'),
+				iconCls: 'contactinfo-icon',
 				leaf: true,
 				// preCreate: true,
 				action: 'show-contactinfo',

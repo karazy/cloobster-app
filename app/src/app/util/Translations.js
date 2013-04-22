@@ -1382,6 +1382,31 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		//contact info
+		"contactinfo.title" : {
+			"DE" :  "Kontakt",
+			"EN" : "Contact"
+		},
+		"contactinfo.phonenumbers" : {
+			"DE" :  "Telefonnummern",
+			"EN" : "Phone numbers"
+		},
+		"contactinfo.location.phone" : {
+			"DE" :  "Hotel",
+			"EN" : "Hotel"
+		},
+		"contactinfo.location.url" : {
+			"DE" :  "Zur Seite",
+			"EN" : "Go to page"
+		},
+		"contactinfo.address" : {
+			"DE" :  "Adresse",
+			"EN" : "Address"
+		},
+		"contactinfo.website" : {
+			"DE" :  "Website",
+			"EN" : "Website"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

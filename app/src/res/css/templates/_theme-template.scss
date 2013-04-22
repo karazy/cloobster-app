@@ -40,7 +40,7 @@
 @include pictos-iconmask('globe2');
 @include pictos-iconmask('look');
 @include pictos-iconmask('home2');
-
+@include pictos-iconmask('phone1');
 
 
 @CHARSET "UTF-8";
@@ -1080,6 +1080,10 @@ $general-border-radius: 3px;
   -webkit-mask-image: inline-image('../images/club/feedback.png'); 
 }
 
+.contactinfo-icon {
+  -webkit-mask-image: inline-image('../images/club/card1.png'); 
+}
+
 .request-icon {
   -webkit-mask-image: inline-image('../images/club/vip.png');  
 }
@@ -1327,6 +1331,25 @@ h9 {
 
   .x-list-item-label {
     border: none !important;
+  }
+}
+
+.contactinfo-main-data {
+  color: $label-color;
+  
+  .name {
+    font-size: 1.2em;
+    margin: 0 0 5px 0;
+  }
+
+  .slogan {
+    font-style: italic;
+    margin: 0 0 5px 0;
+  }
+
+  .description {
+    margin: 0 0 10px 0;
+    text-align: justify;
   }
 }
 
