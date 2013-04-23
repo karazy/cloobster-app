@@ -30,10 +30,12 @@ Ext.define('EatSense.controller.ContactInfo', {
 		console.log('ContactInfo.showContactInfo');
 
 		panel.setActiveItem(0);
-
-		if(location) {
-			panel.setLocation(location);
-		}
+		//delay data setup
+		Ext.create('Ext.util.DelayedTask', function () {
+			if(location) {
+				panel.setLocation(location);
+			}
+		}).delay(300);	
 	},
 
 	backToContactInfo: function() {
@@ -57,6 +59,17 @@ Ext.define('EatSense.controller.ContactInfo', {
 				
 				openMapsBt = contactInfoView.down('button[action=open-maps]');
 				gmap = contactInfoView.down('map');
+
+				if(!gmap) {
+					//create only on demand because this is costly
+					gmap = Ext.create('Ext.Map', {
+						mapOptions: {
+							draggable: true,
+							disableDefaultUI: false
+						}
+					});
+					contactInfoView.getActiveItem().add(gmap);
+				}
 
 				//draw the google map based on given address
 				function codeAddress() {
@@ -90,7 +103,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 								if(Ext.os.is.Android) {
 									mapsAddress = encodeURI('geo:0,0?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
 								} else if(Ext.os.is.iOS) { 
-									mapsAddress = encodeURI('maps:?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
+									//Apple Docs http://developer.apple.com/library/ios/#featuredarticles/iPhoneURLScheme_Reference/Articles/MapLinks.html only open in Safari
+									//however http://stackoverflow.com/questions/14503551/phonegap-open-navigation-directions-in-apple-maps-app works
+									mapsAddress = encodeURI('http://maps.apple.com/?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
 								}
 								if(mapsAddress) {
 									window.location.href = mapsAddress;	

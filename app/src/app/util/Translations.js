@@ -1400,8 +1400,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Hotel"
 		},
 		"contactinfo.location.url" : {
-			"DE" :  "Zur Seite",
-			"EN" : "Go to page"
+			"DE" :  "Webseite",
+			"EN" : "Webpage"
 		},
 		"contactinfo.address" : {
 			"DE" :  "Adresse",

@@ -109,7 +109,7 @@ Ext.define('EatSense.controller.Feedback', {
 
 		Ext.create('Ext.util.DelayedTask', function () {
             me.propateFeedbackForm();
-        }).delay(200);
+        }).delay(300);
 		
 	},
 
@@ -125,7 +125,7 @@ Ext.define('EatSense.controller.Feedback', {
 
 		Ext.create('Ext.util.DelayedTask', function () {
             me.propateFeedbackForm();
-        }).delay(200);
+        }).delay(300);
 		
 	},
 
