@@ -24,7 +24,7 @@ Ext.define('EatSense.view.ContactInfo', {
 					align: 'start'
 				},
 				scrollable: 'vertical',
-				padding: 5,
+				padding: 5,				
 				items: [
 					{
 						xtype: 'titlebar',
@@ -85,17 +85,6 @@ Ext.define('EatSense.view.ContactInfo', {
 						width: '50%'
 					},
 					{
-						xtype: 'fixedbutton',
-						action: 'open-maps',
-						text: i10n.translate('contactinfo.location.maps'),
-						iconCls: 'globe2',
-						iconMask: true,
-						hidden: true,
-						ui: 'action',
-						margin: '7 0 5 0',
-						width: '50%'
-					},
-					{
 						xtype: 'label',
 						itemId: 'address',
 						margin: '7 0 5 0',
@@ -105,20 +94,17 @@ Ext.define('EatSense.view.ContactInfo', {
 								'<div>{address} | {postcode} | {city}</div>',
 							'</div>'
 						)
-					},
+					},					
 					{
-						xtype: 'map',
-						margin: '7 0 0 0',
-						// useCurrentLocation: true,						
-						width: '100%',
-						height: '300px',
-						//dont hide on startup, otherwise centering wont work correctly
-						// hidden: true,
-						mapOptions: {
-							draggable: false,
-							disableDefaultUI: true
-						}
-					}
+						xtype: 'fixedbutton',
+						action: 'show-maps',
+						text: i10n.translate('contactinfo.map.title'),
+						iconCls: 'globe2',
+						iconMask: true,
+						ui: 'action',
+						margin: '7 0 5 0',
+						width: '50%'
+					}	
 				]
 			},
 			{
@@ -133,13 +119,23 @@ Ext.define('EatSense.view.ContactInfo', {
 						title: i10n.translate('contactinfo.map.title'),
 						docked: 'top',
 						items: [
+							{
+								xtype: 'fixedbutton',
+								action: 'open-maps',
+								text: i10n.translate('contactinfo.location.maps'),
+								iconCls: 'globe2',
+								iconMask: true,
+								hidden: true,
+								ui: 'action',
+								align: 'right'
+							}
 						]
 					},
 					{
 						xtype: 'map',
 						mapOptions: {
-							draggable: false,
-							disableDefaultUI: true
+							draggable: true,
+							disableDefaultUI: false
 						}
 					}
 				]
