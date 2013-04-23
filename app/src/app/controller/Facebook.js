@@ -6,18 +6,10 @@ Ext.define('EatSense.controller.Facebook', {
 	requires: ['EatSense.view.Login', 'EatSense.model.Account'],
 	config: {
 		refs: {
-			// signupFbButton : 'login button[action=signup-fb]',
-			// connectFbDashboardButton : 'settingsview settings button[action=connect-fb]',
 			connectFbClubButton : 'settings button[action=connect-fb]',
 			fbWallpostClubButton: 'clubarea clubdashboard button[action="fb-wallpost"]'
 		},
 		control: {
-			// signupFbButton: {
-			// 	tap: 'signupFbButtonHandler'
-			// },
-			// connectFbDashboardButton: {
-			// 	tap: 'connectFbDashboardButtonHandler'
-			// },
 			connectFbClubButton: {
 				tap: 'connectFbClubButtonHandler'
 			},

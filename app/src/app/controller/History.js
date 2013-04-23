@@ -13,7 +13,6 @@ Ext.define('EatSense.controller.History', {
 			dashboard : 'lounge dashboard',
 			historyView : 'lounge history',
 			historyList : 'lounge history list',
-			// backButton : 'history homebutton',
 			backDetailButton : 'historydetail button[action=back]',
 			showHistoryButton: 'dashboard button[action=history]',			
 			historyDetailView: 'lounge historydetail',
@@ -23,9 +22,6 @@ Ext.define('EatSense.controller.History', {
 			showHistoryButton : {
 				tap: 'showHistoryButtonHandler'
 			},
-			// backButton : {
-			// 	tap: 'showDashboard'
-			// },
 			backDetailButton: {
 				tap: 'backToHistory'
 			},

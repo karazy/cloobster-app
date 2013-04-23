@@ -24,15 +24,24 @@ Ext.define('EatSense.view.components.BackButtonPanel', {
 	},
 
 	constructor: function(config) {
+		var titlebar;
+
 		this.callParent(arguments);
 		this.initConfig(config);
 
 		if(config.backButton) {
+			titlebar = this.down('titlebar');
 			this.setBackButton(true);
-			this.down('titlebar').add(Ext.create('EatSense.view.BackButton'));	
+			if(titlebar) {
+				titlebar.add(Ext.create('EatSense.view.BackButton'));		
+			}
+			
 		}  else if(config.homeButton) {
+			titlebar = this.down('titlebar');
 			this.setHomeButton(true);
-			this.down('titlebar').add(Ext.create('EatSense.view.components.HomeButton'));	
+			if(titlebar) {
+				this.down('titlebar').add(Ext.create('EatSense.view.components.HomeButton'));	
+			}
 		}
 
 	}

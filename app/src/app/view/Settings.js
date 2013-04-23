@@ -1,8 +1,8 @@
 /**
-*	Settings. Used in SettingsView and SettingsTab.
+* Displays account settings.
 */
 Ext.define('EatSense.view.Settings', {
-	extend : 'Ext.Panel',
+	extend : 'EatSense.view.components.BackButtonPanel',
 	requires: ['EatSense.view.components.SlidenavButton', 'EatSense.view.components.HomeButton'],
 	xtype : 'settings',
 	config : {
@@ -13,17 +13,7 @@ Ext.define('EatSense.view.Settings', {
 		},
 		scrollable: 'vertical',
 		padding: '0 10 0 10',
-		/**
-         * @cfg {Boolean} If true adds a back button to the components titlebar.
-         * @accessor
-         */
-		backButton: false,
-		/**
-         * @cfg {Boolean} If true adds a home button to the components titlebar.
-         * Gets ignored if backButton is true.
-         * @accessor
-         */
-		homeButton: false,
+
 		/**
          * @cfg {Boolean} If false, hides the logout button from settings panel.
          * @accessor
@@ -153,13 +143,6 @@ Ext.define('EatSense.view.Settings', {
 		this.callParent(arguments);
 		this.initConfig(config);
 
-		if(config.backButton) {
-			this.setBackButton(true);
-			this.down('titlebar').add(Ext.create('EatSense.view.BackButton'));	
-		} else if(config.homeButton) {
-			this.setHomeButton(true);
-			this.down('titlebar').add(Ext.create('EatSense.view.components.HomeButton'));	
-		}
 
 		if(config.logoutButton === false) {
 			this.setLogoutButton(false);

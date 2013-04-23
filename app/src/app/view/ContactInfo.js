@@ -42,7 +42,7 @@ Ext.define('EatSense.view.ContactInfo', {
 							'<div class="contactinfo-main-data">',
 								'<div class="name">{name}</div>',
 								'<div class="slogan">{slogan}</div>',
-								'<div class="description">{description}</div>',
+								// '<div class="description">{description}</div>',
 								// '<div>{postcode} | {address}</div>',
 							'</div>'
 						)
@@ -85,6 +85,17 @@ Ext.define('EatSense.view.ContactInfo', {
 						width: '50%'
 					},
 					{
+						xtype: 'fixedbutton',
+						action: 'open-maps',
+						text: i10n.translate('contactinfo.location.maps'),
+						iconCls: 'globe2',
+						iconMask: true,
+						hidden: true,
+						ui: 'action',
+						margin: '7 0 5 0',
+						width: '50%'
+					},
+					{
 						xtype: 'label',
 						itemId: 'address',
 						margin: '7 0 5 0',
@@ -98,13 +109,41 @@ Ext.define('EatSense.view.ContactInfo', {
 					{
 						xtype: 'map',
 						margin: '7 0 0 0',
-						useCurrentLocation: true,						
+						// useCurrentLocation: true,						
 						width: '100%',
 						height: '300px',
-						// flex: 1
+						//dont hide on startup, otherwise centering wont work correctly
+						// hidden: true,
+						mapOptions: {
+							draggable: false,
+							disableDefaultUI: true,
+						}
 					}
 				]
-			}			
+			},
+			{
+				xtype: 'backbuttonpanel',
+				backButton: true,
+				layout: {
+					type: 'fit'
+				},
+				items: [
+					{
+						xtype: 'titlebar',
+						title: i10n.translate('contactinfo.map.title'),
+						docked: 'top',
+						items: [
+						]
+					},
+					{
+						xtype: 'map',
+						mapOptions: {
+							draggable: false,
+							disableDefaultUI: true,
+						}
+					}
+				]
+			}	
 		]
 	},
 
@@ -113,15 +152,20 @@ Ext.define('EatSense.view.ContactInfo', {
 			address,
 			tpl,
 			openLocationUrlBt,
-			callLocationBt;
+			callLocationBt,
+			openMapsBt,
+			gmap,
+			mapsMarker;
 
 		if(newValue && newValue != oldValue) {			
 			content = this.down('#content');
 			address = this.down('#address');
 			console.log('EatSense.view.ContactInfo.updateLocation');
 
+			gmap = this.down('map');
 			callLocationBt = this.down('button[action=call-location]');
 			openLocationUrlBt = this.down('button[action=open-link]');
+			openMapsBt = this.down('button[action=open-maps]');
 
 			if(content) {
 				console.log('EatSense.view.ContactInfo.updateLocation: Render info for location ' + newValue.get('name'));
@@ -139,10 +183,10 @@ Ext.define('EatSense.view.ContactInfo', {
 					callLocationBt.setHidden(false);
 					callLocationBt.on({
 						tap: function() {
-							window.location.href= 'tel:' + newValue.get('phone');
+							window.location.href = 'tel:' + newValue.get('phone');
 						},
 						scope: this
-					})	
+					})	;
 				} else {
 					callLocationBt.setHidden(true);
 				}			
@@ -156,11 +200,69 @@ Ext.define('EatSense.view.ContactInfo', {
 							window.open(encodeURI('http://' + newValue.get('url')), '_blank');
 						},
 						scope: this
-					})	
+					});
 				} else {
 					openLocationUrlBt.setHidden(true);
 				}			
 			}
+
+			if(google && google.maps) {
+
+				//draw the google map based on given address
+				function codeAddress() {
+				  var address = newValue.get('address') + ' ' + newValue.get('postcode') + ' ' + newValue.get('city'),
+				  	  myLatlng,
+				  	  mapsAddress;
+				  geocoder = new google.maps.Geocoder();
+				  geocoder.geocode( { 'address': address}, function(results, status) {				  	
+				    if (status == google.maps.GeocoderStatus.OK) {
+				    	// myLatlng = results[0].geometry.location;
+				    	// myLatlng = new google.maps.LatLng(50.935420, 6.965394);
+
+
+				    	gmap.setHidden(false);
+				    	gmap.getMap().setZoom(10);
+				    	gmap.getMap().setCenter(results[0].geometry.location);				      	
+
+				      	var marker = new google.maps.Marker({
+				          	map: gmap.getMap(),
+				          	position: results[0].geometry.location
+				      	});
+
+				      	
+
+						//android maps calls http://developer.android.com/guide/appendix/g-app-intents.html		
+						//ios maps calls									
+						openMapsBt.setHidden(false);
+						openMapsBt.on({
+							tap: function() {
+								//use address search instead of coords, otherwise no marker is shown
+								if(Ext.os.is.Android) {
+									mapsAddress = encodeURI('geo:0,0?q=' + newValue.get('address') + '+' + newValue.get('postcode') + '+' + newValue.get('city'));
+								} else if(Ext.os.is.iOS) { 
+									mapsAddress = encodeURI('maps:?q=' + newValue.get('address') + '+' + newValue.get('postcode') + '+' + newValue.get('city'));
+								}
+								if(mapsAddress) {
+									window.location.href = mapsAddress;	
+								}
+								
+								// window.location.href = encodeURI('geo:' + myLatlng.lat() + ',' + myLatlng.lng());
+							},
+							scope: this
+						});
+
+				    } else {
+				    	console.log('EatSense.view.ContactInfo: Geocode was not successful for the following reason ' + status);
+				    	gmap.setHidden(true);
+				    	openMapsBt.setHidden(true);
+				    }
+				  });
+				}
+
+				Ext.create('Ext.util.DelayedTask', function () {
+					codeAddress();
+        		}).delay(300);
+			}			
 
 		} else {
 			//no location given

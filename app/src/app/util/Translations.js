@@ -1407,6 +1407,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Website",
 			"EN" : "Website"
 		},
+		"contactinfo.location.maps" : {
+			"DE" :  "Route",
+			"EN" : "Route"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

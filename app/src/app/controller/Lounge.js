@@ -19,7 +19,6 @@ Ext.define('EatSense.controller.Lounge', {
 	requires: ['EatSense.util.DashboardItemTemplates', 'EatSense.view.DashboardHelp'],
 	config: {
 		refs: {
-			// mainview: 'mainview',
 			loungeview: 'lounge',
 			dashboard: 'cloobsterarea dashboard',
 			clubArea: 'clubarea',

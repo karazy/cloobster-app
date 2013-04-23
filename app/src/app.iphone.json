@@ -36,7 +36,11 @@
      * 20.11.2012 Inclusion ORDER DOES ABSOLUTELY MATTER. We build the app with app build package. production wont work
      * as it tries to cache in local storage which makes no sense on a native build!
      */
-    "js": [        
+    "js": [    
+        {
+            "path" : "http://maps.google.com/maps/api/js?sensor=true",
+            "remote" : true
+        },    
 		{
             "path": "touch/sencha-touch.js",
         },

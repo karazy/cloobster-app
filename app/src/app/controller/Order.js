@@ -2,8 +2,7 @@
 	extend: 'Ext.app.Controller',
 	requires: ['Ext.picker.Picker', 'EatSense.util.Helper'],
 	config: {
-		refs: {
-			main : 'mainview',			
+		refs: {		
 			cartview : 'carttab',
 			cartoverviewTotal: 'carttab #carttotalpanel label',
 			myordersTotal : 'myorderstab #myorderstotalpanel label',
@@ -598,8 +597,7 @@
 		 var 	me = this,
 		 		detail,
 		 		choicesPanel,
-		 		order = button.getParent().getRecord(),		 				 		
-		 		main = this.getMain(),
+		 		order = button.getParent().getRecord(),
 		 		detailPanel,
 		 		titleLabel,
 		 		prodDetailLabel,

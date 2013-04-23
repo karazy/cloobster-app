@@ -9,7 +9,6 @@ Ext.define('EatSense.controller.Menu', {
     requires: ['Ext.util.Filter'],
     config: {
 		refs: {
-	        main : 'mainview', 
         	menulist :'menuoverview list',        	
         	productlist :'productoverview list',        	
         	productoverview :'productoverview' ,
@@ -222,7 +221,6 @@ Ext.define('EatSense.controller.Menu', {
     	var me = this,
     	    menu = this.getMenuview(),
     		// lounge = this.getLoungeview(),
-    		main = this.getMain(),
     		checkInCtr = this.getApplication().getController('CheckIn'),
     		businessId = Ext.String.trim(checkInCtr.getActiveCheckIn().get('businessId')),
     		activeSpot = checkInCtr.getActiveSpot(),
@@ -434,7 +432,6 @@ Ext.define('EatSense.controller.Menu', {
 	loadProductDetail: function(dataview, record) {
 		var me = this,
 			detail, 
-			main = this.getMain(), 
 			menu = this.getMenuview(), 
 			choicesPanel =  null,
 			activeProduct,

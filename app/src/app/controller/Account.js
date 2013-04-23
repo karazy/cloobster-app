@@ -38,23 +38,14 @@ Ext.define('EatSense.controller.Account', {
 				selector: 'login',
 				xtype: 'login',
 				autoCreate: true
-			},
-			// settingsView: 'lounge settingsview',			
+			},	
 			showLoginButtonDashboard : 'button[action=show-login]',
-			// showSettingsButtonDashboard : 'dashboard button[action=profile]',
-			// settingsViewBackButton: 'lounge settingsview settings #backButton',
 			logoutDashboardButton: 'settings button[action=logout]'
 		},
 		control: {
 			showLoginButtonDashboard : {
 				tap: 'showLoginView'
 			},
-			// showSettingsButtonDashboard : {
-			// 	tap: 'showSettingsView'
-			// },
-			// settingsViewBackButton: {
-			// 	tap: 'settingsViewBackButtonHandler'
-			// },
 			logoutDashboardButton : {
 				tap: 'logoutDashboardButtonHandler'
 			}

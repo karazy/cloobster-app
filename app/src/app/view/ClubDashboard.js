@@ -116,20 +116,22 @@ Ext.define('EatSense.view.ClubDashboard', {
 	initialize: function() {
 		var me = this,
 			scrollPanel = this;
-			fbButton = this.down('button[action=fb-wallpost]');
+			fbButton = this.down('button[action=fb-wallpost]'),
+			fps = 10;
 
 
 		//configure dynamic scrolling behaviour of facebook button
 
+		if (Ext.os.is.Android4 && !Ext.browser.is.Chrome) {
+            fps = 15;
+        }
+
 		scrollPanel.getScrollable().getScroller().on({
-			scroll: Ext.Function.createThrottled(onClubdashBoardScroll, 15, this),
+			scroll: Ext.Function.createThrottled(onClubdashBoardScroll, fps, this),
 			scrollend: onClubdashBoardScroll,
 			scope: this
 		});
 
-		// if (Ext.os.is.Android4 && !Ext.browser.is.Chrome) {
-  //           this.onDrag = Ext.Function.createThrottled(this.onDrag, 20, this);
-  //       }
 
 		function onClubdashBoardScroll(panel, x, y) {
 			// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + x + ' ' + y);
@@ -142,8 +144,6 @@ Ext.define('EatSense.view.ClubDashboard', {
 			// } else if(y > 100){
 			// 	fbButton.setTop(100);
 			// }
-			 
-
 		}
 	},
 
