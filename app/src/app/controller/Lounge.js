@@ -513,7 +513,8 @@ Ext.define('EatSense.controller.Lounge', {
 				  {
 					 title: i10n.translate('slidenav.header.areas'),
 					 header: true,
-					 dynamic: true
+					 dynamic: true,
+					 viewState: 'club'
 				  }
 				],
 				item;

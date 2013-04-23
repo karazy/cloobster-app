@@ -210,6 +210,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Dashboard",
 			"EN" : "Dashboard"
 		},
+		"slidenav.header.help" : {
+			"DE" :  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"EN" : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+		},
 		//Dashboard
 		"dashboard.button.checkin" : {
 			"DE" :  "Check-In",

@@ -1336,7 +1336,7 @@ h9 {
 
 .contactinfo-main-data {
   color: $label-color;
-  
+
   .name {
     font-size: 1.2em;
     margin: 0 0 5px 0;
@@ -1458,11 +1458,20 @@ h9 {
   color: white !important;
 
   .x-dock-horizontal {
-    border-top: 1px solid black !important;  
+    border-top: 1px solid black !important; 
   }
 
   &.x-list-footer-wrap .x-dock-horizontal {
-    border-bottom: 1px solid black !important;
+    border-bottom: 1px solid black !important; 
+    /* prevent border on last slidenav child */
+ /*   :last-child {
+      border-bottom: none !important;
+    }   */
+  }
+
+    &.x-list-item-last .x-dock-horizontal {
+    /* prevent border on last slidenav child */
+    border-bottom: none !important;
   }
 
   .x-dock-horizontal .x-dock-body .x-list-item-body {

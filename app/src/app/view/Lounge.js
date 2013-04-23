@@ -188,7 +188,13 @@ Ext.define('EatSense.view.Lounge', {
 				preCreate: true,
 				action: 'show-myorders',
 				viewState: 'club'
-			}
+			},
+			//a short helpful description description
+			{
+			 title: i10n.translate('slidenav.header.help'),
+			 header: true,
+			 viewState: 'cloobster'
+		  	}
 	
 		]
 	}
