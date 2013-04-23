@@ -221,7 +221,7 @@ Ext.define('EatSense.view.ContactInfo', {
 
 
 				    	gmap.setHidden(false);
-				    	gmap.getMap().setZoom(10);
+				    	gmap.getMap().setZoom(14);
 				    	gmap.getMap().setCenter(results[0].geometry.location);				      	
 
 				      	var marker = new google.maps.Marker({

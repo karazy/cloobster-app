@@ -7,7 +7,9 @@ Ext.define('EatSense.view.CloobsterArea', {
 	xtype: 'cloobsterarea',
 	config: {
 		layout: {
-			type: 'card'
+			type: 'card',
+			//override default tabpanel animation setting
+			animation : null
 		},
 		activeItem: 0,
 		items: [

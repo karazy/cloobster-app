@@ -217,8 +217,8 @@ Ext.define('EatSense.controller.Android', {
 			//then getActiveItem of activeItem which should be a card layout as well
 			//look for a backbutton
 			if(loungeview && loungeview.getContainer() && loungeview.getContainer().getActiveItem()) {
-				if(loungeview.getContainer().getActiveItem().getActiveItem()) {
-					activeview = loungeview.getContainer().getActiveItem().getActiveItem();
+				activeview = loungeview.getContainer().getActiveItem().getActiveItem();
+				if(activeview) {
 
 					backbutton = activeview.down('backbutton');
 					if(backbutton) {

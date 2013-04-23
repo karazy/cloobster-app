@@ -1,4 +1,19 @@
 /**
+* The main view of the application. Called Lounge for historical reasons.
+* Consist of a {@link EatSense.ux.slidenavigation.collapsible.View} Sidenavigation.
+* Each navigation item is itself a card layout or a function! 
+* The view architecture basically looks like this:
+*
+*	#slide nav#    Card Layout
+*	#menu item# -> -------------
+*	#menu item#    | Panel 1-n |
+*	#menu item#    |           |
+*	#menu item#    |           |
+*	#menu item#    |           |
+*	#menu item#    |           |
+*	#function #    -------------
+*
+*
 *
 */
 Ext.define('EatSense.view.Lounge', {
@@ -13,7 +28,8 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.RequestsTab',
 		'EatSense.view.ClubArea',
 		'EatSense.ux.slidenavigation.collapsible.View',
-		// 'EatSense.view.ContactInfo'
+		'EatSense.view.FeedbackContainer',
+		'EatSense.view.ContactInfo'
 	],
 	xtype : 'lounge',
 	config : {
@@ -106,21 +122,34 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'club'
 			},
 			{
-				xtype: 'feedbackform',
+				xtype: 'feedbackcontainer',
 				iconCls: 'feedback-icon',
 				itemId: 'loungeFeedback',
 				title: i10n.translate('clubdashboard.button.feedback'),
 				leaf: true,
-				backButton: false,
-				homeButton: true,
 				hideOnBasic: true,
-				preCreate: true,
 				action: 'show-feedback',
 				viewState: 'club',
 				welcomeFn: function() {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
 			},
+			// {
+			// 	xtype: 'feedbackform',
+			// 	iconCls: 'feedback-icon',
+			// 	itemId: 'loungeFeedback',
+			// 	title: i10n.translate('clubdashboard.button.feedback'),
+			// 	leaf: true,
+			// 	backButton: false,
+			// 	homeButton: true,
+			// 	hideOnBasic: true,
+			// 	preCreate: true,
+			// 	action: 'show-feedback',
+			// 	viewState: 'club',
+			// 	welcomeFn: function() {
+			// 		Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
+			// 	}
+			// },
 			{
 				title: i10n.translate('requestsTitle'),
 				xtype: 'requeststab',

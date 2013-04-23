@@ -12,6 +12,7 @@ Ext.define('EatSense.controller.Feedback', {
 			showFeedbackButton: 'clubarea clubdashboard button[action=show-feedback]',
 			showFeedbackLeaveButton: 'myorderstab button[action=feedback]',
 			myordersview: 'lounge myorderstab',
+			feedbackContainer: 'feedbackcontainer',
 			feedbackform: 'feedbackform',
 			emailField: 'feedbackform emailfield',
 			commentField: 'feedbackform textareafield',
@@ -40,6 +41,9 @@ Ext.define('EatSense.controller.Feedback', {
 			},
 			feedbackform: {
 				show: 'showFeedbackForm'
+			},
+			feedbackContainer: {
+				show: 'showFeedbackContainer'
 			},
 			myordersview: {
 				show: 'myordersviewShowHandler'
@@ -102,6 +106,22 @@ Ext.define('EatSense.controller.Feedback', {
 		var me = this;
 
 		this.setActiveFeedbackView(panel);
+
+		Ext.create('Ext.util.DelayedTask', function () {
+            me.propateFeedbackForm();
+        }).delay(200);
+		
+	},
+
+	/**
+	* Show event handler for feedbackContainer.
+	* @param panel
+	*	The feedbackContainer
+	*/
+	showFeedbackContainer: function(panel) {
+		var me = this;
+
+		this.setActiveFeedbackView(panel.getActiveItem());
 
 		Ext.create('Ext.util.DelayedTask', function () {
             me.propateFeedbackForm();
