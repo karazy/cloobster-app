@@ -50,11 +50,6 @@ Ext.define('EatSense.view.ContactInfo', {
 							'</div>'
 						)
 					},
-					// {
-					// 	xtype: 'label',
-					// 	html: i10n.translate('contactinfo.address'),
-					// 	margin: '7 0 0 0'
-					// },
 					{
 						xtype: 'panel',
 						itemId: 'mainUrl',
@@ -152,7 +147,8 @@ Ext.define('EatSense.view.ContactInfo', {
 								align: 'right'
 							}
 						]
-					},
+					}
+					//add map dynamically to further reduce load times
 					// {
 					// 	xtype: 'map',
 					// 	mapOptions: {
@@ -237,65 +233,7 @@ Ext.define('EatSense.view.ContactInfo', {
 				} else {
 					openLocationUrlBt.setHidden(true);
 				}			
-			}
-
-			// if(google && google.maps) {
-
-			// 	//draw the google map based on given address
-			// 	function codeAddress() {
-			// 	  var address = newValue.get('address') + ' ' + newValue.get('postcode') + ' ' + newValue.get('city'),
-			// 	  	  myLatlng,
-			// 	  	  mapsAddress;
-			// 	  geocoder = new google.maps.Geocoder();
-			// 	  geocoder.geocode( { 'address': address}, function(results, status) {				  	
-			// 	    if (status == google.maps.GeocoderStatus.OK) {
-			// 	    	// myLatlng = results[0].geometry.location;
-			// 	    	// myLatlng = new google.maps.LatLng(50.935420, 6.965394);
-
-
-			// 	    	gmap.setHidden(false);
-			// 	    	gmap.getMap().setZoom(14);
-			// 	    	gmap.getMap().setCenter(results[0].geometry.location);				      	
-
-			// 	      	var marker = new google.maps.Marker({
-			// 	          	map: gmap.getMap(),
-			// 	          	position: results[0].geometry.location
-			// 	      	});
-
-				      	
-
-			// 			//android maps calls http://developer.android.com/guide/appendix/g-app-intents.html		
-			// 			//ios maps calls									
-			// 			openMapsBt.setHidden(false);
-			// 			openMapsBt.on({
-			// 				tap: function() {
-			// 					//use address search instead of coords, otherwise no marker is shown
-			// 					if(Ext.os.is.Android) {
-			// 						mapsAddress = encodeURI('geo:0,0?q=' + newValue.get('address') + '+' + newValue.get('postcode') + '+' + newValue.get('city'));
-			// 					} else if(Ext.os.is.iOS) { 
-			// 						mapsAddress = encodeURI('maps:?q=' + newValue.get('address') + '+' + newValue.get('postcode') + '+' + newValue.get('city'));
-			// 					}
-			// 					if(mapsAddress) {
-			// 						window.location.href = mapsAddress;	
-			// 					}
-								
-			// 					// window.location.href = encodeURI('geo:' + myLatlng.lat() + ',' + myLatlng.lng());
-			// 				},
-			// 				scope: this
-			// 			});
-
-			// 	    } else {
-			// 	    	console.log('EatSense.view.ContactInfo: Geocode was not successful for the following reason ' + status);
-			// 	    	gmap.setHidden(true);
-			// 	    	openMapsBt.setHidden(true);
-			// 	    }
-			// 	  });
-			// 	}
-
-			// 	Ext.create('Ext.util.DelayedTask', function () {
-			// 		codeAddress();
-   //      		}).delay(300);
-			// }			
+			}		
 
 		} else {
 			//no location given

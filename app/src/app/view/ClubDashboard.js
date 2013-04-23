@@ -127,25 +127,28 @@ Ext.define('EatSense.view.ClubDashboard', {
             fps = 15;
         }
 
-		scrollPanel.getScrollable().getScroller().on({
-			scroll: Ext.Function.createThrottled(onClubdashBoardScroll, fps, this),
-			scrollend: onClubdashBoardScroll,
-			scope: this
-		});
+        if(fbButton) {
+        	scrollPanel.getScrollable().getScroller().on({
+				scroll: Ext.Function.createThrottled(onClubdashBoardScroll, fps, this),
+				scrollend: onClubdashBoardScroll,
+				scope: this
+			});
 
 
-		function onClubdashBoardScroll(panel, x, y) {
-			// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + x + ' ' + y);
-			var yCalc = (y > scrollTreshhold) ? scrollTreshhold : y;
+			function onClubdashBoardScroll(panel, x, y) {
+				// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + x + ' ' + y);
+				var yCalc = (y > scrollTreshhold) ? scrollTreshhold : y;
 
-			fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0)';
-			// fbButton.element.dom.style.webkitTransform = 'translateY(' + yCalc + 'px)';
-			// if(y<0) {
-			// 	fbButton.setTop(0);	
-			// } else if(y > 100){
-			// 	fbButton.setTop(100);
-			// }
-		}
+				fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0)';
+				// fbButton.element.dom.style.webkitTransform = 'translateY(' + yCalc + 'px)';
+				// if(y<0) {
+				// 	fbButton.setTop(0);	
+				// } else if(y > 100){
+				// 	fbButton.setTop(100);
+				// }
+			}
+        }
+		
 	},
 
 	showLoadScreen : function(mask) {
