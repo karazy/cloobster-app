@@ -39,7 +39,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				xtype: 'label',
 				style: {
 					'background-color' : 'transparent',
-					'height' : '100px'
+					'height' : '200px'
 				}
 			},
 		{
@@ -117,7 +117,8 @@ Ext.define('EatSense.view.ClubDashboard', {
 		var me = this,
 			scrollPanel = this;
 			fbButton = this.down('button[action=fb-wallpost]'),
-			fps = 10;
+			fps = 10,
+			scrollTreshhold = '200';
 
 
 		//configure dynamic scrolling behaviour of facebook button
@@ -135,7 +136,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 
 		function onClubdashBoardScroll(panel, x, y) {
 			// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + x + ' ' + y);
-			var yCalc = (y > 100) ? '100' : y;
+			var yCalc = (y > scrollTreshhold) ? scrollTreshhold : y;
 
 			fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0)';
 			// fbButton.element.dom.style.webkitTransform = 'translateY(' + yCalc + 'px)';

@@ -116,7 +116,7 @@ Ext.define('EatSense.view.ContactInfo', {
 						// hidden: true,
 						mapOptions: {
 							draggable: false,
-							disableDefaultUI: true,
+							disableDefaultUI: true
 						}
 					}
 				]
@@ -139,7 +139,7 @@ Ext.define('EatSense.view.ContactInfo', {
 						xtype: 'map',
 						mapOptions: {
 							draggable: false,
-							disableDefaultUI: true,
+							disableDefaultUI: true
 						}
 					}
 				]
