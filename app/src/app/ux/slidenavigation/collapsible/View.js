@@ -425,7 +425,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
 
         //do selection if doSelect = true
         function select(doSelect) {
-            
+
             if(!doSelect) {
                 deselectItem();
                 me.closeContainer(me.config.selectSlideDuration);
@@ -742,17 +742,18 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                     }
                 });
 
-        var list = Ext.create('Ext.dataview.List', Ext.merge({}, this.config.list, {
+        var list = Ext.create('Ext.dataview.List', Ext.merge({}, {
             docked: 'left',
             cls: 'x-slidenavigation-list',
+            width: '100%',
             style: 'position: absolute; top: 0; left: 0; height: 100%;' +
-                   'width: 100% !important; z-index: 5',
+                   ' z-index: 5',
             itemTpl: itemTpl,
             listeners: {
                 select: this.onSelect,                
                 scope: this
             }
-        }));
+        }, this.config.list));
 
         // list.on('itemtap', this.onItemTap, this);
         list.setStore( this.store );
