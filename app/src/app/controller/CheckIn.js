@@ -527,7 +527,7 @@ Ext.define('EatSense.controller.CheckIn', {
 	 */
 	restoreState: function(restoredCheckInId) {
 		var me = this,
-        main = this.getMain(),
+        // main = this.getMain(),
         dashboard = this.getDashboard(),
         messageCtr = this.getApplication().getController('Message');
 
@@ -558,7 +558,6 @@ Ext.define('EatSense.controller.CheckIn', {
                     console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
                     appHelper.toggleMask(false, dashboard);
                     me.handleStatusChange(appConstants.COMPLETE);
-                    me.setActiveCheckIn(null);
                     Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('restoreStateFailed'));
                     return;
                 }
@@ -593,6 +592,7 @@ Ext.define('EatSense.controller.CheckIn', {
                 },
                 failure: function(record, operation) {
                   appHelper.toggleMask(false, dashboard);
+                  me.handleStatusChange(appConstants.COMPLETE);
                   me.getApplication().handleServerError({
                           'error':operation.error
                   });               
