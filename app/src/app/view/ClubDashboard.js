@@ -21,20 +21,18 @@ Ext.define('EatSense.view.ClubDashboard', {
 		scrollable: 'vertical',
 		items : [
 			{
-			xtype: 'fixedbutton',
-			ui: 'action',
-			action: 'fb-wallpost',
-			baseCls: 'fb-wimpel-button',
-			pressedCls: 'fb-wimpel-button-pressed',
-			// top: 0,
-			// right: 15
-			style: {
-				'position' : 'absolute',
-				'top' : '0px',
-				'right' : '15px',
-				'z-Index' : '5'
-			}
-		},
+				xtype: 'fixedbutton',
+				ui: 'action',
+				action: 'fb-wallpost',
+				baseCls: 'fb-wimpel-button',
+				pressedCls: 'fb-wimpel-button-pressed',
+				style: {
+					'position' : 'absolute',
+					'top' : '0px',
+					'right' : '15px',
+					'z-Index' : '5'
+				}
+			},
 			{
 				xtype: 'label',
 				style: {
