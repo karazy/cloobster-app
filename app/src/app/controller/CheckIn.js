@@ -60,7 +60,6 @@ Ext.define('EatSense.controller.CheckIn', {
           //confirm checkn view
           cancelCheckInBt: 'checkinconfirmation backbutton',           
         	confirmCheckInBt : 'checkinconfirmation button[action=confirm-checkin]',
-          regenerateNicknameBt : 'checkinconfirmation button[action=regenerate-nickname]',
           //loungeview and tabs
           loungeview : 'lounge',
         	menuTab: 'menutab',
@@ -82,9 +81,6 @@ Ext.define('EatSense.controller.CheckIn', {
             }, 
             cancelCheckInBt: {
             	tap: 'cancelCheckInBtHandler'
-            },
-            regenerateNicknameBt: {
-            	tap: 'generateNickname'
             },
             settingsBt: {
             	tap: 'showSettings'
@@ -518,27 +514,6 @@ Ext.define('EatSense.controller.CheckIn', {
 	 */
 	saveNickname: function(component, newData, oldValue, eOpts) {
 		this.getAppState().set('nickname', newData);
-	},
-	/**
-   * @DEPRECATED
-	 * Makes an ajax call to the server, retrieves a random nickname
-	 * and sets the nickname field.
-	 * 
-	 * ®return
-	 * 		the nickname
-	 */
-	generateNickname : function(callback) {
-		Ext.Ajax.request({
-    	    url: appConfig.serviceUrl+'/nicknames',
-    	    method: 'GET',
-    	    scope: this,
-    	    params: {
-    	        random: ""
-    	    },
-    	    success: function(response){
-    	    	this.getNickname().setValue(response.responseText);
-    	    }
-    	});		
 	},
 	/**
 	 * This method is called from launch function during application start 
