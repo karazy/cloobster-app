@@ -10,7 +10,7 @@ Ext.define('EatSense.view.PlacesOverview', {
 		activeItem: 0,
 		items: [
 			{
-				xtype: 'history'				
+				xtype: 'history'
 			},
 			{
 				xtype: 'historydetail'

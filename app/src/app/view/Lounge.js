@@ -55,7 +55,7 @@ Ext.define('EatSense.view.Lounge', {
         			cls: 'x-slidenavigation-bezel',
         			id: 'slidenavigationbezel',        			
         			left: 0,
-        			top: 0,
+        			top: 40,
         			bottom: 0,
         			width: 10,
         			style: 'background-color: transparent;',

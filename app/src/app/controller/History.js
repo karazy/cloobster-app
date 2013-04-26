@@ -64,6 +64,7 @@ Ext.define('EatSense.controller.History', {
          placesOverview.switchTo(historyView);
 
          //if user has no account or is not logged in show alert window
+         //this already gets handled before
          if(!loggedIn) {
             Ext.Msg.show({
                message: i10n.translate('account.required'),
@@ -73,11 +74,14 @@ Ext.define('EatSense.controller.History', {
                   ui: 'action'
                }],
                scope: this
-            });   
-
+            });
          } 
-         else {                              
-            this.loadHistory();
+         else {    
+            //delay for faster rendering and prevent android from not showing the list on first access
+            Ext.create('Ext.util.DelayedTask', function () {
+               me.loadHistory();
+            }).delay(300);                          
+            
          }
 	},
 
@@ -125,6 +129,8 @@ Ext.define('EatSense.controller.History', {
    			 historyList = this.getHistoryList(),
              descPanel = this.getHistoryView().down('#historyListDescPanel');
 
+         console.log('History.loadHistory');
+
    		historyStore.loadPage(1, {
    			callback: function(records, operation, success) {
    				if(operation.error) {
@@ -145,7 +151,8 @@ Ext.define('EatSense.controller.History', {
                   } else {
                      descPanel.setHidden(true);
                      historyList.setHidden(false);
-                     historyList.refresh();
+                     historyList.refresh();               
+                     
                   }
                }
    			}

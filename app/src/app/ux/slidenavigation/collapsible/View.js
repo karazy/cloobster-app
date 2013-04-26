@@ -398,19 +398,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     overrideClose: false,
     prevsel: null,
 
-    // onBeforeSelect: function(list, item, eOpts) {
-    //     if(item.get('accountRequired') === true) {
-    //         Ext.Viewport.fireEvent('accountrequired', select);
-    //     } else {
-    //         select(true);
-    //     }
-
-    //     //returns false to prevent selection, otherwise true
-    //     function select(doSelect) {
-    //         return doSelect;
-    //     }
-    // },
-
     onSelect: function(list, item, eOpts) {
         var me = this,
             store = list.getStore(),
@@ -438,6 +425,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
 
         //do selection if doSelect = true
         function select(doSelect) {
+            
             if(!doSelect) {
                 deselectItem();
                 me.closeContainer(me.config.selectSlideDuration);
