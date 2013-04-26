@@ -19,6 +19,10 @@ Ext.define('EatSense.controller.Request',{
 			},
 			showRequestViewButton: {
 				tap: 'showRequestViewButtonHandler'
+			},
+			requeststab: {
+				show: 'showRequestViewHandler',
+				single: true
 			}
 		},
 
@@ -33,7 +37,7 @@ Ext.define('EatSense.controller.Request',{
 		checkInCtr.on({
 			'statusChanged': function(status) {
 				if(status == appConstants.CHECKEDIN) {
-					this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
+					
 				} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 					this.resetAllRequests();
 				}
@@ -42,6 +46,25 @@ Ext.define('EatSense.controller.Request',{
 			'spotswitched': this.resetAllRequests,
 			scope: this
 		});
+	},
+	/**
+	* @private
+	*/
+	showRequestViewHandler: function() {
+		var me = this,
+			checkInCtr = this.getApplication().getController('CheckIn'),
+			requestStore = Ext.StoreManager.lookup('requestStore'),
+			label = this.getCallWaiterLabel(); 
+
+		this.refreshAccountLabel(checkInCtr.getActiveCheckIn());  
+
+		requestStore.each((function(rec) {
+    		if(rec.get('type') ==  appConstants.Request.CALL_WAITER) {
+    			me.getCallWaiterButton().mode = 'cancel';
+    			label.setHtml(i10n.translate('callWaiterCancelHint'));
+				me.getCallWaiterButton().setText(i10n.translate('cancelCallWaiterRequest'));
+    		}
+    	}));
 	},
 	/**
 	* Tap event handler for show showRequestViewButton on dashboard.
@@ -77,7 +100,7 @@ Ext.define('EatSense.controller.Request',{
 				label = this.getCallWaiterLabel(),
 				checkInId = this.getApplication().getController('CheckIn').getActiveCheckIn().getId();
 		
-		console.log('Request Controller -> sendCallWaiterRequest');
+		console.log('Request.sendCallWaiterRequest');
 
 		button.disable();
 		button.mode = 'cancel';
@@ -127,7 +150,7 @@ Ext.define('EatSense.controller.Request',{
 			label.setHtml(i10n.translate('callWaiterCallHint'));
 
 			// requestStore.setSyncRemovedRecords(true);
-			requestStore.remove(request);
+			// requestStore.remove(request);
 			// requestStore.sync();
 			// requestStore.setSyncRemovedRecords(false);
 
@@ -168,7 +191,7 @@ Ext.define('EatSense.controller.Request',{
 			label = this.getCallWaiterLabel(),
 			requestStore = Ext.StoreManager.lookup('requestStore');
 
-		console.log('Request Controller -> loadRequests');
+		console.log('Request.loadRequests');
 
 		requestStore.load({
 			callback: function(records, operation, success) {
@@ -179,13 +202,13 @@ Ext.define('EatSense.controller.Request',{
                     });
                  } 
                 else {
-                	Ext.each(records,(function(rec) {
-                		if(rec.get('type') ==  appConstants.Request.CALL_WAITER) {
-                			me.getCallWaiterButton().mode = 'cancel';
-                			label.setHtml(i10n.translate('callWaiterCancelHint'));
-							me.getCallWaiterButton().setText(i10n.translate('cancelCallWaiterRequest'));
-                		}
-                	}));
+       //          	Ext.each(records,(function(rec) {
+       //          		if(rec.get('type') ==  appConstants.Request.CALL_WAITER) {
+       //          			me.getCallWaiterButton().mode = 'cancel';
+       //          			label.setHtml(i10n.translate('callWaiterCancelHint'));
+							// me.getCallWaiterButton().setText(i10n.translate('cancelCallWaiterRequest'));
+       //          		}
+       //          	}));
                 }
             }
 		})
@@ -195,15 +218,26 @@ Ext.define('EatSense.controller.Request',{
 	*/
 	resetAllRequests: function() {
 		var requestStore = Ext.StoreManager.lookup('requestStore'),
-			label = this.getCallWaiterLabel();
-
-		console.log('Request Controller -> resetAllRequests');
-
-		this.getCallWaiterButton().mode = 'call';
-		this.getCallWaiterButton().setText(i10n.translate('callWaiterButton'));
-		label.setHtml(i10n.translate('callWaiterCallHint'));
+			label = this.getCallWaiterLabel(),
+			callWaiterButton = this.getCallWaiterButton();
 
 		requestStore.removeAll();
+
+		if(!callWaiterButton) {
+			console.error('Request.resetAllRequests: callWaiterButton not found');
+			return;
+		}
+
+		if(!label) {
+			console.error('Request.resetAllRequests: label not found');
+			return;
+		}
+
+		callWaiterButton.mode = 'call';
+		callWaiterButton.setText(i10n.translate('callWaiterButton'));
+		label.setHtml(i10n.translate('callWaiterCallHint'));
+
+		
 	},
 	/**
 	* Handle push messages for requests.
@@ -223,8 +257,9 @@ Ext.define('EatSense.controller.Request',{
 				label.setHtml(i10n.translate('callWaiterCallHint'));
 			}
 		}
-
 	},
+
+
 	/*
 	*	Sets the account label in request tab displaying nickname of current checkin
 	*/

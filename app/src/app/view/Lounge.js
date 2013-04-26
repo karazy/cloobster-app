@@ -47,7 +47,6 @@ Ext.define('EatSense.view.Lounge', {
         selectSlideDuration: 0,
         slideDuration: 0,
         bounceWhenInactive: false,
-        maxDrag: 250,
         container: {
         	items: [ 
         		//order matters, put bezel first to make button stay on top!
@@ -83,8 +82,8 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				iconCls: 'home-icon',
 				action: 'show-dashboard',
-				viewState: 'cloobster',
-				preCreate: true
+				viewState: 'cloobster'
+				// preCreate: true
 			},
 			{
 				xtype: 'placesoverview',
