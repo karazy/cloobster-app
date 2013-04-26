@@ -198,7 +198,6 @@ Ext.application({
        //found a valid checkIn Id. Restore state.
        if(restoredCheckInId) {
           checkInCtr.restoreState(restoredCheckInId);
-          // this.restoreCheckIn(restoredCheckInId, defaultHeaders);
        }
        else {        
         if (appStateStore.getCount() > 1){
@@ -210,12 +209,10 @@ Ext.application({
         }
          appStateStore.add(checkInCtr.getAppState());
          Ext.fly('appLoadingWrapper').destroy();
-         // Ext.create('EatSense.view.Lounge');
          checkInCtr.initMainView();
        }  
   },
 
-	//Global utility methods
 	/**
     *   Gloabl handler that can be used to handle errors occuring from server requests.
     *   @param options
