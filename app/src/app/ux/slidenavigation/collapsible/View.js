@@ -37,7 +37,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          */
         list: {
             width: 250,
-            maxDrag: null,
+            maxDrag: 250,
             itemCls: 'x-slidenavigation-item'
         },
 
