@@ -8,7 +8,7 @@ Ext.define('EatSense.util.Constants', {
 		PAYMENT_REQUEST : 'PAYMENT_REQUEST',
 		COMPLETE : 'COMPLETE',
 		CANCEL_ALL : 'CANCEL_ALL',
-		WAS_INCATIVE : 'WAS_INCATIVE',
+		WAS_INACTIVE : 'WAS_INACTIVE',
 		Order : {
 			CART : 'CART',
 			PLACED : 'PLACED',

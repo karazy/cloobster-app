@@ -81,7 +81,7 @@ Ext.define('EatSense.controller.CheckIn', {
             	tap: 'confirmCheckInBtHandler'
             }, 
             cancelCheckInBt: {
-            	tap: 'showDashboard'
+            	tap: 'cancelCheckInBtHandler'
             },
             regenerateNicknameBt: {
             	tap: 'generateNickname'
@@ -461,30 +461,46 @@ Ext.define('EatSense.controller.CheckIn', {
        return savedNickname;
    },
    /**
+   * Cancel the check-in and jump back to dashboard.
+   */
+   cancelCheckInBtHandler: function(button) {
+      var cloobsterArea = this.getCloobsterArea(),
+          nicknameToggle = this.getNicknameTogglefield();
+       
+       this.setActiveCheckIn(null);
+       cloobsterArea.switchTo(0);
+       nicknameToggle.reset();
+   },
+   /**
     * CheckIn Process
     * Step 2 alt: cancel process
     */
-   showDashboard: function(mask, key) {
-	   var main = this.getMain(),
-         cloobsterArea = this.getCloobsterArea(),
-	       nicknameToggle = this.getNicknameTogglefield();
+   // showDashboard: function(mask, key) {
+	  //  var main = this.getMain(),
+   //       cloobsterArea = this.getCloobsterArea(),
+	  //      nicknameToggle = this.getNicknameTogglefield();
+
 	   
-	   this.setActiveCheckIn(null);
-	   	   
-     cloobsterArea.switchTo(0);
-	   nicknameToggle.reset();
+   //   main.selectByAction('show-dashboard');
+   //   cloobsterArea.switchTo(0);
+	   // nicknameToggle.reset();
 		
 	   //ensure that main is only added once to viewport
-	   if(main.getParent() !== Ext.Viewport) {
-		   Ext.Viewport.add(main);
-	   }
+	   // if(main.getParent() !== Ext.Viewport) {
+		  //  Ext.Viewport.add(main);
+	   // }
 
-     if(mask === true) {
-      appHelper.toggleMask(key, main.getContainer());
-     } else {
-      this.checkFirstDashboardView(this.getAppState());
-     }
-   },
+    // this.checkFirstDashboardView(this.getAppState());
+
+   // },
+   /**
+   * Called from application mainLaunch. Create the mainview container.
+   */
+  initMainView: function() {
+
+    Ext.create('EatSense.view.Lounge');
+    this.checkFirstDashboardView(this.getAppState());
+  },
 	/**
 	 * Show settings screen.
 	 * 
@@ -538,14 +554,8 @@ Ext.define('EatSense.controller.CheckIn', {
 		var me = this,
         main = this.getMain(),
         dashboard = this.getDashboard(),
-        // cloobsterArea = this.getCloobsterArea().getActiveItem(),
         messageCtr = this.getApplication().getController('Message');
 
-        //show loading mask, because it can take a while if server is not responding immediately
-        // this.showDashboard(true, 'restoreStateLoading');
-        // appHelper.toggleMask('restoreStateLoading', dashboard);
-
-        // defaultHeaders['checkInId'] = restoredCheckInId;
         headerUtil.addHeader('checkInId', restoredCheckInId);
 
         me.loadCheckIn(restoredCheckInId, processCheckIn); 
@@ -569,11 +579,12 @@ Ext.define('EatSense.controller.CheckIn', {
 
               me.setActiveCheckIn(checkIn);
               //occurs on reload of application before hitting leave button
-              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
+              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE || checkIn.get('status') == appConstants.WAS_INACTIVE) {
                     console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
                     appHelper.toggleMask(false, dashboard);
                     me.handleStatusChange(appConstants.COMPLETE);
-                    me.setActiveCheckIn(null);                    
+                    me.setActiveCheckIn(null);
+                    Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('restoreStateFailed'));
                     return;
                 }
             
@@ -614,8 +625,8 @@ Ext.define('EatSense.controller.CheckIn', {
             });
 
           } else {
-            //restore failed
-            Ext.create('EatSense.view.Lounge');
+            //restore failed because checkin loading failed, load Method will show an error msg
+            me.initMainView();
             headerUtil.resetHeaders(['checkInId']);
             me.getAppState().set('checkInId', '');
           }
@@ -741,8 +752,11 @@ Ext.define('EatSense.controller.CheckIn', {
     }
 		else if(status == appConstants.PAYMENT_REQUEST) {	
 			this.getActiveCheckIn().set('status', status);
-		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-			this.showDashboard();			     
+		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT || status == appConstants.WAS_INACTIVE) {
+      Ext.Viewport.fireEvent('showdashboard');
+			// this.showDashboard();	      
+
+      this.setActiveCheckIn(null);		     
 
       //clear checkInId
       this.getAppState().set('checkInId', null);

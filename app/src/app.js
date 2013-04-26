@@ -71,13 +71,6 @@ Ext.application({
       console.log('Console.error not available. Redirecting to console.log');
       console.error = console.log;
     }
-
-  	   	
-    // Destroy the #appLoadingIndicator and #cloobsterLoadingText elements
-    // Ext.fly('appLoadingWrapper').destroy();
-    //create main screen
-   	// Ext.create('EatSense.view.Lounge');
-  
   
 
     //check if a network state exists when cordova is runnning
@@ -206,7 +199,7 @@ Ext.application({
        if(restoredCheckInId) {
           checkInCtr.restoreState(restoredCheckInId);
           // this.restoreCheckIn(restoredCheckInId, defaultHeaders);
-       }                     
+       }
        else {        
         if (appStateStore.getCount() > 1){
           console.log('Too many appStates! Clearing cache. this should never happen.');
@@ -217,8 +210,8 @@ Ext.application({
         }
          appStateStore.add(checkInCtr.getAppState());
          Ext.fly('appLoadingWrapper').destroy();
-         Ext.create('EatSense.view.Lounge');
-         checkInCtr.showDashboard();
+         // Ext.create('EatSense.view.Lounge');
+         checkInCtr.initMainView();
        }  
   },
 
