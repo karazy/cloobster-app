@@ -73,7 +73,7 @@ Ext.define('EatSense.override.CustomRestProxy', {
 
 	        request.setConfig({
 	            headers  : me.getHeaders(),
-	            timeout  : me.getTimeout(),
+	            timeout  : 90000, //me.getTimeout()
 	            method   : me.getMethod(request),
 	            callback : me.createRequestCallback(request, operation, callback, scope),
 	            scope    : me,

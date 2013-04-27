@@ -165,8 +165,8 @@ Ext.application({
         defaultHeaders = {}; 
 
         //start set some app defaults
-        //timeout for requests
-        Ext.Ajax.timeout = 1200000;
+        //timeout for requests, also set in EatSense.override.CustomRestProxy
+        Ext.Ajax.setTimeout(90000);
 
         //On some devices. Sometimes MsgBoxes disappear behind other floating panels.
         //Give the message box a high zIndex to prevent hidden alerts!

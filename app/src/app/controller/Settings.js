@@ -85,8 +85,7 @@ Ext.define('EatSense.controller.Settings', {
     * Activate event handler for settingstab.
     */
     settingsTabActivated: function(tab, options) {
-
-        this.loadSettings(tab);        
+        this.loadSettings(tab);
     },
     /**
     *	Loads the settings and sets the corresponding fields.
