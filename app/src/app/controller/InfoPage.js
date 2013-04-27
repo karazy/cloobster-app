@@ -77,7 +77,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						}
 					});		
 
-					me.createCarouselPanels();
+					// me.createCarouselPanels();
 				}
 
 				// me.getInfoPageOverview().on({
@@ -144,45 +144,6 @@ Ext.define('EatSense.controller.InfoPage', {
     		}).delay(200);
 		}
 	},
-	/**
-	* @Deprecated
-	* Register tap on infopageteaser.
-	*/
-	// registerInfoPageTeaser: function() {
-	// 	var me = this,
-	// 		clubArea = this.getClubArea(),
-	// 		teaser = clubArea.down('dashboardteaser[type=info]');
-
-	// 	if(teaser) {
-	// 		// unregister old listener
-	// 		teaser.un('teasertapped', tapFunction);
-	// 		teaser.on('teasertapped', tapFunction);			
-	// 	}
-
-	// 	// Ext.Viewport.un('teasertapped.infopages', tapFunction);
-	// 	// Ext.Viewport.on('teasertapped.infopages', tapFunction);
-
-	// 	function tapFunction(page) {
-
-	// 		if(!me.getPanelsCreated()) {
-	// 			me.on({
-	// 				'carouselpanelscreated': doShowInfoPage,
-	// 				single: true,
-	// 				scope: this
-	// 			});
-
-	// 			me.getLounge().selectByAction('show-infopage');
-	// 			me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
-	// 		} else {
-	// 			doShowInfoPage();
-	// 		}
-
-	// 		function doShowInfoPage() {
-	// 			//null is the dataview, it gets not used inside method!
-	// 			me.showInfoPageDetail(null, page, true);
-	// 		}
-	// 	}
-	// },
 
 	/**
 	* Init the infopage dashboard tile, after tiles have been rendered.
@@ -202,23 +163,27 @@ Ext.define('EatSense.controller.InfoPage', {
 			// clubArea = this.getClubArea(),
 			// teaser = clubArea.down('dashboardteaser[type=info]');
 
-		if(!me.getPanelsCreated()) {
-				me.on({
-					'carouselpanelscreated': doShowInfoPage,
-					single: true,
-					scope: this
-				});
+		me.showInfoPageDetail(null, page, true);
 
-				me.getLounge().selectByAction('show-infopage');
-				me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
-			} else {
-				doShowInfoPage();
-			}
+		// if(!me.getPanelsCreated()) {
+		// 	// me.on({
+		// 	// 	'carouselpanelscreated': doShowInfoPage,
+		// 	// 	single: true,
+		// 	// 	scope: this
+		// 	// });
 
-			function doShowInfoPage() {
-				//null is the dataview, it gets not used inside method!
-				me.showInfoPageDetail(null, page, true);
-			}
+		// 	me.getLounge().selectByAction('show-infopage');
+		// 	me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
+		// } else {
+		// 	// doShowInfoPage();
+		// }
+
+		// doShowInfoPage();
+
+		// function doShowInfoPage() {
+		// 	//null is the dataview, it gets not used inside method!
+		// 	me.showInfoPageDetail(null, page, true);
+		// }
 	},
 	/**
 	* Load infopages into infopageStore.
@@ -450,10 +415,10 @@ Ext.define('EatSense.controller.InfoPage', {
   	*/
 	showInfoPageDetail: function(dataview, record, direct) {
 		var me = this,
-			infoPageOverview = this.getInfoPageOverview(),
-			ipcarousel = this.getInfoPageCarousel(),
+			infoPageOverview,
+			ipcarousel,
 			lounge = this.getLounge(),
-			carousel = ipcarousel.down('carousel'),
+			carousel,
 			infoPageList = this.getInfoPageList(),
 			infoPage,
 			store = Ext.StoreManager.lookup('infopageStore'),
@@ -464,124 +429,137 @@ Ext.define('EatSense.controller.InfoPage', {
 			backButton;
 
 		//TODO maybe use itemtap (me, index, target, record, e)?
-		//TODO check if panels are created?
-
-		//clear filters to get the real index
-		store.clearFilter(true);
-		index = store.indexOf(record);
-		store.setFilters(filters);
-
-		infoPage = carousel.getAt(index);
-
-		if(index < 0) {
-			console.error('InfoPage.showInfoPageDetail: no infoPage exists at ' + index);
-			return;
-		}
-
-		//2013.03.20 BUG? when using infopage index 0 it is the load mask
-		carousel.setActiveItem(index);
-
-		backButton = ipcarousel.down('backbutton');		
-
-		//wire up listeners
-
-
-		infoPageOverview.on({
-			hide: cleanup,
-			scope: this
-		});
-
-		carousel.on({
-			delegate: 'infopagedetail fixedbutton[action=open-link]',
-			tap: openUrl,
-			scope: this
-		});
-
-		backButton.on({
-			tap: cleanup,
-			scope: this
-		});
-
-
-
-		function openUrl(button) {
-			var record,
-				recordUrl;
-
-			if(!button) {
-				return;
-			}
-
-			//get hold of infopagedetail containing the record
-			record = button.getParent().getParent().getIpRecord();
-
-			recordUrl = record.get('url');
-			if(recordUrl && recordUrl.trim().length > 0) {
-				//if url does not start with http or https add it
-				if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
-					recordUrl = 'http://' + recordUrl;
-				}
-
-				windowRef = window.open(encodeURI(recordUrl), '_blank');
-				windowRef.addEventListener('exit', inAppBrowserClose);
-			}
-		}
-
-		function registerImageZoomBackButton(imagePanel) {
-			this.getApplication().getController('Android').addBackFn(function() {
-				imagePanel.hide();
-			});
-		}
-
-		function unRegisterImageZoomBackButton(imagePanel) {
-			this.getApplication().getController('Android').removeBackFn();
-		}
-
-		function inAppBrowserClose() {
-			console.log('InfoPage.showInfoPageDetail: in app browser closed');
-			windowRef.removeEventListener('exit', inAppBrowserClose);
-		}
-		
-		function cleanup() {
-			//remove listeners...
-			// console.log('Infopage.showInfoPageDetail: cleanup');
-
-			infoPageOverview.un({
-				hide: cleanup,
-				scope: this
-			});
-
-			carousel.un({
-				delegate: 'infopagedetail fixedbutton[action=open-link]',
-				tap: openUrl,
-				scope: this
-			});
-
-
-			backButton.un({
-				tap: cleanup,
-				scope: this
-			});
-
-			me.backToOverview();
-
-		}
-
-		// console.log('InfoPage.showInfoPageDetail: active carousel index=' +index);
 
 		//must be called before setActiveItem, because a reset is triggered
 		//that sets activeItem to 0! currently reset is only triggered if item is not already selected.
 		//this may change in future implementation and should be reviewed later
 		lounge.selectByAction('show-infopage');
-		me.getInfoPageOverview().setActiveItem(ipcarousel);
+		//setup up variables after selectByAction, because on first start view is not yet created
 
-		// carousel.on('activeitemchange', this.setListIndex, this);
+		infoPageOverview = this.getInfoPageOverview();
 
-		//direct call e.g. from dashboard teaser type=info
-		// if(direct) {
-		// 	this.setListIndex(carousel, index, null);
-		// }
+		infoPageOverview.setActiveItem(1);
 
+		ipcarousel = this.getInfoPageCarousel();
+		carousel = ipcarousel.down('carousel');
+		
+		
+		if(!me.getPanelsCreated()) {
+			me.on({
+				'carouselpanelscreated': doShowInfoPage,
+				single: true,
+				scope: this
+			});
+
+			me.createCarouselPanels();
+		} else {
+			doShowInfoPage();
+		}
+
+
+		function doShowInfoPage() {
+
+			//clear filters to get the real index
+			store.clearFilter(true);
+			index = store.indexOf(record);
+			store.setFilters(filters);
+
+			infoPage = carousel.getAt(index);
+
+			if(index < 0) {
+				console.error('InfoPage.showInfoPageDetail: no infoPage exists at ' + index);
+				return;
+			}
+
+			//2013.03.20 BUG? when using infopage index 0 it is the load mask
+			carousel.setActiveItem(index);
+
+			backButton = ipcarousel.down('backbutton');		
+
+			//wire up listeners
+
+
+			infoPageOverview.on({
+				hide: cleanup,
+				scope: this
+			});
+
+			carousel.on({
+				delegate: 'infopagedetail fixedbutton[action=open-link]',
+				tap: openUrl,
+				scope: this
+			});
+
+			backButton.on({
+				tap: cleanup,
+				scope: this
+			});
+
+
+
+			function openUrl(button) {
+				var record,
+					recordUrl;
+
+				if(!button) {
+					return;
+				}
+
+				//get hold of infopagedetail containing the record
+				record = button.getParent().getParent().getIpRecord();
+
+				recordUrl = record.get('url');
+				if(recordUrl && recordUrl.trim().length > 0) {
+					//if url does not start with http or https add it
+					if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
+						recordUrl = 'http://' + recordUrl;
+					}
+
+					windowRef = window.open(encodeURI(recordUrl), '_blank');
+					windowRef.addEventListener('exit', inAppBrowserClose);
+				}
+			}
+
+			function registerImageZoomBackButton(imagePanel) {
+				this.getApplication().getController('Android').addBackFn(function() {
+					imagePanel.hide();
+				});
+			}
+
+			function unRegisterImageZoomBackButton(imagePanel) {
+				this.getApplication().getController('Android').removeBackFn();
+			}
+
+			function inAppBrowserClose() {
+				console.log('InfoPage.showInfoPageDetail: in app browser closed');
+				windowRef.removeEventListener('exit', inAppBrowserClose);
+			}
+			
+			function cleanup() {
+				//remove listeners...
+				// console.log('Infopage.showInfoPageDetail: cleanup');
+
+				infoPageOverview.un({
+					hide: cleanup,
+					scope: this
+				});
+
+				carousel.un({
+					delegate: 'infopagedetail fixedbutton[action=open-link]',
+					tap: openUrl,
+					scope: this
+				});
+
+
+				backButton.un({
+					tap: cleanup,
+					scope: this
+				});
+
+				me.backToOverview();
+
+			}
+		}
 	},
 	/**
 	* @deprecated
