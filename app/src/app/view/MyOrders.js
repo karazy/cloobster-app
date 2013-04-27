@@ -128,7 +128,8 @@ Ext.define('EatSense.view.MyOrders', {
 				    			}), 100, this);					
 							}
 						}
-					}, {
+					}, 
+					{
 						type: 'panel',
 						docked: 'bottom',
 						itemId: 'myorderstotalpanel',

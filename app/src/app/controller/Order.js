@@ -1303,7 +1303,7 @@
 
 			//create picker
 			picker = Ext.create('Ext.Picker', {
-				height: '45%',
+				height: 260,
 				doneButton: {
 					text: i10n.translate('ok'),
 					listeners: {
@@ -1354,7 +1354,7 @@
 				me.getApplication().getController('Android').removeBackFn(destroyPicker);
 			}
 									
-			Ext.Viewport.add(picker);
+			me.getLoungeview().getContainer().add(picker);
 			picker.show();
 		}
 	},
