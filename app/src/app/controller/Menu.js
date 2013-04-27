@@ -841,7 +841,10 @@ Ext.define('EatSense.controller.Menu', {
 	switchView: function(view, direction) {
 		var menu = this.getMenuview();
 		
-    	menu.switchMenuview(view, direction);
+        if(menu) {
+            menu.switchMenuview(view, direction);    
+        }
+    	
 	},
 	/**
 	 * Recalculates the total price for the active product.
