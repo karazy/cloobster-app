@@ -7,8 +7,10 @@ Ext.define('EatSense.view.BackButton', {
 	config : {
 		itemId : 'backButton',
 		action: 'back',
-		text : i10n.translate('back'),
-		ui : 'back',
+		// text : i10n.translate('back'),
+		iconCls: 'arrow_left',
+		iconMask: true,
+		// ui : 'back',
 		align: 'left'
 	}
 });
