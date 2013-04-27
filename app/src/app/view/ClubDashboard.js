@@ -121,7 +121,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 
 		//configure dynamic scrolling behaviour of facebook button
 
-		if (Ext.os.is.Android4 && !Ext.browser.is.Chrome) {
+		if (Ext.os.is.Android && !Ext.browser.is.Chrome) {
             fps = 15;
         }
 
@@ -134,16 +134,24 @@ Ext.define('EatSense.view.ClubDashboard', {
 
 
 			function onClubdashBoardScroll(panel, x, y) {
+				//2 different approaches to for moving the item
 				// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + x + ' ' + y);
-				var yCalc = (y > scrollTreshhold) ? scrollTreshhold : y;
+				// var yCalc = (y > scrollTreshhold) ? scrollTreshhold : y;
+				var yOld = (y > scrollTreshhold) ? (scrollTreshhold - y) : 0;
 
-				fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0)';
-				// fbButton.element.dom.style.webkitTransform = 'translateY(' + yCalc + 'px)';
-				// if(y<0) {
-				// 	fbButton.setTop(0);	
-				// } else if(y > 100){
-				// 	fbButton.setTop(100);
+				// if(me.yCalc != yCalc && yCalc) {
+				// 	console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + me.yCalc + ' ' + yCalc);
+				// 	me.yCalc = yCalc;
+				// 	fbButton.element.dom.style.webkitTransform = 'translate3d(0px, ' + yCalc +'px, 0)';	
 				// }
+
+
+				if(me.yOld != yOld) {
+					// console.log('EatSense.view.ClubDashboard: onClubdashBoardScroll ' + me.yOld + ' ' + y);
+					me.yOld = yOld;
+					fbButton.setTop(yOld);	
+				}
+				
 			}
         }
 		
