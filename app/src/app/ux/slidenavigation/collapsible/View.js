@@ -685,7 +685,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          
         if (closed) {
             this.getContainer().removeCls('open');
-            Ext.getCmp('slidenavigationbezel').setWidth('10px');
+            Ext.getCmp('slidenavigationbezel').setWidth('15px');
             Ext.getCmp('slidenavigationbezel').setTop('40px');
             //defer to prevent false masking and flickering
             Ext.defer(function() {
