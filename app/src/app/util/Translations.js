@@ -355,8 +355,8 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		"restoreStateLoading" : {
-			"DE" :  "Check-in wiederherstellen ...",
-			"EN" :  "Restore check-in...",
+			"DE" :  "Check-in wiederherstellen",
+			"EN" :  "Restore check-in",
 			"ES" : "",
 			"IT" : ""
 		},
