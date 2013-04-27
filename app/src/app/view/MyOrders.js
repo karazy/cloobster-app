@@ -47,7 +47,8 @@ Ext.define('EatSense.view.MyOrders', {
 							action: 'pay',
 							width: '50%',
 							iconCls: 'cash',
-							iconMask: true
+							iconMask: true,
+							hidden: true
 						},
 						{
 							xtype: 'fixedbutton',
@@ -187,6 +188,26 @@ Ext.define('EatSense.view.MyOrders', {
 			}
 		]
 	},
+
+	// initialize: function() {
+	// 	var list = this.down('list'),
+	// 		description = this.down('#description');
+
+	// 	if(list) {
+	// 		list.on({
+	// 			refresh: function() {
+	// 				if(list.getStore().getCount() > 0) {
+	// 					description.setHidden(true);
+	// 				} else {
+	// 					description.setHidden(false);
+	// 				}
+	// 				return true;
+	// 			},
+	// 			scope: this
+	// 		});
+	// 	}
+	// },
+
 	/**
 	 * Show a loading screen
 	 * @param mask

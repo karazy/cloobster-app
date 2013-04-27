@@ -134,22 +134,6 @@ Ext.define('EatSense.view.Lounge', {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
 			},
-			// {
-			// 	xtype: 'feedbackform',
-			// 	iconCls: 'feedback-icon',
-			// 	itemId: 'loungeFeedback',
-			// 	title: i10n.translate('clubdashboard.button.feedback'),
-			// 	leaf: true,
-			// 	backButton: false,
-			// 	homeButton: true,
-			// 	hideOnBasic: true,
-			// 	preCreate: true,
-			// 	action: 'show-feedback',
-			// 	viewState: 'club',
-			// 	welcomeFn: function() {
-			// 		Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
-			// 	}
-			// },
 			{
 				title: i10n.translate('requestsTitle'),
 				xtype: 'requeststab',
@@ -168,7 +152,6 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('contactinfo.title'),
 				iconCls: 'contactinfo-icon',
 				leaf: true,
-				// preCreate: true,
 				action: 'show-contactinfo',
 				viewState: 'club'
 			},
@@ -185,7 +168,7 @@ Ext.define('EatSense.view.Lounge', {
 				iconCls: 'exit-icon',
 				title: i10n.translate('myOrdersTabLeaveBt'),
 				leaf: true,
-				preCreate: true,
+				// preCreate: true,
 				action: 'show-myorders',
 				viewState: 'club'
 			},

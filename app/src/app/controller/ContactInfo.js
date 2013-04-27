@@ -21,7 +21,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			contactInfoMapsBackBt: {
 				tap: 'backToContactInfo'
 			}
-		},	
+		}	
 	},
 	
 

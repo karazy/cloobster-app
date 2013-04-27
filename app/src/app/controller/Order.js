@@ -71,13 +71,18 @@
 			'statusChanged': function(status) {
 				if(status == appConstants.CHECKEDIN) {
 					//show homebutton
-					me.getHomeButton().setHidden(false);
+					if(me.getHomeButton()) {
+						me.getHomeButton().setHidden(false);	
+					}
+					
 					
 				} else if(status == appConstants.PAYMENT_REQUEST) {
 					//show homebutton
-					me.getHomeButton().setHidden(true);
+					if(me.getHomeButton()) {
+						me.getHomeButton().setHidden(true);	
+					}
 					//trigger leave on backbutton, otherwise user gets thrown to club dashboard although this is forbidden
-					//remove handler is not required as they get resetet on status change
+					//remove handler is not required as they reset on status change
 					me.getApplication().getController('Android').addBackFn(function() {
 						me.completePayment();
 					});
@@ -145,7 +150,9 @@
     */
 	myordersviewActivated: function(view, options) {
 		view.setActiveItem(0);
-		this.refreshMyOrdersList();
+		Ext.create('Ext.util.DelayedTask', function () {
+            this.refreshMyOrdersList();
+	    }, this).delay(300);
 	},
 	/**
 	 * Load cart orders.
@@ -1113,7 +1120,8 @@
 		var loungeview = this.getLoungeview(),
 			button,
 			orderStore = Ext.StoreManager.lookup('orderStore'),
-			badgeText;
+			badgeText,
+			description = this.getCheckoutDescription();
 
 		
 		button = loungeview.getItemByAction('show-myorders');
@@ -1133,11 +1141,16 @@
 			if(orderStore && orderStore.getCount() > 0) {
 				badgeText = orderStore.getCount();
 				//hide description when checkout is empty
-				this.getCheckoutDescription().setHidden(true);
+				if(description) {
+					description.setHidden(true);	
+				}
+				
 			} else {
 				badgeText = '';
 				//show description when checkout is empty
-				this.getCheckoutDescription().setHidden(false);
+				if(description) {
+					description.setHidden(false);	
+				}
 			}
 			// button.setBadgeText(badgeText);
 			button.set('badgeText', badgeText);
@@ -1157,7 +1170,7 @@
 		
 		if(myordersview) {
 			leaveButton = myordersview.down('button[action=exit]');
-			myordersview.showLoadScreen(true);
+			// myordersview.showLoadScreen(true);
 		} else {
 			console.log('Order.refreshMyOrdersList > myordersview not found');
 		}
@@ -1204,9 +1217,9 @@
 					console.log('Order.refreshMyOrdersList > error ' + e);
 				}
 
-			if(myordersview) {
-				myordersview.showLoadScreen(false);
-			}
+			// if(myordersview) {
+			// 	myordersview.showLoadScreen(false);
+			// }
 		}
 	},
 	loadMyOrders: function(callback) {
