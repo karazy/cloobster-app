@@ -686,6 +686,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         if (closed) {
             this.getContainer().removeCls('open');
             Ext.getCmp('slidenavigationbezel').setWidth('10px');
+            Ext.getCmp('slidenavigationbezel').setTop('40px');
             //defer to prevent false masking and flickering
             Ext.defer(function() {
                 this.getContainer().getActiveItem().setMasked(false);
@@ -702,6 +703,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         } else {
             this.getContainer().addCls('open');
             Ext.getCmp('slidenavigationbezel').setWidth('100%');
+            Ext.getCmp('slidenavigationbezel').setTop('0px');
             //defer to prevent false masking and flickering
             Ext.defer(function() {
                 this.getContainer().getActiveItem().setMasked({
