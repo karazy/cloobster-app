@@ -83,7 +83,6 @@ Ext.define('EatSense.view.Lounge', {
 				iconCls: 'home-icon',
 				action: 'show-dashboard',
 				viewState: 'cloobster'
-				// preCreate: true
 			},
 			{
 				xtype: 'placesoverview',
@@ -108,7 +107,6 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'menutab',
 				title: i10n.translate('menuTab'),
 				leaf: true,
-				// preCreate: true,
 				action: 'show-menu',
 				viewState: 'club'
 			},			
@@ -116,7 +114,6 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'infopageoverview',
 				title: i10n.translate('infopage.overview.title'),
 				leaf: true,
-				// preCreate: true,
 				action: 'show-infopage',
 				iconCls: 'slidenav-info-icon',
 				viewState: 'club'
@@ -139,7 +136,6 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'requeststab',
 				iconCls: 'request-icon',
 				leaf: true,
-				// preCreate: true,
 				hideOnBasic: true,
 				action: 'show-requests',
 				viewState: 'club',
@@ -168,7 +164,6 @@ Ext.define('EatSense.view.Lounge', {
 				iconCls: 'exit-icon',
 				title: i10n.translate('myOrdersTabLeaveBt'),
 				leaf: true,
-				// preCreate: true,
 				action: 'show-myorders',
 				viewState: 'club'
 			},
