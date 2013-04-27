@@ -8,7 +8,7 @@ Ext.define('EatSense.controller.Menu', {
     extend: 'Ext.app.Controller',
     requires: ['Ext.util.Filter'],
     config: {
-		refs: {
+		refs: {            
         	menulist :'menuoverview list',        	
         	productlist :'productoverview list',        	
         	productoverview :'productoverview' ,
@@ -76,8 +76,23 @@ Ext.define('EatSense.controller.Menu', {
 
     	checkInCtr.on('statusChanged', function(status, activeCheckIn) {
 			if(status == appConstants.CHECKEDIN) {
-				// this.registerProductTeaserTap();
 				this.showMenu();
+
+                this.getLoungeview().on({
+                    delegate: 'menutab',
+                    show: menuPageOverviewShown,
+                    single: true,
+                    scope: this
+                });
+
+                function menuPageOverviewShown(panel) {
+                    var titleLabel = panel.down('#titleLabel');
+
+                    if(titleLabel) {
+                        titleLabel.getTpl().overwrite(titleLabel.element, [checkInCtr.getActiveSpot().get('areaName')]);
+                    }
+                }
+
 				//add area filter to product store before loading
                 this.addProductAreaFilter(checkInCtr.getActiveSpot().raw.areaMenuIds);
                 this.setSorterForMenuBasedOnIdArray(checkInCtr.getActiveSpot().raw.areaMenuIds, true);
@@ -175,8 +190,8 @@ Ext.define('EatSense.controller.Menu', {
     	}
 
     	//show the product list
-    	this.showProductlist(null, parentMenu);
-    	loungeview.selectByAction('show-menu');
+        loungeview.selectByAction('show-menu');
+    	this.showProductlist(null, parentMenu);    	
     	//show product detail by triggering the select
     	this.getProductlist().select(product);
     	
@@ -261,18 +276,10 @@ Ext.define('EatSense.controller.Menu', {
 				    	}
 			    	]);
 			    }
-			 });
-
-			try {
-				titleLabel = menu.down('#titleLabel');
-				titleLabel.getTpl().overwrite(titleLabel.element, [checkInCtr.getActiveSpot().get('areaName')]);
-			} catch(e) {
-				console.log('Menu.showMenu > failed to set up titleLabel');
-			}
-			
+			 });			
 
             //always show menuoverview on first access
-            menu.setActiveItem(0);       
+            // menu.setActiveItem(0);       
 		} else {
 			console.log('Order.showMenu > no businessId in active checkInFound found! Was ' + businessId);
 		}

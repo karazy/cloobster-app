@@ -108,7 +108,7 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'menutab',
 				title: i10n.translate('menuTab'),
 				leaf: true,
-				preCreate: true,
+				// preCreate: true,
 				action: 'show-menu',
 				viewState: 'club'
 			},			
