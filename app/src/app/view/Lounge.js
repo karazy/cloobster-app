@@ -155,7 +155,7 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'requeststab',
 				iconCls: 'request-icon',
 				leaf: true,
-				preCreate: true,
+				// preCreate: true,
 				hideOnBasic: true,
 				action: 'show-requests',
 				viewState: 'club',
