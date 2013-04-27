@@ -74,6 +74,20 @@
 					if(me.getHomeButton()) {
 						me.getHomeButton().setHidden(false);	
 					}
+
+					this.getLoungeview().on({
+	                    delegate: 'menutab',
+	                    show: this.updateCartButtons,
+	                    single: true,
+	                    scope: this
+	                });
+
+	                this.getLoungeview().on({
+	                    delegate: 'myorderstab',
+	                    show: this.updateCartButtons,
+	                    single: true,
+	                    scope: this
+	                });
 					
 					
 				} else if(status == appConstants.PAYMENT_REQUEST) {

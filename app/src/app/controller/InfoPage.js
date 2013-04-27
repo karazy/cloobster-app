@@ -32,9 +32,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			},
 			'clubarea clubdashboard' : {
 				'tilesrendered' : 'initInfoPageDashboardTiles'
-			},
-			infoPageSearchField: {
-				'keyup': function() {alert('TEST')}
 			}
 		},
 		//true when all carousel panels have been created
