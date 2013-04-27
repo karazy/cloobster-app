@@ -224,12 +224,12 @@ Ext.define('EatSense.controller.Request',{
 		requestStore.removeAll();
 
 		if(!callWaiterButton) {
-			console.error('Request.resetAllRequests: callWaiterButton not found');
+			console.log('Request.resetAllRequests: callWaiterButton not found. Maybe view was never shown.');
 			return;
 		}
 
 		if(!label) {
-			console.error('Request.resetAllRequests: label not found');
+			console.log('Request.resetAllRequests: label not found. Maybe view was never shown.');
 			return;
 		}
 
