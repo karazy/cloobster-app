@@ -1669,7 +1669,8 @@
 	* E. g. used after a FORCE_LOGOUT
 	*/
 	cleanup: function() {
-		var myordersStore = Ext.data.StoreManager.lookup('orderStore');
+		var myordersStore = Ext.data.StoreManager.lookup('orderStore'),
+			homeButton = this.getHomeButton();
 		
 		try {
 			//clear orders
@@ -1679,7 +1680,9 @@
 	      	this.refreshMyOrdersBadgeText(true);		
 
 	      	//show homebutton
-			this.getHomeButton().setHidden(false);
+	      	if(homeButton) {
+	      		homeButton.setHidden(false);
+	      	}
 		} catch (e) {
 			console.error('Order.cleanup: failed ' + e);
 		}

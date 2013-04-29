@@ -409,7 +409,8 @@ Ext.define('EatSense.controller.Feedback', {
 	clearFeedback: function() {
 		var lounge = this.getLounge(),
 			emailfields = lounge.query('feedbackform emailfield'),
-			textareafields = lounge.query('feedbackform textareafield');
+			textareafields = lounge.query('feedbackform textareafield'),
+			showFeedbackLeaveButton = this.getShowFeedbackButton();
 
 		//clear email and password fields
 		Ext.Array.each(emailfields, function(field) {
@@ -432,11 +433,13 @@ Ext.define('EatSense.controller.Feedback', {
 
 			this.getActiveFeedback().destroy();
 			this.setActiveFeedback(null);
+			
+			if(showFeedbackLeaveButton) {
+				showFeedbackLeaveButton.setHidden(false);
+			}
 		} catch(e) {
 			console.log('Feedback.clearFeedback > error ' + e);
 		}
-
-		this.getShowFeedbackLeaveButton().setHidden(false);
 	},
 	/**
 	* Save feedback Id for checkIn restore.

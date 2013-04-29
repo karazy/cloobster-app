@@ -125,7 +125,10 @@ Ext.define('EatSense.controller.CheckIn', {
         scope: this 
       });
 
-      this.getApplication().on('statusChanged', this.handleStatusChange, this);
+      this.getApplication().on('statusChanged', function(status) {
+        this.fireEvent('statusChanged', status);
+      }, this);
+      
     	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
       loungeCtr.on('areaswitched', function(area) {
         this.setActiveArea(area);
