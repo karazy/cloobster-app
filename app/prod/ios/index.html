@@ -112,7 +112,7 @@ Cloobster.asyncJsapiLoad = function() {
     function onDeviceReady()
     {
         // console.log('onDeviceReady start');
-        FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });
+        // FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });
         cordovaInit = true;
         try {
             EatSense.app.mainLaunch();
@@ -132,4 +132,5 @@ Cloobster.asyncJsapiLoad = function() {
             <div id="cloobsterLoadingText">loading</div>
         </div>
     </body>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 </html>

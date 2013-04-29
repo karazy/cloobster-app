@@ -237,6 +237,8 @@ Ext.define('EatSense.controller.Account', {
 
 		//remove all events
 		function cleanup() {
+			me.un('userlogin', userLoggedIn, me);
+
 			backButton.un({
 				tap: closeLogin
 			});
@@ -257,9 +259,7 @@ Ext.define('EatSense.controller.Account', {
 				tap: fbSignupButtonHandler
 			});
 
-			androidCtr.removeBackFn();
-
-			me.un('userlogin', userLoggedIn, this);
+			androidCtr.removeBackFn();			
 		}
 
 		//close login view and reset password field
