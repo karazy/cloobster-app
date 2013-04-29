@@ -191,7 +191,12 @@ Ext.define('EatSense.controller.Account', {
 		androidCtr.addBackFn(closeLogin);
 
 		//handle successful login
-		me.on('userlogin', userLoggedIn, this);
+		// me.on('userlogin', userLoggedIn, this);
+		me.on({
+			'userlogin' : userLoggedIn,
+			scope: this,
+			single: true
+		});
 
 
 		//handler functions
