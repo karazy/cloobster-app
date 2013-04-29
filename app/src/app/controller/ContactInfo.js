@@ -34,8 +34,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 		Ext.create('Ext.util.DelayedTask', function () {
 			if(location) {
 				panel.setLocation(location);
+				this.showLocationProfilePictures(location);
 			}
-		}).delay(300);	
+		}, this).delay(300);	
 	},
 
 	backToContactInfo: function() {
@@ -130,6 +131,101 @@ Ext.define('EatSense.controller.ContactInfo', {
 			}	
 
 		}
+	},
+	/**
+	* Show location profile pictures in contact details.
+	* @param {EatSense.model.Business} business
+	*	Contains the profile information.
+	*/
+	showLocationProfilePictures: function(business) {
+		var contactInfoView = this.getContactInfoView(),
+			infoHeader,
+			tpl,
+			html,
+			imagePanel,
+			scaleFactor = '=s720',
+			profilePicturesExist;	
+
+			if(!business) {
+				console.error('InfoPage.showHotelInfoHeader: no business given');
+				return;	
+			}		
+
+			renderProfilePics(contactInfoView);
+		
+
+			function renderProfilePics(panel) {
+
+				profilePictures = panel.down('#profilePictures');
+
+				//show profile pictures in infopageoverview
+				if(business && business.raw && business.raw.images) {
+					//check for pictures
+					profilePicturesExist = business.raw.images.picture1 || business.raw.images.picture2 || business.raw.images.picture3;
+				}
+
+				if(profilePicturesExist) {
+					profilePictures.removeAll();
+					profilePictures.setHidden(false);									
+
+					if(business.raw.images.picture3) {
+						
+						imagePanel = Ext.create('Ext.Panel', {
+							width: '100%',
+							height: 150,
+							margin: '5 0 5 0',
+							style: {
+								'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
+								'background-size' : 'cover',
+								'background-position' : 'center'
+							}
+						});
+
+						// panel.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactor);
+
+						profilePictures.add(imagePanel);
+					}
+
+					if(business.raw.images.picture2) {
+						
+						imagePanel = Ext.create('Ext.Panel', {
+							width: '100%',
+							height: 150,
+							margin: '5 0 5 0',
+							style: {
+								'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
+								'background-size' : 'cover',
+								'background-position' : 'center'					
+							}
+						});
+
+						// panel.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactor);
+
+						profilePictures.add(imagePanel);
+					}
+
+					if(business.raw.images.picture1) {				
+						imagePanel = Ext.create('Ext.Panel', {
+							width: '100%',
+							height: 150,
+							margin: '5 0 5 0',
+							style: {
+								'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
+								'background-size' : 'cover',
+								'background-position' : 'center'
+							}
+						});
+
+						// panel.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactor);
+
+						profilePictures.add(imagePanel);
+					}
+					// profilePictures.setActiveItem(0);
+				} else {
+					profilePictures.removeAll();
+					profilePictures.setHidden(true);
+				}
+			}
 	}
 
 });

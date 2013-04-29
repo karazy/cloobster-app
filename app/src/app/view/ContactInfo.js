@@ -145,7 +145,11 @@ Ext.define('EatSense.view.ContactInfo', {
 								'<div class="slogan">{slogan}</div>',
 							'</div>'
 						)
-					}	
+					},
+					{
+						xtype: 'panel',
+						itemId: 'profilePictures'
+					}
 					
 				]
 			},
