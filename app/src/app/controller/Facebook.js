@@ -6,6 +6,7 @@ Ext.define('EatSense.controller.Facebook', {
 	requires: ['EatSense.view.Login', 'EatSense.model.Account'],
 	config: {
 		refs: {
+			settingsView : 'settingstab',
 			connectFbClubButton : 'settings button[action=connect-fb]',
 			fbWallpostClubButton: 'clubarea clubdashboard button[action="fb-wallpost"]'
 		},
@@ -23,7 +24,13 @@ Ext.define('EatSense.controller.Facebook', {
 			accountCtr = this.getApplication().getController('Account');
 
 		if(FB) {
-			FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });	
+			if(typeof CDV != 'undefined') {
+				//phonegap version
+				FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });
+			} else {
+				//desktop version
+				FB.init({ appId: "359215437471990", useCachedDialogs: false });
+			}			
 		} else {
 			console.log('Facebook.launch: no FB found');
 		}
@@ -95,7 +102,7 @@ Ext.define('EatSense.controller.Facebook', {
 	* Tap event handler for connectFbClubButton in settingstab.
 	*/
 	connectFbClubButtonHandler: function() {
-		this.showConfirmConnectFbMsgBox(this.getSettingsTab());
+		this.showConfirmConnectFbMsgBox(this.getSettingsView());
 	},
 	/**
 	* Tap event handler for connectFbClubButton in settingsview.
