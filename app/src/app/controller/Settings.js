@@ -184,7 +184,8 @@ Ext.define('EatSense.controller.Settings', {
      * Otherwise in localstorage.
 	 */
 	saveNickname: function(component, newData, oldValue, eOpts) {
-    	var checkInCtr = this.getApplication().getController('CheckIn'),
+    	var me = this,
+            checkInCtr = this.getApplication().getController('CheckIn'),
             accountCtr = this.getApplication().getController('Account'),
     		appState = checkInCtr.getAppState();
 
