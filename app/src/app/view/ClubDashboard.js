@@ -37,7 +37,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				xtype: 'label',
 				style: {
 					'background-color' : 'transparent',
-					'height' : '200px'
+					'height' : '110px'
 				}
 			},
 		{
@@ -116,7 +116,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 			scrollPanel = this;
 			fbButton = this.down('button[action=fb-wallpost]'),
 			fps = 10,
-			scrollTreshhold = '200';
+			scrollTreshhold = '110';
 
 
 		//configure dynamic scrolling behaviour of facebook button

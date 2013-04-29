@@ -586,8 +586,9 @@ $general-border-radius: 3px;
   /*background-image: url('../images/club/info.png');*/
   div.thumbnail {
     margin-right: 8px;
-    background-position: center;
+    background-position: top center;
     background-repeat: no-repeat;
+    background-size: 100% auto;
     height: 100px;
     width: 100%;
     @media only screen and (max-width: 320px) { 
