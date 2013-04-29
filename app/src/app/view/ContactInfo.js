@@ -44,7 +44,7 @@ Ext.define('EatSense.view.ContactInfo', {
 						tpl: new Ext.XTemplate(
 							'<div class="contactinfo-main-data">',
 								'<div class="name">{name}</div>',
-								'<div class="slogan">{slogan}</div>',
+								'<div class="slogan">{description}</div>',
 								// '<div class="description">{description}</div>',
 								// '<div>{postcode} | {address}</div>',
 							'</div>'
@@ -54,13 +54,15 @@ Ext.define('EatSense.view.ContactInfo', {
 						xtype: 'panel',
 						itemId: 'mainUrl',
 						layout: {
-							type: 'vbox'
+							type: 'hbox',
+							align: 'stretch'
 						},
 						items: [
 							{
 								xtype: 'label',
 								margin: '7 0 0 0',
-								cls: 'general-text'
+								cls: 'general-text',
+								flex: 2
 							},
 							{
 								xtype: 'fixedbutton',
@@ -71,7 +73,8 @@ Ext.define('EatSense.view.ContactInfo', {
 								hidden: true,
 								ui: 'action',
 								margin: '7 0 5 0',
-								width: '50%'
+								width: '50%',
+								flex: 1
 							}
 						]
 					},				
@@ -79,14 +82,15 @@ Ext.define('EatSense.view.ContactInfo', {
 						xtype: 'panel',
 						itemId: 'mainPhone',
 						layout: {
-							type: 'vbox',
+							type: 'hbox',
 							align: 'stretch'
 						},
 						items: [
 							{
 								xtype: 'label',
 								margin: '7 0 0 0',
-								cls: 'general-text'
+								cls: 'general-text',
+								flex: 2
 							},
 							{
 								xtype: 'fixedbutton',
@@ -97,31 +101,45 @@ Ext.define('EatSense.view.ContactInfo', {
 								hidden: true,
 								ui: 'action',
 								margin: '7 0 5 0',
-								width: '50%'
+								width: '50%',
+								flex: 1
 							}
 						]
-					},			
+					},
 					{
-						xtype: 'label',
-						itemId: 'address',
-						margin: '7 0 5 0',
-						cls: 'general-text',
-						tpl: new Ext.XTemplate(
-							'<div class="">',
-								'<div>{address} | {postcode} | {city}</div>',
-							'</div>'
-						)
-					},					
-					{
-						xtype: 'fixedbutton',
-						action: 'show-maps',
-						text: i10n.translate('contactinfo.map.title'),
-						iconCls: 'globe2',
-						iconMask: true,
-						ui: 'action',
-						margin: '7 0 5 0',
-						width: '50%'
-					}	
+						xtype: 'panel',
+						// itemId: 'address',
+						layout: {
+							type: 'hbox',
+							align: 'stretch'
+						},
+						items: [
+							{
+								xtype: 'label',
+								itemId: 'address',
+								margin: '7 0 5 0',
+								cls: 'general-text',
+								tpl: new Ext.XTemplate(
+									'<div class="">',
+										'<div>{address} | {postcode} | {city}</div>',
+									'</div>'
+								),
+								flex: 2
+							},					
+							{
+								xtype: 'fixedbutton',
+								action: 'show-maps',
+								text: i10n.translate('contactinfo.map.title'),
+								iconCls: 'globe2',
+								iconMask: true,
+								ui: 'action',
+								margin: '7 0 5 0',
+								width: '50%',
+								flex: 1
+							}	
+						]
+					}			
+					
 				]
 			},
 			{
