@@ -395,7 +395,7 @@ Ext.define('EatSense.util.Channel', {
 			console.log('Channel.setup: ChannelAPI script not yet loaded. Deferring channel setup for 500ms.');
 			window.setTimeout(function() {
 				appChannel.setup(options);
-			}, 500);
+			}, 1000);
 			return;
 		}
 		
