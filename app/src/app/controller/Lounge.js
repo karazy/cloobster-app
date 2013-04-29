@@ -56,7 +56,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 'statusChanged' : function(status) {
 			if(status == appConstants.CHECKEDIN) {
 			  this.manageViewState('club');
-			  this.initDashboard();			  
+			  this.initDashboard();
 			  this.buildDashboard();
 
 			  

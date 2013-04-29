@@ -22,6 +22,13 @@ Ext.define('EatSense.controller.Facebook', {
 		var me = this,
 			accountCtr = this.getApplication().getController('Account');
 
+		if(FB) {
+			FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });	
+		} else {
+			console.log('Facebook.launch: no FB found');
+		}
+		
+
 		accountCtr.on({
 			'userloginprovider': function(provider, callback) {
 				if(provider == 'facebook') {
