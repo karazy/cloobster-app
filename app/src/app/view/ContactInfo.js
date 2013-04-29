@@ -39,14 +39,11 @@ Ext.define('EatSense.view.ContactInfo', {
 					{
 						xtype: 'label',
 						itemId: 'content',
-						// cls: 'contactinfo-main-data',
-						// flex: 1,
+						margin: '0 0 10 0',
 						tpl: new Ext.XTemplate(
 							'<div class="contactinfo-main-data">',
 								'<div class="name">{name}</div>',
-								'<div class="slogan">{description}</div>',
-								// '<div class="description">{description}</div>',
-								// '<div>{postcode} | {address}</div>',
+								'<div class="description">{description}</div>',
 							'</div>'
 						)
 					},
@@ -133,12 +130,22 @@ Ext.define('EatSense.view.ContactInfo', {
 								iconCls: 'globe2',
 								iconMask: true,
 								ui: 'action',
-								margin: '7 0 5 0',
-								width: '50%',
+								margin: '7 0 10 0',
+								// width: '50%',
 								flex: 1
 							}	
 						]
-					}			
+					},
+					{
+						xtype: 'label',
+						itemId: 'slogan',
+						margin: '0 0 10 0',
+						tpl: new Ext.XTemplate(
+							'<div class="contactinfo-main-data">',
+								'<div class="slogan">{slogan}</div>',
+							'</div>'
+						)
+					}	
 					
 				]
 			},
@@ -182,6 +189,7 @@ Ext.define('EatSense.view.ContactInfo', {
 
 	updateLocation: function(newValue, oldValue) {
 		var content,
+			slogan,
 			address,
 			tpl,
 			urlPanel,
@@ -194,6 +202,7 @@ Ext.define('EatSense.view.ContactInfo', {
 
 		if(newValue && newValue != oldValue) {			
 			content = this.down('#content');
+			slogan = this.down('#slogan');
 			address = this.down('#address');
 			console.log('EatSense.view.ContactInfo.updateLocation');
 
@@ -208,13 +217,17 @@ Ext.define('EatSense.view.ContactInfo', {
 			openMapsBt = this.down('button[action=open-maps]');
 
 			if(content) {
-				console.log('EatSense.view.ContactInfo.updateLocation: Render info for location ' + newValue.get('name'));
+				// console.log('EatSense.view.ContactInfo.updateLocation: Render info for location ' + newValue.get('name'));
 				tpl = content.getTpl();
 
 				tpl.overwrite(content.element, newValue.getData());
 			}
 
-			if(content) {
+			if(slogan) {
+				slogan.getTpl().overwrite(slogan.element, newValue.getData());
+			}
+
+			if(address) {
 				address.getTpl().overwrite(address.element, newValue.getData());
 			}
 
