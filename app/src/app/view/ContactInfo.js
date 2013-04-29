@@ -144,7 +144,8 @@ Ext.define('EatSense.view.ContactInfo', {
 								iconMask: true,
 								hidden: true,
 								ui: 'action',
-								align: 'right'
+								align: 'right',
+								hidden: Ext.os.is.iOS
 							}
 						]
 					}
