@@ -1166,12 +1166,12 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"account.signupfb.confirm.message" : {
 			"DE" :  "Cloobster Account mit Facebook Daten anlegen?",
-			"EN" :  "Register?",
+			"EN" :  "Create cloobster Account with Facebook?",
 			"ES" : "",
 			"IT" : ""
 		},
 		"account.signup.success.title" : {
-			"DE" :  "Willkommen bei Cloobster",
+			"DE" :  "Willkommen bei cloobster",
 			"EN" :  "Welcome to cloobster",
 			"ES" : "",
 			"IT" : ""
