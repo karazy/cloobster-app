@@ -602,12 +602,14 @@ Ext.define('EatSense.controller.InfoPage', {
 			searchfield = this.getInfoPageSearchField(),
 			list = this.getInfoPageList();		
 
+		infopageOverview.setActiveItem(0);
+
 		//reset search field
 		searchfield.setValue("");
 		store.clearFilter();
-
-		infopageOverview.setActiveItem(0);
+		
 		list.deselectAll();
+		list.refresh();
 	},
 	/**
 	* Tap event handler for infoPageBackButton.
