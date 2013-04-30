@@ -847,7 +847,7 @@ Ext.define('EatSense.controller.Menu', {
 	switchView: function(view, direction) {
 		var menu = this.getMenuview();
 		
-        if(menu) {
+        if(menu && view) {
             menu.switchMenuview(view, direction);    
         }
     	
@@ -918,12 +918,15 @@ Ext.define('EatSense.controller.Menu', {
 	*/
 	cleanup: function() {
 		// var detail = this.getProductdetail();
+        try {
+            this.clearMenuStores();
+            this.clearProductStore();
 
-		this.clearMenuStores();
-		this.clearProductStore();
-
-		//show menu first level
-		this.switchView(this.getMenuoverview(), 'right');
+            //show menu first level
+            this.switchView(this.getMenuoverview(), 'right');
+        } catch(e) {
+            console.error('Menu.cleanup: failed ' + e);
+        }		
 	},
 	/**
 	* Clear Menu store and nested stores (product, choices, options).

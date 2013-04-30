@@ -95,8 +95,6 @@ Ext.define('EatSense.controller.Lounge', {
 				this.registerSlideBezelTap(false);
 				this.getLoungeview().setDisableDrag(false);
 				this.cleanup();
-				//TODO 20130416 move elsewhere?
-				this.getLoungeview().selectByAction('show-dashboard');
 			}
 		 },
 		 'basicmode' : function(basicMode) {
@@ -304,8 +302,8 @@ Ext.define('EatSense.controller.Lounge', {
 		  buttons = lounge.query('button[action=toggle-navigation]');
 
 		  Ext.Array.each(buttons, function(b) {
-			 b.setDisabled(!show);
-			 b.setHidden(!show);
+		  	 b.setHidden(!show);
+			 b.setDisabled(!show);			 
 		  });
   },
   clubAreaActivated: function(tab, options) {
@@ -747,15 +745,16 @@ Ext.define('EatSense.controller.Lounge', {
 		var areaStore = Ext.StoreManager.lookup('areaStore'),
 			slideNavStore = this.getLoungeview().getList().getStore();
 		
-		try {
+		try {			
 			areaStore.clearFilter();
 			//as awlays be extra careful cleaning up sencha stores.
 			areaStore.each(function(area) {
 			 area.destroy();
 			});
+			
 			areaStore.removeAll(false);
 
-			//remove all dynamic items
+			//remove all dynamic items. Do this before managing the viewState. Otherwise dynamic items will be filtered
 			slideNavStore.each(function(item) {
 			 if(item.get('dynamic')) {
 				slideNavStore.remove(item);
@@ -764,9 +763,8 @@ Ext.define('EatSense.controller.Lounge', {
 			});
 
 			this.manageViewState('cloobster');
+			this.getLoungeview().selectByAction('show-dashboard');	
 
-			//DEPRECATED since we remove all tiles on cleanup, reset area title
-			// this.applyAreaNameToMenuTileButtons();
 			this.removeDashboardTiles();
 		} catch(e) {
 		  console.error('Lounge.cleanup: failed ' + e);

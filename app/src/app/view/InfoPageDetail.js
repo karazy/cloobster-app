@@ -108,7 +108,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				this.registerImageZoomTap(panel.element.down('.image'), newRecord.get('imageUrl') + scaleFactorL);
 			}
 		} else {
-			if(urlButton && urlButton.element) {
+			if(urlButton && urlButton.element && urlButton.element.dom) {
 				urlButton.element.dom.style.top = '5px';	
 			} else {
 				console.log('EatSense.view.InfoPageDetail.updateIpRecord: urlButton or urlButton.element do not exist');

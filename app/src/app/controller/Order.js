@@ -1310,21 +1310,25 @@
 					text: i10n.translate('ok'),
 					listeners: {
 						tap: function() {
-							//FR 20121109 this is weird behaviour of picker component
-							choosenMethod = picker.getValue()['null'];
-							//Since ST2.1 if user does not select anything no value is set
-							//so we chosse the first value in the store
-							if(!choosenMethod) {
-								choosenMethod = availableMethods.getAt(0).get('name');
-							}
-							//20130215 destroy picker to prevent duplicates
-							//a bug existed that caused checkin to fail because picker tried to refresh
-							//on business load
-							destroyPicker();
-							if(appHelper.isFunction(onChoose)) {
-								onChoose(choosenMethod);
-							} else {
-								me.paymentRequest(choosenMethod);	
+							try {
+								//FR 20121109 this is weird behaviour of picker component
+								choosenMethod = picker.getValue()['null'];
+								//Since ST2.1 if user does not select anything no value is set
+								//so we chosse the first value in the store
+								if(!choosenMethod) {
+									choosenMethod = availableMethods.getAt(0).get('name');
+								}
+								//20130215 destroy picker to prevent duplicates
+								//a bug existed that caused checkin to fail because picker tried to refresh
+								//on business load
+								destroyPicker();
+								if(appHelper.isFunction(onChoose)) {
+									onChoose(choosenMethod);
+								} else {
+									me.paymentRequest(choosenMethod);	
+								}
+							} catch(e) {
+								console.error('Order.choosePaymentMethod: Picker tap error ' + e);
 							}							
 						}
 					}

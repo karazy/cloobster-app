@@ -724,58 +724,62 @@ Ext.define('EatSense.controller.CheckIn', {
     appState.set('prevStatus', appState.get('status'));
     appState.set('status', status);
 
-		//TODO check status transitions, refactorshowInfoPagesButtonHandler
-		if(status == appConstants.CHECKEDIN) {
+    try {
+  		//TODO check status transitions, refactorshowInfoPagesButtonHandler
+  		if(status == appConstants.CHECKEDIN) {
 
-    }
-		else if(status == appConstants.PAYMENT_REQUEST) {	
-			this.getActiveCheckIn().set('status', status);
-		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT || status == appConstants.WAS_INACTIVE) {
-      Ext.Viewport.fireEvent('showdashboard');
-			// this.showDashboard();	      
+      }
+  		else if(status == appConstants.PAYMENT_REQUEST) {	
+  			this.getActiveCheckIn().set('status', status);
+  		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT || status == appConstants.WAS_INACTIVE) {
+        Ext.Viewport.fireEvent('showdashboard');
+  			// this.showDashboard();	      
 
-      this.setActiveCheckIn(null);		     
+        this.setActiveCheckIn(null);		     
 
-      //clear checkInId
-      this.getAppState().set('checkInId', null);
-      
-      headerUtil.resetHeaders(['checkInId','pathId']);
+        //clear checkInId
+        this.getAppState().set('checkInId', null);
+        
+        headerUtil.resetHeaders(['checkInId','pathId']);
 
-      if(this.getActiveBusiness()) {
-        this.getActiveBusiness().payments().each(function(pm) {
-            pm.destroy();
+        if(this.getActiveBusiness()) {
+          this.getActiveBusiness().payments().each(function(pm) {
+              pm.destroy();
+            });
+          this.getActiveBusiness().payments().removeAll(); 
+          this.getActiveBusiness().destroy();
+        }
+
+        this.setActiveBusiness(null);
+
+        if(this.getActiveSpot()) {
+          this.getActiveSpot().destroy();  
+        }
+        
+        this.setActiveSpot(null);
+
+        this.setActiveArea(null);
+
+        if(spotStore) {
+          spotStore.each(function(spot) {
+            spot.destroy();
           });
-        this.getActiveBusiness().payments().removeAll(); 
-        this.getActiveBusiness().destroy();
+
+          spotStore.removeAll(true);
+        }
+        
+        if(accountCtr.getAccount()) {
+          //account can be null when no one is logged in
+          accountCtr.getAccount().set('checkInId', null);  
+        };
+  		}
+
+      if(status == appConstants.CANCEL_ALL) {
+          Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkInCanceled'), Ext.emptyFn);
       }
 
-      this.setActiveBusiness(null);
-
-      if(this.getActiveSpot()) {
-        this.getActiveSpot().destroy();  
-      }
-      
-      this.setActiveSpot(null);
-
-      this.setActiveArea(null);
-
-      if(spotStore) {
-        spotStore.each(function(spot) {
-          spot.destroy();
-        });
-
-        spotStore.removeAll(true);
-      }
-      
-      if(accountCtr.getAccount()) {
-        //account can be null when no one is logged in
-        accountCtr.getAccount().set('checkInId', null);  
-      };
-		}
-
-
-    if(status == appConstants.CANCEL_ALL) {
-        Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkInCanceled'), Ext.emptyFn);
+    } catch(e) {
+      console.error('CheckIn.cleanup: failed ' + e);
     }
 	},
     /**

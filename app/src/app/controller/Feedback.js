@@ -488,11 +488,15 @@ Ext.define('EatSense.controller.Feedback', {
     /**
     * Cleanup 
     */
-    cleanup: function() {
-    	//clear feedbackId
-    	this.setSubmitted(false);
-      	this.getApplication().getController('CheckIn').getAppState().set('feedbackId', null);
-      	this.clearFeedback();
+    cleanup: function() {    	
+    	try {
+    		this.setSubmitted(false);
+    		//clear feedbackId
+      		this.getApplication().getController('CheckIn').getAppState().set('feedbackId', null);
+      		this.clearFeedback();
+    	} catch(e) {
+      		console.error('Feedback.cleanup: failed ' + e);
+    	}    	
     },
     /**
 	* Reset all active feedback to default.
