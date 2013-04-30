@@ -1,6 +1,6 @@
 /**
-* 
-* 
+* Shows basic information about the checked in location.
+* All relevant information from {@link EatSense.model.Business} is displayed her.
 */
 Ext.define('EatSense.controller.ContactInfo', {
 	extend: 'Ext.app.Controller',
@@ -38,7 +38,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 			}
 		}, this).delay(300);	
 	},
-
+	/**
+	* Back button tap event. Return to contact view from map view.
+	*/
 	backToContactInfo: function() {
 		var contactInfoView = this.getContactInfoView();
 
@@ -46,7 +48,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 			contactInfoView.setActiveItem(0);
 		}
 	},
-
+	/**
+	* Display the map based on the address of current location.
+	*/
 	showMaps: function() {
 		var contactInfoView = this.getContactInfoView(),
 			location = this.getApplication().getController('CheckIn').getActiveBusiness(),

@@ -1396,8 +1396,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Phone numbers"
 		},
 		"contactinfo.location.phone" : {
-			"DE" :  "Hotel",
-			"EN" : "Hotel"
+			"DE" :  "Anrufen",
+			"EN" : "Call"
 		},
 		"contactinfo.location.url" : {
 			"DE" :  "Webseite",

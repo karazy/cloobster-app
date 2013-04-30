@@ -99,7 +99,9 @@ Ext.define('EatSense.view.InfoPageOverview', {
 					if(searchPanel.getHidden()) {
 						searchPanel.setHidden(false);
 						searchPanel.showBy(button);
-						searchField.focus();
+						Ext.create('Ext.util.DelayedTask', function () {
+				            searchField.focus();
+				        }).delay(300);						
 					} else {
 						searchPanel.setHidden(true);
 					}
