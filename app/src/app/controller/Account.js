@@ -236,8 +236,7 @@ Ext.define('EatSense.controller.Account', {
 
 		function userLoggedIn() {
 			appHelper.toggleMask(false);
-			closeLogin();
-			// me.hideDashboardLoginButton();			
+			closeLogin();		
 		}
 
 		//remove all events
