@@ -28,9 +28,6 @@ Ext.define('EatSense.controller.Settings', {
     		settingsTab : {
     			activate: 'settingsTabActivated'
     		},
-    		nicknameField : {
-    			change: 'saveNickname'
-    		},
             aboutBt: {
                 tap: 'showAbout'
             },
@@ -63,14 +60,6 @@ Ext.define('EatSense.controller.Settings', {
         var me = this,
             checkInCtr = this.getApplication().getController('CheckIn'),
             accountCtr = this.getApplication().getController('Account');
-
-        // checkInCtr.on('statusChanged', function(status) {
-        //     if(status == appConstants.CHECKEDIN) {            
-        //         accountCtr.on('userlogin', refreshSettings, this);
-        //     } else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-        //         accountCtr.un('userlogin', refreshSettings, this);
-        //     }
-        // }, this);
 
         accountCtr.on('userlogin', refreshSettings, this);
 
@@ -144,6 +133,11 @@ Ext.define('EatSense.controller.Settings', {
             }
         }
 
+        nicknameField.un({
+            change: this.saveNickname,
+            scope: this
+        });
+
 
         if(accountCtr.isLoggedIn()) {
             accountPanel.setHidden(false);
@@ -176,6 +170,11 @@ Ext.define('EatSense.controller.Settings', {
             emailLabel.setHidden(true);
             loginButton.show();
         }
+
+        nicknameField.on({
+            change: this.saveNickname,
+            scope: this
+        });
         
     },
 
