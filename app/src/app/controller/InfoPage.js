@@ -312,6 +312,7 @@ Ext.define('EatSense.controller.InfoPage', {
 	createCarouselPanels: function() {
 		var me = this,
 			store = Ext.StoreManager.lookup('infopageStore'),
+			filters,
 			infoPageOverview = this.getInfoPageOverview(),
 			infoPageCarousel = this.getInfoPageCarousel(),
 			carousel = infoPageCarousel.down('carousel'),
@@ -349,12 +350,15 @@ Ext.define('EatSense.controller.InfoPage', {
 
 				console.log('InfoPage.createCarouselPanels: initial creation of info detail panels');
 				try {
-					//make sure to create panels before store gets filtered
-					//alternative clear filter
-							
+					//clear filters to always generate all pages!!!
+					filters = store.getFilters();
+					store.clearFilter(true);
+					
 					store.each(function(record) {
 						carousel.add(me.createInfoPageDetail(record));		
 					});
+
+					store.setFilters(filters);	
 
 					//private method of carousel
 					//TODO test use of refreshCarouselItems()
@@ -791,14 +795,11 @@ Ext.define('EatSense.controller.InfoPage', {
     */
     cleanup: function() {
     	var store = Ext.StoreManager.lookup('infopageStore'),
-    		// clubArea = this.getClubArea(),
-			// teasers = clubArea.query('dashboardteaser[type="info"]'),
-			// lounge = this.getLounge(),
 			infoPageOverview = this.getInfoPageOverview(),
 			profilePictures,
 			infoPageList = this.getInfoPageList();		
 
-			//clean up
+		try {
 			store.clearFilter();
 			this.setPanelsCreated(false);
 			this.removeInfoPageDetailPanels();
@@ -807,14 +808,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			if(infoPageList) {
 				infoPageList.refresh();	
 			}			
-
-			//DEPRECATED since tiles are loaded new on start
-			// if(teasers){
-			// 	Ext.Array.each(teasers, function(teaser) {
-			// 		teaser.reset();	
-			// 	});
-			// }
-			// this.setImageForInfoButtons(null);
 
 			if(infoPageOverview) {
 				infoPageOverview.un({
@@ -836,6 +829,9 @@ Ext.define('EatSense.controller.InfoPage', {
 					clearicontap: this.clearInfoPageFilter,
 					scope: this
 				});	
-			}	
+			}
+		} catch(e) {
+			console.error('InfoPage.cleanup: failed ' + e);
+		}
     }
 });
