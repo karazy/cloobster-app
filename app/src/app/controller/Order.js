@@ -1321,12 +1321,13 @@
 								//20130215 destroy picker to prevent duplicates
 								//a bug existed that caused checkin to fail because picker tried to refresh
 								//on business load
-								destroyPicker();
+								picker.hide();								
 								if(appHelper.isFunction(onChoose)) {
 									onChoose(choosenMethod);
 								} else {
 									me.paymentRequest(choosenMethod);	
 								}
+								destroyPicker();
 							} catch(e) {
 								console.error('Order.choosePaymentMethod: Picker tap error ' + e);
 							}							

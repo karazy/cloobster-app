@@ -101,8 +101,8 @@ Ext.define('EatSense.controller.Android', {
 			console.log('Android.addBackFn:  backFn is no function');
 			return;
 		}
-
 		this.getAndroidBackHandler().push(backFn);
+		this.setExitOnBack(false);
 	},
 	/**
 	* Remove function from stack auf backhandlers.

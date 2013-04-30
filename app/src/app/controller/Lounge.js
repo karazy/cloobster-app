@@ -763,7 +763,7 @@ Ext.define('EatSense.controller.Lounge', {
 			});
 
 			this.manageViewState('cloobster');
-			this.getLoungeview().selectByAction('show-dashboard');	
+			this.getLoungeview().selectByAction('show-dashboard');
 
 			this.removeDashboardTiles();
 		} catch(e) {
