@@ -105,12 +105,6 @@ Ext.define('EatSense.controller.Facebook', {
 		this.showConfirmConnectFbMsgBox(this.getSettingsView());
 	},
 	/**
-	* Tap event handler for connectFbClubButton in settingsview.
-	*/
-	// connectFbDashboardButtonHandler: function() {
-	// 	this.showConfirmConnectFbMsgBox(this.getSettingsview());
-	// },
-	/**
 	* Show a confirmation and ask user to connect a fb account.
 	* @callingview
 	*	Settingsview from which this method was called
@@ -148,7 +142,6 @@ Ext.define('EatSense.controller.Facebook', {
 			settingsCtr = this.getApplication().getController('Settings'),
 			account = accountCtr.getAccount(),
 			authResponse,
-			connectFbDashboardButton = this.getConnectFbDashboardButton(),
 			connectFbClubButton = this.getConnectFbClubButton();
 
 		if(!account) {

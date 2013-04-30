@@ -109,7 +109,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 			}
 		} else {
 			if(urlButton && urlButton.element && urlButton.element.dom) {
-				urlButton.element.dom.style.top = '5px';	
+				urlButton.element.dom.style.top = '5px';
 			} else {
 				console.log('EatSense.view.InfoPageDetail.updateIpRecord: urlButton or urlButton.element do not exist');
 			}
