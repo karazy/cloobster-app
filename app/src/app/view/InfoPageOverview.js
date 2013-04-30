@@ -62,26 +62,26 @@ Ext.define('EatSense.view.InfoPageOverview', {
 								}), 1000, this);					
 							}
 						}
-					},
-					{
-						xtype: 'panel',
-						itemId: 'searchPanel',
-						modal: true,
-						hideOnMaskTap: true,
-						left: 5,
-						right: 5,
-						top: 5,
-						hidden: true,
-						items: [
-							{
-								xtype: 'searchfield'
-							}
-						]
-					}
+					}					
 				]				
 			},
 			{
 				xtype: 'infopagecarousel'
+			},
+			{
+				xtype: 'panel',
+				itemId: 'searchPanel',
+				modal: true,
+				hideOnMaskTap: true,
+				left: 5,
+				right: 5,
+				top: 50,
+				hidden: true,
+				items: [
+					{
+						xtype: 'searchfield'
+					}
+				]
 			}
 
 		]
@@ -100,9 +100,9 @@ Ext.define('EatSense.view.InfoPageOverview', {
 						searchPanel.setHidden(false);
 						//BUG? 30.4.2013 showBy doesn't display the mask
 						// searchPanel.showBy(this.down('titlebar'));
-						Ext.create('Ext.util.DelayedTask', function () {
-				            searchField.focus();
-				        }).delay(350);						
+						// Ext.create('Ext.util.DelayedTask', function () {
+				  //           searchField.focus();
+				  //       }).delay(350);						
 					} else {
 						searchPanel.setHidden(true);
 					}					
@@ -111,12 +111,12 @@ Ext.define('EatSense.view.InfoPageOverview', {
 			});
 		}
 
-		// if(searchField) {
-			// searchField.on({
-				// blur: function() {
-				// 	searchPanel.hide();
-				// }
-			// });
-		// }
+		if(searchField) {
+			searchField.on({
+				blur: function() {
+					searchPanel.hide();
+				}
+			});
+		}
 	}
 });
