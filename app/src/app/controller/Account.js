@@ -757,7 +757,7 @@ Ext.define('EatSense.controller.Account', {
 		}
 
 		this.setAccount(null);
-		// this.showDashboardLoginButton();
+		this.setProfile(null);
 	},
 	/**
 	* Show a login prompt.
