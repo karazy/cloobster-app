@@ -128,7 +128,7 @@ Ext.define('EatSense.controller.CheckIn', {
       this.getApplication().on('statusChanged', function(status) {
         this.fireEvent('statusChanged', status);
       }, this);
-      
+
     	messageCtr.on('eatSense.checkin', this.handleCheckInMessage, this);
       loungeCtr.on('areaswitched', function(area) {
         this.setActiveArea(area);
@@ -971,7 +971,8 @@ Ext.define('EatSense.controller.CheckIn', {
     if(ordersExist) {
       ordersTotal = appHelper.formatPrice(orderCtr.calculateOrdersTotal(Ext.StoreManager.lookup('orderStore')), true);
       spotSwitchMessage = barcodeRequired ?
-       i10n.translate('checkin.switchspot.orders.barcode', ordersTotal, activeSpot.get('areaName'), activeArea.get('name')) : i10n.translate('checkin.switchspot.orders.list', ordersTotal, activeSpot.get('areaName'), activeArea.get('name'));
+       i10n.translate('checkin.switchspot.orders.barcode', ordersTotal, activeSpot.get('areaName'), activeArea.get('name')) : 
+       i10n.translate('checkin.switchspot.orders.list', ordersTotal, activeSpot.get('areaName'), activeArea.get('name'));
 
       Ext.Msg.show({
           title: i10n.translate('checkin.switchspot.msgtitle'),
@@ -1090,9 +1091,12 @@ Ext.define('EatSense.controller.CheckIn', {
       
       //load barcode and and proceed with doSwitch on success
       function doLoadSpot(barcode) {
-        me.loadSpot(barcode, function(newSpot) {
-          checkAndFinalizeCheckIn(newSpot, doSwitch);
-        });
+        //false when user cancelled scanning
+        if(barcode !== false) {
+          me.loadSpot(barcode, function(newSpot) {
+            checkAndFinalizeCheckIn(newSpot, doSwitch);
+          });  
+        }        
       }
 
       //verify switch, finalize checkin, returns true on success

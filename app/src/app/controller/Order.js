@@ -1293,11 +1293,13 @@
 	 */
 	choosePaymentMethod: function(onChoose) {
 		var availableMethods = this.getApplication().getController('CheckIn').getActiveBusiness().payments(),
-			orderCount = this.getMyorderlist().getStore().getCount(),
+			orderStore = Ext.StoreManager.lookup('orderStore'),
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			picker,
 			choosenMethod,
 			me = this;
+
+		orderCount = orderStore.getCount();
 		
 		if(orderCount>0 && checkIn.get('status') !== appConstants.PAYMENT_REQUEST && checkIn.get('status') !== appConstants.COMPLETE) {
 
