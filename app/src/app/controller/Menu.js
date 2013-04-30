@@ -85,11 +85,16 @@ Ext.define('EatSense.controller.Menu', {
                     scope: this
                 });
 
-                function menuPageOverviewShown(panel) {
-                    var titleLabel = panel.down('#titleLabel');
-
-                    if(titleLabel) {
-                        titleLabel.getTpl().overwrite(titleLabel.element, [checkInCtr.getActiveSpot().get('areaName')]);
+                function menuPageOverviewShown(panel) {                    
+                    try {
+                        //no area switch occured
+                        if(Ext.isNumber(checkInCtr.getActiveArea())) {                            
+                            this.updateMenuLabel(checkInCtr.getActiveSpot().get('areaName'));
+                        } else {
+                            this.updateMenuLabel(checkInCtr.getActiveArea().get('name'));
+                        }
+                    } catch(e) {
+                        console.error('Menu.launch: menuPageOverviewShown failed to set title label ' + e);
                     }
                 }
 
@@ -296,10 +301,11 @@ Ext.define('EatSense.controller.Menu', {
 
 		try {
 			titleLabel = menu.down('#titleLabel');
-
-			titleLabel.getTpl().overwrite(titleLabel.element, [areaName]);
+            if(titleLabel) {
+                titleLabel.getTpl().overwrite(titleLabel.element, [areaName]);    
+            }			
 		} catch(e) {
-			console.log('Menu.showMenu > failed to set up titleLabel');
+			console.log('Menu.updateMenuLabel: failed to set up titleLabel');
 		}
 
     },
