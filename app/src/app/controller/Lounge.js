@@ -178,25 +178,13 @@ Ext.define('EatSense.controller.Lounge', {
 	}
   },
   /**
-  * Disables all textarea fields in the active container. 
-  * This is due to a strange bug propagating the focus event to inputs, also 
+  * Disables all text and textarea fields in the active container. 
+  * This is due to a strange bug propagating the focus event to inputs, although 
   * the container is masked.
   * @param {String} containerState
   */
   disableTextFields: function(containerState) {
-  	var textareafields = this.getLoungeview().getContainer().getActiveItem().query('textareafield'),
-  		textfields = this.getLoungeview().getContainer().getActiveItem().query('textfield');
-
-  	Ext.Array.each(textareafields, function(field) {
-  		
-  		if(containerState == 'open') {
-  			field.setDisabled(true);
-		} else {
-			Ext.defer(function() {
-				field.setDisabled(false);
-			}, 300, this);		  
-		}
-  	});
+  	var textfields = this.getLoungeview().getContainer().getActiveItem().query('textfield');
 
   	Ext.Array.each(textfields, function(field) {
   		
