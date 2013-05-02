@@ -370,7 +370,10 @@
 	showMyorders: function() {
 		var lounge = this.getLoungeview()
 
-		lounge.selectByAction('show-myorders');
+		if(lounge.getContainer().getActiveItem() != this.getMyordersview()) {
+			lounge.selectByAction('show-myorders');
+		}
+		
 		this.backToMyorders();
 	},
 	/**
@@ -1306,11 +1309,15 @@
 			//create picker
 			picker = Ext.create('Ext.Picker', {
 				height: 260,
+				showAnimation: null,
+				hideAnimation: null,
 				listeners: {
 					hide: function(comp) {
-						console.log('PICKER HIDE');
 						try {
-							comp.destroy();
+							//Fix for #576
+							Ext.create('Ext.util.DelayedTask', function () {
+								// comp.destroy();
+	        				}).delay(300);							
 							me.getApplication().getController('Android').removeBackFn(destroyPicker);
 						} catch(e) {
 							console.error('Order.choosePaymentMethod: failed to destroy ' + e);
@@ -1320,7 +1327,7 @@
 				doneButton: {
 					text: i10n.translate('ok'),
 					//remove hide animation, to prevent Ticket 576, destroying the picker 
-					hideAnimation: null,
+					// hideAnimation: null,
 					listeners: {
 						tap: function() {
 							try {
@@ -1334,7 +1341,7 @@
 								//20130215 destroy picker to prevent duplicates
 								//a bug existed that caused checkin to fail because picker tried to refresh
 								//on business load
-								picker.hide();								
+								picker.hide(false);								
 								if(appHelper.isFunction(onChoose)) {
 									onChoose(choosenMethod);
 								} else {
@@ -1350,9 +1357,8 @@
 				cancelButton: {
 					text: i10n.translate('cancel'),
 					listeners: {
-						tap: function() {							
-							// destroyPicker();
-							picker.hide();			
+						tap: function() {
+							picker.hide(false);			
 						}
 					}
 				},
@@ -1371,13 +1377,11 @@
 			me.getApplication().getController('Android').addBackFn(destroyPicker);
 
 			function destroyPicker() {
-				picker.hide();
-				// picker.destroy();				
+				picker.hide(false);
 			}
 
 			//this fixed the problem on HTC One S, instead of adding to Viewport
 			me.getLoungeview().getContainer().add(picker);
-			// Ext.Viewport.add(picker);
 			picker.show();
 		}
 	},
@@ -1436,6 +1440,7 @@
 			myordersComplete = this.getMyordersComplete(),
 			payButton = this.getPaymentButton(),
 			me = this,
+			myordersView = this.getMyordersview(),			
 			date = new Date();		
 
 		bill.set('paymentMethod', paymentMethod);
@@ -1444,19 +1449,41 @@
 		bill.set('time', date);
 		//workaround to prevent sencha from sending phantom id
 		bill.setId('');
+
+		this.on({
+			'paymentrequestcomplete' : completePaymentRequest,
+			single: true,
+			scope: this
+		});
 		
 		bill.save({
 			scope: this,
 			success: function(record, operation) {
+					payButton.hide();						
 					me.setActiveBill(record);
-					checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
-					payButton.hide();
-					myordersComplete.show();
-					me.refreshMyOrdersBadgeText(true);
-					me.showCartButtons(false);		
-					me.getApplication().getController('Android').removeLastBackHandler();		
+					
+					
+					Ext.create('Ext.util.DelayedTask', function () {
+						appHelper.toggleMask(false, myordersView);
+						// if(!appHelper.getAlertActive()) {
+						// 	Ext.Msg.hide();
+						// }
+						// me.fireEvent('paymentrequestcomplete');
+						checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);	
+						myordersComplete.show();
+						me.refreshMyOrdersBadgeText(true);
+						me.showCartButtons(false);	
+    				}).delay(1000);
+    				
 			},
 			failure: function(record, operation) {
+				appHelper.toggleMask(false, myordersView);
+
+				me.un({
+					'paymentrequestcomplete' : completePaymentRequest,
+					scope: this
+				});
+
 				me.getApplication().handleServerError({
 					'error': operation.error,
 					'forceLogout': {403: true}
@@ -1464,18 +1491,21 @@
 			}
 		});
 
+		function completePaymentRequest() {
+			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);	
+			myordersComplete.show();
+			me.refreshMyOrdersBadgeText(true);
+			me.showCartButtons(false);
+		}
+
+		appHelper.toggleMask('paymentRequestSend', myordersView);
+
 		//show success message to give user the illusion of success ;)
-		Ext.Msg.show({
-			title : i10n.translate('hint'),
-			message : i10n.translate('paymentRequestSend'),
-			buttons : []
-		});
-		
-		Ext.defer((function() {
-			if(!appHelper.getAlertActive()) {
-				Ext.Msg.hide();
-			}
-		}), appConfig.msgboxHideLongTimeout, this);
+		// Ext.Msg.show({
+		// 	title : "",
+		// 	message : i10n.translate('paymentRequestSend'),
+		// 	buttons : []
+		// });
 	},
 	/**
 	 * Called when user checks in and wants to leave without issuing an order.
@@ -1640,7 +1670,8 @@
 		var bill = Ext.create('EatSense.model.Bill'),
 			checkInCtr =  this.getApplication().getController('CheckIn'),
 			myordersComplete = this.getMyordersComplete(),
-			payButton = this.getPaymentButton();			
+			payButton = this.getPaymentButton(),
+			lounge = this.getLoungeview();			
 
 		if(action == "new") {
 			//this occurs when business manually completes a checkin
@@ -1648,7 +1679,7 @@
 			bill.set('id', bill.id);
 			bill.set('checkInId', bill.checkInId);
 			bill.set('paymentMethod', billdata.paymentMethod.name);
-			this.setActiveBill(bill);
+			this.setActiveBill(bill);			
 			this.showMyorders();
 			myordersComplete.show();
 			this.refreshMyOrdersBadgeText(true);

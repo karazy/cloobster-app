@@ -519,7 +519,6 @@ Ext.define('EatSense.controller.CheckIn', {
 	 */
 	restoreState: function(restoredCheckInId) {
 		var me = this,
-        // main = this.getMain(),
         dashboard = this.getDashboard(),
         messageCtr = this.getApplication().getController('Message');
 
@@ -546,11 +545,14 @@ Ext.define('EatSense.controller.CheckIn', {
 
               me.setActiveCheckIn(checkIn);
               //occurs on reload of application before hitting leave button
-              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE || checkIn.get('status') == appConstants.WAS_INACTIVE) {
+              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
                     console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
                     appHelper.toggleMask(false, dashboard);
+                    main.selectByAction('show-dashboard');
                     me.handleStatusChange(appConstants.COMPLETE);
-                    Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('restoreStateFailed'));
+                    if(checkIn.get('status') == appConstants.WAS_INACTIVE) {
+                      Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkin.restore.inactive'));  
+                    }                    
                     return;
                 }
             
@@ -714,15 +716,13 @@ Ext.define('EatSense.controller.CheckIn', {
     appState.set('status', status);
 
     try {
-  		//TODO check status transitions, refactorshowInfoPagesButtonHandler
   		if(status == appConstants.CHECKEDIN) {
 
       }
   		else if(status == appConstants.PAYMENT_REQUEST) {	
   			this.getActiveCheckIn().set('status', status);
   		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT || status == appConstants.WAS_INACTIVE) {
-        Ext.Viewport.fireEvent('showdashboard');
-  			// this.showDashboard();	      
+        // Ext.Viewport.fireEvent('showdashboard');
 
         this.setActiveCheckIn(null);		     
 
@@ -754,7 +754,7 @@ Ext.define('EatSense.controller.CheckIn', {
             spot.destroy();
           });
 
-          spotStore.removeAll(true);
+          spotStore.removeAll();
         }
         
         if(accountCtr.getAccount()) {
@@ -768,7 +768,7 @@ Ext.define('EatSense.controller.CheckIn', {
       }
 
     } catch(e) {
-      console.error('CheckIn.cleanup: failed ' + e);
+      console.error('CheckIn.handleStatusChange: failed ' + e);
     }
 	},
     /**

@@ -362,7 +362,13 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"restoreStateFailed" : {
 			"DE" :  "Check-in nicht mehr gültig.<br/>Bitte neu einchecken.",
-			"EN" :  "Check-in invalid.<br/>Please try again.",
+			"EN" :  "Check-in invalid.<br/>Please check in again",
+			"ES" : "",
+			"IT" : ""
+		},
+		"checkin.restore.inactive" : {
+			"DE" :  "Check-in abgelaufen. <br/>Bitte neu einchecken.",
+			"EN" : "Check-in expired.<br/>Please check in again.",
 			"ES" : "",
 			"IT" : ""
 		},
@@ -717,8 +723,8 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : ""
 		},
 		"paymentRequestSend" : {
-			"DE" :  "Ihr Bezahlwunsch wurde übermittelt.",
-			"EN" :  "Your payment request has been send.",
+			"DE" :  "Sende Bezahlwunsch.",
+			"EN" :  "Sending payment request.",
 			"ES" : "",
 			"IT" : ""
 		},

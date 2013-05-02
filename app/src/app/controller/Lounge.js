@@ -760,7 +760,7 @@ Ext.define('EatSense.controller.Lounge', {
 				item.destroy();
 			 }
 			});
-
+			//show dashboard
 			this.manageViewState('cloobster');
 			this.getLoungeview().selectByAction('show-dashboard');
 
