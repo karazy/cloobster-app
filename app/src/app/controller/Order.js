@@ -1306,8 +1306,21 @@
 			//create picker
 			picker = Ext.create('Ext.Picker', {
 				height: 260,
+				listeners: {
+					hide: function(comp) {
+						console.log('PICKER HIDE');
+						try {
+							comp.destroy();
+							me.getApplication().getController('Android').removeBackFn(destroyPicker);
+						} catch(e) {
+							console.error('Order.choosePaymentMethod: failed to destroy ' + e);
+						}
+					}
+				},
 				doneButton: {
 					text: i10n.translate('ok'),
+					//remove hide animation, to prevent Ticket 576, destroying the picker 
+					hideAnimation: null,
 					listeners: {
 						tap: function() {
 							try {
@@ -1327,19 +1340,19 @@
 								} else {
 									me.paymentRequest(choosenMethod);	
 								}
-								destroyPicker();
+								// destroyPicker();
 							} catch(e) {
 								console.error('Order.choosePaymentMethod: Picker tap error ' + e);
 							}							
-						}
+						}						
 					}
 				},
 				cancelButton: {
 					text: i10n.translate('cancel'),
 					listeners: {
-						tap: function() {
-							destroyPicker();
-							// picker.hide();			
+						tap: function() {							
+							// destroyPicker();
+							picker.hide();			
 						}
 					}
 				},
@@ -1358,12 +1371,13 @@
 			me.getApplication().getController('Android').addBackFn(destroyPicker);
 
 			function destroyPicker() {
-				picker.destroy();
-				me.getApplication().getController('Android').removeBackFn(destroyPicker);
+				picker.hide();
+				// picker.destroy();				
 			}
-			//this fixed the problem on HTC One S but caused Ticket 576
-			// me.getLoungeview().getContainer().add(picker);
-			Ext.Viewport.add(picker);
+
+			//this fixed the problem on HTC One S, instead of adding to Viewport
+			me.getLoungeview().getContainer().add(picker);
+			// Ext.Viewport.add(picker);
 			picker.show();
 		}
 	},

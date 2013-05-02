@@ -77,7 +77,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					],
 					type: 'products',
 					tpl: new Ext.XTemplate(
-						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
 							'<h3>{name}</h3>'+
 							'<p>{shortDesc}</p>'+
@@ -108,7 +108,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					// clearBeforeFiltering: true,
 					type: 'products',
 					tpl: new Ext.XTemplate(
-						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
 							'<h3>{name}</h3>'+
 							'<p>{shortDesc}</p>'+									
@@ -124,12 +124,6 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					xtype : 'dashboardteaser',
 					store : 'productStore',
 					filter: [
-						// function(item) {
-						// 	if(item.get('hideInDashboard') === false && item.get('special') === false) {
-						// 		return true;
-						// 	}
-						// 	return false;
-					 //    },
 					    function(item) {
 					    	if(!entityIds) {
 					    		return false;
@@ -144,7 +138,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					],
 					type: 'products',
 					tpl: new Ext.XTemplate(
-						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
 							'<h3>{name}</h3>'+
 							'<p>{shortDesc}</p>'+									
@@ -170,7 +164,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					],
 					iconFit: true,
 					tpl: new Ext.XTemplate(
-						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
 							'<h3>{title}</h3>'+
 							'<p>{shortText}</p>'+
@@ -207,7 +201,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					],
 					iconFit: true,
 					tpl: new Ext.XTemplate(
-						'<tpl if="imageUrl"><div class="thumbnail" style="background-image: url(\'{imageUrl}=s360\')"></div></tpl>'+
+						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
 							'<h3>{title}</h3>'+
 							'<p>{shortText}</p>'+
