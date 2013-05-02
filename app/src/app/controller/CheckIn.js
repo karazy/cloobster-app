@@ -96,6 +96,9 @@ Ext.define('EatSense.controller.CheckIn', {
             },
             demoButton: {
               tap: 'demoCheckIn'
+            },
+            cloobsterArea: {
+              activate: 'cloobsterAreaActivated'
             }
     	},
         /**
@@ -133,6 +136,14 @@ Ext.define('EatSense.controller.CheckIn', {
       loungeCtr.on('areaswitched', function(area) {
         this.setActiveArea(area);
       }, this);
+    },
+    /**
+    * Activated event handler for cloobster area
+    * @param {Ext.Container}
+    *   the cloobster area
+    */
+    cloobsterAreaActivated: function(panel) {
+      panel.switchTo(0);
     },
     /**
      * Try to checkin by scanning a barcode.
@@ -470,28 +481,6 @@ Ext.define('EatSense.controller.CheckIn', {
        cloobsterArea.switchTo(0);
        nicknameToggle.reset();
    },
-   /**
-    * CheckIn Process
-    * Step 2 alt: cancel process
-    */
-   // showDashboard: function(mask, key) {
-	  //  var main = this.getMain(),
-   //       cloobsterArea = this.getCloobsterArea(),
-	  //      nicknameToggle = this.getNicknameTogglefield();
-
-	   
-   //   main.selectByAction('show-dashboard');
-   //   cloobsterArea.switchTo(0);
-	   // nicknameToggle.reset();
-		
-	   //ensure that main is only added once to viewport
-	   // if(main.getParent() !== Ext.Viewport) {
-		  //  Ext.Viewport.add(main);
-	   // }
-
-    // this.checkFirstDashboardView(this.getAppState());
-
-   // },
    /**
    * Called from application mainLaunch. Create the mainview container.
    */
