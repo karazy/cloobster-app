@@ -149,7 +149,7 @@ Ext.define('EatSense.controller.Account', {
 	showLoginBtHandler: function(button) {
 		this.showLoginView(function(success, account) {
 			if(success) {
-				Ext.Viewport.fireEvent('show-dashboard');
+				Ext.Viewport.fireEvent('showdashboard');
 			}
 		});
 	},
