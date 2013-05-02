@@ -282,8 +282,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             }            
         });
      
-        // TODO: Make this optional, perhaps by defining
-        // "selected: true" in the items list
         if(this.config.firstSelect) {
             this.getList().select(this.config.firstSelect);
         } else {
@@ -322,6 +320,19 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                     });
                 }
             });
+        }
+
+        //Add backbutton behaviour
+        this.on('containertoggle', function(status) {
+            if(status == 'open') {
+                Ext.Viewport.fireEvent('addbackhandler', toggleContainer);
+            } else {
+                Ext.Viewport.fireEvent('removebackhandler', toggleContainer);
+            }
+        });
+
+        function toggleContainer() {
+            me.toggleContainer()
         }
     },
     /**
@@ -364,36 +375,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         
         return false;
     },
-    
-    //Removed the treestore so no collapsing logic required
-    /**
-     * Called when an list item has been tapped
-     * @param {Ext.List} list The subList the item is on
-     * @param {Number} index The id of the item tapped
-     * @param {Ext.Element} target The list item tapped
-     * @param {Ext.data.Record} record The record whichw as tapped
-     * @param {Ext.event.Event} e The event
-     */
-    // onItemTap: function(list, index, target, record, e) {
-    //     var me = this,
-    //         store = list.getStore(),
-    //         item = store.getAt(index);
-
-    //     if(record.get('header')) {
-    //         //this is a header item, no action required
-    //         return;
-    //     }
-
-    //     return;
-
-    //     if (!item.isLeaf()) {
-    //         if (item.isExpanded()) {
-    //             item.collapse();
-    //         } else {
-    //             item.expand(false, this.onExpand, this);
-    //         }
-    //     }
-    // },
 
     overrideClose: false,
     prevsel: null,
@@ -417,6 +398,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             list.select ( this.prevsel );
         }
 
+        //handle menu entries that require a login
         if(item.get('accountRequired') === true) {
             Ext.Viewport.fireEvent('accountrequired', select);
         } else {
@@ -479,7 +461,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         }
         
         if (me.config.closeOnSelect) {
-            if (me.overrideClose) {
+            if (me.overrideClose) {1
                 me.overrideClose = false;
             } else {
                 me.closeContainer(me.config.selectSlideDuration);
@@ -677,6 +659,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
      *  really does is set the CSS class for the container.
      */
     setClosed: function(closed) {
+        var me = this;
         /**
          *  TODO: Consider some way to mask/disable certain elements when
          *        the container is opened.  The code commented-out below
@@ -710,7 +693,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
                     xtype: 'mask'
                 });
             }, 10, this);
-            this.fireEvent('containertoggle', 'open');
+            this.fireEvent('containertoggle', 'open');            
 
             /*
             Ext.each(this.getContainer().getActiveItem().getItems().items, function(item) {
@@ -720,7 +703,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             });
             */
         }
-
     },
     
     /**

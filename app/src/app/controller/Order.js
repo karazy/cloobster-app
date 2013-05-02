@@ -1321,12 +1321,13 @@
 								//20130215 destroy picker to prevent duplicates
 								//a bug existed that caused checkin to fail because picker tried to refresh
 								//on business load
-								destroyPicker();
+								picker.hide();								
 								if(appHelper.isFunction(onChoose)) {
 									onChoose(choosenMethod);
 								} else {
 									me.paymentRequest(choosenMethod);	
 								}
+								destroyPicker();
 							} catch(e) {
 								console.error('Order.choosePaymentMethod: Picker tap error ' + e);
 							}							
@@ -1337,7 +1338,8 @@
 					text: i10n.translate('cancel'),
 					listeners: {
 						tap: function() {
-							destroyPicker();				
+							destroyPicker();
+							// picker.hide();			
 						}
 					}
 				},
@@ -1359,8 +1361,9 @@
 				picker.destroy();
 				me.getApplication().getController('Android').removeBackFn(destroyPicker);
 			}
-									
-			me.getLoungeview().getContainer().add(picker);
+			//this fixed the problem on HTC One S but caused Ticket 576
+			// me.getLoungeview().getContainer().add(picker);
+			Ext.Viewport.add(picker);
 			picker.show();
 		}
 	},

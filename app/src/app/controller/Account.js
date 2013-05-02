@@ -39,12 +39,12 @@ Ext.define('EatSense.controller.Account', {
 				xtype: 'login',
 				autoCreate: true
 			},	
-			showLoginButtonDashboard : 'button[action=show-login]',
+			showLoginBt : 'button[action=show-login]',
 			logoutDashboardButton: 'settings button[action=logout]'
 		},
 		control: {
-			showLoginButtonDashboard : {
-				tap: 'showLoginView'
+			showLoginBt : {
+				tap: 'showLoginBtHandler'
 			},
 			logoutDashboardButton : {
 				tap: 'logoutDashboardButtonHandler'
@@ -140,15 +140,26 @@ Ext.define('EatSense.controller.Account', {
 			}
 		});
 	},
+	
+	/**
+	* Tap event handler for show login button.
+	* Calls showLoginView
+	* @param {Ext.Button} button 
+	*/
+	showLoginBtHandler: function(button) {
+		this.showLoginView(function(success, account) {
+			if(success) {
+				Ext.Viewport.fireEvent('show-dashboard');
+			}
+		});
+	},
 	/**
 	* Tap event handler for show login button.
 	* Show loginview and wires up all events dynamically.
-	* @param {Ext.Button} button 
-	*	If used as tap handler
 	* @param {Function} callback
     * 	Gets passed success (true|false) and account object.
 	*/
-	showLoginView: function(button, callback) {
+	showLoginView: function(callback) {
 		var me = this,
 			//gets auto created
 			loginView = this.getLoginView(),
@@ -798,7 +809,7 @@ Ext.define('EatSense.controller.Account', {
 
 	            	if(btnId=='yes') {
 	            	  //null is the button
-	                  this.showLoginView(null, callback);
+	                  this.showLoginView(callback);
 	                } else {
 	                	if(appHelper.isFunction(callback)) {
 	                		callback(false);

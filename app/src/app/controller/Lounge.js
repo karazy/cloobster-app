@@ -86,7 +86,6 @@ Ext.define('EatSense.controller.Lounge', {
 			}  else if(status == appConstants.PAYMENT_REQUEST) {
 				this.toggleSlidenavButtons(false);
 				this.registerSlideBezelTap(true);
-				//prevent dragging
 				this.getLoungeview().setDisableDrag(true);
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				this.toggleSlidenavButtons(true);
@@ -185,7 +184,19 @@ Ext.define('EatSense.controller.Lounge', {
   * @param {String} containerState
   */
   disableTextFields: function(containerState) {
-  	var textfields = this.getLoungeview().getContainer().getActiveItem().query('textareafield');
+  	var textareafields = this.getLoungeview().getContainer().getActiveItem().query('textareafield'),
+  		textfields = this.getLoungeview().getContainer().getActiveItem().query('textfield');
+
+  	Ext.Array.each(textareafields, function(field) {
+  		
+  		if(containerState == 'open') {
+  			field.setDisabled(true);
+		} else {
+			Ext.defer(function() {
+				field.setDisabled(false);
+			}, 300, this);		  
+		}
+  	});
 
   	Ext.Array.each(textfields, function(field) {
   		
@@ -763,7 +774,7 @@ Ext.define('EatSense.controller.Lounge', {
 			});
 
 			this.manageViewState('cloobster');
-			this.getLoungeview().selectByAction('show-dashboard');	
+			this.getLoungeview().selectByAction('show-dashboard');
 
 			this.removeDashboardTiles();
 		} catch(e) {
