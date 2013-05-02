@@ -545,13 +545,13 @@ Ext.define('EatSense.controller.CheckIn', {
 
               me.setActiveCheckIn(checkIn);
               //occurs on reload of application before hitting leave button
-              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE) {
+              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE || checkIn.get('status') == appConstants.WAS_INACTIVE) {
                     console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
                     appHelper.toggleMask(false, dashboard);
                     main.selectByAction('show-dashboard');
                     me.handleStatusChange(appConstants.COMPLETE);
                     if(checkIn.get('status') == appConstants.WAS_INACTIVE) {
-                      Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkin.restore.inactive'));  
+                      Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkin.restore.inactive'));  
                     }                    
                     return;
                 }
