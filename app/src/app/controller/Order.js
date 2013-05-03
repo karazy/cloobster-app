@@ -462,9 +462,7 @@
 	 *	
 	 */
 	submitOrders: function(cartview) {
-		console.log('Cart Controller -> submitOrders');
 		var checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
-			accountCtr = this.getApplication().getController('Account'),
 			orders = checkIn.orders(),
 			checkInId = checkIn.get('userId'),
 			businessId = checkIn.get('businessId'),
@@ -484,34 +482,16 @@
 			console.log('Order.submitOrders: no cartview given');
 			return;
 		}
-		//TODO check if user is logged in, if not show create account screen
-		//after create refresh settingsview or does that happen automatically?
-		if(!accountCtr.isLoggedIn()) {
 
-            Ext.Msg.show({
-               title: i10n.translate('hint'),
-               message: i10n.translate('error.account.required'),
-               buttons: [{
-                  text: i10n.translate('account.register.yes'),
-                  itemId: 'yes',
-                  ui: 'action'
-               }, {
-                  text:  i10n.translate('account.register.no'),
-                  itemId: 'no',
-                  ui: 'action'
-               }],
-               scope: this,
-               fn: function(btnId, value, opt) {
-               if(btnId=='yes') {
-                     accountCtr.showLoginView();
-                  }
-               }
-            });           			
+		Ext.Viewport.fireEvent('accountrequired', doSubmitOrders);
+
+
+		function doSubmitOrders(success) {
+	
+		if(!success) {
+			console.log('Order.submitOrders: doSubmitOrders user cancelled login');
 			return;
 		}
-
-		
-
 
 		submitOrderBt = cartview.down('button[action="order"]');
 		cancelOrderBt = cartview.down('button[action="trash"]');
@@ -529,10 +509,9 @@
 					itemId: 'no',
 					ui: 'action'
 				}],
-				scope: this,
+				scope: me,
 				fn: function(btnId, value, opt) {
 				if(btnId=='yes') {					
-					// cartview.showLoadScreen(true);
 					appHelper.toggleMask('submitOrderProcess');
 					submitOrderBt.disable();
 					cancelOrderBt.disable();
@@ -542,7 +521,6 @@
 						method: 'PUT',
 						jsonData: {}, //empty object needed, otherwise 411 gets thrown
 						success: function(response) {
-			    	    	// cartview.showLoadScreen(false);
 			    	    	appHelper.toggleMask(false);
 			    	    	submitOrderBt.enable();
 			    	    	cancelOrderBt.enable();
@@ -579,24 +557,23 @@
 
 
 							//show success message
-							Ext.Msg.show({
-								title : i10n.translate('success'),
-								message : i10n.translate('orderSubmit'),
-								buttons : []
-							});
+							// Ext.Msg.show({
+							// 	title : i10n.translate('success'),
+							// 	message : i10n.translate('orderSubmit'),
+							// 	buttons : []
+							// });
 							
-							Ext.defer((function() {
-								if(!appHelper.getAlertActive()) {
-									Ext.Msg.hide();
-								}
-							}), appConfig.msgboxHideTimeout, this);
+							// Ext.defer((function() {
+							// 	if(!appHelper.getAlertActive()) {
+							// 		Ext.Msg.hide();
+							// 	}
+							// }), appConfig.msgboxHideTimeout, this);
 						},
 						failure: function(response) {
-							// cartview.showLoadScreen(false);
 							appHelper.toggleMask(false);
 			    	    	submitOrderBt.enable();
 			    	    	cancelOrderBt.enable();
-							// me.getOrderlist().setStore(orders);
+
 							me.getApplication().handleServerError({
 								'error': response, 
 			                    'forceLogout': {403:true}
@@ -606,6 +583,7 @@
 					}
 				}
 			});						
+		}
 		}
 	},
 	/**

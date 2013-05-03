@@ -472,6 +472,7 @@ Ext.define('EatSense.controller.Menu', {
 
 		choicesPanel =  this.getProductdetail().down('#choicesPanel');
 		//fix for Ticket #397 sometimes product detail seems to be broken
+        //TODO 03.05.2013 remove, this is old and can produce problems! detail gets not auto created
 		if(!choicesPanel) {
 			detail.destroy();
 			detail = null;

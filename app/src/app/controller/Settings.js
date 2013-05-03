@@ -100,7 +100,7 @@ Ext.define('EatSense.controller.Settings', {
             logoutButton; 
 
         if(!view) {
-            console.error('Settings.loadSettings: no view given');
+            console.log('Settings.loadSettings: no view given. maybe it has not been created');
             return;
         }
 
