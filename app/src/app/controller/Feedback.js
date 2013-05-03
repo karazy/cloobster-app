@@ -435,7 +435,8 @@ Ext.define('EatSense.controller.Feedback', {
 		var lounge = this.getLounge(),
 			emailfields = lounge.query('feedbackform emailfield'),
 			textareafields = lounge.query('feedbackform textareafield'),
-			showFeedbackLeaveButton = this.getShowFeedbackButton();
+			showFeedbackLeaveButton = this.getShowFeedbackButton(),
+			activeFeedback = this.getActiveFeedback();
 
 		//clear email and password fields
 		Ext.Array.each(emailfields, function(field) {
@@ -446,25 +447,24 @@ Ext.define('EatSense.controller.Feedback', {
 			field.setValue("");
 		});
 		
-		try {
-
-			if(this.getActiveFeedback() && this.getActiveFeedback().answers()) {
+		if(activeFeedback) {
+			if(activeFeedback.answers()) {
 				//destroy all answers otherwise they reappear in fucking sencha store with old values
-				this.getActiveFeedback().answers().each(function(answer) {
+				activeFeedback.answers().each(function(answer) {
 					answer.destroy();
 				});
-				this.getActiveFeedback().answers().removeAll();
+				activeFeedback.answers().removeAll();
 			}
 
-			this.getActiveFeedback().destroy();
-			this.setActiveFeedback(null);
-			
-			if(showFeedbackLeaveButton) {
-				showFeedbackLeaveButton.setHidden(false);
-			}
-		} catch(e) {
-			console.log('Feedback.clearFeedback > error ' + e);
+			activeFeedback.destroy();
 		}
+
+		this.setActiveFeedback(null);
+		
+		if(showFeedbackLeaveButton) {
+			showFeedbackLeaveButton.setHidden(false);
+		}
+
 	},
 	/**
 	* Save feedback Id for checkIn restore.
@@ -520,7 +520,7 @@ Ext.define('EatSense.controller.Feedback', {
       		this.clearFeedback();
     	} catch(e) {
       		console.error('Feedback.cleanup: failed ' + e);
-    	}    	
+    	}
     },
     /**
 	* Reset all active feedback to default.

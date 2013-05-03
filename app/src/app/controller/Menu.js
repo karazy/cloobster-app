@@ -942,14 +942,6 @@ Ext.define('EatSense.controller.Menu', {
 		menuStore.data.setAutoSort(true);
 		
 		menuStore.each(function(menu) {
-			//removed the hasMany relation in menu model
-       		// menu.products().each(function(product) {
-	        // product.choices().each(function(choice) {
-	        //     choice.options().removeAll(true);
-	        // });  
-	    	   //  product.choices().removeAll(true);
-	        // });
-	       	// menu.products().removeAll(true);
 	       	menu.destroy();
 	    });
 
@@ -1070,26 +1062,23 @@ Ext.define('EatSense.controller.Menu', {
 	clearProductStore: function() {
 		var productStore = Ext.StoreManager.lookup('productStore');
 		
-		try {
-			productStore.clearFilter();
-			//clear sorters
-			productStore.data.setAutoSort(false);
-			productStore.setSorters([]);
-			productStore.data.setAutoSort(true);
+        if(productStore) {
+    		productStore.clearFilter();
+    		//clear sorters
+    		productStore.data.setAutoSort(false);
+    		productStore.setSorters([]);
+    		productStore.data.setAutoSort(true);
 
-			productStore.each(function(product) {
-		        product.choices().each(function(choice) {
-		            choice.options().removeAll(true);
-		        });  
-	    	    product.choices().removeAll(true);
-	    	    product.destroy();
-	        });
-		       
-			productStore.removeAll();
-			
-		} catch(e) {
-			console.log('Menu.clearProductStore: failed to clear store. ' + e);
-		}
+    		productStore.each(function(product) {
+    	        product.choices().each(function(choice) {
+    	            choice.options().removeAll(true);
+    	        });  
+        	    product.choices().removeAll(true);
+        	    product.destroy();
+            });
+    	       
+    		productStore.removeAll();
+        }
 	}
 
      	
