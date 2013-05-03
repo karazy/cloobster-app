@@ -119,6 +119,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
              '<div style="padding: 7px; font-size: 16px;',
                 ' color: gray;">',
                 '{title}',
+                '<div style="font-size: 12px;">{subtitle}</div>',
             '</div>'
         ].join(''),
 

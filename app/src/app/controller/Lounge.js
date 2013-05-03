@@ -510,6 +510,7 @@ Ext.define('EatSense.controller.Lounge', {
 				items = [
 				  {
 					 title: i10n.translate('slidenav.header.areas'),
+					 subtitle: i10n.translate('slidenav.header.areas.subtitle'),
 					 header: true,
 					 dynamic: true,
 					 viewState: 'club'
