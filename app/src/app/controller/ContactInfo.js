@@ -23,7 +23,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 			}
 		},
 		//the location to display
-		location: null
+		location: null,
+		mapCreated: false,
+		coords: null
 	},
 	
 	/**
@@ -40,6 +42,8 @@ Ext.define('EatSense.controller.ContactInfo', {
 		Ext.create('Ext.util.DelayedTask', function () {
 			//only refresh when this is a new location
 			if(location && location != this.getLocation()) {
+				this.setCoords(null);
+				this.setMapCreated(false);
 				this.setLocation(location);
 				panel.setLocation(location);
 				this.showLocationProfilePictures(location);
@@ -60,18 +64,29 @@ Ext.define('EatSense.controller.ContactInfo', {
 	* Display the map based on the address of current location.
 	*/
 	showMaps: function() {
-		var contactInfoView = this.getContactInfoView(),
+		var me = this,
+			contactInfoView = this.getContactInfoView(),
 			location = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			openMapsBt,
-			gmap;
+			gmap,
+			mapsAddress;
 
 		if(contactInfoView) {
 			contactInfoView.setActiveItem(1);
 
+			console.log('ContactInfo.showMaps: create map');
+
+
+			//only proceed if google maps is included
 			if(google && google.maps) {
 				
 				openMapsBt = contactInfoView.down('button[action=open-maps]');
 				gmap = contactInfoView.down('map');
+				
+				contactInfoView.getAt(1).on({
+					hide: cleanup,
+					scope: this
+				});				
 
 				if(!gmap) {
 					//create only on demand because this is costly
@@ -84,66 +99,86 @@ Ext.define('EatSense.controller.ContactInfo', {
 					contactInfoView.getActiveItem().add(gmap);
 				}
 
-				//draw the google map based on given address
-				function codeAddress() {
-				  var address = location.get('address') + ' ' + location.get('postcode') + ' ' + location.get('city'),
-				  	  myLatlng,
-				  	  mapsAddress;
-				  geocoder = new google.maps.Geocoder();
-				  geocoder.geocode( { 'address': address}, function(results, status) {				  	
-				    if (status == google.maps.GeocoderStatus.OK) {
-				    	// myLatlng = results[0].geometry.location;
-				    	// myLatlng = new google.maps.LatLng(50.935420, 6.965394);
-
-
-				    	gmap.setHidden(false);
-				    	gmap.getMap().setZoom(14);
-				    	gmap.getMap().setCenter(results[0].geometry.location);				      	
-
-				      	var marker = new google.maps.Marker({
-				          	map: gmap.getMap(),
-				          	position: results[0].geometry.location
-				      	});
-
-				      	
-
-						//android maps calls http://developer.android.com/guide/appendix/g-app-intents.html		
-						//ios maps calls
-						if(!Ext.os.is.iOS) {
-							openMapsBt.setHidden(false);
-							openMapsBt.on({
-								tap: function() {
-									//use address search instead of coords, otherwise no marker is shown
-									if(Ext.os.is.Android) {
-										mapsAddress = encodeURI('geo:0,0?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
-									} else if(Ext.os.is.iOS) { 
-										//Apple Docs http://developer.apple.com/library/ios/#featuredarticles/iPhoneURLScheme_Reference/Articles/MapLinks.html only open in Safari
-										//however http://stackoverflow.com/questions/14503551/phonegap-open-navigation-directions-in-apple-maps-app works
-										mapsAddress = encodeURI('http://maps.apple.com/?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
-									}
-									if(mapsAddress) {
-										window.location.href = mapsAddress;	
-									}
-									
-									// window.location.href = encodeURI('geo:' + myLatlng.lat() + ',' + myLatlng.lng());
-								},
-								scope: this
-							});
-						}
-						
-
-				    } else {
-				    	console.log('ContactInfo: Geocode was not successful for the following reason ' + status);
-				    	gmap.setHidden(true);
-				    	openMapsBt.setHidden(true);
-				    }
-				  });
+				//currently not working on ios
+				if(!Ext.os.is.iOS) {					
+					openMapsBt.setHidden(false);
+					openMapsBt.on({
+						tap: openNativeMaps,
+						scope: this
+					});					
 				}
+
+				if(this.getMapCreated()) {
+					//map already rendered, reset center and return
+					if(this.getCoords()) {
+						gmap.getMap().setCenter(this.getCoords());	
+					}					
+					return;
+				}				
 
 				Ext.create('Ext.util.DelayedTask', function () {
 					codeAddress();
         		}).delay(300);
-			}	
+
+        		this.setMapCreated(true);
+			}
+
+			//draw the google map based on given address
+			function codeAddress() {
+			  var address = location.get('address') + ' ' + location.get('postcode') + ' ' + location.get('city'),
+			  	  myLatlng;
+
+			  geocoder = new google.maps.Geocoder();
+			  geocoder.geocode( { 'address': address}, function(results, status) {				  	
+			    if (status == google.maps.GeocoderStatus.OK) {
+			    	// myLatlng = results[0].geometry.location;
+			    	// myLatlng = new google.maps.LatLng(50.935420, 6.965394);
+			    	me.setCoords(results[0].geometry.location);
+
+			    	gmap.setHidden(false);
+			    	gmap.getMap().setZoom(14);
+			    	gmap.getMap().setCenter(results[0].geometry.location);	      	
+
+			      	var marker = new google.maps.Marker({
+			          	map: gmap.getMap(),
+			          	position: results[0].geometry.location
+			      	});				    
+					
+
+			    } else {
+			    	console.log('ContactInfo: Geocode was not successful for the following reason ' + status);
+			    	gmap.setHidden(true);
+			    	openMapsBt.setHidden(true);
+			    }
+			  });
+			}
+
+			function openNativeMaps()  {
+				//android maps calls http://developer.android.com/guide/appendix/g-app-intents.html		
+				//ios maps calls
+				//use address search instead of coords, otherwise no marker is shown
+				if(Ext.os.is.Android) {
+					mapsAddress = encodeURI('geo:0,0?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
+				} else if(Ext.os.is.iOS) { 
+					//Apple Docs http://developer.apple.com/library/ios/#featuredarticles/iPhoneURLScheme_Reference/Articles/MapLinks.html only open in Safari
+					//however http://stackoverflow.com/questions/14503551/phonegap-open-navigation-directions-in-apple-maps-app works
+					mapsAddress = encodeURI('http://maps.apple.com/?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
+				}
+				if(mapsAddress) {
+					window.location.href = mapsAddress;	
+				}
+				
+				// window.location.href = encodeURI('geo:' + myLatlng.lat() + ',' + myLatlng.lng());
+			}
+
+			function cleanup() {
+				if(openMapsBt) {
+					openMapsBt.un({
+						tap: openNativeMaps,
+						scope: this
+					});
+				}
+			}
 
 		}
 	},
