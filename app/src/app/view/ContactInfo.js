@@ -173,8 +173,7 @@ Ext.define('EatSense.view.ContactInfo', {
 								iconMask: true,
 								hidden: true,
 								ui: 'action',
-								align: 'right',
-								hidden: Ext.os.is.iOS
+								align: 'right'
 							}
 						]
 					}
@@ -199,7 +198,6 @@ Ext.define('EatSense.view.ContactInfo', {
 			urlPanel,
 			openLocationUrlBt,
 			callLocationBt,
-			openMapsBt,
 			gmap,
 			mapsMarker,
 			phonePanel;
@@ -217,8 +215,6 @@ Ext.define('EatSense.view.ContactInfo', {
 
 			urlPanel = this.down('#mainUrl');
 			openLocationUrlBt = this.down('button[action=open-link]');
-
-			openMapsBt = this.down('button[action=open-maps]');
 
 			if(content) {
 				// console.log('EatSense.view.ContactInfo.updateLocation: Render info for location ' + newValue.get('name'));

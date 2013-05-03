@@ -17,7 +17,7 @@ Ext.define('EatSense.controller.Feedback', {
 			emailField: 'feedbackform emailfield',
 			commentField: 'feedbackform textareafield',
 			submitFeedBackButton: 'feedbackform button[action=submit]',
-			backLeaveButton: 'myorderstab feedbackform button[action=back]',
+			// backLeaveButton: 'myorderstab feedbackform button[action=back]',
 			loungeFeedbackView: 'lounge #loungeFeedback'
 		},
 		control: {
@@ -36,9 +36,9 @@ Ext.define('EatSense.controller.Feedback', {
 			commentField: {
 				change: 'saveComment'
 			},
-			backLeaveButton: {
-				tap: 'backLeaveButtonHandler'
-			},
+			// backLeaveButton: {
+			// 	tap: 'backLeaveButtonHandler'
+			// },
 			feedbackform: {
 				show: 'showFeedbackForm'
 			},
@@ -137,21 +137,46 @@ Ext.define('EatSense.controller.Feedback', {
 	*/
 	showFeedbackLeaveForm: function(button) {
 		var me = this,
-			// feedback = this.getFeedback(),
 			myordersview = this.getMyordersview(),
-			feedbackform = myordersview.down('feedbackform');
+			feedbackform = myordersview.down('feedbackform'),
+			backButton;
 		
 		console.log('Feedback.showFeedbackLeaveForm');
 		this.setFeedbackOrigin('checkout');
-		// this.setActiveFeedbackView(feedbackform);
+		
+
+		backButton = feedbackform.down('backbutton');
+
+		if(backButton) {
+			backButton.on({
+				tap: backButtonHandler,
+				single: true,
+				scope: this
+			});
+		}
+		
 
 		//show feedback form
 		myordersview.setActiveItem(1);
-		// me.propateFeedbackForm();
+		//explicit setting of back handler, because another explicit handler is set for completing payment
+		Ext.Viewport.fireEvent('addbackhandler', backButtonHandler);
 
-		this.getApplication().getController('Android').addBackHandler(function() {
-            me.backToMyOrders();
-        });
+		function backButtonHandler() {
+			me.backToMyOrders();
+			cleanup();
+		}
+
+		function cleanup() {
+
+			Ext.Viewport.fireEvent('removebackhandler', backButtonHandler);
+
+			if(backButton) {
+				backButton.un({
+					tap: backButtonHandler,
+					scope: this
+				});
+			}
+		}
 	},
 	/**
 	* Show event handler for myordersview.
@@ -324,7 +349,7 @@ Ext.define('EatSense.controller.Feedback', {
 		} else if(this.getFeedbackOrigin()) {
 			this.backToDashboard();			
 		} else {
-			console.log('Feedback.submitFeedback > incorrect feedback origin provided: ' + this.getFeedbackOrigin());
+			console.log('Feedback.submitFeedback: incorrect feedback origin provided ' + this.getFeedbackOrigin());
 		};
 
 		this.setFeedbackOrigin(null);
@@ -461,10 +486,9 @@ Ext.define('EatSense.controller.Feedback', {
      /**
 	* Tap handler for backbutton.
 	*/
-	backLeaveButtonHandler: function(button) {
-		this.backToMyOrders();
-		this.getApplication().getController('Android').removeLastBackHandler();
-	},
+	// backLeaveButtonHandler: function(button) {
+	// 	this.backToMyOrders();
+	// },
     /**
     * Return to myorders view.
     */

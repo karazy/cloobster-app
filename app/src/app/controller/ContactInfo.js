@@ -21,18 +21,26 @@ Ext.define('EatSense.controller.ContactInfo', {
 			contactInfoMapsBackBt: {
 				tap: 'backToContactInfo'
 			}
-		}	
+		},
+		//the location to display
+		location: null
 	},
 	
-
+	/**
+	* Show event handler for {@link EatSense.view.ContactInfo}.
+	* @param {Ext.Component} panel
+	*/
 	showContactInfo: function(panel) {
 		var location = this.getApplication().getController('CheckIn').getActiveBusiness();
 		console.log('ContactInfo.showContactInfo');
 
 		panel.setActiveItem(0);
+
 		//delay data setup
 		Ext.create('Ext.util.DelayedTask', function () {
-			if(location) {
+			//only refresh when this is a new location
+			if(location && location != this.getLocation()) {
+				this.setLocation(location);
 				panel.setLocation(location);
 				this.showLocationProfilePictures(location);
 			}
@@ -100,29 +108,32 @@ Ext.define('EatSense.controller.ContactInfo', {
 				      	
 
 						//android maps calls http://developer.android.com/guide/appendix/g-app-intents.html		
-						//ios maps calls									
-						openMapsBt.setHidden(false);
-						openMapsBt.on({
-							tap: function() {
-								//use address search instead of coords, otherwise no marker is shown
-								if(Ext.os.is.Android) {
-									mapsAddress = encodeURI('geo:0,0?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
-								} else if(Ext.os.is.iOS) { 
-									//Apple Docs http://developer.apple.com/library/ios/#featuredarticles/iPhoneURLScheme_Reference/Articles/MapLinks.html only open in Safari
-									//however http://stackoverflow.com/questions/14503551/phonegap-open-navigation-directions-in-apple-maps-app works
-									mapsAddress = encodeURI('http://maps.apple.com/?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
-								}
-								if(mapsAddress) {
-									window.location.href = mapsAddress;	
-								}
-								
-								// window.location.href = encodeURI('geo:' + myLatlng.lat() + ',' + myLatlng.lng());
-							},
-							scope: this
-						});
+						//ios maps calls
+						if(!Ext.os.is.iOS) {
+							openMapsBt.setHidden(false);
+							openMapsBt.on({
+								tap: function() {
+									//use address search instead of coords, otherwise no marker is shown
+									if(Ext.os.is.Android) {
+										mapsAddress = encodeURI('geo:0,0?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
+									} else if(Ext.os.is.iOS) { 
+										//Apple Docs http://developer.apple.com/library/ios/#featuredarticles/iPhoneURLScheme_Reference/Articles/MapLinks.html only open in Safari
+										//however http://stackoverflow.com/questions/14503551/phonegap-open-navigation-directions-in-apple-maps-app works
+										mapsAddress = encodeURI('http://maps.apple.com/?q=' + location.get('address') + '+' + location.get('postcode') + '+' + location.get('city'));
+									}
+									if(mapsAddress) {
+										window.location.href = mapsAddress;	
+									}
+									
+									// window.location.href = encodeURI('geo:' + myLatlng.lat() + ',' + myLatlng.lng());
+								},
+								scope: this
+							});
+						}
+						
 
 				    } else {
-				    	console.log('EatSense.view.ContactInfo: Geocode was not successful for the following reason ' + status);
+				    	console.log('ContactInfo: Geocode was not successful for the following reason ' + status);
 				    	gmap.setHidden(true);
 				    	openMapsBt.setHidden(true);
 				    }
@@ -151,14 +162,15 @@ Ext.define('EatSense.controller.ContactInfo', {
 			profilePicturesExist;	
 
 			if(!business) {
-				console.error('InfoPage.showHotelInfoHeader: no business given');
+				console.error('InfoPage.showLocationProfilePictures: no business given');
 				return;	
-			}		
+			}			
 
 			renderProfilePics(contactInfoView);
 		
 
 			function renderProfilePics(panel) {
+				console.log('InfoPage.showLocationProfilePictures: renderProfilePics');
 
 				profilePictures = panel.down('#profilePictures');
 
