@@ -1294,8 +1294,8 @@
 						try {
 							//Fix for #576
 							Ext.create('Ext.util.DelayedTask', function () {
-								// comp.destroy();
-	        				}).delay(300);							
+								comp.destroy();
+	        				}).delay(500);							
 							me.getApplication().getController('Android').removeBackFn(destroyPicker);
 						} catch(e) {
 							console.error('Order.choosePaymentMethod: failed to destroy ' + e);
@@ -1428,39 +1428,29 @@
 		//workaround to prevent sencha from sending phantom id
 		bill.setId('');
 
-		this.on({
-			'paymentrequestcomplete' : completePaymentRequest,
-			single: true,
-			scope: this
-		});
 		
 		bill.save({
 			scope: this,
 			success: function(record, operation) {
-					payButton.hide();						
-					me.setActiveBill(record);
-					
-					
+				payButton.hide();						
+				me.setActiveBill(record);
+				
+				Ext.create('Ext.util.DelayedTask', function () {
+					appHelper.toggleMask(false, myordersView);
+
+					//double delay to prevent problems with slide nav button staying visible
 					Ext.create('Ext.util.DelayedTask', function () {
-						appHelper.toggleMask(false, myordersView);
-						// if(!appHelper.getAlertActive()) {
-						// 	Ext.Msg.hide();
-						// }
-						// me.fireEvent('paymentrequestcomplete');
-						checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);	
 						myordersComplete.show();
 						me.refreshMyOrdersBadgeText(true);
-						me.showCartButtons(false);	
-    				}).delay(1000);
+						me.showCartButtons(false);
+
+						checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);							
+					}).delay(300);
+				}).delay(1000);
     				
 			},
 			failure: function(record, operation) {
 				appHelper.toggleMask(false, myordersView);
-
-				me.un({
-					'paymentrequestcomplete' : completePaymentRequest,
-					scope: this
-				});
 
 				me.getApplication().handleServerError({
 					'error': operation.error,
@@ -1469,16 +1459,9 @@
 			}
 		});
 
-		function completePaymentRequest() {
-			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);	
-			myordersComplete.show();
-			me.refreshMyOrdersBadgeText(true);
-			me.showCartButtons(false);
-		}
 
 		appHelper.toggleMask('paymentRequestSend', myordersView);
 
-		//show success message to give user the illusion of success ;)
 		// Ext.Msg.show({
 		// 	title : "",
 		// 	message : i10n.translate('paymentRequestSend'),
