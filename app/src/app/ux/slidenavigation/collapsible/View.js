@@ -389,14 +389,14 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         if(index == undefined || item.raw.header) {
             list.deselect(item);
             this.overrideClose = true;
-            list.select ( this.prevsel );
+            list.select(this.prevsel);
             return; // not a leaf
         }        
 
         //deselect new item and select old one
         function deselectItem() {             
             list.deselect(item);
-            list.select ( this.prevsel );
+            list.select(this.prevsel);
         }
 
         //handle menu entries that require a login
@@ -433,7 +433,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         }
 
         //set new selection as previous
-        this.prevsel = item;
+        me.prevsel = item;
         
 
         if (me._cache[index] == undefined) {
