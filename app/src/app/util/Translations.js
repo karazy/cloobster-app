@@ -1414,8 +1414,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Address"
 		},
 		"contactinfo.website" : {
-			"DE" :  "Website",
-			"EN" : "Website"
+			"DE" :  "Web",
+			"EN" : "Web"
 		},
 		"contactinfo.location.maps" : {
 			"DE" :  "Route",

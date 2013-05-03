@@ -301,7 +301,8 @@ Ext.define('EatSense.controller.Lounge', {
 		  buttons = lounge.query('button[action=toggle-navigation]');
 
 		  Ext.Array.each(buttons, function(b) {
-		  	 b.setHidden(!show);
+		  	 //Ticket 573
+		  	 // b.setHidden(!show);
 			 b.setDisabled(!show);			 
 		  });
   },

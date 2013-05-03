@@ -1437,16 +1437,11 @@
 				
 				Ext.create('Ext.util.DelayedTask', function () {
 					appHelper.toggleMask(false, myordersView);
-
-					//double delay to prevent problems with slide nav button staying visible
-					Ext.create('Ext.util.DelayedTask', function () {
-						myordersComplete.show();
-						me.refreshMyOrdersBadgeText(true);
-						me.showCartButtons(false);
-
-						checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);							
-					}).delay(300);
-				}).delay(1000);
+					myordersComplete.show();
+					me.refreshMyOrdersBadgeText(true);
+					me.showCartButtons(false);
+					checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
+				}).delay(750);
     				
 			},
 			failure: function(record, operation) {
