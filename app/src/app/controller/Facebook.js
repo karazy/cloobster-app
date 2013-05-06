@@ -59,7 +59,7 @@ Ext.define('EatSense.controller.Facebook', {
   manageFacebook: function(location) {
   	var me = this,
   		features,
-  		fbWallpostClubButton = this.getFbWallPostClubButton();
+  		fbWallpostClubButton = this.getFbWallpostClubButton();
 
 
   	if(!location) {
