@@ -74,7 +74,7 @@ Ext.define('EatSense.controller.Facebook', {
 
   	features = location.raw.features;
 
-
+  	//TODO if club dashboard is not pre created we this has to be handled differently
 	if(typeof features['facebook-post'] != 'undefined') {
 		if(fbWallpostClubButton) {
 			fbWallpostClubButton.setHidden(!features['facebook-post']);

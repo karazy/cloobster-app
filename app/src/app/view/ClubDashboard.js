@@ -26,6 +26,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				action: 'fb-wallpost',
 				baseCls: 'fb-wimpel-button',
 				pressedCls: 'fb-wimpel-button-pressed',
+				hidden: true,
 				style: {
 					'position' : 'absolute',
 					'top' : '0px',
