@@ -50,7 +50,8 @@ Ext.define('EatSense.model.Business', {
 			{
 				name: 'basic',
 				type: 'bool'
-			}			
+			}	
+			//contains raw.features which list all avail features for this business		
 		],
 		associations: [{
 		        type: 'hasMany',

@@ -21,7 +21,8 @@ Ext.define('EatSense.controller.Facebook', {
 	},
 	launch: function() {
 		var me = this,
-			accountCtr = this.getApplication().getController('Account');
+			accountCtr = this.getApplication().getController('Account'),
+			checkInCtr = this.getApplication().getController('CheckIn');
 
 		if(FB) {
 			if(typeof CDV != 'undefined') {
@@ -43,8 +44,43 @@ Ext.define('EatSense.controller.Facebook', {
 				}
 			},
 			scope: this
-		})
+		});
+
+		checkInCtr.on({
+			'businessloaded' : this.manageFacebook,
+			scope: this
+		});
 	},
+
+ /**
+  * Depending on location.features settings. Enables or disables facebook post.
+  * @param {EatSense.model.Business} location
+  */
+  manageFacebook: function(location) {
+  	var me = this,
+  		features,
+  		fbWallpostClubButton = this.getFbWallPostClubButton();
+
+
+  	if(!location) {
+  		console.error('Facebook.manageFacebook: no location given');
+  		return;
+  	}
+
+  	if(!location.raw.features) {
+  		console.error('Facebook.manageFacebook:  location contains no features');
+  		return;
+  	}
+
+  	features = location.raw.features;
+
+
+	if(typeof features['facebook-post'] != 'undefined') {
+		if(fbWallpostClubButton) {
+			fbWallpostClubButton.setHidden(!features['facebook-post']);
+		}			
+	}
+  },
 	/**
 	* Signup via facebook. Lets user login to facebook
 	* and creates an account with retrieved data.

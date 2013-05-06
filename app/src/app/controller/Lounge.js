@@ -100,6 +100,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 	this.manageBasicMode(basicMode);		 	
 		 	this.tryLoadingAreas();	 	
 		 },
+		 'businessloaded' : this.manageFeatures,
 		 scope: this
 	  });
 
@@ -231,6 +232,67 @@ Ext.define('EatSense.controller.Lounge', {
 			lounge.getList().getStore().data.removeFilters(['hideOnBasic']);
 		  	// lounge.getList().getStore().clearFilter();
 		}       
+  },
+  /**
+  * Depending on location.features settings. Enables or disables app features.
+  * @param {EatSense.model.Business} location
+  */
+  manageFeatures: function(location) {
+  	var me = this,
+  		lounge = this.getLoungeview(),
+  		features,
+  		listItem;
+
+
+  	if(!location) {
+  		console.error('Lounge.manageFeatures: no location given');
+  		return;
+  	}
+
+  	if(!location.raw.features) {
+  		console.error('Lounge.manageFeatures:  location contains no features');
+  		return;
+  	}
+
+  	features = location.raw.features;
+
+  	//if feature is disabled set viewstate to none, otherwise to club
+  	if(typeof features.products != 'undefined') {
+		listItem = lounge.getItemByAction('show-menu');
+		if(listItem) {
+			listItem.set('viewState', features.products ? 'club' : 'none');	
+		}			
+	}
+
+	if(typeof features.infopages != 'undefined') {
+		listItem = lounge.getItemByAction('show-infopage');
+		if(listItem) {
+			listItem.set('viewState', features.infopages ? 'club' : 'none');	
+		}			
+	}
+
+	if(typeof features.infopages != 'undefined') {
+		listItem = lounge.getItemByAction('show-feedback');
+		if(listItem) {
+			listItem.set('viewState', features.infopages ? 'club' : 'none');	
+		}			
+	}
+
+	if(typeof features['requests-call'] != 'undefined') {
+		listItem = lounge.getItemByAction('show-requests');
+		if(listItem) {
+			listItem.set('viewState', features['requests-call'] ? 'club' : 'none');	
+		}			
+	}
+
+	if(typeof features['contact'] != 'undefined') {
+		listItem = lounge.getItemByAction('show-contactinfo');
+		if(listItem) {
+			listItem.set('viewState', features['contact'] ? 'club' : 'none');	
+		}			
+	}
+
+  	//products, infopages, feedback, requests-call, facebook-post, contact
   },
   /**
   * Manages the slidenavigation menu based on given parameters.
