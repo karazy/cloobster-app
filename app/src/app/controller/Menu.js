@@ -455,7 +455,8 @@ Ext.define('EatSense.controller.Menu', {
 			prodDetailLabel = this.getProdDetailLabel(),
 			prodPriceLabel,
 			commentField,
-			amountField;
+			amountField,
+            cartButton;
 	
 
 		//DEBUG
@@ -487,6 +488,7 @@ Ext.define('EatSense.controller.Menu', {
 		detailPanel = detail.down('#productDetailPanel');
 		amountField = detail.down('#amountField');
 		prodPriceLabel = detail.down('#prodPriceLabel');
+        cartButton = detail.down('button[action=cart]');
 
 		//set title
     	if(titleLabel) {
@@ -532,6 +534,11 @@ Ext.define('EatSense.controller.Menu', {
 
         if(prodPriceLabel) {
             me.recalculate(order);
+        }
+
+        //if this is a product only to display data, hide cart button
+        if(cartButton) {
+            cartButton.setHidden(record.get('noOrder'));
         }
 
 

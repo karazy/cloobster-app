@@ -48,6 +48,11 @@ Ext.define('EatSense.model.Product', {
 		},
 		{
 			name: 'menuId'
+		},
+		{
+			name: 'noOrder',
+			type: 'boolean',
+			defaultValue: false
 		}],
 		 associations: [
 		 {
