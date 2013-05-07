@@ -97,10 +97,12 @@ Ext.define('EatSense.controller.Lounge', {
 			}
 		 },
 		 'basicmode' : function(basicMode) {
-		 	this.manageBasicMode(basicMode);		 	
-		 	this.tryLoadingAreas();	 	
+		 	this.manageBasicMode(basicMode);		 			 	
 		 },
-		 'businessloaded' : this.manageFeatures,
+		 'businessloaded' : function(business) {
+		 	this.manageFeatures(business);
+		 	this.tryLoadingAreas(business);
+		 },
 		 scope: this
 	  });
 
@@ -502,13 +504,18 @@ Ext.define('EatSense.controller.Lounge', {
 	* Tries to load areas. Areas can only be loaded after business and spot exist.
 	*
 	*/
-	tryLoadingAreas: function() {
+	tryLoadingAreas: function(business) {
 		var me = this,
 			checkInCtr = this.getApplication().getController('CheckIn');
 
-		if(checkInCtr.getActiveSpot() && checkInCtr.getActiveBusiness()) {			
-			if(checkInCtr.getActiveSpot().get('welcome') == false && checkInCtr.getActiveBusiness().get('basic') == false) {
-				console.log('Lounge.tryLoadingAreas');
+		if(checkInCtr.getActiveSpot() && business) {
+			if(checkInCtr.getActiveSpot().get('welcome') == false && business.get('basic') == false) {
+				// console.log('Lounge.tryLoadingAreas');
+				if(business.raw.features && !business.raw.features.products) {
+					//product feature disabled
+					return;
+				}
+
 				me.loadAreas(function() {
 					me.markSlideNavAreaActive(checkInCtr.getActiveArea(), checkInCtr.getActiveSpot());
 			 	}); 
