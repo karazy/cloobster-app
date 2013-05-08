@@ -653,6 +653,7 @@ Ext.define('EatSense.controller.Lounge', {
 		this.fireEvent('areaswitched', area);
 
 		loungeview.selectByAction('show-clubdashboard');
+		appHelper.showNotificationBox(i10n.translate('area.switch.notification', area.get('name')), 2000);
 	 },
 
 	 /**

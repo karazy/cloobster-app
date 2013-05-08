@@ -113,6 +113,46 @@ Ext.define('EatSense.util.Helper', {
 	      viewToMask.setMasked(false);
 	    };
   	},
+
+  	/**
+	* Displays a non modal messagebox at the bottom of the screen.
+	* @param {String} message to display
+	* @param {number} timeout (optional)
+	*	Hide after given timeout
+	* 
+	*/
+	showNotificationBox: function(message, timeout) {
+		var me = this,
+			msgBox,
+			hideAfter = timeout || appConfig.msgboxShortHideTimeout,
+			config = {
+				modal: false,
+				centered: false,
+				style: {
+					'max-width' : 'none'
+				},
+				bottom: '10px',
+				right: '3%',
+				left: '3%',
+				'message' : message,	
+				buttons: []
+			};
+
+
+		msgBox = Ext.create('Ext.MessageBox', config);
+		msgBox.show();
+
+		Ext.defer(function() {
+			hideActivationHint();
+		}, hideAfter, this);
+
+
+		function hideActivationHint() {
+			if(!EatSense.util.Helper.getAlertActive()) {
+				msgBox.destroy();
+			}
+		};
+	},
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj

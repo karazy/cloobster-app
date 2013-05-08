@@ -1402,6 +1402,10 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"area.switch.notification" : {
+			"DE" :  "Produkte aus dem Bereich {0} werden angezeigt.",
+			"EN" : "Products from area {0} will be displayed."
+		},
 		//contact info
 		"contactinfo.title" : {
 			"DE" :  "Kontakt",
