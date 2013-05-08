@@ -24,7 +24,7 @@ Ext.define('EatSense.view.ContactInfo', {
 					align: 'start'
 				},
 				scrollable: 'vertical',
-				padding: 5,
+				padding: '10px 15px',
 				defaults: {
 					width: '100%'
 				},
@@ -39,53 +39,25 @@ Ext.define('EatSense.view.ContactInfo', {
 					{
 						xtype: 'label',
 						itemId: 'content',
-						margin: '0 0 10 0',
+						margin: '0 0 20 0',
 						tpl: new Ext.XTemplate(
 							'<div class="contactinfo-main-data">',
 								'<div class="name">{name}</div>',
 								'<div class="description">{description}</div>',
 							'</div>'
 						)
-					},
-					{
-						xtype: 'panel',
-						itemId: 'mainUrl',
-						layout: {
-							type: 'hbox',
-							align: 'stretch'
-						},
-						items: [
-							{
-								xtype: 'label',
-								margin: '7 0 0 0',
-								cls: 'general-text',
-								flex: 2
-							},
-							{
-								xtype: 'fixedbutton',
-								action: 'open-link',
-								text: i10n.translate('contactinfo.location.url'),
-								iconCls: 'look',
-								iconMask: true,
-								hidden: true,
-								ui: 'action',
-								margin: '7 0 5 0',
-								width: '50%',
-								flex: 1
-							}
-						]
-					},				
+					},			
 					{
 						xtype: 'panel',
 						itemId: 'mainPhone',
+						margin: '3 0',
 						layout: {
 							type: 'hbox',
-							align: 'stretch'
+							align: 'start'
 						},
 						items: [
 							{
 								xtype: 'label',
-								margin: '7 0 0 0',
 								cls: 'general-text',
 								flex: 2
 							},
@@ -97,24 +69,21 @@ Ext.define('EatSense.view.ContactInfo', {
 								iconMask: true,
 								hidden: true,
 								ui: 'action',
-								margin: '7 0 5 0',
-								width: '50%',
 								flex: 1
 							}
 						]
 					},
 					{
 						xtype: 'panel',
-						// itemId: 'address',
+						margin: '3 0',
 						layout: {
 							type: 'hbox',
-							align: 'stretch'
+							align: 'start'
 						},
 						items: [
 							{
 								xtype: 'label',
 								itemId: 'address',
-								margin: '7 0 5 0',
 								cls: 'general-text',
 								tpl: new Ext.XTemplate(
 									'<div class="">',
@@ -130,16 +99,40 @@ Ext.define('EatSense.view.ContactInfo', {
 								iconCls: 'globe2',
 								iconMask: true,
 								ui: 'action',
-								margin: '7 0 10 0',
-								// width: '50%',
 								flex: 1
 							}	
 						]
 					},
 					{
+						xtype: 'panel',
+						itemId: 'mainUrl',
+						margin: '3 0',
+						layout: {
+							type: 'hbox',
+							align: 'start'
+						},
+						items: [
+							{
+								xtype: 'label',
+								cls: 'general-text',
+								flex: 2
+							},
+							{
+								xtype: 'fixedbutton',
+								action: 'open-link',
+								text: i10n.translate('contactinfo.location.url'),
+								iconCls: 'look',
+								iconMask: true,
+								hidden: true,
+								ui: 'action',
+								flex: 1
+							}
+						]
+					},	
+					{
 						xtype: 'label',
 						itemId: 'slogan',
-						margin: '0 0 10 0',
+						margin: '20px 0 10px 0',
 						tpl: new Ext.XTemplate(
 							'<div class="contactinfo-main-data">',
 								'<div class="slogan">{slogan}</div>',

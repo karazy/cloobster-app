@@ -1416,16 +1416,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Call"
 		},
 		"contactinfo.location.url" : {
-			"DE" :  "Webseite",
-			"EN" : "Webpage"
+			"DE" :  "Web",
+			"EN" : "Web"
 		},
 		"contactinfo.address" : {
 			"DE" :  "Adresse",
 			"EN" : "Address"
-		},
-		"contactinfo.website" : {
-			"DE" :  "Web",
-			"EN" : "Web"
 		},
 		"contactinfo.location.maps" : {
 			"DE" :  "Route",
