@@ -1277,7 +1277,13 @@ Ext.define('EatSense.controller.CheckIn', {
     spotSelectionView.show();
 
     //load all spots
-    this.loadSpotsForArea(area);
+    this.loadSpotsForArea(area, refreshList);
+
+    function refreshList(success) {
+      if(success) {
+        spotList.refresh();  
+      }      
+    }
 
     //hide the spot selection view and deregister listeners
     function hideSpotSelectionView() {
@@ -1350,9 +1356,11 @@ Ext.define('EatSense.controller.CheckIn', {
   },
   /**
   * Load all spots for active area. Only if area does not require a barcode.
-  *
+  * @param {EatSense.model.Area|Number} area or areaId
+  * @param {Function} callback
+  *   Called after ajax request returns. Gets passed true or false.
   */
-  loadSpotsForArea: function(area) {
+  loadSpotsForArea: function(area, callback) {
     var me = this,
         activeArea = area,
         spotStore = Ext.StoreManager.lookup('spotStore'),
@@ -1376,9 +1384,14 @@ Ext.define('EatSense.controller.CheckIn', {
       },
       callback: function(records, operation, success) { 
         if(!operation.error) {
-
+          if(appHelper.isFunction(callback)) {
+            callback(true);
+          }
         }
         else {
+          if(appHelper.isFunction(callback)) {
+            callback(false);
+          }
           me.getApplication().handleServerError({
                 'error': operation.error, 
                 'forceLogout': {403:true}
