@@ -1280,8 +1280,10 @@ Ext.define('EatSense.controller.CheckIn', {
     this.loadSpotsForArea(area, refreshList);
 
     function refreshList(success) {
-      if(success) {
-        spotList.refresh();  
+      if(success && Ext.os.is.Android) {
+        Ext.create('Ext.util.DelayedTask', function () {        
+          spotList.refresh(); 
+        }).delay(200);        
       }      
     }
 

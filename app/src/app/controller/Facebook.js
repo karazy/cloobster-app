@@ -68,7 +68,10 @@ Ext.define('EatSense.controller.Facebook', {
   	}
 
   	if(!location.raw.features) {
-  		console.error('Facebook.manageFacebook:  location contains no features');
+  		console.log('Facebook.manageFacebook:  location contains no features. Enable FB by default.');
+  		if(fbWallpostClubButton) {
+			fbWallpostClubButton.setHidden(false);
+		}
   		return;
   	}
 
