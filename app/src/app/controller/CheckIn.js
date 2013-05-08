@@ -1273,17 +1273,24 @@ Ext.define('EatSense.controller.CheckIn', {
       clearicontap: clearSpotListFilter
     });
 
+    spotSelectionView.on({
+      painted: doLoadSpotsForAreas,
+      scope: this
+    });
+
     Ext.Viewport.add(spotSelectionView);
     spotSelectionView.show();
 
-    //load all spots
-    this.loadSpotsForArea(area, refreshList);
+    function doLoadSpotsForAreas() {
+      //load all spots
+      this.loadSpotsForArea(area, refreshList);
+    }
 
     function refreshList(success) {
       if(success && Ext.os.is.Android) {
         Ext.create('Ext.util.DelayedTask', function () {        
           spotList.refresh(); 
-        }).delay(200);        
+        }).delay(300);        
       }      
     }
 
@@ -1301,6 +1308,11 @@ Ext.define('EatSense.controller.CheckIn', {
       searchField.un({
         keyup: searchFieldKeyupHandler,
         clearicontap: clearSpotListFilter
+      });
+
+      spotSelectionView.un({
+        painted: doLoadSpotsForAreas,
+        scope: this
       });
 
       androidCtr.removeBackFn(hideSpotSelectionView);
