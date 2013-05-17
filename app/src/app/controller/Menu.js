@@ -17,6 +17,7 @@ Ext.define('EatSense.controller.Menu', {
         	prodDetailLabel :'productdetail #prodDetailLabel',
         	prodPriceLabel :'productdetail #prodPriceLabel',    
         	createOrderBt :'productdetail button[action="cart"]',
+            noOrderInfoButton: 'productdetail button[action=no-order-info]',
         	closeProductDetailBt: 'productdetail button[action=back]',
         	menuview: 'menutab',
         	productcomment: 'carttab #productComment',
@@ -39,6 +40,9 @@ Ext.define('EatSense.controller.Menu', {
              },
              createOrderBt : {
             	 tap: 'createOrder'
+             },
+             noOrderInfoButton: {
+                tap: 'showNoOrderInfo'
              },
              closeProductDetailBt: {
              	tap: 'closeProductDetailHandler'
@@ -456,7 +460,8 @@ Ext.define('EatSense.controller.Menu', {
 			prodPriceLabel,
 			commentField,
 			amountField,
-            cartButton;
+            cartButton,
+            noOrderInfoButton;
 	
 
 		//DEBUG
@@ -489,6 +494,7 @@ Ext.define('EatSense.controller.Menu', {
 		amountField = detail.down('#amountField');
 		prodPriceLabel = detail.down('#prodPriceLabel');
         cartButton = detail.down('button[action=cart]');
+        noOrderInfoButton = detail.down('button[action=no-order-info]');
 
 		//set title
     	if(titleLabel) {
@@ -539,12 +545,21 @@ Ext.define('EatSense.controller.Menu', {
         //if this is a product only to display data or ordering is disabled, hide cart button
         if(cartButton) {
             //TODO add method to query features from business
-            if(record.get('noOrder') == true || activeBusiness.isFeatureEnabled('products-order') === true) {
-                cartButton.setHidden(true);    
+            if(record.get('noOrder') == true || activeBusiness.isFeatureEnabled('products-order') === false) {
+                cartButton.setHidden(true);
             } else {
-                cartButton.setHidden(false);
+                cartButton.setHidden(false);                
             }
-            
+        }
+
+        if(noOrderInfoButton) {
+            if(activeBusiness.isFeatureEnabled('products-order') === false) {
+                //hide when ordering is completely disabled
+                noOrderInfoButton.setHidden(true);
+            } else {
+                //show when ordering is disabled but certain products are not for ordering
+                noOrderInfoButton.setHidden(!record.get('noOrder'));                
+            }
         }
 
 
@@ -851,6 +866,12 @@ Ext.define('EatSense.controller.Menu', {
 	showCart: function(button) {
 		this.getApplication().getController('Order').showCart(button, this.getMenuview(), this.getLoungeview());		
 	},
+    /**
+    * Display a short message that ordering is not enabled.
+    */
+    showNoOrderInfo: function(button) {
+        appHelper.showNotificationBox(i10n.translate('order.disabled'));
+    },
 	/**
 	 * Switches to another view
 	 * @param view

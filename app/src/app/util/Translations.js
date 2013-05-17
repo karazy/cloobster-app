@@ -516,6 +516,12 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"order.disabled" : {
+			"DE" :  "Dieses Angebot dient nur zur Information.",
+			"EN" : "This offer only serves for information.",
+			"ES" : "",
+			"IT" : ""
+		},
 		//Cart
 		"cartviewTitle" : {
 			"DE" :  "Bestellung",

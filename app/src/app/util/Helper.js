@@ -124,7 +124,7 @@ Ext.define('EatSense.util.Helper', {
 	showNotificationBox: function(message, timeout) {
 		var me = this,
 			msgBox,
-			hideAfter = timeout || appConfig.msgboxShortHideTimeout,
+			hideAfter = timeout || appConfig.msgboxHideLongTimeout,
 			config = {
 				modal: false,
 				centered: false,
