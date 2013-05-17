@@ -77,5 +77,22 @@ Ext.define('EatSense.model.Business', {
 			enablePagingParams: false,
 	 		url : '/c/businesses'
 		}
+	},
+
+	/**
+	* Checks if a given feature is enabled.
+	* @return
+	*	True if enabled. If no features exist or key is not found always returns true.
+	*/
+	isFeatureEnabled: function(feature) {
+		if(this.raw && this.raw.features) {
+			if(this.raw.features.hasOwnProperty(feature)) {
+				return this.raw.features[feature];
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
 	}
 });

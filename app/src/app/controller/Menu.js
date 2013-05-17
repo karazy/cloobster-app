@@ -539,7 +539,7 @@ Ext.define('EatSense.controller.Menu', {
         //if this is a product only to display data or ordering is disabled, hide cart button
         if(cartButton) {
             //TODO add method to query features from business
-            if(record.get('noOrder') == true || activeBusiness.raw.features['products-order'] === true) {
+            if(record.get('noOrder') == true || activeBusiness.isFeatureEnabled('products-order') === true) {
                 cartButton.setHidden(true);    
             } else {
                 cartButton.setHidden(false);

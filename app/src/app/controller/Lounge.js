@@ -258,40 +258,40 @@ Ext.define('EatSense.controller.Lounge', {
   	features = location.raw.features;
 
   	//if feature is disabled set viewstate to none, otherwise to club
-  	if(typeof features.products != 'undefined') {
+  	// if(typeof features.products != 'undefined') {
 		listItem = lounge.getItemByAction('show-menu');
 		if(listItem) {
-			listItem.set('viewState', features.products ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('products') ? 'club' : 'none');	
 		}			
-	}
+	// }
 
-	if(typeof features.infopages != 'undefined') {
+	// if(typeof features.infopages != 'undefined') {
 		listItem = lounge.getItemByAction('show-infopage');
 		if(listItem) {
-			listItem.set('viewState', features.infopages ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('infopages') ? 'club' : 'none');	
 		}			
-	}
+	// }
 
-	if(typeof features.infopages != 'undefined') {
+	// if(typeof features.infopages != 'undefined') {
 		listItem = lounge.getItemByAction('show-feedback');
 		if(listItem) {
-			listItem.set('viewState', features.infopages ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('feedback') ? 'club' : 'none');	
 		}			
-	}
+	// }
 
-	if(typeof features['requests-call'] != 'undefined') {
+	// if(typeof features['requests-call'] != 'undefined') {
 		listItem = lounge.getItemByAction('show-requests');
 		if(listItem) {
-			listItem.set('viewState', features['requests-call'] ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('requests-call') ? 'club' : 'none');	
 		}			
-	}
+	// }
 
-	if(typeof features['contact'] != 'undefined') {
+	// if(typeof features['contact'] != 'undefined') {
 		listItem = lounge.getItemByAction('show-contactinfo');
 		if(listItem) {
-			listItem.set('viewState', features['contact'] ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('contact') ? 'club' : 'none');	
 		}			
-	}
+	// }
 
   	//products, infopages, feedback, requests-call, facebook-post, contact
   },
