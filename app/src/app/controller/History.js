@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.History', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.view.History'],
+	requires: ['EatSense.view.History', 'EatSense.view.VisitNew'],
 
 	config: {
 		refs: {
@@ -14,14 +14,23 @@ Ext.define('EatSense.controller.History', {
 			historyView : 'lounge history',
 			historyList : 'lounge history list',
 			backDetailButton : 'historydetail button[action=back]',
-			showHistoryButton: 'dashboard button[action=history]',			
+			// showHistoryButton: 'dashboard button[action=history]',
+         toVisitButton: 'dashboard button[action=tovisit]',
 			historyDetailView: 'lounge historydetail',
-			historyDetailOrderList : 'historydetail #historyOrders'
+			historyDetailOrderList : 'historydetail #historyOrders',
+         toVisitNewView: {
+            selector: 'visitnew',
+            xtype: 'visitnew',
+            autoCreate: true
+         }
 		},
 		control: {
-			showHistoryButton : {
-				tap: 'showHistoryButtonHandler'
-			},
+			// showHistoryButton : {
+			// 	tap: 'showHistoryButtonHandler'
+			// },
+         toVisitButton: {
+            tap: 'promptForToVisitAction'
+         },
 			backDetailButton: {
 				tap: 'backToHistory'
 			},
@@ -39,11 +48,11 @@ Ext.define('EatSense.controller.History', {
    * @param {Ext.Button} button
    *  Button from tap event
    */
-   showHistoryButtonHandler: function(button) {
-      var mainView = this.getMainView();
+   // showHistoryButtonHandler: function(button) {
+   //    var mainView = this.getMainView();
 
-      mainView.selectByAction('show-places');
-   },   
+   //    mainView.selectByAction('show-places');
+   // },   
 	/**
 	* Event handler for history button.
 	* Shows the history view.
@@ -246,8 +255,90 @@ Ext.define('EatSense.controller.History', {
    				}
    			}
    		});
-   }
+   },
 
    //end history detail
+
+   promptForToVisitAction: function() {
+      Ext.Msg.show({
+         message: i10n.translate('tovisit.actionprompt'),
+         buttons: [{
+            text: i10n.translate('tovisit.action.scan'),
+            itemId: 'scan',
+            ui: 'action'
+         }, {
+            text:  i10n.translate('tovisit.action.manual'),
+            itemId: 'manual',
+            ui: 'action'
+         }],
+         scope: this,
+         fn: function(btnId, value, opt) {
+            if(btnId=='scan') {
+               //scan
+            } else {
+               //manual
+               this.showToVisitNewView();
+            }
+         }
+      });   
+   },
+
+   showToVisitNewView: function() {
+      var me = this,
+          lounge =  this.getMainView(),
+          view = this.getToVisitNewView(),
+          form,
+          backBt,
+          createBt,
+          values;
+
+      Ext.Viewport.add(view);
+      // lounge.getContainer().add(view);
+      view.show();
+
+      form = view.down('form');
+      backBt = view.down('backbutton');
+      createBt = view.down('button[action=create]');
+
+      backBt.on({
+         tap: cleanup,
+         scope: this
+      });
+
+      createBt.on({
+         tap: createToVisit,
+         scope: this
+      });
+
+      view.on({
+         hide: cleanup,
+         scope: this
+      });
+
+      function createToVisit() {
+         //validate
+         values = form.getValues();
+
+         //create
+
+         cleanup();
+
+      }
+
+      function cleanup() {
+         backBt.un({
+            tap: cleanup,
+            scope: this
+         });  
+
+         view.un({
+            hide: cleanup,
+            scope: this
+         });   
+
+         view.destroy();    
+      }
+
+   }
 
 });

@@ -94,6 +94,16 @@ Ext.define('EatSense.view.Lounge', {
 				accountRequired: true
 			},
 			{
+				ui: 'action',
+				title: i10n.translate('dashboard.button.demo'),
+				action: 'demo-checkin',
+				leaf: true,
+				viewState: 'cloobster',
+				handler: function() {
+					alert('TEST');
+				}
+			},
+			{
 				xtype: 'clubarea',
 				title: i10n.translate('slidenav.button.home'),
 				leaf: true,

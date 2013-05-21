@@ -226,8 +226,14 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "Check-In",
-			"EN" :  "Check-In",
+			"DE" :  "check-in",
+			"EN" :  "check-in",
+			"ES" : "",
+			"IT" : ""
+		},
+		"dashboard.button.tovisit" : {
+			"DE" :  "to-visit",
+			"EN" : "to-visit",
 			"ES" : "",
 			"IT" : ""
 		},
