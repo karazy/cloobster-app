@@ -43,6 +43,12 @@ Ext.define('EatSense.controller.History', {
          }
 		}
 	},	
+   launch: function() {
+
+      Ext.Viewport.on('userlogin', function(account) {
+         this.loadVisits();
+      }, this);
+   },
    /**
    * Tap eventhandler for show places button.
    * @param {Ext.Button} button
@@ -360,6 +366,15 @@ Ext.define('EatSense.controller.History', {
          });   
 
          view.destroy();    
+      }
+
+   },
+
+   loadVisits: function(account) {
+      var visitStore = Ext.StoreManager.lookup('visitStore');
+
+      if(visitStore) {
+         visitStore.load();
       }
 
    }

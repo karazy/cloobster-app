@@ -28,14 +28,14 @@ Ext.define('EatSense.model.Visit', {
 			// 	type: 'date',
 			// 	dateFormat: 'time'
 			// },
-			{
-				name: 'pictureUrl',
-				type: 'string'
-			},
-			{
-				name: 'refId',
-				type: 'string'
-			}
+			// {
+			// 	name: 'pictureUrl',
+			// 	type: 'string'
+			// },
+			// {
+			// 	name: 'refId',
+			// 	type: 'string'
+			// }
 		],
 		proxy: {
 			type: 'rest',

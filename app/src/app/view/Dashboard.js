@@ -57,7 +57,16 @@ Ext.define('EatSense.view.Dashboard', {
 		},
 		{
 			xtype: 'list',
-			store: 'visitStore'
+			store: 'visitStore',
+			itemTpl: '{locationName}',
+			emptyText: i10n.translate('tovisit.list.emptytext'),
+			listeners: {
+				select: function(dv, ix, item, e) {
+					Ext.defer((function() {
+						dv.deselect(ix);
+	    			}), 100, this);					
+				}
+			}
 		}			
 		// {
 		// 	xtype: 'fixedbutton',

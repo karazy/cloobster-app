@@ -104,6 +104,8 @@ Ext.define('EatSense.controller.Account', {
 				//set account to make it accesible for the application
 				me.setAccount(record);
 				me.loadProfile(record.get('profileId'));
+
+				Ext.Viewport.fireEvent('userlogin', record);
 			},
 			failure: function(record, operation) {
     	    	me.getApplication().handleServerError({
