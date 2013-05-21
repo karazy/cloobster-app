@@ -290,13 +290,14 @@ Ext.define('EatSense.controller.History', {
           form,
           backBt,
           createBt,
-          values;
+          values,
+          toVisit;
 
       Ext.Viewport.add(view);
       // lounge.getContainer().add(view);
       view.show();
 
-      form = view.down('form');
+      form = view.down('formpanel');
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
 
@@ -317,11 +318,33 @@ Ext.define('EatSense.controller.History', {
 
       function createToVisit() {
          //validate
-         values = form.getValues();
+         values = form.getValues();         
 
          //create
+         toVisit = Ext.create('EatSense.model.Visit', values);
 
-         cleanup();
+         appHelper.toggleMask('save', view);
+
+         toVisit.setId('');
+
+         //FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
+         // toVisit.set('visitDate', date);
+
+         toVisit.save({
+
+            success: function(record, operation) {
+               appHelper.toggleMask(false, view);
+               cleanup();
+            },
+            failure: function(record, operation) {
+               appHelper.toggleMask(false, view);
+               me.getApplication().handleServerError({
+                  'error': operation.error,
+                  'forceLogout': {403: true}
+               });
+            },
+            scope: this
+         });
 
       }
 

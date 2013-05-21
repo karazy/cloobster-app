@@ -19,12 +19,15 @@ Ext.define('EatSense.model.Visit', {
 			},
 			{
 				name: 'createdOn',
-				type: 'date'
+				type: 'date',
+				dateFormat: 'time',
+				persist: false
 			},
-			{
-				name: 'visitDate',
-				type: 'date'
-			},
+			// {
+			// 	name: 'visitDate',
+			// 	type: 'date',
+			// 	dateFormat: 'time'
+			// },
 			{
 				name: 'pictureUrl',
 				type: 'string'

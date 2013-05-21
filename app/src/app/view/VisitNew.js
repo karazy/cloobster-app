@@ -40,15 +40,18 @@ Ext.define('EatSense.view.VisitNew', {
 				items: [
 					{
 						xtype: 'textfield',
-						placeHolder: i10n.translate('visit.formnew.locationname')
+						placeHolder: i10n.translate('visit.formnew.locationname'),
+						name: 'locationName'
 					},
 					{
 						xtype: 'textareafield',
-						placeHolder: i10n.translate('visit.formnew.comment')
+						placeHolder: i10n.translate('visit.formnew.comment'),
+						name: 'comment'
 					},
 					{
 						xtype: 'datepickerfield',
-						placeHolder: i10n.translate('visit.formnew.locationname')
+						placeHolder: i10n.translate('visit.formnew.locationname'),
+						name: 'visitDate'
 					}
 					// {
 					// 	xtype: 'panel',
