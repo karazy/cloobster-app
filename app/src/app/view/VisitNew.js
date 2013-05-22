@@ -39,6 +39,12 @@ Ext.define('EatSense.view.VisitNew', {
 				},
 				items: [
 					{
+						xtype: 'fixedbutton',
+						text: i10n.translate('tovisit.scanbutton'),
+						ui: 'action',
+						action: 'scan'
+					},
+					{
 						xtype: 'label',
 						hidden: true,
 						itemId: 'locationNameLabel'

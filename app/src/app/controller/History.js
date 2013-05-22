@@ -29,7 +29,7 @@ Ext.define('EatSense.controller.History', {
 			// 	tap: 'showHistoryButtonHandler'
 			// },
          toVisitButton: {
-            tap: 'promptForToVisitAction'
+            tap: 'checkForToVisitAction'
          },
 			backDetailButton: {
 				tap: 'backToHistory'
@@ -266,53 +266,25 @@ Ext.define('EatSense.controller.History', {
    },
 
    //end history detail
+
    /**
-   * Ask user if he wants to scan an existing cloobster lcoation or
-   * add location details manually.
-   * Requires a logged in user!
+   * Checks if user is logged in an then shows toVisistNewView.
    *
    */
-   promptForToVisitAction: function() {
+   checkForToVisitAction: function() {
       var me = this;
       
-      Ext.Viewport.fireEvent('accountrequired', prompt);
+      Ext.Viewport.fireEvent('accountrequired', loginCallback);
 
-      function prompt(success) {
+      function loginCallback(success) {
 
          if(success) {
-            Ext.Msg.show({
-               message: i10n.translate('tovisit.actionprompt'),
-               buttons: [
-               {
-                  text: i10n.translate('cancel'),
-                  itemId: 'cancel',
-                  ui: 'action'
-               },
-               {
-                  text: i10n.translate('tovisit.action.scan'),
-                  itemId: 'scan',
-                  ui: 'action'
-               }, {
-                  text:  i10n.translate('tovisit.action.manual'),
-                  itemId: 'manual',
-                  ui: 'action'
-               }],
-               scope: me,
-               fn: function(btnId, value, opt) {
-                  if(btnId=='scan') {
-                     //scan
-                     me.scanToVisit();
-                  } else if(btnId == 'manual') {
-                     //manual
-                     me.showToVisitNewView();
-                  }
-               }
-            });
+            me.showToVisitNewView();
          }
       }    
    },
 
-   showToVisitNewView: function(business) {
+   showToVisitNewView: function() {
       var me = this,
           lounge =  this.getMainView(),
           view = this.getToVisitNewView(),
@@ -320,6 +292,7 @@ Ext.define('EatSense.controller.History', {
           backBt,
           createBt,
           // datePicker,
+          scanBt,
           gmap,
           values,
           toVisit,
@@ -335,35 +308,15 @@ Ext.define('EatSense.controller.History', {
       form = view.down('formpanel');
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
+      scanBt = view.down('button[action=scan]');
       gmap = form.down('map');
       locationNameField = form.down('textfield[name=locationName]');
       locationNameLabel = form.down('#locationNameLabel');
       // datePicker = form.down('datepickerfield');
-
-      //access position, async function
-      if(!business) {
-         this.getCurrentPosition(processPosition);
-      } else {
-         //TODO get location from business
-         gmap.setHidden(true);
-      }
-
-      if(business) {
-         //scanned cloobster location, prefill fields
-         toVisit = Ext.create('EatSense.model.Visit');
-         toVisit.set('locationName', business.name);
-         if(business.images && business.images.logo) {
-            toVisit.set('imageUrl', business.images.logo);
-         }
-         toVisit.set('locationId', business.id);
-
-         locationNameField.setHidden(true);
-         locationNameField.setDisabled(true);
-         locationNameLabel.setHidden(false);
-         locationNameLabel.setHtml(toVisit.get('locationName'));
-      }
-
       //TODO add android backFn
+
+      this.getCurrentPosition(processPosition);
+
 
       backBt.on({
          tap: cleanup,
@@ -375,14 +328,12 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
-      view.on({
-         hide: cleanup,
+      scanBt.on({
+         tap: scanBtTap,
          scope: this
       });
 
       function createToVisit() {
-         //TODO Validate
-
          values = form.getValues();
 
          //validate when manual creation
@@ -427,7 +378,39 @@ Ext.define('EatSense.controller.History', {
             },
             scope: this
          });
+      }
 
+      function scanBtTap() {
+         appHelper.scanBarcode(doLoadBusiness);         
+      }
+
+      function doLoadBusiness(barcode) {
+         if(barcode) {
+            appHelper.toggleMask('loadingMsg', view);
+            me.loadBusiness(barcode, scanCallback);   
+         }
+      }
+
+      function scanCallback(success, record) {
+         if(success) {
+            business = record;
+            //scanned cloobster location, prefill fields
+            toVisit = Ext.create('EatSense.model.Visit');
+            toVisit.set('locationName', business.name);
+            if(business.images && business.images.logo) {
+               toVisit.set('imageUrl', business.images.logo);
+            }
+            toVisit.set('locationId', business.id);
+
+            locationNameField.setHidden(true);
+            locationNameField.setDisabled(true);
+            locationNameLabel.setHidden(false);
+            locationNameLabel.setHtml(toVisit.get('locationName'));
+            gmap.setHidden(true);
+            geoPos = null;
+         }
+
+         appHelper.toggleMask(false, view);
       }
 
       function processPosition(success, position) {
@@ -458,10 +441,10 @@ Ext.define('EatSense.controller.History', {
             scope: this
          });
 
-         view.un({
-            hide: cleanup,
+         scanBt.un({
+            tap: scanBtTap,
             scope: this
-         });   
+         });  
 
          view.destroy();    
       }
@@ -513,45 +496,41 @@ Ext.define('EatSense.controller.History', {
       }      
    },
    /**
-   * Add a new to-visit by scanning a cloobster barcode.
-   *
+   * Load a business based on given barcode.
+   * @param {String} barcode
+   *  Spot barcode to load business for.
+   * @param {Function} callback
+   *  Callback to execute. Gets passed success and business if found.
    */
-   scanToVisit: function() {
+   loadBusiness: function(barcode, callback) {
       var me = this,
           business,
           toVisit;
 
-      appHelper.scanBarcode(doLoadBusiness);
-
-      function doLoadBusiness(barcode) {
-         if(barcode) {
-            //load business
-            Ext.Ajax.request({
-              url: appConfig.serviceUrl + '/c/businesses/',
-              method: 'GET',
-              params: {
-                'spotCode' : barcode
-              },
-              success: function(response) {
-               //array
-               business = Ext.JSON.decode(response.responseText);
-               //if 0 no business found if more then one there is an backend error
-               if(business.length == 1) {
-                  me.showToVisitNewView(business[0]);     
-               }
-              },
-              failure: function(response) {
-                me.getApplication().handleServerError({
-                  'error': response
-                });
-              },
-              scope: me
-            });
-         }
-      }
-
-      function createToVisit() {
-
+      if(barcode) {
+         //load business
+         Ext.Ajax.request({
+           url: appConfig.serviceUrl + '/c/businesses/',
+           method: 'GET',
+           params: {
+             'spotCode' : barcode
+           },
+           success: function(response) {
+            //array
+            business = Ext.JSON.decode(response.responseText);
+            //if 0 no business found if more then one there is an backend error
+            if(business.length == 1) { 
+               callback(true, business[0]);  
+            }
+           },
+           failure: function(response) {
+            callback(false);
+             me.getApplication().handleServerError({
+               'error': response
+             });
+           },
+           scope: me
+         });
       }
    }
 

@@ -1553,6 +1553,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Neuer to-visit",
 			"EN" : "New to-visit"
 		},
+		"tovisit.scanbutton" : {
+			"DE" :  "cloobster Location scannen?",
+			"EN" : "Scan cloobster location?"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
