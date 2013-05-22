@@ -508,7 +508,6 @@ $general-border-radius: 3px;
     background-repeat: no-repeat;
     width: 45px;
     height: 45px;
-
   }
 
   div.thumbnail + * {
@@ -1344,6 +1343,16 @@ h9 {
 }
 
 .tovisit-item {
+    div.thumbnail {
+      float: left;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 45px;
+      height: 45px;
+    }
+    
   .location {
     font-size: 1.1em;
     float: left;

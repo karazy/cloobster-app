@@ -160,7 +160,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
       //disable button to prevent multiple checkins
       button.disable();
-      barcode = this.scanBarcode(callback);
+      barcode = appHelper.scanBarcode(callback);
 
       function callback(barcode) {
         if(!barcode) {
@@ -170,62 +170,6 @@ Ext.define('EatSense.controller.CheckIn', {
         }
       }	
    },
-   /**
-   * @private
-   * Optains a barcode. In development (desktop, iPhone simulator) mode, shows a prompt, otherwise opens
-   * the barcode scanner plugin.
-   * 
-   * @param {Function} callback
-   *  Called after completion/cancelation of scanning. Gets passed the barcode as parameter.
-   *  barcode is false when user cancelled
-   */
-   scanBarcode: function(callback) {
-      var me = this,
-          barcode;
-
-      if(this.getProfile() == 'desktop' || !window.plugins || !window.plugins.barcodeScanner || (device && device.platform == "iPhone Simulator")) {
-            Ext.Msg.show({
-                // title: i10n.translate('barcodePromptTitle'),
-                message: i10n.translate('barcodePromptText'),
-                buttons: [{
-                    text: i10n.translate('yes'),
-                    itemId: 'yes',
-                    ui: 'action'
-                }, {
-                    text: i10n.translate('no'),
-                    itemId: 'no',
-                    ui: 'action'
-                }],
-                prompt : { maxlength : 50},
-                scope: this,
-                fn: function(btnId, value, opt) {
-                    if(btnId=='yes') {
-                        barcode = encodeURIComponent(Ext.String.trim(value));
-                    } else {
-                      barcode = false;
-                    }
-
-                    if(Ext.isFunction(callback)) {
-                      callback(barcode);
-                    }
-                }
-            }); 
-      } else if(this.getProfile() == 'phone' || this.getProfile() == 'tablet') {
-          window.plugins.barcodeScanner.scan(function(result) {
-            if(!result.cancelled) {
-              barcode =  encodeURIComponent(Ext.String.trim(me.extractBarcode(result.text)));
-            } else {
-              barcode = false;
-            }
-            if(Ext.isFunction(callback)) {
-              callback(barcode);
-            }
-        }, function(error) {
-          Ext.Msg.alert("Scanning failed: " + error, Ext.emptyFn);
-        });
-      }
-   },
-
    doCheckInIntent : function(barcode, button, deviceId) {         
       var me = this,
           main = this.getMain();
@@ -1067,7 +1011,7 @@ Ext.define('EatSense.controller.CheckIn', {
       //get barcode or spot
       if(barcodeRequired) {
         //scan barcode
-        this.scanBarcode(doLoadSpot);
+        appHelper.scanBarcode(doLoadSpot);
       } else {
         //or load spots
         this.showSpotSelection(activeArea, function(newSpot) {

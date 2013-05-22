@@ -39,6 +39,11 @@ Ext.define('EatSense.view.VisitNew', {
 				},
 				items: [
 					{
+						xtype: 'label',
+						hidden: true,
+						itemId: 'locationNameLabel'
+					},
+					{
 						xtype: 'textfield',
 						placeHolder: i10n.translate('tovisit.formnew.locationname'),
 						name: 'locationName'

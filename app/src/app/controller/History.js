@@ -301,6 +301,7 @@ Ext.define('EatSense.controller.History', {
                fn: function(btnId, value, opt) {
                   if(btnId=='scan') {
                      //scan
+                     me.scanToVisit();
                   } else if(btnId == 'manual') {
                      //manual
                      me.showToVisitNewView();
@@ -311,7 +312,7 @@ Ext.define('EatSense.controller.History', {
       }    
    },
 
-   showToVisitNewView: function() {
+   showToVisitNewView: function(business) {
       var me = this,
           lounge =  this.getMainView(),
           view = this.getToVisitNewView(),
@@ -323,6 +324,7 @@ Ext.define('EatSense.controller.History', {
           values,
           toVisit,
           locationNameField,
+          locationNameLabel,
           geoPos,
           visitStore = Ext.StoreManager.lookup('visitStore');;
 
@@ -330,19 +332,36 @@ Ext.define('EatSense.controller.History', {
       // lounge.getContainer().add(view);
       view.show();
 
-      //access position, async function
-      this.getCurrentPosition(processPosition);
-
       form = view.down('formpanel');
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
       gmap = form.down('map');
       locationNameField = form.down('textfield[name=locationName]');
+      locationNameLabel = form.down('#locationNameLabel');
       // datePicker = form.down('datepickerfield');
 
-      // if(datePicker) {
+      //access position, async function
+      if(!business) {
+         this.getCurrentPosition(processPosition);
+      } else {
+         //TODO get location from business
+         gmap.setHidden(true);
+      }
 
-      // }
+      if(business) {
+         //scanned cloobster location, prefill fields
+         toVisit = Ext.create('EatSense.model.Visit');
+         toVisit.set('locationName', business.name);
+         if(business.images && business.images.logo) {
+            toVisit.set('imageUrl', business.images.logo);
+         }
+         toVisit.set('locationId', business.id);
+
+         locationNameField.setHidden(true);
+         locationNameField.setDisabled(true);
+         locationNameLabel.setHidden(false);
+         locationNameLabel.setHtml(toVisit.get('locationName'));
+      }
 
       //TODO add android backFn
 
@@ -364,16 +383,20 @@ Ext.define('EatSense.controller.History', {
       function createToVisit() {
          //TODO Validate
 
-         //validate
-         values = form.getValues();
+         //validate when manual creation
+         if(!business) {
+            values = form.getValues();
 
-         if(!values.locationName || values.locationName.trim().length == 0) {
-            Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
-            return;
+            if(!values.locationName || values.locationName.trim().length == 0) {
+               Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
+               return;
+            }
+
+             toVisit = Ext.create('EatSense.model.Visit', values);
+
          }
 
-         //create
-         toVisit = Ext.create('EatSense.model.Visit', values);
+         toVisit.setId('');
 
          if(geoPos) {
             toVisit.set('geoLong', geoPos.coords.longitude);
@@ -381,15 +404,11 @@ Ext.define('EatSense.controller.History', {
          }
 
          if(values.visitDate) {
+            //FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
             toVisit.set('visitDate', values.visitDate.getTime());
          }
 
          appHelper.toggleMask('save', view);
-
-         toVisit.setId('');
-
-         //FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
-         // toVisit.set('visitDate', date);
 
          toVisit.save({
 
@@ -432,6 +451,11 @@ Ext.define('EatSense.controller.History', {
             tap: cleanup,
             scope: this
          });  
+
+         createBt.un({
+            tap: createToVisit,
+            scope: this
+         });
 
          view.un({
             hide: cleanup,
@@ -485,8 +509,49 @@ Ext.define('EatSense.controller.History', {
          navigator.geolocation.getCurrentPosition(onSuccess, onError);   
       } else {
          console.error('History.getCurrentPosition: no navigator.geolocation exists');
+      }      
+   },
+   /**
+   * Add a new to-visit by scanning a cloobster barcode.
+   *
+   */
+   scanToVisit: function() {
+      var me = this,
+          business,
+          toVisit;
+
+      appHelper.scanBarcode(doLoadBusiness);
+
+      function doLoadBusiness(barcode) {
+         if(barcode) {
+            //load business
+            Ext.Ajax.request({
+              url: appConfig.serviceUrl + '/c/businesses/',
+              method: 'GET',
+              params: {
+                'spotCode' : barcode
+              },
+              success: function(response) {
+               //array
+               business = Ext.JSON.decode(response.responseText);
+               //if 0 no business found if more then one there is an backend error
+               if(business.length == 1) {
+                  me.showToVisitNewView(business[0]);     
+               }
+              },
+              failure: function(response) {
+                me.getApplication().handleServerError({
+                  'error': response
+                });
+              },
+              scope: me
+            });
+         }
       }
-      
+
+      function createToVisit() {
+
+      }
    }
 
 });
