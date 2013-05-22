@@ -322,6 +322,7 @@ Ext.define('EatSense.controller.History', {
           gmap,
           values,
           toVisit,
+          locationNameField,
           geoPos,
           visitStore = Ext.StoreManager.lookup('visitStore');;
 
@@ -336,6 +337,7 @@ Ext.define('EatSense.controller.History', {
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
       gmap = form.down('map');
+      locationNameField = form.down('textfield[name=locationName]');
       // datePicker = form.down('datepickerfield');
 
       // if(datePicker) {
@@ -360,8 +362,15 @@ Ext.define('EatSense.controller.History', {
       });
 
       function createToVisit() {
+         //TODO Validate
+
          //validate
-         values = form.getValues();         
+         values = form.getValues();
+
+         if(!values.locationName || values.locationName.trim().length == 0) {
+            Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
+            return;
+         }
 
          //create
          toVisit = Ext.create('EatSense.model.Visit', values);
@@ -404,7 +413,7 @@ Ext.define('EatSense.controller.History', {
       function processPosition(success, position) {
          if(success) {
             geoPos = position;
-            
+
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
             gmap.getMap().setZoom(14);
             gmap.getMap().setCenter(myLatlng);            

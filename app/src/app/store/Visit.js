@@ -4,16 +4,16 @@ Ext.define('EatSense.store.Visit', {
 	config: {
 		storeId: 'visitStore',
 		model: 'EatSense.model.Visit',
-		pageSize: 15,
-		sorters: [
-			{
-	            property : "visitDate",
-	            direction: "ASC"
-	        },
-	        {
-	            property : "createdOn",
-	            direction: "ASC"
-	        }
-		]
+		pageSize: 15
+		// sorters: [
+		// 	{
+	 //            property : "visitDate",
+	 //            direction: "ASC"
+	 //        },
+	 //        {
+	 //            property : "createdOn",
+	 //            direction: "ASC"
+	 //        }
+		// ]
 	}
 });
