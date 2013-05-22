@@ -318,6 +318,8 @@ Ext.define('EatSense.controller.History', {
           form,
           backBt,
           createBt,
+          // datePicker,
+          gmap,
           values,
           toVisit,
           geoPos,
@@ -333,6 +335,14 @@ Ext.define('EatSense.controller.History', {
       form = view.down('formpanel');
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
+      gmap = form.down('map');
+      // datePicker = form.down('datepickerfield');
+
+      // if(datePicker) {
+         //set here because in definition it gets ignored
+         // datePicker.setYearFrom(2013);
+         // datePicker.setCancelButton( i10n.translate('cancel'));   
+      // }
 
       //TODO add android backFn
 
@@ -396,6 +406,18 @@ Ext.define('EatSense.controller.History', {
       function processPosition(success, position) {
          if(success) {
             geoPos = position;
+            // myLatlng = results[0].geometry.location;
+            var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
+            // me.setCoords(results[0].geometry.location);
+
+            // gmap.setHidden(false);
+            gmap.getMap().setZoom(14);
+            gmap.getMap().setCenter(myLatlng);            
+
+               var marker = new google.maps.Marker({
+                  map: gmap.getMap(),
+                  position: myLatlng
+               });   
          } else {
             //error, position contains error information
          }
