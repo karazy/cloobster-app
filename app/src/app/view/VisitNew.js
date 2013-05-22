@@ -79,7 +79,7 @@ Ext.define('EatSense.view.VisitNew', {
     					// useCurrentLocation: true,
     					mapOptions: {
 							draggable: false,
-							disableDefaultUI: false
+							disableDefaultUI: true
 						},
 						flex: 1
 					}
