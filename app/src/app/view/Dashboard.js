@@ -87,7 +87,8 @@ Ext.define('EatSense.view.Dashboard', {
 						html;
 
 					html = '<div class="day">' + date.getDay() + '</div>'+
-							'<div class="month">' + i10n.translate('month.' + date.getMonth()) + '</div>';
+							'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
+							'<div class="mmyy">' + date.getFullYear() + '</div>';
 					return html;
 					// return Ext.util.Format.date(date, format);
 				}
