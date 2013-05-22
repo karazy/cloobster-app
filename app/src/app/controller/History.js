@@ -404,11 +404,8 @@ Ext.define('EatSense.controller.History', {
       function processPosition(success, position) {
          if(success) {
             geoPos = position;
-            // myLatlng = results[0].geometry.location;
+            
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
-            // me.setCoords(results[0].geometry.location);
-
-            // gmap.setHidden(false);
             gmap.getMap().setZoom(14);
             gmap.getMap().setCenter(myLatlng);            
 
@@ -436,10 +433,13 @@ Ext.define('EatSense.controller.History', {
       }
 
    },
-
+   /**
+   * Load visits for logged in user.
+   */
    loadVisits: function(account) {
       var visitStore = Ext.StoreManager.lookup('visitStore');
 
+      //TODO error handling
       if(visitStore) {
          visitStore.load(); 
       }

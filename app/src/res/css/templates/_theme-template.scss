@@ -1343,6 +1343,31 @@ h9 {
   }
 }
 
+.tovisit-item {
+  .location {
+    font-size: 1.1em;
+    float: left;
+    vertical-align: top;
+  }
+
+  .date {
+    /*margin-right: 10px;*/
+    width: 70px;
+    float: right;
+    text-align: center;
+    
+    .day {
+      font-size: 2em;
+      font-weight: bold;
+      line-height: 1em;
+    }
+
+    .month {
+      font-size: .8em;
+    }
+  }
+}
+
 .contactinfo-main-data {
   color: $label-color;
   margin: 0 0 20px 0;

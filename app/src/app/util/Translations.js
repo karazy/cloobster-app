@@ -163,6 +163,79 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		//month
+		"month.0" : {
+			"DE" :  "Januar",
+			"EN" : "January",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.1" : {
+			"DE" :  "Feburar",
+			"EN" : "Feburary",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.2" : {
+			"DE" :  "März",
+			"EN" : "March",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.3" : {
+			"DE" :  "April",
+			"EN" : "April",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.4" : {
+			"DE" :  "Mai",
+			"EN" : "May",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.5" : {
+			"DE" :  "Juni",
+			"EN" : "June",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.6" : {
+			"DE" :  "Juli",
+			"EN" : "July",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.7" : {
+			"DE" :  "August",
+			"EN" : "August",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.8" : {
+			"DE" :  "September",
+			"EN" : "September",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.9" : {
+			"DE" :  "Oktober",
+			"EN" : "October",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.10" : {
+			"DE" :  "November",
+			"EN" : "November",
+			"ES" : "",
+			"IT" : ""
+		},
+		"month.11" : {
+			"DE" :  "Dezember",
+			"EN" : "December",
+			"ES" : "",
+			"IT" : ""
+		},
 		// main menu
 		"checkInButton" : {
 			"DE" :  "Check-in",

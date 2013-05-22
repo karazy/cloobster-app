@@ -58,20 +58,44 @@ Ext.define('EatSense.view.Dashboard', {
 		{
 			xtype: 'list',
 			store: 'visitStore',
-			itemTpl: new Ext.XTemplate('<strong>{locationName}</strong><br/>{[this.formatDate(values.visitDate)]}', {
-				formatDate: function(date) {
-					var format = appConstants.DateFormat[appConfig.language];
-					return Ext.util.Format.date(date, format);
-				}
-			}),
 			emptyText: i10n.translate('tovisit.list.emptytext'),
+			deferEmptyText: false,
+			itemCls: 'tovisit-item',
+			itemTpl: new Ext.XTemplate(
+				"<table style='width:100%;'>",
+					'<td align="left">{locationName}</td>',
+					'<tpl if="visitDate">',
+						'<td align="right">',
+							'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
+						'</td>',
+					'</tpl>',
+				'</table>'	
+				// '<div class="location">{locationName}</div><tpl if="visitDate"><div class="date">{[this.formatDate(values.visitDate)]}</div></tpl>'
+				, {
+				formatDate: function(date) {
+					var format = appConstants.DateFormat[appConfig.language],
+						html;
+
+					html = '<div class="day">' + date.getDay() + '</div>'+
+							'<div class="month">' + i10n.translate('month.' + date.getMonth()) + '</div>';
+					return html;
+					// return Ext.util.Format.date(date, format);
+				}
+			}),			
 			listeners: {
 				select: function(dv, ix, item, e) {
 					Ext.defer((function() {
 						dv.deselect(ix);
 	    			}), 100, this);					
 				}
-			}
+			},
+			plugins: [
+		        {
+		            xclass: 'Ext.plugin.ListPaging',
+		            loadMoreText: i10n.translate('history.detail.list.paging'),
+		            autoPaging: false
+		        }
+		    ]
 		}			
 		// {
 		// 	xtype: 'fixedbutton',

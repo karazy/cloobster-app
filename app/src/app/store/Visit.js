@@ -8,11 +8,11 @@ Ext.define('EatSense.store.Visit', {
 		sorters: [
 			{
 	            property : "visitDate",
-	            direction: "DESC"
+	            direction: "ASC"
 	        },
 	        {
-	            property : "createDate",
-	            direction: "DESC"
+	            property : "createdOn",
+	            direction: "ASC"
 	        }
 		]
 	}
