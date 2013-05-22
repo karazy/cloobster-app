@@ -17,7 +17,7 @@ Ext.define('EatSense.controller.Account', {
 
     /**
      * @event userlogin
-     * Fires when user successfully logged in.
+     * Event fired on Ext.Viewport when user successfully logged in.
      * @param {EatSense.model.Account} account
      *	User account object
      */
@@ -205,7 +205,7 @@ Ext.define('EatSense.controller.Account', {
 
 		//handle successful login
 		// me.on('userlogin', userLoggedIn, this);
-		me.on({
+		Ext.Viewport.on({
 			'userlogin' : userLoggedIn,
 			scope: this,
 			single: true
@@ -254,7 +254,7 @@ Ext.define('EatSense.controller.Account', {
 
 		//remove all events
 		function cleanup() {
-			me.un('userlogin', userLoggedIn, me);
+			Ext.Viewport.un('userlogin', userLoggedIn, me);
 
 			backButton.un({
 				tap: closeLogin
@@ -448,7 +448,7 @@ Ext.define('EatSense.controller.Account', {
         		form.reset();
         		appHelper.toggleMask(false);
         		callback(true);
-        		me.fireEvent('userlogin', record);
+        		Ext.Viewport.fireEvent('userlogin', record);
         	},
         	failure: function(record, operation) {
         		appHelper.toggleMask(false);
@@ -557,7 +557,7 @@ Ext.define('EatSense.controller.Account', {
     		//reset fields
     		form.reset();
 
-    		me.fireEvent('userlogin', account);
+    		Ext.Viewport.fireEvent('userlogin', account);
 
     		if(loginCallback) {
     			loginCallback(true);

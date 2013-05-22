@@ -23,6 +23,12 @@ Ext.define('EatSense.model.Visit', {
 				dateFormat: 'time',
 				persist: false
 			},
+			{
+				name: 'geoLat'
+			},
+			{
+				name: 'geoLong'
+			}
 			// {
 			// 	name: 'visitDate',
 			// 	type: 'date',

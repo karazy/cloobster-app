@@ -1452,6 +1452,30 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Liste deiner Orte die du besuchen möchtest. Derzeit hast du dir keine Orte gemerkt.",
 			"EN" : "List of locations you want to visit. Currently you have not marked any location."
 		},
+		"tovisit.actionprompt" : {
+			"DE" :  "Neuen To-Visit Ort hinzufügen",
+			"EN" : "Add new to-visit location"
+		},
+		"tovisit.action.scan" : {
+			"DE" :  "Scan",
+			"EN" : "Scan"
+		},
+		"tovisit.action.manual" : {
+			"DE" :  "Manuell",
+			"EN" : "Manual"
+		},
+		"tovisit.formnew.locationname" : {
+			"DE" :  "Name",
+			"EN" : "Name"
+		},
+		"tovisit.formnew.comment" : {
+			"DE" :  "Bemerkung (optional)",
+			"EN" : "Comment (optional)"
+		},
+		"tovisit.formnew.locationname" : {
+			"DE" :  "Besuchszeitpunkt (optional)",
+			"EN" : "Visit date (optional)"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

@@ -48,6 +48,8 @@ Ext.define('EatSense.controller.History', {
       Ext.Viewport.on('userlogin', function(account) {
          this.loadVisits();
       }, this);
+
+      //ToDo clear list on logout
    },
    /**
    * Tap eventhandler for show places button.
@@ -264,29 +266,49 @@ Ext.define('EatSense.controller.History', {
    },
 
    //end history detail
-
+   /**
+   * Ask user if he wants to scan an existing cloobster lcoation or
+   * add location details manually.
+   * Requires a logged in user!
+   *
+   */
    promptForToVisitAction: function() {
-      Ext.Msg.show({
-         message: i10n.translate('tovisit.actionprompt'),
-         buttons: [{
-            text: i10n.translate('tovisit.action.scan'),
-            itemId: 'scan',
-            ui: 'action'
-         }, {
-            text:  i10n.translate('tovisit.action.manual'),
-            itemId: 'manual',
-            ui: 'action'
-         }],
-         scope: this,
-         fn: function(btnId, value, opt) {
-            if(btnId=='scan') {
-               //scan
-            } else {
-               //manual
-               this.showToVisitNewView();
-            }
+      var me = this;
+      
+      Ext.Viewport.fireEvent('accountrequired', prompt);
+
+      function prompt(success) {
+
+         if(success) {
+            Ext.Msg.show({
+               message: i10n.translate('tovisit.actionprompt'),
+               buttons: [
+               {
+                  text: i10n.translate('cancel'),
+                  itemId: 'cancel',
+                  ui: 'action'
+               },
+               {
+                  text: i10n.translate('tovisit.action.scan'),
+                  itemId: 'scan',
+                  ui: 'action'
+               }, {
+                  text:  i10n.translate('tovisit.action.manual'),
+                  itemId: 'manual',
+                  ui: 'action'
+               }],
+               scope: me,
+               fn: function(btnId, value, opt) {
+                  if(btnId=='scan') {
+                     //scan
+                  } else if(btnId == 'manual') {
+                     //manual
+                     me.showToVisitNewView();
+                  }
+               }
+            });
          }
-      });   
+      }    
    },
 
    showToVisitNewView: function() {
@@ -297,15 +319,22 @@ Ext.define('EatSense.controller.History', {
           backBt,
           createBt,
           values,
-          toVisit;
+          toVisit,
+          geoPos,
+          visitStore = Ext.StoreManager.lookup('visitStore');;
 
       Ext.Viewport.add(view);
       // lounge.getContainer().add(view);
       view.show();
 
+      //access position, async function
+      this.getCurrentPosition(processPosition);
+
       form = view.down('formpanel');
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
+
+      //TODO add android backFn
 
       backBt.on({
          tap: cleanup,
@@ -329,6 +358,11 @@ Ext.define('EatSense.controller.History', {
          //create
          toVisit = Ext.create('EatSense.model.Visit', values);
 
+         if(geoPos) {
+            toVisit.set('geoLong', geoPos.coords.longitude);
+            toVisit.set('geoLat', geoPos.coords.latitude);
+         }
+
          appHelper.toggleMask('save', view);
 
          toVisit.setId('');
@@ -338,9 +372,10 @@ Ext.define('EatSense.controller.History', {
 
          toVisit.save({
 
-            success: function(record, operation) {
+            success: function(record, operation) {               
                appHelper.toggleMask(false, view);
                cleanup();
+               visitStore.add(record);
             },
             failure: function(record, operation) {
                appHelper.toggleMask(false, view);
@@ -352,6 +387,14 @@ Ext.define('EatSense.controller.History', {
             scope: this
          });
 
+      }
+
+      function processPosition(success, position) {
+         if(success) {
+            geoPos = position;
+         } else {
+            //error, position contains error information
+         }
       }
 
       function cleanup() {
@@ -374,9 +417,43 @@ Ext.define('EatSense.controller.History', {
       var visitStore = Ext.StoreManager.lookup('visitStore');
 
       if(visitStore) {
-         visitStore.load();
+         visitStore.load(); 
       }
 
+   },
+
+   /**
+   * Get current coords. Async function.
+   * @see http://docs.phonegap.com/en/2.7.0/cordova_geolocation_geolocation.md.html#Geolocation
+   * @param {Function} callback
+   *  Called with true and position on success, false and error otherwise.
+   */
+   getCurrentPosition: function(callback) {
+
+      if(!appHelper.isFunction(callback)) {
+         console.error('History.getCurrentPosition: no callback provided');
+         return;
+      }
+
+      // onSuccess Callback
+      //   This method accepts a `Position` object, which contains
+      //   the current GPS coordinates
+      //
+      function onSuccess(position) {
+         callback(true, position);
+      }
+
+      // onError Callback receives a PositionError object
+      function onError(error) {         
+         callback(false, error);
+      }
+
+      if(navigator && navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(onSuccess, onError);   
+      } else {
+         console.error('History.getCurrentPosition: no navigator.geolocation exists');
+      }
+      
    }
 
 });
