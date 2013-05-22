@@ -339,9 +339,7 @@ Ext.define('EatSense.controller.History', {
       // datePicker = form.down('datepickerfield');
 
       // if(datePicker) {
-         //set here because in definition it gets ignored
-         // datePicker.setYearFrom(2013);
-         // datePicker.setCancelButton( i10n.translate('cancel'));   
+
       // }
 
       //TODO add android backFn

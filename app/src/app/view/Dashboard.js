@@ -58,7 +58,12 @@ Ext.define('EatSense.view.Dashboard', {
 		{
 			xtype: 'list',
 			store: 'visitStore',
-			itemTpl: '{locationName}',
+			itemTpl: new Ext.XTemplate('<strong>{locationName}</strong><br/>{[this.formatDate(values.visitDate)]}', {
+				formatDate: function(date) {
+					var format = appConstants.DateFormat[appConfig.language];
+					return Ext.util.Format.date(date, format);
+				}
+			}),
 			emptyText: i10n.translate('tovisit.list.emptytext'),
 			listeners: {
 				select: function(dv, ix, item, e) {

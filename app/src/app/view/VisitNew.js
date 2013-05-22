@@ -58,7 +58,8 @@ Ext.define('EatSense.view.VisitNew', {
 							yearFrom: 2013,
 					        yearTo: 2020,
 					        cancelButton: i10n.translate('cancel'),
-					        doneButton: i10n.translate('ok')
+					        doneButton: i10n.translate('ok'),
+					        value: new Date()
 					    }	
 					},
 					{
