@@ -1472,7 +1472,7 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Bemerkung (optional)",
 			"EN" : "Comment (optional)"
 		},
-		"tovisit.formnew.locationname" : {
+		"tovisit.formnew.visitdate" : {
 			"DE" :  "Besuchszeitpunkt (optional)",
 			"EN" : "Visit date (optional)"
 		},

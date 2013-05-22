@@ -50,7 +50,7 @@ Ext.define('EatSense.view.VisitNew', {
 					},
 					{
 						xtype: 'datepickerfield',
-						placeHolder: i10n.translate('tovisit.formnew.locationname'),
+						placeHolder: i10n.translate('tovisit.formnew.visitdate'),
 						name: 'visitDate'
 					}
 					// {

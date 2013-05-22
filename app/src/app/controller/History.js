@@ -363,6 +363,10 @@ Ext.define('EatSense.controller.History', {
             toVisit.set('geoLat', geoPos.coords.latitude);
          }
 
+         if(values.visitDate) {
+            toVisit.set('visitDate', values.visitDate.getTime());
+         }
+
          appHelper.toggleMask('save', view);
 
          toVisit.setId('');
