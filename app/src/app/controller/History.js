@@ -291,6 +291,7 @@ Ext.define('EatSense.controller.History', {
           form,
           backBt,
           createBt,
+          business,
           // datePicker,
           scanBt,
           gmap,
@@ -337,7 +338,7 @@ Ext.define('EatSense.controller.History', {
          values = form.getValues();
 
          //validate when manual creation
-         if(!business) {            
+         if(!business) {
 
             if(!values.locationName || values.locationName.trim().length == 0) {
                Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
@@ -358,6 +359,9 @@ Ext.define('EatSense.controller.History', {
          if(values.visitDate) {
             //FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
             toVisit.set('visitDate', values.visitDate.getTime());
+         } else {
+            //disable persistance when no date is set
+            toVisit.fields.getByKey('visitDate').setPersist(false);
          }
 
          appHelper.toggleMask('save', view);

@@ -1557,6 +1557,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "cloobster Location scannen?",
 			"EN" : "Scan cloobster location?"
 		},
+		"tovisit.form.locationname.required" : {
+			"DE" :  "Location Name wird benötigt.",
+			"EN" : "Location name is required."
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
