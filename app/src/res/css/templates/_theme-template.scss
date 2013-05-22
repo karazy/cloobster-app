@@ -1352,7 +1352,7 @@ h9 {
       width: 45px;
       height: 45px;
     }
-    
+
   .location {
     font-size: 1.1em;
     float: left;
@@ -1374,6 +1374,19 @@ h9 {
     .month {
       font-size: .8em;
     }
+  }
+
+  .cloobster-location {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: $active-color;
+    -webkit-mask-size: 20px;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-image: inline-image('../images/logo_hat_96_96.png');;
   }
 }
 

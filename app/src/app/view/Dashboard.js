@@ -63,7 +63,7 @@ Ext.define('EatSense.view.Dashboard', {
 			itemCls: 'tovisit-item',
 			itemTpl: new Ext.XTemplate(
 				"<table style='width:100%;'>",					
-					'<td align="left">',
+					'<td align="left" style="vertical-align: top;">',
 						'<tpl if="imageUrl">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
 						'</tpl>',
@@ -75,8 +75,11 @@ Ext.define('EatSense.view.Dashboard', {
 						'<td align="right">',
 							'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
 						'</td>',
-					'</tpl>',
-				'</table>'	
+					'</tpl>',					
+				'</table>',
+				'<tpl if="locationId">',
+					'<div class="cloobster-location"></div>',
+				'</tpl>'
 				// '<div class="location">{locationName}</div><tpl if="visitDate"><div class="date">{[this.formatDate(values.visitDate)]}</div></tpl>'
 				, {
 				formatDate: function(date) {

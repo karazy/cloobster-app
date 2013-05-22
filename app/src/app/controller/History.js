@@ -325,8 +325,8 @@ Ext.define('EatSense.controller.History', {
           toVisit,
           locationNameField,
           locationNameLabel,
-          geoPos,
-          visitStore = Ext.StoreManager.lookup('visitStore');;
+          geoPos;
+          // visitStore = Ext.StoreManager.lookup('visitStore');;
 
       Ext.Viewport.add(view);
       // lounge.getContainer().add(view);
@@ -383,9 +383,10 @@ Ext.define('EatSense.controller.History', {
       function createToVisit() {
          //TODO Validate
 
+         values = form.getValues();
+
          //validate when manual creation
-         if(!business) {
-            values = form.getValues();
+         if(!business) {            
 
             if(!values.locationName || values.locationName.trim().length == 0) {
                Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
@@ -415,7 +416,7 @@ Ext.define('EatSense.controller.History', {
             success: function(record, operation) {               
                appHelper.toggleMask(false, view);
                cleanup();
-               visitStore.add(record);
+               me.loadVisits();
             },
             failure: function(record, operation) {
                appHelper.toggleMask(false, view);
