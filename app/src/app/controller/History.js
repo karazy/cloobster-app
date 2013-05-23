@@ -288,7 +288,12 @@ Ext.define('EatSense.controller.History', {
       }    
    },
 
-   showToVisitNewView: function() {
+   /**
+   * Shows a to view to create a new to visit
+   * @param {EatSense.model.Visit} existingToVisit (optional)
+   *  If given, updates an exisiting toVisit instead of creating a new one.
+   */
+   showToVisitNewView: function(existingToVisit) {
       var me = this,
           lounge =  this.getMainView(),
           view = this.getToVisitNewView(),
@@ -296,11 +301,11 @@ Ext.define('EatSense.controller.History', {
           backBt,
           createBt,
           business,
-          // datePicker,
+          datePickerField,
           scanBt,
           gmap,
           values,
-          toVisit,
+          toVisit = existingToVisit || Ext.create('EatSense.model.Visit'),
           locationNameField,
           locationNameLabel,
           geoPos;          
@@ -316,11 +321,20 @@ Ext.define('EatSense.controller.History', {
       gmap = form.down('map');
       locationNameField = form.down('textfield[name=locationName]');
       locationNameLabel = form.down('#locationNameLabel');
-      // datePicker = form.down('datepickerfield');
-      //TODO add android backFn
+      commentField = form.down('textfield[name=comment]');
+      datePickerField = form.down('datepickerfield');
 
       this.getCurrentPosition(processPosition);
 
+
+      if(!toVisit.get('locationId')) {
+         //if this is not a cloobster location
+         scanBt.setHidden(false);
+      }
+
+      if(existingToVisit) {
+         setFormFields(existingToVisit);
+      }
 
       backBt.on({
          tap: cleanup,
@@ -328,7 +342,7 @@ Ext.define('EatSense.controller.History', {
       });
 
       createBt.on({
-         tap: createToVisit,
+         tap: saveOrUpdateToVisit,
          scope: this
       });
 
@@ -337,23 +351,28 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
-      function createToVisit() {
+      Ext.Viewport.fireEvent('addbackhandler', cleanup);
+
+      function saveOrUpdateToVisit() {
          values = form.getValues();
 
-         //validate when manual creation
-         if(!business) {
+         //validate when manual creation and not updating existing checkin
+         // if(!business && !existingToVisit) {
 
-            if(!values.locationName || values.locationName.trim().length == 0) {
-               Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
-               return;
-            }
+            
 
-             toVisit = Ext.create('EatSense.model.Visit', values);
+         //     toVisit = Ext.create('EatSense.model.Visit', values);
 
+         // }
+
+         if(!values.locationName || values.locationName.trim().length == 0) {
+            Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
+            return;
          }
 
-         toVisit.setId('');
-
+         toVisit.set('locationName', values.locationName);
+         toVisit.set('comment', values.comment);
+         
          if(geoPos) {
             toVisit.set('geoLong', geoPos.coords.longitude);
             toVisit.set('geoLat', geoPos.coords.latitude);
@@ -374,6 +393,7 @@ Ext.define('EatSense.controller.History', {
             success: function(record, operation) {               
                appHelper.toggleMask(false, view);
                cleanup();
+               //refresh to visits
                me.loadVisits();
             },
             failure: function(record, operation) {
@@ -409,15 +429,32 @@ Ext.define('EatSense.controller.History', {
             }
             toVisit.set('locationId', business.id);
 
+            setFormFields(record);            
+         }
+
+         appHelper.toggleMask(false, view);
+      }
+
+      //set fields based on given record
+      function setFormFields(record) {
+         //cloobster location, disable name field
+         if(record.get('locationId')) {
             locationNameField.setHidden(true);
             locationNameField.setDisabled(true);
             locationNameLabel.setHidden(false);
             locationNameLabel.setHtml(toVisit.get('locationName'));
             gmap.setHidden(true);
             geoPos = null;
+         } else {
+            processPosition(true, { coords : { 
+               latitude : record.get('geoLat'),
+               longitude : record.get('geoLong')
+            }});
          }
-
-         appHelper.toggleMask(false, view);
+         
+         locationNameField.setValue(toVisit.get('locationName'));
+         commentField.setValue(record.get('comment'));
+         datePickerField.setValue(record.get('visitDate'));
       }
 
       function processPosition(success, position) {
@@ -444,7 +481,7 @@ Ext.define('EatSense.controller.History', {
          });  
 
          createBt.un({
-            tap: createToVisit,
+            tap: saveOrUpdateToVisit,
             scope: this
          });
 
@@ -452,6 +489,8 @@ Ext.define('EatSense.controller.History', {
             tap: scanBtTap,
             scope: this
          });  
+
+         Ext.Viewport.fireEvent('removebackhandler', cleanup);
 
          view.destroy();    
       }
@@ -593,6 +632,11 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
+      editBt.on({
+         tap: doEdit,
+         scope: this
+      });
+
       cloobsterArea.on({
          hide: cleanup,
          scope: this
@@ -641,7 +685,10 @@ Ext.define('EatSense.controller.History', {
                Ext.Viewport.fireEvent('checkinwithspot', spot);
             }
           });
+      }
 
+      function doEdit() {
+         this.showToVisitNewView(record);
       }
 
       function cleanup() {
@@ -662,6 +709,11 @@ Ext.define('EatSense.controller.History', {
 
          cloobsterArea.un({
             hide: cleanup,
+            scope: this
+         });
+
+         editBt.un({
+            tap: doEdit,
             scope: this
          });
 

@@ -36,7 +36,7 @@ Ext.define('EatSense.view.VisitDetail', {
 						action: 'delete',
 					    iconCls: 'trash',
 					    iconMask: true,
-					    text: i10n.translate('delete'),
+					    // text: i10n.translate('delete'),
 					    ui: 'action',
 					    margin: '0 5 0 5',
 					    flex: 1
@@ -47,7 +47,7 @@ Ext.define('EatSense.view.VisitDetail', {
 						iconCls: 'compose',
 						// iconAlign: 'right',
 					    iconMask: true,
-					    text: i10n.translate('edit'),
+					    // text: i10n.translate('edit'),
 					    ui: 'action',
 					    margin: '0 5 0 5',
 					    flex: 1
@@ -58,7 +58,7 @@ Ext.define('EatSense.view.VisitDetail', {
 						iconCls: 'action',
 						// iconAlign: 'right',
 					    iconMask: true,
-					    text: i10n.translate('checkInButton'),
+					    // text: i10n.translate('checkInButton'),
 					    ui: 'action',
 					    margin: '0 5 0 5',
 					    flex: 1,

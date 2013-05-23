@@ -42,7 +42,8 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'fixedbutton',
 						text: i10n.translate('tovisit.scanbutton'),
 						ui: 'action',
-						action: 'scan'
+						action: 'scan',
+						hidden: true
 					},
 					{
 						xtype: 'label',
@@ -81,7 +82,8 @@ Ext.define('EatSense.view.VisitNew', {
 							draggable: false,
 							disableDefaultUI: true
 						},
-						flex: 1
+						height: '300px'
+						// flex: 1
 					}
 				]	
 			}

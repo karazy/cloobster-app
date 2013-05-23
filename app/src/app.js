@@ -43,6 +43,7 @@ Ext.application({
     'EatSense.util.Translations',
     'EatSense.util.Channel',
     'EatSense.util.EventBus',
+    'EatSense.util.None',
 		//require custom types
 		'EatSense.override.CustomRestProxy',
 		// 'EatSense.override.OperationImprovement',

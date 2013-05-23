@@ -1,6 +1,9 @@
 Ext.define('EatSense.model.Visit', {
 	extend: 'Ext.data.Model',
 	config: {
+		identifier: {
+			type: 'none'
+		},
 		fields: [
 			{
 				name: 'id'	
