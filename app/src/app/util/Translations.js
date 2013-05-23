@@ -1550,8 +1550,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Manual"
 		},
 		"tovisit.formnew.locationname" : {
-			"DE" :  "Name",
-			"EN" : "Name"
+			"DE" :  "Locationname",
+			"EN" : "Location name"
 		},
 		"tovisit.formnew.comment" : {
 			"DE" :  "Bemerkung (optional)",

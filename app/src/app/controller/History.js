@@ -327,6 +327,7 @@ Ext.define('EatSense.controller.History', {
       datePickerField = form.down('datepickerfield');
       clearDateBt = form.down('button[action=delete-visitdate]');
 
+      appHelper.toggleMask('loadingMsg', gmap);
       this.getCurrentPosition(processPosition);
 
 
@@ -437,6 +438,8 @@ Ext.define('EatSense.controller.History', {
       }
 
       function scanCallback(success, record) {
+         appHelper.toggleMask(false, view);
+
          if(success) {
             business = record;
             //scanned cloobster location, prefill fields
@@ -448,9 +451,9 @@ Ext.define('EatSense.controller.History', {
             toVisit.set('locationId', business.id);
 
             setFormFields(record);            
-         }
-
-         appHelper.toggleMask(false, view);
+         } else {
+            Ext.Msg.alert('', i10n.translate('checkInErrorBarcode'));
+         }         
       }
 
       //set fields based on given record
@@ -476,6 +479,7 @@ Ext.define('EatSense.controller.History', {
       }
 
       function processPosition(success, position) {
+         appHelper.toggleMask(false, gmap);
          if(success) {
             geoPos = position;
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
@@ -607,6 +611,8 @@ Ext.define('EatSense.controller.History', {
             //if 0 no business found if more then one there is an backend error
             if(business.length == 1) { 
                callback(true, business[0]);  
+            } else {
+               callback(false);
             }
            },
            failure: function(response) {
