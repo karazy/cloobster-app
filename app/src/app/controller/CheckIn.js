@@ -42,6 +42,12 @@ Ext.define('EatSense.controller.CheckIn', {
      * @param {EatSense.model.CheckIn} the new checkin.
      */
 
+     /**
+     * @event checkinwithspot
+     * Fires on Ext.Viewport. Indicates that a checkin should be made with given spot.
+     * @param {EatSense.model.Spot} spot to use for checkin
+     */
+
 
     requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message', 'EatSense.view.SpotSelection'],
     config: {
@@ -120,7 +126,8 @@ Ext.define('EatSense.controller.CheckIn', {
     },
     init: function() {
     	var messageCtr = this.getApplication().getController('Message'),
-          loungeCtr = this.getApplication().getController('Lounge');
+          loungeCtr = this.getApplication().getController('Lounge'),
+          device;
     	
       //register event handlers
     	this.on({
@@ -136,6 +143,15 @@ Ext.define('EatSense.controller.CheckIn', {
       loungeCtr.on('areaswitched', function(area) {
         this.setActiveArea(area);
       }, this);
+
+      Ext.Viewport.on({
+        'checkinwithspot': function(spot) {
+          this.setActiveSpot(spot);
+          this.setActiveArea(spot.get('areaId'));
+          this.checkInConfirm({model:spot, deviceId : appHelper.getDevice()});
+        },
+        scope: this
+      });
     },
     /**
     * Activated event handler for cloobster area
@@ -608,7 +624,7 @@ Ext.define('EatSense.controller.CheckIn', {
   loadBusiness: function() {
     var me = this,
         spot = this.getActiveSpot(),
-        business;
+        busines
 
     if(!spot) {
       console.log('CheckIn.loadBusiness > no active spot! Load business failed.');

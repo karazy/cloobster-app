@@ -583,6 +583,11 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
+      checkInBt.on({
+         tap: doCheckIn,
+         scope: this
+      });
+
       deleteBt.on({
          tap: doDelete,
          scope: this
@@ -627,9 +632,26 @@ Ext.define('EatSense.controller.History', {
          });            
       }
 
+      function doCheckIn() {
+         appHelper.toggleMask('loadingMsg' ,detailView);
+          this.loadWelcomeSpotOfBusiness(record.get('locationId'), function(success, spot) {
+            appHelper.toggleMask(false, detailView);
+            if(success && spot) {
+               cleanup();
+               Ext.Viewport.fireEvent('checkinwithspot', spot);
+            }
+          });
+
+      }
+
       function cleanup() {
          backBt.un({
             tap: cleanup,
+            scope: this
+         });
+
+         checkInBt.un({
+            tap: doCheckIn,
             scope: this
          });
 
@@ -678,7 +700,52 @@ Ext.define('EatSense.controller.History', {
           callback(false);
         }
       });
+   },
 
-   }
+ /**
+  * Load welcome spot of given business.
+  * @param {String} businessId
+  *   id of business
+  * @param {Function} callback
+  *   Passed true|false depending on success and spot.
+  *
+  */
+  loadWelcomeSpotOfBusiness: function(businessId, callback) {
+    var me = this,
+        spot,
+        spotModel;
+
+      if(!businessId || businessId.length == 0) {
+         console.error('History.deleteToVisit: no toVisit given');
+        return;
+      } 
+
+      Ext.Ajax.request({
+        url: appConfig.serviceUrl + '/spots/welcome/',
+        method: 'GET',
+        params: {
+          'locationId' : businessId
+        },
+        success: function(response) {
+         //array
+         spot = Ext.JSON.decode(response.responseText);
+         if(Ext.isArray(spot)) {
+            spot = spot[0];
+         }
+
+         spotModel = Ext.create('EatSense.model.Spot', spot);
+
+         callback(true, spotModel);  
+
+        },
+        failure: function(response) {
+         callback(false);
+          me.getApplication().handleServerError({
+            'error': response
+          });
+        },
+        scope: me
+      });
+  },
 
 });

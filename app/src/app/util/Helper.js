@@ -209,6 +209,14 @@ Ext.define('EatSense.util.Helper', {
 			}
 		};
 	},
+	/**
+	* Returns device. e.g. iOS, Android, desktop
+	*/
+	getDevice: function() {
+		var device;
+
+		return (device) ? device.platform : 'desktop';
+	},
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj
