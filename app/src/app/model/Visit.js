@@ -37,10 +37,10 @@ Ext.define('EatSense.model.Visit', {
 				type: 'date',
 				dateFormat: 'time'
 			},
-			// {
-			// 	name: 'locaitonName',
-			// 	type: 'string'
-			// },
+			{
+				name: 'locationCity',
+				type: 'string'
+			},
 			{
 				name: 'imageUrl',
 				type: 'string'

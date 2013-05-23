@@ -472,7 +472,33 @@ Ext.define('EatSense.controller.History', {
          if(success) {
             geoPos = position;
 
+            // Ext.Ajax.request({
+            //    url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+geoPos.coords.latitude+','+geoPos.coords.longitude+'&sensor=true',
+            //    method: 'GET',
+            //    disableCaching: false,
+            //   success: function(response) {
+            //    console.log(response.responseText);
+            //   },
+            //    scope: this
+            // });
+           
+
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
+
+             geocoder = new google.maps.Geocoder();
+           geocoder.geocode( { 'location': myLatlng}, function(results, status) {              
+             if (status == google.maps.GeocoderStatus.OK) {
+               // myLatlng = results[0].geometry.location;
+               // myLatlng = new google.maps.LatLng(50.935420, 6.965394);
+               // me.setCoords(results[0].geometry.location);
+               var city = results[2].address_components[0].long_name;
+               toVisit.set('locationCity', city);
+
+             } else {
+               console.log('History: Geocode was not successful for the following reason ' + status);
+             }
+           });
+
             gmap.getMap().setZoom(14);
             gmap.getMap().setCenter(myLatlng);            
 
@@ -480,6 +506,7 @@ Ext.define('EatSense.controller.History', {
                   map: gmap.getMap(),
                   position: myLatlng
                });   
+
          } else {
             //error, position contains error information
          }
