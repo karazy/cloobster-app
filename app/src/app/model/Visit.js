@@ -44,7 +44,7 @@ Ext.define('EatSense.model.Visit', {
 			{
 				name: 'imageUrl',
 				type: 'string'
-			},
+			}
 			// {
 			// 	name: 'refId',
 			// 	type: 'string'

@@ -8,7 +8,7 @@ Ext.define('EatSense.view.Dashboard', {
 	requires: ['Ext.Img'],
 	config : {
 		layout: {
-				type: 'fit',
+				type: 'fit'
 		},
 		padding: '25 8 30',
 		cls: 'dashboard',		
@@ -23,7 +23,7 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype: 'panel',
 			layout: {
 				type: 'hbox',
-				align: 'start',
+				align: 'start'
 				// pack: 'center',
 			},
 			docked: 'top',
@@ -82,22 +82,23 @@ Ext.define('EatSense.view.Dashboard', {
 					'</td>',
 					'<tpl if="visitDate">',
 						'<td align="right">',
-							'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
+							'{[this.formatDate(values.visitDate)]}',
 						'</td>',
 					'</tpl>',					
 				'</table>',
 				'<tpl if="locationId">',
 					'<div class="cloobster-location"></div>',
 				'</tpl>'
-				// '<div class="location">{locationName}</div><tpl if="visitDate"><div class="date">{[this.formatDate(values.visitDate)]}</div></tpl>'
 				, {
 				formatDate: function(date) {
 					var format = appConstants.DateFormat[appConfig.language],
+						staleDate = (date < new Date()) ? ' stale' : '',
 						html;
 
-					html = '<div class="day">' + date.getDate() + '</div>'+
+					html =  '<div class="date' + staleDate +'">' +
+							'<div class="day">' + date.getDate() + '</div>'+
 							'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
-							'<div class="mmyy">' + date.getFullYear() + '</div>';
+							'<div class="mmyy">' + date.getFullYear() + '</div></div>';
 					return html;
 					// return Ext.util.Format.date(date, format);
 				}

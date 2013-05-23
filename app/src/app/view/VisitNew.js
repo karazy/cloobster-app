@@ -61,19 +61,37 @@ Ext.define('EatSense.view.VisitNew', {
 						name: 'comment'
 					},
 					{
-						xtype: 'datepickerfield',
-						placeHolder: i10n.translate('tovisit.formnew.visitdate'),
-						name: 'visitDate',
-						dateFormat: appConstants.DateFormat[appConfig.language],
-						destroyPickerOnHide: true,
-						picker: {
-							yearFrom: 2013,
-					        yearTo: 2020,
-					        cancelButton: i10n.translate('cancel'),
-					        doneButton: i10n.translate('ok'),
-					        value: new Date()
-					    }	
-					},
+						xtype: 'panel',
+						layout: {
+							type: 'hbox',
+							align: 'center'
+						},
+						margin: '0 0 5 0',
+						items: [
+							{
+								xtype: 'datepickerfield',
+								placeHolder: i10n.translate('tovisit.formnew.visitdate'),
+								name: 'visitDate',
+								dateFormat: appConstants.DateFormat[appConfig.language],
+								destroyPickerOnHide: true,
+								picker: {
+									yearFrom: 2013,
+							        yearTo: 2020,
+							        cancelButton: i10n.translate('cancel'),
+							        doneButton: i10n.translate('ok'),
+							        value: new Date()
+							    },
+							    flex: 1
+							},
+							{
+								xtype: 'fixedbutton',
+								iconCls: 'delete',
+								iconMask: true,
+								ui: 'action',
+								action: 'delete-visitdate'
+							}
+						]
+					},					
 					{
 						xtype: 'map',
 						//retrieve location via phonegap

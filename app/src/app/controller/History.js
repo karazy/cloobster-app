@@ -304,6 +304,7 @@ Ext.define('EatSense.controller.History', {
           business,
           datePickerField,
           scanBt,
+          clearDateBt,
           gmap,
           values,
           toVisit = existingToVisit || Ext.create('EatSense.model.Visit'),
@@ -324,6 +325,7 @@ Ext.define('EatSense.controller.History', {
       locationNameLabel = form.down('#locationNameLabel');
       commentField = form.down('textfield[name=comment]');
       datePickerField = form.down('datepickerfield');
+      clearDateBt = form.down('button[action=delete-visitdate]');
 
       this.getCurrentPosition(processPosition);
 
@@ -349,6 +351,11 @@ Ext.define('EatSense.controller.History', {
 
       scanBt.on({
          tap: scanBtTap,
+         scope: this
+      });
+
+      clearDateBt.on({
+         tap: clearDateBtTap,
          scope: this
       });
 
@@ -471,26 +478,12 @@ Ext.define('EatSense.controller.History', {
       function processPosition(success, position) {
          if(success) {
             geoPos = position;
-
-            // Ext.Ajax.request({
-            //    url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+geoPos.coords.latitude+','+geoPos.coords.longitude+'&sensor=true',
-            //    method: 'GET',
-            //    disableCaching: false,
-            //   success: function(response) {
-            //    console.log(response.responseText);
-            //   },
-            //    scope: this
-            // });
-           
-
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
 
              geocoder = new google.maps.Geocoder();
            geocoder.geocode( { 'location': myLatlng}, function(results, status) {              
              if (status == google.maps.GeocoderStatus.OK) {
-               // myLatlng = results[0].geometry.location;
-               // myLatlng = new google.maps.LatLng(50.935420, 6.965394);
-               // me.setCoords(results[0].geometry.location);
+               //TODO implement a more stable version by checking types field and null value checks
                var city = results[2].address_components[0].long_name;
                toVisit.set('locationCity', city);
 
@@ -512,6 +505,10 @@ Ext.define('EatSense.controller.History', {
          }
       }
 
+      function clearDateBtTap() {
+         datePickerField.setValue('');
+      }
+
       function cleanup() {
          backBt.un({
             tap: backBtTap,
@@ -527,6 +524,11 @@ Ext.define('EatSense.controller.History', {
             tap: scanBtTap,
             scope: this
          });  
+
+         clearDateBt.un({
+            tap: clearDateBtTap,
+            scope: this
+         });
 
          Ext.Viewport.fireEvent('removebackhandler', cleanup);
 

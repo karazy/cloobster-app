@@ -1389,6 +1389,10 @@ h9 {
     }
   }
 
+  .date.stale {
+    color: lightgray !important;
+  }
+
   .cloobster-location {
     position: absolute;
     top: 5px;
