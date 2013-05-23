@@ -292,8 +292,9 @@ Ext.define('EatSense.controller.History', {
    * Shows a to view to create a new to visit
    * @param {EatSense.model.Visit} existingToVisit (optional)
    *  If given, updates an exisiting toVisit instead of creating a new one.
+   * @param {Funcion} callback (optional)
    */
-   showToVisitNewView: function(existingToVisit) {
+   showToVisitNewView: function(existingToVisit, callback) {
       var me = this,
           lounge =  this.getMainView(),
           view = this.getToVisitNewView(),
@@ -337,7 +338,7 @@ Ext.define('EatSense.controller.History', {
       }
 
       backBt.on({
-         tap: cleanup,
+         tap: backBtTap,
          scope: this
       });
 
@@ -395,6 +396,9 @@ Ext.define('EatSense.controller.History', {
                cleanup();
                //refresh to visits
                me.loadVisits();
+               if(appHelper.isFunction(callback)) {
+                  callback(true, record);
+               }
             },
             failure: function(record, operation) {
                appHelper.toggleMask(false, view);
@@ -405,6 +409,13 @@ Ext.define('EatSense.controller.History', {
             },
             scope: this
          });
+      }
+
+      function backBtTap() {
+         cleanup();
+         if(appHelper.isFunction(callback)) {
+                  callback(false);
+         }
       }
 
       function scanBtTap() {
@@ -476,7 +487,7 @@ Ext.define('EatSense.controller.History', {
 
       function cleanup() {
          backBt.un({
-            tap: cleanup,
+            tap: backBtTap,
             scope: this
          });  
 
@@ -642,8 +653,12 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
-      //display content
-      content.getTpl().overwrite(content.element, record.getData());
+      renderContent();
+
+      function renderContent() {
+         //display content
+         content.getTpl().overwrite(content.element, record.getData());
+      }
 
       function doDelete() {
          Ext.Msg.show({
@@ -688,7 +703,11 @@ Ext.define('EatSense.controller.History', {
       }
 
       function doEdit() {
-         this.showToVisitNewView(record);
+         this.showToVisitNewView(record, function(saved, record) {
+            if(saved) {
+               renderContent();   
+            }            
+         });
       }
 
       function cleanup() {

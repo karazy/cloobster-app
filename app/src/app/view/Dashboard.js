@@ -87,7 +87,7 @@ Ext.define('EatSense.view.Dashboard', {
 					var format = appConstants.DateFormat[appConfig.language],
 						html;
 
-					html = '<div class="day">' + date.getDay() + '</div>'+
+					html = '<div class="day">' + date.getDate() + '</div>'+
 							'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
 							'<div class="mmyy">' + date.getFullYear() + '</div>';
 					return html;

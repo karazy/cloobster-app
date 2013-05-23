@@ -77,16 +77,20 @@ Ext.define('EatSense.view.VisitDetail', {
 					'<div>',
 						'{comment}',
 					'</div>',
+					'<tpl if="visitDate">',
+						'<td align="right">',
+							'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
+						'</td>',
+					'</tpl>',
 					{
 						formatDate: function(date) {
 							var format = appConstants.DateFormat[appConfig.language],
 								html;
 
-							html = '<div class="day">' + date.getDay() + '</div>'+
+							html = '<div class="day">' + date.getDate() + '</div>'+
 									'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
 									'<div class="mmyy">' + date.getFullYear() + '</div>';
 							return html;
-							// return Ext.util.Format.date(date, format);
 						}
 					}
 				)
