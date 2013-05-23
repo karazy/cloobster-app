@@ -9,7 +9,7 @@ Ext.define('EatSense.view.VisitNew', {
 		layout: {
 			type: 'fit'
 		},
-		//make login panel stay on top!
+		//make panel stay on top!
 		style: 'z-index: 5;',
 		items: [
 			{
@@ -83,33 +83,6 @@ Ext.define('EatSense.view.VisitNew', {
 						},
 						flex: 1
 					}
-					// {
-					// 	xtype: 'panel',
-					// 	layout: {
-					// 		type: 'hbox'
-					// 	},
-					// 	items: [
-					// 		{
-					// 			xtype: 'textfield',
-					// 			placeHolder: i10n.translate('visit.formnew.visitdate'),
-					// 			disabled: true,
-					// 			flex: 2
-					// 		},
-					// 		{
-					// 			xtype: 'fixedbutton',
-					// 			iconCls: 'action',
-					// 			iconMask: true,
-					// 			flex: 1
-					// 		}
-					// 	]
-					// // },
-					// {
-					// 	xtype: 'label',
-					// 	// item
-					// },
-					// {
-					// 	xtype: 'fixedbutton'
-					// }
 				]	
 			}
 

@@ -163,6 +163,18 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"delete" : {
+			"DE" :  "Löschen",
+			"EN" : "Delete",
+			"ES" : "",
+			"IT" : ""
+		},
+		"edit" : {
+			"DE" :  "Bearbeiten",
+			"EN" : "Edit",
+			"ES" : "",
+			"IT" : ""
+		},
 		//month
 		"month.0" : {
 			"DE" :  "Januar",
@@ -1560,6 +1572,10 @@ Ext.define('EatSense.util.Translations',{
 		"tovisit.form.locationname.required" : {
 			"DE" :  "Location Name wird benötigt.",
 			"EN" : "Location name is required."
+		},
+		"tovisit.detail.title" : {
+			"DE" :  "To-Visit",
+			"EN" : "To-Visit"
 		},
 		//errors
 		"error" : {

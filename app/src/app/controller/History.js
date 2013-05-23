@@ -1,21 +1,22 @@
 /**
-* Controller handles user history of visited locations.
+* Controller handles ToVisit and old CheckIns.
 * 
 */
 Ext.define('EatSense.controller.History', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.view.History', 'EatSense.view.VisitNew'],
-
+	requires: ['EatSense.view.History', 'EatSense.view.VisitNew', 'EatSense.view.VisitDetail'],
 	config: {
 		refs: {
 			mainView : 'lounge',
          placesOverview: 'placesoverview',
+         cloobsterArea: 'cloobsterarea',
 			dashboard : 'lounge dashboard',
 			historyView : 'lounge history',
 			historyList : 'lounge history list',
 			backDetailButton : 'historydetail button[action=back]',
 			// showHistoryButton: 'dashboard button[action=history]',
          toVisitButton: 'dashboard button[action=tovisit]',
+         toVisitList: 'dashboard list',
 			historyDetailView: 'lounge historydetail',
 			historyDetailOrderList : 'historydetail #historyOrders',
          toVisitNewView: {
@@ -30,6 +31,9 @@ Ext.define('EatSense.controller.History', {
 			// },
          toVisitButton: {
             tap: 'checkForToVisitAction'
+         },
+         toVisitList: {
+            select: 'showToVisitDetail'
          },
 			backDetailButton: {
 				tap: 'backToHistory'
@@ -299,8 +303,7 @@ Ext.define('EatSense.controller.History', {
           toVisit,
           locationNameField,
           locationNameLabel,
-          geoPos;
-          // visitStore = Ext.StoreManager.lookup('visitStore');;
+          geoPos;          
 
       Ext.Viewport.add(view);
       // lounge.getContainer().add(view);
@@ -536,6 +539,146 @@ Ext.define('EatSense.controller.History', {
            scope: me
          });
       }
+   },
+
+   showToVisitDetail: function(dataview, record) {
+      var me = this,
+          cloobsterArea = this.getCloobsterArea(),
+          detailView,
+          backBt,
+          editBt,
+          deleteBt,
+          checkInBt,
+          content,
+          visitStore = Ext.StoreManager.lookup('visitStore'),
+          gmap;
+
+      if(!cloobsterArea) {
+         console.error('History.showToVisitDetail: cloobsterArea does not exist');
+         return;
+      }
+
+      //20130523 add the view dynamically and destroy it afterwards instead of placing it in the card container.
+      //New approach to keep the DOM smaller.
+      detailView = Ext.create('EatSense.view.VisitDetail');
+
+      cloobsterArea.add(detailView);
+      cloobsterArea.switchTo(detailView);
+
+      backBt = detailView.down('backbutton');
+      editBt = detailView.down('button[action=edit]');
+      deleteBt = detailView.down('button[action=delete]');
+      checkInBt = detailView.down('button[action=checkin]');
+      content = detailView.down('#content');
+      gmap = detailView.down('map'); 
+
+      if(record.get('locationId')) {
+         //this is cloobster location, show checkIn Button
+         checkInBt.setHidden(false);
+      }
+
+      //wire up events
+      backBt.on({
+         tap: cleanup,
+         scope: this
+      });
+
+      deleteBt.on({
+         tap: doDelete,
+         scope: this
+      });
+
+      cloobsterArea.on({
+         hide: cleanup,
+         scope: this
+      });
+
+      //display content
+      content.getTpl().overwrite(content.element, record.getData());
+
+      function doDelete() {
+         Ext.Msg.show({
+            message: i10n.translate('tovisit.prompt.delete'),
+            buttons: [{
+               text: i10n.translate('yes'),
+               itemId: 'yes',
+               ui: 'action'
+            }, {
+               text:  i10n.translate('no'),
+               itemId: 'no',
+               ui: 'action'
+            }],
+            scope: this,
+            fn: function(btnId, value, opt) {
+            if(btnId=='yes') {
+                  this.deleteToVisit(record, function(success) {
+                  if(success) {
+                     cleanup();
+                     visitStore.remove(record);
+                  } else {
+
+                  }
+               });
+                  //directly jump back or wait for callback?
+                  // cleanup();
+                  // visitStore.remove(record);
+               }
+            }
+         });            
+      }
+
+      function cleanup() {
+         backBt.un({
+            tap: cleanup,
+            scope: this
+         });
+
+         deleteBt.un({
+            tap: doDelete,
+            scope: this
+         });
+
+         cloobsterArea.un({
+            hide: cleanup,
+            scope: this
+         });
+
+         cloobsterArea.switchTo(0);
+         cloobsterArea.remove(detailView);
+         detailView.destroy();
+      }
+   },
+
+   /**
+   * Deletes a to visit.
+   * @param {EatSense.model.Visit} toVisit
+   *  Visit to delete
+   * @param {Function} callback
+   *     Passed true or false, based on successful operation.
+   */
+   deleteToVisit: function(toVisit, callback) {
+
+      if(!toVisit) {
+         console.error('History.deleteToVisit: no toVisit given');
+         return;
+      }
+
+      //TODO Bug from sencha with nullpointer in writer class
+      toVisit.set('visitDate', new Date());
+
+      toVisit.erase({
+        success: function() {
+          callback(true);
+        },
+        failure: function(response, operation) {
+          me.getApplication().handleServerError({
+            'error': operation.error,
+            'forceLogout': {403: true}
+          });
+          callback(false);
+        }
+      });
+
    }
 
 });

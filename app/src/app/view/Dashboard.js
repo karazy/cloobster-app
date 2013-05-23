@@ -60,6 +60,7 @@ Ext.define('EatSense.view.Dashboard', {
 			store: 'visitStore',
 			emptyText: i10n.translate('tovisit.list.emptytext'),
 			deferEmptyText: false,
+			// grouped: true,
 			itemCls: 'tovisit-item',
 			itemTpl: new Ext.XTemplate(
 				"<table style='width:100%;'>",					
