@@ -9,6 +9,7 @@ Ext.define('EatSense.view.VisitDetail', {
 		layout: {
 			type: 'vbox'
 		},
+		scrollable: 'vertical',
 		items: [
 			{
 				xtype: 'titlebar',
@@ -96,7 +97,9 @@ Ext.define('EatSense.view.VisitDetail', {
 					draggable: false,
 					disableDefaultUI: true
 				},
-				flex: 1
+				margin: '5 12',
+				// width: '100%',
+				height: '300px'
 			}
 
 
