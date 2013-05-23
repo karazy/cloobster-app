@@ -464,10 +464,11 @@ Ext.define('EatSense.controller.History', {
             locationNameField.setDisabled(true);
             locationNameLabel.setHidden(false);
             locationNameLabel.setHtml(toVisit.get('locationName'));
+            //TODO get coords from cloobster location
             gmap.setHidden(true);
             geoPos = null;
          } else {
-            processPosition(true, { coords : { 
+            processPosition(true, { coords : {
                latitude : record.get('geoLat'),
                longitude : record.get('geoLong')
             }});
@@ -482,18 +483,28 @@ Ext.define('EatSense.controller.History', {
          appHelper.toggleMask(false, gmap);
          if(success) {
             geoPos = position;
-            var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
+            var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude),
+                _typeArr = [],
+                city;
 
-             geocoder = new google.maps.Geocoder();
-           geocoder.geocode( { 'location': myLatlng}, function(results, status) {              
-             if (status == google.maps.GeocoderStatus.OK) {
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode( { 'location': myLatlng}, function(results, status) {              
+            if (status == google.maps.GeocoderStatus.OK) {
                //TODO implement a more stable version by checking types field and null value checks
-               var city = results[2].address_components[0].long_name;
-               toVisit.set('locationCity', city);
-
-             } else {
+               Ext.Array.each(results, function(result) {
+                  if(!Ext.isArray(result.types)) {
+                     _typeArr[0] = types;
+                  }
+                  Ext.Array.each(_typeArr, function(type) {
+                     if(type == 'locality') {
+                        city = result.address_components[0].long_name;
+                        toVisit.set('locationCity', city);
+                     }
+                  });
+               });
+            } else {
                console.log('History: Geocode was not successful for the following reason ' + status);
-             }
+            }
            });
 
             gmap.getMap().setZoom(14);
@@ -505,7 +516,10 @@ Ext.define('EatSense.controller.History', {
                });   
 
          } else {
-            //error, position contains error information
+            //error, position may contain error information
+            gmap.setHidden(true);
+            geoPos = null;
+            Ext.Msg.alert('', i10n.translate('error.gps.position'));
          }
       }
 
@@ -582,6 +596,7 @@ Ext.define('EatSense.controller.History', {
       if(navigator && navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(onSuccess, onError);   
       } else {
+         callback(false);
          console.error('History.getCurrentPosition: no navigator.geolocation exists');
       }      
    },

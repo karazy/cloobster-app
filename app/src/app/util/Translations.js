@@ -1698,6 +1698,12 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : ""
 		},
+		"error.gps.position" : {
+			"DE" :  "Position kann nicht bestimmt werden.",
+			"EN" : "Can't locate your position.",
+			"ES" : "",
+			"IT" : ""
+		},
 		//system
 		"network.slow" : {
 			"DE" :  "Die Verbindung ist langsam. Dies kann die Anwendung verlangsamen.",
