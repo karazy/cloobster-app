@@ -50,7 +50,9 @@ Ext.define('EatSense.controller.History', {
    launch: function() {
 
       Ext.Viewport.on('userlogin', function(account) {
-         this.loadVisits();
+         Ext.create('Ext.util.DelayedTask', function () {
+               this.loadVisits();
+         }, this).delay(300);             
       }, this);
 
       //ToDo clear list on logout
@@ -490,6 +492,7 @@ Ext.define('EatSense.controller.History', {
             gmap.setHidden(true);
             geoPos = null;
          } else {
+            //TODO map does not exist in this moment, FIX
             processPosition(true, { coords : {
                latitude : record.get('geoLat'),
                longitude : record.get('geoLong')
