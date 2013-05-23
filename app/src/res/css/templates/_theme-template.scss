@@ -1351,12 +1351,14 @@ h9 {
       background-repeat: no-repeat;
       width: 45px;
       height: 45px;
+      margin-right: 5px;
     }
 
   .location {
     font-size: 1.1em;
-    float: left;
     vertical-align: top;
+    line-height: 1.1em;
+    word-break: break-word;
   }
 
   .date {

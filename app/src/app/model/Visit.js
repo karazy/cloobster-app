@@ -41,10 +41,10 @@ Ext.define('EatSense.model.Visit', {
 			// 	name: 'locaitonName',
 			// 	type: 'string'
 			// },
-			// {
-			// 	name: 'imageUrl',
-			// 	type: 'string'
-			// },
+			{
+				name: 'imageUrl',
+				type: 'string'
+			},
 			// {
 			// 	name: 'refId',
 			// 	type: 'string'
