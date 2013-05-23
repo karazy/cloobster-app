@@ -91,18 +91,30 @@ Ext.define('EatSense.view.VisitNew', {
 								action: 'delete-visitdate'
 							}
 						]
-					},					
+					},
 					{
-						xtype: 'map',
-						//retrieve location via phonegap
-    					// useCurrentLocation: true,
-    					mapOptions: {
-							draggable: false,
-							disableDefaultUI: true
-						},
-						height: '300px'
-						// flex: 1
+						xtype: 'label',
+						hidden: true,
+						itemId: 'image'
+					},
+					{
+						xtype:'fixedbutton',
+						action: 'capture-photo',
+						text: i10n.translate('tovisit.camerabutton'),
+						ui: 'action',
+						margin: '0 0 5 0'
 					}
+					// {
+					// 	xtype: 'map',
+					// 	//retrieve location via phonegap
+    	// 				// useCurrentLocation: true,
+    	// 				mapOptions: {
+					// 		draggable: false,
+					// 		disableDefaultUI: true
+					// 	},
+					// 	height: '300px'
+					// 	// flex: 1
+					// }
 				]	
 			}
 

@@ -217,6 +217,28 @@ Ext.define('EatSense.util.Helper', {
 
 		return (device) ? device.platform : 'desktop';
 	},
+	/**
+	*
+	*/
+	takePicture: function(callback) {
+
+		if(!navigator.camera) {
+			console.error('Helper.takePicture: no camera');
+			return;
+		}
+
+		navigator.camera.getPicture( cameraSuccess, cameraError, {
+			 destinationType: Camera.DestinationType.FILE_URI 
+		});
+
+		function cameraSuccess(imageUri) {
+			callback(true, imageUri);
+		}
+
+		function cameraError() {
+			callback(false);
+		}
+	},
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj

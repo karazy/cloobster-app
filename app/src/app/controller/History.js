@@ -305,6 +305,8 @@ Ext.define('EatSense.controller.History', {
           datePickerField,
           scanBt,
           clearDateBt,
+          cameraBt,
+          imageLabel,
           gmap,
           values,
           toVisit = existingToVisit || Ext.create('EatSense.model.Visit'),
@@ -320,15 +322,30 @@ Ext.define('EatSense.controller.History', {
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
       scanBt = view.down('button[action=scan]');
-      gmap = form.down('map');
       locationNameField = form.down('textfield[name=locationName]');
       locationNameLabel = form.down('#locationNameLabel');
       commentField = form.down('textfield[name=comment]');
       datePickerField = form.down('datepickerfield');
       clearDateBt = form.down('button[action=delete-visitdate]');
+      cameraBt = form.down('button[action=capture-photo]');
+      imageLabel = form.down('#image');      
 
-      appHelper.toggleMask('loadingMsg', gmap);
-      this.getCurrentPosition(processPosition);
+      //delay for quicker reactions on phone
+      Ext.create('Ext.util.DelayedTask', function () {
+
+         gmap = Ext.create('Ext.Map', {
+          mapOptions: {
+                     draggable: false,
+                     disableDefaultUI: true
+                  },
+                  height: '300px'
+         });
+         form.add(gmap);
+         appHelper.toggleMask('loadingMsg', gmap);
+         this.getCurrentPosition(processPosition);
+      }, this).delay(300); 
+      
+
 
 
       if(!toVisit.get('locationId')) {
@@ -357,6 +374,11 @@ Ext.define('EatSense.controller.History', {
 
       clearDateBt.on({
          tap: clearDateBtTap,
+         scope: this
+      });
+
+      cameraBt.on({
+         tap: cameraBtTap,
          scope: this
       });
 
@@ -525,6 +547,34 @@ Ext.define('EatSense.controller.History', {
 
       function clearDateBtTap() {
          datePickerField.setValue('');
+      }
+
+      function cameraBtTap() {
+         appHelper.takePicture(function(success, imageUri) {
+            if(success) {
+               submitPicture(imageUri);
+            } else {
+               Ext.Msg.alert('', i10n.translate('error.takepicture'));
+            }
+         });
+      }
+
+      function submitPicture(imageUri) {
+         console.log('History.showToVisitNewView: submitPicture uri ' + imageUri);
+         imageLabel.setHidden(false);
+         imageLabel.setStyle({
+            'background-image': 'url('+imageUri+')',
+            'background-size' : '100% auto',
+            'background-position' : 'center',
+            'background-repeat' : 'no-repeat',
+            'width' : '100%',
+            'height' : '300px'
+         });
+
+         //1. upload picture
+         //2. show picture
+         //3. delete picture in cache
+
       }
 
       function cleanup() {
