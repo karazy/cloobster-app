@@ -332,23 +332,10 @@ Ext.define('EatSense.controller.History', {
       cameraBt = form.down('button[action=capture-photo]');
       imageLabel = form.down('#image');      
 
-      //delay for quicker reactions on phone
-      Ext.create('Ext.util.DelayedTask', function () {
-
-         gmap = Ext.create('Ext.Map', {
-          mapOptions: {
-                     draggable: false,
-                     disableDefaultUI: true
-                  },
-                  height: '300px'
-         });
-         form.add(gmap);
-         appHelper.toggleMask('loadingMsg', gmap);
-         this.getCurrentPosition(processPosition);
-      }, this).delay(300); 
       
-
-
+      if(!existingToVisit) {
+         setupMap();
+      }
 
       if(!toVisit.get('locationId')) {
          //if this is not a cloobster location
@@ -504,7 +491,7 @@ Ext.define('EatSense.controller.History', {
             geoPos = null;
          } else {
             //TODO map does not exist in this moment, FIX
-            processPosition(true, { coords : {
+            setupMap({ coords : {
                latitude : record.get('geoLat'),
                longitude : record.get('geoLong')
             }});
@@ -515,36 +502,40 @@ Ext.define('EatSense.controller.History', {
          datePickerField.setValue(record.get('visitDate'));
       }
 
+      function setupMap(position) {
+         //delay for quicker reactions on phone
+         Ext.create('Ext.util.DelayedTask', function () {
+
+            gmap = Ext.create('Ext.Map', {
+             mapOptions: {
+                        draggable: false,
+                        disableDefaultUI: true
+                     },
+                     height: '300px'
+            });
+            form.add(gmap);
+            appHelper.toggleMask('loadingMsg', gmap);
+            if(!position) {
+               me.getCurrentPosition(function(success, position) {
+                  if(success) {
+                     processPosition(true, position);
+                     geocodePositon(position);
+                  }
+               });
+            } else {
+               Ext.create('Ext.util.DelayedTask', function () {
+                  processPosition(true, position);
+               }, this).delay(200); 
+            }
+            
+         }, this).delay(300); 
+      }
+
       function processPosition(success, position) {
          appHelper.toggleMask(false, gmap);
          if(success) {
             geoPos = position;
-            var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude),
-                _typeArr,
-                city;
-
-            geocoder = new google.maps.Geocoder();
-            geocoder.geocode( { 'location': myLatlng}, function(results, status) {              
-            if (status == google.maps.GeocoderStatus.OK) {
-               //TODO implement a more stable version by checking types field and null value checks
-               Ext.Array.each(results, function(result) {
-                  if(!Ext.isArray(result.types)) {
-                     _typeArr = [result.types];
-                  } else {
-                     _typeArr = result.types;
-                  }
-                  Ext.Array.each(_typeArr, function(type) {
-                     if(type == 'locality') {
-                        city = result.address_components[0].long_name;
-                        console.log('History: found city ' + city);
-                        toVisit.set('locationCity', city);                        
-                     }
-                  });
-               });
-            } else {
-               console.log('History: Geocode was not successful for the following reason ' + status);
-            }
-           });
+            var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
 
             gmap.getMap().setZoom(14);
             gmap.getMap().setCenter(myLatlng);            
@@ -560,6 +551,36 @@ Ext.define('EatSense.controller.History', {
             geoPos = null;
             Ext.Msg.alert('', i10n.translate('error.gps.position'));
          }
+      }
+
+      function geocodePositon(position) {
+         var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                _typeArr,
+                city,
+                geocoder;
+
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode( { 'location': myLatlng}, function(results, status) {              
+            if (status == google.maps.GeocoderStatus.OK) {
+               Ext.Array.each(results, function(result) {
+                  if(!Ext.isArray(result.types)) {
+                     _typeArr = [result.types];
+                  } else {
+                     _typeArr = result.types;
+                  }
+
+                  Ext.Array.each(_typeArr, function(type) {
+                     if(type == 'locality') {
+                        city = result.address_components[0].long_name;
+                        console.log('History.showToVisitNewView: geocodePositon found city ' + city);
+                        toVisit.set('locationCity', city);                        
+                     }
+                  });
+               });
+            } else {
+               console.log('History.showToVisitNewView: geocodePositon Geocode was not successful for the following reason ' + status);
+            }
+           });
       }
 
       function clearDateBtTap() {
