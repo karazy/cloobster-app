@@ -228,7 +228,9 @@ Ext.define('EatSense.util.Helper', {
 		}
 
 		navigator.camera.getPicture( cameraSuccess, cameraError, {
-			 destinationType: Camera.DestinationType.FILE_URI 
+			 destinationType: Camera.DestinationType.FILE_URI,
+			 quality: 49, //because of some iOS memory problems when higher then 50
+			 saveToPhotoAlbum: true //save image and let user delete it manually
 		});
 
 		function cameraSuccess(imageUri) {

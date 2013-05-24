@@ -574,11 +574,14 @@ Ext.define('EatSense.controller.History', {
             'height' : '300px'
          });
 
+         appHelper.toggleMask('uploading', imageLabel);
+
          //1. show picture
          //2. upload
-         //3. delete picture in cache
+         //3. save to album and let user delete manually later, saves some logic
 
          appHelper.uploadImage(imageUri, function(success, uri) {
+            appHelper.toggleMask(false, imageLabel);
             if(success) {
                toVisit.set('imageUrl', uri);   
             }            
