@@ -68,10 +68,12 @@ Ext.define('EatSense.view.Dashboard', {
 						'<tpl if="imageUrl">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
 							// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED)"></div>',
+						'<tpl elseif="image">',
+							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
 						'</tpl>',
 						'<div>',
 							'<div class="location">',
-								'{locationName}',							
+								'{locationName}',
 							'</div>',
 							'<tpl if="locationCity">',
 								'<div class="location-city">',
@@ -100,7 +102,6 @@ Ext.define('EatSense.view.Dashboard', {
 							'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
 							'<div class="mmyy">' + date.getFullYear() + '</div></div>';
 					return html;
-					// return Ext.util.Format.date(date, format);
 				}
 			}),			
 			listeners: {

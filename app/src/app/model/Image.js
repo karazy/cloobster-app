@@ -10,7 +10,7 @@ Ext.define('EatSense.model.Image', {
 				name: 'id'
 			},
 			{
-				name: 'blobkey'
+				name: 'blobKey'
 			},
 			{
 				name: 'url'

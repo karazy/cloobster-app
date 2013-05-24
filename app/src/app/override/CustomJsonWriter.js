@@ -7,7 +7,9 @@ Ext.define('EatSense.override.CustomJsonWriter', {
 	extend: 'Ext.data.writer.Json',
 
 	getRecordData: function(record) { 
-		Ext.apply(record.data,record.getAssociatedData());
-		return record.data; 
+		var _data = this.callParent([record]);
+		//call original getRecord method, to ignore fields marked as persist = false
+		Ext.apply(_data, record.getAssociatedData());
+		return _data; 
 	}
 });

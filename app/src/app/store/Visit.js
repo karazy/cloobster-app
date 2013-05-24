@@ -5,7 +5,7 @@ Ext.define('EatSense.store.Visit', {
 		storeId: 'visitStore',
 		model: 'EatSense.model.Visit',
 		pageSize: 15,
-		syncRemovedRecords: false,
+		syncRemovedRecords: false
 		// grouper: {
   //           groupFn: function(record) {
   //           	var date = record.get('visitDate'),

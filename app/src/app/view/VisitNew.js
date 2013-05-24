@@ -43,22 +43,26 @@ Ext.define('EatSense.view.VisitNew', {
 						text: i10n.translate('tovisit.scanbutton'),
 						ui: 'action',
 						action: 'scan',
-						hidden: true
+						hidden: true,
+						margin: '5 0'
 					},
 					{
 						xtype: 'label',
 						hidden: true,
-						itemId: 'locationNameLabel'
+						itemId: 'locationNameLabel',
+						margin: '5 0'
 					},
 					{
 						xtype: 'textfield',
 						placeHolder: i10n.translate('tovisit.formnew.locationname'),
-						name: 'locationName'
+						name: 'locationName',
+						margin: '5 0'
 					},
 					{
 						xtype: 'textareafield',
 						placeHolder: i10n.translate('tovisit.formnew.comment'),
-						name: 'comment'
+						name: 'comment',
+						margin: '5 0'
 					},
 					{
 						xtype: 'panel',
@@ -66,7 +70,7 @@ Ext.define('EatSense.view.VisitNew', {
 							type: 'hbox',
 							align: 'center'
 						},
-						margin: '0 0 5 0',
+						margin: '5 0',
 						items: [
 							{
 								xtype: 'datepickerfield',
@@ -95,28 +99,39 @@ Ext.define('EatSense.view.VisitNew', {
 					{
 						xtype: 'label',
 						hidden: true,
-						itemId: 'image'
+						itemId: 'image',
+						margin: '5 0'
 					},
 					{
-						xtype:'fixedbutton',
-						action: 'capture-photo',
-						iconCls: 'photo1',
-						iconMask: true,
-						text: i10n.translate('tovisit.camerabutton'),
-						ui: 'action',
-						margin: '0 0 5 0'
+						xtype: 'panel',
+						xtype: 'panel',
+						layout: {
+							type: 'hbox',
+							align: 'center'
+						},
+						margin: '5 0',
+						items: [
+							{
+								xtype:'fixedbutton',
+								action: 'capture-photo',
+								iconCls: 'photo1',
+								iconMask: true,
+								text: i10n.translate('tovisit.camerabutton'),
+								ui: 'action',
+								flex: 1,
+								margin: '0 5 0 0'
+							},
+							{
+								xtype: 'fixedbutton',
+								iconCls: 'delete',
+								iconMask: true,
+								ui: 'action',
+								action: 'delete-photo',
+								disabled: true
+							}
+						]
 					}
-					// {
-					// 	xtype: 'map',
-					// 	//retrieve location via phonegap
-    	// 				// useCurrentLocation: true,
-    	// 				mapOptions: {
-					// 		draggable: false,
-					// 		disableDefaultUI: true
-					// 	},
-					// 	height: '300px'
-					// 	// flex: 1
-					// }
+					
 				]	
 			}
 

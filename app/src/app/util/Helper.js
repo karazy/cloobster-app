@@ -64,6 +64,28 @@ Ext.define('EatSense.util.Helper', {
       }
    },
 
+  /**
+   * @private
+   * Expects a url with a barcode at the end. Separated by a #.
+   * e. g. https://cloobster.com/get-app#ENCRYPTED_BARCODE
+   * @return the extracted barcode
+   */
+   extractBarcode: function(url) {
+    var indexHashTag = url.indexOf('#') + 1,
+        code;
+
+    try {
+      code = (indexHashTag > -1) ?  url.substring(indexHashTag, url.length) : url;
+    } catch(e) {
+      console.log('Error extracting code: ' + e);
+      code = url;
+    }
+
+    console.log('Code extracted ' + code + ' from ' +url);
+
+    return code;
+   },
+
 	/**
 	 * Shortens the given string (like substring). 
 	 * 
@@ -242,7 +264,11 @@ Ext.define('EatSense.util.Helper', {
 		}
 	},
 	/**
-	*
+	* Uploads an image to google blobstore.
+	* @param {String} fileURI 
+	*	url to local file from camera
+	* @param {Function} callback
+	* 	gets passed true|false depending on success and blob Url
 	*/
 	uploadImage: function(fileURI, callback) {
 		var me = this,
@@ -287,7 +313,8 @@ Ext.define('EatSense.util.Helper', {
 
 		function success(response) {
 			console.log("Helper.uploadImage: response " + response.response);
-			callback(true, response.response);
+			var imageObj = Ext.JSON.decode(response.response);
+			callback(true, imageObj);
 		}
 
 		function error(error) {

@@ -421,6 +421,15 @@ Ext.define('EatSense.controller.History', {
 
          appHelper.toggleMask('save', view);
 
+         //TEST start
+         // var img = Ext.create('EatSense.model.Image',{
+         //    id: 'toVisitImage',
+         //    blobKey: 'ASDSAGAHNA§FN$TANVAIBDSfsdfue4bf',
+         //    url: 'http://robohash.org/Fred'
+         // });
+         // toVisit.setImage(img);
+         //TEST end
+
          toVisit.save({
 
             success: function(record, operation) {               
@@ -448,6 +457,8 @@ Ext.define('EatSense.controller.History', {
          if(appHelper.isFunction(callback)) {
                   callback(false);
          }
+
+         //TODO if picture was captured delete it
       }
 
       function scanBtTap() {
@@ -474,7 +485,7 @@ Ext.define('EatSense.controller.History', {
             }
             toVisit.set('locationId', business.id);
 
-            setFormFields(record);            
+            setFormFields(toVisit);            
          } else {
             Ext.Msg.alert('', i10n.translate('checkInErrorBarcode'));
          }         
@@ -509,7 +520,7 @@ Ext.define('EatSense.controller.History', {
          if(success) {
             geoPos = position;
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude),
-                _typeArr = [],
+                _typeArr,
                 city;
 
             geocoder = new google.maps.Geocoder();
@@ -518,12 +529,15 @@ Ext.define('EatSense.controller.History', {
                //TODO implement a more stable version by checking types field and null value checks
                Ext.Array.each(results, function(result) {
                   if(!Ext.isArray(result.types)) {
-                     _typeArr[0] = types;
+                     _typeArr = [result.types];
+                  } else {
+                     _typeArr = result.types;
                   }
                   Ext.Array.each(_typeArr, function(type) {
                      if(type == 'locality') {
                         city = result.address_components[0].long_name;
-                        toVisit.set('locationCity', city);
+                        console.log('History: found city ' + city);
+                        toVisit.set('locationCity', city);                        
                      }
                   });
                });
@@ -563,6 +577,8 @@ Ext.define('EatSense.controller.History', {
       }
 
       function submitPicture(imageUri) {
+         var image;
+
          console.log('History.showToVisitNewView: submitPicture uri ' + imageUri);
          imageLabel.setHidden(false);
          imageLabel.setStyle({
@@ -574,16 +590,24 @@ Ext.define('EatSense.controller.History', {
             'height' : '300px'
          });
 
-         appHelper.toggleMask('uploading', imageLabel);
+         // appHelper.toggleMask('uploading', imageLabel);
 
          //1. show picture
          //2. upload
          //3. save to album and let user delete manually later, saves some logic
 
-         appHelper.uploadImage(imageUri, function(success, uri) {
-            appHelper.toggleMask(false, imageLabel);
+         appHelper.uploadImage(imageUri, function(success, imageObj) {
+            // appHelper.toggleMask(false, imageLabel);            
+            
             if(success) {
-               toVisit.set('imageUrl', uri);   
+               // toVisit.set('imageUrl', uri);   
+               image = Ext.create('EatSense.model.Image', {
+                  id: 'toVisitImage',
+                  url: imageObj.imageUrl,
+                  blobKey: imageObj.blobkey
+               });
+
+               toVisit.setImage(image);
             }            
          });
 

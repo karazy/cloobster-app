@@ -224,27 +224,6 @@ Ext.define('EatSense.controller.CheckIn', {
       }
     },
    /**
-   * @private
-   * Expects a url with a barcode at the end. Separated by a #.
-   * e. g. https://cloobster.com/get-app#ENCRYPTED_BARCODE
-   * @return the extracted barcode
-   */
-   extractBarcode: function(url) {
-    var indexHashTag = url.indexOf('#') + 1,
-        code;
-
-    try {
-      code = (indexHashTag > -1) ?  url.substring(indexHashTag, url.length) : url;
-    } catch(e) {
-      console.log('Error extracting code: ' + e);
-      code = url;
-    }
-
-    console.log('Code extracted ' + code + ' from ' +url);
-
-    return code;
-   },
-   /**
     * CheckIn Process
     * Step 2: User gets asked if he wants to check in. He can then choose a nickname used during his checkIn.
     * @param options
