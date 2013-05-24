@@ -100,6 +100,8 @@ Ext.define('EatSense.view.VisitNew', {
 					{
 						xtype:'fixedbutton',
 						action: 'capture-photo',
+						iconCls: 'photo1',
+						iconMask: true,
 						text: i10n.translate('tovisit.camerabutton'),
 						ui: 'action',
 						margin: '0 0 5 0'

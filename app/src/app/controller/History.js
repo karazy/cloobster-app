@@ -574,9 +574,15 @@ Ext.define('EatSense.controller.History', {
             'height' : '300px'
          });
 
-         //1. upload picture
-         //2. show picture
+         //1. show picture
+         //2. upload
          //3. delete picture in cache
+
+         appHelper.uploadImage(imageUri, function(success, uri) {
+            if(success) {
+               toVisit.set('imageUrl', uri);   
+            }            
+         });
 
       }
 
@@ -920,6 +926,6 @@ Ext.define('EatSense.controller.History', {
         },
         scope: me
       });
-  },
+  }
 
 });

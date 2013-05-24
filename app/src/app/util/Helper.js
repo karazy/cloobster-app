@@ -239,6 +239,61 @@ Ext.define('EatSense.util.Helper', {
 			callback(false);
 		}
 	},
+	/**
+	*
+	*/
+	uploadImage: function(fileURI, callback) {
+		var me = this,
+			fileUploadUrl,
+			ft;
+		//1. Get fileUploadUrl /uploads/imagesurl
+		//2. do upload
+
+		if(typeof FileTransfer == 'undefined') {
+			console.error('Helper.uploadImage: no FileTransfer exists. Not running in a phonegap environment.');
+			return;
+		}
+
+
+		Ext.Ajax.request({
+			url: appConfig.serviceUrl + '/uploads/imagesurl',
+			method: 'GET',
+			success: function(response, operation) {
+				fileUploadUrl = encodeURI(response.responseText);
+				console.log('Helper.uploadImage: to ' + fileUploadUrl);
+				doUpload();
+			}, 
+			failure: function(response, operation) {
+				callback(false);
+				me.getApplication().handleServerError({
+               	'error': response
+             	});
+			},
+			scope: this
+		});
+
+		function doUpload() {
+			var options = new FileUploadOptions(),
+				ft = new FileTransfer();
+
+            // options.fileKey="file";
+            options.fileName='tovisit_image.jpg';
+            // options.mimeType="image/jpeg";
+
+			ft.upload(fileURI, fileUploadUrl, success, error, options);
+		}
+
+		function success(response) {
+			console.log("Helper.uploadImage: response " + response.response);
+			callback(true, response.response);
+		}
+
+		function error(error) {
+			console.error("Helper.uploadImage: upload error source " + error.source);
+            console.error("Helper.uploadImage: upload error target " + error.target);
+			callback(false);
+		}
+	},
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj

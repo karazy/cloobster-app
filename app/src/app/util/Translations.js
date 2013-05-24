@@ -1577,6 +1577,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "To-Visit",
 			"EN" : "To-Visit"
 		},
+		"tovisit.camerabutton" : {
+			"DE" :  "Foto hinzufügen",
+			"EN" : "Add photo"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
