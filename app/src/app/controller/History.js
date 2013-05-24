@@ -487,7 +487,7 @@ Ext.define('EatSense.controller.History', {
             locationNameLabel.setHidden(false);
             locationNameLabel.setHtml(toVisit.get('locationName'));
             //TODO get coords from cloobster location
-            gmap.setHidden(true);
+            // gmap.setHidden(true);
             geoPos = null;
          } else {
             //TODO map does not exist in this moment, FIX
@@ -619,13 +619,13 @@ Ext.define('EatSense.controller.History', {
 
          appHelper.uploadImage(imageUri, function(success, imageObj) {
             // appHelper.toggleMask(false, imageLabel);            
-            
+            appHelper.debugObject(imageObj[0]);
             if(success) {
                // toVisit.set('imageUrl', uri);   
                image = Ext.create('EatSense.model.Image', {
                   id: 'toVisitImage',
-                  url: imageObj.imageUrl,
-                  blobKey: imageObj.blobkey
+                  url: imageObj[0].imageUrl,
+                  blobKey: imageObj[0].blobKey
                });
 
                toVisit.setImage(image);

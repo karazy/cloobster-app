@@ -10,6 +10,8 @@ Ext.define('EatSense.override.CustomJsonWriter', {
 		var _data = this.callParent([record]);
 		//call original getRecord method, to ignore fields marked as persist = false
 		Ext.apply(_data, record.getAssociatedData());
+		console.log('EatSense.override.CustomJsonWriter.getRecordData');
+		appHelper.debugObject(_data);
 		return _data; 
 	}
 });

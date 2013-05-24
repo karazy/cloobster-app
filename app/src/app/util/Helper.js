@@ -305,7 +305,7 @@ Ext.define('EatSense.util.Helper', {
 				ft = new FileTransfer();
 
             // options.fileKey="file";
-            options.fileName='tovisit_image.jpg';
+            options.fileName='tovisit.jpg';
             // options.mimeType="image/jpeg";
 
 			ft.upload(fileURI, fileUploadUrl, success, error, options);
@@ -313,6 +313,8 @@ Ext.define('EatSense.util.Helper', {
 
 		function success(response) {
 			console.log("Helper.uploadImage: response " + response.response);
+			me.debugObject(response);
+			me.debugObject(response.response);
 			var imageObj = Ext.JSON.decode(response.response);
 			callback(true, imageObj);
 		}
