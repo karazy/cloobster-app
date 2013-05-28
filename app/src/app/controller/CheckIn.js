@@ -48,6 +48,11 @@ Ext.define('EatSense.controller.CheckIn', {
      * @param {EatSense.model.Spot} spot to use for checkin
      */
 
+     /**
+     * @event democheckin
+     * Fires on Ext.Viewport. Indicates that a checkin should be made with demo spot.
+     */     
+
 
     requires: ['Ext.data.proxy.LocalStorage', 'EatSense.controller.Message', 'EatSense.view.SpotSelection'],
     config: {
@@ -75,8 +80,8 @@ Ext.define('EatSense.controller.CheckIn', {
             selector: 'spotselection',
             xtype: 'spotselection',
             autoCreate: true
-          },
-          demoButton: 'dashboard button[action=demo-checkin]'
+          }
+          // demoButton: 'dashboard button[action=demo-checkin]'
     	},
     	control: {
     		checkInBtn: {
@@ -100,9 +105,9 @@ Ext.define('EatSense.controller.CheckIn', {
               },
               scope: this
             },
-            demoButton: {
-              tap: 'demoCheckIn'
-            },
+            // demoButton: {
+            //   tap: 'demoCheckIn'
+            // },
             cloobsterArea: {
               activate: 'cloobsterAreaActivated'
             }
@@ -150,6 +155,9 @@ Ext.define('EatSense.controller.CheckIn', {
           this.setActiveArea(spot.get('areaId'));
           this.checkInConfirm({model:spot, deviceId : appHelper.getDevice()});
         },
+        'democheckin' : function() {
+          this.demoCheckIn();
+        },
         scope: this
       });
     },
@@ -192,7 +200,10 @@ Ext.define('EatSense.controller.CheckIn', {
       //validate barcode field
       if(barcode.length == 0) {
         // Ext.Viewport.setMasked(false);
-        button.enable();
+        if(button) {
+          button.enable();  
+        }
+        
         Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
       } else {
           appHelper.toggleMask('loadingMsg', main);
@@ -218,7 +229,9 @@ Ext.define('EatSense.controller.CheckIn', {
               callback: function() {
                 // Ext.Viewport.setMasked(false);
                 appHelper.toggleMask(false, main);
-                button.enable();
+                if(button) {
+                  button.enable();  
+                }
               }
           });
       }
@@ -365,7 +378,7 @@ Ext.define('EatSense.controller.CheckIn', {
     });  
 
     function doDemoCheckIn() {
-      button.disable();
+      // button.disable();
       Ext.Ajax.request({
         url: appConfig.serviceUrl + '/spots/',
         method: 'GET',
@@ -374,10 +387,10 @@ Ext.define('EatSense.controller.CheckIn', {
           'demo' : true
         },
         success: function(response) {
-          me.doCheckInIntent(response.responseText, button, deviceId);
+          me.doCheckInIntent(response.responseText, null, deviceId);
         },
         failure: function(response) {
-          button.enable();
+          // button.enable();
           me.getApplication().handleServerError({
             'error': response 
             // 'message': i10n.translate('channelTokenError')
@@ -474,7 +487,7 @@ Ext.define('EatSense.controller.CheckIn', {
             Ext.fly('appLoadingWrapper').destroy();
             Ext.create('EatSense.view.Lounge', {
               //directly select cloobster area
-              firstSelect: 2
+              firstSelect: 3
             });
 
             main = me.getMain();

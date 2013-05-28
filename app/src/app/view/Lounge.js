@@ -97,10 +97,11 @@ Ext.define('EatSense.view.Lounge', {
 				ui: 'action',
 				title: i10n.translate('dashboard.button.demo'),
 				action: 'demo-checkin',
+				iconCls: 'demo-icon',
 				leaf: true,
 				viewState: 'cloobster',
 				handler: function() {
-					alert('TEST');
+					Ext.Viewport.fireEvent('democheckin');
 				}
 			},
 			{

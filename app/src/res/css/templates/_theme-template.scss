@@ -1105,6 +1105,10 @@ $general-border-radius: 3px;
   -webkit-mask-image: inline-image('../images/locate.png');  
 }
 
+.demo-icon {
+  -webkit-mask-image: inline-image('/buttons/demo.png');  
+}
+
 .slidenav-info-icon {
   -webkit-mask-image: inline-image('/buttons/about.png');  
 }

@@ -430,10 +430,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             deselectItem();
             item.raw.welcomeFn();
             return false;
-        }
-
-        //set new selection as previous
-        me.prevsel = item;
+        }       
         
 
         if (me._cache[index] == undefined) {
@@ -455,14 +452,17 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
         }
 
         if (Ext.isFunction(me._cache[index])) {
+            deselectItem();
             me._cache[index]();
         } else {
+             //set new selection as previous
+            me.prevsel = item;
             container.setActiveItem(me._cache[index]);
             me.fireEvent('activeitemchange', me._cache[index]);
         }
         
         if (me.config.closeOnSelect) {
-            if (me.overrideClose) {1
+            if (me.overrideClose) {
                 me.overrideClose = false;
             } else {
                 me.closeContainer(me.config.selectSlideDuration);
