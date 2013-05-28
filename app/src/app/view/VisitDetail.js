@@ -68,6 +68,12 @@ Ext.define('EatSense.view.VisitDetail', {
 			},
 			{
 				xtype: 'label',
+				hidden: true,
+				itemId: 'image',
+				margin: '5 0'
+			},
+			{
+				xtype: 'label',
 				itemId: 'content',
 				padding: '5px 12px 0px',
 				tpl: new Ext.XTemplate(

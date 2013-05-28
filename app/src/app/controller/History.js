@@ -308,6 +308,7 @@ Ext.define('EatSense.controller.History', {
           scanBt,
           clearDateBt,
           cameraBt,
+          deletePictureBt,
           imageLabel,
           gmap,
           values,
@@ -330,6 +331,7 @@ Ext.define('EatSense.controller.History', {
       datePickerField = form.down('datepickerfield');
       clearDateBt = form.down('button[action=delete-visitdate]');
       cameraBt = form.down('button[action=capture-photo]');
+      deletePictureBt = form.down('button[action=delete-photo]');      
       imageLabel = form.down('#image');      
 
       
@@ -371,19 +373,15 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
+      deletePictureBt.on({
+         tap: deletePictureBtTap,
+         scope: this
+      });
+
       Ext.Viewport.fireEvent('addbackhandler', cleanup);
 
       function saveOrUpdateToVisit() {
          values = form.getValues();
-
-         //validate when manual creation and not updating existing checkin
-         // if(!business && !existingToVisit) {
-
-            
-
-         //     toVisit = Ext.create('EatSense.model.Visit', values);
-
-         // }
 
          if(!values.locationName || values.locationName.trim().length == 0) {
             Ext.Msg.alert('', i10n.translate('tovisit.form.locationname.required'));
@@ -601,6 +599,7 @@ Ext.define('EatSense.controller.History', {
          var image;
 
          console.log('History.showToVisitNewView: submitPicture uri ' + imageUri);
+
          imageLabel.setHidden(false);
          imageLabel.setStyle({
             'background-image': 'url('+imageUri+')',
@@ -610,15 +609,20 @@ Ext.define('EatSense.controller.History', {
             'width' : '100%',
             'height' : '300px'
          });
-
-         // appHelper.toggleMask('uploading', imageLabel);
+         //no mask toggle since label doesn't support masking
 
          //1. show picture
          //2. upload
-         //3. save to album and let user delete manually later, saves some logic
+         //3. check for old ones and delete them
+         //4. save to album and let user delete manually later, saves some logic
+
+         if(!toVisit.getId() && toVisit.getImage()) {
+            //a photo was already taken, but toVisit has not been saved, we have to directly delete it
+            me.deleteImage(toVisit.getImage().get('blobKey'));
+         }
 
          appHelper.uploadImage(imageUri, function(success, imageObj) {
-            // appHelper.toggleMask(false, imageLabel);            
+            
             appHelper.debugObject(imageObj[0]);
             if(success) {
                // toVisit.set('imageUrl', uri);   
@@ -629,9 +633,34 @@ Ext.define('EatSense.controller.History', {
                });
 
                toVisit.setImage(image);
-            }            
+               deletePictureBt.setDisabled(false);
+            }  else {
+               console.error('History.showToVisitNewView: submitPicture failed');
+            }         
          });
 
+      }
+
+      function deletePictureBtTap(button) {
+         button.setDisabled(true);
+         imageLabel.setHidden(true);
+
+         //exisiting toVisit, explicitly use the tovisit delete method
+         if(toVisit.getId()) {
+            me.deleteToVisitImage(toVisit);
+         } else {
+            //delete by blobkey since picture is not attached to a toVisit
+            me.deleteImage(blobKey, function(success) {
+               if(!success) {
+                  button.setDisabled(false);
+                  imageLabel.setHidden(false);
+               } else {
+                  toVisit.setImage(null);
+                  imageLabel.setStyle({});
+               }
+            });            
+            
+         }
       }
 
       function cleanup() {
@@ -652,6 +681,11 @@ Ext.define('EatSense.controller.History', {
 
          clearDateBt.un({
             tap: clearDateBtTap,
+            scope: this
+         });
+
+         deletePictureBt.un({
+            tap: deletePictureBtTap,
             scope: this
          });
 
@@ -757,6 +791,7 @@ Ext.define('EatSense.controller.History', {
           deleteBt,
           checkInBt,
           content,
+          imageLabel,
           visitStore = Ext.StoreManager.lookup('visitStore'),
           gmap;
 
@@ -778,6 +813,7 @@ Ext.define('EatSense.controller.History', {
       checkInBt = detailView.down('button[action=checkin]');
       content = detailView.down('#content');
       gmap = detailView.down('map'); 
+      imageLabel = detailView.down('#image');
 
       if(record.get('locationId')) {
          //this is cloobster location, show checkIn Button
@@ -813,6 +849,18 @@ Ext.define('EatSense.controller.History', {
       renderContent();
 
       function renderContent() {
+
+         if(record.getImage()) {
+            imageLabel.setHidden(false);
+            imageLabel.setStyle({
+               'background-image': 'url('+record.getImage().get('url')+')',
+               'background-size' : '100% auto',
+               'background-position' : 'center',
+               'background-repeat' : 'no-repeat',
+               'width' : '100%',
+               'height' : '300px'
+            });
+         }
          //display content
          content.getTpl().overwrite(content.element, record.getData());
       }
@@ -927,6 +975,50 @@ Ext.define('EatSense.controller.History', {
           });
           callback(false);
         }
+      });
+   },
+   /**
+   *
+   */
+   deleteToVisitImage: function(toVisit, callback) {
+
+   },
+   /**
+   * Delete an image based on its blobKey.
+   * @param {String} blobKey
+   *  Identifier for image
+   * @param {Function} callback (optional)
+   *  true|false based on success
+   */
+   deleteImage: function(blobKey, callback) {
+
+      if(!blobKey) {
+         console.error('History.deleteImage: no blobKey given');
+         return;
+      }
+
+      Ext.Ajax.request({
+        url: appConfig.serviceUrl + '/uploads/images/' + blobKey,
+        method: 'DELETE',
+        success: function(response) {
+         
+         if(appHelper.isFunction(callback)) {
+            callback(true);     
+         }
+
+        },
+        failure: function(response) {
+         
+         if(appHelper.isFunction(callback)) {
+            callback(false);
+         }
+
+          me.getApplication().handleServerError({
+            'error': response,
+            forceLogout: {403:true}
+          });
+        },
+        scope: me
       });
    },
 

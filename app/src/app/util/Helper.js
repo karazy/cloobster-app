@@ -251,8 +251,8 @@ Ext.define('EatSense.util.Helper', {
 
 		navigator.camera.getPicture( cameraSuccess, cameraError, {
 			 destinationType: Camera.DestinationType.FILE_URI,
-			 quality: 49, //because of some iOS memory problems when higher then 50
-			 saveToPhotoAlbum: true //save image and let user delete it manually
+			 quality: 49 //because of some iOS memory problems when higher then 50
+			 // saveToPhotoAlbum: true //save image and let user delete it manually
 		});
 
 		function cameraSuccess(imageUri) {
@@ -305,7 +305,7 @@ Ext.define('EatSense.util.Helper', {
 				ft = new FileTransfer();
 
             // options.fileKey="file";
-            options.fileName='tovisit.jpg';
+            options.fileName='cloobster_app_'+(new Date()).getTime()+'.jpg';
             // options.mimeType="image/jpeg";
 
 			ft.upload(fileURI, fileUploadUrl, success, error, options);
@@ -319,10 +319,10 @@ Ext.define('EatSense.util.Helper', {
 			callback(true, imageObj);
 		}
 
-		function error(error) {
-			console.error("Helper.uploadImage: upload error source " + error.source);
-            console.error("Helper.uploadImage: upload error target " + error.target);
+		function error(err) {
 			callback(false);
+			console.error("Helper.uploadImage: upload error source " + err.source);
+            console.error("Helper.uploadImage: upload error target " + err.target);			
 		}
 	},
   	/**
