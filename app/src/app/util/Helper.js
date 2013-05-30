@@ -308,7 +308,7 @@ Ext.define('EatSense.util.Helper', {
             options.fileName='cloobster_app_'+(new Date()).getTime()+'.jpg';
             // options.mimeType="image/jpeg";
 
-			ft.upload(fileURI, fileUploadUrl, success, error, options);
+			ft.upload(fileURI, fileUploadUrl, success, failure, options);
 		}
 
 		function success(response) {
@@ -319,7 +319,7 @@ Ext.define('EatSense.util.Helper', {
 			callback(true, imageObj);
 		}
 
-		function error(err) {
+		function failure(err) {
 			callback(false);
 			console.error("Helper.uploadImage: upload error source " + err.source);
             console.error("Helper.uploadImage: upload error target " + err.target);			
