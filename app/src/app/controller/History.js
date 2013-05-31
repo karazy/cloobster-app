@@ -415,6 +415,26 @@ Ext.define('EatSense.controller.History', {
          // toVisit.setImage(img);
          //TEST end
 
+         // toVisit.getData(true);
+
+         // Ext.Ajax.request({
+         //    url: appConfig.serviceUrl + '/c/visits',
+         //    jsonData:
+         //    method: 'POST',
+         //    success: function(response, operation) {
+         //       fileUploadUrl = encodeURI(response.responseText);
+         //       console.log('Helper.uploadImage: to ' + fileUploadUrl);
+         //       doUpload();
+         //    }, 
+         //    failure: function(response, operation) {
+         //       callback(false);
+         //       me.getApplication().handleServerError({
+         //             'error': response
+         //          });
+         //    },
+         //    scope: this
+         // });
+
          toVisit.save({
 
             success: function(record, operation) {               
@@ -469,6 +489,8 @@ Ext.define('EatSense.controller.History', {
                toVisit.set('imageUrl', business.images.logo);
             }
             toVisit.set('locationId', business.id);
+            //TODO when implemented use geocoords from business
+            toVisit.set('locationCity', business.city);    
 
             setFormFields(toVisit);            
          } else {
@@ -616,10 +638,10 @@ Ext.define('EatSense.controller.History', {
          //3. check for old ones and delete them
          //4. save to album and let user delete manually later, saves some logic
 
-         if(!toVisit.getId() && toVisit.getImage()) {
+         // if(!toVisit.getId() && toVisit.getImage()) {
             //a photo was already taken, but toVisit has not been saved, we have to directly delete it
-            me.deleteImage(toVisit.getImage().get('blobKey'));
-         }
+            // me.deleteImage(toVisit.getImage().get('blobKey'));
+         // }
 
          appHelper.uploadImage(imageUri, function(success, imageObj) {
             
@@ -633,7 +655,12 @@ Ext.define('EatSense.controller.History', {
                });
 
                toVisit.setImage(image);
-               deletePictureBt.setDisabled(false);
+               if(deletePictureBt) {
+                  deletePictureBt.setDisabled(false);   
+               } else {
+                  console.error('History.showToVisitNewView: submitPicture deletePictureBt not found');
+               }
+               
             }  else {
                console.error('History.showToVisitNewView: submitPicture failed');
             }         
@@ -643,12 +670,13 @@ Ext.define('EatSense.controller.History', {
 
       function deletePictureBtTap(button) {
          button.setDisabled(true);
-         imageLabel.setHidden(true);
-
+         imageLabel.setHidden(true);         
          //exisiting toVisit, explicitly use the tovisit delete method
          if(toVisit.getId()) {
+            console.log('History.showToVisitNewView: deletePictureBtTap existing toVisit image');
             me.deleteToVisitImage(toVisit);
          } else {
+            console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
             //delete by blobkey since picture is not attached to a toVisit
             me.deleteImage(blobKey, function(success) {
                if(!success) {
@@ -992,10 +1020,12 @@ Ext.define('EatSense.controller.History', {
    */
    deleteImage: function(blobKey, callback) {
 
+      console.log('History.deleteImage');
+
       if(!blobKey) {
          console.error('History.deleteImage: no blobKey given');
          return;
-      }
+      }      
 
       Ext.Ajax.request({
         url: appConfig.serviceUrl + '/uploads/images/' + blobKey,

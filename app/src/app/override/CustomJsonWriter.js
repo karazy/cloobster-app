@@ -10,7 +10,13 @@ Ext.define('EatSense.override.CustomJsonWriter', {
 		var _data = this.callParent([record]);
 		//call original getRecord method, to ignore fields marked as persist = false
 		Ext.apply(_data, record.getAssociatedData());
-		console.log('EatSense.override.CustomJsonWriter.getRecordData');
+		// console.log('EatSense.override.CustomJsonWriter.getRecordData');
+		//will ignore persist=false on associated items
+
+		// if(_data.image && _data.image.fakeId) {
+		// 	delete _data.image.fakeId;
+		// }
+
 		appHelper.debugObject(_data);
 		return _data; 
 	}

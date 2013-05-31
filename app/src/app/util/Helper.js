@@ -282,6 +282,8 @@ Ext.define('EatSense.util.Helper', {
 			return;
 		}
 
+		console.log('Helper.uploadImage');
+
 
 		Ext.Ajax.request({
 			url: appConfig.serviceUrl + '/uploads/imagesurl',
@@ -304,6 +306,8 @@ Ext.define('EatSense.util.Helper', {
 			var options = new FileUploadOptions(),
 				ft = new FileTransfer();
 
+			console.log('Helper.uploadImage: doUpload');
+
             // options.fileKey="file";
             options.fileName='cloobster_app_'+(new Date()).getTime()+'.jpg';
             // options.mimeType="image/jpeg";
@@ -319,10 +323,10 @@ Ext.define('EatSense.util.Helper', {
 			callback(true, imageObj);
 		}
 
-		function failure(err) {
-			callback(false);
+		function failure(err) {			
 			console.error("Helper.uploadImage: upload error source " + err.source);
             console.error("Helper.uploadImage: upload error target " + err.target);			
+            callback(false);
 		}
 	},
   	/**
@@ -335,10 +339,12 @@ Ext.define('EatSense.util.Helper', {
   			return;
   		}
 
+  		console.log('EatSense.util.Helper.debugObject');
+
   		try {
 	  		for (var key in obj) {
 			  if (obj.hasOwnProperty(key)) {
-			  	console.log(key + ' -> ' + obj[key]);
+			  	console.log('### ' + key + ' -> ' + obj[key]);
 			  }
 			}
   		} catch(e) {

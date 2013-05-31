@@ -65,9 +65,9 @@ Ext.define('EatSense.view.Dashboard', {
 			itemTpl: new Ext.XTemplate(
 				"<table style='width:100%;'>",					
 					'<td align="left" style="vertical-align: top;">',
+						// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED)"></div>',
 						'<tpl if="imageUrl">',
-							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
-							// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED)"></div>',
+							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',							
 						'<tpl elseif="image">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
 						'</tpl>',
