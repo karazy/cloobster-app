@@ -621,50 +621,75 @@ Ext.define('EatSense.controller.History', {
          var image;
 
          console.log('History.showToVisitNewView: submitPicture uri ' + imageUri);
-
-         imageLabel.setHidden(false);
-         imageLabel.setStyle({
-            'background-image': 'url('+imageUri+')',
-            'background-size' : '100% auto',
-            'background-position' : 'center',
-            'background-repeat' : 'no-repeat',
-            'width' : '100%',
-            'height' : '300px'
-         });
+         
          //no mask toggle since label doesn't support masking
 
-         //1. show picture
-         //2. upload
-         //3. check for old ones and delete them
-         //4. save to album and let user delete manually later, saves some logic
+         //1. mask screen
+         //2. check for old ones and delete them
+         //3. upload picture
+         //4. show picture
+         //5. delete local file
+         
+         appHelper.toggleMask('general.processing', view);
 
-         // if(!toVisit.getId() && toVisit.getImage()) {
+         if(!toVisit.get('id') && toVisit.getData(true).image) {
+            //we cant directly call toVisit.getImage() since it tries to load it server side
+            //resulting in a this model doesn't have a proxy specified error!
+            console.log('History.showToVisitNewView: submitPicture delete old picture');
             //a photo was already taken, but toVisit has not been saved, we have to directly delete it
-            // me.deleteImage(toVisit.getImage().get('blobKey'));
-         // }
-
-         appHelper.uploadImage(imageUri, function(success, imageObj) {
-            
-            appHelper.debugObject(imageObj[0]);
-            if(success) {
-               // toVisit.set('imageUrl', uri);   
-               image = Ext.create('EatSense.model.Image', {
-                  id: 'toVisitImage',
-                  url: imageObj[0].imageUrl,
-                  blobKey: imageObj[0].blobKey
-               });
-
-               toVisit.setImage(image);
-               if(deletePictureBt) {
-                  deletePictureBt.setDisabled(false);   
+            //if toVisit already exists, serverside will take care of deleting the image
+            me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
+               if(success) {
+                  doSubmitPicture();
                } else {
-                  console.error('History.showToVisitNewView: submitPicture deletePictureBt not found');
+                  appHelper.toggleMask(false, view);   
                }
-               
-            }  else {
-               console.error('History.showToVisitNewView: submitPicture failed');
-            }         
-         });
+            });
+         } else {
+            doSubmitPicture();
+         }
+
+         function doSubmitPicture() {
+            appHelper.uploadImage(imageUri, 'tovisit', function(success, imageObj) {
+               appHelper.toggleMask(false, view);
+
+               if(success) {
+                  imageLabel.setHidden(false);
+                  imageLabel.setStyle({
+                     'background-image': 'url('+imageObj[0].url+')',
+                     'background-size' : '100% auto',
+                     'background-position' : 'center',
+                     'background-repeat' : 'no-repeat',
+                     'width' : '100%',
+                     'height' : '300px'
+                  });
+                  
+                  image = Ext.create('EatSense.model.Image', {
+                     id: 'toVisitImage',
+                     url: imageObj[0].imageUrl,
+                     blobKey: imageObj[0].blobKey
+                  });
+
+                  toVisit.setImage(image);
+
+                  if(deletePictureBt) {
+                     deletePictureBt.setDisabled(false);   
+                  } else {
+                     console.error('History.showToVisitNewView: submitPicture deletePictureBt not found');
+                  }
+                  
+               }  else {
+                  console.error('History.showToVisitNewView: submitPicture failed');
+               }
+
+               //delete local picture
+               appHelper.deleteFile(imageUri, function(success) {
+                  if(!success) {
+                     Ext.Msg.alert('', i10n.translate('error.localfile.delete.failed'));
+                  }
+               });
+            });
+         }
 
       }
 
@@ -674,11 +699,19 @@ Ext.define('EatSense.controller.History', {
          //exisiting toVisit, explicitly use the tovisit delete method
          if(toVisit.getId()) {
             console.log('History.showToVisitNewView: deletePictureBtTap existing toVisit image');
-            me.deleteToVisitImage(toVisit);
+            me.deleteToVisitImage(toVisit, function(success) {
+               if(!success) {
+                  button.setDisabled(false);
+                  imageLabel.setHidden(false);
+               } else {
+                  toVisit.setImage(null);
+                  imageLabel.setStyle({});
+               }
+            });
          } else {
             console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
             //delete by blobkey since picture is not attached to a toVisit
-            me.deleteImage(blobKey, function(success) {
+            me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
                if(!success) {
                   button.setDisabled(false);
                   imageLabel.setHidden(false);
@@ -1006,10 +1039,37 @@ Ext.define('EatSense.controller.History', {
       });
    },
    /**
-   *
+   * Delete Image of an existing toVisit.
+   * @param {EatSense.model.ToVisit} toVisit
+   * @param {Function} callback (optional)
    */
    deleteToVisitImage: function(toVisit, callback) {
+      var me = this,
+          hasCallback = appHelper.isFunction(callback);
 
+      if(!toVisit) {
+         console.error('History.deleteToVisitImage: no toVisit given');
+         return;
+      }
+
+      Ext.Ajax.request({
+         url: appConfig.serviceUrl + '/c/tovisits/' + toVisit.get('id') + '/image',
+         method: 'DELETE',
+         success: function(response, operation) {
+            if(hasCallback) {
+               callback(true);   
+            }
+         }, 
+         failure: function(response, operation) {
+            if(hasCallback) {
+               callback(false);   
+            }            
+            me.getApplication().handleServerError({
+               'error': response
+            });
+         },
+         scope: this
+      });
    },
    /**
    * Delete an image based on its blobKey.
@@ -1019,6 +1079,7 @@ Ext.define('EatSense.controller.History', {
    *  true|false based on success
    */
    deleteImage: function(blobKey, callback) {
+      var me = this;
 
       console.log('History.deleteImage');
 

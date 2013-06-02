@@ -267,10 +267,12 @@ Ext.define('EatSense.util.Helper', {
 	* Uploads an image to google blobstore.
 	* @param {String} fileURI 
 	*	url to local file from camera
+	* @param {String} picId
+	*	Identifier used to save the picture, gets appended a time in ms
 	* @param {Function} callback
 	* 	gets passed true|false depending on success and blob Url
 	*/
-	uploadImage: function(fileURI, callback) {
+	uploadImage: function(fileURI, picId, callback) {
 		var me = this,
 			fileUploadUrl,
 			ft;
@@ -309,16 +311,15 @@ Ext.define('EatSense.util.Helper', {
 			console.log('Helper.uploadImage: doUpload');
 
             // options.fileKey="file";
-            options.fileName='cloobster_app_'+(new Date()).getTime()+'.jpg';
+            options.fileName=picId+'_'+(new Date()).getTime()+'.jpg';
             // options.mimeType="image/jpeg";
 
 			ft.upload(fileURI, fileUploadUrl, success, failure, options);
 		}
 
 		function success(response) {
-			console.log("Helper.uploadImage: response " + response.response);
+			console.log("Helper.uploadImage: success");
 			me.debugObject(response);
-			me.debugObject(response.response);
 			var imageObj = Ext.JSON.decode(response.response);
 			callback(true, imageObj);
 		}
@@ -327,6 +328,58 @@ Ext.define('EatSense.util.Helper', {
 			console.error("Helper.uploadImage: upload error source " + err.source);
             console.error("Helper.uploadImage: upload error target " + err.target);			
             callback(false);
+		}
+	},
+	/**
+	* Deletes given file from filesystem.
+	* @param {String} fileToDelete
+	* @param {Function} callback
+	*/
+	deleteFile: function(fileToDelete, callback) {
+		var hasCallback = this.isFunction(callback);
+
+		if(!fileToDelete) {
+			console.error('EatSense.util.Helper.deleteFile: no file given');
+			return;
+		}
+
+		console.log('EatSense.util.Helper.deleteFile: ' + fileToDelete);
+
+		window.resolveLocalFileSystemURI(fileToDelete, fileFound, fail);
+
+		function fail(evt) { 
+		    console.log("EatSense.util.Helper.deleteFile: fail " + evt.target.error.code); 
+		    if(hasCallback) {
+				callback(false);
+			}
+		} 
+
+		function fileFound(fileEntry) {
+			console.log('EatSense.util.Helper.deleteFile: fileFound');
+			fileEntry.remove(function() {
+				if(hasCallback) {
+					callback(true);
+				}
+			}, function(fileError) {
+				if(hasCallback) {
+					callback(false);
+				}
+			});
+
+			/*
+			FileError.NOT_FOUND_ERR
+			FileError.SECURITY_ERR
+			FileError.ABORT_ERR
+			FileError.NOT_READABLE_ERR
+			FileError.ENCODING_ERR
+			FileError.NO_MODIFICATION_ALLOWED_ERR
+			FileError.INVALID_STATE_ERR
+			FileError.SYNTAX_ERR
+			FileError.INVALID_MODIFICATION_ERR
+			FileError.QUOTA_EXCEEDED_ERR
+			FileError.TYPE_MISMATCH_ERR
+			FileError.PATH_EXISTS_ERR
+			*/
 		}
 	},
   	/**
