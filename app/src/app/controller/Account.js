@@ -770,6 +770,8 @@ Ext.define('EatSense.controller.Account', {
 
 		this.setAccount(null);
 		this.setProfile(null);
+
+		Ext.Viewport.fireEvent('userlogout');
 	},
 	/**
 	* Show a login prompt.

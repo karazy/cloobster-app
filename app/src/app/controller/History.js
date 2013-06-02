@@ -49,11 +49,29 @@ Ext.define('EatSense.controller.History', {
 	},	
    launch: function() {
 
-      Ext.Viewport.on('userlogin', function(account) {
-         Ext.create('Ext.util.DelayedTask', function () {
-               this.loadVisits();
-         }, this).delay(300);             
-      }, this);
+      Ext.Viewport.on({
+         'userlogin': function(account) {
+            Ext.create('Ext.util.DelayedTask', function () {
+                  this.loadVisits();
+            }, this).delay(300);             
+         },
+         'userlogout' : function() {
+            this.clearVisits();
+         },
+         scope: this
+      });
+      //    'userlogin', function(account) {
+      //    Ext.create('Ext.util.DelayedTask', function () {
+      //          this.loadVisits();
+      //    }, this).delay(300);             
+      // }, this);
+
+      // this.getApplication().on({
+      //    'userLogout' : function() {
+      //       this.clearVisits();
+      //    },
+      //    scope: this
+      // });
 
       //ToDo clear list on logout
    },
@@ -459,6 +477,16 @@ Ext.define('EatSense.controller.History', {
 
       function backBtTap() {
          cleanup();
+
+         if(!toVisit.get('id') && toVisit.getData(true).image) {
+            //we cant directly call toVisit.getImage() since it tries to load it server side
+            //resulting in a this model doesn't have a proxy specified error!
+            console.log('History.showToVisitNewView: cleanup delete picture');
+            //a photo was already taken, but toVisit has not been saved
+            //don't handle errors. Doesn't matter for user if the server side gets cleaned up.
+            me.deleteImage(toVisit.getImage().get('blobKey'));
+         }
+
          if(appHelper.isFunction(callback)) {
                   callback(false);
          }
@@ -630,7 +658,7 @@ Ext.define('EatSense.controller.History', {
          //4. show picture
          //5. delete local file
          
-         appHelper.toggleMask('general.processing', view);
+         appHelper.toggleMask('general.processing', form);
 
          if(!toVisit.get('id') && toVisit.getData(true).image) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
@@ -642,7 +670,7 @@ Ext.define('EatSense.controller.History', {
                if(success) {
                   doSubmitPicture();
                } else {
-                  appHelper.toggleMask(false, view);   
+                  appHelper.toggleMask(false, form);   
                }
             });
          } else {
@@ -651,7 +679,7 @@ Ext.define('EatSense.controller.History', {
 
          function doSubmitPicture() {
             appHelper.uploadImage(imageUri, 'tovisit', function(success, imageObj) {
-               appHelper.toggleMask(false, view);
+               appHelper.toggleMask(false, form);
 
                if(success) {
                   imageLabel.setHidden(false);
@@ -767,6 +795,19 @@ Ext.define('EatSense.controller.History', {
          visitStore.load(); 
       }
 
+   },
+   /**
+   * Removes all visits.
+   *
+   */
+   clearVisits: function() {
+      var visitStore = Ext.StoreManager.lookup('visitStore'),
+          list = this.getToVisitList();
+
+      if(visitStore) {
+         visitStore.removeAll();
+         list.refresh();
+      }
    },
 
    /**
