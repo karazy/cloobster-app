@@ -94,8 +94,12 @@ Ext.define('EatSense.view.Dashboard', {
 				, {
 				formatDate: function(date) {
 					var format = appConstants.DateFormat[appConfig.language],
-						staleDate = (date < new Date()) ? ' stale' : '',
+						compareDate = new Date(),
+						staleDate,
 						html;
+
+					compareDate.setHours(0,0,0,0);
+					staleDate = (date < compareDate) ? ' stale' : ''
 
 					html =  '<div class="date' + staleDate +'">' +
 							'<div class="day">' + date.getDate() + '</div>'+
