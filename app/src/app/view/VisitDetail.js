@@ -77,40 +77,44 @@ Ext.define('EatSense.view.VisitDetail', {
 				itemId: 'content',
 				padding: '5px 12px 0px',
 				tpl: new Ext.XTemplate(
+					'<tpl if="imageUrl">',
+						'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
+					'</tpl>',
 					'<div class="location">',
 						'{locationName}',
 					'</div>',
-					'<div>',
+					'<div class="comment">',
 						'{comment}',
 					'</div>',
 					'<tpl if="visitDate">',
-						'<td align="right">',
+						'<div>',
 							'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
-						'</td>',
+						'</div>',
 					'</tpl>',
 					{
 						formatDate: function(date) {
 							var format = appConstants.DateFormat[appConfig.language],
 								html;
 
-							html = '<div class="day">' + date.getDate() + '</div>'+
-									'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
-									'<div class="mmyy">' + date.getFullYear() + '</div>';
-							return html;
+							// html = '<div class="day">' + date.getDate() + '</div>'+
+							// 		'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
+							// 		'<div class="mmyy">' + date.getFullYear() + '</div>';
+							var format = appConstants.DateFormat[appConfig.language];
+							return Ext.util.Format.date(date, format);
 						}
 					}
 				)
-			},
-			{
-				xtype: 'map',
-				mapOptions: {
-					draggable: false,
-					disableDefaultUI: true
-				},
-				margin: '5 12',
-				// width: '100%',
-				height: '300px'
 			}
+			// {
+			// 	xtype: 'map',
+			// 	mapOptions: {
+			// 		draggable: false,
+			// 		disableDefaultUI: true
+			// 	},
+			// 	margin: '5 12',
+			// 	// width: '100%',
+			// 	height: '300px'
+			// }
 
 
 		],

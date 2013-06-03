@@ -14,7 +14,6 @@ Ext.define('EatSense.controller.History', {
 			historyView : 'lounge history',
 			historyList : 'lounge history list',
 			backDetailButton : 'historydetail button[action=back]',
-			// showHistoryButton: 'dashboard button[action=history]',
          toVisitButton: 'dashboard button[action=tovisit]',
          toVisitList: 'dashboard list',
 			historyDetailView: 'lounge historydetail',
@@ -26,9 +25,6 @@ Ext.define('EatSense.controller.History', {
          }
 		},
 		control: {
-			// showHistoryButton : {
-			// 	tap: 'showHistoryButtonHandler'
-			// },
          toVisitButton: {
             tap: 'checkForToVisitAction'
          },
@@ -900,7 +896,7 @@ Ext.define('EatSense.controller.History', {
       deleteBt = detailView.down('button[action=delete]');
       checkInBt = detailView.down('button[action=checkin]');
       content = detailView.down('#content');
-      gmap = detailView.down('map'); 
+      // gmap = detailView.down('map'); 
       imageLabel = detailView.down('#image');
 
       if(record.get('locationId')) {
@@ -935,6 +931,7 @@ Ext.define('EatSense.controller.History', {
       });
 
       renderContent();
+      setupMap();
 
       function renderContent() {
 
@@ -954,6 +951,39 @@ Ext.define('EatSense.controller.History', {
          }         
       }
 
+      function setupMap() {
+         //delay for quicker reactions on phone
+
+         if(!record.get('geoLat') && !record.get('geoLong')) {
+            console.log('History.showToVisitDetail: setupMap cancel no coords');
+            return;
+         }
+
+         Ext.create('Ext.util.DelayedTask', function () {
+
+            gmap = Ext.create('Ext.Map', {
+             mapOptions: {
+                        draggable: false,
+                        disableDefaultUI: true
+                     },
+                     height: '300px',
+                     margin: '5 12'
+            });
+
+            detailView.add(gmap);
+
+            //Delay to prevent setting of wrong center
+            Ext.create('Ext.util.DelayedTask', function () {
+               me.setMapMarker({
+                  latitude : record.get('geoLat'),
+                  longitude : record.get('geoLong')
+               }, gmap);
+            }, this).delay(200);
+
+            
+         }, this).delay(200); 
+      }
+
       function doDelete() {
          Ext.Msg.show({
             message: i10n.translate('tovisit.prompt.delete'),
@@ -970,16 +1000,16 @@ Ext.define('EatSense.controller.History', {
             fn: function(btnId, value, opt) {
             if(btnId=='yes') {
                   this.deleteToVisit(record, function(success) {
-                  if(success) {
-                     cleanup();
-                     visitStore.remove(record);
-                  } else {
-                     //TODO show alert
+                  // if(success) {
+                  //    cleanup();
+                  //    visitStore.remove(record);
+                  if(!success) {
+                     Ext.Msg.alert('', i10n.translate('error.tovisit.delete'));
                   }
                });
-                  //directly jump back or wait for callback?
-                  // cleanup();
-                  // visitStore.remove(record);
+                  //directly jump back and don't wait for callback
+                  cleanup();
+                  visitStore.remove(record);
                }
             }
          });            
@@ -1139,6 +1169,31 @@ Ext.define('EatSense.controller.History', {
         },
         scope: me
       });
+   },
+   /**
+   * Set a marker on a googleMap, based on given position.
+   */
+   setMapMarker: function(position, gmap) {
+      var geoPos = position,
+         myLatlng;
+
+      if(!geoPos) {
+         return;
+      }
+
+      if(!gmap) {
+         return;
+      }
+
+      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
+
+      gmap.getMap().setCenter(myLatlng);
+      gmap.getMap().setZoom(14);               
+
+         var marker = new google.maps.Marker({
+            map: gmap.getMap(),
+            position: myLatlng
+         });   
    },
 
  /**
