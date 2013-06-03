@@ -18,6 +18,9 @@ Ext.define('EatSense.model.Image', {
 			{
 				name: 'url'
 			}
-		]
+		],
+		proxy: {
+			//add dummy proxy to prevent error messages
+		}
 	}
 });

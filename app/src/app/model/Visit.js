@@ -71,7 +71,7 @@ Ext.define('EatSense.model.Visit', {
             model: 'EatSense.model.Image',
             primaryKey: 'id',
             name: 'image',
-            autoLoad: true,
+            // autoLoad: true,
             associationKey: 'image', // read child data from child_groups,
             store: {
             	syncRemovedRecords: false

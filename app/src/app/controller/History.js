@@ -60,20 +60,6 @@ Ext.define('EatSense.controller.History', {
          },
          scope: this
       });
-      //    'userlogin', function(account) {
-      //    Ext.create('Ext.util.DelayedTask', function () {
-      //          this.loadVisits();
-      //    }, this).delay(300);             
-      // }, this);
-
-      // this.getApplication().on({
-      //    'userLogout' : function() {
-      //       this.clearVisits();
-      //    },
-      //    scope: this
-      // });
-
-      //ToDo clear list on logout
    },
    /**
    * Tap eventhandler for show places button.
@@ -952,6 +938,9 @@ Ext.define('EatSense.controller.History', {
 
       function renderContent() {
 
+         //display content
+         content.getTpl().overwrite(content.element, record.getData());
+
          if(record.getImage()) {
             imageLabel.setHidden(false);
             imageLabel.setStyle({
@@ -962,9 +951,7 @@ Ext.define('EatSense.controller.History', {
                'width' : '100%',
                'height' : '300px'
             });
-         }
-         //display content
-         content.getTpl().overwrite(content.element, record.getData());
+         }         
       }
 
       function doDelete() {
@@ -987,7 +974,7 @@ Ext.define('EatSense.controller.History', {
                      cleanup();
                      visitStore.remove(record);
                   } else {
-
+                     //TODO show alert
                   }
                });
                   //directly jump back or wait for callback?
@@ -1013,7 +1000,7 @@ Ext.define('EatSense.controller.History', {
          this.showToVisitNewView(record, function(saved, record) {
             if(saved) {
                renderContent();   
-            }            
+            }
          });
       }
 
