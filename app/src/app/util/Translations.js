@@ -1562,12 +1562,12 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Visit date (optional)"
 		},
 		"tovisit.title.new" : {
-			"DE" :  "Neuer to-visit",
-			"EN" : "New to-visit"
+			"DE" :  "Neuer To-Visit",
+			"EN" : "New To-Visit"
 		},
 		"tovisit.title.existing" : {
-			"DE" :  "to-visit bearbeiten",
-			"EN" : "to-visit edit"
+			"DE" :  "To-visit bearbeiten",
+			"EN" : "To-visit edit"
 		},
 		"tovisit.scanbutton" : {
 			"DE" :  "cloobster Location scannen?",
@@ -1588,6 +1588,10 @@ Ext.define('EatSense.util.Translations',{
 		"tovisit.map.nogeodata" : {
 			"DE" :  "Keine Geo Daten gefunden/vorhanden.",
 			"EN" : "No geo data exists/found."
+		},
+		"tovisit.delete" : {
+			"DE" :  "To-Visit löschen?",
+			"EN" : "Delete To-Visit?"
 		},
 		//errors
 		"error" : {

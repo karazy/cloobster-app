@@ -41,7 +41,15 @@ Ext.define('EatSense.controller.History', {
             show: 'showHistory',
             hide: 'hidePlaces'
          }
-		}
+		},
+      toVisitImageStyle: {
+         'background-size' : '100% auto',
+         'background-position' : 'center',
+         'background-repeat' : 'no-repeat',
+         'width' : '100%',
+         'height' : '300px',
+         'margin' : '5px'
+      }
 	},	
    launch: function() {
 
@@ -351,7 +359,9 @@ Ext.define('EatSense.controller.History', {
          setFormFields(existingToVisit);
          titlebar.setTitle(i10n.translate('tovisit.title.existing'));
          if(existingToVisit.getImage()) {
+            console.log('History.showToVisitNewView: set imageTransient false');
             existingToVisit.set('imageTransient', false);
+            existingToVisit.setImageTransient(existingToVisit.getImage().getData());
          }         
       }
 
@@ -470,7 +480,8 @@ Ext.define('EatSense.controller.History', {
       function backBtTap() {
          cleanup();
 
-         if((!toVisit.get('id') && toVisit.getData(true).image) || (toVisit.get('id') && toVisit.get('imageTransient'))) {
+         // if((!toVisit.get('id') && toVisit.getData(true).image) || (toVisit.get('id') && toVisit.get('imageTransient'))) {
+         if(toVisit.get('imageTransient')) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
             //resulting in a this model doesn't have a proxy specified error!
             console.log('History.showToVisitNewView: cleanup delete picture');
@@ -537,15 +548,18 @@ Ext.define('EatSense.controller.History', {
 
          if(record.getImage()) {
             imageLabel.setHidden(false);
-            imageLabel.setStyle({
-               'background-image': 'url('+record.getImage().get('url')+')',
-               'background-size' : '100% auto',
-               'background-position' : 'center',
-               'background-repeat' : 'no-repeat',
-               'width' : '100%',
-               'height' : '300px',
-               'margin' : '5px 0px'
-            });
+            imageLabel.setStyle(
+               Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+record.getImage().get('url')+')' })
+               );
+            // imageLabel.setStyle({
+               
+            //    'background-size' : '100% auto',
+            //    'background-position' : 'center',
+            //    'background-repeat' : 'no-repeat',
+            //    'width' : '100%',
+            //    'height' : '300px',
+            //    'margin' : '5px 0px'
+            // });
             deletePictureBt.setDisabled(false);
          }
 
@@ -680,10 +694,11 @@ Ext.define('EatSense.controller.History', {
          
          appHelper.toggleMask('general.processing', form);
 
-         if((!toVisit.get('id') && toVisit.getData(true).image) || (toVisit.get('id') && toVisit.get('imageTransient'))) {
+         // if((!toVisit.get('id') && toVisit.getData(true).image) || (toVisit.get('id') && toVisit.get('imageTransient'))) {
+         if(toVisit.get('imageTransient')) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
             //resulting in a this model doesn't have a proxy specified error!
-            console.log('History.showToVisitNewView: submitPicture delete old picture');
+            console.log('History.showToVisitNewView: submitPicture delete old picture case 1');
             //a photo was already taken, but toVisit has not been saved, we have to directly delete it
             //if toVisit already exists, serverside will take care of deleting the image
             me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
@@ -691,14 +706,6 @@ Ext.define('EatSense.controller.History', {
                   doSubmitPicture();
                } else {
                   appHelper.toggleMask(false, form);   
-               }
-            });
-         } else if(toVisit.get('id') && !toVisit.get('imageTransient')) {
-            me.deleteToVisitImage(toVisit, function(success) {
-               if(!success) {
-                  doSubmitPicture();
-               } else {
-                  appHelper.toggleMask(false, form);                  
                }
             });
          } else {
@@ -711,15 +718,18 @@ Ext.define('EatSense.controller.History', {
 
                if(success) {
                   imageLabel.setHidden(false);
-                  imageLabel.setStyle({
-                     'background-image': 'url('+imageObj[0].url+')',
-                     'background-size' : '100% auto',
-                     'background-position' : 'center',
-                     'background-repeat' : 'no-repeat',
-                     'width' : '100%',
-                     'height' : '300px',
-                     'margin' : '5px 0px'
-                  });
+                  imageLabel.setStyle(
+                     Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+imageObj[0].url+')' })
+                  );
+                  // imageLabel.setStyle({
+                  //    'background-image': 'url('+imageObj[0].url+')',
+                  //    'background-size' : '100% auto',
+                  //    'background-position' : 'center',
+                  //    'background-repeat' : 'no-repeat',
+                  //    'width' : '100%',
+                  //    'height' : '300px',
+                  //    'margin' : '5px 0px'
+                  // });
                   
                   image = Ext.create('EatSense.model.Image', {
                      id: 'toVisitImage',
@@ -728,6 +738,7 @@ Ext.define('EatSense.controller.History', {
                   });
 
                   toVisit.setImage(image);
+                  toVisit.set('imageTransient', true);
 
                   if(deletePictureBt) {
                      deletePictureBt.setDisabled(false);   
@@ -987,15 +998,19 @@ Ext.define('EatSense.controller.History', {
 
          if(record.getImage()) {
             imageLabel.setHidden(false);
-            imageLabel.setStyle({
-               'background-image': 'url('+record.getImage().get('url')+')',
-               'background-size' : '100% auto',
-               'background-position' : 'center',
-               'background-repeat' : 'no-repeat',
-               'width' : '100%',
-               'height' : '300px',
-               'margin' : '5px 0px'
-            });
+            imageLabel.setStyle(
+               Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+record.getImage().get('url')+')' })
+            );
+             
+            // imageLabel.setStyle({
+            //    'background-image': 'url('+record.getImage().get('url')+')',
+            //    'background-size' : '100% auto',
+            //    'background-position' : 'center',
+            //    'background-repeat' : 'no-repeat',
+            //    'width' : '100%',
+            //    'height' : '300px',
+            //    'margin' : '5px 0px'
+            // });
          } else {
             imageLabel.setHidden(true);
          }    
@@ -1036,7 +1051,7 @@ Ext.define('EatSense.controller.History', {
 
       function doDelete() {
          Ext.Msg.show({
-            message: i10n.translate('tovisit.prompt.delete'),
+            message: i10n.translate('tovisit.delete'),
             buttons: [{
                text: i10n.translate('yes'),
                itemId: 'yes',
@@ -1080,7 +1095,9 @@ Ext.define('EatSense.controller.History', {
          this.showToVisitNewView(record, function(saved, updatedRecord) {
             if(saved) {
                record = updatedRecord;
-               renderContent();   
+               Ext.create('Ext.util.DelayedTask', function () {
+                  renderContent();
+               }, this).delay(150);
             }
          });
       }

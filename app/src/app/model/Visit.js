@@ -54,13 +54,14 @@ Ext.define('EatSense.model.Visit', {
 				name: 'imageTransient',
 				type: 'boolean',
 				persist: false,
-				defaultValue: true
+				defaultValue: false
 			}
 			// {
 			// 	name: 'refId',
 			// 	type: 'string'
 			// }
 		],
+		imageTransient: null,
 		proxy: {
 			type: 'rest',
 	 		enablePagingParams: true,
