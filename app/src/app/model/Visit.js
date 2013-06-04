@@ -49,6 +49,12 @@ Ext.define('EatSense.model.Visit', {
 			{
 				name: 'image_id',
 				persist: false
+			},
+			{
+				name: 'imageTransient',
+				type: 'boolean',
+				persist: false,
+				defaultValue: true
 			}
 			// {
 			// 	name: 'refId',

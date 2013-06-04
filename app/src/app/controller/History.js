@@ -339,7 +339,7 @@ Ext.define('EatSense.controller.History', {
       titlebar = view.down('titlebar');
       
       if(!existingToVisit) {
-         setupMap();
+         setupMap();         
       }
 
       if(!toVisit.get('locationId')) {
@@ -350,6 +350,9 @@ Ext.define('EatSense.controller.History', {
       if(existingToVisit) {
          setFormFields(existingToVisit);
          titlebar.setTitle(i10n.translate('tovisit.title.existing'));
+         if(existingToVisit.getImage()) {
+            existingToVisit.set('imageTransient', false);
+         }         
       }
 
       backBt.on({
@@ -467,7 +470,7 @@ Ext.define('EatSense.controller.History', {
       function backBtTap() {
          cleanup();
 
-         if(!toVisit.get('id') && toVisit.getData(true).image) {
+         if((!toVisit.get('id') && toVisit.getData(true).image) || (toVisit.get('id') && toVisit.get('imageTransient'))) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
             //resulting in a this model doesn't have a proxy specified error!
             console.log('History.showToVisitNewView: cleanup delete picture');
@@ -566,36 +569,39 @@ Ext.define('EatSense.controller.History', {
          //delay for quicker reactions on phone
          Ext.create('Ext.util.DelayedTask', function () {
 
-            gmap = Ext.create('Ext.Map', {
-             mapOptions: {
-                        draggable: false,
-                        disableDefaultUI: true
-                     },
-                     height: '300px'
-            });
-            form.add(gmap);
-            appHelper.toggleMask('loadingMsg', gmap);
+            if(!gmap) {
+               gmap = Ext.create('Ext.Map', {
+                mapOptions: {
+                           draggable: false,
+                           disableDefaultUI: true
+                        },
+                        height: '300px'
+               });
+               form.add(gmap);
+            }
+                        
             if(!position) {
+               appHelper.toggleMask('loadingMsg', gmap);
                me.getCurrentPosition(function(success, position) {
+                  appHelper.toggleMask(false, gmap);
                   if(success) {
                      processPosition(true, position);
                      geocodePositon(position);
                      noMapHintLabel.hide();
                   } else {
                      noMapHintLabel.show();
-                  }
+                  }                  
                });
             } else {
                Ext.create('Ext.util.DelayedTask', function () {
                   processPosition(true, position);
-               }, this).delay(100); 
+               }, this).delay(300); 
             }
             
-         }, this).delay(200); 
+         }, this).delay(300); 
       }
 
-      function processPosition(success, position) {
-         appHelper.toggleMask(false, gmap);
+      function processPosition(success, position) {         
          if(success) {
             geoPos = position;
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
@@ -674,7 +680,7 @@ Ext.define('EatSense.controller.History', {
          
          appHelper.toggleMask('general.processing', form);
 
-         if(!toVisit.get('id') && toVisit.getData(true).image) {
+         if((!toVisit.get('id') && toVisit.getData(true).image) || (toVisit.get('id') && toVisit.get('imageTransient'))) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
             //resulting in a this model doesn't have a proxy specified error!
             console.log('History.showToVisitNewView: submitPicture delete old picture');
@@ -685,6 +691,14 @@ Ext.define('EatSense.controller.History', {
                   doSubmitPicture();
                } else {
                   appHelper.toggleMask(false, form);   
+               }
+            });
+         } else if(toVisit.get('id') && !toVisit.get('imageTransient')) {
+            me.deleteToVisitImage(toVisit, function(success) {
+               if(!success) {
+                  doSubmitPicture();
+               } else {
+                  appHelper.toggleMask(false, form);                  
                }
             });
          } else {
@@ -740,7 +754,7 @@ Ext.define('EatSense.controller.History', {
          button.setDisabled(true);
          imageLabel.setHidden(true);         
          //exisiting toVisit, explicitly use the tovisit delete method
-         if(toVisit.getId()) {
+         if(toVisit.getId() && !toVisit.get('imageTransient')) {
             console.log('History.showToVisitNewView: deletePictureBtTap existing toVisit image');
             me.deleteToVisitImage(toVisit, function(success) {
                if(!success) {
@@ -1014,10 +1028,10 @@ Ext.define('EatSense.controller.History', {
                   latitude : record.get('geoLat'),
                   longitude : record.get('geoLong')
                }, gmap);
-            }, this).delay(200);
+            }, this).delay(300);
 
             
-         }, this).delay(200); 
+         }, this).delay(300); 
       }
 
       function doDelete() {
