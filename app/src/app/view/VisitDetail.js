@@ -7,7 +7,9 @@ Ext.define('EatSense.view.VisitDetail', {
 	xtype: 'visitdetail',
 	config: {
 		layout: {
-			type: 'vbox'
+			type: 'vbox',
+			align: 'stretch',
+			pack: 'start'
 		},
 		scrollable: 'vertical',
 		items: [
@@ -65,57 +67,45 @@ Ext.define('EatSense.view.VisitDetail', {
 					    hidden: true
 					}
 				]
+			},		
+			{
+				xtype: 'panel',
+				itemId: 'content',
+				margin: '5 12',
+				cls: 'tovisit-detail',
+				tpl: new Ext.XTemplate(
+					'<div>',
+						'<tpl if="imageUrl">',
+							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
+						'</tpl>',
+						'<div class="location">',
+							'{locationName}',
+						'</div>',
+						'<div class="comment">',
+							'{comment}',
+						'</div>',
+						'<tpl if="visitDate">',
+							'<div>',
+								'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
+							'</div>',
+						'</tpl>',
+					'</div>',
+					{
+						formatDate: function(date) {
+							var format = appConstants.DateFormat[appConfig.language],
+								html;
+							var format = appConstants.DateFormat[appConfig.language];
+							return Ext.util.Format.date(date, format);
+						}
+					}
+				)
 			},
 			{
 				xtype: 'label',
 				hidden: true,
 				itemId: 'image',
 				margin: '5 0'
-			},
-			{
-				xtype: 'label',
-				itemId: 'content',
-				padding: '5px 12px 0px',
-				tpl: new Ext.XTemplate(
-					'<tpl if="imageUrl">',
-						'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
-					'</tpl>',
-					'<div class="location">',
-						'{locationName}',
-					'</div>',
-					'<div class="comment">',
-						'{comment}',
-					'</div>',
-					'<tpl if="visitDate">',
-						'<div>',
-							'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
-						'</div>',
-					'</tpl>',
-					{
-						formatDate: function(date) {
-							var format = appConstants.DateFormat[appConfig.language],
-								html;
-
-							// html = '<div class="day">' + date.getDate() + '</div>'+
-							// 		'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
-							// 		'<div class="mmyy">' + date.getFullYear() + '</div>';
-							var format = appConstants.DateFormat[appConfig.language];
-							return Ext.util.Format.date(date, format);
-						}
-					}
-				)
 			}
-			// {
-			// 	xtype: 'map',
-			// 	mapOptions: {
-			// 		draggable: false,
-			// 		disableDefaultUI: true
-			// 	},
-			// 	margin: '5 12',
-			// 	// width: '100%',
-			// 	height: '300px'
-			// }
-
 
 		],
 

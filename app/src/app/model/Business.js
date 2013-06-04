@@ -50,7 +50,13 @@ Ext.define('EatSense.model.Business', {
 			{
 				name: 'basic',
 				type: 'bool'
-			}	
+			},
+			{
+				name: 'geoLat'
+			},
+			{
+				name: 'geoLong'
+			},
 			//contains raw.features which list all avail features for this business		
 		],
 		associations: [{

@@ -14,7 +14,7 @@ Ext.define('EatSense.view.VisitNew', {
 		items: [
 			{
 				xtype: 'titlebar',
-				title: i10n.translate('visit.new.title'),
+				title: i10n.translate('tovisit.title.new'),
 				docked: 'top',
 				items: [
 					{
@@ -37,6 +37,7 @@ Ext.define('EatSense.view.VisitNew', {
 					align: 'stretch',
 					pack: 'start'
 				},
+				cls: 'tovisit-new',
 				items: [
 					{
 						xtype: 'fixedbutton',
@@ -50,7 +51,7 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'label',
 						hidden: true,
 						itemId: 'locationNameLabel',
-						margin: '5 0'
+						margin: '5 7'
 					},
 					{
 						xtype: 'textfield',
@@ -130,6 +131,13 @@ Ext.define('EatSense.view.VisitNew', {
 								disabled: true
 							}
 						]
+					},
+					{
+						xtype: 'label',
+						hidden: true,
+						itemId: 'noMapHint',
+						margin: '5 0',
+						html: i10n.translate('tovisit.map.nogeodata')
 					}
 					
 				]	

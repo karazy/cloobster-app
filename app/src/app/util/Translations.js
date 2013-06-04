@@ -1561,9 +1561,13 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Besuchszeitpunkt (optional)",
 			"EN" : "Visit date (optional)"
 		},
-		"visit.new.title" : {
+		"tovisit.title.new" : {
 			"DE" :  "Neuer to-visit",
 			"EN" : "New to-visit"
+		},
+		"tovisit.title.existing" : {
+			"DE" :  "to-visit bearbeiten",
+			"EN" : "to-visit edit"
 		},
 		"tovisit.scanbutton" : {
 			"DE" :  "cloobster Location scannen?",
@@ -1580,6 +1584,10 @@ Ext.define('EatSense.util.Translations',{
 		"tovisit.camerabutton" : {
 			"DE" :  "Foto hinzufügen",
 			"EN" : "Add photo"
+		},
+		"tovisit.map.nogeodata" : {
+			"DE" :  "Keine Geo Daten gefunden/vorhanden.",
+			"EN" : "No geo data exists/found."
 		},
 		//errors
 		"error" : {

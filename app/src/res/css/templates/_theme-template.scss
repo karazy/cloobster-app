@@ -1413,6 +1413,55 @@ h9 {
   }
 }
 
+.tovisit-detail {
+  color: $label-color;
+  display: block !important;
+
+  div.thumbnail {
+    float: left;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:100%;
+    width: 60px;
+    height: 60px;
+    margin-right: 5px;
+  }
+
+  .location {
+    font-size: 30px;
+    word-break: break-word;
+  }
+
+  .comment {
+    font-style: italic;
+    text-align: justify;
+    clear: both;
+    word-break: break-word;
+  }
+
+  .date {
+
+  }
+}
+
+.tovisit-new {
+  color: $label-color;
+
+  .x-input-el {
+    color: $label-color;
+/*
+     ::-webkit-input-placeholder {
+      color: $label-color;
+     }*/
+  }
+
+/*  input::-webkit-input-placeholder {
+    color: $label-color;
+   }*/
+}
+
 .contactinfo-main-data {
   color: $label-color;
   margin: 0 0 20px 0;

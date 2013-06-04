@@ -311,6 +311,8 @@ Ext.define('EatSense.controller.History', {
           deletePictureBt,
           imageLabel,
           gmap,
+          noMapHintLabel,
+          titlebar,
           values,
           toVisit = existingToVisit || Ext.create('EatSense.model.Visit'),
           locationNameField,
@@ -332,8 +334,9 @@ Ext.define('EatSense.controller.History', {
       clearDateBt = form.down('button[action=delete-visitdate]');
       cameraBt = form.down('button[action=capture-photo]');
       deletePictureBt = form.down('button[action=delete-photo]');      
-      imageLabel = form.down('#image');      
-
+      imageLabel = form.down('#image');
+      noMapHintLabel = form.down('#noMapHint');
+      titlebar = view.down('titlebar');
       
       if(!existingToVisit) {
          setupMap();
@@ -346,6 +349,7 @@ Ext.define('EatSense.controller.History', {
 
       if(existingToVisit) {
          setFormFields(existingToVisit);
+         titlebar.setTitle(i10n.translate('tovisit.title.existing'));
       }
 
       backBt.on({
@@ -448,6 +452,9 @@ Ext.define('EatSense.controller.History', {
             },
             failure: function(record, operation) {
                appHelper.toggleMask(false, view);
+               if(appHelper.isFunction(callback)) {
+                  callback(false);
+               }
                me.getApplication().handleServerError({
                   'error': operation.error,
                   'forceLogout': {403: true}
@@ -500,7 +507,9 @@ Ext.define('EatSense.controller.History', {
             }
             toVisit.set('locationId', business.id);
             //TODO when implemented use geocoords from business
-            toVisit.set('locationCity', business.city);    
+            toVisit.set('locationCity', business.city);
+            toVisit.set('geoLat', business.geoLat);
+            toVisit.set('geoLong', business.geoLong);
 
             setFormFields(toVisit);            
          } else {
@@ -508,28 +517,49 @@ Ext.define('EatSense.controller.History', {
          }         
       }
 
-      //set fields based on given record
+      //set fields based on given tovisit
       function setFormFields(record) {
          //cloobster location, disable name field
          if(record.get('locationId')) {
             locationNameField.setHidden(true);
             locationNameField.setDisabled(true);
             locationNameLabel.setHidden(false);
-            locationNameLabel.setHtml(toVisit.get('locationName'));
-            //TODO get coords from cloobster location
-            // gmap.setHidden(true);
-            geoPos = null;
-         } else {
-            //TODO map does not exist in this moment, FIX
-            setupMap({ coords : {
-               latitude : record.get('geoLat'),
-               longitude : record.get('geoLong')
-            }});
-         }
+            locationNameLabel.setHtml(toVisit.get('locationName'));            
+         
+         } 
          
          locationNameField.setValue(toVisit.get('locationName'));
          commentField.setValue(record.get('comment'));
          datePickerField.setValue(record.get('visitDate'));
+
+         if(record.getImage()) {
+            imageLabel.setHidden(false);
+            imageLabel.setStyle({
+               'background-image': 'url('+record.getImage().get('url')+')',
+               'background-size' : '100% auto',
+               'background-position' : 'center',
+               'background-repeat' : 'no-repeat',
+               'width' : '100%',
+               'height' : '300px',
+               'margin' : '5px 0px'
+            });
+            deletePictureBt.setDisabled(false);
+         }
+
+          if(record.get('geoLat') && record.get('geoLong')) {
+            noMapHintLabel.hide();
+            setupMap({ coords : {
+               latitude : record.get('geoLat'),
+               longitude : record.get('geoLong')
+            }});
+         } else {
+            geoPos = null; 
+            //don't show map when
+            if(gmap) {
+               gmap.hide();
+            }
+            noMapHintLabel.show();
+         }  
       }
 
       function setupMap(position) {
@@ -550,15 +580,18 @@ Ext.define('EatSense.controller.History', {
                   if(success) {
                      processPosition(true, position);
                      geocodePositon(position);
+                     noMapHintLabel.hide();
+                  } else {
+                     noMapHintLabel.show();
                   }
                });
             } else {
                Ext.create('Ext.util.DelayedTask', function () {
                   processPosition(true, position);
-               }, this).delay(200); 
+               }, this).delay(100); 
             }
             
-         }, this).delay(300); 
+         }, this).delay(200); 
       }
 
       function processPosition(success, position) {
@@ -570,11 +603,10 @@ Ext.define('EatSense.controller.History', {
             gmap.getMap().setZoom(14);
             gmap.getMap().setCenter(myLatlng);            
 
-               var marker = new google.maps.Marker({
-                  map: gmap.getMap(),
-                  position: myLatlng
-               });   
-
+            var marker = new google.maps.Marker({
+               map: gmap.getMap(),
+               position: myLatlng
+            });   
          } else {
             //error, position may contain error information
             gmap.setHidden(true);
@@ -671,7 +703,8 @@ Ext.define('EatSense.controller.History', {
                      'background-position' : 'center',
                      'background-repeat' : 'no-repeat',
                      'width' : '100%',
-                     'height' : '300px'
+                     'height' : '300px',
+                     'margin' : '5px 0px'
                   });
                   
                   image = Ext.create('EatSense.model.Image', {
@@ -714,8 +747,8 @@ Ext.define('EatSense.controller.History', {
                   button.setDisabled(false);
                   imageLabel.setHidden(false);
                } else {
-                  toVisit.setImage(null);
                   imageLabel.setStyle({});
+                  toVisit.setImage(null);                  
                }
             });
          } else {
@@ -946,9 +979,12 @@ Ext.define('EatSense.controller.History', {
                'background-position' : 'center',
                'background-repeat' : 'no-repeat',
                'width' : '100%',
-               'height' : '300px'
+               'height' : '300px',
+               'margin' : '5px 0px'
             });
-         }         
+         } else {
+            imageLabel.setHidden(true);
+         }    
       }
 
       function setupMap() {
@@ -1027,8 +1063,9 @@ Ext.define('EatSense.controller.History', {
       }
 
       function doEdit() {
-         this.showToVisitNewView(record, function(saved, record) {
+         this.showToVisitNewView(record, function(saved, updatedRecord) {
             if(saved) {
+               record = updatedRecord;
                renderContent();   
             }
          });
@@ -1111,7 +1148,7 @@ Ext.define('EatSense.controller.History', {
       }
 
       Ext.Ajax.request({
-         url: appConfig.serviceUrl + '/c/tovisits/' + toVisit.get('id') + '/image',
+         url: appConfig.serviceUrl + '/c/visits/' + toVisit.get('id') + '/image',
          method: 'DELETE',
          success: function(response, operation) {
             if(hasCallback) {

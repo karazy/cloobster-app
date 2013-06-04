@@ -46,7 +46,7 @@ Ext.define('EatSense.view.ContactInfo', {
 								'<div class="description">{description}</div>',
 							'</div>'
 						)
-					},			
+					},
 					{
 						xtype: 'panel',
 						itemId: 'mainPhone',
