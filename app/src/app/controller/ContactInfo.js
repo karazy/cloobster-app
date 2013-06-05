@@ -184,6 +184,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			    	console.log('ContactInfo: Geocode was not successful for the following reason ' + status);
 			    	gmap.setHidden(true);
 			    	openMapsBt.setHidden(true);
+			    	Ext.Msg.alert('', i10n.translate('tovisit.map.nogeodata'));
 			    }
 			  });
 			}

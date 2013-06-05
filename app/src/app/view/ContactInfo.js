@@ -93,6 +93,7 @@ Ext.define('EatSense.view.ContactInfo', {
 								text: i10n.translate('contactinfo.map.title'),
 								iconCls: 'globe2',
 								iconMask: true,
+								hidden: true,
 								ui: 'action',
 								flex: 1
 							}	
@@ -180,6 +181,7 @@ Ext.define('EatSense.view.ContactInfo', {
 			urlPanel,
 			openLocationUrlBt,
 			callLocationBt,
+			showMapsBt,
 			gmap,
 			mapsMarker,
 			phonePanel;
@@ -188,6 +190,7 @@ Ext.define('EatSense.view.ContactInfo', {
 			content = this.down('#content');
 			slogan = this.down('#slogan');
 			address = this.down('#address');
+			showMapsBt = this.down('button[action=show-maps]');			
 			console.log('EatSense.view.ContactInfo.updateLocation');
 
 			gmap = this.down('map');
@@ -196,7 +199,7 @@ Ext.define('EatSense.view.ContactInfo', {
 			callLocationBt = this.down('button[action=call-location]');
 
 			urlPanel = this.down('#mainUrl');
-			openLocationUrlBt = this.down('button[action=open-link]');
+			openLocationUrlBt = this.down('button[action=open-link]');			
 
 			if(content) {
 				// console.log('EatSense.view.ContactInfo.updateLocation: Render info for location ' + newValue.get('name'));
@@ -209,9 +212,18 @@ Ext.define('EatSense.view.ContactInfo', {
 				slogan.getTpl().overwrite(slogan.element, newValue.getData());
 			}
 
-			if(address) {
+			if(address) {				
 				address.setHtml(appHelper.formatBusinessAddress(newValue.getData()));
 			}
+
+			if(showMapsBt) {
+				if(newValue.get('address') || newValue.get('city') || newValue.get('postcode')) {
+					showMapsBt.setHidden(false);	
+				} else {
+					showMapsBt.setHidden(true);
+				}
+			}
+			
 
 			if(phonePanel) {
 				phonePanel.down('label').setHtml(newValue.get('phone'));
