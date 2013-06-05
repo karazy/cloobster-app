@@ -71,7 +71,7 @@ Ext.define('EatSense.view.VisitDetail', {
 			{
 				xtype: 'panel',
 				itemId: 'content',
-				margin: '0 5',
+				margin: '5',
 				cls: 'tovisit-detail',
 				tpl: new Ext.XTemplate(
 					'<div>',
@@ -104,7 +104,7 @@ Ext.define('EatSense.view.VisitDetail', {
 				xtype: 'label',
 				hidden: true,
 				itemId: 'image',
-				margin: '0 5'
+				margin: '5'
 			}
 
 		],

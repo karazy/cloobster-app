@@ -43,6 +43,9 @@ Ext.define('EatSense.view.VisitNew', {
 				cls: 'tovisit-new',
 				scrollable: false,
 				margin: 5,
+				defaults: {
+					margin: '5 0'
+				},
 				items: [
 					{
 						xtype: 'fixedbutton',
@@ -50,7 +53,7 @@ Ext.define('EatSense.view.VisitNew', {
 						ui: 'action',
 						action: 'scan',
 						hidden: true,
-						margin: '5 0'
+						// margin: '5 0'
 					},
 					{
 						xtype: 'label',
@@ -62,13 +65,13 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'textfield',
 						placeHolder: i10n.translate('tovisit.formnew.locationname'),
 						name: 'locationName',
-						margin: '5 0'
+						// margin: '5 0'
 					},
 					{
 						xtype: 'textareafield',
 						placeHolder: i10n.translate('tovisit.formnew.comment'),
 						name: 'comment',
-						margin: '5 0'
+						// margin: '5 0'
 					},
 					{
 						xtype: 'panel',
@@ -76,7 +79,7 @@ Ext.define('EatSense.view.VisitNew', {
 							type: 'hbox',
 							align: 'center'
 						},
-						margin: '5 0',
+						// margin: '5 0',
 						items: [
 							{
 								xtype: 'datepickerfield',
@@ -106,7 +109,7 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'label',
 						hidden: true,
 						itemId: 'image',
-						margin: '5 0'
+						// margin: '5 0'
 					},
 					{
 						xtype: 'panel',
@@ -115,7 +118,7 @@ Ext.define('EatSense.view.VisitNew', {
 							type: 'hbox',
 							align: 'center'
 						},
-						margin: '5 0',
+						// margin: '5 0',
 						items: [
 							{
 								xtype:'fixedbutton',
@@ -141,7 +144,7 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'label',
 						hidden: true,
 						itemId: 'noMapHint',
-						margin: '5 0',
+						// margin: '5 0',
 						html: i10n.translate('tovisit.map.nogeodata')
 					}
 					

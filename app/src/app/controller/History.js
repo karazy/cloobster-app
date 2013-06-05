@@ -518,7 +518,6 @@ Ext.define('EatSense.controller.History', {
                toVisit.set('imageUrl', business.images.logo);
             }
             toVisit.set('locationId', business.id);
-            //TODO when implemented use geocoords from business
             toVisit.set('locationCity', business.city);
             toVisit.set('geoLat', business.geoLat);
             toVisit.set('geoLong', business.geoLong);
