@@ -520,15 +520,6 @@ Ext.define('EatSense.controller.History', {
                toVisit.set('imageUrl', business.images.logo);
             }
             toVisit.set('locationId', business.id);
-            
-            //Format address. Currently only in german style. Refactor into custom method which accepts formatting options.
-            // formattedAddress = business.address;
-            // if(business.postcode) {
-            //    formattedAddress += (formattedAddress.length > 0) ? ', ' + business.postcode : business.postcode;
-            // }
-            // if(business.city) {
-            //    formattedAddress += (formattedAddress.length > 0 && !business.postcode) ? ', ' + business.city : ' ' + business.city;
-            // }
 
             formattedAddress = appHelper.formatBusinessAddress(business);
 
@@ -865,7 +856,9 @@ Ext.define('EatSense.controller.History', {
          visitStore.load({
             callback: function(records, operation, success) {
                if(success) {
-                  list.refresh();
+                  if(list) {
+                     list.refresh();
+                  }
                } else {
                   me.getApplication().handleServerError({
                      'error': operation.error,
@@ -1076,7 +1069,7 @@ Ext.define('EatSense.controller.History', {
 
             //Delay to prevent setting of wrong center
             Ext.create('Ext.util.DelayedTask', function () {
-               gmapMarker = me.setMapMarker({
+               gmapMarker = appHelper.setMapMarker({
                   latitude : record.get('geoLat'),
                   longitude : record.get('geoLong')
                }, gmap);
@@ -1136,7 +1129,7 @@ Ext.define('EatSense.controller.History', {
                   renderContent();
                }, this).delay(150);
 
-               gmapMarker = me.setMapMarker({
+               gmapMarker = appHelper.setMapMarker({
                   latitude : record.get('geoLat'),
                   longitude : record.get('geoLong')
                }, gmap, gmapMarker);
@@ -1282,39 +1275,6 @@ Ext.define('EatSense.controller.History', {
         scope: me
       });
    },
-   /**
-   * Set a marker on a googleMap, based on given position.
-   * @return the created Marker
-   */
-   setMapMarker: function(position, gmap, markerToClear) {
-      var geoPos = position,
-         myLatlng;
-
-      if(!geoPos) {
-         return;
-      }
-
-      if(!gmap) {
-         return;
-      }
-
-      if(markerToClear) {
-         markerToClear.setMap(null);
-      }
-
-      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
-
-      gmap.getMap().setCenter(myLatlng);
-      gmap.getMap().setZoom(16);               
-
-      var marker = new google.maps.Marker({
-         map: gmap.getMap(),
-         position: myLatlng
-      });
-
-      return marker;
-   },
-
  /**
   * Load welcome spot of given business.
   * @param {String} businessId

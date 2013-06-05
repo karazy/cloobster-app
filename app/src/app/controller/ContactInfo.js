@@ -26,6 +26,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 		//the location to display
 		location: null,
 		mapCreated: false,
+		mapMarker: null,
 		coords: null
 	},
 	
@@ -45,6 +46,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			if(location && location != this.getLocation()) {
 				this.setCoords(null);
 				this.setMapCreated(false);
+				this.setMapMarker(null);
 				this.setLocation(location);
 				panel.setLocation(location);
 				this.showLocationProfilePictures(location);
@@ -127,19 +129,24 @@ Ext.define('EatSense.controller.ContactInfo', {
 
 				// if(this.getMapCreated()) {
 					//map already rendered, reset center and return
-					if(this.getCoords()) {
-						Ext.create('Ext.util.DelayedTask', function () {
-					        gmap.getMap().setCenter(this.getCoords());
-					        gmap.getMap().setZoom(16);
-					        new google.maps.Marker({
-				          		map: gmap.getMap(),
-				          		position: this.getCoords()
-				      		});		
-					    }, this).delay(100);
-					    
-					    return;  						
-					}					
-					
+				if(this.getCoords()) {
+					Ext.create('Ext.util.DelayedTask', function () {
+						var marker = 
+						appHelper.setMapMarker({
+		                	latitude : location.get('geoLat'),
+		                	longitude : location.get('geoLong')
+		            	}, gmap, this.getMapMarker());
+
+		            	this.setMapMarker(marker);
+				       //  gmap.getMap().setCenter(this.getCoords());
+				       //  gmap.getMap().setZoom(16);
+				       //  new google.maps.Marker({
+			        //   		map: gmap.getMap(),
+			        //   		position: this.getCoords()
+			      		// });		
+				    }, this).delay(100);
+				    return;  						
+				}				
 				// }				
 
 				Ext.create('Ext.util.DelayedTask', function () {
@@ -168,7 +175,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 			      	var marker = new google.maps.Marker({
 			          	map: gmap.getMap(),
 			          	position: results[0].geometry.location
-			      	});				    
+			      	});
+
+			      	this.setMapMarker(marker);	    
 					
 
 			    } else {

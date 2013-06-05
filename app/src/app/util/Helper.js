@@ -405,6 +405,38 @@ Ext.define('EatSense.util.Helper', {
 
 	    return formattedAddress;
 	},
+  /**
+   * Set a marker on a googleMap, based on given position.
+   * @return the created Marker
+   */
+   setMapMarker: function(position, gmap, markerToClear) {
+      var geoPos = position,
+         myLatlng;
+
+      if(!geoPos) {
+         return;
+      }
+
+      if(!gmap) {
+         return;
+      }
+
+      if(markerToClear) {
+         markerToClear.setMap(null);
+      }
+
+      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
+
+      gmap.getMap().setCenter(myLatlng);
+      gmap.getMap().setZoom(16);               
+
+      var marker = new google.maps.Marker({
+         map: gmap.getMap(),
+         position: myLatlng
+      });
+
+      return marker;
+   },
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj
