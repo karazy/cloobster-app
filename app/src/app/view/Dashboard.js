@@ -68,7 +68,7 @@ Ext.define('EatSense.view.Dashboard', {
 						// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED)"></div>',
 						'<tpl if="imageUrl">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',							
-						'<tpl elseif="image">',
+						'<tpl elseif="image && image.url">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
 						'</tpl>',
 						'<div>',

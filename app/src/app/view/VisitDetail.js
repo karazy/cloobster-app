@@ -104,7 +104,7 @@ Ext.define('EatSense.view.VisitDetail', {
 				xtype: 'label',
 				hidden: true,
 				itemId: 'image',
-				margin: '5 0'
+				margin: '5'
 			}
 
 		],

@@ -46,7 +46,7 @@ Ext.define('EatSense.controller.History', {
          'background-size' : '100% auto',
          'background-position' : 'center',
          'background-repeat' : 'no-repeat',
-         'width' : '100%',
+         // 'width' : '100%',
          'height' : '300px',
          'margin' : '5px'
       }
@@ -57,7 +57,7 @@ Ext.define('EatSense.controller.History', {
          'userlogin': function(account) {
             Ext.create('Ext.util.DelayedTask', function () {
                   this.loadVisits();
-            }, this).delay(300);             
+            }, this).delay(100);
          },
          'userlogout' : function() {
             this.clearVisits();
@@ -325,7 +325,7 @@ Ext.define('EatSense.controller.History', {
           toVisit = existingToVisit || Ext.create('EatSense.model.Visit'),
           locationNameField,
           locationNameLabel,
-          geoPos;          
+          geoPos;
 
       Ext.Viewport.add(view);
       // lounge.getContainer().add(view);
@@ -361,7 +361,7 @@ Ext.define('EatSense.controller.History', {
          if(existingToVisit.getImage()) {
             console.log('History.showToVisitNewView: set imageTransient false');
             existingToVisit.set('imageTransient', false);
-            existingToVisit.setImageTransient(existingToVisit.getImage().getData());
+            existingToVisit.setImageTransient(existingToVisit.getImage().getData(true));
          }         
       }
 
@@ -397,6 +397,20 @@ Ext.define('EatSense.controller.History', {
 
       Ext.Viewport.fireEvent('addbackhandler', cleanup);
 
+      //TEST start
+      // var img = Ext.create('EatSense.model.Image',{
+      //    id: 'toVisitImage',
+      //    blobKey: 'ASDSAGAHNA§FN$TANVAIBDSfsdfue4bf',
+      //    url: 'http://robohash.org/Fred'
+      // });
+      // toVisit.setImage(img);
+      // imageLabel.setHidden(false);
+      // imageLabel.setStyle(
+      //    Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+toVisit.getImage().get('url')+')' })
+      // );
+      // deletePictureBt.setDisabled(false);
+      //TEST end
+
       function saveOrUpdateToVisit() {
          values = form.getValues();
 
@@ -421,16 +435,13 @@ Ext.define('EatSense.controller.History', {
             toVisit.fields.getByKey('visitDate').setPersist(false);
          }
 
-         appHelper.toggleMask('save', view);
+         console.log('History.showToVisitNewView: saveOrUpdateToVisit');
+         appHelper.debugObject(toVisit.getData(true));
+         if(toVisit.getImage()) {
+            appHelper.debugObject(toVisit.getImage().getData());
+         }         
 
-         //TEST start
-         // var img = Ext.create('EatSense.model.Image',{
-         //    id: 'toVisitImage',
-         //    blobKey: 'ASDSAGAHNA§FN$TANVAIBDSfsdfue4bf',
-         //    url: 'http://robohash.org/Fred'
-         // });
-         // toVisit.setImage(img);
-         //TEST end
+         appHelper.toggleMask('save', view);
 
          // toVisit.getData(true);
 
@@ -477,24 +488,35 @@ Ext.define('EatSense.controller.History', {
          });
       }
 
-      function backBtTap() {
-         cleanup();
-
+      function backBtTap() {         
          // if((!toVisit.get('id') && toVisit.getData(true).image) || (toVisit.get('id') && toVisit.get('imageTransient'))) {
          if(toVisit.get('imageTransient')) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
             //resulting in a this model doesn't have a proxy specified error!
-            console.log('History.showToVisitNewView: cleanup delete picture');
+            console.log('History.showToVisitNewView: cleanup delete transient picture');
             //a photo was already taken, but toVisit has not been saved
             //don't handle errors. Doesn't matter for user if the server side gets cleaned up.
             me.deleteImage(toVisit.getImage().get('blobKey'));
          }
 
+         //restore old image data
+         if(existingToVisit && existingToVisit.getImageTransient()) {
+            existingToVisit.setImage(Ext.create('EatSense.model.Image', {
+               id: existingToVisit.getImageTransient().id,
+               url: existingToVisit.getImageTransient().url,
+               blobKey: existingToVisit.getImageTransient().blobKey
+            })); 
+            // existingToVisit.getImage().set('id', existingToVisit.getImageTransient().id);
+            // existingToVisit.getImage().set('blobKey', existingToVisit.getImageTransient().blobKey);
+            // existingToVisit.getImage().set('url', existingToVisit.getImageTransient().url);
+            existingToVisit.setImageTransient(null);
+         }
+
+         cleanup();
+
          if(appHelper.isFunction(callback)) {
                   callback(false);
          }
-
-         //TODO if picture was captured delete it
       }
 
       function scanBtTap() {
@@ -546,20 +568,12 @@ Ext.define('EatSense.controller.History', {
          commentField.setValue(record.get('comment'));
          datePickerField.setValue(record.get('visitDate'));
 
-         if(record.getImage()) {
+         if(record.getImage() && record.getImage().get('url')) {
             imageLabel.setHidden(false);
             imageLabel.setStyle(
                Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+record.getImage().get('url')+')' })
-               );
-            // imageLabel.setStyle({
-               
-            //    'background-size' : '100% auto',
-            //    'background-position' : 'center',
-            //    'background-repeat' : 'no-repeat',
-            //    'width' : '100%',
-            //    'height' : '300px',
-            //    'margin' : '5px 0px'
-            // });
+            );
+
             deletePictureBt.setDisabled(false);
          }
 
@@ -589,7 +603,7 @@ Ext.define('EatSense.controller.History', {
                            draggable: false,
                            disableDefaultUI: true
                         },
-                        height: '300px'
+                        height: '200px'
                });
                form.add(gmap);
             }
@@ -620,7 +634,7 @@ Ext.define('EatSense.controller.History', {
             geoPos = position;
             var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
 
-            gmap.getMap().setZoom(14);
+            gmap.getMap().setZoom(16);
             gmap.getMap().setCenter(myLatlng);            
 
             var marker = new google.maps.Marker({
@@ -721,15 +735,6 @@ Ext.define('EatSense.controller.History', {
                   imageLabel.setStyle(
                      Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+imageObj[0].url+')' })
                   );
-                  // imageLabel.setStyle({
-                  //    'background-image': 'url('+imageObj[0].url+')',
-                  //    'background-size' : '100% auto',
-                  //    'background-position' : 'center',
-                  //    'background-repeat' : 'no-repeat',
-                  //    'width' : '100%',
-                  //    'height' : '300px',
-                  //    'margin' : '5px 0px'
-                  // });
                   
                   image = Ext.create('EatSense.model.Image', {
                      id: 'toVisitImage',
@@ -761,35 +766,59 @@ Ext.define('EatSense.controller.History', {
 
       }
 
-      function deletePictureBtTap(button) {
-         button.setDisabled(true);
-         imageLabel.setHidden(true);         
-         //exisiting toVisit, explicitly use the tovisit delete method
-         if(toVisit.getId() && !toVisit.get('imageTransient')) {
-            console.log('History.showToVisitNewView: deletePictureBtTap existing toVisit image');
-            me.deleteToVisitImage(toVisit, function(success) {
-               if(!success) {
-                  button.setDisabled(false);
-                  imageLabel.setHidden(false);
-               } else {
-                  imageLabel.setStyle({});
-                  toVisit.setImage(null);                  
-               }
-            });
-         } else {
+      function deletePictureBtTap(button) {               
+         if(toVisit.get('imageTransient')) {            
             console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
+            button.setDisabled(true);
+            imageLabel.setHidden(true);  
             //delete by blobkey since picture is not attached to a toVisit
             me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
                if(!success) {
                   button.setDisabled(false);
-                  imageLabel.setHidden(false);
+                  imageLabel.setHidden(false);                  
                } else {
-                  toVisit.setImage(null);
+                  // toVisit.getImage().erase();
+                  toVisit.setImage(Ext.create('EatSense.model.Image'));          
+                  // delete toVisit.getData().image;
                   imageLabel.setStyle({});
+                  toVisit.set('imageTransient', false);
                }
-            });            
-            
+            });
+         } else {
+            console.log('History.showToVisitNewView: deletePictureBtTap delete image');
+            //only delete image on toVisit, will be deleted server side when sending an empty image object
+            button.setDisabled(true);
+            imageLabel.setHidden(true);
+            toVisit.setImage(Ext.create('EatSense.model.Image'));
+            imageLabel.setStyle({}); 
+            toVisit.set('imageTransient', false);
          }
+
+         // if(toVisit.getId() && !toVisit.get('imageTransient')) {
+         //    console.log('History.showToVisitNewView: deletePictureBtTap existing toVisit image');
+         //    me.deleteToVisitImage(toVisit, function(success) {
+         //       if(!success) {
+         //          button.setDisabled(false);
+         //          imageLabel.setHidden(false);
+         //       } else {
+         //          toVisit.setImage(null);
+         //          imageLabel.setStyle({});                  
+         //       }
+         //    });
+         // } else {
+         //    console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
+         //    //delete by blobkey since picture is not attached to a toVisit
+         //    me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
+         //       if(!success) {
+         //          button.setDisabled(false);
+         //          imageLabel.setHidden(false);
+         //       } else {
+         //          toVisit.setImage(null);
+         //          imageLabel.setStyle({});
+         //       }
+         //    });            
+            
+         // }
       }
 
       function cleanup() {
@@ -820,7 +849,8 @@ Ext.define('EatSense.controller.History', {
 
          Ext.Viewport.fireEvent('removebackhandler', cleanup);
 
-         view.destroy();    
+         //remove and destroy view
+         Ext.Viewport.remove(view, true);
       }
 
    },
@@ -828,11 +858,24 @@ Ext.define('EatSense.controller.History', {
    * Load visits for logged in user.
    */
    loadVisits: function(account) {
-      var visitStore = Ext.StoreManager.lookup('visitStore');
+      var visitStore = Ext.StoreManager.lookup('visitStore'),
+          list = this.getToVisitList();
 
       //TODO error handling
       if(visitStore) {
-         visitStore.load(); 
+         visitStore.load({
+            callback: function(records, operation, success) {
+               if(success) {
+                  list.refresh();
+               } else {
+                  me.getApplication().handleServerError({
+                     'error': operation.error,
+                     //accessToken invalid
+                     'userLogout': {403: true}
+                  });
+               }
+            }
+         }); 
       }
 
    },
@@ -996,23 +1039,14 @@ Ext.define('EatSense.controller.History', {
          //display content
          content.getTpl().overwrite(content.element, record.getData());
 
-         if(record.getImage()) {
-            imageLabel.setHidden(false);
+         if(record.getImage() && record.getImage().get('url')) {
+            imageLabel.setHidden(false);            
             imageLabel.setStyle(
                Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+record.getImage().get('url')+')' })
             );
-             
-            // imageLabel.setStyle({
-            //    'background-image': 'url('+record.getImage().get('url')+')',
-            //    'background-size' : '100% auto',
-            //    'background-position' : 'center',
-            //    'background-repeat' : 'no-repeat',
-            //    'width' : '100%',
-            //    'height' : '300px',
-            //    'margin' : '5px 0px'
-            // });
          } else {
             imageLabel.setHidden(true);
+            imageLabel.setStyle({});
          }    
       }
 
@@ -1028,11 +1062,11 @@ Ext.define('EatSense.controller.History', {
 
             gmap = Ext.create('Ext.Map', {
              mapOptions: {
-                        draggable: false,
-                        disableDefaultUI: true
-                     },
-                     height: '300px',
-                     margin: '5 12'
+                  draggable: false,
+                  disableDefaultUI: true
+               },
+               height: '200px',
+               margin: '5 12'
             });
 
             detailView.add(gmap);
@@ -1065,16 +1099,15 @@ Ext.define('EatSense.controller.History', {
             fn: function(btnId, value, opt) {
             if(btnId=='yes') {
                   this.deleteToVisit(record, function(success) {
-                  // if(success) {
-                  //    cleanup();
-                  //    visitStore.remove(record);
-                  if(!success) {
+                  if(success) {
+                     visitStore.remove(record);
+                  }
+                  else {
                      Ext.Msg.alert('', i10n.translate('error.tovisit.delete'));
                   }
                });
                   //directly jump back and don't wait for callback
-                  cleanup();
-                  visitStore.remove(record);
+                  cleanup();                  
                }
             }
          });            
@@ -1129,8 +1162,9 @@ Ext.define('EatSense.controller.History', {
          });
 
          cloobsterArea.switchTo(0);
-         cloobsterArea.remove(detailView);
-         detailView.destroy();
+         //remove and destroy view 
+         cloobsterArea.remove(detailView, true);
+         // detailView.destroy();
       }
    },
 
@@ -1165,6 +1199,7 @@ Ext.define('EatSense.controller.History', {
       });
    },
    /**
+   * @DEPRECATED gets handled server side
    * Delete Image of an existing toVisit.
    * @param {EatSense.model.ToVisit} toVisit
    * @param {Function} callback (optional)
@@ -1256,7 +1291,7 @@ Ext.define('EatSense.controller.History', {
       myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
 
       gmap.getMap().setCenter(myLatlng);
-      gmap.getMap().setZoom(14);               
+      gmap.getMap().setZoom(16);               
 
          var marker = new google.maps.Marker({
             map: gmap.getMap(),

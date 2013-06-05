@@ -11,6 +11,8 @@ Ext.define('EatSense.view.VisitNew', {
 		},
 		//make panel stay on top!
 		style: 'z-index: 5;',
+		autoDestroy: true,
+		fullscreen: true,
 		items: [
 			{
 				xtype: 'titlebar',

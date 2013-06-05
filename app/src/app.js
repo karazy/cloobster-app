@@ -246,7 +246,7 @@ Ext.application({
           code = 500;
         }
 
-        	console.log('App.handleServerError: '+ code + ' ');
+        	console.log('App.handleServerError: '+ code + ' Message: ' + message);
         	if(!hideMessage) {
         		EatSense.util.Helper.toggleAlertActive(true);
         	}
