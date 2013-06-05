@@ -46,7 +46,6 @@ Ext.define('EatSense.controller.History', {
          'background-size' : '100% auto',
          'background-position' : 'center',
          'background-repeat' : 'no-repeat',
-         // 'width' : '100%',
          'height' : '300px',
          'margin' : '5px'
       }
@@ -65,16 +64,6 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
    },
-   /**
-   * Tap eventhandler for show places button.
-   * @param {Ext.Button} button
-   *  Button from tap event
-   */
-   // showHistoryButtonHandler: function(button) {
-   //    var mainView = this.getMainView();
-
-   //    mainView.selectByAction('show-places');
-   // },   
 	/**
 	* Event handler for history button.
 	* Shows the history view.
@@ -139,17 +128,6 @@ Ext.define('EatSense.controller.History', {
        historyList.deselectAll();
    },
 
-	/**
-	* Jump back to dashboard.
-	*/
-   // showDashboard: function(options) {
-	  //  var mainView = this.getMainView(),
-   //        historyList = this.getHistoryList();
-
-   //       mainView.selectByAction('show-dashboard');
-
-   //       historyList.deselectAll();
-   // },
    /**
    * Loads the history for logged in user.
    * History will be stored in historyStore.
@@ -361,7 +339,7 @@ Ext.define('EatSense.controller.History', {
          if(existingToVisit.getImage()) {
             console.log('History.showToVisitNewView: set imageTransient false');
             existingToVisit.set('imageTransient', false);
-            existingToVisit.setImageTransient(existingToVisit.getImage().getData(true));
+            existingToVisit.setImageBackup(existingToVisit.getImage().getData(true));
          }         
       }
 
@@ -436,6 +414,7 @@ Ext.define('EatSense.controller.History', {
          }
 
          console.log('History.showToVisitNewView: saveOrUpdateToVisit');
+
          appHelper.debugObject(toVisit.getData(true));
          if(toVisit.getImage()) {
             appHelper.debugObject(toVisit.getImage().getData());
@@ -500,22 +479,19 @@ Ext.define('EatSense.controller.History', {
          }
 
          //restore old image data
-         if(existingToVisit && existingToVisit.getImageTransient()) {
+         if(existingToVisit && existingToVisit.getImageBackup()) {
             existingToVisit.setImage(Ext.create('EatSense.model.Image', {
-               id: existingToVisit.getImageTransient().id,
-               url: existingToVisit.getImageTransient().url,
-               blobKey: existingToVisit.getImageTransient().blobKey
+               id: existingToVisit.getImageBackup().id,
+               url: existingToVisit.getImageBackup().url,
+               blobKey: existingToVisit.getImageBackup().blobKey
             })); 
-            // existingToVisit.getImage().set('id', existingToVisit.getImageTransient().id);
-            // existingToVisit.getImage().set('blobKey', existingToVisit.getImageTransient().blobKey);
-            // existingToVisit.getImage().set('url', existingToVisit.getImageTransient().url);
-            existingToVisit.setImageTransient(null);
+            existingToVisit.setImageBackup(null);
          }
 
          cleanup();
 
          if(appHelper.isFunction(callback)) {
-                  callback(false);
+                  callback(false, existingToVisit);
          }
       }
 
@@ -599,13 +575,15 @@ Ext.define('EatSense.controller.History', {
 
             if(!gmap) {
                gmap = Ext.create('Ext.Map', {
-                mapOptions: {
-                           draggable: false,
-                           disableDefaultUI: true
-                        },
-                        height: '200px'
-               });
-               form.add(gmap);
+                     mapOptions: {
+                        draggable: false,
+                        disableDefaultUI: true
+                     },
+                     height: '200px',
+                     margin: 5
+                  }
+               );
+               view.add(gmap);
             }
                         
             if(!position) {
@@ -978,7 +956,8 @@ Ext.define('EatSense.controller.History', {
           content,
           imageLabel,
           visitStore = Ext.StoreManager.lookup('visitStore'),
-          gmap;
+          gmap,
+          gmapMarker;
 
       if(!cloobsterArea) {
          console.error('History.showToVisitDetail: cloobsterArea does not exist');
@@ -1040,6 +1019,9 @@ Ext.define('EatSense.controller.History', {
          content.getTpl().overwrite(content.element, record.getData());
 
          if(record.getImage() && record.getImage().get('url')) {
+            if(!imageLabel) {
+               console.error('History.showToVisitDetail: renderContent imageLabel does not exist');
+            }
             imageLabel.setHidden(false);            
             imageLabel.setStyle(
                Ext.Object.merge({}, me.getToVisitImageStyle(), {'background-image': 'url('+record.getImage().get('url')+')' })
@@ -1066,14 +1048,14 @@ Ext.define('EatSense.controller.History', {
                   disableDefaultUI: true
                },
                height: '200px',
-               margin: '5 12'
+               margin: '0 5'
             });
 
             detailView.add(gmap);
 
             //Delay to prevent setting of wrong center
             Ext.create('Ext.util.DelayedTask', function () {
-               me.setMapMarker({
+               gmapMarker = me.setMapMarker({
                   latitude : record.get('geoLat'),
                   longitude : record.get('geoLong')
                }, gmap);
@@ -1126,11 +1108,17 @@ Ext.define('EatSense.controller.History', {
 
       function doEdit() {
          this.showToVisitNewView(record, function(saved, updatedRecord) {
-            if(saved) {
+            //always refresh the view
+            if(updatedRecord) {
                record = updatedRecord;
                Ext.create('Ext.util.DelayedTask', function () {
                   renderContent();
                }, this).delay(150);
+
+               gmapMarker = me.setMapMarker({
+                  latitude : record.get('geoLat'),
+                  longitude : record.get('geoLong')
+               }, gmap, gmapMarker);
             }
          });
       }
@@ -1275,8 +1263,9 @@ Ext.define('EatSense.controller.History', {
    },
    /**
    * Set a marker on a googleMap, based on given position.
+   * @return the created Marker
    */
-   setMapMarker: function(position, gmap) {
+   setMapMarker: function(position, gmap, markerToClear) {
       var geoPos = position,
          myLatlng;
 
@@ -1288,15 +1277,21 @@ Ext.define('EatSense.controller.History', {
          return;
       }
 
+      if(markerToClear) {
+         markerToClear.setMap(null);
+      }
+
       myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
 
       gmap.getMap().setCenter(myLatlng);
       gmap.getMap().setZoom(16);               
 
-         var marker = new google.maps.Marker({
-            map: gmap.getMap(),
-            position: myLatlng
-         });   
+      var marker = new google.maps.Marker({
+         map: gmap.getMap(),
+         position: myLatlng
+      });
+
+      return marker;
    },
 
  /**

@@ -7,12 +7,13 @@ Ext.define('EatSense.view.VisitNew', {
 	xtype: 'visitnew',
 	config: {
 		layout: {
-			type: 'fit'
+			type: 'vbox'
 		},
 		//make panel stay on top!
 		style: 'z-index: 5;',
 		autoDestroy: true,
 		fullscreen: true,
+		scrollable: 'vertical',		
 		items: [
 			{
 				xtype: 'titlebar',
@@ -40,6 +41,8 @@ Ext.define('EatSense.view.VisitNew', {
 					pack: 'start'
 				},
 				cls: 'tovisit-new',
+				scrollable: false,
+				margin: 5,
 				items: [
 					{
 						xtype: 'fixedbutton',

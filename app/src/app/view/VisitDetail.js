@@ -3,7 +3,7 @@
 */
 Ext.define('EatSense.view.VisitDetail', {
 	extend: 'Ext.Panel',
-	requires: ['Ext.field.DatePicker'],
+	requires: [],
 	xtype: 'visitdetail',
 	config: {
 		layout: {
@@ -40,7 +40,7 @@ Ext.define('EatSense.view.VisitDetail', {
 					    iconMask: true,
 					    // text: i10n.translate('delete'),
 					    ui: 'action',
-					    margin: '0 5 0 5',
+					    margin: '0 5 0 0',
 					    flex: 1
 					},
 					{
@@ -62,7 +62,7 @@ Ext.define('EatSense.view.VisitDetail', {
 					    iconMask: true,
 					    // text: i10n.translate('checkInButton'),
 					    ui: 'action',
-					    margin: '0 5 0 5',
+					    margin: '0 0 0 5',
 					    flex: 1,
 					    hidden: true
 					}
@@ -71,7 +71,7 @@ Ext.define('EatSense.view.VisitDetail', {
 			{
 				xtype: 'panel',
 				itemId: 'content',
-				margin: '5 12',
+				margin: '0 5',
 				cls: 'tovisit-detail',
 				tpl: new Ext.XTemplate(
 					'<div>',
@@ -104,7 +104,7 @@ Ext.define('EatSense.view.VisitDetail', {
 				xtype: 'label',
 				hidden: true,
 				itemId: 'image',
-				margin: '5'
+				margin: '0 5'
 			}
 
 		],

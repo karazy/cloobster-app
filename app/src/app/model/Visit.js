@@ -61,7 +61,7 @@ Ext.define('EatSense.model.Visit', {
 			// 	type: 'string'
 			// }
 		],
-		imageTransient: null,
+		imageBackup: null,
 		proxy: {
 			type: 'rest',
 	 		enablePagingParams: true,

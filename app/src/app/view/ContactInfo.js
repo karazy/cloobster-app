@@ -170,16 +170,8 @@ Ext.define('EatSense.view.ContactInfo', {
 							}
 						]
 					}
-					//add map dynamically to further reduce load times
-					// {
-					// 	xtype: 'map',
-					// 	mapOptions: {
-					// 		draggable: true,
-					// 		disableDefaultUI: false
-					// 	}
-					// }
 				]
-			}	
+			}
 		]
 	},
 
