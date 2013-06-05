@@ -522,13 +522,15 @@ Ext.define('EatSense.controller.History', {
             toVisit.set('locationId', business.id);
             
             //Format address. Currently only in german style. Refactor into custom method which accepts formatting options.
-            formattedAddress = business.address;
-            if(business.postcode) {
-               formattedAddress += (formattedAddress.length > 0) ? ', ' + business.postcode : business.postcode;
-            }
-            if(business.city) {
-               formattedAddress += (formattedAddress.length > 0 && !business.postcode) ? ', ' + business.city : ' ' + business.city;
-            }
+            // formattedAddress = business.address;
+            // if(business.postcode) {
+            //    formattedAddress += (formattedAddress.length > 0) ? ', ' + business.postcode : business.postcode;
+            // }
+            // if(business.city) {
+            //    formattedAddress += (formattedAddress.length > 0 && !business.postcode) ? ', ' + business.city : ' ' + business.city;
+            // }
+
+            formattedAddress = appHelper.formatBusinessAddress(business);
 
             toVisit.set('locationCity', formattedAddress);
             toVisit.set('geoLat', business.geoLat);

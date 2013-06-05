@@ -382,6 +382,29 @@ Ext.define('EatSense.util.Helper', {
 			*/
 		}
 	},
+	/**
+	* Returns a formatted address based on data in given business.
+	* @param {Object} business data
+	*	Used to get address data.
+	* @return the formatted addressm empty string if non given
+	*/
+	formatBusinessAddress: function(business) {
+		var formattedAddress = '';
+
+		if(!business) {
+			return '';
+		}
+
+		formattedAddress = business.address;
+	    if(business.postcode) {
+	       formattedAddress += (formattedAddress.length > 0) ? ', ' + business.postcode : business.postcode;
+	    }
+	    if(business.city) {
+	       formattedAddress += (formattedAddress.length > 0 && !business.postcode) ? ', ' + business.city : ' ' + business.city;
+	    }
+
+	    return formattedAddress;
+	},
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj

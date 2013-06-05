@@ -13,7 +13,8 @@ Ext.define('EatSense.controller.ContactInfo', {
 		},
 		control: {
 			contactInfoView: {
-				show: 'showContactInfo'
+				show: 'showContactInfo',
+				hide: 'hideContactInfo'
 			},
 			contactInfoShowMapsBt: {
 				tap: 'showMaps'
@@ -50,11 +51,20 @@ Ext.define('EatSense.controller.ContactInfo', {
 			}
 		}, this).delay(300);	
 	},
+
+	hideContactInfo: function(panel) {
+		var mapPanel = panel.down('#mapsPanel');
+
+		if(mapPanel) {
+			panel.remove(mapPanel, true);	
+		}		
+	},
 	/**
 	* Back button tap event. Return to contact view from map view.
 	*/
 	backToContactInfo: function() {
 		var contactInfoView = this.getContactInfoView();
+
 
 		if(contactInfoView) {
 			contactInfoView.setActiveItem(0);
@@ -72,6 +82,10 @@ Ext.define('EatSense.controller.ContactInfo', {
 			mapsAddress;
 
 		if(contactInfoView) {
+			if(!contactInfoView.down('#mapsPanel')) {
+				contactInfoView.add(contactInfoView.getMapsViewTemplate());	
+			}
+			
 			contactInfoView.setActiveItem(1);
 
 			console.log('ContactInfo.showMaps: create map');
@@ -111,7 +125,14 @@ Ext.define('EatSense.controller.ContactInfo', {
 				if(this.getMapCreated()) {
 					//map already rendered, reset center and return
 					if(this.getCoords()) {
-						gmap.getMap().setCenter(this.getCoords());	
+						Ext.create('Ext.util.DelayedTask', function () {
+					        gmap.getMap().setCenter(this.getCoords());
+					        gmap.getMap().setZoom(16);
+					        new google.maps.Marker({
+				          		map: gmap.getMap(),
+				          		position: this.getCoords()
+				      		});		
+					    }, this).delay(100);     						
 					}					
 					return;
 				}				
@@ -136,7 +157,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			    	me.setCoords(results[0].geometry.location);
 
 			    	gmap.setHidden(false);
-			    	gmap.getMap().setZoom(14);
+			    	gmap.getMap().setZoom(16);
 			    	gmap.getMap().setCenter(results[0].geometry.location);	      	
 
 			      	var marker = new google.maps.Marker({
