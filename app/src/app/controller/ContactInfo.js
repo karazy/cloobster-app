@@ -133,8 +133,8 @@ Ext.define('EatSense.controller.ContactInfo', {
 					Ext.create('Ext.util.DelayedTask', function () {
 						var marker = 
 						appHelper.setMapMarker({
-		                	latitude : location.get('geoLat'),
-		                	longitude : location.get('geoLong')
+		                	latitude : this.getCoords().lat(),
+		                	longitude : this.getCoords().lng()
 		            	}, gmap, this.getMapMarker());
 
 		            	this.setMapMarker(marker);
@@ -144,7 +144,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			        //   		map: gmap.getMap(),
 			        //   		position: this.getCoords()
 			      		// });		
-				    }, this).delay(100);
+				    }, this).delay(300);
 				    return;  						
 				}				
 				// }				
@@ -177,7 +177,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			          	position: results[0].geometry.location
 			      	});
 
-			      	this.setMapMarker(marker);	    
+			      	me.setMapMarker(marker);	    
 					
 
 			    } else {
