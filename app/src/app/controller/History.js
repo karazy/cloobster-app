@@ -715,7 +715,7 @@ Ext.define('EatSense.controller.History', {
                   
                   image = Ext.create('EatSense.model.Image', {
                      id: 'toVisitImage',
-                     url: imageObj[0].imageUrl,
+                     url: imageObj[0].url,
                      blobKey: imageObj[0].blobKey
                   });
 
