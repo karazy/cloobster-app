@@ -48,6 +48,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 				this.setLocation(location);
 				panel.setLocation(location);
 				this.showLocationProfilePictures(location);
+				if(this.getLocation().get('geoLat') && this.getLocation().get('geoLong')) {
+					this.setCoords(new google.maps.LatLng(this.getLocation().get('geoLat'), this.getLocation().get('geoLong')));					
+				}
 			}
 		}, this).delay(300);	
 	},
@@ -122,7 +125,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 					});					
 				}
 
-				if(this.getMapCreated()) {
+				// if(this.getMapCreated()) {
 					//map already rendered, reset center and return
 					if(this.getCoords()) {
 						Ext.create('Ext.util.DelayedTask', function () {
@@ -132,10 +135,12 @@ Ext.define('EatSense.controller.ContactInfo', {
 				          		map: gmap.getMap(),
 				          		position: this.getCoords()
 				      		});		
-					    }, this).delay(100);     						
+					    }, this).delay(100);
+					    
+					    return;  						
 					}					
-					return;
-				}				
+					
+				// }				
 
 				Ext.create('Ext.util.DelayedTask', function () {
 					codeAddress();

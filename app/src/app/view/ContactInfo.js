@@ -85,11 +85,6 @@ Ext.define('EatSense.view.ContactInfo', {
 								xtype: 'label',
 								itemId: 'address',
 								cls: 'general-text',
-								tpl: new Ext.XTemplate(
-									'<div class="">',
-										'<div>{address} | {postcode} | {city}</div>',
-									'</div>'
-								),
 								flex: 2
 							},					
 							{
@@ -146,34 +141,8 @@ Ext.define('EatSense.view.ContactInfo', {
 					
 				]
 			}
-			// {
-			// 	xtype: 'backbuttonpanel',
-			// 	backButton: true,
-			// 	layout: {
-			// 		type: 'fit'
-			// 	},
-			// 	items: [
-			// 		{
-			// 			xtype: 'titlebar',
-			// 			title: i10n.translate('contactinfo.map.title'),
-			// 			docked: 'top',
-			// 			items: [
-			// 				{
-			// 					xtype: 'fixedbutton',
-			// 					action: 'open-maps',
-			// 					text: i10n.translate('contactinfo.location.maps'),
-			// 					iconCls: 'globe2',
-			// 					iconMask: true,
-			// 					hidden: true,
-			// 					ui: 'action',
-			// 					align: 'right'
-			// 				}
-			// 			]
-			// 		}
-			// 	]
-			// }
 		],
-
+		//configuration for maps view
 		mapsViewTemplate: {
 			xtype: 'backbuttonpanel',
 			itemId: 'mapsPanel',
@@ -241,7 +210,7 @@ Ext.define('EatSense.view.ContactInfo', {
 			}
 
 			if(address) {
-				address.getTpl().overwrite(address.element, newValue.getData());
+				address.setHtml(appHelper.formatBusinessAddress(newValue.getData()));
 			}
 
 			if(phonePanel) {
