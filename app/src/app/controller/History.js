@@ -507,6 +507,8 @@ Ext.define('EatSense.controller.History', {
       }
 
       function scanCallback(success, record) {
+         var formattedAddress;
+
          appHelper.toggleMask(false, view);
 
          if(success) {
@@ -518,7 +520,17 @@ Ext.define('EatSense.controller.History', {
                toVisit.set('imageUrl', business.images.logo);
             }
             toVisit.set('locationId', business.id);
-            toVisit.set('locationCity', business.city);
+            
+            //Format address. Currently only in german style. Refactor into custom method which accepts formatting options.
+            formattedAddress = business.address;
+            if(business.postcode) {
+               formattedAddress += (formattedAddress.length > 0) ? ', ' + business.postcode : business.postcode;
+            }
+            if(business.city) {
+               formattedAddress += (formattedAddress.length > 0 && !business.postcode) ? ', ' + business.city : ' ' + business.city;
+            }
+
+            toVisit.set('locationCity', formattedAddress);
             toVisit.set('geoLat', business.geoLat);
             toVisit.set('geoLong', business.geoLong);
 
@@ -629,27 +641,35 @@ Ext.define('EatSense.controller.History', {
       function geocodePositon(position) {
          var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                 _typeArr,
+                fAddr,
                 city,
                 geocoder;
 
             geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'location': myLatlng}, function(results, status) {              
             if (status == google.maps.GeocoderStatus.OK) {
-               Ext.Array.each(results, function(result) {
-                  if(!Ext.isArray(result.types)) {
-                     _typeArr = [result.types];
-                  } else {
-                     _typeArr = result.types;
-                  }
+               fAddr = results[0].formatted_address;
+               if(fAddr.lastIndexOf(',') > 0) {
+                  fAddr = fAddr.substring(0, fAddr.lastIndexOf(','));   
+               }
+               
+               toVisit.set('locationCity', fAddr);  
+               //code to only grab city
+               // Ext.Array.each(results, function(result) {
+               //    if(!Ext.isArray(result.types)) {
+               //       _typeArr = [result.types];
+               //    } else {
+               //       _typeArr = result.types;
+               //    }
 
-                  Ext.Array.each(_typeArr, function(type) {
-                     if(type == 'locality') {
-                        city = result.address_components[0].long_name;
-                        console.log('History.showToVisitNewView: geocodePositon found city ' + city);
-                        toVisit.set('locationCity', city);                        
-                     }
-                  });
-               });
+               //    Ext.Array.each(_typeArr, function(type) {
+               //       if(type == 'locality') {
+               //          city = result.address_components[0].long_name;
+               //          console.log('History.showToVisitNewView: geocodePositon found city ' + city);
+               //          toVisit.set('locationCity', city);                        
+               //       }
+               //    });
+               // });
             } else {
                console.log('History.showToVisitNewView: geocodePositon Geocode was not successful for the following reason ' + status);
             }

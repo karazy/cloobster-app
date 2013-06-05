@@ -89,6 +89,11 @@ Ext.define('EatSense.view.VisitDetail', {
 								'<div class="date">{[this.formatDate(values.visitDate)]}</div>',
 							'</div>',
 						'</tpl>',
+						'<tpl if="locationCity">',
+							'<div>',
+								'<div class="address">{locationCity}</div>',
+							'</div>',
+						'</tpl>',
 					'</div>',
 					{
 						formatDate: function(date) {
