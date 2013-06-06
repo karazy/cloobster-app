@@ -61,9 +61,9 @@ Ext.define('EatSense.controller.History', {
          'userlogout' : function() {
             this.clearVisits();
          },
-         // 'addtovist' : function(spot) {
-         //    this.addToVisit(spot);
-         // },
+         'addtovisit' : function(qrCode) {
+            this.checkForToVisitAction(null, qrCode);
+         },
          scope: this
       });
    },
@@ -266,7 +266,7 @@ Ext.define('EatSense.controller.History', {
    * Checks if user is logged in an then shows toVisistNewView.
    *
    */
-   checkForToVisitAction: function() {
+   checkForToVisitAction: function(callback, qrCode) {
       var me = this;
       
       Ext.Viewport.fireEvent('accountrequired', loginCallback);
@@ -274,7 +274,7 @@ Ext.define('EatSense.controller.History', {
       function loginCallback(success) {
 
          if(success) {
-            me.showToVisitNewView();
+            me.showToVisitNewView(null, callback, qrCode);
          }
       }    
    },
@@ -284,8 +284,10 @@ Ext.define('EatSense.controller.History', {
    * @param {EatSense.model.Visit} existingToVisit (optional)
    *  If given, updates an exisiting toVisit instead of creating a new one.
    * @param {Funcion} callback (optional)
+   * @param {String} qrCode (optional)
+   *     Used to directly load a business and prefill toVisit.
    */
-   showToVisitNewView: function(existingToVisit, callback) {
+   showToVisitNewView: function(existingToVisit, callback, qrCode) {
       var me = this,
           lounge =  this.getMainView(),
           view = this.getToVisitNewView(),
@@ -327,7 +329,7 @@ Ext.define('EatSense.controller.History', {
       noMapHintLabel = form.down('#noMapHint');
       titlebar = view.down('titlebar');
       
-      if(!existingToVisit) {
+      if(!existingToVisit && !qrCode) {
          setupMap();         
       }
 
@@ -344,6 +346,11 @@ Ext.define('EatSense.controller.History', {
             existingToVisit.set('imageTransient', false);
             existingToVisit.setImageBackup(existingToVisit.getImage().getData(true));
          }         
+      }
+
+      //if called with a qrCode, directly loads corresponding business
+      if(qrCode) {
+         doLoadBusiness(qrCode);
       }
 
       backBt.on({

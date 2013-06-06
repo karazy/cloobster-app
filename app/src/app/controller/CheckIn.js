@@ -112,9 +112,6 @@ Ext.define('EatSense.controller.CheckIn', {
               },
               scope: this
             },
-            // demoButton: {
-            //   tap: 'demoCheckIn'
-            // },
             cloobsterArea: {
               activate: 'cloobsterAreaActivated'
             }
@@ -410,16 +407,43 @@ Ext.define('EatSense.controller.CheckIn', {
     }
    },
    /**
-   * CheckIn via given qrCode. Triggers the normal checkIn process but skipping scanning.
+   * CheckIn via given qrCode. Prompt user to trigger the normal checkIn process but skipping scanning
+   * or add a toVisit.
    * @param {String} qrCode
-   *  Code used for checkIn
+   *  Code used for checkIn.
    */
-   checkInWithQrCode: function(qrCode) {
-      if(!this.getActiveCheckIn()) {
-        this.doCheckInIntent(qr, null, appHelper.getDevice());
-      } else {
-        Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'));
-      }
+   checkInWithQrCode: function(qrCode) {      
+      Ext.Msg.show({
+        title: '',
+        message: i10n.translate('urlscheme.handle'),
+        buttons: [{
+          text: i10n.translate('checkin'),
+          itemId: 'checkin',
+          ui: 'action'
+        }, 
+        {
+          text: i10n.translate('tovisit'),
+          itemId: 'tovisit',
+          ui: 'action'
+        },
+        {
+          text:  i10n.translate('cancel'),
+          itemId: 'no',
+          ui: 'action'
+        }],
+        scope: this,
+        fn: function(btnId, value, opt) {
+          if(btnId=='checkin') {
+            if(!this.getActiveCheckIn()) {
+              this.doCheckInIntent(qr, null, appHelper.getDevice());
+            } else {
+              Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'));
+            }            
+          } else if(btnId == 'tovisit') {
+            Ext.Viewport.fireEvent('addtovisit', qrCode);
+          }
+        }
+      });
     },
    /**
    * Returns the current nickname.
