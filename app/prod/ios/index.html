@@ -87,12 +87,24 @@ Cloobster.asyncJsapiLoad = function() {
     /* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
      see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
      for more details -jm */
-    /*
-     function handleOpenURL(url)
+    function handleOpenURL(url)
      {
      // TODO: do something with the url passed in.
+      console.log('handleOpenURL' + url);
+      // appHelper.debugObject(url)
+      if(Ext && Ext.Viewport) {
+        var qrcode;
+
+        qrcode = EatSense.util.Helper.extractBarcode(url);
+
+        console.log('Android.launch: found intent url ' + qrcode);
+
+        if(qrcode) {
+          Ext.Viewport.fireEvent('checkinwithqrcode', qrcode);
+        }
+      }
      }
-     */
+     
     var cordovaInit = false;
 
     //Used for debugging
@@ -102,7 +114,7 @@ Cloobster.asyncJsapiLoad = function() {
 
     function onBodyLoad()
     {		
-        document.addEventListener("deviceready", onDeviceReady, false);
+        document.addEventListener("deviceready", onDeviceReady, false);               
     }
     
     /* When this function is called, Cordova has been initialized and is ready to roll */
@@ -111,7 +123,7 @@ Cloobster.asyncJsapiLoad = function() {
      for more details -jm */
     function onDeviceReady()
     {
-        // console.log('onDeviceReady start');
+        console.log('onDeviceReady start');
         // FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });
         cordovaInit = true;
         try {

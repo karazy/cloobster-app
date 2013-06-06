@@ -51,6 +51,7 @@ Ext.define('EatSense.controller.CheckIn', {
      /**
      * @event checkinwithqrcode
      * Fires on Ext.Viewport. Indicates that a checkin should be made with given barcode.
+     * Normally gets called by invokin cloobster via an url scheme.
      * @param {String} qrcode to use for checkin
      */
 
@@ -162,9 +163,7 @@ Ext.define('EatSense.controller.CheckIn', {
           this.checkInConfirm({model:spot, deviceId : appHelper.getDevice()});
         },
         'checkinwithqrcode': function(qr) {
-          if(!this.getActiveCheckIn()) {
-            this.doCheckInIntent(qr, null, appHelper.getDevice());
-          }
+            this.checkInWithQrCode(qr);
         },
         'democheckin' : function() {
           this.demoCheckIn();
@@ -410,6 +409,18 @@ Ext.define('EatSense.controller.CheckIn', {
       });
     }
    },
+   /**
+   * CheckIn via given qrCode. Triggers the normal checkIn process but skipping scanning.
+   * @param {String} qrCode
+   *  Code used for checkIn
+   */
+   checkInWithQrCode: function(qrCode) {
+      if(!this.getActiveCheckIn()) {
+        this.doCheckInIntent(qr, null, appHelper.getDevice());
+      } else {
+        Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'));
+      }
+    },
    /**
    * Returns the current nickname.
    * If user is logged in gets the nickname saved in the profile.

@@ -61,6 +61,9 @@ Ext.define('EatSense.controller.History', {
          'userlogout' : function() {
             this.clearVisits();
          },
+         // 'addtovist' : function(spot) {
+         //    this.addToVisit(spot);
+         // },
          scope: this
       });
    },

@@ -300,7 +300,7 @@ Ext.application({
             }
             //handle checkIn logout                    
             if(forceLogout && (forceLogout[code] === true || forceLogout === true)) {
-                this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);                        
+                this.fireEvent('statusChanged', appConstants.FORCE_LOGOUT);
             }
             //handle user logout
             if(invalidAccessToken && (invalidAccessToken[code] === true || invalidAccessToken === true)) {
