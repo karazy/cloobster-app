@@ -49,6 +49,12 @@ Ext.define('EatSense.controller.CheckIn', {
      */
 
      /**
+     * @event checkinwithqrcode
+     * Fires on Ext.Viewport. Indicates that a checkin should be made with given barcode.
+     * @param {String} qrcode to use for checkin
+     */
+
+     /**
      * @event democheckin
      * Fires on Ext.Viewport. Indicates that a checkin should be made with demo spot.
      */     
@@ -154,6 +160,11 @@ Ext.define('EatSense.controller.CheckIn', {
           this.setActiveSpot(spot);
           this.setActiveArea(spot.get('areaId'));
           this.checkInConfirm({model:spot, deviceId : appHelper.getDevice()});
+        },
+        'checkinwithqrcode': function(qr) {
+          if(!this.getActiveCheckIn()) {
+            this.doCheckInIntent(qr, null, appHelper.getDevice());
+          }
         },
         'democheckin' : function() {
           this.demoCheckIn();
@@ -274,7 +285,6 @@ Ext.define('EatSense.controller.CheckIn', {
       //user already has a stored nickname
       this.checkIn(nickname);
     }
-		
    },
    /**
    * Tap event handler for confirmCheckInBt

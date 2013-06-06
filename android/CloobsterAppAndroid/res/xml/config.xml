@@ -54,6 +54,7 @@
     <plugin name="BarcodeScanner" value="com.phonegap.plugins.barcodescanner.BarcodeScanner"/>
     <plugin name="org.apache.cordova.facebook.Connect" value="org.apache.cordova.facebook.ConnectPlugin" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+    <plugin name="WebIntent" value="com.borismus.webintent.WebIntent" />
 </plugins>
 </cordova>
 

@@ -88,6 +88,34 @@ Ext.define('EatSense.controller.Android', {
 	    		'removebackhandler': this.removeBackFn,
 	    		scope: this	
 	    	});
+
+	    //check for intent extras
+	    if(window.plugins.webintent) {
+	    	console.log('Android.launch: setup intent filter');
+	    		Ext.create('Ext.util.DelayedTask', function () {
+
+	    			window.plugins.webintent.getUri(function(url) {
+		    if(url !== "") {
+		        // url is the url the intent was launched with
+		        console.log('Android.launch: found intent url ' + url);
+		        var hashIndex = url.lastIndexOf('#'),
+		        	qrcode;
+
+		        qrcode = appHelper.extractBarcode(url);
+
+		        console.log('Android.launch: found intent url ' + qrcode);
+
+		        if(qrcode) {
+		        	Ext.Viewport.fireEvent('checkinwithqrcode', qrcode);
+		        }
+
+		    }
+			});
+	    	                  
+	    	    }, this).delay(3000);     
+	    	
+	    }
+	    
 		   
       	}      	
 	},
