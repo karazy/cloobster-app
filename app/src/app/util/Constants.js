@@ -27,12 +27,18 @@ Ext.define('EatSense.util.Constants', {
 		//general date time format
 		DateTimeFormat : {
 			'DE' : 'd.m.Y H:i',
-			'EN' : 'm/d/Y H:i'
+			'EN' : 'm/d/Y H:i',
+			'FR' : 'd-m-Y H:i',
+			'ES' : 'd/m/Y H:i',
+			'IT' : 'd/m/Y H:i'
 		},
 		//general date format
 		DateFormat : {
 			'DE' : 'd.m.Y',
-			'EN' : 'm/d/Y'
+			'EN' : 'm/d/Y',
+			'FR' : 'd-m-Y',
+			'ES' : 'd/m/Y',
+			'IT' : 'd/m/Y'
 		},
 		//Client side 
 		FORCE_LOGOUT : 'FORCE_LOGOUT',

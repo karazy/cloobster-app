@@ -1808,7 +1808,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"contactinfo.map.title" : {
 			"DE" :  "Karte",
-			"EN" : "Karte",
+			"EN" : "Map",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

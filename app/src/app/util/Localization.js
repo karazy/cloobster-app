@@ -76,15 +76,21 @@ Ext.define('EatSense.util.Localization', {
 	 * 			2. an array containing placeholders
 	 * 			can be submited
 	 * @returns
-	 * 		Translation or key if none was found
+	 * 		Translation (or translation in default language) or key if none was found
 	 */
 	 translate: function(key) {
 		 //alternativ with custom object and no sencha store
 		var value = "",
 			translations = this.getTranslations();
-		 if (key && translations[key] && translations[key][this.getLang()] && translations[key][this.getLang()] !== '') {
-			 value = translations[key][this.getLang()];
-			 if(arguments.length > 1) {
+
+		 if (key && translations[key]) {
+			 	if(translations[key][this.getLang()] && translations[key][this.getLang()] !== '') {
+			 		value = translations[key][this.getLang()];
+			 	} else if(translations[key][appConfig.defaultLanguage] && translations[key][appConfig.defaultLanguage] !== ''){
+			 		value = translations[key][appConfig.defaultLanguage];
+			 	}
+			 
+			 if(value && arguments.length > 1) {
 				 //this is a string with placeholders
 				 //replace key with retrieved value and the call Ext.String.format
 				 //we need apply because we don't know the number of arguments
