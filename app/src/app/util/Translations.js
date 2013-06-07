@@ -198,13 +198,22 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Löschen",
 			"EN" : "Delete",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"edit" : {
 			"DE" :  "Bearbeiten",
 			"EN" : "Edit",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
+		},
+		"urlscheme.handle" : {
+			"DE" :  "Einchecken oder in to-visit speichern?",
+			"EN" : "Check in or save as to-visit?",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
 		},
 		//month
 		"month.0" : {
@@ -217,13 +226,15 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Feburar",
 			"EN" : "Feburary",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.2" : {
 			"DE" :  "März",
 			"EN" : "March",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.3" : {
 			"DE" :  "April",
@@ -235,49 +246,57 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Mai",
 			"EN" : "May",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.5" : {
 			"DE" :  "Juni",
 			"EN" : "June",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.6" : {
 			"DE" :  "Juli",
 			"EN" : "July",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.7" : {
 			"DE" :  "August",
 			"EN" : "August",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.8" : {
 			"DE" :  "September",
 			"EN" : "September",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.9" : {
 			"DE" :  "Oktober",
 			"EN" : "October",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.10" : {
 			"DE" :  "November",
 			"EN" : "November",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		"month.11" : {
 			"DE" :  "Dezember",
 			"EN" : "December",
 			"ES" : "",
-			"IT" : ""
+			"IT" : "",
+			"FR" : ""
 		},
 		// main menu
 		"checkInButton" : {
