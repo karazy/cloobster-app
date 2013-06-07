@@ -89,18 +89,15 @@ Cloobster.asyncJsapiLoad = function() {
      for more details -jm */
     function handleOpenURL(url)
      {
-     // TODO: do something with the url passed in.
-      console.log('handleOpenURL' + url);
-      // appHelper.debugObject(url)
       if(Ext && Ext.Viewport) {
         var qrcode;
 
         qrcode = EatSense.util.Helper.extractBarcode(url);
 
-        console.log('Android.launch: found intent url ' + qrcode);
+        console.log('index.html handleOpenURL: ' + url);
 
         if(qrcode) {
-          Ext.Viewport.fireEvent('checkinwithqrcode', qrcode);
+          Ext.Viewport.fireEvent('launchwithqrcode', qrcode);
         }
       }
      }

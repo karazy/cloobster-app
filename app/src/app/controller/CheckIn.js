@@ -23,6 +23,11 @@ Ext.define('EatSense.controller.CheckIn', {
      * @param {EatSense.model.CheckIn} the checkin
      */
 
+     /**
+     * @event applaunched
+     * Fires on a normal app startup (without checkin restore).
+     */     
+
     /**
      * @event basicmode
      * Fires after the spot is loaded. 
@@ -49,7 +54,7 @@ Ext.define('EatSense.controller.CheckIn', {
      */
 
      /**
-     * @event checkinwithqrcode
+     * @event launchwithqrcode
      * Fires on Ext.Viewport. Indicates that a checkin should be made with given barcode.
      * Normally gets called by invokin cloobster via an url scheme.
      * @param {String} qrcode to use for checkin
@@ -159,8 +164,8 @@ Ext.define('EatSense.controller.CheckIn', {
           this.setActiveArea(spot.get('areaId'));
           this.checkInConfirm({model:spot, deviceId : appHelper.getDevice()});
         },
-        'checkinwithqrcode': function(qr) {
-            this.checkInWithQrCode(qr);
+        'launchwithqrcode': function(qr) {
+            this.launchwithqrcode(qr);
         },
         'democheckin' : function() {
           this.demoCheckIn();
@@ -412,7 +417,7 @@ Ext.define('EatSense.controller.CheckIn', {
    * @param {String} qrCode
    *  Code used for checkIn.
    */
-   checkInWithQrCode: function(qrCode) {      
+   launchwithqrcode: function(qrCode) {      
       Ext.Msg.show({
         title: '',
         message: i10n.translate('urlscheme.handle'),
@@ -484,6 +489,7 @@ Ext.define('EatSense.controller.CheckIn', {
   initMainView: function() {
 
     Ext.create('EatSense.view.Lounge');
+    Ext.Viewport.fireEvent('applaunched');
     this.checkFirstDashboardView(this.getAppState());
   },
 	/**
