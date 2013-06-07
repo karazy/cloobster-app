@@ -261,35 +261,35 @@ Ext.define('EatSense.controller.Lounge', {
   	// if(typeof features.products != 'undefined') {
 		listItem = lounge.getItemByAction('show-menu');
 		if(listItem) {
-			listItem.set('viewState', location.isFeatureEnabled('products') ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('products') ? 'club' : 'club-disabled');	
 		}			
 	// }
 
 	// if(typeof features.infopages != 'undefined') {
 		listItem = lounge.getItemByAction('show-infopage');
 		if(listItem) {
-			listItem.set('viewState', location.isFeatureEnabled('infopages') ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('infopages') ? 'club' : 'club-disabled');	
 		}			
 	// }
 
 	// if(typeof features.infopages != 'undefined') {
 		listItem = lounge.getItemByAction('show-feedback');
 		if(listItem) {
-			listItem.set('viewState', location.isFeatureEnabled('feedback') ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('feedback') ? 'club' : 'club-disabled');	
 		}			
 	// }
 
 	// if(typeof features['requests-call'] != 'undefined') {
 		listItem = lounge.getItemByAction('show-requests');
 		if(listItem) {
-			listItem.set('viewState', location.isFeatureEnabled('requests-call') ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('requests-call') ? 'club' : 'club-disabled');	
 		}			
 	// }
 
 	// if(typeof features['contact'] != 'undefined') {
 		listItem = lounge.getItemByAction('show-contactinfo');
 		if(listItem) {
-			listItem.set('viewState', location.isFeatureEnabled('contact') ? 'club' : 'none');	
+			listItem.set('viewState', location.isFeatureEnabled('contact') ? 'club' : 'club-disabled');	
 		}			
 	// }
 
@@ -300,8 +300,10 @@ Ext.define('EatSense.controller.Lounge', {
   * @param state
   *   Hides all items not assigned to given view state.
   */
-  manageViewState: function(state) {
+  manageViewState: function(state, reset) {
   		var lounge = this.getLoungeview(),
+  			store,
+  			disbaledIndex,
   			filters;
 
 		if(!lounge) {
@@ -320,6 +322,7 @@ Ext.define('EatSense.controller.Lounge', {
 		}
 
 		lounge.setViewState(state);
+		store = lounge.getList().getStore();
 
 		console.log('Lounge.manageViewState: state=' + state);
 
@@ -333,6 +336,15 @@ Ext.define('EatSense.controller.Lounge', {
 						lounge.getList().getStore().data.removeFilters(f);	
 					}
 				});								
+			}
+			
+			if(reset) {
+				store.each(function(record) {
+					disabledIndex = record.get('viewState').indexOf('-disabled');
+					if(disabledIndex > 0) {
+						record.set('viewState', record.get('viewState').substring(0, disabledIndex));
+					}
+				});
 			}
 		  
 		  lounge.getList().getStore().filter([
@@ -832,7 +844,7 @@ Ext.define('EatSense.controller.Lounge', {
 			 }
 			});
 			//show dashboard
-			this.manageViewState('cloobster');
+			this.manageViewState('cloobster', true);
 			this.getLoungeview().selectByAction('show-dashboard');
 
 			this.removeDashboardTiles();

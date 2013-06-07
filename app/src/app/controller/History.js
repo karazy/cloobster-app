@@ -35,7 +35,10 @@ Ext.define('EatSense.controller.History', {
 		},
 		control: {
          toVisitButton: {
-            tap: 'checkForToVisitAction'
+            tap: function(button) {
+               this.checkForToVisitAction();
+            },
+            scope: this
          },
          toVisitList: {
             select: 'showToVisitDetail'
