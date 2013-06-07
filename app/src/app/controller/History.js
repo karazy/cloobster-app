@@ -360,7 +360,9 @@ Ext.define('EatSense.controller.History', {
 
       //if called with a qrCode, directly loads corresponding business
       if(qrCode) {
-         doLoadBusiness(qrCode);
+            Ext.create('Ext.util.DelayedTask', function () {
+               doLoadBusiness(qrCode);
+            }, this).delay(300);
       }
 
       backBt.on({

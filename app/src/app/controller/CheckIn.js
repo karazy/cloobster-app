@@ -424,7 +424,8 @@ Ext.define('EatSense.controller.CheckIn', {
         buttons: [{
           text: i10n.translate('checkin'),
           itemId: 'checkin',
-          ui: 'action'
+          ui: 'action',
+          nohide: true
         }, 
         {
           text: i10n.translate('tovisit'),
@@ -440,6 +441,7 @@ Ext.define('EatSense.controller.CheckIn', {
         fn: function(btnId, value, opt) {
           if(btnId=='checkin') {
             if(!this.getActiveCheckIn()) {
+              Ext.Msg.hide();
               this.doCheckInIntent(qr, null, appHelper.getDevice());
             } else {
               Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'));
@@ -1486,6 +1488,8 @@ Ext.define('EatSense.controller.CheckIn', {
    /**
    * Checks if this is the first time user sees the dashboard.
    * Displays a helping text in an overlay.
+   * @param {EatSense.model.AppState} appState
+   *    Application state information.
    */
    checkFirstDashboardView: function(appState) {
     var helpPanel;
