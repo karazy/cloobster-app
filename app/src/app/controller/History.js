@@ -4,6 +4,15 @@
 */
 Ext.define('EatSense.controller.History', {
 	extend: 'Ext.app.Controller',
+
+    /**
+     * @event addtovisit
+     * Add a to visit based on given qr code.
+     * Fires on Ext.Viewport.
+     * @param {String} qrCode
+     *  Code of a spot which sould be used to optain location info.
+     */    
+
 	requires: ['EatSense.view.History', 'EatSense.view.VisitNew', 'EatSense.view.VisitDetail'],
 	config: {
 		refs: {
@@ -62,7 +71,7 @@ Ext.define('EatSense.controller.History', {
             this.clearVisits();
          },
          'addtovisit' : function(qrCode) {
-            this.checkForToVisitAction(null, qrCode);
+            this.checkForToVisitAction(qrCode);
          },
          scope: this
       });
@@ -264,9 +273,10 @@ Ext.define('EatSense.controller.History', {
 
    /**
    * Checks if user is logged in an then shows toVisistNewView.
-   *
+   * @param {String} qrCode (optional)
+   *  If given gets passed to {@see EatSense.controller.History#showToVisitNewView} and directly loads a cloobster location.
    */
-   checkForToVisitAction: function(callback, qrCode) {
+   checkForToVisitAction: function(qrCode) {
       var me = this;
       
       Ext.Viewport.fireEvent('accountrequired', loginCallback);
@@ -274,7 +284,7 @@ Ext.define('EatSense.controller.History', {
       function loginCallback(success) {
 
          if(success) {
-            me.showToVisitNewView(null, callback, qrCode);
+            me.showToVisitNewView(null, null, qrCode);
          }
       }    
    },
