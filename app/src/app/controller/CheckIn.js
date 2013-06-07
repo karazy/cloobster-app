@@ -424,8 +424,7 @@ Ext.define('EatSense.controller.CheckIn', {
         buttons: [{
           text: i10n.translate('checkin'),
           itemId: 'checkin',
-          ui: 'action',
-          nohide: true
+          ui: 'action'
         }, 
         {
           text: i10n.translate('tovisit'),
@@ -441,10 +440,11 @@ Ext.define('EatSense.controller.CheckIn', {
         fn: function(btnId, value, opt) {
           if(btnId=='checkin') {
             if(!this.getActiveCheckIn()) {
-              Ext.Msg.hide();
-              this.doCheckInIntent(qr, null, appHelper.getDevice());
+              this.doCheckInIntent(qrCode, null, appHelper.getDevice());
             } else {
-              Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'));
+              Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'), function() {
+                this.launchwithqrcode(qrCode);
+              }, this);
             }            
           } else if(btnId == 'tovisit') {
             Ext.Viewport.fireEvent('addtovisit', qrCode);

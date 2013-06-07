@@ -52,7 +52,7 @@ Ext.define('EatSense.view.VisitNew', {
 						text: i10n.translate('tovisit.scanbutton'),
 						ui: 'action',
 						action: 'scan',
-						hidden: true,
+						hidden: true
 						// margin: '5 0'
 					},
 					{
@@ -64,13 +64,13 @@ Ext.define('EatSense.view.VisitNew', {
 					{
 						xtype: 'textfield',
 						placeHolder: i10n.translate('tovisit.formnew.locationname'),
-						name: 'locationName',
+						name: 'locationName'
 						// margin: '5 0'
 					},
 					{
 						xtype: 'textareafield',
 						placeHolder: i10n.translate('tovisit.formnew.comment'),
-						name: 'comment',
+						name: 'comment'
 						// margin: '5 0'
 					},
 					{
@@ -108,7 +108,7 @@ Ext.define('EatSense.view.VisitNew', {
 					{
 						xtype: 'label',
 						hidden: true,
-						itemId: 'image',
+						itemId: 'image'
 						// margin: '5 0'
 					},
 					{
