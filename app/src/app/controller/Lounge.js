@@ -328,7 +328,7 @@ Ext.define('EatSense.controller.Lounge', {
 
 		//hide all elements with flag hideOnBasic
 		if(state) {
-			//remove filter for prev viewState
+			//remove filter for prev viewState			
 			filters = lounge.getList().getStore().getFilters();
 			if(filters && filters.length > 0) {
 				Ext.Array.forEach(filters, function(f) {
@@ -339,6 +339,7 @@ Ext.define('EatSense.controller.Lounge', {
 			}
 			
 			if(reset) {
+				store.filter();
 				store.each(function(record) {
 					disabledIndex = record.get('viewState').indexOf('-disabled');
 					if(disabledIndex > 0) {
