@@ -299,12 +299,15 @@ Ext.define('EatSense.controller.Lounge', {
   * Manages the slidenavigation menu based on given parameters.
   * @param state
   *   Hides all items not assigned to given view state.
+  * @param {Boolean} reset
+  * 	true to reset all elements with state xyz-disabled by removing disabled.
+  *		ATTENTION: also clears all filters on store!
   */
   manageViewState: function(state, reset) {
   		var lounge = this.getLoungeview(),
   			store,
-  			disbaledIndex,
-  			filters;
+  			filters,
+  			disabledArray = new Array();
 
 		if(!lounge) {
 			 console.log('Lounge.manageViewState: no loungeview found!');
@@ -326,37 +329,53 @@ Ext.define('EatSense.controller.Lounge', {
 
 		console.log('Lounge.manageViewState: state=' + state);
 
-		//hide all elements with flag hideOnBasic
-		if(state) {
-			//remove filter for prev viewState			
-			filters = lounge.getList().getStore().getFilters();
-			if(filters && filters.length > 0) {
-				Ext.Array.forEach(filters, function(f) {
-					if(f.getId() == "viewStateFilter") {
-						lounge.getList().getStore().data.removeFilters(f);	
-					}
-				});								
-			}
-			
-			if(reset) {
-				store.filter();
-				store.each(function(record) {
-					disabledIndex = record.get('viewState').indexOf('-disabled');
-					if(disabledIndex > 0) {
-						record.set('viewState', record.get('viewState').substring(0, disabledIndex));
-					}
-				});
-			}
-		  
-		  lounge.getList().getStore().filter([
-			 {	
-			 	id: 'viewStateFilter',
-		 		filterFn: viewStateFilter
-			 }
-		  ]);
-		} else {
-			lounge.getList().getStore().data.removeFilters(['viewState']);
+		
+		filters = store.getFilters();
+		if(filters && filters.length > 0) {
+			Ext.Array.forEach(filters, function(f) {
+				if(f.getId() == "viewStateFilter") {
+					store.data.removeFilters(f);	
+				}
+			});								
 		}
+		
+		if(reset) {
+			//ignore all filters and suspend events!	
+			store.clearFilter();
+			store.suspendEvents();
+			Ext.Array.each(store.data.all, function(record, index) {
+				var disabledIndex,
+					newViewState;
+
+				console.log('Lounge.manageViewState: check viewstate of ' + record.get('title') + ' index ' + index);
+
+				disabledIndex = record.get('viewState').indexOf('-disabled');				
+				if(disabledIndex > 0) {					
+					//setting records inside loop fires events which alter the order of records and thus won't set state correctly!
+					disabledArray.push(record);
+				}
+			});
+			
+			Ext.Array.each(disabledArray, function(disRec, index) {
+				var disabledIndex,
+					newViewState;
+				
+				disabledIndex = disRec.get('viewState').indexOf('-disabled');
+				newViewState = disRec.get('viewState').substring(0, disabledIndex);
+				console.log('Lounge.manageViewState: set new viewState from ' +disRec.get('viewState')+ ' to ' + newViewState + ' for ' + disRec.get('title'));
+				disRec.set('viewState', newViewState);
+			});			
+			store.resumeEvents();
+		}
+	  
+	  store.filter([
+		 {	
+		 	id: 'viewStateFilter',
+	 		filterFn: viewStateFilter
+		 }
+	  ]);
+
+	  lounge.getList().refresh();
 
 		//filterFn
 		function viewStateFilter(item) {
