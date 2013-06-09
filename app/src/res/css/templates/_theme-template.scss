@@ -1210,6 +1210,9 @@ $general-border-radius: 3px;
     width: 100%;
   }  
 
+  &.left {
+    text-align: left !important;
+  }
 }
 
 .general-textfield {
@@ -1265,6 +1268,13 @@ h9 {
 
 .visible {
   display: block;
+}
+
+.link-button {
+  text-align: right; 
+  color: $base-color; 
+  font-size: .8em; 
+  margin-right:.5em;
 }
 
 

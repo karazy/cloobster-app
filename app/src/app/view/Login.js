@@ -38,24 +38,15 @@ Ext.define('EatSense.view.Login', {
 						action: 'about',
 						iconCls: 'about',
 						iconMask: true,
-						// styleHtmlContent: true,
 						align: 'right'
 					}
 				]
 			},
 			{
-				xtype : 'panel',
-				html: '<img src="res/images/dashboard/Logo_cloobster_mini.png" />',
-				// cls: 'dashboard-header',
-				height: 56,
-				width: 180,
-				layout: 'fit'
-			},	
-			{
 				xtype: 'label',
 				html: i10n.translate('login.description'),
 				width: '90%',
-				cls: 'general-label',
+				cls: ['general-label', 'left'],
 				margin: '0 0 10 0'
 			},
 			{
@@ -100,28 +91,24 @@ Ext.define('EatSense.view.Login', {
 						action: 'login',
 						ui: 'action',
 						margin: '0 5 0 0',
-						// width: '45%'
 						flex: 1
 					},
-					// {
-					// 	xtype: 'label',
-					// 	html: i10n.translate('login.label.notamember'),
-					// 	width: '90%'
-					// },
 					{
 						xtype: 'fixedbutton',
 						text: i10n.translate('login.button.signup'),
 						ui: 'action',
 						action: 'signup',
 						margin: '0 0 0 5',
-						// width: '45%'
 						flex: 1
 					}
 				]
 			},	
 			{
 				xtype: 'label',
-				html: '- '+i10n.translate('or')+' -'
+				style: {
+					'font-size' : '14px'
+				},
+				html: i10n.translate('or')
 			},
 			{
 				xtype: 'fixedbutton',
@@ -140,16 +127,8 @@ Ext.define('EatSense.view.Login', {
 				action: 'request-password',
 				width: '90%',
 				baseCls: 'link-button',
-				margin: '15 0 0 0',
-				style: 'text-align: right; color: blue; font-size: .8em; margin-right:.5em; text-decoration:underline;'
+				margin: '15 0 0 0'
 			}
-
-			// {
-			// 	xtype: 'toolbar',
-			// 	docked: 'bottom',
-			// 	items: [
-			// 	]
-			// }
 		]
 	}
 });

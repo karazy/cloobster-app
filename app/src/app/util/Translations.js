@@ -1431,7 +1431,7 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Compte"
 		},
 		"login.description" : {
-			"DE" : "Erinnere dich, wo Du warst",
+			"DE" : "<h1>Gleich geht's weiter...</h1><p>Zur Registrierung brauchen wir lediglich eine E-Mailadresse und ein Passwort</p>",
 			"EN" : "Remember where you were",
 			"ES" : "Recuerde dónde estaba",
 			"IT" : "Ricorda dove sei stato",
@@ -1459,7 +1459,7 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Se connecter"
 		},
 		"login.button.signup" : {
-			"DE" :  "Signup",
+			"DE" :  "Registrieren",
 			"EN" :  "Sign-up",
 			"ES" : "Registrarse",
 			"IT" : "Registrati",
