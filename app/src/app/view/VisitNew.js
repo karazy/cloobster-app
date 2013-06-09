@@ -86,7 +86,7 @@ Ext.define('EatSense.view.VisitNew', {
 								placeHolder: i10n.translate('tovisit.formnew.visitdate'),
 								name: 'visitDate',
 								dateFormat: appConstants.DateFormat[appConfig.language],
-								destroyPickerOnHide: true,
+								destroyPickerOnHide: true,							
 								picker: {
 									yearFrom: 2013,
 							        yearTo: 2020,

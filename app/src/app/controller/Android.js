@@ -11,7 +11,9 @@ Ext.define('EatSense.controller.Android', {
 		//Array of functions to execute when back button event is triggered
 		androidBackHandler : new Array(),
 		//when true, will exit application on next backbutton event
-		exitOnBack: false
+		exitOnBack: false,
+		//if true won't use the android bugfix to resolve resizing problem
+		skipHideKeyboardEvent: false
 	},
 	launch: function() {
 		var me = this,
@@ -56,30 +58,12 @@ Ext.define('EatSense.controller.Android', {
           	function onBackKeyDown() {
                 me.executeBackHandler();
         	};
-        	//20130222 dirty lirty hack. fixes the resizing problem. normally 
-        	//source: http://stackoverflow.com/questions/8335834/how-can-i-hide-the-android-keyboard-using-javascript
-        	//with android:windowSoftInputMode="adjustPan" keyboard covers input elements
-        	//with android:windowSoftInputMode="adjustResize" screen does not resize correctly
-        	//after keyboard gets hidden
+        	
 		    document.addEventListener("hidekeyboard", function() {
-		    	try {
-					Ext.defer(function() {
-			        	var field = document.createElement('input');
-						field.setAttribute('type', 'text');
-						document.body.appendChild(field);
-						setTimeout(function() {
-						    field.focus();
-						    setTimeout(function() {
-						        field.setAttribute('style', 'display:none;');
-						        document.body.removeChild(field);
-						    }, 10);
-
-						}, 10);
-			        }, 25);
-		    	} catch(e) {
-		    		console.error('Android.launch: keyboard hide error ' + e);
+		    	if(!me.getSkipHideKeyboardEvent()) {
+		    		me.forceKeyboardHide();
 		    	}
-		        
+		    	
 		    }, false);
 
 		    //listen for global addbackhandler and removebackhandler events
@@ -88,6 +72,11 @@ Ext.define('EatSense.controller.Android', {
 	    		'removebackhandler': this.removeBackFn,
 	    		'applaunched': this.checkForIntents,
 	    		'resumecheckin': this.checkForIntents,
+	    		'skiphidekeyboardevent' : function(skip) {
+	    			var _skip = (skip === true) ? true : false;
+	    			this.setSkipHideKeyboardEvent(_skip);
+	    			console.log('Android: set hidekeyboard handling on|off: ' + _skip);
+	    		},
 	    		scope: this	
 	    	});		    		   
       	}   	
@@ -291,5 +280,30 @@ Ext.define('EatSense.controller.Android', {
 	*/
 	resetBackHandler: function() {
 		this.setAndroidBackHandler(new Array());
+	},
+
+	forceKeyboardHide: function() {
+		//20130222 dirty lirty hack. fixes the resizing problem. normally 
+    	//source: http://stackoverflow.com/questions/8335834/how-can-i-hide-the-android-keyboard-using-javascript
+    	//with android:windowSoftInputMode="adjustPan" keyboard covers input elements
+    	//with android:windowSoftInputMode="adjustResize" screen does not resize correctly
+    	//after keyboard gets hidden
+		try {
+			Ext.defer(function() {
+	        	var field = document.createElement('input');
+				field.setAttribute('type', 'text');
+				document.body.appendChild(field);
+				setTimeout(function() {
+				    field.focus();
+				    setTimeout(function() {
+				        field.setAttribute('style', 'display:none;');
+				        document.body.removeChild(field);
+				    }, 10);
+
+				}, 10);
+	        }, 25);
+    	} catch(e) {
+    		console.error('Android.forceKeyboardHide: keyboard hide error ' + e);
+    	}
 	}
 });

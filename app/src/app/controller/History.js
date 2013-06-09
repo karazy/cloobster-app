@@ -398,7 +398,40 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
+
+      if(Ext.os.is.Android) {
+         //Bugfix for #589
+         doFireSkipKeyBoardEvent(true);
+
+         // form.down('textareafield').on({
+         //    // order: 'before',
+         //    blur: this.doFireSkipKeyBoardEvent,
+         //    scope: this
+         // });
+         // datePickerField.getComponent().setUseMask(false);
+
+         datePickerField.on({
+            // order: 'before',
+            focus: function(picker) {
+               // console.log('PICKER');
+               picker.getPicker().fireAction('tap');
+            },
+            delay:500,
+            scope: this
+         });
+
+         // datePickerField.on('focus', function() {
+         //       this.doFireSkipKeyBoardEvent();
+         //    },
+         //    this, {
+         //       // delay: 1000
+         //    }, 'before'
+         //    );
+         
+      }
+
       Ext.Viewport.fireEvent('addbackhandler', cleanup);
+      
 
       //TEST start
       // var img = Ext.create('EatSense.model.Image',{
@@ -446,26 +479,6 @@ Ext.define('EatSense.controller.History', {
          }         
 
          appHelper.toggleMask('save', view);
-
-         // toVisit.getData(true);
-
-         // Ext.Ajax.request({
-         //    url: appConfig.serviceUrl + '/c/visits',
-         //    jsonData:
-         //    method: 'POST',
-         //    success: function(response, operation) {
-         //       fileUploadUrl = encodeURI(response.responseText);
-         //       console.log('Helper.uploadImage: to ' + fileUploadUrl);
-         //       doUpload();
-         //    }, 
-         //    failure: function(response, operation) {
-         //       callback(false);
-         //       me.getApplication().handleServerError({
-         //             'error': response
-         //          });
-         //    },
-         //    scope: this
-         // });
 
          toVisit.save({
 
@@ -836,6 +849,11 @@ Ext.define('EatSense.controller.History', {
          // }
       }
 
+      function doFireSkipKeyBoardEvent(skip) {
+         //Bugfix for #589, only needed for Android
+         Ext.Viewport.fireEvent('skiphidekeyboardevent', skip);
+      }
+
       function cleanup() {
          backBt.un({
             tap: backBtTap,
@@ -862,6 +880,11 @@ Ext.define('EatSense.controller.History', {
             scope: this
          });
 
+         if(Ext.os.is.Android) {
+            doFireSkipKeyBoardEvent(false);
+         }
+
+         
          Ext.Viewport.fireEvent('removebackhandler', cleanup);
 
          //remove and destroy view
