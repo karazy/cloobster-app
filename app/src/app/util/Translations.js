@@ -363,8 +363,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"slidenav.header.help" : {
-			"DE" : "<b>Check-In</b>: QR scannen um einzuchecken<br/><b>Places</b>: Besuchte cloobster Orte<br/><b>Profil</b>: Account Verwaltung & Einstellungen<br/><b>Demo</b>: Teste cloobster",
-			"EN" : "<b>Check-In</b>: Scan QR for check-in<br/><b>Places</b>: Visited cloobster locations<br/><b>Profile</b>: Account management & settings<br/><b>Demo</b>: Test cloobster",
+			"DE" : "<b>Check-In</b>: QR scannen um einzuchecken<br/><b>To-Visit</b>: Merk dir deine Lieblingsorte und sei informiert was es Neues gibt (nur für cloobter Locations).<br/><b>Places</b>: Besuchte cloobster Orte<br/><b>Profil</b>: Account Verwaltung & Einstellungen<br/><b>Demo</b>: Teste cloobster",
+			"EN" : "<b>Check-In</b>: Scan QR for check-in<br/><b>To-Visit</b>: Remember your favorite places and stay up-to-date (only for cloobster locations).<br/><b>Places</b>: Visited cloobster locations<br/><b>Profile</b>: Account management & settings<br/><b>Demo</b>: Test cloobster",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
