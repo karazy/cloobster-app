@@ -96,15 +96,20 @@ Ext.define('EatSense.view.Dashboard', {
 					var format = appConstants.DateFormat[appConfig.language],
 						compareDate = new Date(),
 						staleDate,
+						shortYear,
 						html;
 
 					compareDate.setHours(0,0,0,0);
-					staleDate = (date < compareDate) ? ' stale' : ''
+					staleDate = (date < compareDate) ? ' stale' : '';
+					shortYear = date.getFullYear().toString().substring(2,4);
 
 					html =  '<div class="date' + staleDate +'">' +
 							'<div class="day">' + date.getDate() + '</div>'+
-							'<div class="mmyy">' + i10n.translate('month.' + date.getMonth()) + '</div>' +
-							'<div class="mmyy">' + date.getFullYear() + '</div></div>';
+							'<div class="mmyy">' + 
+								appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
+								shortYear +
+							'</div>';
+							// '<div class="mmyy">' + date.getFullYear() + '</div></div>';
 					return html;
 				}
 			}),			

@@ -94,17 +94,6 @@ Ext.define('EatSense.view.Lounge', {
 				accountRequired: true
 			},
 			{
-				ui: 'action',
-				title: i10n.translate('dashboard.button.demo'),
-				action: 'demo-checkin',
-				iconCls: 'demo-icon',
-				leaf: true,
-				viewState: 'cloobster',
-				handler: function() {
-					Ext.Viewport.fireEvent('democheckin');
-				}
-			},
-			{
 				xtype: 'clubarea',
 				title: i10n.translate('slidenav.button.home'),
 				leaf: true,
@@ -169,6 +158,17 @@ Ext.define('EatSense.view.Lounge', {
 				action: 'show-settings',
 				iconCls: 'user-icon',
 				viewState: 'allways'
+			},
+			{
+				ui: 'action',
+				title: i10n.translate('dashboard.button.demo'),
+				action: 'demo-checkin',
+				iconCls: 'demo-icon',
+				leaf: true,
+				viewState: 'cloobster',
+				handler: function() {
+					Ext.Viewport.fireEvent('democheckin');
+				}
 			},
 			{	
 				xtype: 'myorderstab',
