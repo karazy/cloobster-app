@@ -401,7 +401,6 @@
 			activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn();
 		
 		Ext.Msg.show({
-			title: i10n.translate('hint'),
 			message: i10n.translate('dumpCart'),
 			buttons: [{
 				text: i10n.translate('yes'),
@@ -498,7 +497,6 @@
 		
 		if(ordersCount > 0) {
 			Ext.Msg.show({
-				title: i10n.translate('hint'),
 				message: i10n.translate('submitOrdersQuestion'),
 				buttons: [{
 					text: i10n.translate('yes'),
@@ -1473,7 +1471,6 @@
 
 		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) {
 			Ext.Msg.show({
-				title: i10n.translate('hint'),
 				message: i10n.translate('clubdashboard.leave.message'),
 				buttons: [{
 					text: i10n.translate('yes'),
@@ -1604,7 +1601,6 @@
 				me.toggleMyordersButtons();
 
 				Ext.Msg.show({
-					title : i10n.translate('hint'),
 					message : i10n.translate('orderCanceled', oldOrder.get('productName')),
 					buttons : [{
 						text : i10n.translate('continue'),
@@ -1644,7 +1640,7 @@
 			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
 
 			//show a message 
-			Ext.Msg.alert(i10n.translate('hint'), i10n.translate('myorders.messages.billnew.message', bill.get('paymentMethod')));
+			Ext.Msg.alert('', i10n.translate('myorders.messages.billnew.message', bill.get('paymentMethod')));
 		}
 	},
 	/**
