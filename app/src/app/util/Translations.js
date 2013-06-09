@@ -1834,7 +1834,8 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//tovisit
 		"tovisit.list.emptytext" : {
-			"DE" :  "Liste deiner Orte die du besuchen möchtest. Derzeit hast du dir keine Orte gemerkt.",
+			"DE" : "<div><h1>To-Visit</h1>erstellen und interessante Orte merken</div><div><h1>In meiner Hand</h1>alle Informationen und Angebote</div>",
+			// "DE" :  "Liste deiner Orte die du besuchen möchtest. Derzeit hast du dir keine Orte gemerkt.",
 			"EN" : "List of locations you want to visit. Currently you have not marked any location.",
 			"ES" : "",
 			"IT" : "",

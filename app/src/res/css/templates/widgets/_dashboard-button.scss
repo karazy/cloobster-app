@@ -28,6 +28,11 @@
     background-repeat: no-repeat;
     background-color: white;
 
+    .right & {
+      right: 5px;
+      left: auto !important;
+    }
+
    @media only screen and (min-width: 768px) {
       background-size: $dashboard-button-icon-bgsize * 1.2;
       width: $dashboard-button-icon-size * 1.2;
@@ -58,6 +63,11 @@
   /*bottom: 10px;*/
   bottom: 6%;
   font-size: 1.5em; 
+
+  .right & {
+      left: 21px;
+      right: auto !important;
+    }
 
 
    @media only screen and (min-width: 768px) {

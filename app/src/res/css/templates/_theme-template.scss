@@ -1803,8 +1803,29 @@ h9 {
 }
 
 .x-list .x-list-emptytext {
-  color: $list-color;
+  color: $base-color;
   padding: 5px;
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .x-innerhtml .welcome-text {
+    div:nth-child(1) {
+      position: absolute;
+      top: 20%;
+      left: 25px;
+    }
+
+    div:nth-child(2) {
+      position: absolute;
+      top: 40%;
+      right: 25px;
+      text-align: right;
+    }
+  }
+
+  
 }
 
 

@@ -39,26 +39,26 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '0 3 0 0'
+					margin: '10 3 0 5'
 				},
 				{
 					xtype : 'fixedbutton',
 					action: 'checkin',
 					html: i10n.translate('dashboard.button.checkin'),
 					baseCls: 'dashboard-button',
-					cls: 'dashboard-button-checkin',
+					cls: ['dashboard-button-checkin', 'right'],
 					iconCls: 'dashboard-button-icon',			
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '0 0 0 3'
+					margin: '10 5 0 3'
 				}	
 			]
 		},
 		{
 			xtype: 'list',
 			store: 'visitStore',
-			emptyText: i10n.translate('tovisit.list.emptytext'),
+			emptyText: '<div class="welcome-text">' + i10n.translate('tovisit.list.emptytext') + '</div>',
 			deferEmptyText: false,
 			// grouped: true,
 			itemCls: 'tovisit-item',
