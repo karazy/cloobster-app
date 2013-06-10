@@ -356,8 +356,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"slidenav.button.dashboard" : {
-			"DE" :  "Dashboard",
-			"EN" : "Dashboard",
+			"DE" :  "To-Visit",
+			"EN" : "To-Visit",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1598,8 +1598,7 @@ Ext.define('EatSense.util.Translations',{
 			"EN" :  "Places",
 			"ES" : "<h2>Mis Sitios</h2><p>Hoteles y restaurantes visitados</p>",
 			"IT" : "<h2>I miei luoghi</h2><p>Hotel e ristoranti visitati</p>",
-
-			"FR" : "<h2> mes endroits"
+			"FR" : "mes endroits"
 		},
 		"history.detail.title" : {
 			"DE" :  "Rechnung",
@@ -1609,11 +1608,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Facture"
 		},
 		"history.detail.list.paging" : {
-			"DE" :  "Mehr laden ...",
-			"EN" :  "Show more ...",
+			"DE" :  "Mehr laden...",
+			"EN" :  "Show more...",
 			"ES" : "Mostrar más...",
-			"IT" : "Mostrami di più",
-			"FR" : "En savoir plus"
+			"IT" : "Mostrami di più...",
+			"FR" : "En savoir plus..."
 		},
 		"history.noaccount" : {
 			"DE" :  "Erinnere dich, wo Du warst! Dieses Feature benötigt einen cloobster Account.",

@@ -80,7 +80,7 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'cloobsterarea',
 				title: i10n.translate('slidenav.button.dashboard'),
 				leaf: true,
-				iconCls: 'home-icon',
+				iconCls: 'places-icon',
 				action: 'show-dashboard',
 				viewState: 'cloobster'
 			},
@@ -89,7 +89,7 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('dashboard.button.history'),
 				leaf: true,
 				action: 'show-places',
-				iconCls: 'places-icon',
+				iconCls: 'time-icon',
 				viewState: 'cloobster',
 				accountRequired: true
 			},
