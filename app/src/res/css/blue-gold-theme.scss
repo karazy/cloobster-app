@@ -32,14 +32,16 @@ $product-sub-bg: #D3D3D3;
 /* Color for dashboard fonts. */
 $dashboard-color: #1E4776;
 /* Background color for message boxes. */
-/*$sheet-bg-color: #cdcdcd;*/
+$sheet-bg-color: #cdcdcd;
 /*$sheet-bg-gradient: #a47772;*/
 
 
 @import 'templates/_theme-template.scss';
 
 .x-msgbox {
-	/*background-color: $base-color;*/
+	/* override since sheet-bg-color is used and colors get messed up */
 	@include background-gradient(darken($base-color, 20%), 'flat');
-	/*border: .15em solid lighten($sheet-bg-color, 20%);*/
+	.x-msgbox-text {
+		color: #fff;
+	}
 }

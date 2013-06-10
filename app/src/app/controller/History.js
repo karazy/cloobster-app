@@ -466,12 +466,11 @@ Ext.define('EatSense.controller.History', {
          if(values.visitDate) {
             //FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
             toVisit.set('visitDate', values.visitDate.getTime());
+            // console.log('History.showToVisitNewView: saveOrUpdateToVisit visitDate ' + values.visitDate + ' ' + toVisit.get('visitDate'));
          } else {
             //disable persistance when no date is set
             toVisit.fields.getByKey('visitDate').setPersist(false);
          }
-
-         console.log('History.showToVisitNewView: saveOrUpdateToVisit');
 
          appHelper.debugObject(toVisit.getData(true));
          if(toVisit.getImage()) {
