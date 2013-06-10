@@ -66,12 +66,15 @@ Ext.define('EatSense.util.Helper', {
 
   /**
    * @private
-   * Expects a url with a barcode at the end. Separated by a #.
+   * Expects a url with a barcode at the end. Separated by a # or given seperator.
    * e. g. https://cloobster.com/get-app#ENCRYPTED_BARCODE
-   * @return the extracted barcode
+   * @param {String} url
+   * @param {String} seperator (optional)
+   * @return the extracted barcode or url if nothing found
    */
-   extractBarcode: function(url) {
-    var indexHashTag = url.indexOf('#') + 1,
+   extractBarcode: function(url, seperator) {
+    var _seperator = seperator || '#',
+    	indexHashTag = url.indexOf(_seperator) + _seperator.length,
         code;
 
     try {
@@ -259,8 +262,13 @@ Ext.define('EatSense.util.Helper', {
 			callback(true, imageUri);
 		}
 
-		function cameraError() {
-			callback(false);
+		function cameraError(error) {
+			console.log('Helper.takePicture: cameraError ' + error);
+			if(error.trim() == 'no image selected') {
+				callback(true);
+			} else {
+				callback(false);	
+			}			
 		}
 	},
 	/**

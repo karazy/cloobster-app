@@ -713,9 +713,10 @@ Ext.define('EatSense.controller.History', {
 
       function cameraBtTap() {
          appHelper.takePicture(function(success, imageUri) {
-            if(success) {
+            if(success && imageUri) {
+               //if only success user canceled taking a phot
                submitPicture(imageUri);
-            } else {
+            } else if(!success) {
                Ext.Msg.alert('', i10n.translate('error.takepicture'));
             }
          });

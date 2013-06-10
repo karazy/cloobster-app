@@ -2087,6 +2087,13 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"error.takepicture" : {
+			"DE" :  "Foto aufnehmen fehlgeschlagen.",
+			"EN" : "Taking a picture failed.",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		//system
 		"network.slow" : {
 			"DE" :  "Die Verbindung ist langsam. Dies kann die Anwendung verlangsamen.",

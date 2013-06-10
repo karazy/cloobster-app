@@ -265,12 +265,8 @@ Ext.define('EatSense.controller.Android', {
 			window.plugins.webintent.getUri(function(url) {
 			    if(url !== "") {
 			        // url is the url the intent was launched with
-			        var qrcode;
-			        console.log('Android.checkForIntents: found intent url ' + url);
-			        qrcode = appHelper.extractBarcode(url);			        			       
-			        if(qrcode) {
-			        	Ext.Viewport.fireEvent('launchwithqrcode', qrcode);
-		        	}
+			        console.log('Android.checkForIntents: found intent url ' + url);	        			       
+			        Ext.Viewport.fireEvent('launchwithqrcode', url);
 				}
 			});
 	    }

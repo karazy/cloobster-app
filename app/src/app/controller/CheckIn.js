@@ -417,7 +417,14 @@ Ext.define('EatSense.controller.CheckIn', {
    * @param {String} qrCode
    *  Code used for checkIn.
    */
-   launchwithqrcode: function(qrCode) {      
+   launchwithqrcode: function(qrCode) {
+      var extractedCode;
+
+      if(!qrCode) {
+        console.error('CheckIn.launchwithqrcode: no qrCode given');
+        return;
+      }
+
       Ext.Msg.show({
         title: '',
         message: i10n.translate('urlscheme.handle'),
@@ -438,16 +445,18 @@ Ext.define('EatSense.controller.CheckIn', {
         }],
         scope: this,
         fn: function(btnId, value, opt) {
-          if(btnId=='checkin') {
-            if(!this.getActiveCheckIn()) {
-              this.doCheckInIntent(qrCode, null, appHelper.getDevice());
+          //url scheme is cloobster://spot/spotID
+          extractedCode = appHelper.extractBarcode(qrCode, 'spot/');
+          if(btnId=='checkin') {            
+            if(!this.getActiveCheckIn()) {              
+              this.doCheckInIntent(extractedCode, null, appHelper.getDevice());
             } else {
               Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'), function() {
                 this.launchwithqrcode(qrCode);
               }, this);
             }            
           } else if(btnId == 'tovisit') {
-            Ext.Viewport.fireEvent('addtovisit', qrCode);
+            Ext.Viewport.fireEvent('addtovisit', extractedCode);
           }
         }
       });

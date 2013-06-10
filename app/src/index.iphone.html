@@ -90,15 +90,8 @@ Cloobster.asyncJsapiLoad = function() {
     function handleOpenURL(url)
      {
       if(Ext && Ext.Viewport) {
-        var qrcode;
-
-        qrcode = EatSense.util.Helper.extractBarcode(url);
-
         console.log('index.html handleOpenURL: ' + url);
-
-        if(qrcode) {
-          Ext.Viewport.fireEvent('launchwithqrcode', qrcode);
-        }
+        Ext.Viewport.fireEvent('launchwithqrcode', url);
       }
      }
      
