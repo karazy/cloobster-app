@@ -1494,9 +1494,10 @@ Ext.define('EatSense.controller.CheckIn', {
    checkFirstDashboardView: function(appState) {
     var helpPanel;
 
-     if(appState.get('firstDashboardView')) {         
-          helpPanel = Ext.create('EatSense.view.DashboardHelp');
-          Ext.Viewport.add(helpPanel);
+     if(appState.get('firstDashboardView')) { 
+          //20130610 deactivated because help is directly displayed in tovisit list        
+          // helpPanel = Ext.create('EatSense.view.DashboardHelp');
+          // Ext.Viewport.add(helpPanel);
           appState.set('firstDashboardView', false);
         }
    }

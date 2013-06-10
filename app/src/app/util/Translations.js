@@ -321,8 +321,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Nouveaux restaurants"
 		},
 		"settingsButton" : {
-			"DE" :  "Profil",
-			"EN" :  "Profile",
+			"DE" :  "Einstellungen",
+			"EN" :  "Settings",
 			"ES" : "Perfil",
 			"IT" : "Profilo",
 			"FR" : "Profil"
@@ -1431,7 +1431,7 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Compte"
 		},
 		"login.description" : {
-			"DE" : "<h1>Gleich geht's weiter...</h1><p>Zur Registrierung brauchen wir lediglich eine E-Mailadresse und ein Passwort</p>",
+			"DE" : "<h1>Gleich geht's weiter...</h1><p>Zur Registrierung brauchen wir lediglich deine E-Mailadresse und ein Passwort</p>",
 			"EN" : "Remember where you were",
 			"ES" : "Recuerde dónde estaba",
 			"IT" : "Ricorda dove sei stato",
@@ -1834,9 +1834,9 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//tovisit
 		"tovisit.list.emptytext" : {
-			"DE" : "<div><h1>To-Visit</h1>erstellen und interessante Orte merken</div><div><h1>In meiner Hand</h1>alle Informationen und Angebote</div>",
+			"DE" : "<div><h1>To-Visit</h1>interessante Orte merken</div><div><h1>In meiner Hand</h1>alle Informationen und Angebote</div><div class='one'></div><div class='two'></div><div class='three'></div><div class='menu-help'>Tippen oder von links Wischen für das Menü</div>",
 			// "DE" :  "Liste deiner Orte die du besuchen möchtest. Derzeit hast du dir keine Orte gemerkt.",
-			"EN" : "List of locations you want to visit. Currently you have not marked any location.",
+			"EN" : "<div><h1>To-Visit</h1>remember interessting locations</div><div><h1>All in my hand</h1>all offers and and informations</div><div class='one'></div><div class='two'></div><div class='three'></div><div class='menu-help'>Tap or swipe from left to reveal menu</div>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1863,29 +1863,29 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.formnew.locationname" : {
-			"DE" :  "Locationname",
-			"EN" : "Location name",
+			"DE" :  "Welchen Ort merken?",
+			"EN" : "Which location to remember?",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"tovisit.formnew.comment" : {
-			"DE" :  "Bemerkung (optional)",
-			"EN" : "Comment (optional)",
+			"DE" :  "Bemerkung",
+			"EN" : "Comment",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"tovisit.formnew.visitdate" : {
-			"DE" :  "Besuchszeitpunkt (optional)",
-			"EN" : "Visit date (optional)",
+			"DE" :  "Wann besuchen?",
+			"EN" : "Visit date?",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"tovisit.title.new" : {
-			"DE" :  "Neuer To-Visit",
-			"EN" : "New To-Visit",
+			"DE" :  "To-Visit anlegen",
+			"EN" : "Add To-Visit",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

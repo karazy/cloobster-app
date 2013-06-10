@@ -1382,7 +1382,7 @@ h9 {
 
   .location-city {
     font-size: .8em;
-    line-height: .8em;
+    line-height: .9em;
     word-break: break-word;
   }
 
@@ -1806,23 +1806,86 @@ h9 {
   color: $base-color;
   padding: 5px;
 
+  font-size: 0.8em;
+
   h1 {
-    font-size: 2em;
+    font-size: 1.4em;
   }
 
+
   .x-innerhtml .welcome-text {
+    $welcome-border-color: #c6c6c6;
+    $welcome-border: 1px dashed  $welcome-border-color;
+
     div:nth-child(1) {
       position: absolute;
-      top: 20%;
+      /*border: 2px dashed $welcome-border;*/
+      /*top: 80px;*/
+      top: 18%;
       left: 25px;
+      padding: 5px;
     }
 
     div:nth-child(2) {
       position: absolute;
+      /*border: 2px dashed $welcome-border;*/
+      /*top: 180px;*/
       top: 40%;
       right: 25px;
       text-align: right;
+      padding: 5px;
     }
+
+    div.one {
+      position: absolute;
+      border-right: $welcome-border;
+      /*height: 76px;*/
+      height: 17%;
+      left:50px;
+      text-align: center;
+    }
+
+    div.one:before, div.two:before {
+      content: '▲';
+      color:  $welcome-border-color;
+      position: absolute;
+      top: -7px;
+      right: -8px;
+    }
+
+    div.two {
+      position: absolute;
+      border-right: $welcome-border;
+      text-align: center;
+      /*height: 176px;*/
+      height: 40%;
+      right:50px;
+    }
+
+     div.three {
+      position: absolute;
+      border-top: $welcome-border;
+      width: 65px;
+      left:50px;
+      bottom: 25px;
+    }
+
+    div.three:before {
+      content: '◀';
+      color:  $welcome-border-color;
+      position: absolute;
+      bottom: -12px;
+      left: -7px;
+    }
+
+    div.menu-help {      
+      position: absolute;
+      bottom: 7px;
+      left: 125px;
+      /*text-align: right;*/
+      max-width: 200px;
+    }
+
   }
 
   
