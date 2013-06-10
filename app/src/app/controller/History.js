@@ -902,7 +902,7 @@ Ext.define('EatSense.controller.History', {
 
       //TODO error handling
       if(visitStore) {
-         visitStore.load({
+         visitStore.loadPage(1, {
             callback: function(records, operation, success) {
                if(success) {
                   if(list) {
