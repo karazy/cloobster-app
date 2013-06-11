@@ -67,7 +67,7 @@ Ext.define('EatSense.controller.Lounge', {
 			  		this.applyAreaNameToMenuTileButtons(checkInCtr.getActiveSpot().get('areaName'));
 			  		Ext.create('Ext.util.DelayedTask', function () {
                 		appHelper.toggleMask(false, dashboard);
-                	}).delay(400);			  		
+                	}).delay(400);
 			  	},
 			  	single: true,
 			  	scope: this

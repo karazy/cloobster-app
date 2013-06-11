@@ -161,7 +161,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 
 			page = this.getStore().getAt(randomPageIndex);
 
-			if(this.nestedStores) {
+			if(this.nestedStores && this.nestedStores.length > 0) {
 				//if nested stores exist iterate over all of them to get the final random record
 				Ext.Array.each(this.nestedStores, function(nested, index) {
 					nestedStoreInstance = page[nested + ''];
@@ -187,7 +187,7 @@ Ext.define('EatSense.view.components.DashboardTeaser', {
 			}
 			
 			if(!page) {
-				console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: no page found, perhabs you provided a wrong filter');
+				console.log('EatSense.view.components.DashboardTeaser.generateRandomPage: no page found, perhabs you provided a wrong filter or record does not exist/disabled');
 				this.setState({'pageGenerated' : false});
 				return;
 			} 
