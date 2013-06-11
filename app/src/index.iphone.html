@@ -89,9 +89,11 @@ Cloobster.asyncJsapiLoad = function() {
      for more details -jm */
     function handleOpenURL(url)
      {
-      if(Ext && Ext.Viewport) {
-        console.log('index.html handleOpenURL: ' + url);
-        Ext.Viewport.fireEvent('launchwithqrcode', url);
+      if(Ext && Ext.Viewport) {        
+        if(url && url !== "") {
+          console.log('index.html handleOpenURL: ' + url);
+          Ext.Viewport.fireEvent('launchwithqrcode', url);
+        }        
       }
      }
      
