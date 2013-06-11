@@ -418,7 +418,8 @@ Ext.define('EatSense.controller.CheckIn', {
    *  Code used for checkIn.
    */
    launchwithqrcode: function(qrCode) {
-      var extractedCode;
+      var extractedCode,
+          hideCheckInBtn = (this.getActiveCheckIn()) ? true : false;
 
       if(!qrCode) {
         console.error('CheckIn.launchwithqrcode: no qrCode given');
@@ -431,7 +432,8 @@ Ext.define('EatSense.controller.CheckIn', {
         buttons: [{
           text: i10n.translate('checkin'),
           itemId: 'checkin',
-          ui: 'action'
+          ui: 'action',
+          hidden: hideCheckInBtn
         }, 
         {
           text: i10n.translate('tovisit'),
@@ -448,13 +450,17 @@ Ext.define('EatSense.controller.CheckIn', {
           //url scheme is cloobster://spot/spotID
           extractedCode = appHelper.extractBarcode(qrCode, 'spot/');
           if(btnId=='checkin') {            
-            if(!this.getActiveCheckIn()) {              
+            if(!this.getActiveCheckIn()) {
               this.doCheckInIntent(extractedCode, null, appHelper.getDevice());
-            } else {
-              Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'), function() {
-                this.launchwithqrcode(qrCode);
-              }, this);
-            }            
+            } 
+            //Problems occur spawning multiple msgboxes
+            // else {
+            //   //hide current dialog
+            //   Ext.Msg.hide();
+            //   Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'), function() {
+            //     this.launchwithqrcode(qrCode);
+            //   }, this);
+            // }            
           } else if(btnId == 'tovisit') {
             Ext.Viewport.fireEvent('addtovisit', extractedCode);
           }
