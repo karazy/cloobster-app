@@ -383,10 +383,10 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
-      clearDateBt.on({
-         tap: clearDateBtTap,
-         scope: this
-      });
+      // clearDateBt.on({
+      //    tap: clearDateBtTap,
+      //    scope: this
+      // });
 
       cameraBt.on({
          tap: cameraBtTap,
@@ -466,6 +466,7 @@ Ext.define('EatSense.controller.History', {
          if(values.visitDate) {
             //FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
             toVisit.set('visitDate', values.visitDate.getTime());
+            toVisit.fields.getByKey('visitDate').setPersist(true);
             // console.log('History.showToVisitNewView: saveOrUpdateToVisit visitDate ' + values.visitDate + ' ' + toVisit.get('visitDate'));
          } else {
             //disable persistance when no date is set
@@ -592,6 +593,7 @@ Ext.define('EatSense.controller.History', {
             );
 
             deletePictureBt.setDisabled(false);
+            deletePictureBt.setHidden(false);   
          }
 
           if(record.get('geoLat') && record.get('geoLong')) {
@@ -621,7 +623,7 @@ Ext.define('EatSense.controller.History', {
                         disableDefaultUI: true
                      },
                      height: '200px',
-                     margin: 5
+                     margin: '5 10'
                   }
                );
                view.add(gmap);
@@ -642,10 +644,10 @@ Ext.define('EatSense.controller.History', {
             } else {
                Ext.create('Ext.util.DelayedTask', function () {
                   processPosition(true, position);
-               }, this).delay(300); 
+               }, this).delay(400); 
             }
             
-         }, this).delay(300); 
+         }, this).delay(200); 
       }
 
       function processPosition(success, position) {         
@@ -775,6 +777,7 @@ Ext.define('EatSense.controller.History', {
 
                   if(deletePictureBt) {
                      deletePictureBt.setDisabled(false);   
+                     deletePictureBt.setHidden(false);   
                   } else {
                      console.error('History.showToVisitNewView: submitPicture deletePictureBt not found');
                   }
@@ -798,11 +801,13 @@ Ext.define('EatSense.controller.History', {
          if(toVisit.get('imageTransient')) {            
             console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
             button.setDisabled(true);
+            button.setHidden(true);   
             imageLabel.setHidden(true);  
             //delete by blobkey since picture is not attached to a toVisit
             me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
                if(!success) {
                   button.setDisabled(false);
+                  button.setHidden(false);   
                   imageLabel.setHidden(false);                  
                } else {
                   // toVisit.getImage().erase();
@@ -816,6 +821,7 @@ Ext.define('EatSense.controller.History', {
             console.log('History.showToVisitNewView: deletePictureBtTap delete image');
             //only delete image on toVisit, will be deleted server side when sending an empty image object
             button.setDisabled(true);
+            button.setHidden(true);   
             imageLabel.setHidden(true);
             toVisit.setImage(Ext.create('EatSense.model.Image'));
             imageLabel.setStyle({}); 
@@ -870,10 +876,10 @@ Ext.define('EatSense.controller.History', {
             scope: this
          });  
 
-         clearDateBt.un({
-            tap: clearDateBtTap,
-            scope: this
-         });
+         // clearDateBt.un({
+         //    tap: clearDateBtTap,
+         //    scope: this
+         // });
 
          deletePictureBt.un({
             tap: deletePictureBtTap,
@@ -1110,7 +1116,7 @@ Ext.define('EatSense.controller.History', {
                   disableDefaultUI: true
                },
                height: '200px',
-               margin: '0 5'
+               margin: '0 10'
             });
 
             detailView.add(gmap);

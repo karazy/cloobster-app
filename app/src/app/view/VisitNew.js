@@ -22,15 +22,7 @@ Ext.define('EatSense.view.VisitNew', {
 				items: [
 					{
 						xtype: 'backbutton'
-					},
-					{
-						xtype: 'fixedbutton',
-						ui: 'action',
-						action: 'create',
-						align: 'right',
-						iconCls: 'action',
-						iconMask: true
-					}
+					}					
 				]
 			},
 			{
@@ -48,30 +40,50 @@ Ext.define('EatSense.view.VisitNew', {
 				},
 				items: [
 					{
-						xtype: 'fixedbutton',
-						text: i10n.translate('tovisit.scanbutton'),
-						ui: 'action',
-						action: 'scan',
-						hidden: true
-						// margin: '5 0'
+						xtype: 'panel',
+						layout: {
+							type: 'hbox',
+							align: 'center'
+						},
+						margin: '5',
+						items: [
+							{
+								xtype: 'fixedbutton',
+								text: i10n.translate('tovisit.scanbutton'),
+								iconCls: 'qrcode-icon',
+								iconMask: true,
+								ui: 'action',
+								action: 'scan',
+								hidden: true,
+								flex: 1,
+								margin: '0 5 0 0'
+							},							
+							{
+								xtype: 'fixedbutton',
+								ui: 'action',
+								action: 'create',
+								text: i10n.translate('save'),
+								// align: 'right',
+								iconCls: 'action',
+								iconMask: true,
+								flex: 1,
+								margin: '0 0 0 5'
+							}
+						]
 					},
+					
 					{
 						xtype: 'label',
 						hidden: true,
 						itemId: 'locationNameLabel',
-						margin: '5 7'
+						margin: '5 5'
 					},
 					{
 						xtype: 'textfield',
 						placeHolder: i10n.translate('tovisit.formnew.locationname'),
-						name: 'locationName'
-						// margin: '5 0'
-					},
-					{
-						xtype: 'textareafield',
-						placeHolder: i10n.translate('tovisit.formnew.comment'),
-						name: 'comment'
-						// margin: '5 0'
+						name: 'locationName',
+						cls: 'general-textfield',
+						margin: '5'
 					},
 					{
 						xtype: 'panel',
@@ -79,7 +91,7 @@ Ext.define('EatSense.view.VisitNew', {
 							type: 'hbox',
 							align: 'center'
 						},
-						// margin: '5 0',
+						margin: '5',
 						items: [
 							{
 								xtype: 'datepickerfield',
@@ -90,61 +102,120 @@ Ext.define('EatSense.view.VisitNew', {
 								picker: {
 									yearFrom: 2013,
 							        yearTo: 2020,
-							        cancelButton: i10n.translate('cancel'),
+							        cancelButton: {
+							        	text: i10n.translate('cancel'),
+							        	// action: 'delete-visitdate'
+							        },
 							        doneButton: i10n.translate('ok'),
-							        value: new Date()
+							        value: new Date(),
+							        toolbar : {
+					                    items : [
+					                        {
+					                            // text    : 'X',
+					                            iconMask: true,
+					                            iconCls: 'delete',
+					                            ui      : 'decline',
+					                            align   : 'right',
+					                            handler : function(btn) {
+					                                var picker = btn.up('datepicker');
+
+					                                picker.fireEvent('change', picker, null);
+
+					                                picker.hide();
+					                            }
+					                        }
+					                    ]
+					                }
 							    },
-							    flex: 1
+							    cls: 'general-textfield',
+							    flex: 2
 							},
-							{
-								xtype: 'fixedbutton',
-								iconCls: 'delete',
-								iconMask: true,
-								ui: 'action',
-								action: 'delete-visitdate'
-							}
-						]
-					},
-					{
-						xtype: 'label',
-						hidden: true,
-						itemId: 'image'
-						// margin: '5 0'
-					},
-					{
-						xtype: 'panel',
-						xtype: 'panel',
-						layout: {
-							type: 'hbox',
-							align: 'center'
-						},
-						// margin: '5 0',
-						items: [
+							// {
+							// 	xtype: 'fixedbutton',
+							// 	iconCls: 'delete',
+							// 	iconMask: true,
+							// 	ui: 'sirkobutton',
+							// 	action: 'delete-visitdate',
+							// 	margin: '0 0 0 7'
+							// }
 							{
 								xtype:'fixedbutton',
 								action: 'capture-photo',
 								iconCls: 'photo1',
 								iconMask: true,
-								text: i10n.translate('tovisit.camerabutton'),
+								// text: i10n.translate('tovisit.camerabutton'),
+								// iconAlign: 'top',
 								ui: 'action',
 								flex: 1,
-								margin: '0 5 0 0'
-							},
-							{
-								xtype: 'fixedbutton',
-								iconCls: 'delete',
-								iconMask: true,
-								ui: 'action',
-								action: 'delete-photo',
-								disabled: true
+								margin: '0 0 0 5',
+								padding: '12 0'
 							}
 						]
 					},
 					{
+						xtype: 'textareafield',
+						placeHolder: i10n.translate('tovisit.formnew.comment'),
+						name: 'comment',
+						cls: 'general-textfield',
+						maxLength: 140,
+						margin: '5'
+					},				
+					{
+						xtype: 'panel',
+						hidden: true,
+						itemId: 'image',
+						items: [
+							{
+								xtype: 'fixedbutton',
+								iconCls: 'trash',
+								iconMask: true,
+								ui: 'sirkobutton',
+								action: 'delete-photo',
+								disabled: true,
+								hidden: true,
+								style: {
+									'position' : 'absolute',
+									'top' : '5px',
+									'right' : '5px'
+								}
+							}
+						],
+						margin: '5'
+					},
+					// {
+					// 	xtype: 'panel',
+					// 	xtype: 'panel',
+					// 	layout: {
+					// 		type: 'hbox',
+					// 		align: 'center'
+					// 	},
+					// 	// margin: '5 0',
+					// 	items: [
+					// 		// {
+					// 		// 	xtype:'fixedbutton',
+					// 		// 	action: 'capture-photo',
+					// 		// 	iconCls: 'photo1',
+					// 		// 	iconMask: true,
+					// 		// 	text: i10n.translate('tovisit.camerabutton'),
+					// 		// 	ui: 'action',
+					// 		// 	flex: 1,
+					// 		// 	margin: '0 5 0 0'
+					// 		// },
+					// 		{
+					// 			xtype: 'fixedbutton',
+					// 			iconCls: 'delete',
+					// 			iconMask: true,
+					// 			ui: 'action',
+					// 			action: 'delete-photo',
+					// 			disabled: true
+					// 		}
+					// 	]
+					// },
+					{
 						xtype: 'label',
 						hidden: true,
 						itemId: 'noMapHint',
-						// margin: '5 0',
+						margin: '5',
 						html: i10n.translate('tovisit.map.nogeodata')
 					}
 					

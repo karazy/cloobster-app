@@ -8,7 +8,7 @@ $include-tab-highlights: false;
 /*'ComfortaaRegular',*/
 $font-family: 'PT Sans',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
 $base-gradient: 'glossy';
-$button-gradient: 'glossy';
+$button-gradient: 'matte';
 $page-bg-color: #fffffb;
 $list-bg-color: #fffffb;
 $form-bg-color: $page-bg-color;
@@ -34,6 +34,7 @@ $dashboard-color: #1E4776;
 /* Background color for message boxes. */
 $sheet-bg-color: #cdcdcd;
 /*$sheet-bg-gradient: #a47772;*/
+$button-radius: .3em;
 
 
 @import 'templates/_theme-template.scss';

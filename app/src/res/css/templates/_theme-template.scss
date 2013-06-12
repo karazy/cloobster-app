@@ -43,6 +43,7 @@
 @include pictos-iconmask('phone1');
 @include pictos-iconmask('arrow_left');
 @include pictos-iconmask('photo1');
+@include sencha-button-ui('sirkobutton', #c3c3c3, 'flat');
 
 
 @CHARSET "UTF-8";
@@ -1113,6 +1114,11 @@ $general-border-radius: 3px;
   -webkit-mask-image: inline-image('../images/home2.png');  
 }
 
+.qrcode-icon {
+  -webkit-mask-image: inline-image('/buttons/qrcode.png');  
+}
+
+
 .time-icon {
   -webkit-mask-image: inline-image('../images/time.png');  
 }
@@ -1374,6 +1380,14 @@ h9 {
 }
 
 .tovisit-item {
+  
+  table {
+    table-layout: fixed;
+  }
+
+  td:nth-child(1) {
+    width: 80%;
+  }
 
   div.thumbnail {
     float: left;
@@ -1399,8 +1413,13 @@ h9 {
 
   .location-city {
     font-size: .8em;
-    line-height: 1em;
-    word-break: break-word;
+    line-height: 1.1em;
+    /*word-break: break-word;*/
+    text-overflow: ellipsis;
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5px;
   }
 
   .date {
@@ -1441,11 +1460,12 @@ h9 {
 }
 
 .tovisit-detail {
+  $content-box-bgcolor: #F1F0E6;
   color: $label-color;
   display: block !important;
 
   div.thumbnail {
-    float: left;
+    float: right;
     -webkit-border-radius: 3px;
     border-radius: 3px;
     background-position: center;
@@ -1453,7 +1473,8 @@ h9 {
     background-size:100%;
     width: 60px;
     height: 60px;
-    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
   }
 
   .location {
@@ -1464,8 +1485,10 @@ h9 {
   .comment {
     font-style: italic;
     text-align: justify;
-    clear: both;
+    /*clear: both;*/
     word-break: break-word;
+    min-height: 50px;
+    clear: both;
   }
 
   .address {
@@ -1475,7 +1498,16 @@ h9 {
   }
 
   .date {
+    width: 40%;
+  }
 
+  .content-box {
+    border-radius: 0.3em;
+    margin: 5px 0px 10px 0px;
+    /*border: 1px solid $label-color !important;*/
+    background-color: $content-box-bgcolor;
+    padding: 5px;
+    overflow: hidden;
   }
 }
 
@@ -1767,9 +1799,17 @@ h9 {
 }
 
 /* Override background color of icons. */
-.x-button .x-button-icon {
-  background-color: $font-color !important;
-  background-image: none !important;
+.x-button {
+
+  .x-button-icon {
+    background-color: $font-color !important;
+    background-image: none !important;
+  }
+
+  .x-button-label {
+    color: $font-color !important;
+  }
+
 }
 
 /* Force action button to have white text color. */
@@ -1832,7 +1872,7 @@ h9 {
 
   .x-innerhtml .welcome-text {
     $welcome-border-color: #c6c6c6;
-    $welcome-border: 1px dashed  $welcome-border-color;
+    $welcome-border: 2px dashed  $welcome-border-color;
 
     div:nth-child(1) {
       position: absolute;
@@ -1867,7 +1907,8 @@ h9 {
       color:  $welcome-border-color;
       position: absolute;
       top: -7px;
-      right: -8px;
+      right: -9px;
+      font-size: 15px;
     }
 
     div.two {
@@ -1893,6 +1934,7 @@ h9 {
       position: absolute;
       bottom: -12px;
       left: -7px;
+      font-size: 15px;
     }
 
     div.menu-help {      

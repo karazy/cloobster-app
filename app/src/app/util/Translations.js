@@ -1897,8 +1897,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.scanbutton" : {
-			"DE" :  "cloobster Location scannen?",
-			"EN" : "Scan cloobster location?",
+			"DE" :  "Scannen",
+			"EN" : "Scan",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

@@ -452,15 +452,7 @@ Ext.define('EatSense.controller.CheckIn', {
           if(btnId=='checkin') {            
             if(!this.getActiveCheckIn()) {
               this.doCheckInIntent(extractedCode, null, appHelper.getDevice());
-            } 
-            //Problems occur spawning multiple msgboxes
-            // else {
-            //   //hide current dialog
-            //   Ext.Msg.hide();
-            //   Ext.Msg.alert('', i10n.translate('error.checkin.allreadyactive'), function() {
-            //     this.launchwithqrcode(qrCode);
-            //   }, this);
-            // }            
+            }          
           } else if(btnId == 'tovisit') {
             Ext.Viewport.fireEvent('addtovisit', extractedCode);
           }
