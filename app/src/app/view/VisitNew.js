@@ -26,6 +26,39 @@ Ext.define('EatSense.view.VisitNew', {
 				]
 			},
 			{
+				xtype: 'panel',
+				layout: {
+					type: 'hbox',
+					align: 'center'
+				},
+				docked: 'top',
+				margin: '5',
+				items: [
+					{
+						xtype: 'fixedbutton',
+						text: i10n.translate('tovisit.scanbutton'),
+						iconCls: 'qrcode-icon',
+						iconMask: true,
+						ui: 'action',
+						action: 'scan',
+						hidden: true,
+						flex: 1,
+						margin: '0 5 0 0'
+					},							
+					{
+						xtype: 'fixedbutton',
+						ui: 'action',
+						action: 'create',
+						text: i10n.translate('save'),
+						iconAlign: 'right',
+						iconCls: 'action',
+						iconMask: true,
+						flex: 1,
+						margin: '0 0 0 5'
+					}
+				]
+			},	
+			{
 				xtype: 'formpanel',
 				layout: {
 					type: 'vbox',
@@ -38,40 +71,7 @@ Ext.define('EatSense.view.VisitNew', {
 				defaults: {
 					margin: '5 0'
 				},
-				items: [
-					{
-						xtype: 'panel',
-						layout: {
-							type: 'hbox',
-							align: 'center'
-						},
-						margin: '5',
-						items: [
-							{
-								xtype: 'fixedbutton',
-								text: i10n.translate('tovisit.scanbutton'),
-								iconCls: 'qrcode-icon',
-								iconMask: true,
-								ui: 'action',
-								action: 'scan',
-								hidden: true,
-								flex: 1,
-								margin: '0 5 0 0'
-							},							
-							{
-								xtype: 'fixedbutton',
-								ui: 'action',
-								action: 'create',
-								text: i10n.translate('save'),
-								// align: 'right',
-								iconCls: 'action',
-								iconMask: true,
-								flex: 1,
-								margin: '0 0 0 5'
-							}
-						]
-					},
-					
+				items: [									
 					{
 						xtype: 'label',
 						hidden: true,
@@ -148,7 +148,7 @@ Ext.define('EatSense.view.VisitNew', {
 								ui: 'action',
 								flex: 1,
 								margin: '0 0 0 5',
-								padding: '12 0'
+								padding: '13 0'
 							}
 						]
 					},

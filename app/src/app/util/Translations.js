@@ -1939,7 +1939,7 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.date.description" : {
-			"DE" :  "geplanter Besuchs",
+			"DE" :  "geplanter Besuch",
 			"EN" : "planed visit",
 			"ES" : "",
 			"IT" : "",
