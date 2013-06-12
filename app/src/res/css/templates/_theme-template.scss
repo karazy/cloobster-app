@@ -1391,8 +1391,8 @@ h9 {
 
   div.thumbnail {
     float: left;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: $general-border-radius;
+    border-radius: $general-border-radius;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 65px auto;
@@ -1499,10 +1499,19 @@ h9 {
 
   .date {
     width: 40%;
+    display: inline;
+    padding-right: 10px
+  }
+
+  .date + div {
+    /*margin: 5px 0px 10px 0px;*/
+    /*border: 1px solid $label-color !important;*/
+    padding: 5px;
+    display: inline;
   }
 
   .content-box {
-    border-radius: 0.3em;
+    border-radius: $general-border-radius;
     margin: 5px 0px 10px 0px;
     /*border: 1px solid $label-color !important;*/
     background-color: $content-box-bgcolor;
