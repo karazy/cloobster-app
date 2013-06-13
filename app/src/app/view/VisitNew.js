@@ -25,39 +25,39 @@ Ext.define('EatSense.view.VisitNew', {
 					}					
 				]
 			},
-			{
-				xtype: 'panel',
-				layout: {
-					type: 'hbox',
-					align: 'center'
-				},
-				docked: 'top',
-				margin: '5',
-				items: [
-					{
-						xtype: 'fixedbutton',
-						text: i10n.translate('tovisit.scanbutton'),
-						iconCls: 'qrcode-icon',
-						iconMask: true,
-						ui: 'action',
-						action: 'scan',
-						hidden: true,
-						flex: 1,
-						margin: '0 5 0 0'
-					},							
-					{
-						xtype: 'fixedbutton',
-						ui: 'action',
-						action: 'create',
-						text: i10n.translate('save'),
-						iconAlign: 'right',
-						iconCls: 'action',
-						iconMask: true,
-						flex: 1,
-						margin: '0 0 0 5'
-					}
-				]
-			},	
+			// {
+			// 	xtype: 'panel',
+			// 	layout: {
+			// 		type: 'hbox',
+			// 		align: 'center'
+			// 	},
+			// 	docked: 'top',
+			// 	margin: '5 10',
+			// 	items: [
+			// 		{
+			// 			xtype: 'fixedbutton',
+			// 			text: i10n.translate('tovisit.scanbutton'),
+			// 			iconCls: 'qrcode-icon',
+			// 			iconMask: true,
+			// 			ui: 'action',
+			// 			action: 'scan',
+			// 			hidden: true,
+			// 			flex: 1,
+			// 			margin: '0 5 0 0'
+			// 		},							
+			// 		{
+			// 			xtype: 'fixedbutton',
+			// 			ui: 'action',
+			// 			action: 'create',
+			// 			text: i10n.translate('save'),
+			// 			iconAlign: 'right',
+			// 			iconCls: 'action',
+			// 			iconMask: true,
+			// 			flex: 1,
+			// 			margin: '0 0 0 5'
+			// 		}
+			// 	]
+			// },	
 			{
 				xtype: 'formpanel',
 				layout: {
@@ -67,7 +67,7 @@ Ext.define('EatSense.view.VisitNew', {
 				},
 				cls: 'tovisit-new',
 				scrollable: false,
-				margin: 5,
+				margin: '20 15 5 15',
 				defaults: {
 					margin: '5 0'
 				},
@@ -84,7 +84,7 @@ Ext.define('EatSense.view.VisitNew', {
 						name: 'locationName',
 						cls: 'general-textfield',
 						margin: '5'
-					},
+					},					
 					{
 						xtype: 'panel',
 						layout: {
@@ -130,6 +130,50 @@ Ext.define('EatSense.view.VisitNew', {
 							    cls: 'general-textfield',
 							    flex: 2
 							},
+							{
+								xtype: 'panel',
+								layout: {
+									type: 'hbox',
+									align: 'center'
+								},
+								margin: '9 5 4 5',
+								items: [
+									{
+										xtype: 'fixedbutton',
+										text: i10n.translate('tovisit.scanbutton'),
+										iconCls: 'qrcode-icon',
+										iconMask: true,
+										ui: 'action',
+										action: 'scan',
+										hidden: true,
+										flex: 2,
+										margin: '0 5 0 2'
+									},		
+									{
+										xtype:'fixedbutton',
+										action: 'capture-photo',
+										iconCls: 'photo1',
+										iconMask: true,
+										// text: i10n.translate('tovisit.camerabutton'),
+										// iconAlign: 'top',
+										ui: 'action',
+										flex: 1,
+										margin: '0 10 0 10',
+										padding: '6 0'
+									},					
+									{
+										xtype: 'fixedbutton',
+										ui: 'action',
+										action: 'create',
+										text: i10n.translate('tovisit.savebutton'),
+										iconAlign: 'right',
+										iconCls: 'action',
+										iconMask: true,
+										flex: 2,
+										margin: '0 2 0 5'
+									}
+								]
+							},	
 							// {
 							// 	xtype: 'fixedbutton',
 							// 	iconCls: 'delete',
@@ -138,18 +182,18 @@ Ext.define('EatSense.view.VisitNew', {
 							// 	action: 'delete-visitdate',
 							// 	margin: '0 0 0 7'
 							// }
-							{
-								xtype:'fixedbutton',
-								action: 'capture-photo',
-								iconCls: 'photo1',
-								iconMask: true,
-								// text: i10n.translate('tovisit.camerabutton'),
-								// iconAlign: 'top',
-								ui: 'action',
-								flex: 1,
-								margin: '0 0 0 5',
-								padding: '13 0'
-							}
+							// {
+							// 	xtype:'fixedbutton',
+							// 	action: 'capture-photo',
+							// 	iconCls: 'photo1',
+							// 	iconMask: true,
+							// 	// text: i10n.translate('tovisit.camerabutton'),
+							// 	// iconAlign: 'top',
+							// 	ui: 'action',
+							// 	flex: 1,
+							// 	margin: '0 0 0 5',
+							// 	padding: '13 0'
+							// }
 						]
 					},
 					{

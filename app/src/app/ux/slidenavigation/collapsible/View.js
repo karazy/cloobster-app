@@ -116,7 +116,7 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
          * @cfg {String} staticHeaderItemTpl
          */
         staticHeaderItemTpl: [
-             '<div style="padding: 7px; font-size: 16px;',
+             '<div style="padding: 8px 7px 7px 7px; font-size: 23px;',
                 ' color: gray;">',
                 '{title}',
                 '<div style="font-size: 12px;">{subtitle}</div>',

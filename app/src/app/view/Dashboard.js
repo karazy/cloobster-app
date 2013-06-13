@@ -39,7 +39,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 3 0 5'
+					margin: '10 4 0 7'
 				},
 				{
 					xtype : 'fixedbutton',
@@ -51,7 +51,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 5 0 3'
+					margin: '10 7 0 4'
 				}	
 			]
 		},

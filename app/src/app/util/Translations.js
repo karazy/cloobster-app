@@ -349,21 +349,22 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Vous êtes enregistré"
 		},
 		"slidenav.header.areas.subtitle" : {
-			"DE" :  "(Angebote in anderen Bereichen sehen)",
-			"EN" : "(See offers of other areas)",
+			"DE" :  "Angebote in anderen Bereichen sehen",
+			"EN" : "See offers of other areas",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"slidenav.button.dashboard" : {
-			"DE" :  "To-Visit",
-			"EN" : "To-Visit",
+			"DE" :  "ToVisit",
+			"EN" : "ToVisit",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"slidenav.header.help" : {
-			"DE" : "<b>Check-In</b>: QR scannen um einzuchecken<br/><b>To-Visit</b>: Merk dir deine Lieblingsorte und sei informiert was es Neues gibt (nur für cloobter Locations).<br/><b>Places</b>: Besuchte cloobster Orte<br/><b>Profil</b>: Account Verwaltung & Einstellungen<br/><b>Demo</b>: Teste cloobster",
+			"DE" : "Alles in meiner Hand",
+			//<br/><b>Check-In</b>: QR scannen um einzuchecken<br/><b>To-Visit</b>: Merk dir deine Lieblingsorte und sei informiert was es Neues gibt (nur für cloobter Locations).<br/><b>Places</b>: Besuchte cloobster Orte<br/><b>Profil</b>: Account Verwaltung & Einstellungen<br/><b>Demo</b>: Teste cloobster
 			"EN" : "<b>Check-In</b>: Scan QR for check-in<br/><b>To-Visit</b>: Remember your favorite places and stay up-to-date (only for cloobster locations).<br/><b>Places</b>: Visited cloobster locations<br/><b>Profile</b>: Account management & settings<br/><b>Demo</b>: Test cloobster",
 			"ES" : "",
 			"IT" : "",
@@ -371,15 +372,15 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "check-in",
-			"EN" :  "check-in",
-			"ES" : "<h2>Iniciar sesión</h2><p>cuando se encuentre en una ubicación cloobster</p>",
-			"IT" : "<h2>Fai il check-in</h2><p>quando sei in un luogo cloobster</p>",
+			"DE" :  "Einchecken",
+			"EN" :  "Check in",
+			"ES" : "",
+			"IT" : "",
 			"FR" : ""
 		},
 		"dashboard.button.tovisit" : {
-			"DE" :  "to-visit",
-			"EN" : "to-visit",
+			"DE" :  "Ort merken",
+			"EN" : "Mark place",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1594,10 +1595,10 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Mes endroits"
 		},
 		"dashboard.button.history" : {
-			"DE" :  "Places",
-			"EN" :  "Places",
-			"ES" : "<h2>Mis Sitios</h2><p>Hoteles y restaurantes visitados</p>",
-			"IT" : "<h2>I miei luoghi</h2><p>Hotel e ristoranti visitati</p>",
+			"DE" :  "Besuchte Orte",
+			"EN" :  "Visited places",
+			"ES" : "Plazas visitadas",
+			"IT" : "",
 			"FR" : "mes endroits"
 		},
 		"history.detail.title" : {
@@ -1833,9 +1834,9 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//tovisit
 		"tovisit.list.emptytext" : {
-			"DE" : "<div><h1>To-Visit</h1>interessante Orte merken</div><div><h1>In meiner Hand</h1>alle Informationen und Angebote</div><div class='one'></div><div class='two'></div><div class='three'></div><div class='menu-help'>Tippen oder von links Wischen für das Menü</div>",
+			"DE" : "<div><h1>Keine To-Visits</h1>interessante Orte merken</div><div><h1>In meiner Hand</h1>Informationen und Angebote</div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
 			// "DE" :  "Liste deiner Orte die du besuchen möchtest. Derzeit hast du dir keine Orte gemerkt.",
-			"EN" : "<div><h1>To-Visit</h1>remember interessting locations</div><div><h1>All in my hand</h1>all offers and and informations</div><div class='one'></div><div class='two'></div><div class='three'></div><div class='menu-help'>Tap or swipe from left to reveal menu</div>",
+			"EN" : "<div><h1>To-Visit</h1>remember interessting locations</div><div><h1>All in my hand</h1>offers and informations</div><div class='one'></div><div class='two'></div></div><div class='menu-help'>Tap or <br/> swipe from left</div>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1883,16 +1884,23 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.title.new" : {
-			"DE" :  "To-Visit anlegen",
-			"EN" : "Add To-Visit",
+			"DE" :  "ToVisit",
+			"EN" : "ToVisit",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"tovisit.title.existing" : {
-			"DE" :  "To-visit bearbeiten",
-			"EN" : "To-visit edit",
+			"DE" :  "ToVisit",
+			"EN" : "ToVisit",
 			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"tovisit.savebutton" : {
+			"DE" :  "Merken",
+			"EN" : "Remember",			
+			"ES" : "Recordarse",
 			"IT" : "",
 			"FR" : ""
 		},

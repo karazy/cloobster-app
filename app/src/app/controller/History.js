@@ -623,7 +623,7 @@ Ext.define('EatSense.controller.History', {
                         disableDefaultUI: true
                      },
                      height: '200px',
-                     margin: '5 10'
+                     margin: '12 21 5 21'
                   }
                );
                view.add(gmap);
