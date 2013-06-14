@@ -33,15 +33,15 @@ Ext.define('EatSense.view.VisitNew', {
 						hidden: true,
 						flex: 1
 					},		
-					{
-						xtype:'fixedbutton',
-						action: 'capture-photo',
-						iconCls: 'photo1',
-						iconMask: true,
-						align: 'right',
-						ui: 'action',
-						flex: 1
-					},					
+					// {
+					// 	xtype:'fixedbutton',
+					// 	action: 'capture-photo',
+					// 	iconCls: 'photo1',
+					// 	iconMask: true,
+					// 	align: 'right',
+					// 	ui: 'action',
+					// 	flex: 1
+					// },					
 					{
 						xtype: 'fixedbutton',
 						ui: 'action',
@@ -52,40 +52,7 @@ Ext.define('EatSense.view.VisitNew', {
 						flex: 1
 					}					
 				]
-			},
-			// {
-			// 	xtype: 'panel',
-			// 	layout: {
-			// 		type: 'hbox',
-			// 		align: 'center'
-			// 	},
-			// 	docked: 'top',
-			// 	margin: '5 10',
-			// 	items: [
-			// 		{
-			// 			xtype: 'fixedbutton',
-			// 			text: i10n.translate('tovisit.scanbutton'),
-			// 			iconCls: 'qrcode-icon',
-			// 			iconMask: true,
-			// 			ui: 'action',
-			// 			action: 'scan',
-			// 			hidden: true,
-			// 			flex: 1,
-			// 			margin: '0 5 0 0'
-			// 		},							
-			// 		{
-			// 			xtype: 'fixedbutton',
-			// 			ui: 'action',
-			// 			action: 'create',
-			// 			text: i10n.translate('save'),
-			// 			iconAlign: 'right',
-			// 			iconCls: 'action',
-			// 			iconMask: true,
-			// 			flex: 1,
-			// 			margin: '0 0 0 5'
-			// 		}
-			// 	]
-			// },	
+			},	
 			{
 				xtype: 'formpanel',
 				layout: {
@@ -95,7 +62,7 @@ Ext.define('EatSense.view.VisitNew', {
 				},
 				cls: 'tovisit-new',
 				scrollable: false,
-				margin: '30 15 5 15',
+				margin: '20 10 5 10',
 				defaults: {
 					margin: '5 0'
 				},
@@ -103,6 +70,7 @@ Ext.define('EatSense.view.VisitNew', {
 					{
 						xtype: 'label',
 						html: i10n.translate('tovisit.title.new'),
+						itemId: 'titleLabel',
 						margin: '5 5',
 						style: {
 							'font-size' : '1.6em'
@@ -112,7 +80,10 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'label',
 						hidden: true,
 						itemId: 'locationNameLabel',
-						margin: '5'
+						margin: '5',
+						style: {
+							'font-size' : '1.6em'
+						}
 					},
 					{
 						xtype: 'textfield',
@@ -164,72 +135,17 @@ Ext.define('EatSense.view.VisitNew', {
 					                }
 							    },
 							    cls: 'general-textfield',
-							    flex: 2
+							    flex: 3,
+							    margin: '0 12 0 0'
 							},
-							// {
-							// 	xtype: 'panel',
-							// 	layout: {
-							// 		type: 'hbox',
-							// 		align: 'center'
-							// 	},
-							// 	margin: '9 5 4 5',
-							// 	items: [
-							// 		{
-							// 			xtype: 'fixedbutton',
-							// 			// text: i10n.translate('tovisit.scanbutton'),
-							// 			iconCls: 'qrcode-icon',
-							// 			iconMask: true,
-							// 			ui: 'action',
-							// 			action: 'scan',
-							// 			hidden: true,
-							// 			flex: 1,
-							// 			margin: '0 5 0 2'
-							// 		},		
-							// 		{
-							// 			xtype:'fixedbutton',
-							// 			action: 'capture-photo',
-							// 			iconCls: 'photo1',
-							// 			iconMask: true,
-							// 			// text: i10n.translate('tovisit.camerabutton'),
-							// 			// iconAlign: 'top',
-							// 			ui: 'action',
-							// 			flex: 1,
-							// 			margin: '0 10 0 10',
-							// 			padding: '6 0'
-							// 		},					
-							// 		{
-							// 			xtype: 'fixedbutton',
-							// 			ui: 'action',
-							// 			action: 'create',
-							// 			// text: i10n.translate('tovisit.savebutton'),
-							// 			iconAlign: 'right',
-							// 			iconCls: 'action',
-							// 			iconMask: true,
-							// 			flex: 1,
-							// 			margin: '0 2 0 5'
-							// 		}
-							// 	]
-							// },	
-							// {
-							// 	xtype: 'fixedbutton',
-							// 	iconCls: 'delete',
-							// 	iconMask: true,
-							// 	ui: 'sirkobutton',
-							// 	action: 'delete-visitdate',
-							// 	margin: '0 0 0 7'
-							// }
-							// {
-							// 	xtype:'fixedbutton',
-							// 	action: 'capture-photo',
-							// 	iconCls: 'photo1',
-							// 	iconMask: true,
-							// 	// text: i10n.translate('tovisit.camerabutton'),
-							// 	// iconAlign: 'top',
-							// 	ui: 'action',
-							// 	flex: 1,
-							// 	margin: '0 0 0 5',
-							// 	padding: '13 0'
-							// }
+							{
+								xtype:'fixedbutton',
+								action: 'capture-photo',
+								iconCls: 'photo1',
+								iconMask: true,
+								ui: 'action',
+								flex: 1
+							}
 						]
 					},
 					{
@@ -239,7 +155,7 @@ Ext.define('EatSense.view.VisitNew', {
 						cls: 'general-textfield',
 						maxLength: 140,
 						margin: '5'
-					},				
+					},
 					{
 						xtype: 'panel',
 						hidden: true,
@@ -260,45 +176,15 @@ Ext.define('EatSense.view.VisitNew', {
 								}
 							}
 						],
-						margin: '5'
+						margin: '12 5 5 5'
 					},
-					// {
-					// 	xtype: 'panel',
-					// 	xtype: 'panel',
-					// 	layout: {
-					// 		type: 'hbox',
-					// 		align: 'center'
-					// 	},
-					// 	// margin: '5 0',
-					// 	items: [
-					// 		// {
-					// 		// 	xtype:'fixedbutton',
-					// 		// 	action: 'capture-photo',
-					// 		// 	iconCls: 'photo1',
-					// 		// 	iconMask: true,
-					// 		// 	text: i10n.translate('tovisit.camerabutton'),
-					// 		// 	ui: 'action',
-					// 		// 	flex: 1,
-					// 		// 	margin: '0 5 0 0'
-					// 		// },
-					// 		{
-					// 			xtype: 'fixedbutton',
-					// 			iconCls: 'delete',
-					// 			iconMask: true,
-					// 			ui: 'action',
-					// 			action: 'delete-photo',
-					// 			disabled: true
-					// 		}
-					// 	]
-					// },
 					{
 						xtype: 'label',
 						hidden: true,
 						itemId: 'noMapHint',
 						margin: '5',
 						html: i10n.translate('tovisit.map.nogeodata')
-					}
-					
+					}					
 				]	
 			}
 

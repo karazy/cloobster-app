@@ -11,7 +11,7 @@ Ext.define('EatSense.view.Dashboard', {
 				type: 'fit'
 		},
 		padding: '25 8 30',
-		cls: 'dashboard',		
+		// cls: 'dashboard',		
 		items : [
 		{
 			xtype: 'titlebar',
@@ -24,10 +24,10 @@ Ext.define('EatSense.view.Dashboard', {
 			layout: {
 				type: 'hbox',
 				align: 'start'
-				// pack: 'center',
 			},
 			docked: 'top',
 			padding: 5,
+			margin: '0 0 10 0',
 			items: [
 				{
 					xtype : 'fixedbutton',
@@ -39,7 +39,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 4 0 7'
+					margin: '10 3 0 4'
 				},
 				{
 					xtype : 'fixedbutton',
@@ -51,7 +51,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 7 0 4'
+					margin: '10 4 0 3'
 				}	
 			]
 		},
@@ -65,13 +65,17 @@ Ext.define('EatSense.view.Dashboard', {
 			itemTpl: new Ext.XTemplate(
 				"<table style='width:100%;'>",					
 					'<td align="left" style="vertical-align: top;">',
-						// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED)"></div>',
+						//Dummy
+						// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED); background-color: blue;"></div>',
 						'<tpl if="imageUrl">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',							
 						'<tpl elseif="values.image && values.image.url">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
 						'</tpl>',
 						'<div>',
+							'<tpl if="locationId">',
+								'<div class="cloobster-location"></div>',
+							'</tpl>',
 							'<div class="location">',
 								'{locationName}',
 							'</div>',
@@ -87,10 +91,7 @@ Ext.define('EatSense.view.Dashboard', {
 							'{[this.formatDate(values.visitDate)]}',
 						'</td>',
 					'</tpl>',					
-				'</table>',
-				'<tpl if="locationId">',
-					'<div class="cloobster-location"></div>',
-				'</tpl>'
+				'</table>'				
 				, {
 				formatDate: function(date) {
 					var format = appConstants.DateFormat[appConfig.language],

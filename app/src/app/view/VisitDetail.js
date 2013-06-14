@@ -20,7 +20,7 @@ Ext.define('EatSense.view.VisitDetail', {
 				items: [
 					{
 						xtype: 'backbutton'
-					},
+					},					
 					{
 						xtype: 'fixedbutton',
 						action: 'delete',
@@ -36,33 +36,13 @@ Ext.define('EatSense.view.VisitDetail', {
 						align: 'right',
 					    iconMask: true,
 					    ui: 'action'
-					},
-					{
-						xtype: 'fixedbutton',
-						iconCls: 'qrcode-icon',
-						iconMask: true,
-						ui: 'action',
-						action: 'scan',
-						align: 'right',
-						flex: 1
-						// margin: '0 5 0 2'
-					},	
-					{
-						xtype: 'fixedbutton',
-						action: 'checkin',
-						// iconCls: 'qrcode-icon',
-						// iconCls: 'favorites',
-						align: 'right',
-					    text: i10n.translate('tovisit.detail.sneakinbutton'),
-					    ui: 'action',
-					    hidden: true
 					}
 				]
 			},		
 			{
 				xtype: 'panel',
 				itemId: 'content',
-				margin: '30 15 5 15',
+				margin: '20 10 5 10',
 				cls: 'tovisit-detail',
 				tpl: new Ext.XTemplate(
 					'<div>',						
@@ -76,7 +56,7 @@ Ext.define('EatSense.view.VisitDetail', {
 							'</div>',
 						'</div>',						
 						'<tpl if="visitDate">',
-							'<div style="margin: 5px 0px 15px 0px;">',
+							'<div style="margin: 5px 0px 15px 0px; clear: both;">',
 								'<div class="date content-box">{[this.formatDate(values.visitDate)]}</div>',
 								'<div>',
 									i10n.translate('tovisit.date.description'),
@@ -105,10 +85,54 @@ Ext.define('EatSense.view.VisitDetail', {
 				)
 			},
 			{
+				xtype: 'panel',
+				layout: {
+					type: 'hbox',
+					align: 'center'
+				},
+				margin: '5 15 15',
+				items: [					
+					// {
+					// 	xtype: 'fixedbutton',
+					// 	action: 'checkin',
+					// 	// iconCls: 'qrcode-icon',
+					// 	// iconCls: 'favorites',
+					// 	align: 'right',
+					//     text: i10n.translate('tovisit.detail.sneakinbutton'),
+					//     ui: 'action',
+					//     margin: '5 15 15',
+					//     flex: 4
+					//     // hidden: true
+					// },
+					{
+						xtype: 'fixedbutton',
+						action: 'checkin',
+						// iconCls: 'qrcode-icon',
+						// iconCls: 'favorites',
+						align: 'right',
+					    text: i10n.translate('tovisit.detail.sneakinbutton'),
+					    ui: 'action',
+					    margin: '0 5 0 0',
+					    flex: 1
+					    // hidden: true
+					},
+					{
+						xtype: 'fixedbutton',
+						iconCls: 'qrcode-icon',
+						iconMask: true,
+						ui: 'action',
+						action: 'scan',
+						align: 'right',
+						margin: '0 0 0 5',
+						// flex: 1
+					}
+				]
+			},			
+			{
 				xtype: 'label',
 				hidden: true,
 				itemId: 'image',
-				margin: '5 24'
+				margin: '5 15 15'
 			}
 
 		]

@@ -209,8 +209,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"urlscheme.handle" : {
-			"DE" :  "Einchecken oder in to-visit speichern?",
-			"EN" : "Check in or save as to-visit?",
+			"DE" :  "Einchecken oder als ToVisit speichern?",
+			"EN" : "Check in or save as ToVisit?",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -364,8 +364,8 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"slidenav.header.help" : {
 			"DE" : "Alles in meiner Hand",
-			//<br/><b>Check-In</b>: QR scannen um einzuchecken<br/><b>To-Visit</b>: Merk dir deine Lieblingsorte und sei informiert was es Neues gibt (nur für cloobter Locations).<br/><b>Places</b>: Besuchte cloobster Orte<br/><b>Profil</b>: Account Verwaltung & Einstellungen<br/><b>Demo</b>: Teste cloobster
-			"EN" : "<b>Check-In</b>: Scan QR for check-in<br/><b>To-Visit</b>: Remember your favorite places and stay up-to-date (only for cloobster locations).<br/><b>Places</b>: Visited cloobster locations<br/><b>Profile</b>: Account management & settings<br/><b>Demo</b>: Test cloobster",
+			//<br/><b>Check-In</b>: QR scannen um einzuchecken<br/><b>ToVisit</b>: Merk dir deine Lieblingsorte und sei informiert was es Neues gibt (nur für cloobter Locations).<br/><b>Places</b>: Besuchte cloobster Orte<br/><b>Profil</b>: Account Verwaltung & Einstellungen<br/><b>Demo</b>: Teste cloobster
+			"EN" : "<b>Check-In</b>: Scan QR for check-in<br/><b>ToVisit</b>: Remember your favorite places and stay up-to-date (only for cloobster locations).<br/><b>Places</b>: Visited cloobster locations<br/><b>Profile</b>: Account management & settings<br/><b>Demo</b>: Test cloobster",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1834,16 +1834,16 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//tovisit
 		"tovisit.list.emptytext" : {
-			"DE" : "<div><h1>Keine To-Visits</h1>interessante Orte merken</div><div><h1>In meiner Hand</h1>Informationen und Angebote</div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
-			// "DE" :  "Liste deiner Orte die du besuchen möchtest. Derzeit hast du dir keine Orte gemerkt.",
-			"EN" : "<div><h1>To-Visit</h1>remember interessting locations</div><div><h1>All in my hand</h1>offers and informations</div><div class='one'></div><div class='two'></div></div><div class='menu-help'>Tap or <br/> swipe from left</div>",
+			// "DE" : "<div><h1>ToVisit Liste anlegen</h1>interessante Orte merken</div><div><h1>In meiner Hand</h1>Informationen und Angebote</div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
+			"DE" : "<div><h1>ToVisit Liste anlegen</h1><p>und nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
+			"EN" : "<div><h1>Create ToVisit list</h1><p>and never forget an<br/> exiting location<br/>again</p></div><div><h1>All in my hand</h1><p>cloobster QR code<br/>scan, enter<br/>and discover</p></div><div class='one'></div><div class='two'></div></div><div class='menu-help'>Tap or <br/> swipe from left</div>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"tovisit.actionprompt" : {
-			"DE" :  "Neuen To-Visit Ort hinzufügen",
-			"EN" : "Add new to-visit location",
+			"DE" :  "Neuen ToVisit Ort hinzufügen",
+			"EN" : "Add new ToVisit location",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1884,7 +1884,7 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.title.new" : {
-			"DE" :  "ToVisit",
+			"DE" : "ToVisit",
 			"EN" : "ToVisit",
 			"ES" : "",
 			"IT" : "",
@@ -1919,15 +1919,15 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.detail.title" : {
-			"DE" :  "To-Visit",
-			"EN" : "To-Visit",
+			"DE" :  "ToVisit",
+			"EN" : "ToVisit",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"tovisit.detail.sneakinbutton" : {
-			"DE" :  "Sneak in",
-			"EN" : "Sneak in",
+			"DE" :  "Eintreten",
+			"EN" : "Enter",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1947,8 +1947,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.delete" : {
-			"DE" :  "To-Visit löschen?",
-			"EN" : "Delete To-Visit?",
+			"DE" :  "ToVisit löschen?",
+			"EN" : "Delete ToVisit?",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1956,6 +1956,20 @@ Ext.define('EatSense.util.Translations',{
 		"tovisit.date.description" : {
 			"DE" :  "geplanter Besuch",
 			"EN" : "planed visit",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"tovisit.nolocation.title" : {
+			"DE" :  "Dies ist leider keine<br/> cloobster Location",
+			"EN" : "We're sorry<br/> this is no cloobster location",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"tovisit.nolocation.description" : {
+			"DE" :  "Alle Infos - Alle Angebote",
+			"EN" : "All Information - All Offers",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

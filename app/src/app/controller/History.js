@@ -13,7 +13,7 @@ Ext.define('EatSense.controller.History', {
      *  Code of a spot which sould be used to optain location info.
      */    
 
-	requires: ['EatSense.view.History', 'EatSense.view.VisitNew', 'EatSense.view.VisitDetail'],
+	requires: ['EatSense.view.History', 'EatSense.view.VisitNew', 'EatSense.view.VisitDetail', 'EatSense.view.NoLocation'],
 	config: {
 		refs: {
 			mainView : 'lounge',
@@ -314,6 +314,7 @@ Ext.define('EatSense.controller.History', {
           cameraBt,
           deletePictureBt,
           imageLabel,
+          titleLabel,
           gmap,
           noMapHintLabel,
           titlebar,
@@ -341,6 +342,7 @@ Ext.define('EatSense.controller.History', {
       imageLabel = form.down('#image');
       noMapHintLabel = form.down('#noMapHint');
       titlebar = view.down('titlebar');
+      titleLabel = view.down('#titleLabel');
       
       if(!existingToVisit && !qrCode) {
          setupMap();         
@@ -361,6 +363,10 @@ Ext.define('EatSense.controller.History', {
             existingToVisit.setImageBackup(existingToVisit.getImage().getData(true));
          }         
       }
+
+      //hide when editing
+      titleLabel.setHidden(existingToVisit);
+
 
       //if called with a qrCode, directly loads corresponding business
       if(qrCode) {
@@ -624,7 +630,7 @@ Ext.define('EatSense.controller.History', {
                         disableDefaultUI: true
                      },
                      height: '200px',
-                     margin: '12 21 5 21'
+                     margin: '12 15 5 15'
                   }
                );
                view.add(gmap);
@@ -1048,10 +1054,10 @@ Ext.define('EatSense.controller.History', {
       // gmap = detailView.down('map'); 
       imageLabel = detailView.down('#image');
 
-      if(record.get('locationId')) {
+      // if(record.get('locationId')) {
          //this is cloobster location, show checkIn Button
-         checkInBt.setHidden(false);
-      }
+         // checkInBt.setHidden(false);
+      // }
 
       //wire up events
       backBt.on({
@@ -1117,7 +1123,7 @@ Ext.define('EatSense.controller.History', {
                   disableDefaultUI: true
                },
                height: '200px',
-               margin: '0 24'
+               margin: '0 15'
             });
 
             detailView.add(gmap);
@@ -1165,14 +1171,23 @@ Ext.define('EatSense.controller.History', {
       }
 
       function doCheckIn() {
-         appHelper.toggleMask('loadingMsg' ,detailView);
-          this.loadWelcomeSpotOfBusiness(record.get('locationId'), function(success, spot) {
-            appHelper.toggleMask(false, detailView);
-            if(success && spot) {
-               cleanup();
-               Ext.Viewport.fireEvent('checkinwithspot', spot);
-            }
-          });
+         var noLocationPanel;
+
+         if(record.get('locationId')) {
+            appHelper.toggleMask('loadingMsg' ,detailView);
+             this.loadWelcomeSpotOfBusiness(record.get('locationId'), function(success, spot) {
+               appHelper.toggleMask(false, detailView);
+               if(success && spot) {
+                  cleanup();
+                  Ext.Viewport.fireEvent('checkinwithspot', spot);
+               }
+             });
+         } else {
+            noLocationPanel = Ext.create('EatSense.view.NoLocation');
+
+            Ext.Viewport.add(noLocationPanel);
+            noLocationPanel.show();
+         }
       }
 
       function doEdit() {
