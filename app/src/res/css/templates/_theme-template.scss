@@ -43,6 +43,8 @@
 @include pictos-iconmask('phone1');
 @include pictos-iconmask('arrow_left');
 @include pictos-iconmask('photo1');
+@include pictos-iconmask('favorites_circle');
+@include pictos-iconmask('favorites');
 @include sencha-button-ui('sirkobutton', #c3c3c3, 'flat');
 
 
@@ -1473,50 +1475,53 @@ h9 {
     background-size:100%;
     width: 60px;
     height: 60px;
-    margin-left: 5px;
-    margin-bottom: 5px;
+    margin: 0px 9px 5px 5px;
+  }
+
+  .content-box {
+    border-radius: $general-border-radius;
+    margin: 5px 0px 10px 0px; 
+    padding: 5px 9px;
+    overflow: hidden;
+  }
+
+  > div {
+    margin: 5px 0px 15px 0px;
   }
 
   .location {
     font-size: 30px;
     word-break: break-word;
+    background-color: transparent;
+    margin-bottom: 15px;
   }
 
   .comment {
-    font-style: italic;
     text-align: justify;
-    /*clear: both;*/
     word-break: break-word;
     min-height: 50px;
     clear: both;
+    font-size: .9em;
   }
 
   .address {
-    font-size: .8em;
-    line-height: .8em;
+    /*font-size: .8em;*/
+    /*line-height: .8em;*/
     word-break: break-word;
   }
 
   .date {
     width: 40%;
     display: inline;
-    padding-right: 10px
+    background-color: $content-box-bgcolor;
+    margin-left: 8px;
+    margin-right: 5px;
   }
 
   .date + div {
-    /*margin: 5px 0px 10px 0px;*/
-    /*border: 1px solid $label-color !important;*/
     padding: 5px;
     display: inline;
-  }
-
-  .content-box {
-    border-radius: $general-border-radius;
-    margin: 5px 0px 10px 0px;
-    /*border: 1px solid $label-color !important;*/
-    background-color: $content-box-bgcolor;
-    padding: 5px;
-    overflow: hidden;
+    font-size: .9em;
   }
 }
 

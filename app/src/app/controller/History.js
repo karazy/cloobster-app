@@ -331,12 +331,12 @@ Ext.define('EatSense.controller.History', {
       backBt = view.down('backbutton');
       createBt = view.down('button[action=create]');
       scanBt = view.down('button[action=scan]');
+      cameraBt = view.down('button[action=capture-photo]');
       locationNameField = form.down('textfield[name=locationName]');
       locationNameLabel = form.down('#locationNameLabel');
       commentField = form.down('textfield[name=comment]');
       datePickerField = form.down('datepickerfield');
-      clearDateBt = form.down('button[action=delete-visitdate]');
-      cameraBt = form.down('button[action=capture-photo]');
+      clearDateBt = form.down('button[action=delete-visitdate]');      
       deletePictureBt = form.down('button[action=delete-photo]');      
       imageLabel = form.down('#image');
       noMapHintLabel = form.down('#noMapHint');
@@ -353,7 +353,8 @@ Ext.define('EatSense.controller.History', {
 
       if(existingToVisit) {
          setFormFields(existingToVisit);
-         titlebar.setTitle(i10n.translate('tovisit.title.existing'));
+         //currently does not use a title
+         // titlebar.setTitle(i10n.translate('tovisit.title.existing'));
          if(existingToVisit.getImage()) {
             console.log('History.showToVisitNewView: set imageTransient false');
             existingToVisit.set('imageTransient', false);
@@ -1116,7 +1117,7 @@ Ext.define('EatSense.controller.History', {
                   disableDefaultUI: true
                },
                height: '200px',
-               margin: '0 10'
+               margin: '0 24'
             });
 
             detailView.add(gmap);

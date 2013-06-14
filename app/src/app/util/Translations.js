@@ -1925,6 +1925,13 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"tovisit.detail.sneakinbutton" : {
+			"DE" :  "Sneak in",
+			"EN" : "Sneak in",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		"tovisit.camerabutton" : {
 			"DE" :  "Foto hinzufügen",
 			"EN" : "Add photo",

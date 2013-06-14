@@ -80,6 +80,7 @@ Ext.define('EatSense.controller.CheckIn', {
         	nicknameSettingsField: 'settings #nicknameSetting',
         	settingsview: 'settings',  	       
         	checkInBtn: 'dashboard button[action=checkin]',
+          toVisitCheckInBtn: 'visitdetail button[action=scan]',
           //confirm checkn view
           cancelCheckInBt: 'checkinconfirmation backbutton',           
         	confirmCheckInBt : 'checkinconfirmation button[action=confirm-checkin]',
@@ -98,28 +99,31 @@ Ext.define('EatSense.controller.CheckIn', {
     	control: {
     		checkInBtn: {
                 tap: 'checkInIntent'
-            },
-            confirmCheckInBt: {
-            	tap: 'confirmCheckInBtHandler'
-            }, 
-            cancelCheckInBt: {
-            	tap: 'cancelCheckInBtHandler'
-            },
-            settingsBt: {
-            	tap: 'showSettings'
-            },
-            nicknameSettingsField: {            	
-            	change: 'saveNickname'
-            },
-            'clubarea clubdashboard' : {
-              'tilesrendered' : function(dashboard) {
-                this.activateWelcomeAndBasicMode(dashboard);
-              },
-              scope: this
-            },
-            cloobsterArea: {
-              activate: 'cloobsterAreaActivated'
-            }
+        },
+        toVisitCheckInBtn: {
+          tap: 'checkInIntent'
+        },
+        confirmCheckInBt: {
+        	tap: 'confirmCheckInBtHandler'
+        }, 
+        cancelCheckInBt: {
+        	tap: 'cancelCheckInBtHandler'
+        },
+        settingsBt: {
+        	tap: 'showSettings'
+        },
+        nicknameSettingsField: {            	
+        	change: 'saveNickname'
+        },
+        'clubarea clubdashboard' : {
+          'tilesrendered' : function(dashboard) {
+            this.activateWelcomeAndBasicMode(dashboard);
+          },
+          scope: this
+        },
+        cloobsterArea: {
+          activate: 'cloobsterAreaActivated'
+        }
     	},
         /**
       	* Contains information to resume application state after the app was closed.
