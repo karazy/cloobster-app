@@ -1432,11 +1432,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Compte"
 		},
 		"login.description" : {
-			"DE" : "<h1>Gleich geht's weiter...</h1><p>Zur Registrierung brauchen wir lediglich deine E-Mailadresse und ein Passwort</p>",
-			"EN" : "Remember where you were",
-			"ES" : "Recuerde dónde estaba",
-			"IT" : "Ricorda dove sei stato",
-			"FR" : "Souviens-toi où tu étais"
+			"DE" : "<h1>Gleich geht es weiter</h1><h5>für dieses Feature brauchen wir eine E-Mailadresse und ein Passwort</h5>",
+			"EN" : "<h1>Just a moment</h1><h5>for this feature we need your email and a chosen password</h5>",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
 		},
 		"login.field.email.placeholder" : {
 			"DE" :  "E-Mail",
@@ -1835,7 +1835,7 @@ Ext.define('EatSense.util.Translations',{
 		//tovisit
 		"tovisit.list.emptytext" : {
 			// "DE" : "<div><h1>ToVisit Liste anlegen</h1>interessante Orte merken</div><div><h1>In meiner Hand</h1>Informationen und Angebote</div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
-			"DE" : "<div><h1>ToVisit Liste anlegen</h1><p>und nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
+			"DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
 			"EN" : "<div><h1>Create ToVisit list</h1><p>and never forget an<br/> exiting location<br/>again</p></div><div><h1>All in my hand</h1><p>cloobster QR code<br/>scan, enter<br/>and discover</p></div><div class='one'></div><div class='two'></div></div><div class='menu-help'>Tap or <br/> swipe from left</div>",
 			"ES" : "",
 			"IT" : "",

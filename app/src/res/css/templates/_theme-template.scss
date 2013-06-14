@@ -1229,6 +1229,10 @@ $general-border-radius: 3px;
     width: 100%;
   }
 
+  h5 {
+    font-size: .9em;
+  }
+
   p.small {
     font-size: 0.8em;
     width: 100%;
@@ -1889,8 +1893,8 @@ h9 {
 
 
   .x-innerhtml .welcome-text {
-    $welcome-border-color: #fff;
-    $welcome-border: 2px solid  $welcome-border-color;
+    $welcome-border-color: $active-color;
+    $welcome-border: 1px solid  $welcome-border-color;
 
     div:nth-child(1) {
       position: absolute;

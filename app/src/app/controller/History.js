@@ -314,7 +314,6 @@ Ext.define('EatSense.controller.History', {
           cameraBt,
           deletePictureBt,
           imageLabel,
-          titleLabel,
           gmap,
           noMapHintLabel,
           titlebar,
@@ -342,7 +341,6 @@ Ext.define('EatSense.controller.History', {
       imageLabel = form.down('#image');
       noMapHintLabel = form.down('#noMapHint');
       titlebar = view.down('titlebar');
-      titleLabel = view.down('#titleLabel');
       
       if(!existingToVisit && !qrCode) {
          setupMap();         
@@ -363,9 +361,6 @@ Ext.define('EatSense.controller.History', {
             existingToVisit.setImageBackup(existingToVisit.getImage().getData(true));
          }         
       }
-
-      //hide when editing
-      titleLabel.setHidden(existingToVisit);
 
 
       //if called with a qrCode, directly loads corresponding business

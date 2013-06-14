@@ -28,7 +28,7 @@ Ext.define('EatSense.view.Login', {
 			{
 				docked : 'top',
 				xtype : 'titlebar',
-				title : i10n.translate('login.title'),
+				// title : i10n.translate('login.title'),
 				items : [ 
 					{
 						xtype : 'backbutton'
