@@ -209,8 +209,29 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"urlscheme.handle" : {
-			"DE" :  "Einchecken oder als ToVisit speichern?",
-			"EN" : "Check in or save as ToVisit?",
+			"DE" :  "Einchecken oder Ort merken?",
+			"EN" : "Check in or save place?",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"urlscheme.handle.visitonly" : {
+			"DE" :  "Ort merken?",
+			"EN" : "Save place?",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"urlscheme.tovisit" : {
+			"DE" :  "Merken",
+			"EN" : "Save",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"urlscheme.checkin" : {
+			"DE" :  "Check in",
+			"EN" : "Check in",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

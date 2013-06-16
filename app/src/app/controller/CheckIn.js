@@ -432,15 +432,15 @@ Ext.define('EatSense.controller.CheckIn', {
 
       Ext.Msg.show({
         title: '',
-        message: i10n.translate('urlscheme.handle'),
+        message: (hideCheckInBtn) ? i10n.translate('urlscheme.handle.visitonly') : i10n.translate('urlscheme.handle'),
         buttons: [{
-          text: i10n.translate('checkin'),
+          text: i10n.translate('urlscheme.checkin'),
           itemId: 'checkin',
           ui: 'action',
           hidden: hideCheckInBtn
         }, 
         {
-          text: i10n.translate('tovisit'),
+          text: i10n.translate('urlscheme.tovisit'),
           itemId: 'tovisit',
           ui: 'action'
         },

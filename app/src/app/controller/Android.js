@@ -52,6 +52,11 @@ Ext.define('EatSense.controller.Android', {
 			}
 		}, this);
 
+		checkInCtr.on({
+			'resumecheckin': this.checkForIntents,
+			scope: this
+		});
+
 		if(Ext.os.is.Android) {
           console.log('Android.launch: setup android specific behaviour');
           document.addEventListener('backbutton', onBackKeyDown, false);
@@ -70,8 +75,7 @@ Ext.define('EatSense.controller.Android', {
 		    Ext.Viewport.on({
 	    		'addbackhandler': this.addBackFn,
 	    		'removebackhandler': this.removeBackFn,
-	    		'applaunched': this.checkForIntents,
-	    		'resumecheckin': this.checkForIntents,
+	    		'applaunched': this.checkForIntents,	    		
 	    		'skiphidekeyboardevent' : function(skip) {
 	    			var _skip = (skip === true) ? true : false;
 	    			this.setSkipHideKeyboardEvent(_skip);
