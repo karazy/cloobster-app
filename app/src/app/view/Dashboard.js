@@ -128,7 +128,15 @@ Ext.define('EatSense.view.Dashboard', {
 		            autoPaging: false
 		        }
 		    ]
-		}			
+		}
+		// {
+		// 	xtype: 'label',
+		// 	docked: 'bottom',
+		// 	width: '100%',
+		// 	height: 50,
+		// 	// itemId: 'skylinecanvas',
+		// 	html: '<canvas id="skylinecanvas" style="width: 100%; height: 50px;"></canvas>'
+		// }
 		// {
 		// 	xtype: 'fixedbutton',
 		// 	ui: 'action',

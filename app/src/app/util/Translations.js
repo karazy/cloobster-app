@@ -1856,7 +1856,7 @@ Ext.define('EatSense.util.Translations',{
 		//tovisit
 		"tovisit.list.emptytext" : {
 			// "DE" : "<div><h1>ToVisit Liste anlegen</h1>interessante Orte merken</div><div><h1>In meiner Hand</h1>Informationen und Angebote</div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
-			"DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div>",
+			"DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='one'></div><div class='two'></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
 			"EN" : "<div><h1>Create ToVisit list</h1><p>and never forget an<br/> exiting location<br/>again</p></div><div><h1>All in my hand</h1><p>cloobster QR code<br/>scan, enter<br/>and discover</p></div><div class='one'></div><div class='two'></div></div><div class='menu-help'>Tap or <br/> swipe from left</div>",
 			"ES" : "",
 			"IT" : "",

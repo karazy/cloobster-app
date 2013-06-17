@@ -504,6 +504,7 @@ Ext.define('EatSense.controller.CheckIn', {
     Ext.create('EatSense.view.Lounge');
     Ext.Viewport.fireEvent('applaunched');
     this.checkFirstDashboardView(this.getAppState());
+    this.genSkylineBg();
   },
 	/**
 	 * Show settings screen.
@@ -1511,9 +1512,105 @@ Ext.define('EatSense.controller.CheckIn', {
           // Ext.Viewport.add(helpPanel);
           appState.set('firstDashboardView', false);
         }
-   }
+   },
 
 
     //end welcome and basic mode logic
+
+    genSkylineBg: function(){
+
+      var canvas,
+          ctx,
+          WIDTH = window.innerWidth,
+          HEIGHT = window.innerHeight * .2;
+
+      // canvas = this.getDashboard().down('#skylinecanvas');
+      canvas = document.getElementById('skylinecanvas');
+      if(!canvas) {
+        return;
+      }
+      ctx = canvas.getContext('2d');
+      
+
+      var genSkyline = function(){
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
+
+        var maxWidth = WIDTH / 15;
+        var minWidth = maxWidth / 10;
+        var maxHeight = HEIGHT / 1.2; 
+        var minHeight = maxHeight / 5;
+        var amount = random(WIDTH/20,WIDTH/10);
+              
+
+        var pos = 0;
+        while(pos < WIDTH + maxWidth){          
+          var currWidth = random(minWidth,maxWidth),
+              triangle = random(100, 0);
+
+          drawSkyscraper(pos, currWidth, random(minHeight,maxHeight), triangle);
+          pos += currWidth;
+        }
+      };
+      var drawSkyscraper = function(pos,scraper_width,scraper_height, triangle){
+        var rColor = '#31689C';// getRandomColor();
+
+        ctx.beginPath();   
+        ctx.rect(pos, HEIGHT-scraper_height,scraper_width, scraper_height);
+        ctx.stroke();
+        ctx.strokeStyle = rColor;
+        ctx.fillStyle = rColor;
+        ctx.fill();
+        console.log('TRIANGLE ' + triangle);
+        if(triangle < 20 && scraper_width > 5) {
+
+          ctx.beginPath();
+          // Start from the top-left point.
+          ctx.moveTo(pos, HEIGHT-scraper_height); // give the (x,y) coordinates
+          ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
+          ctx.lineTo(pos + scraper_width/2, HEIGHT-scraper_height - scraper_width/2);
+          ctx.moveTo(pos, HEIGHT-scraper_height);
+          ctx.strokeStyle = rColor;
+          ctx.fillStyle = rColor;
+          
+          // Done! Now fill the shape, and draw the stroke.
+          // Note: your shape will not be visible until you call any of the two methods.
+          ctx.fill();
+          ctx.stroke();
+          ctx.closePath();
+
+        }
+      };
+
+      var bindEventHandlers = function(){
+        window.onresize = resize;
+     canvas.addEventListener('click',genSkyline,false);
+      };
+      var resize = function(){
+        canvas.width = WIDTH = window.innerWidth * .8;
+        canvas.height = HEIGHT = window.innerHeight * .4;
+        genSkyline();
+      };
+
+      var random = function(a,b) {
+        return Math.random() * (b - a) + a;
+      };
+
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.round(Math.random() * 15)];
+      }
+
+    return color;
+}
+
+      genSkyline();
+      // return {
+      //   init : init
+      // };
+    }
 });
+
 
