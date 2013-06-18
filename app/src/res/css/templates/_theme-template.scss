@@ -43,6 +43,8 @@
 @include pictos-iconmask('phone1');
 @include pictos-iconmask('arrow_left');
 @include pictos-iconmask('photo1');
+@include pictos-iconmask('favorites_circle');
+@include pictos-iconmask('favorites');
 @include sencha-button-ui('sirkobutton', #c3c3c3, 'flat');
 
 
@@ -1103,7 +1105,7 @@ $general-border-radius: 3px;
 }
 
 .contactinfo-icon {
-  -webkit-mask-image: inline-image('../images/club/card1.png'); 
+  -webkit-mask-image: inline-image('../images/club/phone1.png'); 
 }
 
 .request-icon {
@@ -1225,6 +1227,10 @@ $general-border-radius: 3px;
     font-size: 1em;
     font-weight: bold;
     width: 100%;
+  }
+
+  h5 {
+    font-size: .9em;
   }
 
   p.small {
@@ -1408,15 +1414,18 @@ h9 {
     font-size: 1.1em;
     vertical-align: top;
     line-height: 1.1em;
-    word-break: break-word;    
+    margin-bottom: 2px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5px;
   }
 
   .location-city {
-    font-size: .8em;
+    font-size: .7em;
     line-height: 1.1em;
     /*word-break: break-word;*/
     text-overflow: ellipsis;
-    width: 90%;
     overflow: hidden;
     white-space: nowrap;
     padding-right: 5px;
@@ -1424,7 +1433,7 @@ h9 {
 
   .date {
     margin: 2px 0;
-    width: 75px;
+    width: 65px;
     float: right;
     text-align: center;
     border-left: 1px solid;
@@ -1446,11 +1455,13 @@ h9 {
   }
 
   .cloobster-location {
-    position: absolute;
+    /*position: absolute;*/
+    float: left;
     top: 5px;
     right: 5px;
     width: 20px;
     height: 20px;
+    margin-right: 3px;
     background-color: $active-color;
     -webkit-mask-size: 20px;
     -webkit-mask-repeat: no-repeat;
@@ -1473,48 +1484,52 @@ h9 {
     background-size:100%;
     width: 60px;
     height: 60px;
-    margin-left: 5px;
-    margin-bottom: 5px;
+    margin: 0px 9px 5px 5px;
   }
+
+  .content-box {
+    border-radius: $general-border-radius;
+    margin: 5px 0px 10px 0px; 
+    padding: 5px 9px;
+    overflow: hidden;
+  }
+
+/*  > div {
+    margin: 5px 0px 15px 0px;
+  }*/
 
   .location {
     font-size: 30px;
     word-break: break-word;
+    background-color: transparent;
+    margin-bottom: 15px;
   }
 
   .comment {
-    font-style: italic;
     text-align: justify;
-    /*clear: both;*/
     word-break: break-word;
     min-height: 50px;
     clear: both;
+    font-size: .8em;
   }
 
   .address {
     font-size: .8em;
-    line-height: .8em;
     word-break: break-word;
   }
 
   .date {
     width: 40%;
     display: inline;
-    padding-right: 10px
+    background-color: $content-box-bgcolor;
+    margin-left: 8px;
+    margin-right: 5px;
   }
 
   .date + div {
     padding: 5px;
     display: inline;
-  }
-
-  .content-box {
-    border-radius: $general-border-radius;
-    margin: 5px 0px 10px 0px;
-    /*border: 1px solid $label-color !important;*/
-    background-color: $content-box-bgcolor;
-    padding: 5px;
-    overflow: hidden;
+    font-size: .8em;
   }
 }
 
@@ -1873,88 +1888,70 @@ h9 {
   font-size: 0.8em;
 
   h1 {
-    font-size: 1.4em;
+    font-size: 1.3em;
+
+    @media only screen and (max-width: 320px) { 
+      font-size: 1.2em; 
+    }
   }
 
 
   .x-innerhtml .welcome-text {
-    $welcome-border-color: #c6c6c6;
-    $welcome-border: 2px dashed  $welcome-border-color;
+    $welcome-border-color: $active-color;
+    $welcome-border: 1px solid  $welcome-border-color;
 
     div:nth-child(1) {
       position: absolute;
-      /*border: 2px dashed $welcome-border;*/
-      /*top: 80px;*/
-      top: 18%;
-      left: 25px;
+      top: 12%;
+      left: 13px;
       padding: 5px;
+      font-size: 1.2em;
+
+      @media only screen and (max-width: 320px) { 
+        font-size: 1em; 
+      }
     }
 
     div:nth-child(2) {
       position: absolute;
-      /*border: 2px dashed $welcome-border;*/
-      /*top: 180px;*/
-      top: 40%;
-      right: 25px;
+      top: 12%;
+      right: 13px;
       text-align: right;
       padding: 5px;
-    }
+      font-size: 1.2em;
 
-    div.one {
-      position: absolute;
-      border-right: $welcome-border;
-      /*height: 76px;*/
-      height: 17%;
-      left:50px;
-      text-align: center;
+      @media only screen and (max-width: 320px) { 
+        font-size: 1em; 
+      }
     }
-
-    div.one:before, div.two:before {
-      content: '▲';
-      color:  $welcome-border-color;
-      position: absolute;
-      top: -7px;
-      right: -9px;
-      font-size: 15px;
-    }
-
-    div.two {
-      position: absolute;
-      border-right: $welcome-border;
-      text-align: center;
-      /*height: 176px;*/
-      height: 40%;
-      right:50px;
-    }
-
-     div.three {
-      position: absolute;
-      border-top: $welcome-border;
-      width: 65px;
-      left:50px;
-      bottom: 25px;
-    }
-
-    div.three:before {
-      content: '◀';
-      color:  $welcome-border-color;
-      position: absolute;
-      bottom: -12px;
-      left: -7px;
-      font-size: 15px;
-    }
-
+ 
     div.menu-help {      
       position: absolute;
-      bottom: 7px;
-      left: 125px;
+      bottom: 10px;
+      left: 42px;
       /*text-align: right;*/
       max-width: 200px;
+      font-size: .95em;
+      z-index: 1;
     }
 
+  } 
+}
+
+.nolocation {
+  color: $label-color;
+
+  .title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    text-align: center;
   }
 
-  
+  .description {
+    font-size: .9em;
+    text-align: center;
+    margin-top: 6px;
+  }
 }
 
 

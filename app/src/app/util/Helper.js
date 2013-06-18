@@ -433,15 +433,15 @@ Ext.define('EatSense.util.Helper', {
          markerToClear.setMap(null);
       }
 
-      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
-
-      gmap.getMap().setCenter(myLatlng);
-      gmap.getMap().setZoom(16);               
+      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);              
 
       var marker = new google.maps.Marker({
          map: gmap.getMap(),
          position: myLatlng
       });
+
+      gmap.getMap().setZoom(16);
+      gmap.getMap().setCenter(myLatlng);
 
       return marker;
    },

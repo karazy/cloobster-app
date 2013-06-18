@@ -92,18 +92,6 @@ Ext.define('EatSense.view.VisitDetail', {
 				},
 				margin: '5 15 15',
 				items: [					
-					// {
-					// 	xtype: 'fixedbutton',
-					// 	action: 'checkin',
-					// 	// iconCls: 'qrcode-icon',
-					// 	// iconCls: 'favorites',
-					// 	align: 'right',
-					//     text: i10n.translate('tovisit.detail.sneakinbutton'),
-					//     ui: 'action',
-					//     margin: '5 15 15',
-					//     flex: 4
-					//     // hidden: true
-					// },
 					{
 						xtype: 'fixedbutton',
 						action: 'checkin',

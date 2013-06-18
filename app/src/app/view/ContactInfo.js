@@ -59,7 +59,8 @@ Ext.define('EatSense.view.ContactInfo', {
 							{
 								xtype: 'label',
 								cls: 'general-text',
-								flex: 2
+								flex: 2,
+								margin: '0'
 							},
 							{
 								xtype: 'fixedbutton',
@@ -85,7 +86,8 @@ Ext.define('EatSense.view.ContactInfo', {
 								xtype: 'label',
 								itemId: 'address',
 								cls: 'general-text',
-								flex: 2
+								flex: 2,
+								margin: '0'
 							},					
 							{
 								xtype: 'fixedbutton',
@@ -111,7 +113,8 @@ Ext.define('EatSense.view.ContactInfo', {
 							{
 								xtype: 'label',
 								cls: 'general-text',
-								flex: 2
+								flex: 2,
+								margin: '0'
 							},
 							{
 								xtype: 'fixedbutton',

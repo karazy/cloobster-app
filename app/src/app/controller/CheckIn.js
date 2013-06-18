@@ -553,7 +553,7 @@ Ext.define('EatSense.controller.CheckIn', {
             Ext.fly('appLoadingWrapper').destroy();
             Ext.create('EatSense.view.Lounge', {
               //directly select cloobster area
-              firstSelect: 3
+              firstSelect: 2
             });
             
             main = me.getMain();

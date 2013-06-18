@@ -1076,7 +1076,7 @@ Ext.define('EatSense.controller.History', {
                   disableDefaultUI: true
                },
                height: '200px',
-               margin: '0 15'
+               margin: '0 15 5 15'
             });
 
             detailView.add(gmap);
