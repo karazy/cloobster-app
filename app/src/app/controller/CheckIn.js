@@ -1532,11 +1532,11 @@ Ext.define('EatSense.controller.CheckIn', {
       ctx = canvas.getContext('2d');
       
 
-      var genSkyline = function(){
+      var genSkyline = function() {
         canvas.width = WIDTH;
         canvas.height = HEIGHT;
 
-        var maxWidth = WIDTH / 15;
+        var maxWidth = WIDTH / 12;
         var minWidth = maxWidth / 10;
         var maxHeight = HEIGHT / 1.2; 
         var minHeight = maxHeight / 5;
@@ -1544,42 +1544,71 @@ Ext.define('EatSense.controller.CheckIn', {
               
 
         var pos = 0;
+        var rColor = '#31689C',
+            prevHeight,
+            rHeight,
+            fHeight;
+
+        rHeight = random(minHeight,maxHeight);
+        fHeight = prevHeight = rHeight;
+
+        ctx.beginPath();
+        ctx.strokeStyle = rColor;
+        ctx.fillStyle = '#e6e6e6';
+        ctx.lineWidth = 1;
+        ctx.moveTo(pos, rHeight);
+
         while(pos < WIDTH + maxWidth){          
           var currWidth = random(minWidth,maxWidth),
               triangle = random(100, 0);
 
-          drawSkyscraper(pos, currWidth, random(minHeight,maxHeight), triangle);
+          prevHeight = drawSkyscraper(pos, currWidth, rHeight, triangle, prevHeight);
+          rHeight = random(minHeight,maxHeight);
           pos += currWidth;
         }
-      };
-      var drawSkyscraper = function(pos,scraper_width,scraper_height, triangle){
-        var rColor = '#31689C';// getRandomColor();
 
-        ctx.beginPath();   
-        ctx.rect(pos, HEIGHT-scraper_height,scraper_width, scraper_height);
-        ctx.stroke();
-        ctx.strokeStyle = rColor;
-        ctx.fillStyle = rColor;
+        ctx.lineTo(window.innerWidth-1, HEIGHT);
+        ctx.lineTo(0, HEIGHT);
+        ctx.lineTo(0, fHeight);
+
         ctx.fill();
-        console.log('TRIANGLE ' + triangle);
+        ctx.stroke();
+        ctx.closePath();
+      };
+      var drawSkyscraper = function(pos,scraper_width,scraper_height, triangle, prevHeight){
+        
+        // ctx.rect(pos, HEIGHT-scraper_height,scraper_width, scraper_height);
+        // ctx.stroke();
+        // ctx.strokeStyle = rColor;
+        // ctx.fillStyle = rColor;
+        // ctx.fill();
         if(triangle < 20 && scraper_width > 5) {
 
-          ctx.beginPath();
+          // ctx.beginPath();
           // Start from the top-left point.
-          ctx.moveTo(pos, HEIGHT-scraper_height); // give the (x,y) coordinates
+          // ctx.moveTo(pos, prevHeight); // give the (x,y) coordinates
+          ctx.lineTo(pos + scraper_width/2, prevHeight - scraper_width/2);
+          ctx.lineTo(pos + scraper_width, prevHeight);
           ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
-          ctx.lineTo(pos + scraper_width/2, HEIGHT-scraper_height - scraper_width/2);
-          ctx.moveTo(pos, HEIGHT-scraper_height);
-          ctx.strokeStyle = rColor;
-          ctx.fillStyle = rColor;
+          
+          // ctx.moveTo(pos, HEIGHT-scraper_height);
+
+           //   ctx.moveTo(pos, HEIGHT-scraper_height); // give the (x,y) coordinates
+        //   ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
+        //   ctx.lineTo(pos + scraper_width/2, HEIGHT-scraper_height - scraper_width/2);
+        //   ctx.moveTo(pos, HEIGHT-scraper_height);
+          
           
           // Done! Now fill the shape, and draw the stroke.
-          // Note: your shape will not be visible until you call any of the two methods.
-          ctx.fill();
-          ctx.stroke();
-          ctx.closePath();
-
+          // Note: your shape will not be visible until you call any of the two methods.        
+        } else {
+          // ctx.moveTo(pos, prevHeight); // give the (x,y) coordinates
+          ctx.lineTo(pos + scraper_width, prevHeight);
+          ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
+          // ctx.moveTo(pos, HEIGHT-scraper_height);
         }
+
+        return HEIGHT-scraper_height;
       };
 
       var bindEventHandlers = function(){
