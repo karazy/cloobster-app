@@ -50,12 +50,7 @@ Ext.define('EatSense.controller.Android', {
 			} else if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 				me.resetBackHandler();
 			}
-		}, this);
-
-		checkInCtr.on({
-			'resumecheckin': this.checkForIntents,
-			scope: this
-		});
+		}, this);		
 
 		if(Ext.os.is.Android) {
           console.log('Android.launch: setup android specific behaviour');
@@ -70,6 +65,11 @@ Ext.define('EatSense.controller.Android', {
 		    	}
 		    	
 		    }, false);
+
+		    checkInCtr.on({
+				'resumecheckin': this.checkForIntents,
+				scope: this
+			});
 
 		    //listen for global addbackhandler and removebackhandler events
 		    Ext.Viewport.on({
@@ -265,7 +265,7 @@ Ext.define('EatSense.controller.Android', {
 	*/
 	checkForIntents: function() {
 		//check for intent extras
-	    if(window.plugins.webintent) {
+	    if(window.plugins && window.plugins.webintent) {
 			window.plugins.webintent.getUri(function(url) {
 			    if(url && url !== "") {
 			        // url is the url the intent was launched with

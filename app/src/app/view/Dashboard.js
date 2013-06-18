@@ -160,5 +160,121 @@ Ext.define('EatSense.view.Dashboard', {
 		} else {
 			this.setMasked(false);
 		}
-	}
+	},
+
+	initialize: function() {
+		var list = this.down('list');
+
+		if(list) {
+			//draw skyline on emptytext on first start
+			list.on({
+				'painted' : function() {
+					this.genSkylineBg();
+				},
+				single: true,
+				scope: this
+			});
+		}
+	},
+
+	/**
+    * Generate a skyline displayed on the empty text of tovisit list.
+    */
+    genSkylineBg: function(){
+
+      var canvas,
+          ctx,
+          WIDTH = window.innerWidth,
+          HEIGHT = window.innerHeight * .2;
+
+      // canvas = this.getDashboard().down('#skylinecanvas');
+      canvas = document.getElementById('skylinecanvas');
+      if(!canvas) {
+        return;
+      }
+      ctx = canvas.getContext('2d');
+      
+
+      var genSkyline = function() {
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
+
+        var maxWidth = WIDTH / 12,
+            minWidth = maxWidth / 10,
+            maxHeight = HEIGHT / 1.2, 
+            minHeight = maxHeight / 5,
+            amount = random(WIDTH/20,WIDTH/10),
+            pos = 0,
+            rColor = 'transparent',
+            prevHeight,
+            rHeight,
+            fHeight;
+
+        rHeight = random(minHeight,maxHeight);
+        fHeight = prevHeight = rHeight;
+
+        ctx.beginPath();
+        ctx.strokeStyle = rColor;
+        ctx.fillStyle = '#e6e6e6';
+        ctx.lineWidth = 1;
+        ctx.moveTo(pos, rHeight);
+
+        while(pos < WIDTH + maxWidth){          
+          var currWidth = random(minWidth,maxWidth),
+              triangle = random(100, 0);
+
+          prevHeight = drawSkyscraper(pos, currWidth, rHeight, triangle, prevHeight);
+          rHeight = random(minHeight,maxHeight);
+          pos += currWidth;
+        }
+
+        ctx.lineTo(window.innerWidth-1, HEIGHT);
+        ctx.lineTo(0, HEIGHT);
+        ctx.lineTo(0, fHeight);
+
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+      };
+
+      var drawSkyscraper = function(pos,scraper_width,scraper_height, triangle, prevHeight){
+        
+        if(triangle < 20 && scraper_width > 5) {
+          ctx.lineTo(pos + scraper_width/2, prevHeight - scraper_width/2);
+          ctx.lineTo(pos + scraper_width, prevHeight);
+          ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);              
+        } else {
+          ctx.lineTo(pos + scraper_width, prevHeight);
+          ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
+        }
+
+        return HEIGHT-scraper_height;
+      };
+
+      // var bindEventHandlers = function(){
+      //   window.onresize = resize;
+      //   canvas.addEventListener('click',genSkyline,false);
+      // };
+      // var resize = function(){
+      //   canvas.width = WIDTH = window.innerWidth * .8;
+      //   canvas.height = HEIGHT = window.innerHeight * .4;
+      //   genSkyline();
+      // };
+
+      var random = function(a,b) {
+        return Math.random() * (b - a) + a;
+      };
+
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.round(Math.random() * 15)];
+        }
+
+        return color;
+      }
+
+      genSkyline();
+    }
 });

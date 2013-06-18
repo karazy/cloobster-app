@@ -1910,7 +1910,7 @@ h9 {
       position: absolute;
       /*border: 2px dashed $welcome-border;*/
       /*top: 180px;*/
-      top: 33%;
+      top: 12%;
       right: 13px;
       text-align: right;
       padding: 5px;
@@ -1944,6 +1944,7 @@ h9 {
       /*text-align: right;*/
       max-width: 200px;
       font-size: .95em;
+      z-index: 1;
     }
 
   } 
