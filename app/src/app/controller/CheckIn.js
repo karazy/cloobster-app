@@ -212,7 +212,8 @@ Ext.define('EatSense.controller.CheckIn', {
    },
    doCheckInIntent : function(barcode, button, deviceId) {         
       var me = this,
-          main = this.getMain();
+          main = this.getMain(),
+          activeContainer = main.getContainer().getActiveItem();
       //validate barcode field
       if(barcode.length == 0) {
         // Ext.Viewport.setMasked(false);
@@ -222,10 +223,11 @@ Ext.define('EatSense.controller.CheckIn', {
         
         Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorBarcode'), Ext.emptyFn);
       } else {
-          appHelper.toggleMask('loadingMsg', main);
+          appHelper.toggleMask('loadingMsg', activeContainer);
           //TODO 20130407 use loadSpot!
           EatSense.model.Spot.load(barcode, {
              success: function(record, operation) {
+              appHelper.toggleMask(false, activeContainer);
                me.setActiveSpot(record);
                me.setActiveArea(record.get('areaId'));
                me.checkInConfirm({model:record, deviceId : deviceId});                               
@@ -244,7 +246,7 @@ Ext.define('EatSense.controller.CheckIn', {
               },
               callback: function() {
                 // Ext.Viewport.setMasked(false);
-                appHelper.toggleMask(false, main);
+                appHelper.toggleMask(false, activeContainer);
                 if(button) {
                   button.enable();  
                 }
