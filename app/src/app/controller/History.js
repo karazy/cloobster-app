@@ -153,8 +153,6 @@ Ext.define('EatSense.controller.History', {
    			 historyList = this.getHistoryList(),
              descPanel = this.getHistoryView().down('#historyListDescPanel');
 
-         console.log('History.loadHistory');
-
    		historyStore.loadPage(1, {
    			callback: function(records, operation, success) {
    				if(operation.error) {
@@ -199,7 +197,7 @@ Ext.define('EatSense.controller.History', {
          historyDetailView = placesOverview.down('historydetail');
 
          if(!historyDetailView) {
-            console.log('History.showHistoryDetail: historyDetailView not found');
+            console.error('History.showHistoryDetail: historyDetailView not found');
             return;
          }
 
@@ -324,7 +322,6 @@ Ext.define('EatSense.controller.History', {
           geoPos;
 
       Ext.Viewport.add(view);
-      // lounge.getContainer().add(view);
       view.show();
 
       form = view.down('formpanel');
@@ -356,7 +353,7 @@ Ext.define('EatSense.controller.History', {
          //currently does not use a title
          // titlebar.setTitle(i10n.translate('tovisit.title.existing'));
          if(existingToVisit.getImage()) {
-            console.log('History.showToVisitNewView: set imageTransient false');
+            // console.log('History.showToVisitNewView: set imageTransient false');
             existingToVisit.set('imageTransient', false);
             existingToVisit.setImageBackup(existingToVisit.getImage().getData(true));
          }         
@@ -385,11 +382,6 @@ Ext.define('EatSense.controller.History', {
          scope: this
       });
 
-      // clearDateBt.on({
-      //    tap: clearDateBtTap,
-      //    scope: this
-      // });
-
       cameraBt.on({
          tap: cameraBtTap,
          scope: this
@@ -415,7 +407,6 @@ Ext.define('EatSense.controller.History', {
          datePickerField.on({
             // order: 'before',
             focus: function(picker) {
-               // console.log('PICKER');
                picker.getPicker().fireAction('tap');
             },
             delay:500,
@@ -469,7 +460,6 @@ Ext.define('EatSense.controller.History', {
             //FR ST2-1 Bug in Writer.js with a null pointer in L.92, explicitly set time
             toVisit.set('visitDate', values.visitDate.getTime());
             toVisit.fields.getByKey('visitDate').setPersist(true);
-            // console.log('History.showToVisitNewView: saveOrUpdateToVisit visitDate ' + values.visitDate + ' ' + toVisit.get('visitDate'));
          } else {
             //disable persistance when no date is set
             toVisit.fields.getByKey('visitDate').setPersist(false);
@@ -512,7 +502,6 @@ Ext.define('EatSense.controller.History', {
          if(toVisit.get('imageTransient')) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
             //resulting in a this model doesn't have a proxy specified error!
-            console.log('History.showToVisitNewView: cleanup delete transient picture');
             //a photo was already taken, but toVisit has not been saved
             //don't handle errors. Doesn't matter for user if the server side gets cleaned up.
             me.deleteImage(toVisit.getImage().get('blobKey'));
@@ -728,7 +717,7 @@ Ext.define('EatSense.controller.History', {
       function submitPicture(imageUri) {
          var image;
 
-         console.log('History.showToVisitNewView: submitPicture uri ' + imageUri);
+         // console.log('History.showToVisitNewView: submitPicture uri ' + imageUri);
          
          //no mask toggle since label doesn't support masking
 
@@ -744,7 +733,7 @@ Ext.define('EatSense.controller.History', {
          if(toVisit.get('imageTransient')) {
             //we cant directly call toVisit.getImage() since it tries to load it server side
             //resulting in a this model doesn't have a proxy specified error!
-            console.log('History.showToVisitNewView: submitPicture delete old picture case 1');
+            // console.log('History.showToVisitNewView: submitPicture delete old picture case 1');
             //a photo was already taken, but toVisit has not been saved, we have to directly delete it
             //if toVisit already exists, serverside will take care of deleting the image
             me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
@@ -801,7 +790,7 @@ Ext.define('EatSense.controller.History', {
 
       function deletePictureBtTap(button) {               
          if(toVisit.get('imageTransient')) {            
-            console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
+            // console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
             button.setDisabled(true);
             button.setHidden(true);   
             imageLabel.setHidden(true);  
@@ -820,7 +809,7 @@ Ext.define('EatSense.controller.History', {
                }
             });
          } else {
-            console.log('History.showToVisitNewView: deletePictureBtTap delete image');
+            // console.log('History.showToVisitNewView: deletePictureBtTap delete image');
             //only delete image on toVisit, will be deleted server side when sending an empty image object
             button.setDisabled(true);
             button.setHidden(true);   
@@ -829,32 +818,6 @@ Ext.define('EatSense.controller.History', {
             imageLabel.setStyle({}); 
             toVisit.set('imageTransient', false);
          }
-
-         // if(toVisit.getId() && !toVisit.get('imageTransient')) {
-         //    console.log('History.showToVisitNewView: deletePictureBtTap existing toVisit image');
-         //    me.deleteToVisitImage(toVisit, function(success) {
-         //       if(!success) {
-         //          button.setDisabled(false);
-         //          imageLabel.setHidden(false);
-         //       } else {
-         //          toVisit.setImage(null);
-         //          imageLabel.setStyle({});                  
-         //       }
-         //    });
-         // } else {
-         //    console.log('History.showToVisitNewView: deletePictureBtTap delete non persistent toVisit image');
-         //    //delete by blobkey since picture is not attached to a toVisit
-         //    me.deleteImage(toVisit.getImage().get('blobKey'), function(success) {
-         //       if(!success) {
-         //          button.setDisabled(false);
-         //          imageLabel.setHidden(false);
-         //       } else {
-         //          toVisit.setImage(null);
-         //          imageLabel.setStyle({});
-         //       }
-         //    });            
-            
-         // }
       }
 
       function doFireSkipKeyBoardEvent(skip) {
@@ -877,11 +840,6 @@ Ext.define('EatSense.controller.History', {
             tap: scanBtTap,
             scope: this
          });  
-
-         // clearDateBt.un({
-         //    tap: clearDateBtTap,
-         //    scope: this
-         // });
 
          deletePictureBt.un({
             tap: deletePictureBtTap,
@@ -1308,8 +1266,6 @@ Ext.define('EatSense.controller.History', {
    */
    deleteImage: function(blobKey, callback) {
       var me = this;
-
-      console.log('History.deleteImage');
 
       if(!blobKey) {
          console.error('History.deleteImage: no blobKey given');

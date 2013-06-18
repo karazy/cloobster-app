@@ -214,6 +214,7 @@ Ext.define('EatSense.controller.CheckIn', {
       var me = this,
           main = this.getMain(),
           activeContainer = main.getContainer().getActiveItem();
+
       //validate barcode field
       if(barcode.length == 0) {
         // Ext.Viewport.setMasked(false);
@@ -309,21 +310,21 @@ Ext.define('EatSense.controller.CheckIn', {
 	   var me = this,
 	       nickname = savedNickname || Ext.String.trim(this.getNickname().getValue()),
 	       nicknameToggle = this.getNicknameTogglefield(),
-           messageCtr = this.getApplication().getController('Message'),
-           checkInDialog = this.getCheckinconfirmation(),
-           accountCtr = this.getApplication().getController('Account'),
-           profile = accountCtr.getProfile();
+         messageCtr = this.getApplication().getController('Message'),
+         checkInDialog = this.getCheckinconfirmation(),
+         accountCtr = this.getApplication().getController('Account'),
+         profile = accountCtr.getProfile(),
+         activeContainer = this.getMain().getContainer().getActiveItem();
 
 	 //get CheckIn Object and save it.	   
 	   if(nickname.length < 3) {
 		   Ext.Msg.alert(i10n.translate('errorTitle'), i10n.translate('checkInErrorNickname',3,25), Ext.emptyFn);
 	   } else {		   
-        appHelper.toggleMask('loadingMsg');
+        appHelper.toggleMask('loadingMsg', activeContainer);
         this.getActiveCheckIn().set('nickname',nickname);		  	   
         this.getActiveCheckIn().save({
 				success: function(response) {                    
-  					   	    console.log("CheckIn:checkIn: success");
-                    appHelper.toggleMask(false);
+                    appHelper.toggleMask(false, activeContainer);
                     //Set default headers so that always checkInId is send
                     headerUtil.addHeaders({
                       'checkInId' : response.get('userId'),
@@ -355,12 +356,12 @@ Ext.define('EatSense.controller.CheckIn', {
                 // appHelper.toggleMask(false);
 					},
 				failure: function(response, operation) {
-                    appHelper.toggleMask(false);
-                    me.getApplication().handleServerError({
-                      'error': operation.error, 
-                      'forceLogout':{403 : true}
-                    }); 
-					   	    }
+            appHelper.toggleMask(false, activeContainer);
+            me.getApplication().handleServerError({
+              'error': operation.error, 
+              'forceLogout':{403 : true}
+            }); 
+	   	    }
 				}	   
 			   );
 	   }
