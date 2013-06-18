@@ -1536,15 +1536,13 @@ Ext.define('EatSense.controller.CheckIn', {
         canvas.width = WIDTH;
         canvas.height = HEIGHT;
 
-        var maxWidth = WIDTH / 12;
-        var minWidth = maxWidth / 10;
-        var maxHeight = HEIGHT / 1.2; 
-        var minHeight = maxHeight / 5;
-        var amount = random(WIDTH/20,WIDTH/10);
-              
-
-        var pos = 0;
-        var rColor = '#31689C',
+        var maxWidth = WIDTH / 12,
+            minWidth = maxWidth / 10,
+            maxHeight = HEIGHT / 1.2, 
+            minHeight = maxHeight / 5,
+            amount = random(WIDTH/20,WIDTH/10),
+            pos = 0,
+            rColor = '#31689C',
             prevHeight,
             rHeight,
             fHeight;
@@ -1575,51 +1573,30 @@ Ext.define('EatSense.controller.CheckIn', {
         ctx.stroke();
         ctx.closePath();
       };
+      
       var drawSkyscraper = function(pos,scraper_width,scraper_height, triangle, prevHeight){
         
-        // ctx.rect(pos, HEIGHT-scraper_height,scraper_width, scraper_height);
-        // ctx.stroke();
-        // ctx.strokeStyle = rColor;
-        // ctx.fillStyle = rColor;
-        // ctx.fill();
         if(triangle < 20 && scraper_width > 5) {
-
-          // ctx.beginPath();
-          // Start from the top-left point.
-          // ctx.moveTo(pos, prevHeight); // give the (x,y) coordinates
           ctx.lineTo(pos + scraper_width/2, prevHeight - scraper_width/2);
           ctx.lineTo(pos + scraper_width, prevHeight);
-          ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
-          
-          // ctx.moveTo(pos, HEIGHT-scraper_height);
-
-           //   ctx.moveTo(pos, HEIGHT-scraper_height); // give the (x,y) coordinates
-        //   ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
-        //   ctx.lineTo(pos + scraper_width/2, HEIGHT-scraper_height - scraper_width/2);
-        //   ctx.moveTo(pos, HEIGHT-scraper_height);
-          
-          
-          // Done! Now fill the shape, and draw the stroke.
-          // Note: your shape will not be visible until you call any of the two methods.        
+          ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);              
         } else {
-          // ctx.moveTo(pos, prevHeight); // give the (x,y) coordinates
           ctx.lineTo(pos + scraper_width, prevHeight);
           ctx.lineTo(pos + scraper_width, HEIGHT-scraper_height);
-          // ctx.moveTo(pos, HEIGHT-scraper_height);
         }
 
         return HEIGHT-scraper_height;
       };
 
-      var bindEventHandlers = function(){
-        window.onresize = resize;
-     canvas.addEventListener('click',genSkyline,false);
-      };
-      var resize = function(){
-        canvas.width = WIDTH = window.innerWidth * .8;
-        canvas.height = HEIGHT = window.innerHeight * .4;
-        genSkyline();
-      };
+      // var bindEventHandlers = function(){
+      //   window.onresize = resize;
+      //   canvas.addEventListener('click',genSkyline,false);
+      // };
+      // var resize = function(){
+      //   canvas.width = WIDTH = window.innerWidth * .8;
+      //   canvas.height = HEIGHT = window.innerHeight * .4;
+      //   genSkyline();
+      // };
 
       var random = function(a,b) {
         return Math.random() * (b - a) + a;
@@ -1630,15 +1607,12 @@ Ext.define('EatSense.controller.CheckIn', {
         var color = '#';
         for (var i = 0; i < 6; i++ ) {
             color += letters[Math.round(Math.random() * 15)];
+        }
+
+        return color;
       }
 
-    return color;
-}
-
       genSkyline();
-      // return {
-      //   init : init
-      // };
     }
 });
 
