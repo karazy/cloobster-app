@@ -27,7 +27,7 @@ Ext.define('EatSense.view.VisitDetail', {
 					    iconCls: 'trash',
 					    iconMask: true,
 					    ui: 'action',
-					    align: 'right',
+					    align: 'right'
 					},
 					{
 						xtype: 'fixedbutton',
@@ -111,8 +111,7 @@ Ext.define('EatSense.view.VisitDetail', {
 						ui: 'action',
 						action: 'scan',
 						align: 'right',
-						margin: '0 0 0 5',
-						// flex: 1
+						margin: '0 0 0 5'
 					}
 				]
 			},			

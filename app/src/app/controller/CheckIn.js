@@ -376,26 +376,26 @@ Ext.define('EatSense.controller.CheckIn', {
 
     deviceId = (device) ? device.platform : 'desktop';
 
-    Ext.Msg.show({
-      message: i10n.translate('checkin.demo.msg'),
-      buttons: [{
-        text: i10n.translate('yes'),
-        itemId: 'yes',
-        ui: 'action'
-      }, {
-        text:  i10n.translate('no'),
-        itemId: 'no',
-        ui: 'action'
-      }],
-      scope: this,
-      fn: function(btnId, value, opt) {
-      if(btnId=='yes') {
-          doDemoCheckIn();
-        }
-      }
-    });  
+    // Ext.Msg.show({
+    //   message: i10n.translate('checkin.demo.msg'),
+    //   buttons: [{
+    //     text: i10n.translate('yes'),
+    //     itemId: 'yes',
+    //     ui: 'action'
+    //   }, {
+    //     text:  i10n.translate('no'),
+    //     itemId: 'no',
+    //     ui: 'action'
+    //   }],
+    //   scope: this,
+    //   fn: function(btnId, value, opt) {
+    //   if(btnId=='yes') {
+    //       doDemoCheckIn();
+    //     }
+    //   }
+    // });  
 
-    function doDemoCheckIn() {
+    // function doDemoCheckIn() {
       // button.disable();
       Ext.Ajax.request({
         url: appConfig.serviceUrl + '/spots/',
@@ -416,7 +416,7 @@ Ext.define('EatSense.controller.CheckIn', {
         },
         scope: this
       });
-    }
+    // }
    },
    /**
    * CheckIn via given qrCode. Prompt user to trigger the normal checkIn process but skipping scanning
@@ -454,7 +454,7 @@ Ext.define('EatSense.controller.CheckIn', {
         }],
         scope: this,
         fn: function(btnId, value, opt) {
-          //url scheme is cloobster://spot/spotID
+          //url scheme must be cloobster://spot/spotID
           extractedCode = appHelper.extractBarcode(qrCode, 'spot/');
           if(btnId=='checkin') {            
             if(!this.getActiveCheckIn()) {
