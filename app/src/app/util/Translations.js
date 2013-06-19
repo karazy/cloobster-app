@@ -385,8 +385,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"slidenav.header.help" : {
 			"DE" : "Alles in meiner Hand",
-			//<br/><b>Check-In</b>: QR scannen um einzuchecken<br/><b>ToVisit</b>: Merk dir deine Lieblingsorte und sei informiert was es Neues gibt (nur für cloobter Locations).<br/><b>Places</b>: Besuchte cloobster Orte<br/><b>Profil</b>: Account Verwaltung & Einstellungen<br/><b>Demo</b>: Teste cloobster
-			"EN" : "<b>Check-In</b>: Scan QR for check-in<br/><b>ToVisit</b>: Remember your favorite places and stay up-to-date (only for cloobster locations).<br/><b>Places</b>: Visited cloobster locations<br/><b>Profile</b>: Account management & settings<br/><b>Demo</b>: Test cloobster",
+			"EN" : "All in my hand",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

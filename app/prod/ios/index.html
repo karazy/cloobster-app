@@ -83,8 +83,6 @@ Cloobster.asyncJsapiLoad = function() {
      };
      document.addEventListener("touchmove", preventBehavior, false);
      */
-
-    var invokeString;
     
     /* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
      see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
@@ -118,7 +116,6 @@ Cloobster.asyncJsapiLoad = function() {
     function onDeviceReady()
     {
         console.log('onDeviceReady start');
-        console.log('invokeString ' + invokeString);
         // FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });
         cordovaInit = true;
         try {
