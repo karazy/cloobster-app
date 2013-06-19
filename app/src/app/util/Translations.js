@@ -236,6 +236,20 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"pullrefresh" : {
+			"DE" :  "Ziehen zum aktualisieren",
+			"EN" : "Pull to refresh",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"releaserefreshtext" : {
+			"DE" :  "Loslassen zum aktualisieren",
+			"EN" : "Release to refresh",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		//month
 		"month.0" : {
 			"DE" :  "Januar",

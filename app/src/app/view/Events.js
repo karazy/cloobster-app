@@ -77,7 +77,8 @@ Ext.define('EatSense.view.Events',{
 		        },
 		        {
 		            xclass: 'Ext.plugin.PullRefresh',
-		            pullRefreshText: i10n.translate('general.pullrefresh')
+		            pullRefreshText: i10n.translate('general.pullrefresh'),
+		            releaseRefreshText: i10n.translate('general.releaserefreshtext')
 		        }
 		    ]
 		}
