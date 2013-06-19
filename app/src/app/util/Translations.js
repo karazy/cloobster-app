@@ -1995,6 +1995,14 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		//events
+		"events.title" : {
+			"DE" :  "Veranstaltungen",
+			"EN" : "Event",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

@@ -13,14 +13,14 @@ Ext.Loader.setPath({
 Ext.application({
 	name : 'EatSense',
 	controllers : [ 'CheckIn', 'Lounge', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
-  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo' ],
+  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Events'],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
-  'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem', 'Visit'],
+  'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
 	views : ['Dashboard', 'Checkinconfirmation', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
-    'EatSense.view.BackButton', 'About', 'Privacy'], 
+    'EatSense.view.BackButton', 'About', 'Privacy', 'EventsArea'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 
-          'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 'DashboardItem', 'Visit'],
+          'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [

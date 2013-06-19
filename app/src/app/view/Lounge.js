@@ -119,6 +119,14 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'club'
 			},
 			{
+				xtype: 'eventsarea',
+				title: i10n.translate('eventsarea.title'),
+				leaf: true,
+				action: 'show-events',
+				iconCls: 'calendar-icon',
+				viewState: 'club'
+			},
+			{
 				xtype: 'feedbackcontainer',
 				iconCls: 'feedback-icon',
 				itemId: 'loungeFeedback',

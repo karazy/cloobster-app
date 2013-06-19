@@ -1145,6 +1145,10 @@ $general-border-radius: 3px;
   -webkit-mask-image: inline-image('../images/user.png');
 }
 
+.calendar-icon {
+  -webkit-mask-image: inline-image('../images/calendar2.png');
+}
+
 .newsletter-floating {
   border-radius: 0.3em !important;
   padding: 3px !important;
@@ -1385,7 +1389,7 @@ h9 {
   }
 }
 
-.tovisit-item {
+.tovisit-item, .event-item {
   
   table {
     table-layout: fixed;
