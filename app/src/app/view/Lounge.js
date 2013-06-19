@@ -120,7 +120,7 @@ Ext.define('EatSense.view.Lounge', {
 			},
 			{
 				xtype: 'eventsarea',
-				title: i10n.translate('eventsarea.title'),
+				title: i10n.translate('events.title'),
 				leaf: true,
 				action: 'show-events',
 				iconCls: 'calendar-icon',

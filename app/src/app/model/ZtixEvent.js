@@ -17,6 +17,9 @@ Ext.define('EatSense.model.ZtixEvent', {
 		},
 		{
 			name: 'location'
+		},
+		{
+			name: 'link'
 		}
 		],
 		proxy : {

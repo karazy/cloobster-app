@@ -15,9 +15,30 @@ Ext.define('EatSense.controller.Events', {
 			}
 		}
 	},
-	showEventsArea: function(area) {
-		var store = Ext.StoreManager.lookup('ztixEventsStore');
 
-		store.load();
+	showEventsArea: function(area) {
+		var store = Ext.StoreManager.lookup('ztixEventsStore'),
+			list;
+
+		if(!store.isLoaded()) {
+			store.load();	
+		}
+		
+
+		list = area.down('list');
+
+		list.on({
+			select: showDetails,
+			scope: this
+		});
+
+
+		function showDetails(dataview, record) {
+			window.open(encodeURI(record.get('link')), '_blank');
+		}
+
+
+
+		
 	}
 });

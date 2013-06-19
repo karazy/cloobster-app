@@ -43,7 +43,7 @@ Ext.define('EatSense.view.Events',{
 					'</td>',
 					'<tpl if="date">',
 						'<td align="right">',
-							'{[this.formatDate(values.visitDate)]}',
+							'{[this.formatDate(values.date)]}',
 						'</td>',
 					'</tpl>',					
 				'</table>'
@@ -53,8 +53,19 @@ Ext.define('EatSense.view.Events',{
 						return appHelper.formatPrice(price);
 					},
 					formatDate: function(date) {
-						var format = appConstants.DateFormat[appConfig.language];
-						return Ext.util.Format.date(date, format);
+						var format = appConstants.DateFormat[appConfig.language],
+							shortYear,
+							html;
+
+						shortYear = date.getFullYear().toString().substring(2,4);
+
+						html =  '<div class="date">' +
+								'<div class="day">' + date.getDate() + '</div>'+
+								'<div class="mmyy">' + 
+									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
+									shortYear +
+								'</div>';
+						return html;
 					}
 				}
 			),
@@ -62,7 +73,11 @@ Ext.define('EatSense.view.Events',{
 		        {
 		            xclass: 'Ext.plugin.ListPaging',
 		            loadMoreText: i10n.translate('history.detail.list.paging'),
-		            autoPaging: true
+		            autoPaging: false
+		        },
+		        {
+		            xclass: 'Ext.plugin.PullRefresh',
+		            pullRefreshText: i10n.translate('general.pullrefresh')
 		        }
 		    ]
 		}
