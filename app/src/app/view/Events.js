@@ -22,15 +22,10 @@ Ext.define('EatSense.view.Events',{
 			itemTpl: new Ext.XTemplate(
 				'<table style="width:100%;">',					
 					'<td align="left" style="vertical-align: top;">',
-						// '<tpl if="imageUrl">',
-						// 	'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',							
-						// '<tpl elseif="values.image && values.image.url">',
-						// 	'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
-						// '</tpl>',
+						'<tpl if="infpic">',
+							'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',							
+						'</tpl>',
 						'<div>',
-							// '<tpl if="locationId">',
-							// 	'<div class="cloobster-location"></div>',
-							// '</tpl>',
 							'<div class="location">',
 								'{title}',
 							'</div>',
@@ -77,8 +72,8 @@ Ext.define('EatSense.view.Events',{
 		        },
 		        {
 		            xclass: 'Ext.plugin.PullRefresh',
-		            pullRefreshText: i10n.translate('general.pullrefresh'),
-		            releaseRefreshText: i10n.translate('general.releaserefreshtext')
+		            pullRefreshText: i10n.translate('pullrefresh'),
+		            releaseRefreshText: i10n.translate('releaserefreshtext')
 		        }
 		    ]
 		}

@@ -20,7 +20,10 @@ Ext.define('EatSense.model.ZtixEvent', {
 		},
 		{
 			name: 'link'
-		}
+		},
+		{
+			name: 'infpic'
+		}		
 		],
 		proxy : {
 			type: 'ajax',
