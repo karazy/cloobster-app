@@ -60,6 +60,8 @@
 	<string>2.4</string>
 	<key>FacebookAppID</key>
 	<string>359215437471990</string>
+    <key>FacebookDisplayName</key>
+   	<string>Cloobster</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
