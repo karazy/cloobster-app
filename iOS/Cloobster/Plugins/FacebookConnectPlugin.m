@@ -287,7 +287,7 @@
         if ([obj isKindOfClass:[NSString class]]) {
             params[key] = obj;
         } else {
-            NSError *error;
+                      NSError *error;
             NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj
                                                                options:0
                                                                  error:&error];
@@ -295,20 +295,49 @@
                 NSString *jsonDataString = [[NSString alloc] initWithData:jsonData
                                                                  encoding:NSUTF8StringEncoding];
                 params[key] = jsonDataString;
-#if __has_feature(objc_arc)
-#else
-                [jsonDataString release];
-#endif
-            }
-            //            // For optional ARC support
-            //#if __has_feature(objc_arc)
-            //            FBSBJSON *jsonWriter = [FBSBJSON new];
-            //#else
-            //            FBSBJSON *jsonWriter = [[FBSBJSON new] autorelease];
-            //#endif
-            //            params[key] = [jsonWriter stringWithObject:obj];
+            #if __has_feature(objc_arc)
+            #else
+                            [jsonDataString release];
+            #endif
+        }
         }
     }];
+    
+    // Show the web dialog
+    //Cloobster: This part was missing!
+    [FBWebDialogs
+     presentDialogModallyWithSession:FBSession.activeSession
+     dialog:method parameters:params
+     handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+         CDVPluginResult* pluginResult = nil;
+         if (error) {
+             // Dialog failed with error
+             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                              messageAsString:@"Error completing dialog."];
+         } else {
+             if (result == FBWebDialogResultDialogNotCompleted) {
+                 // User clicked the "x" icon to Cancel
+                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
+             } else {
+                 // Send the URL parameters back, for a requests dialog, the "request" parameter
+                 // will include the resutling request id. For a feed dialog, the "post_id"
+                 // parameter will include the resulting post id.
+                 NSDictionary *params = [self parseURLParams:[resultURL query]];                 
+                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:params];
+             }
+         }
+         [self.commandDelegate sendPluginResult:pluginResult callbackId:self.dialogCallbackId];
+    }];
+    
+    // For optional ARC support
+    #if __has_feature(objc_arc)
+    #else
+        [method release];
+        [params release];
+        [options release];
+    #endif
+    
+    [super writeJavascript:nil];
 }
 
 - (NSDictionary*) responseObject
