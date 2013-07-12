@@ -47,12 +47,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:priority="999">
 			    <action android:name="android.intent.action.VIEW"></action>
   				<category android:name="android.intent.category.DEFAULT"></category>
   				<category android:name="android.intent.category.BROWSABLE"></category>
-  				<data android:host="cloobster.com" android:scheme="http" android:pathPattern="/download.*" ></data>
-  				<data android:host="spot" android:scheme="cloobster" android:pathPattern=".*" ></data>
+  				<data android:scheme="http"  android:host="www.cloobster.com" android:pathPattern="/download.*" ></data>
+  				<data android:scheme="https"  android:host="www.cloobster.com" android:pathPattern="/download.*" ></data>
+<!--   			<data android:host="spot" android:scheme="cloobster" android:pathPattern=".*" ></data> -->
 			</intent-filter>
         </activity>
         <activity

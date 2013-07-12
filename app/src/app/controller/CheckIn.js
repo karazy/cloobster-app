@@ -453,9 +453,17 @@ Ext.define('EatSense.controller.CheckIn', {
           ui: 'action'
         }],
         scope: this,
-        fn: function(btnId, value, opt) {
-          //url scheme must be cloobster://spot/spotID
-          extractedCode = appHelper.extractBarcode(qrCode, 'spot/');
+        fn: function(btnId, value, opt) {         
+          //add different actions 
+          if(qrCode.indexOf('spot/') > 0) {
+            //url scheme in the form of cloobster://spot/spotID
+            extractedCode = appHelper.extractBarcode(qrCode, 'spot/');  
+          } else {
+            //default - checkin via the normal url
+             //url scheme in the form of http://www.cloobster.com/download#spotID
+            extractedCode = appHelper.extractBarcode(qrCode);
+          }
+          
           if(btnId=='checkin') {            
             if(!this.getActiveCheckIn()) {
               this.doCheckInIntent(extractedCode, null, appHelper.getDevice());

@@ -42,7 +42,7 @@
         //     "remote" : true
         // },
         {
-            "path": "lib/cordova-2.4.0.js",
+            "path": "lib/cordova.js",
         },
 		{
             "path": "touch/sencha-touch.js",
