@@ -19,11 +19,32 @@ Ext.define('EatSense.model.ZtixEvent', {
 			name: 'location'
 		},
 		{
+			name: 'locationCommon'
+		},
+		{
+			name: 'locationStreet'
+		},
+		{
+			name: 'locationZip'
+		},
+		{
+			name: 'locationCity'
+		},
+		{
+			name: 'locationAppendix'
+		},
+		{
 			name: 'link'
 		},
 		{
 			name: 'infpic'
-		}		
+		}	,
+		{
+			name: 'subtitle'
+		},
+		{
+			name: 'info'
+		}
 		],
 		proxy : {
 			type: 'ajax',

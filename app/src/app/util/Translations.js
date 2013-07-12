@@ -2017,6 +2017,13 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"ztixevent.button.openlink" : {
+			"DE" :  "Buchen",
+			"EN" : "Book",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
