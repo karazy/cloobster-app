@@ -1470,32 +1470,16 @@
 			myordersStore = Ext.data.StoreManager.lookup('orderStore');
 
 		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) {
-			Ext.Msg.show({
-				message: i10n.translate('clubdashboard.leave.message'),
-				buttons: [{
-					text: i10n.translate('yes'),
-					itemId: 'yes',
-					ui: 'action'
-				}, {
-					text: i10n.translate('no'),
-					itemId: 'no',
-					ui: 'action'
-				}],
-				fn: function(btnId) {
-					if(btnId == "yes") {
-						checkIn.erase({
-							failure: function(response, operation) {
-								//fail silent 
-								me.getApplication().handleServerError({
-									'error': operation.error,
-									'hideMessage': true
-								});
-							}
-						});
-						me.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
-					}
+			checkIn.erase({
+				failure: function(response, operation) {
+					//fail silent 
+					me.getApplication().handleServerError({
+						'error': operation.error,
+						'hideMessage': true
+					});
 				}
 			});
+			me.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
 			
 		} else {
 			this.getLoungeview().setActiveItem(this.getMyordersview());

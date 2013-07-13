@@ -17,7 +17,6 @@ Ext.define('EatSense.controller.Menu', {
         	prodDetailLabel :'productdetail #prodDetailLabel',
         	prodPriceLabel :'productdetail #prodPriceLabel',    
         	createOrderBt :'productdetail button[action="cart"]',
-            noOrderInfoButton: 'productdetail button[action=no-order-info]',
         	closeProductDetailBt: 'productdetail button[action=back]',
         	menuview: 'menutab',
         	productcomment: 'carttab #productComment',
@@ -40,9 +39,6 @@ Ext.define('EatSense.controller.Menu', {
              },
              createOrderBt : {
             	 tap: 'createOrder'
-             },
-             noOrderInfoButton: {
-                tap: 'showNoOrderInfo'
              },
              closeProductDetailBt: {
              	tap: 'closeProductDetailHandler'
@@ -460,8 +456,7 @@ Ext.define('EatSense.controller.Menu', {
 			prodPriceLabel,
 			commentField,
 			amountField,
-            cartButton,
-            noOrderInfoButton;
+            cartButton;
 	
 
 		//DEBUG
@@ -494,7 +489,6 @@ Ext.define('EatSense.controller.Menu', {
 		amountField = detail.down('#amountField');
 		prodPriceLabel = detail.down('#prodPriceLabel');
         cartButton = detail.down('button[action=cart]');
-        noOrderInfoButton = detail.down('button[action=no-order-info]');
 
 		//set title
     	if(titleLabel) {
@@ -521,8 +515,10 @@ Ext.define('EatSense.controller.Menu', {
 		//disable because of focus bug
 		amountField.setDisabled(true);
 		
-        //if basic mode is active, hide amount field
-        if(activeBusiness.get('basic')) {
+        //if basic mode is active or order feature disabled, hide amount field
+        if(activeBusiness.get('basic') || 
+            activeBusiness.isFeatureEnabled('products-order') === false
+            || record.get('noOrder') == true) {
             amountField.setHidden(true);
         } else {
             amountField.setHidden(false);
@@ -549,16 +545,6 @@ Ext.define('EatSense.controller.Menu', {
                 cartButton.setHidden(true);
             } else {
                 cartButton.setHidden(false);                
-            }
-        }
-
-        if(noOrderInfoButton) {
-            if(activeBusiness.isFeatureEnabled('products-order') === false) {
-                //hide when ordering is completely disabled
-                noOrderInfoButton.setHidden(true);
-            } else {
-                //show when ordering is disabled but certain products are not for ordering
-                noOrderInfoButton.setHidden(!record.get('noOrder'));                
             }
         }
 
@@ -638,8 +624,12 @@ Ext.define('EatSense.controller.Menu', {
                 margin: '5 20 15 10'
 			});			
 
-			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
-			commentField.setHidden(activeBusiness.get('basic'));
+			//TODO 24.01.2013 check if no problems occur not adding the comment field in basic mode or ordering disabled
+            if(activeBusiness.get('basic') || 
+                activeBusiness.isFeatureEnabled('products-order') === false ||
+                record.get('noOrder') == true) {
+                commentField.setHidden(true);
+            }
 
 			//WORKAROUND prevent the focus event from propagating to textarea triggering keyboard popup
 			choicesPanel.add(commentField);			

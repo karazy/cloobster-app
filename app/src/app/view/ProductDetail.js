@@ -28,15 +28,6 @@ Ext.define('EatSense.view.ProductDetail', {
 					welcomeFn: function() {
 						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 					}
-				},
-				{
-					xtype: 'fixedbutton',
-					action: 'no-order-info',
-					iconMask: true,
-					iconCls: 'help',
-					align: 'right',
-					ui: 'action',
-					hidden: true
 				}
 			]
 		},
