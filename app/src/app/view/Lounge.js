@@ -152,6 +152,15 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'club'
 			},
 			{
+				title: i10n.translate('tovisit.save'),
+				viewState: 'club',
+				iconCls: 'places-icon',
+				leaf: true,
+				hanlder: function() {
+					Ext.Viewport.fireEvent('addcurrentcheckinastovisit');
+				}
+			},
+			{
 				xtype: 'settingstab',
 				title: i10n.translate('settingsButton'),
 				leaf: true,
