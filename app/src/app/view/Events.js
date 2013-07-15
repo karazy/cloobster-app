@@ -75,7 +75,14 @@ Ext.define('EatSense.view.Events',{
 		            pullRefreshText: i10n.translate('pullrefresh'),
 		            releaseRefreshText: i10n.translate('releaserefreshtext')
 		        }
-		    ]
+		    ],
+		    listeners: {
+				select : function(dv, index, target, record, e, eOpts) {					
+					Ext.defer((function() {
+						dv.deselectAll();
+					}), 1000, this);					
+				}
+			}
 		}
 		]
 

@@ -267,7 +267,7 @@ Ext.define('EatSense.controller.Android', {
 		//check for intent extras
 	    if(window.plugins && window.plugins.webintent) {
 			window.plugins.webintent.getUri(function(url) {
-			    if(url && url !== "") {
+			    if(url && url !== "" && (url.match('cloobster://.*') || url.match('http://www.cloobster.com.*'))) {
 			        // url is the url the intent was launched with
 			        console.log('Android.checkForIntents: found intent url ' + url);	        			       
 			        Ext.Viewport.fireEvent('launchwithqrcode', url);
