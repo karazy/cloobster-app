@@ -11,7 +11,14 @@ Ext.define('EatSense.controller.History', {
      * Fires on Ext.Viewport.
      * @param {String} qrCode
      *  Code of a spot which sould be used to optain location info.
-     */    
+     */ 
+
+     /**
+     * @event addcurrentcheckinastovisit   
+     * Use active CheckIn to create a ToVisit.
+     * Fires on Ext.Viewport.
+     */
+     
 
 	requires: ['EatSense.view.History', 'EatSense.view.VisitNew', 'EatSense.view.VisitDetail', 'EatSense.view.NoLocation'],
 	config: {

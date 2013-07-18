@@ -156,7 +156,7 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'club',
 				iconCls: 'places-icon',
 				leaf: true,
-				hanlder: function() {
+				handler: function() {
 					Ext.Viewport.fireEvent('addcurrentcheckinastovisit');
 				}
 			},
