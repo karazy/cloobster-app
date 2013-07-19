@@ -1182,7 +1182,7 @@ Ext.define('EatSense.controller.History', {
                      }, gmap, gmapMarker);
                   }
                }   
-            }
+            });
       }
 
       function cleanup() {
