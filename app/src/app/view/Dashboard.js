@@ -17,7 +17,7 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype: 'titlebar',
 			docked: 'top',
 			cls: 'dashboard-header',
-			title: '<img src="res/images/dashboard/Logo_cloobster_weiss.png" height="30px" width="auto" style="margin-top: 8px;">'
+			title: '<img src="res/images/dashboard/logo_frizz.png" height="30px" width="auto" style="margin-top: 8px;">'
 		},
 		{
 			xtype: 'panel',
