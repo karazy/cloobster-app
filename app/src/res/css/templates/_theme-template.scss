@@ -173,7 +173,6 @@ $general-border-radius: 3px;
   color: $label-color;
   font-size: 0.8em;
   padding-right: 0.5em;
-  /*background: $product-sub-bg;*/
   word-break: break-word;
   text-align: justify;
 }
@@ -657,7 +656,7 @@ $general-border-radius: 3px;
   }
 }
 
-.infopage-detail {
+.infopage-detail, .product-detail-text {
   display: block;
   font-size: 100%;
   color: $label-color !important;
@@ -768,6 +767,17 @@ $general-border-radius: 3px;
 
   p {
     font-size: .6em;
+  }
+}
+
+.product-detail-text {
+  /* override some properties */
+  font-size: 0.8em;
+  padding: 5px 12px 0px;
+  word-break: break-word;
+
+    ul,ol {
+    margin-left: 20px;
   }
 }
 
