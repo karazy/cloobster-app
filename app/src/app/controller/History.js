@@ -284,7 +284,7 @@ Ext.define('EatSense.controller.History', {
    * @param {String} qrCode (optional)
    *  If given gets passed to {@see EatSense.controller.History#showToVisitNewView} and directly loads a cloobster location.
    */
-   checkForToVisitAction: function(qrCode) {
+   checkForToVisitAction: function(qrCode, business) {
       var me = this;
       
       Ext.Viewport.fireEvent('accountrequired', loginCallback);
@@ -292,7 +292,10 @@ Ext.define('EatSense.controller.History', {
       function loginCallback(success) {
 
          if(success) {
-            me.showToVisitNewView(null, null, qrCode);
+            me.showToVisitNewView({
+               'qrCode' : qrCode,
+               'business' : business
+            });
          }
       }    
    },
@@ -305,8 +308,14 @@ Ext.define('EatSense.controller.History', {
    * @param {String} qrCode (optional)
    *     Used to directly load a business and prefill toVisit.
    */
-   showToVisitNewView: function(existingToVisit, callback, qrCode) {
+   showToVisitNewView: function(options) {
       var me = this,
+          //extract parameters
+          options = options || {},
+          toVisit = options.existingToVisit || Ext.create('EatSense.model.Visit'),
+          callback = options.callback,
+          qrCode = options.qrCode,
+          location = options.location,
           lounge =  this.getMainView(),
           view = this.getToVisitNewView(),
           form,
@@ -322,8 +331,7 @@ Ext.define('EatSense.controller.History', {
           gmap,
           noMapHintLabel,
           titlebar,
-          values,
-          toVisit = existingToVisit || Ext.create('EatSense.model.Visit'),
+          values,          
           locationNameField,
           locationNameLabel,
           geoPos;
@@ -346,7 +354,7 @@ Ext.define('EatSense.controller.History', {
       noMapHintLabel = form.down('#noMapHint');
       titlebar = view.down('titlebar');
       
-      if(!existingToVisit && !qrCode) {
+      if(!existingToVisit && !qrCode && !business) {
          setupMap();         
       }
 
@@ -367,8 +375,13 @@ Ext.define('EatSense.controller.History', {
       }
 
 
-      //if called with a qrCode, directly loads corresponding business
-      if(qrCode) {
+      
+      if(business) {
+         //if called with business use it 
+         scanCallback(true, business);
+      }
+      else if(qrCode) {
+         //if called with a qrCode, directly loads corresponding business
             Ext.create('Ext.util.DelayedTask', function () {
                doLoadBusiness(qrCode);
             }, this).delay(300);
@@ -1152,20 +1165,24 @@ Ext.define('EatSense.controller.History', {
       }
 
       function doEdit() {
-         this.showToVisitNewView(record, function(saved, updatedRecord) {
-            //always refresh the view
-            if(updatedRecord) {
-               record = updatedRecord;
-               Ext.create('Ext.util.DelayedTask', function () {
-                  renderContent();
-               }, this).delay(150);
+         this.showToVisitNewView(
+            {
+               'existingToVisit': record,
+               'callback' : function(saved, updatedRecord) {
+                  //always refresh the view
+                  if(updatedRecord) {
+                     record = updatedRecord;
+                     Ext.create('Ext.util.DelayedTask', function () {
+                        renderContent();
+                     }, this).delay(150);
 
-               gmapMarker = appHelper.setMapMarker({
-                  latitude : record.get('geoLat'),
-                  longitude : record.get('geoLong')
-               }, gmap, gmapMarker);
+                     gmapMarker = appHelper.setMapMarker({
+                        latitude : record.get('geoLat'),
+                        longitude : record.get('geoLong')
+                     }, gmap, gmapMarker);
+                  }
+               }   
             }
-         });
       }
 
       function cleanup() {
