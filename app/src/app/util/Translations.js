@@ -1995,13 +1995,6 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
-		"tovisit.save" : {
-			"DE" :  "Ort speichern",
-			"EN" : "Save location",
-			"ES" : "",
-			"IT" : "",
-			"FR" : ""
-		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
