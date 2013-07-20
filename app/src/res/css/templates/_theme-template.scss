@@ -50,10 +50,35 @@
 
 @CHARSET "UTF-8";
 
+/* Global variables */
 $general-border-radius: 3px;
+
+/* Mixins */
+
+@mixin thumbnail {
+  div.thumbnail {
+    float: left;
+    -webkit-border-radius: $general-border-radius;
+    border-radius: $general-border-radius;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65px 65px;
+    width: 45px;
+    height: 45px;
+  }
+
+  div.thumbnail + * {
+    margin-left: 55px;
+  }
+}
+
+/* classes */
 
 
 .product-list-item {
+
+  @include thumbnail;
+
   h2.title {
     font-size: 1em;
     word-break: break-word;
@@ -65,9 +90,13 @@ $general-border-radius: 3px;
     white-space: nowrap;
   }
 
-  div p {
+  .shortdesc {
     font-size: 0.6em;
     word-break: break-word;
+  }
+
+  td {
+    vertical-align: top;
   }
 
   div.special {
@@ -1963,5 +1992,6 @@ h9 {
     margin-top: 6px;
   }
 }
+  
 
 
