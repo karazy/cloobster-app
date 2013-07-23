@@ -62,9 +62,14 @@ $general-border-radius: 3px;
     border-radius: $general-border-radius;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 65px 65px;
+    background-size: 65px auto;
     width: 45px;
     height: 45px;
+
+    /* Scales the width automatically instead of height. */
+    &.scale-width {
+      background-size: auto 65px;
+    }
   }
 
   div.thumbnail + * {
@@ -81,12 +86,14 @@ $general-border-radius: 3px;
 
   h2.title {
     font-size: 1em;
+    line-height: 1em;
     word-break: break-word;
     overflow: hidden;
   }
 
   h2.price {
     font-size: 1em;
+    line-height: 1em;
     white-space: nowrap;
   }
 
