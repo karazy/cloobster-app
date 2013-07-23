@@ -445,6 +445,28 @@ Ext.define('EatSense.util.Helper', {
 
       return marker;
    },
+
+   /**
+   * Checks if given URL is valid. An url is considered valid when it starts with http://
+   * or https://. If url is not valid, will append an http://
+   * @param {String} urlToCheck
+   * @return checked and validated url. Empty String if non provided.
+   *
+   */
+   createValidUrl: function(urlToCheck) {
+   	var validUrl = urlToCheck || '';
+
+
+	if(urlToCheck && urlToCheck.trim().length > 0) {
+		//if url does not start with http or https add it
+		if(urlToCheck.indexOf('http://')  < 0 && urlToCheck.indexOf('https://') < 0) {
+			validUrl = 'http://' + urlToCheck;
+		}
+	}
+
+	return validUrl;
+   },
+
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj

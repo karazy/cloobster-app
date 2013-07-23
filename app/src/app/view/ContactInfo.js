@@ -255,7 +255,7 @@ Ext.define('EatSense.view.ContactInfo', {
 					openLocationUrlBt.setHidden(false);
 					openLocationUrlBt.on({
 						tap: function() {
-							window.open(encodeURI('http://' + newValue.get('url')), '_blank');
+							window.open(encodeURI(appHelper.createValidUrl(newValue.get('url'))), '_blank');
 						},
 						scope: this
 					});
