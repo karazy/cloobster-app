@@ -114,7 +114,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 					gmap = Ext.create('Ext.Map', {
 						mapOptions: {
 							draggable: true,
-							disableDefaultUI: false
+							disableDefaultUI: true
 						}
 					});
 					contactInfoView.getActiveItem().add(gmap);
@@ -139,8 +139,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 					});					
 				}
 
-				// if(this.getMapCreated()) {
-					//map already rendered, reset center and return
+				//map already rendered, reset center and return
 				if(this.getCoords()) {
 					Ext.create('Ext.util.DelayedTask', function () {
 						var marker = 
@@ -149,17 +148,10 @@ Ext.define('EatSense.controller.ContactInfo', {
 		                	longitude : this.getCoords().lng()
 		            	}, gmap, this.getMapMarker());
 
-		            	this.setMapMarker(marker);
-				       //  gmap.getMap().setCenter(this.getCoords());
-				       //  gmap.getMap().setZoom(16);
-				       //  new google.maps.Marker({
-			        //   		map: gmap.getMap(),
-			        //   		position: this.getCoords()
-			      		// });		
+		            	this.setMapMarker(marker);  	
 				    }, this).delay(300);
 				    return;  						
-				}				
-				// }				
+				}							
 
 				Ext.create('Ext.util.DelayedTask', function () {
 					codeAddress();
@@ -181,13 +173,19 @@ Ext.define('EatSense.controller.ContactInfo', {
 			    	me.setCoords(results[0].geometry.location);
 
 			    	gmap.setHidden(false);
-			    	gmap.getMap().setZoom(16);
-			    	gmap.getMap().setCenter(results[0].geometry.location);	      	
+			    	// gmap.getMap().setZoom(16);
+			    	// gmap.getMap().setCenter(results[0].geometry.location);	      	
 
-			      	var marker = new google.maps.Marker({
-			          	map: gmap.getMap(),
-			          	position: results[0].geometry.location
-			      	});
+			     //  	var marker = new google.maps.Marker({
+			     //      	map: gmap.getMap(),
+			     //      	position: results[0].geometry.location
+			     //  	});
+
+			      	var marker = 
+						appHelper.setMapMarker({
+		                	latitude : results[0].geometry.location.lat(),
+		                	longitude : results[0].geometry.location.lng()
+		            	}, gmap);
 
 			      	me.setMapMarker(marker);	    
 					

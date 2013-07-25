@@ -667,17 +667,20 @@ Ext.define('EatSense.controller.History', {
                         
             if(!position) {
                appHelper.toggleMask('loadingMsg', gmap);
-               me.getCurrentPosition(function(success, position) {
-                  appHelper.toggleMask(false, gmap);
-                  if(success) {
-                     processPosition(true, position);
-                     geocodePositon(position);
-                     noMapHintLabel.hide();
-                  } else {
-                     noMapHintLabel.show();
-                     gmap.hide();
-                  }                  
-               });
+                Ext.create('Ext.util.DelayedTask', function () {
+                    me.getCurrentPosition(function(success, position) {
+                      appHelper.toggleMask(false, gmap);
+                      if(success) {
+                         processPosition(true, position);
+                         geocodePositon(position);
+                         noMapHintLabel.hide();
+                      } else {
+                         noMapHintLabel.show();
+                         gmap.hide();
+                      }                  
+                   });             
+                }, this).delay(200);
+               
             } else {
                Ext.create('Ext.util.DelayedTask', function () {
                   processPosition(true, position);

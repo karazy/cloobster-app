@@ -442,6 +442,11 @@ Ext.define('EatSense.util.Helper', {
 
       gmap.getMap().setZoom(16);
       gmap.getMap().setCenter(myLatlng);
+      
+      //#613
+      Ext.create('Ext.util.DelayedTask', function () {
+		gmap.getMap().panTo(myLatlng);
+	  }, this).delay(100); 
 
       return marker;
    },
