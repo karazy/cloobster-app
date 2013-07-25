@@ -466,6 +466,26 @@ Ext.define('EatSense.util.Helper', {
 
 	return validUrl;
    },
+   /**
+   * Looks for a elements and forces to open them in a seperate window.
+   * @param {Ext.dom.Element} element
+   */
+   redirectUrls: function(element) {
+   		if(!element) {
+   			return;
+   		}
+
+   		try {
+   			Ext.Array.each(element.query('a'), function(lnk) {				    		
+	    		lnk.addEventListener("click",function(e){
+		        	e.preventDefault();
+		        	window.open(lnk.href, '_system');									        	
+		        });
+			});         			
+		} catch(e) {
+			console.error('EatSense.util.Helper.redirectUrls: failed');
+		}
+   },
 
   	/**
   	* Iterate over an object and sysout its properties.

@@ -653,6 +653,16 @@ Ext.define('EatSense.controller.History', {
                   }
                );
                view.add(gmap);
+
+                gmap.on({
+                  'painted': function(panel) {
+                    Ext.create('Ext.util.DelayedTask', function () {
+                          appHelper.redirectUrls(panel);              
+                      }, this).delay(2000);                   
+                  },
+                  single: true,
+                  scope: this
+                });
             }
                         
             if(!position) {
@@ -1117,6 +1127,16 @@ Ext.define('EatSense.controller.History', {
             });
 
             detailView.add(gmap);
+
+            gmap.on({
+            'painted': function(panel) {
+                Ext.create('Ext.util.DelayedTask', function () {
+                      appHelper.redirectUrls(panel);              
+                  }, this).delay(2000);
+              },
+              single: true,
+              scope: this
+            });
 
             //Delay to prevent setting of wrong center
             Ext.create('Ext.util.DelayedTask', function () {

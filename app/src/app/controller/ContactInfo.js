@@ -88,10 +88,12 @@ Ext.define('EatSense.controller.ContactInfo', {
 
 		if(contactInfoView) {
 			if(!contactInfoView.down('#mapsPanel')) {
-				contactInfoView.add(contactInfoView.getMapsViewTemplate());	
+				contactInfoView.add(contactInfoView.getMapsViewTemplate());					
 			}
 			
-			contactInfoView.setActiveItem(1);
+			contactInfoView.setActiveItem(1);			
+			
+			
 
 			console.log('ContactInfo.showMaps: create map');
 
@@ -116,6 +118,16 @@ Ext.define('EatSense.controller.ContactInfo', {
 						}
 					});
 					contactInfoView.getActiveItem().add(gmap);
+
+					gmap.on({
+						'painted': function(panel) {
+							Ext.create('Ext.util.DelayedTask', function () {
+						        appHelper.redirectUrls(panel);							
+						    }, this).delay(2000);     							
+						},
+						single: true,
+						scope: this
+					});
 				}
 
 				//currently not working on ios

@@ -369,54 +369,32 @@ Ext.define('EatSense.controller.CheckIn', {
     /**
    * Request demo barcode from server and do a checkIn @ demo location.
    */
-   demoCheckIn: function(button) {
+   demoCheckIn: function() {
     var me = this,
         device,
-        deviceId;
+        deviceId,
+        activeContainer = this.getMain().getContainer().getActiveItem();
 
     deviceId = (device) ? device.platform : 'desktop';
-
-    // Ext.Msg.show({
-    //   message: i10n.translate('checkin.demo.msg'),
-    //   buttons: [{
-    //     text: i10n.translate('yes'),
-    //     itemId: 'yes',
-    //     ui: 'action'
-    //   }, {
-    //     text:  i10n.translate('no'),
-    //     itemId: 'no',
-    //     ui: 'action'
-    //   }],
-    //   scope: this,
-    //   fn: function(btnId, value, opt) {
-    //   if(btnId=='yes') {
-    //       doDemoCheckIn();
-    //     }
-    //   }
-    // });  
-
-    // function doDemoCheckIn() {
-      // button.disable();
-      Ext.Ajax.request({
-        url: appConfig.serviceUrl + '/spots/',
-        method: 'GET',
-        // disableCaching: false,
-        params: {
-          'demo' : true
-        },
-        success: function(response) {
-          me.doCheckInIntent(response.responseText, null, deviceId);
-        },
-        failure: function(response) {
-          // button.enable();
-          me.getApplication().handleServerError({
-            'error': response 
-            // 'message': i10n.translate('channelTokenError')
-          });
-        },
-        scope: this
-      });
-    // }
+    appHelper.toggleMask('loadingMsg', activeContainer);
+    Ext.Ajax.request({
+      url: appConfig.serviceUrl + '/spots/',
+      method: 'GET',
+      params: {
+        'demo' : true
+      },
+      success: function(response) {
+        appHelper.toggleMask(false, activeContainer);
+        me.doCheckInIntent(response.responseText, null, deviceId);
+      },
+      failure: function(response) {
+        appHelper.toggleMask(false, activeContainer);
+        me.getApplication().handleServerError({
+          'error': response 
+        });
+      },
+      scope: this
+    });
    },
    /**
    * CheckIn via given qrCode. Prompt user to trigger the normal checkIn process but skipping scanning
