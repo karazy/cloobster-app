@@ -1615,7 +1615,7 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Mes endroits"
 		},
 		"dashboard.button.history" : {
-			"DE" :  "Besuchte Orte",
+			"DE" :  "Verlauf",
 			"EN" :  "History",
 			"ES" : "Plazas visitadas",
 			"IT" : "",

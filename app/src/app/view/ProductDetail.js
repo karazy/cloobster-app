@@ -22,9 +22,7 @@ Ext.define('EatSense.view.ProductDetail', {
 					ui: 'action',
 					iconCls : 'shop1',
 					iconMask: true,
-					// iconAlign: 'right',
 					align: 'right',
-					// text: '&gt;',
 					welcomeFn: function() {
 						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 					}
