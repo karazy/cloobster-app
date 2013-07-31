@@ -125,6 +125,9 @@ Ext.define('EatSense.controller.CheckIn', {
           activate: 'cloobsterAreaActivated'                  
         }
     	},
+      routes: {
+        'checkin/:spotId': 'desktopLaunchWithQrCode'
+      },
         /**
       	* Contains information to resume application state after the app was closed.
       	*/
@@ -140,7 +143,9 @@ Ext.define('EatSense.controller.CheckIn', {
         /* The active business. */
         activeBusiness: null,
         /* The area the user currently views. This does not mean he is checked in there. This is indicated by the activeSpot.*/
-        activeArea: null
+        activeArea: null,
+        /* Set to true after app started */
+        appLaunched: false
     },
     init: function() {
     	var messageCtr = this.getApplication().getController('Message'),
@@ -439,6 +444,8 @@ Ext.define('EatSense.controller.CheckIn', {
           } else {
             //default - checkin via the normal url
              //url scheme in the form of http://www.cloobster.com/download#spotID
+             //or route
+             //spot/:spotId
             extractedCode = appHelper.extractBarcode(qrCode);
           }
           
@@ -451,6 +458,82 @@ Ext.define('EatSense.controller.CheckIn', {
           }
         }
       });
+    },
+    /**
+    * Called via route URL/#spot/:spotId
+    * Checks current application state and issues a checkin.
+    * @param {String} qrCode
+    *  Code used for checkIn or tovisit.
+    *
+    */
+    desktopLaunchWithQrCode: function(qrCode) {
+      var me = this,
+          executed = false;
+      
+      console.log('CheckIn.desktopLaunchWithQrCode: ' + qrCode);
+
+      if(!Ext.os.is.Desktop) {
+        console.error('CheckIn.desktopLaunchWithQrCode: no desktop device');
+        return;
+      }   
+
+      if(this.getAppLaunched() === true && this.getActiveCheckIn()) {
+        console.log('CheckIn.desktopLaunchWithQrCode: 1');
+        doLogout();
+        doTheDance();
+      } else if(this.getAppLaunched()) {
+        console.log('CheckIn.desktopLaunchWithQrCode: 2');
+        doTheDance();
+      } else {
+         this.on({
+          'applaunched': function() {
+            console.log('CheckIn.desktopLaunchWithQrCode: 3');
+            if(!executed) {
+              executed = true;
+              doTheDance();
+           }
+          },
+          'resumecheckin': function() {
+            console.log('CheckIn.desktopLaunchWithQrCode: 4');
+            if(!executed) {
+              executed = true;
+              Ext.create('Ext.util.DelayedTask', function () {
+                //to prevent errors wait for resume to complete
+                doLogout();
+                doTheDance();                  
+              }, this).delay(1000);
+              
+            }
+          },
+          scope: this
+        });
+      }
+
+      function doLogout() {
+        //emulate a silent force logout
+        me.getApplication().handleServerError({
+          'error': {
+            status: 403
+          }, 
+          'forceLogout': true,
+          hideMessage: true
+        }); 
+      }
+
+      function doTheDance() {
+        //emulate a silent force logout
+        me.getApplication().handleServerError({
+          'error': {
+            status: 403
+          }, 
+          'forceLogout': true,
+          hideMessage: true
+        }); 
+        //checkin
+        Ext.create('Ext.util.DelayedTask', function () {
+          me.doCheckInIntent(qrCode, null, appHelper.getDevice());                
+        }, me).delay(500);    
+      }
     },
    /**
    * Returns the current nickname.
@@ -492,6 +575,7 @@ Ext.define('EatSense.controller.CheckIn', {
 
     Ext.create('EatSense.view.Lounge');
     Ext.Viewport.fireEvent('applaunched');
+    this.setAppLaunched(true);
     this.checkFirstDashboardView(this.getAppState());
   },
 	/**
@@ -544,6 +628,8 @@ Ext.define('EatSense.controller.CheckIn', {
             
             main = me.getMain();
             dashboard = main.down('clubdashboard');
+
+            me.setAppLaunched(true);
 
             //mask gets removed after clubdashboard has been build or on error
             appHelper.toggleMask('restoreStateLoading', dashboard);
