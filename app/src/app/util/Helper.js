@@ -433,22 +433,32 @@ Ext.define('EatSense.util.Helper', {
          markerToClear.setMap(null);
       }
 
-      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);              
+      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
+
+      gmap.getMap().setZoom(16);
+      gmap.getMap().setCenter(myLatlng);           
 
       var marker = new google.maps.Marker({
          map: gmap.getMap(),
          position: myLatlng
       });
 
-      gmap.getMap().setZoom(16);
-      gmap.getMap().setCenter(myLatlng);
-      
-      //#613
-      Ext.create('Ext.util.DelayedTask', function () {
-		gmap.getMap().panTo(myLatlng);
-	  }, this).delay(100); 
+      //#613 for ios
+  //     Ext.create('Ext.util.DelayedTask', function () {
+		// gmap.getMap().panTo(myLatlng);
+	 //  }, this).delay(100); 
 
       return marker;
+   },
+   /**
+   * Centers given map to germany.
+   * @param {Ext.Map} gmap
+   */
+   centerMapOnGermany: function(gmap) {
+      var myLatlng = new google.maps.LatLng(51.165, 10.455278);
+
+      gmap.getMap().setZoom(4);
+      gmap.getMap().setCenter(myLatlng); 
    },
 
    /**

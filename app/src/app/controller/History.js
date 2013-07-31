@@ -652,7 +652,7 @@ Ext.define('EatSense.controller.History', {
                      margin: '12 15 5 15'
                   }
                );
-               view.add(gmap);
+               view.add(gmap);        
 
                 gmap.on({
                   'painted': function(panel) {
@@ -666,10 +666,8 @@ Ext.define('EatSense.controller.History', {
             }
                         
             if(!position) {
-               appHelper.toggleMask('loadingMsg', gmap);
-                Ext.create('Ext.util.DelayedTask', function () {
+                  //dont use a mask, otherwise rendering errors can occur
                     me.getCurrentPosition(function(success, position) {
-                      appHelper.toggleMask(false, gmap);
                       if(success) {
                          processPosition(true, position);
                          geocodePositon(position);
@@ -679,7 +677,6 @@ Ext.define('EatSense.controller.History', {
                          gmap.hide();
                       }                  
                    });             
-                }, this).delay(200);
                
             } else {
                Ext.create('Ext.util.DelayedTask', function () {
@@ -690,18 +687,16 @@ Ext.define('EatSense.controller.History', {
          }, this).delay(200); 
       }
 
-      function processPosition(success, position) {         
+      function processPosition(success, position) {
+        var marker;
          if(success) {
             geoPos = position;
-            var myLatlng = new google.maps.LatLng(geoPos.coords.latitude, geoPos.coords.longitude);
-
-            gmap.getMap().setZoom(16);
-            gmap.getMap().setCenter(myLatlng);            
-
-            var marker = new google.maps.Marker({
-               map: gmap.getMap(),
-               position: myLatlng
-            });   
+            Ext.create('Ext.util.DelayedTask', function () {
+               marker = appHelper.setMapMarker({
+                  latitude : geoPos.coords.latitude,
+                  longitude : geoPos.coords.longitude
+               }, gmap);
+            }, this).delay(250);
          } else {
             //error, position may contain error information
             gmap.setHidden(true);
