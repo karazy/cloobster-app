@@ -346,16 +346,19 @@ Ext.define('EatSense.controller.InfoPage', {
 	            me.fireEvent('infopagedelayedshow');
 	        }).delay(500);
 
-	        function createPanels() {	        	
+	        function createPanels() {
+	        	var storeCount;
 
 				console.log('InfoPage.createCarouselPanels: initial creation of info detail panels');
 				try {
 					//clear filters to always generate all pages!!!
 					filters = store.getFilters();
 					store.clearFilter(true);
+
+					storeCount = store.getCount();
 					
-					store.each(function(record) {
-						carousel.add(me.createInfoPageDetail(record));		
+					store.each(function(record, index) {
+						carousel.add(me.createInfoPageDetail(record, index, storeCount));		
 					});
 
 					store.setFilters(filters);	
@@ -384,7 +387,7 @@ Ext.define('EatSense.controller.InfoPage', {
 	* @return
 	*	created panel
 	*/
-	createInfoPageDetail: function(page) {
+	createInfoPageDetail: function(page, index, pageCount) {
 		var panel = Ext.create('EatSense.view.InfoPageDetail'),
 			html;
 
@@ -394,6 +397,14 @@ Ext.define('EatSense.controller.InfoPage', {
 			}
 
 			panel = Ext.create('EatSense.view.InfoPageDetail');
+
+			//hide arrows on first and last page
+			if(index === 0) {
+				panel.down('#help_arrow_left').setHidden(true);	
+			} else if(index === (pageCount - 1)) {
+				panel.down('#help_arrow_right').setHidden(true);
+			}
+
 			panel.setIpRecord(page);
 
 			return panel;
