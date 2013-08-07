@@ -1,9 +1,8 @@
 @font-face {
     font-family: 'PT Sans';
-    src: url('fonts/PT_Sans-Web-Regular.ttf');
+    src: url('fonts/Roboto-Light.ttf');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @import 'sencha-touch/default/all';
@@ -596,10 +595,10 @@ $general-border-radius: 3px;
   overflow: hidden; 
   text-overflow: ellipsis; 
   color: #1E4776;
-  -webkit-box-shadow: 0 4px 2px -2px #eee;
-  box-shadow: 0 4px 2px -2px #eee;
+  border-bottom-width: 2px;
+/*  -webkit-box-shadow: 0 4px 2px -2px #eee;
+  box-shadow: 0 4px 2px -2px #eee;*/
   min-height: 85px;
-  /*margin: 0.3em;*/
 
   /* Landscape phones and down */
 /*  @media only screen and (max-width: 320px) { 
@@ -1290,20 +1289,20 @@ $general-border-radius: 3px;
 }
 
 .general-textfield {
-  border-radius: 0.3em;
+  border-radius: $general-border-radius;
   margin: 5px 0px 7px 0px;
   /*added important because of .x-field:last-child Ticket 391*/
   border: 1px solid $label-color !important;
 }
 
 .general-field-label-horizontal {
-  border-top-left-radius: 0.3em;
-  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: $general-border-radius;
+  border-bottom-left-radius: $general-border-radius;
 }
 
 .general-field-label-vertical {
-  border-top-left-radius: 0.3em;
-  border-top-right-radius: 0.3em;
+  border-top-left-radius: $general-border-radius;
+  border-top-right-radius: $general-border-radius;
 }
 
 .general-panel {

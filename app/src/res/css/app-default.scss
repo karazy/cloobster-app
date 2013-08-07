@@ -7,13 +7,14 @@ $active-color: #BF002D;
 $include-tab-highlights: false;
 /*'ComfortaaRegular',*/
 $font-family: 'PT Sans',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
-$base-gradient: 'matte';
-$button-gradient: 'matte';
+$base-gradient: 'flat';
+$button-gradient: 'flat';
+$button-radius: .2em;
+
 $page-bg-color: #fffffb;
 $list-bg-color: #fffffb;
 $form-bg-color: $page-bg-color;
-/* Round tab buttons top left and lower right. */
-$tabs-bottom-radius: 0.5em;
+
 /* Forms */
 /*$form-slider-size: 0.4em;*/
 /*$form-thumb-size: 1.4em;*/
