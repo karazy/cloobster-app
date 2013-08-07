@@ -1,9 +1,12 @@
 @font-face {
-    font-family: 'PT Sans';
+    font-family: 'Roboto';
     src: url('fonts/Roboto-Light.ttf');
     font-weight: normal;
     font-style: normal;
 }
+
+/* Sencha variables */
+$button-radius: .2em;
 
 @import 'sencha-touch/default/all';
 
