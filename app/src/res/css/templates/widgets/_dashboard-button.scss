@@ -22,6 +22,7 @@ $border-radius: 3px;
     border-top-left-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
   }*/
+
 }
 
 .dashboard-button-icon {
@@ -63,14 +64,16 @@ $border-radius: 3px;
 
 .dashboard-button-label {
   position: absolute;
-  right: 14px;  
-  /*bottom: 10px;*/
-  bottom: 10%;
-  font-size: 1em; 
+  right: 0;  
+  bottom: 0%;
+  font-size: 1.5em;
+  overflow: hidden;
+  padding: 0 10px 0px 0;
 
   .right & {
-      left: 13px;
+      left: 0;
       right: auto !important;
+      padding: 0 0 0px 10px;
     }
 
 
@@ -91,9 +94,11 @@ $border-radius: 3px;
     background-color: lighten(#BF002D , 20%);
   }   
 
-  .x-button-icon {
+  /*.x-button-icon {
     background-image: url('../images/dashboard/production_barcode.png'); 
-  }
+  }*/
+
+  @include long-shadow($type: text, $color: $base-color, $length: 20, $fadeout: false, $skew: true, $direction: left);
   
 }
 
@@ -105,9 +110,11 @@ $border-radius: 3px;
     background-color: lighten(#BF002D , 20%);
   }
 
-  .x-button-icon {
+  /*.x-button-icon {
     background-image: url('../images/dashboard/places_3d.png');  
-  }
+  }*/
+
+  @include long-shadow($type: text, $color: $base-color, $length: 20, $fadeout: false, $skew: true, $direction: right);
 
 /*  .dashboard-button-label {
     font-size: 2em;
