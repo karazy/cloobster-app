@@ -22,16 +22,14 @@ Ext.define('EatSense.view.ProductDetail', {
 					ui: 'action',
 					iconCls : 'shop1',
 					iconMask: true,
-					// iconAlign: 'right',
 					align: 'right',
-					// text: '&gt;',
 					welcomeFn: function() {
 						Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 					}
 				}
 			]
 		},
-		{	//panel also cotains product image
+		{	//panel also contains product image
 			xtype : 'panel',
 			itemId: 'productDetailPanel',
 			style: {
@@ -52,19 +50,13 @@ Ext.define('EatSense.view.ProductDetail', {
 		{
 			xtype : 'label',
 			itemId : 'prodDetailLabel',
-			cls: 'productDetail',
-			padding: '5px 12px 0px',
+			cls: 'product-detail-text',			
 			tpl: new Ext.XTemplate(
-				//product is an order object
-				'<div>',
-					'<tpl if="productLongDesc">',
-						'{productLongDesc}',
-					'<tpl else>',
-						'{productShortDesc}',
-					'</tpl>',
-					// '{[values.product.data.productLongDesc != null ? values.product.data.productLongDesc : values.product.data.productShortDesc]}',
-				'</div>'
-				// '<div>{product.data.productLongDesc}</div>'
+				'<tpl if="productLongDesc">',
+					'{productLongDesc}',
+				'<tpl else>',
+					'{productShortDesc}',
+				'</tpl>'
 			)
 		}, 
 		{

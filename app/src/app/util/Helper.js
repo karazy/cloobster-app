@@ -433,18 +433,75 @@ Ext.define('EatSense.util.Helper', {
          markerToClear.setMap(null);
       }
 
-      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);              
+      myLatlng = new google.maps.LatLng(geoPos.latitude, geoPos.longitude);
+
+      gmap.getMap().setZoom(16);
+      gmap.getMap().setCenter(myLatlng);           
 
       var marker = new google.maps.Marker({
          map: gmap.getMap(),
          position: myLatlng
       });
 
-      gmap.getMap().setZoom(16);
-      gmap.getMap().setCenter(myLatlng);
+      //#613 for ios
+  //     Ext.create('Ext.util.DelayedTask', function () {
+		// gmap.getMap().panTo(myLatlng);
+	 //  }, this).delay(100); 
 
       return marker;
    },
+   /**
+   * Centers given map to germany.
+   * @param {Ext.Map} gmap
+   */
+   centerMapOnGermany: function(gmap) {
+      var myLatlng = new google.maps.LatLng(51.165, 10.455278);
+
+      gmap.getMap().setZoom(4);
+      gmap.getMap().setCenter(myLatlng); 
+   },
+
+   /**
+   * Checks if given URL is valid. An url is considered valid when it starts with http://
+   * or https://. If url is not valid, will append an http://
+   * @param {String} urlToCheck
+   * @return checked and validated url. Empty String if non provided.
+   *
+   */
+   createValidUrl: function(urlToCheck) {
+   	var validUrl = urlToCheck || '';
+
+
+	if(urlToCheck && urlToCheck.trim().length > 0) {
+		//if url does not start with http or https add it
+		if(urlToCheck.indexOf('http://')  < 0 && urlToCheck.indexOf('https://') < 0) {
+			validUrl = 'http://' + urlToCheck;
+		}
+	}
+
+	return validUrl;
+   },
+   /**
+   * Looks for a elements and forces to open them in a seperate window.
+   * @param {Ext.dom.Element} element
+   */
+   redirectUrls: function(element) {
+   		if(!element) {
+   			return;
+   		}
+
+   		try {
+   			Ext.Array.each(element.query('a'), function(lnk) {				    		
+	    		lnk.addEventListener("click",function(e){
+		        	e.preventDefault();
+		        	window.open(lnk.href, '_system');									        	
+		        });
+			});         			
+		} catch(e) {
+			console.error('EatSense.util.Helper.redirectUrls: failed');
+		}
+   },
+
   	/**
   	* Iterate over an object and sysout its properties.
   	* @param {Object} obj
