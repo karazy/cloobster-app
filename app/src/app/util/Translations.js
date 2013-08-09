@@ -2018,8 +2018,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"de.ztix.events.empty" : {
-			"DE" :  "Derzeit gibt es keine Veranstaltungen.",
-			"EN" : "Currently there are no events.",
+			"DE" : "<div class='empty-image'></div><div>Derzeit gibt es keine Veranstaltungen.</div>",
+			"EN" : "<div class='empty-image'></div><div>Currently there are no events.</div>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
