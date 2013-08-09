@@ -27,7 +27,7 @@ Ext.define('EatSense.controller.Ztix', {
 		var checkInCtr = this.getApplication().getController('CheckIn');
 
 		checkInCtr.on({
-			'statuschanged': function(status) {
+			'statusChanged': function(status) {
 				if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
 					this.cleanup();
 				}
@@ -112,12 +112,15 @@ Ext.define('EatSense.controller.Ztix', {
 	loadEvents: function() {
 		var me = this,
 			store = Ext.StoreManager.lookup('ztixEventsStore'),
-			baseUrl = appConfig.getProp('de-ztix.baseUrl');
+			baseUrl = appConfig.getProp('de-ztix.baseUrl'),
+			oldUrl;
 
 		if(!store) {
 			console.error('Ztix.loadEvents: no ztixEventsStore exists');
 			return;
 		}
+
+		oldUrl = store.getProxy().getUrl();
 
 		if(!baseUrl) {
 			console.error('Ztix.loadEvents: no baseUrl exists');
@@ -131,8 +134,8 @@ Ext.define('EatSense.controller.Ztix', {
 
 		store.getProxy().setUrl(baseUrl + this.getHostId());
 
-		//reload
-		if(!store.isLoaded()) {
+		//reload, if url is old or store never has been loaded
+		if(!store.isLoaded() || oldUrl != store.getProxy().getUrl()) {
 			store.load({
 				callback: function(records, operation, success) {
 					if(operation.error) {
