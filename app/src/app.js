@@ -18,7 +18,7 @@ Ext.application({
   'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
 	views : ['Dashboard', 'Checkinconfirmation', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
-    'EatSense.view.BackButton', 'About', 'Privacy', 'EventsArea'], 
+    'EatSense.view.BackButton', 'About', 'Privacy'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 
           'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
 	phoneStartupScreen: 'res/images/startup.png',

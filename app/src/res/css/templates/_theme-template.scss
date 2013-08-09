@@ -1,10 +1,17 @@
 @font-face {
-    font-family: 'PT Sans';
-    src: url('fonts/PT_Sans-Web-Regular.ttf');
+    font-family: 'Roboto_light';
+    src: url('fonts/Roboto-Light.ttf');
     font-weight: normal;
     font-style: normal;
 
 }
+
+/* Sencha variables */
+$button-radius: .2em;
+
+/* Global variables */
+$general-border-radius: 3px;
+
 
 @import 'sencha-touch/default/all';
 
@@ -50,8 +57,6 @@
 
 @CHARSET "UTF-8";
 
-/* Global variables */
-$general-border-radius: 3px;
 
 /* Mixins */
 
@@ -181,7 +186,7 @@ $general-border-radius: 3px;
   .x-field-input {
     border: solid 1px gray;
     background: white;
-    border-radius: 0.3em;
+    border-radius: $general-border-radius;
     font-size: 1em;
     min-height: 0em;
     width: 45px;
@@ -228,7 +233,7 @@ $general-border-radius: 3px;
 .productdetail-spinner-input {
    border: solid 1px gray;
    background: white;
-   border-radius: 0.3em;
+   border-radius: $general-border-radius;
    font-size: 1.2em;
    width: 45px !important;
    text-align: center !important;
@@ -312,7 +317,7 @@ $general-border-radius: 3px;
     font-weight: bold;
     margin-bottom: 3px;
     padding: 3px;
-    border-radius: 0.3em;
+    border-radius: $general-border-radius;
     /*-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0.15em 0.3em !important;*/
   }
 
@@ -337,7 +342,7 @@ $general-border-radius: 3px;
   font-weight: bold;
   margin-bottom: 3px;
   padding: 3px;
-  border-radius: 3px !important;
+  border-radius: $general-border-radius !important;
 }
 
 .amount-label {
@@ -345,8 +350,6 @@ $general-border-radius: 3px;
   color: $label-color;
   background-color: $page-bg-color;
   padding: 0 6px 0 0;
-  /*border-top-left-radius: $general-border-radius !important;*/
-  /*border-bottom-left-radius: $general-border-radius !important;*/
   text-align: right;
   min-height: 0;
   height: 40px;
@@ -360,7 +363,7 @@ $general-border-radius: 3px;
   background-color: $page-bg-color;
   padding: 0;
   margin: 0;
-  border-radius: 3px !important;
+  border-radius: $general-border-radius !important;
   border: 1px solid black;
   border-top-right-radius: $general-border-radius !important;
   border-bottom-right-radius: $general-border-radius !important;
@@ -454,7 +457,7 @@ $general-border-radius: 3px;
 .cartoverviewitem {
   padding: 5px;
   margin: 5px;
-  border-radius: 0.3em;
+  border-radius: $general-border-radius;
   color: $label-color;
 
   .name {
@@ -541,8 +544,8 @@ $general-border-radius: 3px;
 
   div.thumbnail {
     float: left;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: $general-border-radius;
+    border-radius: $general-border-radius;
     background-position: center;
     background-repeat: no-repeat;
     width: 45px;
@@ -596,10 +599,8 @@ $general-border-radius: 3px;
   overflow: hidden; 
   text-overflow: ellipsis; 
   color: #1E4776;
-  -webkit-box-shadow: 0 4px 2px -2px #eee;
-  box-shadow: 0 4px 2px -2px #eee;
+  border-bottom-width: 2px;
   min-height: 85px;
-  /*margin: 0.3em;*/
 
   /* Landscape phones and down */
 /*  @media only screen and (max-width: 320px) { 
@@ -1294,20 +1295,20 @@ $general-border-radius: 3px;
 }
 
 .general-textfield {
-  border-radius: 0.3em;
+  border-radius: $general-border-radius;
   margin: 5px 0px 7px 0px;
   /*added important because of .x-field:last-child Ticket 391*/
   border: 1px solid $label-color !important;
 }
 
 .general-field-label-horizontal {
-  border-top-left-radius: 0.3em;
-  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: $general-border-radius;
+  border-bottom-left-radius: $general-border-radius;
 }
 
 .general-field-label-vertical {
-  border-top-left-radius: 0.3em;
-  border-top-right-radius: 0.3em;
+  border-top-left-radius: $general-border-radius;
+  border-top-right-radius: $general-border-radius;
 }
 
 .general-panel {
@@ -1369,7 +1370,7 @@ h9 {
 */
 
 .checkin-confirm-nickname-field {
-  border-radius: 0.3em;
+  border-radius: $general-border-radius;
 }
 
 .checkin-confirm-nickname-label {
@@ -1380,7 +1381,7 @@ h9 {
 }
 
 .checkin-confirm-nickname-toggle {
-  border-radius: 0.3em;  
+  border-radius: $general-border-radius;  
   margin-top: 10px;
 }
 
@@ -1399,7 +1400,7 @@ h9 {
 }
 
 .checkin-confirm-nickname-toggle-label {
-  border-radius: 0.3em 0.3em 0 0;
+  border-radius: $general-border-radius $general-border-radius 0 0;
 }
 
 /*
@@ -1527,8 +1528,8 @@ h9 {
 
   div.thumbnail {
     float: right;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: $general-border-radius;
+    border-radius: $general-border-radius;
     background-position: center;
     background-repeat: no-repeat;
     background-size:100%;

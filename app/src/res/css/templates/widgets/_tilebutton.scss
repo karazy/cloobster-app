@@ -1,5 +1,4 @@
 .x-tilebutton {
-  /*margin: 0.3em;*/
   font-size: 0.9em;
   color: $dashboard-color;
   position: relative;
@@ -9,8 +8,7 @@
   max-height: 200px;
   -webkit-box-orient: vertical;
   box-orient: vertical;
-  -webkit-box-shadow: 0 4px 2px -2px #eee;
-  box-shadow: 0 4px 2px -2px #eee;
+  border-bottom-width: 2px;
 }
 
 .x-tilebutton-title {
@@ -62,10 +60,7 @@
 }
 
 .x-tilebutton-pressed {
-/*  -webkit-box-shadow: 0px 0px 10px 2px $base-color;
-  box-shadow: 0px 0px 10px 2px $base-color;*/
-  /*color: $base-color;*/
-  border: 1px solid $base-color;
+  border-color: $base-color;
 }
 
  /*Badges*/

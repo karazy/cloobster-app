@@ -20,7 +20,7 @@ Ext.define('EatSense.controller.Ztix', {
 		/**
 		* The host Id for which to load events.
 		*/
-		hostId: null,
+		hostId: null
 	},
 
 	launch: function() {
@@ -227,12 +227,17 @@ Ext.define('EatSense.controller.Ztix', {
 	*/
 	cleanup: function() {
 		var me = this,
-			store = Ext.StoreManager.lookup('ztixEventsStore');
+			store = Ext.StoreManager.lookup('ztixEventsStore'),
+			eventsArea = this.getEventsArea();
 
 		if(store) {
 			store.removeAll();
 		}
 
 		this.setHostId(null);
+
+		if(eventsArea) {
+			eventsArea.removeAll(true);
+		}
 	}
 });
