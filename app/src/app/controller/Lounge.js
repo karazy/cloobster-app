@@ -25,14 +25,11 @@ Ext.define('EatSense.controller.Lounge', {
 			clubDashboard: 'clubarea clubdashboard',
 			dashboardHeader: 'clubarea clubdashboard #header',
 			descriptionPanel: 'clubarea clubdashboard #description',
-			menuDashboardButton: 'clubarea clubdashboard button[action="show-menu"]',
 			navButtons: 'lounge button[action=toggle-navigation]',
-			homeButtons: 'lounge homebutton'
+			homeButtons: 'lounge homebutton',
+			quickAccessButtons: 'clubdashboard tilebutton'
 		},
 		control: {
-			menuDashboardButton : {
-				tap: 'showMenu'
-			},
 			clubArea: {
 			  activate: 'clubAreaActivated'
 			},
@@ -41,6 +38,9 @@ Ext.define('EatSense.controller.Lounge', {
 			},
 			loungeview: {
 				show: 'navigationShow'
+			},
+			quickAccessButtons: {
+				tap: 'quickAccessButtonsTapHandler'
 			}
 		}
 	},
@@ -868,5 +868,19 @@ Ext.define('EatSense.controller.Lounge', {
 		} catch(e) {
 		  console.error('Lounge.cleanup: failed ' + e);
 		}
+	 },
+
+	 /**
+	 * Common tap event handler for all {@link EatSense.view.components.TileButton}.
+	 * Uses action config on button to show corresponding menu entry.
+	 * @param {Ext.Button} button
+	 */
+	 quickAccessButtonsTapHandler: function(button) {
+	 	var lounge = this.getLoungeview();
+
+	 	if(button.config.action) {
+	 		lounge.selectByAction(button.config.action);	
+	 	}
+	 	
 	 }
 });

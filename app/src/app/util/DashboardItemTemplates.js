@@ -205,6 +205,17 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 				}
 				return tpl;
 			},
+			deztixevents: function() {
+				var tpl = {
+					xtype : 'tilebutton',
+					action: 'show-ztix-events',
+					type: 'deztixevents',
+					text: i10n.translate('de.ztix.events.title.subtitle'),
+					title: i10n.translate('de.ztix.events.title'),
+					iconCls: 'calendar'
+				}
+				return tpl;
+			},
 
 	/**
 	* Get template assigned to given config.

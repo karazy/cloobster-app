@@ -18,9 +18,6 @@ Ext.define('EatSense.controller.InfoPage', {
 			infoPageTeaser: 'clubdashboard dashboardteaser'	
 		},
 		control: {
-			showInfoPageButton: {
-				tap: 'showInfoPageButtonHandler'
-			},
 			infoPageList: {
 				select: 'showInfoPageDetail'
 			},
@@ -591,15 +588,6 @@ Ext.define('EatSense.controller.InfoPage', {
 		}	
 	},
 
-	/**
-	* Tap event handler for showInfoPagesButton.
-	*/
-	showInfoPageButtonHandler: function(button) {
-		var lounge = this.getLounge();
-
-		//execute select on list and let it handle the rest
-		lounge.selectByAction('show-infopage');	
-	},
 	/**
 	* @private
 	* Reset infopageoverview by clearing the searchfield and all filters.

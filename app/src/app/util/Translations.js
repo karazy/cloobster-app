@@ -2031,6 +2031,13 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"de.ztix.events.title.subtitle" : {
+			"DE" :  "Das sollten Sie nicht verpassen",
+			"EN" : "Exciting events",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
