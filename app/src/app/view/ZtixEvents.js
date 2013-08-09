@@ -1,9 +1,11 @@
+/**
+* View shows a List of {@link EatSense.model.ZtixEvent}.
+*/
 Ext.define('EatSense.view.ZtixEvents',{
 	extend: 'Ext.dataview.List',
 	requires: ['Ext.plugin.ListPaging', 'Ext.plugin.PullRefresh'],
 	xtype: 'ztixevents',				
 	config: {
-		// layout: 'fit',
 		store: 'ztixEventsStore',
 		cls: 'event-item',
 		emptyText: i10n.translate('de.ztix.events.empty'),
@@ -82,10 +84,6 @@ Ext.define('EatSense.view.ZtixEvents',{
 					}
 				]
 			}
-		// {
-		// 	xtype: 'list',
-			
-		// }
 		]
 
 	}

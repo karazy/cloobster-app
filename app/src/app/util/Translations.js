@@ -2009,10 +2009,17 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
-		//events
+		//ztix events
 		"de.ztix.events.title" : {
 			"DE" :  "Veranstaltungen",
 			"EN" : "Event",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"de.ztix.events.empty" : {
+			"DE" :  "Derzeit gibt es keine Veranstaltungen.",
+			"EN" : "Currently there are no events.",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

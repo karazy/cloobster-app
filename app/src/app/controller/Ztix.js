@@ -9,19 +9,19 @@ Ext.define('EatSense.controller.Ztix', {
 		'EatSense.view.ZtixEventDetail'
 	],
 	config: {
-			refs: {
-				eventsArea : 'slidenavcontainer[action=show-ztix-events]'
-			},
+		refs: {
+			eventsArea : 'slidenavcontainer[action=show-ztix-events]'
+		},
 		control: {
 			eventsArea: {
 				show: 'showEventsArea'
 			}
-		}
+		},
+		/**
+		* The host Id for which to load events.
+		*/
+		hostId: null,
 	},
-
-	//TODO make sure on checkout to reload
-	//handle cleanup on checkout
-	//load correct data
 
 	launch: function() {
 		var checkInCtr = this.getApplication().getController('CheckIn');
@@ -29,14 +29,30 @@ Ext.define('EatSense.controller.Ztix', {
 		checkInCtr.on({
 			'statuschanged': function(status) {
 				if(status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT) {
-					//reset stores...
+					this.cleanup();
 				}
 			},
 			'businessloaded' : function(business) {
-			 	// this.setup(business);
+			 	this.setup(business);
 			 },
 			scope: this
 		})
+	},
+
+	/**
+	* Reads ztix configuration.
+	*/
+	setup: function(business) {
+		if(!business) {
+			console.error('Ztix.setup: no business given');
+			return;
+		}
+
+		if(business.raw.configuration) {
+			if(business.raw.configuration.hasOwnProperty('de.ztix')) {
+				this.setHostId(business.raw.configuration['de.ztix'].hosts);
+			}
+		}
 	},
 
 	/**
@@ -85,21 +101,37 @@ Ext.define('EatSense.controller.Ztix', {
 		}
 	},
 
+	// updateHostId: function(newId, oldId) {
+		
+	// },
+
 	/**
 	* @private
 	* Loads {@link EatSense.model.ZtixEvent} from ztix server.
 	*/
 	loadEvents: function() {
 		var me = this,
-			store = Ext.StoreManager.lookup('ztixEventsStore');
+			store = Ext.StoreManager.lookup('ztixEventsStore'),
+			baseUrl = appConfig.getProp('de-ztix.baseUrl');
 
 		if(!store) {
 			console.error('Ztix.loadEvents: no ztixEventsStore exists');
 			return;
 		}
 
-		store.getProxy().setUrl('http://88.198.11.203/xmlExport/index.php/main/getEvents/001');
+		if(!baseUrl) {
+			console.error('Ztix.loadEvents: no baseUrl exists');
+			return;	
+		}
 
+		if(!this.getHostId()) {
+			console.error('Ztix.loadEvents: ho host id exists');
+			return;
+		}
+
+		store.getProxy().setUrl(baseUrl + this.getHostId());
+
+		//reload
 		if(!store.isLoaded()) {
 			store.load({
 				callback: function(records, operation, success) {
@@ -184,6 +216,20 @@ Ext.define('EatSense.controller.Ztix', {
 			view.hide();
 			view.destroy();
 		}
+	},
 
+	/**
+	* Common controller cleanup method.
+	* Called after checkout.
+	*/
+	cleanup: function() {
+		var me = this,
+			store = Ext.StoreManager.lookup('ztixEventsStore');
+
+		if(store) {
+			store.removeAll();
+		}
+
+		this.setHostId(null);
 	}
 });
