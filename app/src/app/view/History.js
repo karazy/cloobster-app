@@ -4,12 +4,11 @@ Ext.define('EatSense.view.History',{
 	xtype: 'history',				
 	config: {
 		layout: 'fit',
-		cls: 'dashboard',
 		items: [
 		{
 			docked : 'top',
 			xtype : 'titlebar',			
-			title : i10n.translate('history.title'),
+			title : i10n.translate('dashboard.button.history'), //history.title
 			items : [
 				{
 					xtype : 'homebutton'

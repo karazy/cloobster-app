@@ -160,6 +160,15 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'club'
 			},
 			{
+				title: i10n.translate('dashboard.button.tovisit'),
+				viewState: 'club',
+				iconCls: 'places-icon',
+				leaf: true,
+				handler: function() {
+					Ext.Viewport.fireEvent('addactivebusinessastovisit');
+				}
+			},
+			{
 				xtype: 'settingstab',
 				title: i10n.translate('settingsButton'),
 				leaf: true,

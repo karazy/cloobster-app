@@ -467,8 +467,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Lire le code barres"
 		},
 		"barcodePromptText" : {
-			"DE" :  "Bitte Barcode eingeben.",
-			"EN" :  "Please enter bar code.",
+			"DE" :  "Bitte QR-Code eingeben.",
+			"EN" :  "Please enter qr-code code.",
 			"ES" : "Introduzca el código de barras",
 			"IT" : "Prego inserire il codice a barre",
 			"FR" : ""
@@ -1629,8 +1629,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Mes endroits"
 		},
 		"dashboard.button.history" : {
-			"DE" :  "Besuchte Orte",
-			"EN" :  "Visited places",
+			"DE" :  "Verlauf",
+			"EN" :  "History",
 			"ES" : "Plazas visitadas",
 			"IT" : "",
 			"FR" : "mes endroits"

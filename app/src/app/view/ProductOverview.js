@@ -36,13 +36,23 @@ Ext.define('EatSense.view.ProductOverview', {
 			cls: 'productlist',
 			itemCls: 'product-list-item',
 			itemTpl : new Ext.XTemplate(
-					"<table style='width:100%;'>"+
-						"<td align='left'>"+
-							"<tpl if='special'><div class='special'></div></tpl>"+
-							"<h2 class='title'>{name}</h2></td><td align='right'><h2 class='price'>{[this.formatPrice(values.price)]}</h2>"+							
-						"</td>" +
-					"</table>"+
-					"<p>{shortDesc}</p>",
+					"<table style='width:100%;'>",
+						"<tr>",
+							"<td align='left'>",
+								'<tpl if="imageUrl">',
+									'<div class="thumbnail scale-width" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
+								'</tpl>',
+								'<div>',
+									"<tpl if='special'><div class='special'></div></tpl>",
+									"<h2 class='title'>{name}</h2>",
+									"<p class='shortdesc'>{shortDesc}</p>",
+								'</div>',
+							"</td>",
+							"<td align='right'>",
+								"<h2 class='price'>{[this.formatPrice(values.price)]}</h2>",							
+							"</td>" ,
+						"</tr>",
+					"</table>",				
 					{
 						formatPrice: function(price) {
 							return appHelper.formatPrice(price);

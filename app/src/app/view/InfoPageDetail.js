@@ -22,6 +22,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				xtype: 'label',
 				top: '50%',
 				right: 1,
+				itemId: 'help_arrow_right',
 				style: {
 					width: 0,
 					height: 0,
@@ -34,6 +35,7 @@ Ext.define('EatSense.view.InfoPageDetail', {
 				xtype: 'label',
 				top: '50%',
 				left: 1,
+				itemId: 'help_arrow_left',
 				style: {
 					width: 0,
 					height: 0,

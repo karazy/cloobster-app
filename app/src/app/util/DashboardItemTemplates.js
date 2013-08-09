@@ -81,8 +81,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						'<div class="text-container">'+
 							'<h3>{name}</h3>'+
 							'<p>{shortDesc}</p>'+
-						'</div>'+
-						'<div class="teaser-icon menu-icon"></div>'
+						'</div>'
+						// '<div class="teaser-icon menu-icon"></div>'
 					)
 					}
 				return tpl;
@@ -112,8 +112,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						'<div class="text-container">'+
 							'<h3>{name}</h3>'+
 							'<p>{shortDesc}</p>'+									
-						'</div>'+
-						'<div class="teaser-icon star-icon"></div>'
+						'</div>'
+						// '<div class="teaser-icon star-icon"></div>'
 					)
 				}
 				return tpl;
@@ -142,8 +142,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						'<div class="text-container">'+
 							'<h3>{name}</h3>'+
 							'<p>{shortDesc}</p>'+									
-						'</div>'+
-						'<div class="teaser-icon menu-icon"></div>'
+						'</div>'
+						// '<div class="teaser-icon menu-icon"></div>'
 					)
 				}
 				return tpl;
@@ -168,8 +168,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						'<div class="text-container">'+
 							'<h3>{title}</h3>'+
 							'<p>{shortText}</p>'+
-						'</div>'+
-						'<div class="teaser-icon info-icon"></div>'
+						'</div>'
+						// '<div class="teaser-icon info-icon"></div>'
 					)
 				}
 				return tpl;
@@ -181,12 +181,6 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					type: 'infopages',
 					store : 'infopageStore',
 					filter: [
-						// function(item) {
-						// 	if(item.get('hideInDashboard') === false) {
-						// 		return true;
-						// 	}
-						// 	return false;
-					 //    },
 					    function(item) {
 					    	if(!entityIds) {
 					    		return false;
@@ -205,8 +199,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 						'<div class="text-container">'+
 							'<h3>{title}</h3>'+
 							'<p>{shortText}</p>'+
-						'</div>'+
-						'<div class="teaser-icon info-icon"></div>'
+						'</div>'
+						// '<div class="teaser-icon info-icon"></div>'
 					)
 				}
 				return tpl;
