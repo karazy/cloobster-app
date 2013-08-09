@@ -49,7 +49,7 @@ Ext.define('EatSense.mixin.ImageZoom', {
 			//if an image exists, add tap listener
 			image.on({
 				tap: function(ele) {
-					console.log('EatSense.mixin.ImageZoom.registerImageZoomTap: image tap');					
+					// console.log('EatSense.mixin.ImageZoom.registerImageZoomTap: image tap');					
 
 					var img = new Image(),
 						imgPanel,

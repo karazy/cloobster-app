@@ -4,12 +4,6 @@ Ext.define('EatSense.store.ZtixEvent', {
 	config: {
 		storeId: 'ztixEventsStore',
 		model: 'EatSense.model.ZtixEvent',
-		syncRemovedRecords: false,
-        sorters: [
-	      // {
-	      //     property : "name",
-	      //     direction: "ASC"
-	      // }
-    	]
+		syncRemovedRecords: false
 	}
 });

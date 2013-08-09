@@ -2010,7 +2010,7 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		//events
-		"events.title" : {
+		"de.ztix.events.title" : {
 			"DE" :  "Veranstaltungen",
 			"EN" : "Event",
 			"ES" : "",

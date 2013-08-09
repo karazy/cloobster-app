@@ -1,12 +1,18 @@
-Ext.define('EatSense.view.EventDetail', {
+Ext.define('EatSense.view.ZtixEventDetail', {
 	extend: 'EatSense.view.components.BackButtonPanel',
 	xtype: 'eventdetail',
 	mixins: ['EatSense.mixin.ImageZoom'],
 	config: {
 		backButton: true,
-		// layout: {
-		// 	type: 'vbox'
-		// },
+		itemId: 'content',
+		scrollable: {
+		    direction: 'vertical',
+		    directionLock: true
+		},
+		height: '100%',
+		width: '100%',
+		styleHtmlContent: false,
+		cls: 'infopage-detail',
 		tpl: new Ext.XTemplate(
 			'<tpl if="infpic">',
 				'<div class="image">',
@@ -30,24 +36,10 @@ Ext.define('EatSense.view.EventDetail', {
 						action: 'open-link',
 						ui: 'action',
 						text: i10n.translate('ztixevent.button.openlink'),
-						// cls: 'infopage-link-button',
-						// iconCls: 'infopage-link-button-icon',
 						hidden: true,
 						align: 'right'
 					}
 				]
-			},
-			{
-				xtype: 'panel',
-				itemId: 'content',
-				scrollable: {
-				    direction: 'vertical',
-				    directionLock: true
-				},
-				height: '100%',
-				width: '100%',
-				styleHtmlContent: false,
-				cls: 'infopage-detail'
 			}
 		],
 		/**
@@ -57,9 +49,11 @@ Ext.define('EatSense.view.EventDetail', {
 		eventData: null
 	},
 
+	/**
+	* Renders given record into panel.
+	*/
 	updateEventData: function(newRecord, oldRecord) {
 		var panel = this,
-			contentPanel,
 			html,
 			imagePanel,
 			linkButton;
@@ -73,10 +67,9 @@ Ext.define('EatSense.view.EventDetail', {
 			linkButton.setHidden(true);
 		}
 
-		//set html in content panel
+		//set html 
 		html = panel.getTpl().apply(newRecord.getData());
-		contentPanel = panel.down('#content');
-		contentPanel.setHtml(html);	
+		panel.setHtml(html);
 
 		// imagePanel = panel.down('#imageHeader');
 		imagePanel = panel.element.down('.image');

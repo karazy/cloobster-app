@@ -48,7 +48,7 @@ Ext.define('EatSense.model.ZtixEvent', {
 		],
 		proxy : {
 			type: 'ajax',
-	        url : 'http://88.198.11.203/xmlExport/index.php/main/getEvents/001',
+	        // url : 'http://88.198.11.203/xmlExport/index.php/main/getEvents/{pathId}',
 	        enablePagingParams: false,
 	        reader: {
 	        	    type: 'xml',
