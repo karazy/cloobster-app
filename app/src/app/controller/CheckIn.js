@@ -475,26 +475,29 @@ Ext.define('EatSense.controller.CheckIn', {
       if(!Ext.os.is.Desktop) {
         console.error('CheckIn.desktopLaunchWithQrCode: no desktop device');
         return;
-      }   
+      } 
+      
+      //reset route
+      window.location = '#';
 
       if(this.getAppLaunched() === true && this.getActiveCheckIn()) {
-        console.log('CheckIn.desktopLaunchWithQrCode: 1');
+        // console.log('CheckIn.desktopLaunchWithQrCode: 1');
         doLogout();
         doTheDance();
       } else if(this.getAppLaunched()) {
-        console.log('CheckIn.desktopLaunchWithQrCode: 2');
+        // console.log('CheckIn.desktopLaunchWithQrCode: 2');
         doTheDance();
       } else {
          this.on({
           'applaunched': function() {
-            console.log('CheckIn.desktopLaunchWithQrCode: 3');
+            // console.log('CheckIn.desktopLaunchWithQrCode: 3');
             if(!executed) {
               executed = true;
               doTheDance();
            }
           },
           'resumecheckin': function() {
-            console.log('CheckIn.desktopLaunchWithQrCode: 4');
+            // console.log('CheckIn.desktopLaunchWithQrCode: 4');
             if(!executed) {
               executed = true;
               Ext.create('Ext.util.DelayedTask', function () {
