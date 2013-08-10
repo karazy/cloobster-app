@@ -233,7 +233,7 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 			    			return false;
 			    		}
 					],
-					type: 'menus',
+					type: 'products',
 					tpl: new Ext.XTemplate(
 						'<tpl if="imageUrl">',
 							'<div class="thumbnail"><img src="{imageUrl}=s360"></div>',
