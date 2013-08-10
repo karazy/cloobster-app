@@ -56,7 +56,8 @@ Ext.define('EatSense.controller.Menu', {
              	activate: 'menuviewActivated'
              },
              'dashboardteaser': {
-                'teasertapped.products' : 'jumpToProductDetail'
+                'teasertapped.products' : 'jumpToProductDetail',
+                'teasertapped.menus' : 'jumpToMenu'
              }
 		},
 		/**
@@ -224,6 +225,24 @@ Ext.define('EatSense.controller.Menu', {
     	if(titleLabel) {
     		titleLabel.getTpl().overwrite(titleLabel.element, record.getData());
     	}    	
+    },
+    /**
+    * Shows menu.
+    * @param menu
+    *   Menu to show.
+    */
+    jumpToMenu: function(menu, teaser) {
+        var loungeview = this.getLoungeview();
+        
+        if(!menu) {
+            console.log('Menu.jumpToMenu: no menu given');
+            return;
+        }
+
+        //show the product list
+        loungeview.selectByAction('show-menu');
+
+        this.showProductlist(null, menu);
     },
     /**
     * Activate event handler for menuview.
