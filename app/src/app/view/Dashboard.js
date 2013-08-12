@@ -14,10 +14,11 @@ Ext.define('EatSense.view.Dashboard', {
 		// cls: 'dashboard',		
 		items : [
 		{
-			xtype: 'titlebar',
+			xtype: 'toolbar',
 			docked: 'top',
 			cls: 'dashboard-header',
-			title: '<img src="res/images/dashboard/logo_frizz.png" height="30px" width="auto" style="margin-top: 8px;">'
+			title: '<img src="res/images/dashboard/logo_frizz.png" height="30px" width="auto" style="margin: 8px 5px 0 0; float: left;">'+
+					' <p style="font-size: .8em;">Stadt- & Kulturmagazin</p>'
 		},
 		{
 			xtype: 'panel',
@@ -25,8 +26,8 @@ Ext.define('EatSense.view.Dashboard', {
 				type: 'hbox',
 				align: 'start'
 			},
-			docked: 'top',
-			padding: 5,
+			docked: 'bottom',
+			padding: 10,
 			margin: '0 0 10 0',
 			items: [
 				{
@@ -39,7 +40,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 3 0 4'
+					margin: '7 7 0 4'
 				},
 				{
 					xtype : 'fixedbutton',
@@ -51,7 +52,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 4 0 3'
+					margin: '7 4 0 7'
 				}	
 			]
 		},
@@ -72,7 +73,7 @@ Ext.define('EatSense.view.Dashboard', {
 						'<tpl elseif="values.image && values.image.url">',
 							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
 						'</tpl>',
-						'<div>',
+						'<div class="content">',
 							'<tpl if="locationId">',
 								'<div class="cloobster-location"></div>',
 							'</tpl>',
@@ -165,16 +166,17 @@ Ext.define('EatSense.view.Dashboard', {
 	initialize: function() {
 		var list = this.down('list');
 
-		if(list) {
-			//draw skyline on emptytext on first start
-			list.on({
-				'painted' : function() {
-					this.genSkylineBg();
-				},
-				single: true,
-				scope: this
-			});
-		}
+		//skyline disabled
+		// if(list) {
+		// 	//draw skyline on emptytext on first start
+		// 	list.on({
+		// 		'painted' : function() {
+		// 			this.genSkylineBg();
+		// 		},
+		// 		single: true,
+		// 		scope: this
+		// 	});
+		// }
 	},
 
 	/**

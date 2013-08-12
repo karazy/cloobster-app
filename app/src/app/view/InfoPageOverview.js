@@ -44,16 +44,16 @@ Ext.define('EatSense.view.InfoPageOverview', {
 		   				store: 'infopageStore',
 						itemCls: 'infopage-list-item',
 						itemTpl: new Ext.XTemplate(
-							'<div class="info">'+
+							// '<div class="info">'+
 								'<tpl if="imageUrl">'+
 									'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>'+
 								'</tpl>'+
-								'<div>'+
+								'<div class="content">'+
 									'<h3>{title}</h3>'+
 									'<p>{shortText}</p>'+
-								'</div>'+
-								'<div style="clear: both;"></div>'+
-							'</div>'
+								'</div>'
+								// '<div style="clear: both;"></div>+'
+							// '</div>'
 							),
 						listeners: {
 							select : function(dv, index, target, record, e, eOpts) {					

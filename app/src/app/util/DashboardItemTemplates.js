@@ -205,6 +205,47 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 				}
 				return tpl;
 			},
+			deztixevents: function() {
+				var tpl = {
+					xtype : 'tilebutton',
+					action: 'show-ztix-events',
+					type: 'deztixevents',
+					text: i10n.translate('de.ztix.events.title.subtitle'),
+					title: i10n.translate('de.ztix.events.title'),
+					iconCls: 'calendar'
+				}
+				return tpl;
+			},
+			menusselected : function(entityIds) {
+				var tpl = {
+					xtype : 'dashboardteaser',
+					store : 'menuStore',
+					filter: [
+					    function(item) {
+					    	if(!entityIds) {
+					    		return false;
+					    	}
+
+			    			if(Ext.Array.contains(entityIds, item.get('id'))) {
+			    				return true;
+			    			}
+
+			    			return false;
+			    		}
+					],
+					type: 'products',
+					tpl: new Ext.XTemplate(
+						'<tpl if="imageUrl">',
+							'<div class="thumbnail"><img src="{imageUrl}=s360"></div>',
+						'</tpl>',
+						'<div class="text-container">',
+							'<h3>{title}</h3>',
+							'<p>{description}</p>',
+						'</div>'
+					)
+				}
+				return tpl;
+			},
 
 	/**
 	* Get template assigned to given config.

@@ -25,7 +25,6 @@ Ext.define('EatSense.view.ProductOverview', {
 			xtype: 'label',
 			itemId: 'titleLabel',
 			docked: 'top',
-			margin: '0 0 15 0',
 			tpl: new Ext.XTemplate('<div class="productlist-header">{title}</div>')
 		},
 		{
@@ -42,7 +41,7 @@ Ext.define('EatSense.view.ProductOverview', {
 								'<tpl if="imageUrl">',
 									'<div class="thumbnail scale-width" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
 								'</tpl>',
-								'<div>',
+								'<div class="content">',
 									"<tpl if='special'><div class='special'></div></tpl>",
 									"<h2 class='title'>{name}</h2>",
 									"<p class='shortdesc'>{shortDesc}</p>",

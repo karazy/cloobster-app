@@ -19,6 +19,7 @@
 Ext.define('EatSense.view.Lounge', {
 	extend: 'EatSense.ux.slidenavigation.collapsible.View',
 	requires : [ 
+		'EatSense.view.components.SlideNavContainer',
 		'EatSense.view.CloobsterArea',
 		'EatSense.view.PlacesOverview',
 		'EatSense.view.MyOrders', 
@@ -116,6 +117,14 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				action: 'show-infopage',
 				iconCls: 'slidenav-info-icon',
+				viewState: 'club'
+			},
+			{
+				xtype: 'slidenavcontainer',
+				title: i10n.translate('de.ztix.events.title'),
+				leaf: true,
+				action: 'show-ztix-events',
+				iconCls: 'calendar-icon',
 				viewState: 'club'
 			},
 			{

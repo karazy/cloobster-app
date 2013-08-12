@@ -2,9 +2,7 @@
   font-size: 0.9em;
   color: $dashboard-color;
   position: relative;
-  background-color: #f5f5f5;
-  border: 1px solid lightgray;
-  border-radius: 2px;
+  background-color: $tilebutton-color;
   max-height: 200px;
   -webkit-box-orient: vertical;
   box-orient: vertical;
@@ -16,7 +14,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   margin: 0px 8px;
-  color: $dashboard-color;
+  color: $tilebutton-font-color;
 }
 
 .x-tilebutton-label {
@@ -24,7 +22,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   margin: 0px 8px 5px 8px;
-  color: $dashboard-color;
+  color: $tilebutton-font-color;
 }
 
 .x-tilebutton-icon {
@@ -60,7 +58,7 @@
 }
 
 .x-tilebutton-pressed {
-  border-color: $base-color;
+  background-color: darken($tilebutton-color, 10%);
 }
 
  /*Badges*/

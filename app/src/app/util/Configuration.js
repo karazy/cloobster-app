@@ -21,6 +21,38 @@ Ext.define('EatSense.util.Configuration', {
 		channelMessageTimeout: 40000,
 		//version indicator of the backend api, will be increased when the api changes
 		//in such a way that an old cloobster version is not compatible anymore
-		cloobsterApi: 2
+		cloobsterApi: 2,
+		/**
+		* Base url for ztix service
+		*/
+		'de-ztix' : {
+			baseUrl: 'http://88.198.11.203/xmlExport/index.php/main/getEvents/'
+		},
+
+		/**
+		* Returns value of a property.
+		* @param {String} property
+		* @return 
+		*	False if property not found. Otherwise value.
+		*/
+		getProp: function(property) {
+			var _props = property.split('.'),
+				_temp = this;
+
+			if(!property) {
+				return false;
+			}
+
+			for (var i = 0; i < _props.length; i++) {
+				if(!_temp.hasOwnProperty(_props[i])) {
+					return false;
+				}
+
+				_temp = _temp[_props[i]];
+			};
+
+			return _temp;
+		}
+
 	}
 });

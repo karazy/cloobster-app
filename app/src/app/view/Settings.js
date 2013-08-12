@@ -12,7 +12,7 @@ Ext.define('EatSense.view.Settings', {
 			align: 'center'
 		},
 		scrollable: 'vertical',
-		padding: '0 10 0 10',
+		padding: '0 10 8 10',
 
 		/**
          * @cfg {Boolean} If false, hides the logout button from settings panel.
@@ -134,7 +134,7 @@ Ext.define('EatSense.view.Settings', {
 				text: i10n.translate('settings.button.login'),
 				ui: 'action',
 				action: 'show-login',
-				margin: '7 0 5 0',
+				margin: '7 0 0 0',
 				width: '90%'
 			}
 		]

@@ -21,9 +21,6 @@ Ext.define('EatSense.controller.Feedback', {
 			loungeFeedbackView: 'lounge #loungeFeedback'
 		},
 		control: {
-			showFeedbackButton: {
-				tap: 'showFeedbackButtonHandler'
-			},
 			submitFeedBackButton: {
 				tap: 'submitFeedback'
 			},
@@ -89,13 +86,6 @@ Ext.define('EatSense.controller.Feedback', {
 			'spotswitched' : this.resetActiveFeedback,
 			scope: this
 		})
-	},
-	/**
-	* Tap event handler for show feedback button on dashboard.
-	*/
-	showFeedbackButtonHandler: function(button) {
-		var lounge = this.getLounge();
-		lounge.selectByAction('show-feedback');
 	},
 	/**
 	* Show event handler for feedbackform.

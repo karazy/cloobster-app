@@ -8,7 +8,6 @@ Ext.define('EatSense.controller.Request',{
 		refs: {
 			lounge: 'lounge',
 			clubArea: 'clubarea',
-			showRequestViewButton: 'clubdashboard button[action=show-requests]',
 			callWaiterButton: 'requeststab button[action=waiter]',
 			callWaiterLabel: 'requeststab #callWaiterLabel',
 			accountLabel: 'requeststab #accountLabel'
@@ -16,9 +15,6 @@ Ext.define('EatSense.controller.Request',{
 		control: {
 			callWaiterButton: {
 				tap: 'toggleCallWaiterRequest'
-			},
-			showRequestViewButton: {
-				tap: 'showRequestViewButtonHandler'
 			},
 			requeststab: {
 				show: 'showRequestViewHandler',
@@ -65,13 +61,6 @@ Ext.define('EatSense.controller.Request',{
 				me.getCallWaiterButton().setText(i10n.translate('cancelCallWaiterRequest'));
     		}
     	}));
-	},
-	/**
-	* Tap event handler for show showRequestViewButton on dashboard.
-	*/
-	showRequestViewButtonHandler: function(button) {
-		var lounge = this.getLounge();
-		lounge.selectByAction('show-requests');
 	},
 	/**
 	* Send or cancel a vip call.

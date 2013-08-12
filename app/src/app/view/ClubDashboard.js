@@ -50,7 +50,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				align: 'center',
 				pack: 'start'
 			},
-			padding: '7 8 12 8',
+			padding: '7 8 8 8',
 			items: [
 				
 				{

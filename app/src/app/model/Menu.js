@@ -20,6 +20,10 @@ Ext.define('EatSense.model.Menu', {
 			{
 				name: 'description',
 				type: 'string'
+			},
+			{
+				name: 'imageUrl',
+				type: 'string'
 			}
 		],
 		proxy: {
@@ -30,23 +34,5 @@ Ext.define('EatSense.model.Menu', {
 			   type: 'json'
 	   		}
 	 	}
-	 	//Products are no loaded seperately
-		// hasMany: {
-		// 	model: 'EatSense.model.Product',
-		// 	name: 'products',
-		// 	store: {
-		// 		syncRemovedRecords: false,
-		// 		sorters: [
-		// 	     			{
-		// 	    				property: 'order',
-		// 	    				direction: 'ASC'
-		// 	    			},
-		// 	    			{
-		// 	    				property: 'name',
-		// 	    				direction: 'ASC'
-		// 	    			}
-		// 	    	    ]
-		// 	} 
-		// }
 	}
 });

@@ -236,6 +236,20 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"pullrefresh" : {
+			"DE" :  "Ziehen zum aktualisieren",
+			"EN" : "Pull to refresh",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"releaserefreshtext" : {
+			"DE" :  "Loslassen zum aktualisieren",
+			"EN" : "Release to refresh",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		//month
 		"month.0" : {
 			"DE" :  "Januar",
@@ -1991,6 +2005,35 @@ Ext.define('EatSense.util.Translations',{
 		"tovisit.nolocation.description" : {
 			"DE" :  "Alle Infos - Alle Angebote",
 			"EN" : "All Information - All Offers",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		//ztix events
+		"de.ztix.events.title" : {
+			"DE" :  "Veranstaltungen",
+			"EN" : "Event",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"de.ztix.events.empty" : {
+			"DE" : "<div class='empty-image'></div><div>Derzeit gibt es keine Veranstaltungen.</div>",
+			"EN" : "<div class='empty-image'></div><div>Currently there are no events.</div>",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"ztixevent.button.openlink" : {
+			"DE" :  "Buchen",
+			"EN" : "Book",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
+		"de.ztix.events.title.subtitle" : {
+			"DE" :  "Das sollten Sie nicht verpassen",
+			"EN" : "Exciting events",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

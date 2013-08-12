@@ -7,6 +7,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 		layout: {
 			type: 'fit'
 		},
+		padding: '0 10 8 10',
 		items: [
 			{
 				docked : 'top',

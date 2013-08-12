@@ -1,17 +1,18 @@
  /* Sencha Variables. */
  /* General base color for style. */
-$base-color: #A8A8A8;
+/*$base-color: #ECECEC;*/
+$base-color: #000;
 /* Used for action buttons and active items. */
-$active-color: #BF002D;
+$active-color: #E60000;
 /* Disable gradients, shadows ... for tabs.*/
 $include-tab-highlights: false;
-/*'ComfortaaRegular',*/
+
 $font-family: 'Roboto',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
 $base-gradient: 'flat';
 $button-gradient: 'flat';
 
-$page-bg-color: #fffffb;
-$list-bg-color: #fffffb;
+$page-bg-color: #FFF;
+$list-bg-color: #FFF;
 $form-bg-color: $page-bg-color;
 
 /* Forms */
@@ -30,6 +31,8 @@ $label-color: #000;
 $product-sub-bg: #D3D3D3;
 /* Color for dashboard fonts. */
 $dashboard-color: #1E4776;
+
+$panel-border-radius: 0em; 
 
 
 @import 'templates/_theme-template.scss';

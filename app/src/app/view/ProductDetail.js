@@ -32,9 +32,6 @@ Ext.define('EatSense.view.ProductDetail', {
 		{	//panel also contains product image
 			xtype : 'panel',
 			itemId: 'productDetailPanel',
-			style: {
-				'padding': '0 0.5em'				
-			},
 			items : [ 
 				{
 					xtype: 'label',
