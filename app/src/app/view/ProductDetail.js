@@ -7,6 +7,7 @@ Ext.define('EatSense.view.ProductDetail', {
 	xtype : 'productdetail',	
 	config : {
     	scrollable : 'vertical',
+    	padding: '0 0 8 0',
 		items : [
 		{
 			xtype: 'titlebar',

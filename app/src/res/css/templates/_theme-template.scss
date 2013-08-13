@@ -24,6 +24,7 @@ $tilebutton-font-color: #000;
 
 //The Mixin
 //==========
+/* From http://codepen.io/awesomephant/pen/mAxHz */
 
 @mixin long-shadow($type, $color, $length, $fadeout: true, $skew: false, $direction: right){
   $shadow: '';
@@ -122,9 +123,6 @@ $tilebutton-font-color: #000;
 
 @mixin thumbnail {
   div.thumbnail {
-    /*float: left;*/
-/*    -webkit-border-radius: $general-border-radius;
-    border-radius: $general-border-radius;*/
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100px auto;
@@ -142,7 +140,7 @@ $tilebutton-font-color: #000;
 
   div.thumbnail + * {
       margin-left: 95px !important;          
-      /*padding: 0.65em 0.8em 0em 0 !important;*/
+      padding-left: 0 !important;
   }
 
   .x-list-item-body {
@@ -1447,7 +1445,7 @@ h9 {
 }
 
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
-  
+
   border: none !important;
   background-color: #ddd !important;
   border-radius: 0 !important;
@@ -1868,7 +1866,7 @@ h9 {
 * A smaller distance between border and box content.
 */
 .x-msgbox.x-floating {
-  padding: 2px;
+  border-radius: 0px !important;
 }
 
 /*

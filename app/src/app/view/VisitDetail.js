@@ -11,7 +11,7 @@ Ext.define('EatSense.view.VisitDetail', {
 			align: 'stretch',
 			pack: 'start'
 		},
-		scrollable: 'vertical',		
+		scrollable: 'vertical',
 		items: [
 			{
 				xtype: 'titlebar',

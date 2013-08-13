@@ -9,10 +9,10 @@ Ext.define('EatSense.view.Settings', {
 		layout: {
 			type: 'vbox',
 			pack: 'center',
-			align: 'center'
+			align: 'stretch'
 		},
 		scrollable: 'vertical',
-		padding: '0 10 8 10',
+		padding: '0 30 8 30',
 
 		/**
          * @cfg {Boolean} If false, hides the logout button from settings panel.
@@ -31,12 +31,12 @@ Ext.define('EatSense.view.Settings', {
 						xtype: 'label',
 						itemId: 'accountEmail',
 						cls: 'general-label',
-						width: '90%',
+						// width: '100%',
 						tpl: '<h1>'+i10n.translate('settings.account.email')+'</h1>'						
 			},
 			{
 				xtype: 'label',
-				width: '90%',
+				// width: '100%',
 				cls: 'general-text',
 				margin: '7 0 5 0',
 				html: i10n.translate('nicknameDesc')
@@ -44,7 +44,7 @@ Ext.define('EatSense.view.Settings', {
 			{
 				xtype : 'textfield',
 				placeHolder : i10n.translate('nickname'),
-				width: '90%',
+				width: '100%',
 				itemId : 'nickname',
 				maxLength: 25,
 				cls: 'general-textfield',
@@ -58,7 +58,7 @@ Ext.define('EatSense.view.Settings', {
 					pack: 'center',
 					align: 'stretch'
 				},
-				width: '90%',
+				// width: '100%',
 				itemId: 'accountPanel',				
 				items: [					
 					{
@@ -126,16 +126,16 @@ Ext.define('EatSense.view.Settings', {
 				text: i10n.translate('general.companydetail'),
 				ui: 'action',
 				action: 'about',
-				margin: '7 0 5 0',
-				width: '90%'
+				margin: '7 0 0 0',
+				// width: '100%'
 			},
 			{
 				xtype: 'fixedbutton',
 				text: i10n.translate('settings.button.login'),
 				ui: 'action',
 				action: 'show-login',
-				margin: '7 0 0 0',
-				width: '90%'
+				margin: '13 0 0 0',
+				// width: '100%'
 			}
 		]
 	},

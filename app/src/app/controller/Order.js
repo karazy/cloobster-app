@@ -819,7 +819,7 @@
 					inputCls: 'comment-input',
 					// labelCls: 'comment'
 					placeHolder: i10n.translate('orderComment'),
-					margin: '5 20 15 10'
+					margin: '5 20 0 10'
 				});
 
 			//TODO 24.10.2013 check if no problems occur not adding the comment field in basic mode
