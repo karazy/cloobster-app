@@ -66,6 +66,8 @@ Ext.define('EatSense.mixin.ImageZoom', {
 						centered: true,
 						hideOnMaskTap: true,
 						modal: true,
+						//mask wont be shown correctly without zindex set
+						zIndex: 200,
 						floatingCls: '',
 						listeners: {
 							hide: function() {
