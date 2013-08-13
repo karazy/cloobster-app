@@ -122,7 +122,7 @@ $tilebutton-font-color: #000;
 
 @mixin thumbnail {
   div.thumbnail {
-    float: left;
+    /*float: left;*/
 /*    -webkit-border-radius: $general-border-radius;
     border-radius: $general-border-radius;*/
     background-position: center;
@@ -130,6 +130,9 @@ $tilebutton-font-color: #000;
     background-size: 100px auto;
     width: 90px;
     height: $thumbnail-height;
+    position: absolute;
+    top: 0;
+    left: 0;
 
     /* Scales the width automatically instead of height. */
     &.scale-width {
@@ -137,21 +140,15 @@ $tilebutton-font-color: #000;
     }
   }
 
-  .content {
-    padding: 0.65em 0.8em;
-    max-height: $thumbnail-height;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    border-bottom: .2em solid transparent;
-  }
-
   div.thumbnail + * {
-      margin-left: 95px;          
-      padding: 0.65em 0.8em 0.65em 0;
+      margin-left: 95px !important;          
+      /*padding: 0.65em 0.8em 0em 0 !important;*/
   }
 
   .x-list-item-body {
-    padding: 0 !important;
+    /*padding: 0 !important;*/
+    max-height: 65px;
+    overflow: hidden;
   }
 
 
@@ -432,13 +429,9 @@ $tilebutton-font-color: #000;
 
 .amount-input {
   color: $label-color !important;
-  background-color: $page-bg-color;
+  background-color: $general-input-bg-color;
   padding: 0;
   margin: 0;
-  border-radius: $general-border-radius !important;
-  border: 1px solid black;
-  border-top-right-radius: $general-border-radius !important;
-  border-bottom-right-radius: $general-border-radius !important;
   font-size: 30px;
   min-height: 0;
   height: 40px;
@@ -612,19 +605,25 @@ $tilebutton-font-color: #000;
 
   @include thumbnail;
 
-  
-  h3 {
-    font-size: 1em;
-    line-height: 1em;
-  }
+  .content {
+    /*padding: 0.65em 0em 0.65em 0.8em;*/
+    max-height: $thumbnail-height;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-bottom: .2em solid transparent;
 
-  p {
-    font-size: 0.6em;
-    line-height: 1em;
-  }
+    h3 {
+      font-size: 1em;
+      line-height: 1em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
 
-  .x-list-item-body {
-    padding: 0;
+    p {
+      font-size: 0.8em;
+      line-height: 1.2em;
+    }
   }
 }
 
@@ -1448,8 +1447,22 @@ h9 {
 }
 
 .checkin-confirm-nickname-toggle .x-component-outer .x-toggle {
-  float: left;
-  margin-right: 10px;
+  
+  border: none !important;
+  background-color: #ddd !important;
+  border-radius: 0 !important;
+  background-image: none !important;
+
+  .x-thumb:after {
+    border: none !important;
+    background-color: #b9b9b9 !important;
+    border-radius: 0 !important;
+  }
+
+  &.x-toggle-on {
+     background-color: $active-color !important;
+  }
+
 }
 
 .checkin-confirm-nickname-toggle .x-innerhtml {
@@ -1976,7 +1989,10 @@ h9 {
 * Override look and feel of list elements.
 */
 .x-list-item > .x-dock-horizontal > .x-dock-body {
-
+  /*.x-list-item-body {
+    min-height: 46px;
+    padding: 0.65em 0.8em;
+  }*/
 }
 
 /**
@@ -2029,8 +2045,8 @@ h9 {
 
     div:nth-child(1) {
       position: absolute;
-      top: 12%;
-      left: 13px;
+      bottom: 50px;
+      left: 30px;
       padding: 5px;
       font-size: 1.2em;
 
@@ -2041,8 +2057,8 @@ h9 {
 
     div:nth-child(2) {
       position: absolute;
-      top: 12%;
-      right: 13px;
+      bottom: 50px;
+      right: 30px;
       text-align: right;
       padding: 5px;
       font-size: 1.2em;

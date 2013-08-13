@@ -17,8 +17,8 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype: 'toolbar',
 			docked: 'top',
 			cls: 'dashboard-header',
-			title: '<img src="res/images/dashboard/logo_frizz.png" height="30px" width="auto" style="margin: 8px 5px 0 0; float: left;">'+
-					' <p style="font-size: .8em;">Stadt- & Kulturmagazin</p>'
+			title: '<img src="res/images/dashboard/logo_frizz.png" height="30px" width="auto" style="margin: 8px 5px 0 0;">'+
+					' <span style="font-size: .8em;">Stadt- & Kulturmagazin</span>'
 		},
 		{
 			xtype: 'panel',
@@ -27,8 +27,8 @@ Ext.define('EatSense.view.Dashboard', {
 				align: 'start'
 			},
 			docked: 'bottom',
-			padding: 10,
-			margin: '0 0 10 0',
+			// padding: 10,
+			margin: '0 0 8 0',
 			items: [
 				{
 					xtype : 'fixedbutton',
@@ -40,7 +40,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '7 7 0 4'
+					margin: '7 15 0 30'
 				},
 				{
 					xtype : 'fixedbutton',
@@ -52,7 +52,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '7 4 0 7'
+					margin: '7 30 0 15'
 				}	
 			]
 		},

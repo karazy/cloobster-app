@@ -1,4 +1,4 @@
-package net.karazy.cloobster;
+package net.karazy.cloobster.frizz;
 
 import org.apache.cordova.DroidGap;
 
