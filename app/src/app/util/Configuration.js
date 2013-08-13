@@ -26,7 +26,7 @@ Ext.define('EatSense.util.Configuration', {
 		* Base url for ztix service
 		*/
 		'de-ztix' : {
-			baseUrl: 'http://88.198.11.203/xmlExport/index.php/main/getEvents/'
+			baseUrl: 'http://88.198.11.203/xmlExport/index.php/main/getCloobsterEvents/'
 		},
 
 		/**

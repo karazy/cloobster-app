@@ -116,7 +116,7 @@ Ext.define('EatSense.controller.Menu', {
 			this.setSorterForMenuBasedOnIdArray(area.raw.menuIds);
 			this.filterMenuBasedOnArea(area);
 			this.addProductAreaFilter(area.raw.menuIds, true);
-            this.refreshProductTeasers();
+            this.refreshTeasers();
 			this.backToMenu();
 		}
     },
@@ -150,9 +150,9 @@ Ext.define('EatSense.controller.Menu', {
     },
     /**
     * @private
-    * Forces product teasers to refresh themselfs and pulling a new product from store.
+    * Forces product and menus easers to refresh themselfs and pulling a new product from store.
     */
-    refreshProductTeasers: function() {
+    refreshTeasers: function() {
     	   var me = this,
     		loungeview = this.getLoungeview(),
     		teasers;
@@ -162,6 +162,12 @@ Ext.define('EatSense.controller.Menu', {
     	Ext.Array.each(teasers, function(teaser){
     		teaser.fireEvent('refresh');
     	});
+
+        teasers = loungeview.query('dashboardteaser[type="menus"]');
+
+        Ext.Array.each(teasers, function(teaser){
+            teaser.fireEvent('refresh');
+        });
     },
     /**
     * Shows product detail and product list no matter where the user is.
