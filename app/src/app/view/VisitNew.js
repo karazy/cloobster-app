@@ -33,15 +33,15 @@ Ext.define('EatSense.view.VisitNew', {
 						hidden: true,
 						flex: 1
 					},		
-					// {
-					// 	xtype:'fixedbutton',
-					// 	action: 'capture-photo',
-					// 	iconCls: 'photo1',
-					// 	iconMask: true,
-					// 	align: 'right',
-					// 	ui: 'action',
-					// 	flex: 1
-					// },					
+					{
+						xtype:'fixedbutton',
+						action: 'capture-photo',
+						iconCls: 'photo1',
+						iconMask: true,
+						align: 'right',
+						ui: 'action',
+						flex: 1
+					},
 					{
 						xtype: 'fixedbutton',
 						ui: 'action',
@@ -99,13 +99,14 @@ Ext.define('EatSense.view.VisitNew', {
 							align: 'center'
 						},
 						margin: '5 5 4 5',
+						hidden: true,
 						items: [
 							{
 								xtype: 'datepickerfield',
 								placeHolder: i10n.translate('tovisit.formnew.visitdate'),
 								name: 'visitDate',
 								dateFormat: appConstants.DateFormat[appConfig.language],
-								destroyPickerOnHide: true,							
+								destroyPickerOnHide: true,														
 								picker: {
 									yearFrom: 2013,
 							        yearTo: 2020,
@@ -137,15 +138,7 @@ Ext.define('EatSense.view.VisitNew', {
 							    cls: 'general-textfield',
 							    flex: 3,
 							    margin: '0 12 0 0'
-							},
-							{
-								xtype:'fixedbutton',
-								action: 'capture-photo',
-								iconCls: 'photo1',
-								iconMask: true,
-								ui: 'action',
-								flex: 1
-							}
+							}							
 						]
 					},
 					{

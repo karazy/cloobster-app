@@ -141,11 +141,12 @@ $tilebutton-font-color: #000;
   div.thumbnail + * {
       margin-left: 95px !important;          
       padding-left: 0 !important;
+      height: $thumbnail-height;
   }
 
   .x-list-item-body {
     /*padding: 0 !important;*/
-    max-height: 65px;
+    max-height: $thumbnail-height;
     overflow: hidden;
   }
 
@@ -604,7 +605,6 @@ $tilebutton-font-color: #000;
   @include thumbnail;
 
   .content {
-    /*padding: 0.65em 0em 0.65em 0.8em;*/
     max-height: $thumbnail-height;
     text-overflow: ellipsis;
     overflow: hidden;
