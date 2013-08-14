@@ -391,8 +391,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"slidenav.button.dashboard" : {
-			"DE" :  "ToVisit",
-			"EN" : "ToVisit",
+			"DE" :  "Favoriten",
+			"EN" : "Favorits",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -413,8 +413,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"dashboard.button.tovisit" : {
-			"DE" :  "Ort merken",
-			"EN" : "Mark place",
+			"DE" :  "Neuer Favorit",
+			"EN" : "Add favorit",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1043,8 +1043,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Profil"
 		},
 		"nicknameDesc" : {
-			"DE" :  "Der Name ist der Anzeigename für das Servicepersonal. Änderungen wirken sich erst beim nächsten Check-In aus.",
-			"EN" :  "Name is used to identify your orders. Change will take effect after you have checked in again.",
+			"DE" :  "Der Name der bei einem Check-In verwendet wird.",
+			"EN" :  "Name is used to identify your Check-In.",
 			"ES" : "El nombre se utiliza para identificar sus pedidos. Los cambios surtirán efecto después de que Usted haya iniciado sesión de nuevo",
 			"IT" : "Il nome serve per identificare il tuo ordine. Le modifiche saranno effettive al prossimo check-in.",
 			"FR" : "Ce nom est utilisé pour identifiers vos commandes. Les chagements seront pris en compte lors de votre prochaine connection."
@@ -1169,11 +1169,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Se connecter/s’inscrire"
 		},
 		"settings.account.email" : {
-			"DE" :  "Ihr cloobster Konto:<br/>{email}",
-			"EN" :  "Your cloobster account:<br/>{email}",
-			"ES" : "Su cuenta cloobster:<br/>{email}",
-			"IT" : "Il tuo account cloobster:<br/>{email}",
-			"FR" : "Votre compte Cloobster: :<br/>{email} "
+			"DE" :  "Ihr Konto:<br/>{email}",
+			"EN" :  "Your account:<br/>{email}",
+			"ES" : "Su cuenta:<br/>{email}",
+			"IT" : "Il tuo account:<br/>{email}",
+			"FR" : "Votre compte: :<br/>{email} "
 		},
 		"settings.account.fbconnected" : {
 			"DE" :  "Account mit Facebook verknüpft.",
@@ -1197,11 +1197,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Modifier l’adresse mail"
 		},
 		"emailsetting.description" : {
-			"DE" :  "E-Mail für cloobster Account ändern",
-			"EN" :  "Change email for your cloobster account.",
-			"ES" : "Cambiar contraseña de la cuenta Cloobster",
-			"IT" : "Cambia email per il tuo account cloobster",
-			"FR" : "Changer l’adresse mail de votre compte Cloobster"
+			"DE" :  "E-Mail für Account ändern",
+			"EN" :  "Change email for your account.",
+			"ES" : "Cambiar contraseña de la cuenta",
+			"IT" : "Cambia email per il tuo account",
+			"FR" : "Changer l’adresse mail de votre compte"
 		},
 		"emailsetting.password.field" : {
 			"DE" :  "Passwort",
@@ -1267,11 +1267,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Modifier mot de passe"
 		},
 		"passwordsetting.description" : {
-			"DE" :  "Passwort für cloobster Account ändern",
-			"EN" :  "Change password for your cloobster account.",
-			"ES" : "Cambiar contraseña para su cuenta de cloobster",
-			"IT" : "Modifica la password del tuo account cloobster",
-			"FR" : "Modifier le mot de passe de votre compte Cloobster"
+			"DE" :  "Passwort für Account ändern",
+			"EN" :  "Change password for your account.",
+			"ES" : "Cambiar contraseña para su cuenta de",
+			"IT" : "Modifica la password del tuo account",
+			"FR" : "Modifier le mot de passe de votre compte"
 		},
 		"passwordsetting.oldpassword.field" : {
 			"DE" :  "Altes Passwort",
@@ -1536,32 +1536,32 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Devenez membre"
 		},
 		"account.signup.confirm.message" : {
-			"DE" :  "Bei cloobster registrieren und unsere AGB akzeptieren?",
+			"DE" :  "Registrieren und unsere AGB akzeptieren?",
 			"EN" :  "Register and accept our terms of use?",
 			"ES" : "¿Desea registrarse y aceptar las condiciones generales?",
 			"IT" : "Desideri registrarti ed accettare i termini di servizio?",
-			"FR" : "S’inscrire sur Cloobster et accepter nos conditions générales"
+			"FR" : "S’inscrire et accepter nos conditions générales"
 		},
 		"account.signupfb.confirm.message" : {
-			"DE" :  "Cloobster Account mit Facebook Daten anlegen?",
-			"EN" :  "Create cloobster Account with Facebook?",
-			"ES" : "¿Desea asociar su cuenta cloobster a Facebook?",
-			"IT" : "Desideri connettere il tuo account cloobster a Facebook?",
-			"FR" : "Créer votre compte Cloobster à partir de vos données Facebook? "
+			"DE" :  "Account mit Facebook Daten anlegen?",
+			"EN" :  "Create Account with Facebook?",
+			"ES" : "¿Desea asociar su cuenta a Facebook?",
+			"IT" : "Desideri connettere il tuo account a Facebook?",
+			"FR" : "Créer votre compte à partir de vos données Facebook? "
 		},
 		"account.signup.success.title" : {
-			"DE" :  "Willkommen bei cloobster",
-			"EN" :  "Welcome to cloobster",
-			"ES" : "Bienvenido a cloobster",
-			"IT" : "Benvenuto su cloobster",
-			"FR" : "Bienvenue chez Cloobster"
+			"DE" :  "Willkommen ",
+			"EN" :  "Welcome",
+			"ES" : "Bienvenido",
+			"IT" : "Benvenuto",
+			"FR" : "Bienvenue"
 		},
 		"account.signup.success.message" : {
-			"DE" :  "Danke, dass Sie sich registriert haben!<br/>",
-			"EN" :  "Thank you for your registration!<br/>",
-			"ES" : "¡Muchas gracias por registrarse!<br/>",
-			"IT" : "Grazie per esserti registrato!<br/>",
-			"FR" : "Merci pour votre inscription chez Cloobster"
+			"DE" :  "Danke, dass Sie sich registriert haben!",
+			"EN" :  "Thank you for your registration!",
+			"ES" : "¡Muchas gracias por registrarse!",
+			"IT" : "Grazie per esserti registrato!",
+			"FR" : "Merci pour votre inscription!"
 		},
 		"account.logout.confirm.title" : {
 			"DE" :  "Abmelden",
@@ -1578,12 +1578,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Voulez-vous désactiver votre compte?"
 		},
 		"account.passwordrequest.message" : {
-			"DE" :  "Bitte geben Sie Ihre<br/>cloobster Account E-Mail ein.",
-			"EN" :  "Please enter your<br/>cloobster email address.",
-			"ES" : "Por favor, introduzca su<br/>cuenta cloobster.",
-			"IT" : "Per favore, inserisci <br/> la tua mail cloobster.",
-
-			"FR" : "Entrez svp votre adresse mail Cloobster."
+			"DE" :  "Bitte geben Sie Ihre<br/>Account E-Mail ein.",
+			"EN" :  "Please enter your<br/>email address.",
+			"ES" : "Por favor, introduzca su<br/>cuenta.",
+			"IT" : "Per favore, inserisci <br/> la tua mail.",
+			"FR" : "Entrez svp votre adresse mail."
 		},
 		"account.passwordrequest.notexisting" : {
 			"DE" :  "Zu dieser E-Mail existiert kein Account.",
@@ -1657,8 +1656,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Souvenez-vous où vous étiez! Cette fonction nécessite l’ouverture d’un compte Cloobster"
 		},
 		"history.list.description" : {
-			"DE" :  "Hier werden Ihre besuchten Orte aufgelistet. Sie haben noch keine Orte besucht.",
-			"EN" :  "Places you have visited. No hits.",
+			"DE" :  "Hier werden Ihre alten Bestellungen aufgelistet.",
+			"EN" :  "Your old orders. No hits.",
 			"ES" : "Lista de lugares que ha visitado. Todavía no ha visitado ningún lugar.",
 			"IT" : "Lista dei luoghi visitiati. Non hai ancora visitato nessun luogo.",
 			"FR" : "Voici ici la liste des endroits que vous avez visté. Vous n’avez pas encore visité d’endroits"
@@ -1680,25 +1679,25 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Vous n’êtes pas connecté"
 		},
 		"facebook.connect.confirm" : {
-			"DE" : "cloobster Account mit Facebook verbinden?",
-			"EN" : "Connect cloobster account with Facebook?",
-			"ES" : "¿Asociar la cuenta de cloobster a la de Facebook?",
-			"IT" : "Connettere l'account cloobster a Facebook?",
-			"FR" : "Connecter votre compte Cloobster avec Facebook?"
+			"DE" : "Account mit Facebook verbinden?",
+			"EN" : "Connect account with Facebook?",
+			"ES" : "¿Asociar la cuenta de a la de Facebook?",
+			"IT" : "Connettere l'account a Facebook?",
+			"FR" : "Connecter votre compte avec Facebook?"
 		},		
 		"facebook.connect.success" : {
-			"DE" : "cloobster Account erfolgreich verbunden.",
-			"EN" : "cloobster account successfully linked.",
-			"ES" : "Cuenta de cloobster asociada con éxito",
-			"IT" : "Account cloobster connesso con successo.",
-			"FR" : "Votre compte Cloobster a été  connecté avec succès."
+			"DE" : "Account erfolgreich verbunden.",
+			"EN" : "account successfully linked.",
+			"ES" : "Cuenta de asociada con éxito",
+			"IT" : "Account connesso con successo.",
+			"FR" : "Votre compte a été  connecté avec succès."
 		},
 		"facebook.action.nologin" : {
-			"DE" :  "Um bei Facebook zu posten brauchen Sie einen cloobster Account, der mit Facebook verknüpft ist.",
-			"EN" :  "To post on your Facebook wall, you need a cloobster account linked with Facebook.",
-			"ES" : "Necesita una cuenta cloobster para poder publicar en el muro de Facebook",
-			"IT" : "Per postare su Facebook hai bisogno di un account cloobster.",
-			"FR" : "Pour laisser un commentaire une votre “mur”il vous faut un compte cloobster connecté à Facebook" 
+			"DE" :  "Um bei Facebook zu posten brauchen Sie einen Account, der mit Facebook verknüpft ist.",
+			"EN" :  "To post on your Facebook wall, you need a account linked with Facebook.",
+			"ES" : "Necesita una cuenta para poder publicar en el muro de Facebook",
+			"IT" : "Per postare su Facebook hai bisogno di un account.",
+			"FR" : "Pour laisser un commentaire une votre “mur”il vous faut un compte connecté à Facebook" 
 		},
 		"facebook.connect.canceled" : {
 			"DE" :  "Facebook login nicht erfolgreich.",
@@ -1876,15 +1875,8 @@ Ext.define('EatSense.util.Translations',{
 		//tovisit
 		"tovisit.list.emptytext" : {
 			// "DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
-			"DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div>",
-			"EN" : "<div><h1>Create ToVisit list</h1><p>and never forget an<br/> exiting location<br/>again</p></div><div><h1>All in my hand</h1><p>cloobster QR code<br/>scan, enter<br/>and discover</p></div><div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
-			"ES" : "",
-			"IT" : "",
-			"FR" : ""
-		},
-		"tovisit.actionprompt" : {
-			"DE" :  "Neuen ToVisit Ort hinzufügen",
-			"EN" : "Add new ToVisit location",
+			"DE" : "<div><h1>Favoriten Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>frizz QR Code<br/>scannen, eintreten<br/>und entdecken</p></div>",
+			"EN" : "<div><h1>Create favorite list</h1><p>and never forget an<br/> exiting location<br/>again</p></div><div><h1>All in my hand</h1><p>frizz QR code<br/>scan, enter<br/>and discover</p></div>",// <div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1925,15 +1917,15 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.title.new" : {
-			"DE" : "ToVisit",
-			"EN" : "ToVisit",
+			"DE" : "Favorit",
+			"EN" : "Favorite",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"tovisit.title.existing" : {
-			"DE" :  "ToVisit",
-			"EN" : "ToVisit",
+			"DE" :  "Favorit",
+			"EN" : "Favorite",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1960,8 +1952,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.detail.title" : {
-			"DE" :  "ToVisit",
-			"EN" : "ToVisit",
+			"DE" :  "Favorit",
+			"EN" : "Favorite",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1988,8 +1980,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.delete" : {
-			"DE" :  "ToVisit löschen?",
-			"EN" : "Delete ToVisit?",
+			"DE" :  "Favorit löschen?",
+			"EN" : "Delete favorite?",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -2002,8 +1994,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.nolocation.title" : {
-			"DE" :  "Dies ist leider keine<br/> cloobster Location",
-			"EN" : "We're sorry<br/> this is no cloobster location",
+			"DE" :  "Dies ist leider keine<br/> frizz Location",
+			"EN" : "We're sorry<br/> this is no frizz location",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -2137,11 +2129,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Données de connection invalides. Veuillez réessayer"
 		},
 		"error.account.facebook.exists" : {
-			"DE" :  "Dieser Facebook Account ist mit einem andere cloobster Account verknüpft.",
-			"EN" : "This Facebook account is linked with another cloobster Account.",
-			"ES" : "Esta cuenta de Facebook está asociada a otra cuenta cloobster",
-			"IT" : "Questo account di Facebook è già connesso a un altro account cloobster.",
-			"FR" : "Ce compte Facebook est associé à un autre compte Cloobster"
+			"DE" :  "Dieser Facebook Account ist mit einem andere Account verknüpft.",
+			"EN" : "This Facebook account is linked with another Account.",
+			"ES" : "Esta cuenta de Facebook está asociada a otra cuenta",
+			"IT" : "Questo account di Facebook è già connesso a un altro account.",
+			"FR" : "Ce compte Facebook est associé à un autre compte"
 		},
 		"error.account.inactive" : {
 			"DE" :  "Ihr Account ist inaktiv. Kontaktieren Sie bitte support@cloobster.com",
@@ -2151,11 +2143,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Votre compte est inactif. Veuillez contacter support@cloobster."
 		},
 		"error.version" : {
-			"DE" :  "Ihre cloobster Version ist veraltet. Bitte aktualisieren Sie die Version.",
-			"EN" : "Your cloobster version is outdated. Please update!",
-			"ES" : "Está utilizando una versión antigua de su cuenta cloobster. ¡Actualícela!",
-			"IT" : "Stai utilizzando una versiona non aggiornata di cloobster. Aggiornala ora!",
-			"FR" : "Votre version de Cloobster n’est pas à jour. Veuillez actualiser votre version."
+			"DE" :  "Ihre Version ist veraltet. Bitte aktualisieren Sie die Version.",
+			"EN" : "Your version is outdated. Please update!",
+			"ES" : "Está utilizando una versión antigua de su cuenta. ¡Actualícela!",
+			"IT" : "Stai utilizzando una versiona non aggiornata. Aggiornala ora!",
+			"FR" : "Votre version n’est pas à jour. Veuillez actualiser votre version."
 		},
 		"error.checkin.switchspot.businesses.mismatch" : {
 			"DE" :  "Dieser Spot ist ungültig.",

@@ -11,6 +11,7 @@ $button-radius: .1em;
 /* Global variables */
 $general-border-radius: 3px;
 $general-input-bg-color: #f3f3f3;
+$general-list-item-height: 65px;
 $thumbnail-height: 65px;
 $tilebutton-color: #f5f5f5;
 $tilebutton-color: #f5f5f5;
@@ -20,12 +21,102 @@ $tilebutton-font-color: #000;
 
 @import 'sencha-touch/default/all';
 
-/* Custom Mixins */
+/*custom imports*/
 
-//The Mixin
-//==========
-/* From http://codepen.io/awesomephant/pen/mAxHz */
+@import 'widgets/dashboard-teaser';
+@import 'widgets/dashboard-button';
+@import 'widgets/tilebutton';
 
+@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-list-paging;
+@include sencha-list-pullrefresh;
+@include sencha-layout;
+@include sencha-carousel;
+@include sencha-form;
+@include sencha-msgbox;
+@include sencha-loading-spinner;
+/*Include additional icons*/
+@include pictos-iconmask('user');
+@include pictos-iconmask('shop1');
+@include pictos-iconmask('locate4');
+@include pictos-iconmask('check2');
+@include pictos-iconmask('delete1');
+@include pictos-iconmask('help');
+@include pictos-iconmask('globe2');
+@include pictos-iconmask('look');
+@include pictos-iconmask('home2');
+@include pictos-iconmask('phone1');
+@include pictos-iconmask('arrow_left');
+@include pictos-iconmask('photo1');
+@include pictos-iconmask('favorites_circle');
+@include pictos-iconmask('favorites');
+@include sencha-button-ui('sirkobutton', #c3c3c3, 'flat');
+
+
+@CHARSET "UTF-8";
+
+
+/* Mixins */
+
+@mixin thumbnail {
+  div.thumbnail {
+    float: left;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100px auto;
+    width: 90px;
+    height: $thumbnail-height;
+
+    /* Scales the width automatically instead of height. */
+    &.scale-width {
+      background-size: auto 65px;
+    }
+  }
+
+  div.thumbnail + * {
+      padding-left: 5 !important;
+  }
+}
+
+ @mixin list-date {
+    .date {
+      height: $general-list-item-height;
+      padding: 13px 0;
+      width: 65px;
+      float: right;
+      text-align: center;
+      
+
+      > div {
+        border-left: 1px solid;
+      }
+      
+      .day {
+        font-size: 1.6em;
+        font-weight: bold;
+        line-height: 1em;
+      }
+
+      .mmyy {
+        font-size: .8em;
+        line-height: .9em;
+      }
+    }
+
+    .date.stale {
+      color: lightgray !important;
+    }
+ }
+
+ /* From http://codepen.io/awesomephant/pen/mAxHz */
 @mixin long-shadow($type, $color, $length, $fadeout: true, $skew: false, $direction: right){
   $shadow: '';
   @if $skew == false or $type == text{
@@ -75,111 +166,52 @@ $tilebutton-font-color: #000;
   @if $type == 'text' {text-shadow: $shadow;}
 }
 
-
-/*custom imports*/
-
-@import 'widgets/dashboard-teaser';
-@import 'widgets/dashboard-button';
-@import 'widgets/tilebutton';
-
-@include sencha-panel;
-@include sencha-buttons;
-@include sencha-sheet;
-@include sencha-picker;
-@include sencha-tabs;
-@include sencha-toolbar;
-@include sencha-toolbar-forms;
-@include sencha-indexbar;
-@include sencha-list;
-@include sencha-list-paging;
-@include sencha-list-pullrefresh;
-@include sencha-layout;
-@include sencha-carousel;
-@include sencha-form;
-@include sencha-msgbox;
-@include sencha-loading-spinner;
-/*Include additional icons*/
-@include pictos-iconmask('user');
-@include pictos-iconmask('shop1');
-@include pictos-iconmask('locate4');
-@include pictos-iconmask('check2');
-@include pictos-iconmask('delete1');
-@include pictos-iconmask('help');
-@include pictos-iconmask('globe2');
-@include pictos-iconmask('look');
-@include pictos-iconmask('home2');
-@include pictos-iconmask('phone1');
-@include pictos-iconmask('arrow_left');
-@include pictos-iconmask('photo1');
-@include pictos-iconmask('favorites_circle');
-@include pictos-iconmask('favorites');
-@include sencha-button-ui('sirkobutton', #c3c3c3, 'flat');
-
-
-@CHARSET "UTF-8";
-
-
-/* Mixins */
-
-@mixin thumbnail {
-  div.thumbnail {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100px auto;
-    width: 90px;
-    height: $thumbnail-height;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    /* Scales the width automatically instead of height. */
-    &.scale-width {
-      background-size: auto 65px;
-    }
-  }
-
-  div.thumbnail + * {
-      margin-left: 95px !important;          
-      padding-left: 0 !important;
-      height: $thumbnail-height;
-  }
-
-  .x-list-item-body {
-    /*padding: 0 !important;*/
-    max-height: $thumbnail-height;
-    overflow: hidden;
-  }
-
-
-}
-
 /* classes */
 
 
 .product-list-item {
 
+  .x-list-item-body {
+    height: $general-list-item-height;
+    padding: 0;    
+  }
+
   @include thumbnail;
 
-  h2.title {
-    font-size: 1em;
-    line-height: 1em;
-    word-break: break-word;
+  .content {
+    float: none;
+    height: $general-list-item-height;
+    text-overflow: ellipsis;
     overflow: hidden;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 10px;
+    border-bottom: .2em solid transparent;
+    text-overflow: ellipsis;
+    
+    h3.title {
+      font-size: 1em;
+      line-height: 1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .shortdesc {
+      font-size: 0.6em;
+      word-break: break-word;
+    }
   }
 
-  h2.price {
+
+  div.price {
+    float: right;
     font-size: 1em;
-    line-height: 1em;
-    white-space: nowrap;
-  }
-
-  .shortdesc {
-    font-size: 0.6em;
+    line-height: 1em;    
+    padding-top: 10px;
+    padding-right: 10px;
     word-break: break-word;
-  }
-
-  td {
-    vertical-align: top;
+    max-width: 100px;
   }
 
   div.special {
@@ -602,13 +634,24 @@ $tilebutton-font-color: #000;
 
 .infopage-list-item {
 
+  .x-list-item-body {
+    height: $general-list-item-height;
+    padding: 0;    
+  }
+
   @include thumbnail;
 
   .content {
-    max-height: $thumbnail-height;
+    float: none;
+    height: $general-list-item-height;
     text-overflow: ellipsis;
     overflow: hidden;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 10px;
     border-bottom: .2em solid transparent;
+    text-overflow: ellipsis;
+    
 
     h3 {
       font-size: 1em;
@@ -1202,7 +1245,7 @@ $tilebutton-font-color: #000;
 }
 
 .feedback-icon {
-  -webkit-mask-image: inline-image('../images/club/feedback.png'); 
+  -webkit-mask-image: inline-image('../images/club/menu.png'); 
 }
 
 .contactinfo-icon {
@@ -1248,6 +1291,10 @@ $tilebutton-font-color: #000;
 
 .calendar-icon {
   -webkit-mask-image: inline-image('../images/calendar2.png');
+}
+
+.favorite-icon {
+  -webkit-mask-image: inline-image('../images/favorites.png');  
 }
 
 .newsletter-floating {
@@ -1506,6 +1553,15 @@ h9 {
 }
 
 .tovisit-item, .event-item {
+
+  .x-list-item-body {
+    height: $general-list-item-height;
+    padding: 0;    
+  }
+
+  @include thumbnail;
+  @include list-date;
+
   
   table {
     table-layout: fixed;
@@ -1515,23 +1571,16 @@ h9 {
     width: 80%;
   }
 
-  @include thumbnail;
+  .content {
+    float: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 10px;
+  } 
 
-/*  div.thumbnail {
-    float: left;
-    -webkit-border-radius: $general-border-radius;
-    border-radius: $general-border-radius;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 65px auto;
-    width: 45px;
-    height: 45px;
-  }
-
-  div.thumbnail + * {
-    margin-left: 55px;
-  }*/
-
+  
   .location {
     font-size: 1.1em;
     vertical-align: top;
@@ -1551,29 +1600,6 @@ h9 {
     overflow: hidden;
     white-space: nowrap;
     padding-right: 5px;
-  }
-
-  .date {
-    margin: 2px 0;
-    width: 65px;
-    float: right;
-    text-align: center;
-    border-left: 1px solid;
-    
-    .day {
-      font-size: 1.6em;
-      font-weight: bold;
-      line-height: 1em;
-    }
-
-    .mmyy {
-      font-size: .8em;
-      line-height: .9em;
-    }
-  }
-
-  .date.stale {
-    color: lightgray !important;
   }
 
   .cloobster-location {

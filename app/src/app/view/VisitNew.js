@@ -14,7 +14,7 @@ Ext.define('EatSense.view.VisitNew', {
 		autoDestroy: true,
 		fullscreen: true,
 		scrollable: 'vertical',	
-		padding: '20 15 8 15',
+		padding: '20 30 8 30',
 		items: [
 			{
 				xtype: 'titlebar',
@@ -94,6 +94,7 @@ Ext.define('EatSense.view.VisitNew', {
 							type: 'hbox',
 							align: 'center'
 					},
+					hidden: true,
 					items: [
 						{
 							xtype: 'datepickerfield',
@@ -120,7 +121,6 @@ Ext.define('EatSense.view.VisitNew', {
 				                            align   : 'right',
 				                            handler : function(btn) {
 				                                var picker = btn.up('datepicker');
-
 				                                picker.fireEvent('change', picker, null);
 
 					                                picker.hide();
