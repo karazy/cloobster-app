@@ -1103,23 +1103,19 @@ $tilebutton-font-color: #000;
 }
 
 .club-dashboard-button-menu, .x-tilebutton-icon.menu {
-  background-image: url('../images/club/menue_bag.png');
-  margin-right: 0.6em;
+  -webkit-mask-image: url('../images/club/menue_bag_transparent.png');
 }
 
 .club-dashboard-button-vip, .x-tilebutton-icon.vip {
-  background-image: url('../images/club/vip.png');
-  margin-right: 0.6em;
+  -webkit-mask-image: url('../images/club/vip.png');
 }
 
 .club-dashboard-button-feedback, .x-tilebutton-icon.feedback {
-  background-image: url('../images/club/feedback.png');
-  margin-right: 0.6em;
+  -webkit-mask-image: url('../images/club/feedback.png');
 }
 
 .club-dashboard-button-infopage, .x-tilebutton-icon.info {
-  background-image: url('../images/club/info.png');
-  margin-right: 0.6em;
+  -webkit-mask-image: url('../images/club/info_transparent.png');
 }
 
 .club-dashboard-button-info {
@@ -1143,8 +1139,7 @@ $tilebutton-font-color: #000;
 }
 
 .x-tilebutton-icon.calendar {
-  background-image: url('../images/club/calendar.png');
-  margin-right: 0.6em;
+  -webkit-mask-image: url('../images/club/calendar_transparent.png');
 }
 
 
@@ -1614,7 +1609,7 @@ h9 {
     -webkit-mask-size: 20px;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
-    -webkit-mask-image: inline-image('../images/logo_hat_96_96.png');;
+    -webkit-mask-image: inline-image('../images/locate.png');;
   }
 
   .x-list-emptytext {
@@ -1760,7 +1755,7 @@ h9 {
   padding: 0;
   background: none;
   /* instead of $active-color */
-  background-color: #000 !important;
+  background-color: $base-color !important;
   border-radius: 0;
   border-bottom-right-radius: 2px !important;
   border-top-right-radius: 2px !important;

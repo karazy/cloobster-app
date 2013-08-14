@@ -25,7 +25,7 @@ Ext.define('EatSense.controller.Styles', {
 			theme = 'default',
             defaultTheme = 'default',
 			activeTheme = this.getActiveTheme();
-        return;
+        
         if(checkInCtr.getActiveSpot()) {
             //if an active spot exists set theme, otherwise use default
             theme = checkInCtr.getActiveSpot().get('theme');

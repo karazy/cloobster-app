@@ -39,7 +39,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '7 15 0 30'
+					margin: '0 7 0 30'
 				},
 				{
 					xtype : 'fixedbutton',
@@ -51,7 +51,7 @@ Ext.define('EatSense.view.Dashboard', {
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '7 30 0 15'
+					margin: '0 30 0 7'
 				}	
 			]
 		},
@@ -68,9 +68,9 @@ Ext.define('EatSense.view.Dashboard', {
 						//Dummy
 						// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED); background-color: blue;"></div>',
 						'<tpl if="imageUrl">',
-							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',							
+							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',							
 						'<tpl elseif="values.image && values.image.url">',
-							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
+							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s256\')"></div>',
 						'</tpl>',
 						'<div class="content">',
 							'<tpl if="locationId">',

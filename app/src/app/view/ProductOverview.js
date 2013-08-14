@@ -36,7 +36,7 @@ Ext.define('EatSense.view.ProductOverview', {
 			itemCls: 'product-list-item',
 			itemTpl : new Ext.XTemplate(
 					'<tpl if="imageUrl">',
-						'<div class="thumbnail scale-width" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
+						'<div class="thumbnail scale-width" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
 					'</tpl>',
 					"<div class='price'>{[this.formatPrice(values.price)]}</div>",
 					'<div class="content">',

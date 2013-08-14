@@ -26,23 +26,29 @@
 }
 
 .x-tilebutton-icon {
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: $active-color;
   width: 100%;
 
   @media only screen and (min-width: 768px) {
     background-size: 88px;
+    -webkit-mask-size: 88px;    
     height: 88px;
   }
 
   /* Landscape phone to portrait tablet */
   @media only screen and (max-width: 767px) { 
     background-size: 88px;
+    -webkit-mask-size: 88px;    
     height: 88px;
   }
 
   /* Landscape phones and down */
   @media only screen and (max-width: 320px) { 
+    -webkit-mask-size: 64px;
     background-size: 64px;
     height: 64px;
   }
