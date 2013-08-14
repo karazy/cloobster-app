@@ -1,0 +1,5 @@
+#Ignore everything in this folder, including subdirectories
+*
+#Except index.html
+!index.html
+!.gitignore

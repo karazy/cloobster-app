@@ -131,7 +131,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 				}
 
 				//currently not working on ios
-				if(!Ext.os.is.iOS) {					
+				if(!Ext.os.is.iOS) {
 					openMapsBt.setHidden(false);
 					openMapsBt.on({
 						tap: openNativeMaps,
@@ -237,7 +237,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 		var contactInfoView = this.getContactInfoView(),
 			infoHeader,
 			tpl,
-			html,
+			html='<div></div>',
 			imagePanel,
 			scaleFactor = '=s720',
 			profilePicturesExist;	
@@ -261,65 +261,79 @@ Ext.define('EatSense.controller.ContactInfo', {
 					profilePicturesExist = business.raw.images.picture1 || business.raw.images.picture2 || business.raw.images.picture3;
 				}
 
+
 				if(profilePicturesExist) {
-					profilePictures.removeAll();
+					// profilePictures.removeAll();
 					profilePictures.setHidden(false);									
 
 					if(business.raw.images.picture3) {
 						
-						imagePanel = Ext.create('Ext.Panel', {
-							width: '100%',
-							height: 150,
-							margin: '10 0 0 0',
-							style: {
-								'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
-								'background-size' : 'cover',
-								'background-position' : 'center'
-							}
-						});
+						// imagePanel = Ext.create('Ext.Panel', {
+						// 	width: '100%',
+						// 	// height: 150,							
+						// 	// src: business.raw.images.picture3.url + scaleFactor,
+						// 	margin: '10 0 0 0',
+						// 	flex: 1,
+						// 	style: { //business.raw.images.picture3.url + scaleFactor
+						// 		'background-image': 'url(' + 'http://robohash.org/Fred' + ')',
+						// 		'background-size' : '100% auto',
+						// 		'background-position' : 'top center'
+						// 	}
+						// });
+
+						html += '<img src="' + business.raw.images.picture3.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
 
 						// panel.registerImageZoomTap(imagePanel.element, business.raw.images.picture1.url + scaleFactor);
 
-						profilePictures.add(imagePanel);
+						// profilePictures.add(imagePanel);
 					}
 
 					if(business.raw.images.picture2) {
 						
-						imagePanel = Ext.create('Ext.Panel', {
-							width: '100%',
-							height: 150,
-							margin: '10 0 0 0',
-							style: {
-								'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
-								'background-size' : 'cover',
-								'background-position' : 'center'					
-							}
-						});
+						// imagePanel = Ext.create('Ext.Panel', {
+						// 	width: '100%',
+						// 	// height: 150,
+						// 	// src: business.raw.images.picture2.url + scaleFactor,
+						// 	margin: '10 0 0 0',
+						// 	flex: 1,
+						// 	style: {
+						// 		'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
+						// 		'background-size' : '100% auto',
+						// 		'background-position' : 'top center'					
+						// 	}
+						// });
 
 						// panel.registerImageZoomTap(imagePanel.element, business.raw.images.picture2.url + scaleFactor);
-
-						profilePictures.add(imagePanel);
+						html += '<img src="' + business.raw.images.picture2.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
+						// profilePictures.add(imagePanel);
 					}
 
 					if(business.raw.images.picture1) {				
-						imagePanel = Ext.create('Ext.Panel', {
-							width: '100%',
-							height: 150,
-							margin: '10 0 0 0',
-							style: {
-								'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
-								'background-size' : 'cover',
-								'background-position' : 'center'
-							}
-						});
-
+						// imagePanel = Ext.create('Ext.Panel', {
+						// 	width: '100%',
+						// 	// height: 150,
+						// 	// src: business.raw.images.picture3.url + scaleFactor,
+						// 	margin: '10 0 0 0',
+						// 	flex: 1,
+						// 	style: {
+						// 		'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
+						// 		'background-size' : '100% auto',
+						// 		'background-position' : 'top center'
+						// 	}
+						// });
+						html += '<img src="' + business.raw.images.picture1.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
 						// panel.registerImageZoomTap(imagePanel.element, business.raw.images.picture3.url + scaleFactor);
 
-						profilePictures.add(imagePanel);
+						// profilePictures.add(imagePanel);
 					}
+					if(html) {
+						profilePictures.setHtml(html);	
+					}
+					
 					// profilePictures.setActiveItem(0);
 				} else {
-					profilePictures.removeAll();
+					// profilePictures.removeAll();
+					profilePictures.setHtml('');
 					profilePictures.setHidden(true);
 				}
 			}

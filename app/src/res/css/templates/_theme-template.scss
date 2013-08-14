@@ -11,11 +11,12 @@ $button-radius: .1em;
 /* Global variables */
 $general-border-radius: 3px;
 $general-input-bg-color: #f3f3f3;
-$general-list-item-height: 65px;
-$thumbnail-height: 65px;
+$general-list-item-height: 96px;
+$thumbnail-height: 96px;
 $tilebutton-color: #f5f5f5;
 $tilebutton-color: #f5f5f5;
 $tilebutton-font-color: #000;
+$slidenav-bg-color: #2E2E2E;
 /*$form-field-bg-color: $general-input-bg-color;*/
 
 
@@ -71,8 +72,8 @@ $tilebutton-font-color: #000;
     float: left;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100px auto;
-    width: 90px;
+    background-size: 138px auto;
+    width: 128px;
     height: $thumbnail-height;
 
     /* Scales the width automatically instead of height. */
@@ -89,7 +90,7 @@ $tilebutton-font-color: #000;
  @mixin list-date {
     .date {
       height: $general-list-item-height;
-      padding: 13px 0;
+      padding: 27px 0;
       width: 65px;
       float: right;
       text-align: center;
@@ -1240,7 +1241,7 @@ $tilebutton-font-color: #000;
 }
 
 .feedback-icon {
-  -webkit-mask-image: inline-image('../images/club/menu.png'); 
+  -webkit-mask-image: inline-image('../images/club/feedback.png'); 
 }
 
 .contactinfo-icon {
@@ -1289,7 +1290,7 @@ $tilebutton-font-color: #000;
 }
 
 .favorite-icon {
-  -webkit-mask-image: inline-image('../images/favorites.png');  
+  -webkit-mask-image: inline-image('../images/heart.png');  
 }
 
 .newsletter-floating {
@@ -1755,7 +1756,7 @@ h9 {
   padding: 0;
   background: none;
   /* instead of $active-color */
-  background-color: $base-color !important;
+  background-color: $slidenav-bg-color !important;
   border-radius: 0;
   border-bottom-right-radius: 2px !important;
   border-top-right-radius: 2px !important;
@@ -1872,7 +1873,7 @@ h9 {
 }
 
 .x-slidenavigation-list {
-  background-color: #2E2E2E;
+  background-color: $slidenav-bg-color;
 
   .x-list-item.x-item-selected .x-dock-horizontal {
     color: white !important; 
@@ -2031,8 +2032,10 @@ h9 {
 
 /* Override because otherwise a white background ist set. Don't know why ;) */
 .x-list .x-list-item.x-item-pressed .x-dock-horizontal {
-  border-top-color: lighten($active-color, 30%);
-  background-color: lighten($active-color, 30%);
+/*  border-top-color: lighten($active-color, 30%);
+  background-color: lighten($active-color, 30%);*/
+  border-top-color: lightgrey;
+  background-color: gray;
 }
 
 .x-carousel-indicator-dark span {
