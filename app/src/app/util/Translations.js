@@ -1825,8 +1825,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"contactinfo.location.url" : {
-			"DE" :  "Web",
-			"EN" : "Web",
+			"DE" :  "Webseite",
+			"EN" : "Website",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1851,6 +1851,13 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
+		},
+		"contactinfo.fburl" : {
+			"DE" : "Facebook Seite",
+			"EN" : "Facebook Page",
+			"ES" : "Facebook Page",
+			"IT" : "Facebook Page",
+			"FR" : "Facebook Page"
 		},
 		//tovisit
 		"tovisit.list.emptytext" : {

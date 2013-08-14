@@ -51,7 +51,6 @@ Ext.define('EatSense.view.Login', {
 			},
 			{
 				xtype: 'formpanel',
-				// layout: 'vbox',
 				//prevents also that the panel has a wrong size. Bug?
 				scrollable: false,
 				width: '90%',
