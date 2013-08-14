@@ -270,7 +270,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 						imagePanel = Ext.create('Ext.Panel', {
 							width: '100%',
 							height: 150,
-							margin: '5 0 5 0',
+							margin: '10 0 0 0',
 							style: {
 								'background-image': 'url(' + business.raw.images.picture3.url + scaleFactor + ')',
 								'background-size' : 'cover',
@@ -288,7 +288,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 						imagePanel = Ext.create('Ext.Panel', {
 							width: '100%',
 							height: 150,
-							margin: '5 0 5 0',
+							margin: '10 0 0 0',
 							style: {
 								'background-image': 'url(' + business.raw.images.picture2.url + scaleFactor + ')',
 								'background-size' : 'cover',
@@ -305,7 +305,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 						imagePanel = Ext.create('Ext.Panel', {
 							width: '100%',
 							height: 150,
-							margin: '5 0 5 0',
+							margin: '10 0 0 0',
 							style: {
 								'background-image': 'url(' + business.raw.images.picture1.url + scaleFactor + ')',
 								'background-size' : 'cover',

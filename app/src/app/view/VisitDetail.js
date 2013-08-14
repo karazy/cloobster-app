@@ -11,11 +11,11 @@ Ext.define('EatSense.view.VisitDetail', {
 			align: 'stretch',
 			pack: 'start'
 		},
-		scrollable: 'vertical',		
+		scrollable: 'vertical',	
+		padding: '20 15 8 15',
 		items: [
 			{
 				xtype: 'titlebar',
-				// title: i10n.translate('tovisit.detail.title'),
 				docked: 'top',
 				items: [
 					{
@@ -42,10 +42,8 @@ Ext.define('EatSense.view.VisitDetail', {
 			{
 				xtype: 'panel',
 				itemId: 'content',
-				margin: '20 10 5 10',
 				cls: 'tovisit-detail',
-				tpl: new Ext.XTemplate(
-					'<div>',						
+				tpl: new Ext.XTemplate(					
 						'<div>',
 							'<tpl if="imageUrl">',
 								// '<div class="thumbnail" style="background-image: url(\'http://robohash.org/FRED\')"></div>',
@@ -73,7 +71,6 @@ Ext.define('EatSense.view.VisitDetail', {
 								'{comment}',
 							'</div>',
 						'</tpl>',						
-					'</div>',
 					{
 						formatDate: function(date) {
 							var format = appConstants.DateFormat[appConfig.language],
@@ -90,7 +87,7 @@ Ext.define('EatSense.view.VisitDetail', {
 					type: 'hbox',
 					align: 'center'
 				},
-				margin: '5 15 15',
+				margin: '5 0 0 0',
 				items: [					
 					{
 						xtype: 'fixedbutton',
@@ -119,7 +116,7 @@ Ext.define('EatSense.view.VisitDetail', {
 				xtype: 'label',
 				hidden: true,
 				itemId: 'image',
-				margin: '5 15 15'
+				margin: '5 0 0 0'
 			}
 
 		]

@@ -13,11 +13,11 @@ Ext.define('EatSense.view.VisitNew', {
 		style: 'z-index: 5;',
 		autoDestroy: true,
 		fullscreen: true,
-		scrollable: 'vertical',		
+		scrollable: 'vertical',	
+		padding: '20 15 8 15',
 		items: [
 			{
 				xtype: 'titlebar',
-				// title: i10n.translate('tovisit.title.new'),
 				docked: 'top',
 				items: [
 					{
@@ -62,16 +62,14 @@ Ext.define('EatSense.view.VisitNew', {
 				},
 				cls: 'tovisit-new',
 				scrollable: false,
-				margin: '20 10 5 10',
 				defaults: {
-					margin: '5 0'
+					margin: '10 0 0 0'
 				},
 				items: [	
 					{
 						xtype: 'label',
 						html: i10n.translate('tovisit.title.new'),
 						itemId: 'titleLabel',
-						margin: '5 5',
 						style: {
 							'font-size' : '1.6em'
 						}
@@ -80,7 +78,6 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'label',
 						hidden: true,
 						itemId: 'locationNameLabel',
-						margin: '5',
 						style: {
 							'font-size' : '1.6em'
 						}
@@ -90,63 +87,61 @@ Ext.define('EatSense.view.VisitNew', {
 						placeHolder: i10n.translate('tovisit.formnew.locationname'),
 						name: 'locationName',
 						cls: 'general-textfield',
-						margin: '5'
 					},					
 					{
 						xtype: 'panel',
 						layout: {
 							type: 'hbox',
 							align: 'center'
+					},
+					items: [
+						{
+							xtype: 'datepickerfield',
+							placeHolder: i10n.translate('tovisit.formnew.visitdate'),
+							name: 'visitDate',
+							dateFormat: appConstants.DateFormat[appConfig.language],
+							destroyPickerOnHide: true,							
+							picker: {
+								yearFrom: 2013,
+						        yearTo: 2020,
+						        cancelButton: {
+						        	text: i10n.translate('cancel')
+						        	// action: 'delete-visitdate'
+						        },
+						        doneButton: i10n.translate('ok'),
+						        value: new Date(),
+						        toolbar : {
+				                    items : [
+				                        {
+				                            // text    : 'X',
+				                            iconMask: true,
+				                            iconCls: 'delete',
+				                            ui      : 'decline',
+				                            align   : 'right',
+				                            handler : function(btn) {
+				                                var picker = btn.up('datepicker');
+
+				                                picker.fireEvent('change', picker, null);
+
+				                                picker.hide();
+				                            }
+				                        }
+				                    ]
+				                }
+						    },
+						    cls: 'general-textfield',
+						    flex: 3,
+						    margin: '0 12 0 0'
 						},
-						margin: '5 5 4 5',
-						items: [
-							{
-								xtype: 'datepickerfield',
-								placeHolder: i10n.translate('tovisit.formnew.visitdate'),
-								name: 'visitDate',
-								dateFormat: appConstants.DateFormat[appConfig.language],
-								destroyPickerOnHide: true,							
-								picker: {
-									yearFrom: 2013,
-							        yearTo: 2020,
-							        cancelButton: {
-							        	text: i10n.translate('cancel')
-							        	// action: 'delete-visitdate'
-							        },
-							        doneButton: i10n.translate('ok'),
-							        value: new Date(),
-							        toolbar : {
-					                    items : [
-					                        {
-					                            // text    : 'X',
-					                            iconMask: true,
-					                            iconCls: 'delete',
-					                            ui      : 'decline',
-					                            align   : 'right',
-					                            handler : function(btn) {
-					                                var picker = btn.up('datepicker');
-
-					                                picker.fireEvent('change', picker, null);
-
-					                                picker.hide();
-					                            }
-					                        }
-					                    ]
-					                }
-							    },
-							    cls: 'general-textfield',
-							    flex: 3,
-							    margin: '0 12 0 0'
-							},
-							{
-								xtype:'fixedbutton',
-								action: 'capture-photo',
-								iconCls: 'photo1',
-								iconMask: true,
-								ui: 'action',
-								flex: 1
-							}
-						]
+						{
+							xtype:'fixedbutton',
+							action: 'capture-photo',
+							iconCls: 'photo1',
+							iconMask: true,
+							ui: 'action',
+							flex: 1
+						}
+					]
 					},
 					{
 						xtype: 'textareafield',
@@ -154,7 +149,6 @@ Ext.define('EatSense.view.VisitNew', {
 						name: 'comment',
 						cls: 'general-textfield',
 						maxLength: 140,
-						margin: '5'
 					},
 					{
 						xtype: 'panel',
@@ -176,13 +170,13 @@ Ext.define('EatSense.view.VisitNew', {
 								}
 							}
 						],
-						margin: '12 5 5 5'
+						margin: '15 0 0 0'
 					},
 					{
 						xtype: 'label',
 						hidden: true,
 						itemId: 'noMapHint',
-						margin: '5',
+						margin: '5 5 5 0',
 						html: i10n.translate('tovisit.map.nogeodata')
 					}					
 				]	

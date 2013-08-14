@@ -526,8 +526,9 @@ Ext.define('EatSense.controller.InfoPage', {
 					if(recordUrl.indexOf('http://')  < 0 && recordUrl.indexOf('https://') < 0) {
 						recordUrl = 'http://' + recordUrl;
 					}
-					
-					windowRef = window.open(encodeURI(recordUrl), '_blank');
+
+					windowRef = window.open(encodeURI(recordUrl), appConfig.urlBrowserMode);
+
 					windowRef.addEventListener('exit', inAppBrowserClose);
 				}
 			}

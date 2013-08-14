@@ -335,7 +335,6 @@ Ext.define('EatSense.controller.History', {
           business = options.business,
           datePickerField,
           scanBt,
-          clearDateBt,
           cameraBt,
           deletePictureBt,
           imageLabel,
@@ -358,8 +357,7 @@ Ext.define('EatSense.controller.History', {
       locationNameField = form.down('textfield[name=locationName]');
       locationNameLabel = form.down('#locationNameLabel');
       commentField = form.down('textfield[name=comment]');
-      datePickerField = form.down('datepickerfield');
-      clearDateBt = form.down('button[action=delete-visitdate]');      
+      datePickerField = form.down('datepickerfield');  
       deletePictureBt = form.down('button[action=delete-photo]');      
       imageLabel = form.down('#image');
       noMapHintLabel = form.down('#noMapHint');
@@ -649,7 +647,7 @@ Ext.define('EatSense.controller.History', {
                         disableDefaultUI: true
                      },
                      height: '200px',
-                     margin: '12 15 5 15'
+                     margin: '15 0 0 0'
                   }
                );
                view.add(gmap);        
@@ -741,10 +739,6 @@ Ext.define('EatSense.controller.History', {
                console.log('History.showToVisitNewView: geocodePositon Geocode was not successful for the following reason ' + status);
             }
            });
-      }
-
-      function clearDateBtTap() {
-         datePickerField.setValue('');
       }
 
       function cameraBtTap() {
@@ -1121,7 +1115,7 @@ Ext.define('EatSense.controller.History', {
                   disableDefaultUI: true
                },
                height: '200px',
-               margin: '0 15 5 15'
+               margin: '15 0 0 0'
             });
 
             detailView.add(gmap);
