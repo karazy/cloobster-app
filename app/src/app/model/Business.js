@@ -87,18 +87,24 @@ Ext.define('EatSense.model.Business', {
 
 	/**
 	* Checks if a given feature is enabled.
+	* @param {String} feature
+	*	Feature to check enabled state for.
+	* @param {Boolean} hideWhenNotExists
+	*	When true will return false if no configuration for this feature exsits.
 	* @return
 	*	True if enabled. If no features exist or key is not found always returns true.
 	*/
-	isFeatureEnabled: function(feature) {
+	isFeatureEnabled: function(feature, hideWhenNotExists) {
+		var _hideWhenNotExists = (hideWhenNotExists) ? false : true;
+		
 		if(this.raw && this.raw.features) {
 			if(this.raw.features.hasOwnProperty(feature)) {
 				return this.raw.features[feature];
 			} else {
-				return true;
+				return _hideWhenNotExists;
 			}
 		} else {
-			return true;
+			return _hideWhenNotExists;
 		}
 	}
 });
