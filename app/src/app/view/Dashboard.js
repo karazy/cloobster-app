@@ -10,8 +10,7 @@ Ext.define('EatSense.view.Dashboard', {
 		layout: {
 				type: 'fit'
 		},
-		padding: '25 8 30',
-		// cls: 'dashboard',		
+		padding: '25 8 30',		
 		items : [
 		{
 			xtype: 'titlebar',
@@ -110,7 +109,6 @@ Ext.define('EatSense.view.Dashboard', {
 								appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
 								shortYear +
 							'</div>';
-							// '<div class="mmyy">' + date.getFullYear() + '</div></div>';
 					return html;
 				}
 			}),			
@@ -129,26 +127,6 @@ Ext.define('EatSense.view.Dashboard', {
 		        }
 		    ]
 		}
-		// {
-		// 	xtype: 'label',
-		// 	docked: 'bottom',
-		// 	width: '100%',
-		// 	height: 50,
-		// 	// itemId: 'skylinecanvas',
-		// 	html: '<canvas id="skylinecanvas" style="width: 100%; height: 50px;"></canvas>'
-		// }
-		// {
-		// 	xtype: 'fixedbutton',
-		// 	ui: 'action',
-		// 	action: 'demo-checkin',
-		// 	text: i10n.translate('dashboard.button.demo'),
-		// 	baseCls: 'dashboard-button',
-		// 	cls: 'dashboard-button-demo',
-		// 	iconCls: 'dashboard-button-icon',
-		// 	pressedCls: 'dashboard-button-pressed',
-		// 	labelCls: 'dashboard-button-label',
-		// 	flex: 2
-		// }
 		]
 	},
 	showLoadScreen : function(mask) {
