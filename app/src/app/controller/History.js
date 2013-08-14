@@ -647,7 +647,7 @@ Ext.define('EatSense.controller.History', {
                         disableDefaultUI: true
                      },
                      height: '200px',
-                     margin: '12 15 5 15'
+                     margin: '15 0 0 0'
                   }
                );
                view.add(gmap);        
@@ -1115,7 +1115,7 @@ Ext.define('EatSense.controller.History', {
                   disableDefaultUI: true
                },
                height: '200px',
-               margin: '0 15 5 15'
+               margin: '15 0 0 0'
             });
 
             detailView.add(gmap);
