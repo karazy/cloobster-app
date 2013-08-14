@@ -286,7 +286,7 @@ Ext.define('EatSense.controller.Lounge', {
 
 		listItem = lounge.getItemByAction('show-ztix-events');
 		if(listItem) {
-			listItem.set('viewState', location.isFeatureEnabled('de-ztix') ? 'club' : 'club-disabled');	
+			listItem.set('viewState', location.isFeatureEnabled('de-ztix', true) ? 'club' : 'club-disabled');	
 		}
 
 

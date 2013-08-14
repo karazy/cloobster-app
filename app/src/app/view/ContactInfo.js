@@ -21,13 +21,10 @@ Ext.define('EatSense.view.ContactInfo', {
 				layout: {
 					type: 'vbox',
 					pack: 'start',
-					align: 'start'
+					align: 'stretch'
 				},
 				scrollable: 'vertical',
-				padding: '8px 15px',
-				defaults: {
-					width: '100%'
-				},
+				padding: '10px 30px 8px 30px',
 				items: [
 					{
 						xtype: 'titlebar',
@@ -50,10 +47,13 @@ Ext.define('EatSense.view.ContactInfo', {
 					{
 						xtype: 'panel',
 						itemId: 'mainPhone',
-						margin: '3 0',
+						margin: '6 0 0 0',
 						layout: {
 							type: 'hbox',
 							align: 'start'
+						},
+						style: {
+							'word-break' : 'break-word'
 						},
 						items: [
 							{
@@ -76,10 +76,13 @@ Ext.define('EatSense.view.ContactInfo', {
 					},
 					{
 						xtype: 'panel',
-						margin: '3 0',
+						margin: '6 0 0 0',
 						layout: {
 							type: 'hbox',
 							align: 'start'
+						},
+						style: {
+							'word-break' : 'break-word'
 						},
 						items: [
 							{
@@ -88,7 +91,7 @@ Ext.define('EatSense.view.ContactInfo', {
 								cls: 'general-text',
 								flex: 2,
 								margin: '0'
-							},					
+							},
 							{
 								xtype: 'fixedbutton',
 								action: 'show-maps',
@@ -102,41 +105,29 @@ Ext.define('EatSense.view.ContactInfo', {
 						]
 					},
 					{
-						xtype: 'panel',
-						itemId: 'mainUrl',
-						margin: '3 0',
-						layout: {
-							type: 'hbox',
-							align: 'start'
-						},
-						items: [
-							{
-								xtype: 'label',
-								cls: 'general-text',
-								flex: 2,
-								margin: '0'
-							},
-							{
-								xtype: 'fixedbutton',
-								action: 'open-link',
-								text: i10n.translate('contactinfo.location.url'),
-								iconCls: 'look',
-								iconMask: true,
-								hidden: true,
-								ui: 'action',
-								flex: 1
-							}
-						]
-					},	
+						xtype: 'fixedbutton',
+						action: 'open-link',
+						text: i10n.translate('contactinfo.location.url'),
+						iconCls: 'look',
+						iconMask: true,
+						hidden: true,
+						ui: 'action',
+						margin: '6 0 0 0'
+					},
+					{
+						xtype: 'fixedbutton',
+						action: 'open-fburl',
+						text: i10n.translate('contactinfo.fburl'),
+						iconCls: 'fb-signup',
+						iconMask: true,
+						hidden: true,
+						ui: 'action',
+						margin: '6 0 0 0'
+					},
 					{
 						xtype: 'label',
 						itemId: 'slogan',
-						margin: '20px 0 10px 0',
-						tpl: new Ext.XTemplate(
-							'<div class="contactinfo-main-data">',
-								'<div class="slogan">{slogan}</div>',
-							'</div>'
-						)
+						margin: '20 0 0 0'
 					},
 					{
 						xtype: 'panel',
@@ -187,12 +178,15 @@ Ext.define('EatSense.view.ContactInfo', {
 			showMapsBt,
 			gmap,
 			mapsMarker,
-			phonePanel;
+			phonePanel,
+			fbPanel,
+			fbBt;
 
 		if(newValue && newValue != oldValue) {			
 			content = this.down('#content');
 			slogan = this.down('#slogan');
 			address = this.down('#address');
+			fbPanel = this.down('#fbUrl');
 			showMapsBt = this.down('button[action=show-maps]');			
 			console.log('EatSense.view.ContactInfo.updateLocation');
 
@@ -202,22 +196,26 @@ Ext.define('EatSense.view.ContactInfo', {
 			callLocationBt = this.down('button[action=call-location]');
 
 			urlPanel = this.down('#mainUrl');
-			openLocationUrlBt = this.down('button[action=open-link]');			
+			openLocationUrlBt = this.down('button[action=open-link]');	
+			fbBt = this.down('button[action="open-fburl"]');		
 
 			if(content) {
-				// console.log('EatSense.view.ContactInfo.updateLocation: Render info for location ' + newValue.get('name'));
 				tpl = content.getTpl();
 
 				tpl.overwrite(content.element, newValue.getData());
 			}
 
 			if(slogan) {
-				slogan.getTpl().overwrite(slogan.element, newValue.getData());
+				slogan.setHtml(newValue.get('slogan'));
 			}
 
 			if(address) {				
 				address.setHtml(appHelper.formatBusinessAddress(newValue.getData()));
 			}
+
+			// if(fbPanel) {
+			// 	fbPanel.down('label').setHtml(newValue.get('fbUrl'));
+			// }
 
 			if(showMapsBt) {
 				if(newValue.get('address') || newValue.get('city') || newValue.get('postcode')) {
@@ -246,9 +244,9 @@ Ext.define('EatSense.view.ContactInfo', {
 				}			
 			}
 			
-			if(urlPanel) {
-				urlPanel.down('label').setHtml(newValue.get('url'));
-			}
+			// if(urlPanel) {
+			// 	urlPanel.down('label').setHtml(newValue.get('url'));
+			// }
 
 			if(openLocationUrlBt) {
 				if(newValue.get('url')) {
@@ -262,7 +260,21 @@ Ext.define('EatSense.view.ContactInfo', {
 				} else {
 					openLocationUrlBt.setHidden(true);
 				}			
-			}		
+			}
+
+			if(fbBt) {
+				if(newValue.get('fbUrl')) {
+					fbBt.setHidden(false);
+					fbBt.on({
+						tap: function() {
+							window.open(encodeURI(appHelper.createValidUrl(newValue.get('fbUrl'))), '_system');
+						},
+						scope: this
+					});
+				} else {
+					fbBt.setHidden(true);
+				}
+			}	
 
 		} else {
 			//no location given

@@ -23,12 +23,17 @@ Ext.define('EatSense.util.Configuration', {
 		//in such a way that an old cloobster version is not compatible anymore
 		cloobsterApi: 2,
 		/**
-		* Base url for ztix service
+		* @cfg {String}
+		* Use '_blank' to open urls in ChildBrowser, use '_systen' to open in
+		* system browser.
+		*/
+		urlBrowserMode: '_blank',
+		/**
+		* Configuration for ztix service
 		*/
 		'de-ztix' : {
 			baseUrl: 'http://88.198.11.203/xmlExport/index.php/main/getCloobsterEvents/'
 		},
-
 		/**
 		* Returns value of a property.
 		* @param {String} property
