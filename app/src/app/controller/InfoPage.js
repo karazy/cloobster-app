@@ -530,7 +530,7 @@ Ext.define('EatSense.controller.InfoPage', {
 						recordUrl = 'http://' + recordUrl;
 					}
 
-					windowRef = window.open(encodeURI(recordUrl), '_blank');
+					windowRef = window.open(encodeURI(recordUrl), appConfig.urlBrowserMode);
 					windowRef.addEventListener('exit', inAppBrowserClose);
 				}
 			}
