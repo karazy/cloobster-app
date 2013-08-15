@@ -29,6 +29,11 @@ Ext.define('EatSense.util.Configuration', {
 		*/
 		urlBrowserMode: '_system',
 		/**
+		* @cfg {Boolean}
+		* Set to true if profile pictures in infopage section should not be rendered.
+		*/
+		disableInfopageProfilePics: true
+		/**
 		* Configuration for ztix service
 		*/
 		'de-ztix' : {
@@ -58,6 +63,5 @@ Ext.define('EatSense.util.Configuration', {
 
 			return _temp;
 		}
-
 	}
 });
