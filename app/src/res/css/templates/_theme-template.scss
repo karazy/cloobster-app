@@ -78,7 +78,7 @@ $slidenav-bg-color: #2E2E2E;
 
     /* Scales the width automatically instead of height. */
     &.scale-width {
-      background-size: auto 65px;
+      background-size: auto $thumbnail-height;
     }
   }
 
@@ -189,17 +189,23 @@ $slidenav-bg-color: #2E2E2E;
     padding-top: 10px;
     border-bottom: .2em solid transparent;
     text-overflow: ellipsis;
+
+    > h3, p {
+      font-weight: bold;
+      line-height: 1.2em;  
+    }
     
-    h3.title {
+    
+    h3 {
       font-size: 1em;
-      line-height: 1em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+       margin-bottom: 10px;
     }
 
-    .shortdesc {
-      font-size: 0.6em;
+    p {
+      font-size: 0.8em;
       word-break: break-word;
     }
   }
@@ -258,13 +264,20 @@ $slidenav-bg-color: #2E2E2E;
 
 
 .menulist-item {
+
+  > h3, p {
+    font-weight: bold;
+    line-height: 1.2em;  
+  }
+
   h3 {
     font-size: 1em;
     white-space:nowrap;
     overflow: hidden;
   }
+
   p {
-    font-size: 0.6em;
+    font-size: 0.8em;
     word-break: break-word;
   }
 }
@@ -652,19 +665,23 @@ $slidenav-bg-color: #2E2E2E;
     padding-top: 10px;
     border-bottom: .2em solid transparent;
     text-overflow: ellipsis;
+
+    > h3, p {
+      font-weight: bold;
+      line-height: 1.2em;  
+    }
     
 
     h3 {
       font-size: 1em;
-      line-height: 1em;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: 0.8em;
-      line-height: 1.2em;
     }
   }
 }
@@ -996,7 +1013,7 @@ $slidenav-bg-color: #2E2E2E;
 }
 
 .club-dashboard-description {
-  color: $dashboard-color;
+  color: $label-color;
   margin: 0 0 7px 0;
 
   h2 {
@@ -1558,14 +1575,6 @@ h9 {
   @include thumbnail;
   @include list-date;
 
-  
-  table {
-    table-layout: fixed;
-  }
-
-  td:nth-child(1) {
-    width: 80%;
-  }
 
   .content {
     float: none;
@@ -1578,20 +1587,21 @@ h9 {
 
   
   .location {
-    font-size: 1.1em;
+    font-size: 1em;
     vertical-align: top;
-    line-height: 1.1em;
+    line-height: 1.2em;
+    font-weight: bold;
     margin-bottom: 2px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    padding-right: 5px;
+    padding-right: 5px;    
   }
 
   .location-city {
-    font-size: .7em;
-    line-height: 1.1em;
-    /*word-break: break-word;*/
+    font-size: .8em;
+    line-height: 1.2em;
+    font-weight: bold;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -2030,12 +2040,16 @@ h9 {
   }
 }
 
-/* Override because otherwise a white background ist set. Don't know why ;) */
+/* Override because otherwise a white background ist set.*/
 .x-list .x-list-item.x-item-pressed .x-dock-horizontal {
-/*  border-top-color: lighten($active-color, 30%);
-  background-color: lighten($active-color, 30%);*/
   border-top-color: lightgrey;
-  background-color: gray;
+  background-color: lightgrey;
+}
+
+/* Use another list selection color in slidenavigation. */
+.x-slidenavigation-list.x-list .x-list-item.x-item-pressed .x-dock-horizontal {
+  border-top-color: gray !important;
+  background-color: gray !important;
 }
 
 .x-carousel-indicator-dark span {

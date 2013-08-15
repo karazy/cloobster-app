@@ -21,29 +21,7 @@ Ext.define('EatSense.view.ZtixEvents',{
 						'{location}',
 					'</div>',
 				'</tpl>',
-			'</div>'	
-			// '<table style="width:100%;">',					
-			// 	'<td align="left" style="vertical-align: top;">',
-			// 		'<tpl if="infpic">',
-			// 			'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',							
-			// 		'</tpl>',
-			// 		'<div class="content">',
-			// 			'<div class="location">',
-			// 				'{title}',
-			// 			'</div>',
-			// 			'<tpl if="location">',
-			// 				'<div class="location-city">',
-			// 					'{location}',
-			// 				'</div>',
-			// 			'</tpl>',
-			// 		'</div>',
-			// 	'</td>',
-			// 	'<tpl if="date">',
-			// 		'<td align="right">',
-			// 			'{[this.formatDate(values.date)]}',
-			// 		'</td>',
-			// 	'</tpl>',					
-			// '</table>'
+			'</div>'
 			,
 			{
 				formatPrice: function(price) {

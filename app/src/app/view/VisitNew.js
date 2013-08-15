@@ -86,7 +86,7 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'textfield',
 						placeHolder: i10n.translate('tovisit.formnew.locationname'),
 						name: 'locationName',
-						cls: 'general-textfield',
+						cls: 'general-textfield'
 					},					
 					{
 						xtype: 'panel',
@@ -140,7 +140,7 @@ Ext.define('EatSense.view.VisitNew', {
 						placeHolder: i10n.translate('tovisit.formnew.comment'),
 						name: 'comment',
 						cls: 'general-textfield',
-						maxLength: 140,
+						maxLength: 140
 					},
 					{
 						xtype: 'panel',

@@ -60,38 +60,27 @@ Ext.define('EatSense.view.Dashboard', {
 			store: 'visitStore',
 			emptyText: '<div class="welcome-text">' + i10n.translate('tovisit.list.emptytext') + '</div>',
 			deferEmptyText: false,
-			// grouped: true,
 			itemCls: 'tovisit-item',
 			itemTpl: new Ext.XTemplate(
-				"<table style='width:100%;'>",					
-					'<td align="left" style="vertical-align: top;">',
-						//Dummy
-						// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED); background-color: blue;"></div>',
-						'<tpl if="imageUrl">',
-							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',							
-						'<tpl elseif="values.image && values.image.url">',
-							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s256\')"></div>',
-						'</tpl>',
-						'<div class="content">',
-							'<tpl if="locationId">',
-								'<div class="cloobster-location"></div>',
-							'</tpl>',
-							'<div class="location">',
-								'{locationName}',
-							'</div>',
-							'<tpl if="locationCity">',
-								'<div class="location-city">',
-									'{locationCity}',
-								'</div>',
-							'</tpl>',
+				'<tpl if="imageUrl">',
+					'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
+				'</tpl>',
+				'<tpl if="visitDate">',
+					'{[this.formatDate(values.visitDate)]}',
+				'</tpl>',
+				'<div class="content">',
+					'<tpl if="locationId">',
+						'<div class="cloobster-location"></div>',
+					'</tpl>',
+					'<div class="location">',
+						'{locationName}',
+					'</div>',
+					'<tpl if="locationCity">',
+						'<div class="location-city">',
+							'{locationCity}',
 						'</div>',
-					'</td>',
-					'<tpl if="visitDate">',
-						'<td align="right">',
-							'{[this.formatDate(values.visitDate)]}',
-						'</td>',
-					'</tpl>',					
-				'</table>'				
+					'</tpl>',
+				'</div>'	
 				, {
 				formatDate: function(date) {
 					var format = appConstants.DateFormat[appConfig.language],
@@ -105,10 +94,13 @@ Ext.define('EatSense.view.Dashboard', {
 					shortYear = date.getFullYear().toString().substring(2,4);
 
 					html =  '<div class="date' + staleDate +'">' +
-							'<div class="day">' + date.getDate() + '</div>'+
-							'<div class="mmyy">' + 
-								appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
-								shortYear +
+								'<div>'+
+									'<div class="day">' + date.getDate() + '</div>'+
+									'<div class="mmyy">' + 
+									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
+									shortYear +
+									'</div>'+
+								'</div>'+
 							'</div>';
 					return html;
 				}
