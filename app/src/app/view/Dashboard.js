@@ -16,8 +16,8 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype: 'toolbar',
 			docked: 'top',
 			cls: 'dashboard-header',
-			title: '<img src="res/images/dashboard/logo_frizz.png" height="30px" width="auto" style="margin: 8px 5px 0 0;">'+
-					' <span style="font-size: .8em;">Stadt- & Kulturmagazin</span>'
+			html: '<img src="res/images/dashboard/logo_frizz.png"">'+
+					'<div>Stadt- & Kulturmagazin</div>'
 		},
 		{
 			xtype: 'panel',
