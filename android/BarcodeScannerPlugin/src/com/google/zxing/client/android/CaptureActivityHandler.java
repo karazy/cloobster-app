@@ -16,6 +16,10 @@
 
 package com.google.zxing.client.android;
 
+import android.content.ActivityNotFoundException;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.provider.Browser;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.client.android.camera.CameraManager;
@@ -29,7 +33,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import java.util.Vector;
+import java.util.Collection;
 
 /**
  * This class handles all the messaging which comprises the state machine for capture.
@@ -43,6 +47,7 @@ public final class CaptureActivityHandler extends Handler {
   private final CaptureActivity activity;
   private final DecodeThread decodeThread;
   private State state;
+  private final CameraManager cameraManager;
 
   private enum State {
     PREVIEW,
@@ -50,8 +55,10 @@ public final class CaptureActivityHandler extends Handler {
     DONE
   }
 
-  CaptureActivityHandler(CaptureActivity activity, Vector<BarcodeFormat> decodeFormats,
-      String characterSet) {
+  CaptureActivityHandler(CaptureActivity activity,
+                         Collection<BarcodeFormat> decodeFormats,
+                         String characterSet,
+                         CameraManager cameraManager) {
     this.activity = activity;
     decodeThread = new DecodeThread(activity, decodeFormats, characterSet,
         new ViewfinderResultPointCallback(activity.getViewfinderView()));
@@ -59,20 +66,14 @@ public final class CaptureActivityHandler extends Handler {
     state = State.SUCCESS;
 
     // Start ourselves capturing previews and decoding.
-    CameraManager.get().startPreview();
+    this.cameraManager = cameraManager;
+    cameraManager.startPreview();
     restartPreviewAndDecode();
   }
 
   @Override
   public void handleMessage(Message message) {
-    if (message.what == R.id.auto_focus) {
-        //Log.d(TAG, "Got auto-focus message");
-        // When one auto focus pass finishes, start another. This is the closest thing to
-        // continuous AF. It does seem to hunt a bit, but I'm not sure what else to do.
-        if (state == State.PREVIEW) {
-          CameraManager.get().requestAutoFocus(this, R.id.auto_focus);
-        }
-    } else if (message.what == R.id.restart_preview) {
+    if (message.what == R.id.restart_preview) {
         Log.d(TAG, "Got restart preview message");
         restartPreviewAndDecode();
     } else if (message.what == R.id.decode_succeeded) {
@@ -85,7 +86,7 @@ public final class CaptureActivityHandler extends Handler {
     } else if (message.what == R.id.decode_failed) {
         // We're decoding as fast as possible, so when one decode fails, start another.
         state = State.PREVIEW;
-        CameraManager.get().requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
+        cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
     } else if (message.what == R.id.return_scan_result) {
         Log.d(TAG, "Got return scan result message");
         activity.setResult(Activity.RESULT_OK, (Intent) message.obj);
@@ -93,19 +94,38 @@ public final class CaptureActivityHandler extends Handler {
     } else if (message.what == R.id.launch_product_query) {
         Log.d(TAG, "Got product query message");
         String url = (String) message.obj;
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        activity.startActivity(intent);
+        intent.setData(Uri.parse(url));
+        ResolveInfo resolveInfo =
+            activity.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        String browserPackageName = null;
+        if (resolveInfo.activityInfo != null) {
+          browserPackageName = resolveInfo.activityInfo.packageName;
+          Log.d(TAG, "Using browser in package " + browserPackageName);
+        }
+        // Needed for default Android browser only apparently
+        if ("com.android.browser".equals(browserPackageName)) {
+          intent.setPackage(browserPackageName);
+          intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          intent.putExtra(Browser.EXTRA_APPLICATION_ID, browserPackageName);
+        }
+        try {
+          activity.startActivity(intent);
+        } catch (ActivityNotFoundException anfe) {
+          Log.w(TAG, "Can't find anything to handle VIEW of URI " + url);
+        }
     }
   }
 
   public void quitSynchronously() {
     state = State.DONE;
-    CameraManager.get().stopPreview();
+    cameraManager.stopPreview();
     Message quit = Message.obtain(decodeThread.getHandler(), R.id.quit);
     quit.sendToTarget();
     try {
-      decodeThread.join();
+      // Wait at most half a second; should be enough time, and onPause() will timeout quickly
+      decodeThread.join(500L);
     } catch (InterruptedException e) {
       // continue
     }
@@ -118,8 +138,7 @@ public final class CaptureActivityHandler extends Handler {
   private void restartPreviewAndDecode() {
     if (state == State.SUCCESS) {
       state = State.PREVIEW;
-      CameraManager.get().requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
-      CameraManager.get().requestAutoFocus(this, R.id.auto_focus);
+      cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
       activity.drawViewfinder();
     }
   }
