@@ -28,6 +28,10 @@ Ext.define('EatSense.util.Configuration', {
 		* system browser.
 		*/
 		urlBrowserMode: '_blank',
+		/** @cfg {Boolean}
+		* Set to true if profile pictures in infopage section should not be rendered.
+		*/
+		disableInfopageProfilePics: false,
 		/**
 		* Configuration for ztix service
 		*/
