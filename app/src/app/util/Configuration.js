@@ -32,7 +32,7 @@ Ext.define('EatSense.util.Configuration', {
 		* @cfg {Boolean}
 		* Set to true if profile pictures in infopage section should not be rendered.
 		*/
-		disableInfopageProfilePics: true
+		disableInfopageProfilePics: true,
 		/**
 		* Configuration for ztix service
 		*/
