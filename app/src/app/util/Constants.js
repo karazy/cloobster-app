@@ -40,6 +40,7 @@ Ext.define('EatSense.util.Constants', {
 			'ES' : 'd/m/Y',
 			'IT' : 'd/m/Y'
 		},
+		ISODate : 'Y-m-d',
 		//Client side 
 		FORCE_LOGOUT : 'FORCE_LOGOUT',
 		USER_LOGGED_IN : 'USER_LOGGED_IN',

@@ -2016,8 +2016,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"de.ztix.events.empty" : {
-			"DE" : "<div class='empty-image'></div><div>Derzeit gibt es keine Veranstaltungen.</div>",
-			"EN" : "<div class='empty-image'></div><div>Currently there are no events.</div>",
+			"DE" : "<div class='empty-image'></div><div>Keine Veranstaltungen gefunden.</div>",
+			"EN" : "<div class='empty-image'></div><div>No events found.</div>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -2036,6 +2036,13 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		// "de.ztix.events.noeventsinmonth" : {
+		// 	"DE" :  "Keine Veranstaltungen in diesem Monat.",
+		// 	"EN" : "No events in this month.",
+		// 	"ES" : "",
+		// 	"IT" : "",
+		// 	"FR" : ""
+		// },
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

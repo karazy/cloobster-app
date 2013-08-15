@@ -20,7 +20,12 @@ Ext.define('EatSense.controller.Ztix', {
 		/**
 		* The host Id for which to load events.
 		*/
-		hostId: null
+		hostId: null,
+		/**
+		* @accessor
+		* The active displayed month
+		*/
+		currentPaginationDate: null
 	},
 
 	launch: function() {
@@ -61,8 +66,12 @@ Ext.define('EatSense.controller.Ztix', {
 	* Creates {@link EatSense.view.ZtixEvents} during runtime and destroys it on hide.
 	*/
 	showEventsArea: function(area) {
-		var store = Ext.StoreManager.lookup('ztixEventsStore'),
+		var me = this,
+			store = Ext.StoreManager.lookup('ztixEventsStore'),
 			eventsView,
+			nextMonthBt,
+			prevMonthBt,
+			tmpDate,
 			list;		
 
 		//Create the events view
@@ -70,10 +79,29 @@ Ext.define('EatSense.controller.Ztix', {
 		area.add(eventsView);
 		area.setActiveItem(0);
 
+		if(!this.getCurrentPaginationDate()) {
+			tmpDate = new Date();
+			this.setCurrentPaginationDate(new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 1));
+		}
+
+		setViewTitle();
+
 		Ext.create('Ext.util.DelayedTask', function () {
-			this.loadEvents();                  
-		}, this).delay(200);     
+			this.loadEvents(this.getCurrentPaginationDate());                  
+		}, this).delay(200); 
+
+		nextMonthBt = eventsView.down('button[action=next-month]');
+		prevMonthBt = eventsView.down('button[action=prev-month]');
 		
+		nextMonthBt.on({
+			tap: nextMonthBtHandler,
+			scope: this
+		});
+
+		prevMonthBt.on({
+			tap: prevMonthBtHandler,
+			scope: this
+		});
 
 		area.on({
 			'hide': cleanup,
@@ -84,6 +112,31 @@ Ext.define('EatSense.controller.Ztix', {
 			select: this.showEventDetail,
 			scope: this
 		});
+
+		function prevMonthBtHandler() {
+			//check if not in the past
+			//decrease date
+			this.getCurrentPaginationDate().setMonth(this.getCurrentPaginationDate().getMonth() - 1);
+			this.loadEvents(this.getCurrentPaginationDate());
+			setViewTitle();
+		}
+
+		function nextMonthBtHandler() {
+			//increase date
+			this.getCurrentPaginationDate().setMonth(this.getCurrentPaginationDate().getMonth() + 1);
+			this.loadEvents(this.getCurrentPaginationDate());
+			// prevMonthBt.setHidden(false);
+			setViewTitle();
+		}
+
+		function setViewTitle() {
+			if(me.getCurrentPaginationDate()) {
+				var shortYear = me.getCurrentPaginationDate().getFullYear().toString().substring(2,4),
+					shortMonth = i10n.translate('month.' + me.getCurrentPaginationDate().getMonth());
+
+				eventsView.down('titlebar').setTitle(shortMonth + ' ' + shortYear);
+			}
+		}
 
 		function cleanup() {
 			area.un({
@@ -96,23 +149,34 @@ Ext.define('EatSense.controller.Ztix', {
 				scope: this
 			});
 
+			nextMonthBt.un({
+				tap: nextMonthBtHandler,
+				scope: this
+			});
+
+			prevMonthBt.on({
+				tap: prevMonthBtHandler,
+				scope: this
+			});
+
 			area.remove(eventsView);
 			eventsView.destroy();
 		}
 	},
 
-	// updateHostId: function(newId, oldId) {
-		
-	// },
-
 	/**
 	* @private
 	* Loads {@link EatSense.model.ZtixEvent} from ztix server.
+	* @param {String} startDate
+	*	The date from which to start.
 	*/
-	loadEvents: function() {
+	loadEvents: function(startDate) {
 		var me = this,
 			store = Ext.StoreManager.lookup('ztixEventsStore'),
 			baseUrl = appConfig.getProp('de-ztix.baseUrl'),
+			_startDate,
+			_endDate,
+			paginationSuffix,
 			oldUrl;
 
 		if(!store) {
@@ -132,7 +196,17 @@ Ext.define('EatSense.controller.Ztix', {
 			return;
 		}
 
-		store.getProxy().setUrl(baseUrl + this.getHostId());
+		//Pagination logic
+		if(!startDate) {
+			paginationSuffix = Ext.util.Format.date(new Date(), appConstants.ISODate) + '/2014-12-31/';
+		} else {
+			_endDate = new Date(startDate);
+			_endDate.setMonth(_endDate.getMonth() + 1);
+			paginationSuffix = Ext.util.Format.date(startDate, appConstants.ISODate) + '/';
+			paginationSuffix += Ext.util.Format.date(_endDate, appConstants.ISODate) + '/';
+		}
+
+		store.getProxy().setUrl(baseUrl + paginationSuffix + this.getHostId());
 
 		//reload, if url is old or store never has been loaded
 		if(!store.isLoaded() || oldUrl != store.getProxy().getUrl()) {
@@ -142,6 +216,9 @@ Ext.define('EatSense.controller.Ztix', {
 						me.getApplication().handleServerError({
 		                    'error': operation.error
 		                });
+					} else if(records.length === 0) {
+						store.removeAll();
+						// appHelper.showNotificationBox(i10n.translate('de.ztix.events.noeventsinmonth'), 2500);
 					}
 				}
 			});	
@@ -239,5 +316,7 @@ Ext.define('EatSense.controller.Ztix', {
 		if(eventsArea) {
 			eventsArea.removeAll(true);
 		}
+
+		this.setCurrentPaginationDate(null);
 	}
 });

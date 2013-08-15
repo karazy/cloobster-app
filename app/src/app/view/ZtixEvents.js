@@ -8,6 +8,7 @@ Ext.define('EatSense.view.ZtixEvents',{
 	config: {
 		store: 'ztixEventsStore',
 		cls: 'event-item',
+		scollToTopOnRefresh: true,
 		emptyText: i10n.translate('de.ztix.events.empty'),
 		itemTpl: new Ext.XTemplate(
 			'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',
@@ -48,16 +49,16 @@ Ext.define('EatSense.view.ZtixEvents',{
 			}
 		),
 		plugins: [
-	        {
-	            xclass: 'Ext.plugin.ListPaging',
-	            loadMoreText: i10n.translate('history.detail.list.paging'),
-	            autoPaging: false
-	        },
-	        {
-	            xclass: 'Ext.plugin.PullRefresh',
-	            pullRefreshText: i10n.translate('pullrefresh'),
-	            releaseRefreshText: i10n.translate('releaserefreshtext')
-	        }
+	        // {
+	        //     xclass: 'Ext.plugin.ListPaging',
+	        //     loadMoreText: i10n.translate('history.detail.list.paging'),
+	        //     autoPaging: false
+	        // },
+	        // {
+	        //     xclass: 'Ext.plugin.PullRefresh',
+	        //     pullRefreshText: i10n.translate('pullrefresh'),
+	        //     releaseRefreshText: i10n.translate('releaserefreshtext')
+	        // }
 	    ],
 	    listeners: {
 			select : function(dv, index, target, record, e, eOpts) {					
@@ -70,10 +71,27 @@ Ext.define('EatSense.view.ZtixEvents',{
 			{
 				docked : 'top',
 				xtype : 'titlebar',			
-				title : i10n.translate('de.ztix.events.title'),
+				// title : i10n.translate('de.ztix.events.title'),
 				items : [
 					{
 						xtype : 'homebutton'
+					},
+					{
+						xtype: 'fixedbutton',
+						action: 'prev-month',
+						ui: 'action',
+						iconCls: 'arrow_left',
+						iconMask: true,
+						align: 'right'
+						// hidden: true
+					},
+					{
+						xtype: 'fixedbutton',
+						action: 'next-month',
+						ui: 'action',
+						align: 'right',
+						iconCls: 'arrow_right',
+						iconMask: true
 					}
 				]
 			}
