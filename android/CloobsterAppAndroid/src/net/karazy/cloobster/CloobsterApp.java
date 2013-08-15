@@ -14,6 +14,7 @@ public class CloobsterApp extends DroidGap {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setIntegerProperty("splashscreen", R.drawable.splash);
+		 super.setIntegerProperty("loadUrlTimeoutValue", 30000); 
 		super.loadUrl("file:///android_asset/www/index.html", 10000);
 	}
 }

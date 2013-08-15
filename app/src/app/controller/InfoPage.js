@@ -160,30 +160,7 @@ Ext.define('EatSense.controller.InfoPage', {
 	*/
 	teaserTapHandler: function(page) {
 		var me = this;
-			// clubArea = this.getClubArea(),
-			// teaser = clubArea.down('dashboardteaser[type=info]');
-
 		me.showInfoPageDetail(null, page, true);
-
-		// if(!me.getPanelsCreated()) {
-		// 	// me.on({
-		// 	// 	'carouselpanelscreated': doShowInfoPage,
-		// 	// 	single: true,
-		// 	// 	scope: this
-		// 	// });
-
-		// 	me.getLounge().selectByAction('show-infopage');
-		// 	me.getInfoPageOverview().setActiveItem(me.getInfoPageCarousel());
-		// } else {
-		// 	// doShowInfoPage();
-		// }
-
-		// doShowInfoPage();
-
-		// function doShowInfoPage() {
-		// 	//null is the dataview, it gets not used inside method!
-		// 	me.showInfoPageDetail(null, page, true);
-		// }
 	},
 	/**
 	* Load infopages into infopageStore.
@@ -228,7 +205,7 @@ Ext.define('EatSense.controller.InfoPage', {
 			if(!business) {
 				console.error('InfoPage.showHotelInfoHeader: no business given');
 				return;	
-			}		
+			}			
 
 			if(!infopageoverview) {
 				console.log('InfoPage.showHotelInfoHeader: infopageoverview not yet created');
@@ -245,6 +222,13 @@ Ext.define('EatSense.controller.InfoPage', {
 			function renderHeader(panel) {
 
 			profilePictures = panel.down('#profilePictures');
+
+			//hide if disabled in configuration
+			if(appConfig.disableInfopageProfilePics === true) {
+				profilePictures.removeAll();
+				profilePictures.setHidden(true);
+				return;
+			}
 
 			//show profile pictures in infopageoverview
 			if(business && business.raw && business.raw.images) {

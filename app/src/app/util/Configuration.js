@@ -27,6 +27,11 @@ Ext.define('EatSense.util.Configuration', {
 		* Use '_blank' to open urls in ChildBrowser, use '_systen' to open in
 		* system browser.
 		*/
-		urlBrowserMode: '_blank'
+		urlBrowserMode: '_blank',
+		/**
+		* @cfg {Boolean}
+		* Set to true if profile pictures in infopage section should not be rendered.
+		*/
+		disableInfopageProfilePics: false
 	}
 });
