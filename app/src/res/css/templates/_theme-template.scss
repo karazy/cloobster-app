@@ -201,7 +201,7 @@ $slidenav-bg-color: #2E2E2E;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-       margin-bottom: 10px;
+       margin-bottom: 7px;
     }
 
     p {
@@ -265,20 +265,20 @@ $slidenav-bg-color: #2E2E2E;
 
 .menulist-item {
 
-  > h3, p {
-    font-weight: bold;
-    line-height: 1.2em;  
-  }
-
   h3 {
     font-size: 1em;
     white-space:nowrap;
     overflow: hidden;
+    font-weight: bold;
+    line-height: 1.2em; 
+    margin-bottom: 7px;
   }
 
   p {
     font-size: 0.8em;
     word-break: break-word;
+    font-weight: bold;
+    line-height: 1.2em; 
   }
 }
 
@@ -677,7 +677,7 @@ $slidenav-bg-color: #2E2E2E;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      margin-bottom: 10px;
+      margin-bottom: 7px;
     }
 
     p {
