@@ -11,7 +11,9 @@ Ext.define('EatSense.view.ZtixEvents',{
 		scollToTopOnRefresh: true,
 		emptyText: i10n.translate('de.ztix.events.empty'),
 		itemTpl: new Ext.XTemplate(
-			'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',
+			'<tpl if="infpic">',
+				'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',
+			'</tpl>',
 			'{[this.formatDate(values.date)]}',
 			'<div class="content">',
 				'<div class="location">',
