@@ -70,7 +70,7 @@ Ext.define('EatSense.view.Lounge', {
 		        			floatingCls: 'dummy-cls',
 		        			bottom: 8,
 		        			left: 0,
-		        			tapMaskFactor: 3
+		        			tapMaskFactor: 5
 	        			}  
         			]
         		}        	        		

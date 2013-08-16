@@ -1761,7 +1761,7 @@ h9 {
 /* Slidenavigation button */ 
 .x-slidenavigation-toggle {
   position: absolute;
-  width: 23px;
+  width: 15px;
   height: 50px;
   padding: 0;
   background: none;
@@ -1779,12 +1779,12 @@ h9 {
   .x-slidenavigation-toggle-mask {
     display: block;
     background-color: white !important;
-    -webkit-mask-size: 30px;
+    -webkit-mask-size: 25px;
     -webkit-mask-image: inline-image('../images/buttons/list.png');
     
-    -webkit-mask-position: -16px 11px;
+    -webkit-mask-position: -16px 12px;
     -webkit-mask-repeat: no-repeat;
-    width: 31px;
+    width: 15px;
     height: 50px;
   }
 }
