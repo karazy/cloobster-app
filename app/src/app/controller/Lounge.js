@@ -506,6 +506,10 @@ Ext.define('EatSense.controller.Lounge', {
 		}
 	 }
   },
+  /**
+  * @DEPRECATED
+  * Replaced by quickAccessButtonsTapHandler
+  */
 	showMenu: function(button) {
 		var lounge = this.getLoungeview();
 	 	lounge.selectByAction('show-menu');
