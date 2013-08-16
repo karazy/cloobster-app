@@ -177,17 +177,17 @@ Ext.define('EatSense.view.Lounge', {
 				iconCls: 'user-icon',
 				viewState: 'allways'
 			},
-			// {
-			// 	ui: 'action',
-			// 	title: i10n.translate('dashboard.button.demo'),
-			// 	action: 'demo-checkin',
-			// 	iconCls: 'demo-icon',
-			// 	leaf: true,
-			// 	viewState: 'cloobster',
-			// 	handler: function() {
-			// 		Ext.Viewport.fireEvent('democheckin');
-			// 	}
-			// },
+			{
+				ui: 'action',
+				title: i10n.translate('dashboard.button.demo'),
+				action: 'demo-checkin',
+				iconCls: 'demo-icon',
+				leaf: true,
+				viewState: appConfig.getProp('demoButtonViewstate'),
+				handler: function() {
+					Ext.Viewport.fireEvent('democheckin');
+				}
+			},
 			{	
 				xtype: 'myorderstab',
 				iconCls: 'exit-icon',

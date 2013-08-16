@@ -201,7 +201,8 @@ Ext.define('EatSense.controller.Ztix', {
 			paginationSuffix = Ext.util.Format.date(new Date(), appConstants.ISODate) + '/2014-12-31/';
 		} else {
 			_endDate = new Date(startDate);
-			_endDate.setMonth(_endDate.getMonth() + 1);
+			//get last day of current month, setting 0 as day results in last day of prev month
+			_endDate.setFullYear(_endDate.getFullYear(), _endDate.getMonth() + 1, 0);
 			paginationSuffix = Ext.util.Format.date(startDate, appConstants.ISODate) + '/';
 			paginationSuffix += Ext.util.Format.date(_endDate, appConstants.ISODate) + '/';
 		}
