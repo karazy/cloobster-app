@@ -768,6 +768,7 @@ Ext.define('EatSense.controller.InfoPage', {
 	    		button.setExpandIcon(true);
 	    		iconElement = button.element.down('.x-tilebutton-icon');
 	    		iconElement.removeCls('info');
+				iconElement.addCls('noicon');	    		
 	    	} else {
 	    		console.log('InfoPage.setImageForInfoButtons: no logo in spot');
 	    		//reset image
@@ -777,6 +778,7 @@ Ext.define('EatSense.controller.InfoPage', {
 	    		button.showIconElement();
 	    		iconElement = button.element.down('.x-tilebutton-icon');
 	    		iconElement.addCls('info');
+	    		iconElement.removeCls('noicon');
 	    	}
     	});
 

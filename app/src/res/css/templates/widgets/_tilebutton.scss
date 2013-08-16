@@ -53,6 +53,9 @@
     height: 64px;
   }
 
+  &.noicon {
+    background-color: $tilebutton-color !important;
+  }
 }
 
 .x-tilebutton-icon-expand {
