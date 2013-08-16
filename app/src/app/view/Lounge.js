@@ -183,7 +183,7 @@ Ext.define('EatSense.view.Lounge', {
 				action: 'demo-checkin',
 				iconCls: 'demo-icon',
 				leaf: true,
-				viewState: 'cloobster',
+				viewState: appConfig.getProp('demoButtonViewstate'),
 				handler: function() {
 					Ext.Viewport.fireEvent('democheckin');
 				}

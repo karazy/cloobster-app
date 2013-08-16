@@ -32,10 +32,16 @@ Ext.define('EatSense.util.Configuration', {
 		* system browser.
 		*/
 		urlBrowserMode: '_blank',
-		/** @cfg {Boolean}
+		/** 
+		* @cfg {Boolean}
 		* Set to true if profile pictures in infopage section should not be rendered.
 		*/
 		disableInfopageProfilePics: false,
+		/** 
+		* @cfg {String}
+		* Set to 'cloobster' too show Demo Button, 'none' to hide the demo button in slidenavigation.
+		*/
+		demoButtonViewstate: 'cloobster',
 		/**
 		* Configuration for ztix service
 		*/
