@@ -64,6 +64,8 @@ Ext.define('EatSense.view.Dashboard', {
 			itemTpl: new Ext.XTemplate(
 				'<tpl if="imageUrl">',
 					'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
+				'<tpl elseif="values.image && values.image.url">',
+					'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s256\')"></div>',
 				'</tpl>',
 				'<tpl if="visitDate">',
 					'{[this.formatDate(values.visitDate)]}',
