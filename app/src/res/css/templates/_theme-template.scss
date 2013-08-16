@@ -1,9 +1,24 @@
 @font-face {
     font-family: 'Roboto';
-    src: url('fonts/Roboto-Thin.ttf');
+    src: url('fonts/Roboto-Regular.ttf');
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+
 
 /* Sencha variables */
 $button-radius: .1em;
@@ -190,11 +205,6 @@ $slidenav-bg-color: #2E2E2E;
     padding-top: 10px;
     border-bottom: .2em solid transparent;
     text-overflow: ellipsis;
-
-    > h3, p {
-      font-weight: bold;
-      /*line-height: 1.2em;  */
-    }
     
     
     h3 {
@@ -203,6 +213,7 @@ $slidenav-bg-color: #2E2E2E;
       overflow: hidden;
       text-overflow: ellipsis;
        margin-bottom: 7px;
+       font-weight: bold;
     }
 
     p {
@@ -271,15 +282,12 @@ $slidenav-bg-color: #2E2E2E;
     white-space:nowrap;
     overflow: hidden;
     font-weight: bold;
-    /*line-height: 1.2em; */
     margin-bottom: 7px;
   }
 
   p {
     font-size: 0.8em;
     word-break: break-word;
-    font-weight: bold;
-    /*line-height: 1.2em; */
   }
 }
 
@@ -667,18 +675,13 @@ $slidenav-bg-color: #2E2E2E;
     border-bottom: .2em solid transparent;
     text-overflow: ellipsis;
 
-    > h3, p {
-      font-weight: bold;
-      /*line-height: 1.2em;  */
-    }
-    
-
     h3 {
       font-size: 1em;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       margin-bottom: 7px;
+      font-weight: bold;
     }
 
     p {
@@ -1616,7 +1619,7 @@ h9 {
   .location-city {
     font-size: .8em;
     /*line-height: 1.2em;*/
-    font-weight: bold;
+    font-style: italic;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
