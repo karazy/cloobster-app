@@ -1,3 +1,7 @@
+/**
+* Global configuration paramaters.
+* @author Frederik Reifschneider
+*/
 Ext.define('EatSense.util.Configuration', {
 	alternateClassName: ['appConfig'],
 	statics: {
