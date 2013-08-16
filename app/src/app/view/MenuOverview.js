@@ -36,7 +36,13 @@ Ext.define('EatSense.view.MenuOverview', {
 			allowDeselect: true,
 			itemCls: 'menulist-item',
 			itemTpl : new Ext.XTemplate(
-				'<h3>{title}</h3><tpl if="description"><p>{description}</p></tpl>'
+				'<tpl if="imageUrl">',
+					'<div class="thumbnail scale-width" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
+				'</tpl>',
+				'<div class="content">',
+					"<h3>{title}</h3>",
+					"<p>{description}</p>",
+				'</div>'
 			),
 			store: 'menuStore',
 			listeners: {
