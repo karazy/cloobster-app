@@ -210,7 +210,8 @@ Ext.define('EatSense.util.Helper', {
 				modal: false,
 				centered: false,
 				style: {
-					'max-width' : 'none'
+					'max-width' : 'none',
+					'max-height' : 'none'
 				},
 				bottom: '10px',
 				right: '3%',
@@ -221,6 +222,8 @@ Ext.define('EatSense.util.Helper', {
 
 
 		msgBox = Ext.create('Ext.MessageBox', config);
+		//remove toolbar because it takes ob unused space!
+		msgBox.remove(msgBox.down('toolbar'));
 		msgBox.show();
 
 		Ext.defer(function() {
