@@ -85,7 +85,7 @@ $slidenav-bg-color: #2E2E2E;
 @mixin thumbnail {
   div.thumbnail {
     float: left;
-    background-position: center;
+    background-position: left center;
     background-repeat: no-repeat;
     background-size: 138px auto;
     width: 128px;
