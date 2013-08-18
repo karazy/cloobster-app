@@ -202,7 +202,7 @@ $slidenav-bg-color: #2E2E2E;
     padding-left: 10px;
     padding-right: 5px;
     padding-top: 10px;
-    border-bottom: .2em solid transparent;
+    border-bottom: 10px solid transparent;
     text-overflow: ellipsis;
     
     
@@ -211,7 +211,7 @@ $slidenav-bg-color: #2E2E2E;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-       margin-bottom: 7px;
+       /*margin-bottom: 7px;*/
        font-weight: bold;
     }
 
@@ -654,7 +654,7 @@ $slidenav-bg-color: #2E2E2E;
     padding-left: 10px;
     padding-right: 5px;
     padding-top: 10px;
-    border-bottom: .2em solid transparent;
+    border-bottom: 10px solid transparent;
     text-overflow: ellipsis;
 
     h3 {
@@ -662,7 +662,7 @@ $slidenav-bg-color: #2E2E2E;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      margin-bottom: 7px;
+      /*margin-bottom: 7px;*/
       font-weight: bold;
     }
 
@@ -1899,6 +1899,7 @@ h9 {
 */
 .x-msgbox.x-floating {
   border-radius: 0px !important;
+  box-shadow: none;
 }
 
 /*
