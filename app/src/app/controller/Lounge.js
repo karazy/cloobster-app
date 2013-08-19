@@ -433,7 +433,7 @@ Ext.define('EatSense.controller.Lounge', {
 		 spotName = checkInCtr.getActiveSpot().get('name');
 	};
 
-	// descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business, spotName));
+	descriptionPanel.setHtml(i10n.translate('clubdashboard.label.description', nickname || "", business, spotName));
 		
 	this.setCustomHeader();
 

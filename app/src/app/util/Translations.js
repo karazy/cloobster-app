@@ -829,7 +829,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		"clubdashboard.label.description" : {
 			// "DE" :  "<h2>{0},</h2><p>Herzlich Willkommen im</p><p>\"{1}\"</p>",
-			"DE" : "<span class='user'>{0}</span> <span class='location-marker'></span> {1}",
+			"DE" : "Willkommen <span class='user'>{0}</span>,<br/><span class='location-marker'></span> {1}",
 			"EN" :  "<h2>{0},</h2><p>welcome to</p><p>\"{1}\"</p>",			
 			"ES" : "<h2>{0},</h2><p>Bienvenido ",
 			"IT" : "Benvenuto a</p><p>\"{1}\"</p>",
