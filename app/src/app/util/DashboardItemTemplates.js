@@ -79,8 +79,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					tpl: new Ext.XTemplate(
 						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
-							'<h3>{name}</h3>'+
-							'<p>{shortDesc}</p>'+
+							'<div class="title">{name}</div>'+
+							'<div class="text">{shortDesc}</div>'+
 						'</div>'
 						// '<div class="teaser-icon menu-icon"></div>'
 					)
@@ -110,8 +110,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					tpl: new Ext.XTemplate(
 						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
-							'<h3>{name}</h3>'+
-							'<p>{shortDesc}</p>'+									
+							'<div class="title">{name}</div>'+
+							'<div class="text">{shortDesc}</div>'+									
 						'</div>'
 						// '<div class="teaser-icon star-icon"></div>'
 					)
@@ -140,8 +140,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					tpl: new Ext.XTemplate(
 						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
-							'<h3>{name}</h3>'+
-							'<p>{shortDesc}</p>'+									
+							'<div class="title">{name}</div>'+
+							'<div class="text">{shortDesc}</div>'+									
 						'</div>'
 						// '<div class="teaser-icon menu-icon"></div>'
 					)
@@ -166,8 +166,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					tpl: new Ext.XTemplate(
 						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
-							'<h3>{title}</h3>'+
-							'<p>{shortText}</p>'+
+							'<div class="title">{title}</div>'+
+							'<div class="text">{shortText}</div>'+
 						'</div>'
 						// '<div class="teaser-icon info-icon"></div>'
 					)
@@ -197,8 +197,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 					tpl: new Ext.XTemplate(
 						'<tpl if="imageUrl"><div class="thumbnail"><img src="{imageUrl}=s360"></div></tpl>'+
 						'<div class="text-container">'+
-							'<h3>{title}</h3>'+
-							'<p>{shortText}</p>'+
+							'<div class="title">{title}</div>'+
+							'<div class="text">{shortText}</div>'+
 						'</div>'
 						// '<div class="teaser-icon info-icon"></div>'
 					)
@@ -239,8 +239,8 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 							'<div class="thumbnail"><img src="{imageUrl}=s360"></div>',
 						'</tpl>',
 						'<div class="text-container">',
-							'<h3>{title}</h3>',
-							'<p>{description}</p>',
+							'<div class="title">{title}</div>',
+							'<div class="text">{description}</div>',
 						'</div>'
 					)
 				}

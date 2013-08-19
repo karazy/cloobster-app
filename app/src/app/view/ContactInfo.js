@@ -47,7 +47,6 @@ Ext.define('EatSense.view.ContactInfo', {
 					{
 						xtype: 'panel',
 						itemId: 'mainPhone',
-						margin: '6 0 0 0',
 						layout: {
 							type: 'hbox',
 							align: 'start'
@@ -76,7 +75,7 @@ Ext.define('EatSense.view.ContactInfo', {
 					},
 					{
 						xtype: 'panel',
-						margin: '6 0 0 0',
+						margin: '8 0 0 0',
 						layout: {
 							type: 'hbox',
 							align: 'start'
@@ -112,7 +111,7 @@ Ext.define('EatSense.view.ContactInfo', {
 						iconMask: true,
 						hidden: true,
 						ui: 'action',
-						margin: '6 0 0 0'
+						margin: '8 0 0 0'
 					},
 					{
 						xtype: 'fixedbutton',
@@ -122,7 +121,7 @@ Ext.define('EatSense.view.ContactInfo', {
 						iconMask: true,
 						hidden: true,
 						ui: 'action',
-						margin: '6 0 0 0'
+						margin: '8 0 0 0'
 					},
 					{
 						xtype: 'label',

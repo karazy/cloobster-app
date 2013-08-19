@@ -5,19 +5,28 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Roboto';
+/*@font-face {
+    font-family: 'RobotoBold';
     src: url('fonts/Roboto-Bold.ttf');
-    font-weight: bold;
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+@font-face {
+    font-family: 'RobotoLight';
+    src: url('fonts/Roboto-Light.ttf');
+    font-weight: normal;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Roboto';
+/*@font-face {
+    font-family: 'RobotoItalic';
     src: url('fonts/Roboto-Italic.ttf');
     font-weight: normal;
     font-style: italic;
-}
+}*/
+
+$font-family: 'Roboto', 'RobotoLight',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
 
 
 /* Sencha variables */
@@ -32,6 +41,8 @@ $tilebutton-color: #e5e5e5;
 $tilebutton-font-color: #000;
 $slidenav-bg-color: #2E2E2E;
 /*$form-field-bg-color: $general-input-bg-color;*/
+
+
 
 
 @import 'sencha-touch/default/all';
@@ -694,7 +705,7 @@ $slidenav-bg-color: #2E2E2E;
 
 .x-infopage-teaser {
   background-color: $tilebutton-color;
-  max-height: 250px;
+  /*max-height: 250px;*/
   overflow: hidden; 
   text-overflow: ellipsis; 
   color: $tilebutton-font-color;
@@ -727,12 +738,12 @@ $slidenav-bg-color: #2E2E2E;
     background-position: top center;
     background-repeat: no-repeat;
     background-size: 100% auto;
-    max-height: 150px;
+    /*max-height: 150px;*/
     width: 100%;
     overflow: hidden;
 
     @media only screen and (max-width: 320px) { 
-      max-height: 145px; 
+      /*max-height: 145px; */
     }
 
     img {
@@ -745,12 +756,12 @@ $slidenav-bg-color: #2E2E2E;
     padding: 10px 8px 8px 8px;
     word-break: break-word;
 
-      h3 {
-        font-size: 1em;
+      .title {
+        font-size: 20px;
       }
 
-      p {
-        font-size: 0.8em;
+      .text {
+        font-size: 14px;
         text-overflow: ellipsis;
       }
   }
@@ -975,7 +986,7 @@ $slidenav-bg-color: #2E2E2E;
 /* Club Dashboard */
 
 .club-dashboard {
-  background: #f6f7f6;;
+  background: #f6f7f6;
 }
 
 .club-dashboard-header {    
@@ -1015,10 +1026,12 @@ $slidenav-bg-color: #2E2E2E;
 .club-dashboard-description {
   color: $label-color;
   margin: 0 0 7px 0;
+  font-size: 1em;
 
-  h2 {
-    font-size: 1em;
+  .user {
+    
     font-weight: bold;
+    /*display: inline-block;*/
   }
 
   p {
@@ -1620,7 +1633,7 @@ h9 {
     -webkit-mask-size: 20px;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
-    -webkit-mask-image: inline-image('../images/locate.png');;
+    -webkit-mask-image: inline-image('../images/locate.png');
   }
 
   .x-list-emptytext {
@@ -1632,9 +1645,10 @@ h9 {
       height: 100%;
 
       .empty-image {
-        background-image: url('../images/club/calendar.png');
-        background-position: center;
-        background-repeat: no-repeat;
+        -webkit-mask-image: url('../images/club/calendar_transparent.png');
+        -webkit-mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        background-color: $active-color;
         width: 110px;
         height: 110px;
       }
@@ -1740,6 +1754,20 @@ h9 {
   }
 }
 
+/* Misc */
+
+.location-marker {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: $active-color;
+  -webkit-mask-size: 20px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-image: inline-image('../images/locate.png');
+}
+
+
 /* Slidenavigation */
 
 .x-slidenav-icon {
@@ -1768,8 +1796,6 @@ h9 {
   /* instead of $active-color */
   background-color: $slidenav-bg-color !important;
   border-radius: 0;
-  border-bottom-right-radius: 2px !important;
-  border-top-right-radius: 2px !important;
 
   /* Overwrite background of floating panel div */
   div {
