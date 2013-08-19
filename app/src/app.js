@@ -72,7 +72,9 @@ Ext.application({
       console.log('Console.error not available. Redirecting to console.log');
       console.error = console.log;
     }
-  
+    
+    //check for whitelabel configurations
+    this.initWhitelabelConfiguration();
 
     //check if a network state exists when cordova is runnning
     //only proceed if a network connection is detected
@@ -312,6 +314,41 @@ Ext.application({
         		EatSense.util.Helper.toggleAlertActive(false);
         	});	
         }
+    },
+    /**
+    * Check If a whitelabel configuration exists.
+    * If this is the case, merge it with {@link EatSense.util.Configuration}.
+    */
+    initWhitelabelConfiguration: function() {
+      var whitelabelConfig = null,
+          configName;
+
+      if(!appConfig.whitelabelConfig || appConfig.whitelabelConfig.length == 0) {
+        return;
+      }
+
+      configName = appConfig.whitelabelConfig;
+
+      Ext.Ajax.request({
+        url: 'app/util/whitelabel/' + configName + '.configuration.js',
+        success: function(response) {
+          console.log('Application.initWhitelabelConfiguration: found whitelabel configuration for ' + whitelabelConfig);
+          try {
+            whitelabelConfig = Ext.JSON.decode(response.responseText);
+            Ext.merge(appConfig, appConfig, whitelabelConfig);
+          } catch(e) {
+            console.error('Application.initWhitelabelConfiguration: could not decode whitelabel configuration ' + e);
+          }          
+        },
+        failure: function(response) {
+          if(response.status == 404) {
+             console.error('Application.initWhitelabelConfiguration: no whitelabel configuration found');
+          } else {
+             console.error('Application.initWhitelabelConfiguration: error ' + response.status);
+          }
+        }
+      });
+
     }
 });
 
