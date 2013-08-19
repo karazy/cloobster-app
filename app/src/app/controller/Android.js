@@ -185,7 +185,6 @@ Ext.define('EatSense.controller.Android', {
 	*/
 	executeBackHandler: function() {
 		var handler,
-			msgBox,
 			backbutton,
 			loungeview = this.getLoungeview(),
 			activeview,
@@ -234,25 +233,7 @@ Ext.define('EatSense.controller.Android', {
 				console.log('Android.executeBackHandler: exit app');
 				navigator.app.exitApp();
 			} else {
-				//make it to look like android toast message
-				msgBox = Ext.create('Ext.MessageBox', {
-					modal: false,
-					centered: false,
-					bottom: '5%',
-					right: '3%',
-					left: '3%',
-					'message' : i10n.translate('android.backbutton.exit'),
-					buttons : []
-				});
-
-				msgBox.show();
-
-				//show short alert and then hide
-				Ext.defer((function() {
-					if(!EatSense.util.Helper.getAlertActive()) {
-						msgBox.destroy();
-					}					
-				}), appConfig.msgboxHideLongTimeout, this);
+				appHelper.showNotificationBox(i10n.translate('android.backbutton.exit'));
 
 				this.setExitOnBack(true);
 			}
