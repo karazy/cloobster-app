@@ -125,7 +125,8 @@
         "res/images",
         "res/css/",
         //since we specified the libs as remote we have to copy them over
-        "lib"
+        "lib",
+        "whitelabel"
     ],
 
     /**
