@@ -56,7 +56,7 @@ Ext.define('EatSense.util.Configuration', {
 			*/
 			baseUrl: 'http://88.198.11.203/xmlExport/index.php/main/getCloobsterEvents/',
 			/**
-			* Vorverkaufs string used for provision.
+			* Pre-selling id used for provision.
 			*/
 			vvk: null
 		},
