@@ -31,17 +31,17 @@ Ext.define('EatSense.util.Configuration', {
 		* Use '_blank' to open urls in ChildBrowser, use '_systen' to open in
 		* system browser.
 		*/
-		urlBrowserMode: '_system',
+		urlBrowserMode: '_blank',
 		/**
 		* @cfg {Boolean}
 		* Set to true if profile pictures in infopage section should not be rendered.
 		*/
-		disableInfopageProfilePics: true,
+		disableInfopageProfilePics: false,
 		/** 
 		* @cfg {String}
 		* Set to 'cloobster' too show Demo Button, 'none' to hide the demo button in slidenavigation.
 		*/
-		demoButtonViewstate: 'none',
+		demoButtonViewstate: 'cloobster',
 		/**
 		* Configuration for ztix service
 		*/
