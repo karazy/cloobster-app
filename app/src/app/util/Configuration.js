@@ -28,7 +28,12 @@ Ext.define('EatSense.util.Configuration', {
 		cloobsterApi: 2,
 		/**
 		* @cfg {String}
-		* Use '_blank' to open urls in ChildBrowser, use '_systen' to open in
+		* The name of a whitelabel configuration to load during startup.
+		*/
+		whitelabelConfig: null,
+		/**
+		* @cfg {String}
+		* Use '_blank' to open urls in ChildBrowser, use '_system' to open in
 		* system browser.
 		*/
 		urlBrowserMode: '_blank',
@@ -46,7 +51,14 @@ Ext.define('EatSense.util.Configuration', {
 		* Configuration for ztix service
 		*/
 		'de-ztix' : {
-			baseUrl: 'http://88.198.11.203/xmlExport/index.php/main/getCloobsterEvents/'
+			/**
+			* Base Url used to retrieve ztix events.
+			*/
+			baseUrl: 'http://88.198.11.203/xmlExport/index.php/main/getCloobsterEvents/',
+			/**
+			* Pre-selling id used for provision.
+			*/
+			vvk: null
 		},
 		/**
 		* Returns value of a property.

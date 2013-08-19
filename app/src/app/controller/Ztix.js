@@ -240,6 +240,7 @@ Ext.define('EatSense.controller.Ztix', {
 			backBt,
 			openLinkBt,
 			container = this.getEventsArea(),
+			vvk = appConfig.getProp('de-ztix.vvk') || '',
 			view;
 
 		view = Ext.create('EatSense.view.ZtixEventDetail', {
@@ -274,7 +275,10 @@ Ext.define('EatSense.controller.Ztix', {
 
 		function openLink() {
 			if(eventData.get('link')) {
-				window.open(encodeURI(eventData.get('link')), '_system');
+				if(vvk) {
+					vvk = '/' + vvk;
+				}
+				window.open(encodeURI(eventData.get('link')) + vvk, '_system');
 			}				
 		}
 
