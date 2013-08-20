@@ -37,6 +37,7 @@ $general-border-radius: 3px;
 $general-input-bg-color: #f3f3f3;
 $general-list-item-height: 96px;
 $thumbnail-height: 96px;
+$thumbnail-width: 120px;
 $tilebutton-color: #e5e5e5;
 $tilebutton-font-color: #000;
 $slidenav-bg-color: #2E2E2E;
@@ -98,8 +99,8 @@ $slidenav-bg-color: #2E2E2E;
     float: left;
     background-position: left center;
     background-repeat: no-repeat;
-    background-size: 138px auto;
-    width: 128px;
+    background-size: ($thumbnail-width + 10) auto;
+    width: $thumbnail-width;
     height: $thumbnail-height;
 
     /* Scales the width automatically instead of height. */
