@@ -30,7 +30,7 @@ Ext.define('EatSense.util.Configuration', {
 		* @cfg {String}
 		* The name of a whitelabel configuration to load during startup.
 		*/
-		whitelabelConfig: 'frizz',
+		whitelabelConfig: null,
 		/**
 		* @cfg {String}
 		* Use '_blank' to open urls in ChildBrowser, use '_system' to open in
