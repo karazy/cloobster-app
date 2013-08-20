@@ -30,7 +30,7 @@ Ext.define('EatSense.util.Configuration', {
 		* @cfg {String}
 		* The name of a whitelabel configuration to load during startup.
 		*/
-		whitelabelConfig: null,
+		whitelabelConfig: 'frizz',
 		/**
 		* @cfg {String}
 		* Use '_blank' to open urls in ChildBrowser, use '_system' to open in
@@ -67,12 +67,14 @@ Ext.define('EatSense.util.Configuration', {
 		*	False if property not found. Otherwise value.
 		*/
 		getProp: function(property) {
-			var _props = property.split('.'),
+			var _props,
 				_temp = this;
 
 			if(!property) {
 				return false;
 			}
+
+			_props = property.split('.');
 
 			for (var i = 0; i < _props.length; i++) {
 				if(!_temp.hasOwnProperty(_props[i])) {
