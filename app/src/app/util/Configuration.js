@@ -67,12 +67,14 @@ Ext.define('EatSense.util.Configuration', {
 		*	False if property not found. Otherwise value.
 		*/
 		getProp: function(property) {
-			var _props = property.split('.'),
+			var _props,
 				_temp = this;
 
 			if(!property) {
 				return false;
 			}
+
+			_props = property.split('.');
 
 			for (var i = 0; i < _props.length; i++) {
 				if(!_temp.hasOwnProperty(_props[i])) {

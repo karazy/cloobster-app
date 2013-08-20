@@ -12,6 +12,12 @@ Ext.Loader.setPath({
 
 Ext.application({
 	name : 'EatSense',
+
+  /**
+   * @event whitelabelmode
+   * Fires when a whitelabel configuration was found.
+   */
+
 	controllers : [ 'CheckIn', 'Lounge', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
   'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix'],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
@@ -61,7 +67,6 @@ Ext.application({
       this.mainLaunch();
 	},
 	mainLaunch : function() {
-    var me = this;
 		
     //Wait for phonegap to launch
 		if (cordovaInit == false || !this.launched) {
@@ -75,15 +80,15 @@ Ext.application({
     }
     
     //check for whitelabel configurations and then proceed
-    this.initWhitelabelConfiguration(function() {
-      //check if a network state exists when cordova is runnning
-      //only proceed if a network connection is detected
-      if(navigator && navigator.network) {        
-        me.checkConnection(this.initCloobster);
-      } else {
-        me.initCloobster();
-      }
-    });
+    this.initWhitelabelConfiguration();
+
+    //check if a network state exists when cordova is runnning
+    //only proceed if a network connection is detected
+    if(navigator && navigator.network) {        
+      this.checkConnection(this.initCloobster);
+    } else {
+      this.initCloobster();
+    }
 
 
 	},
@@ -322,12 +327,11 @@ Ext.application({
     * Check If a whitelabel configuration exists.
     * If this is the case, merge it with {@link EatSense.util.Configuration}.
     */
-    initWhitelabelConfiguration: function(callback) {
+    initWhitelabelConfiguration: function() {
       var whitelabelConfig = null,
           configName;
 
       if(!appConfig.whitelabelConfig || appConfig.whitelabelConfig.length == 0) {
-        callback();
         return;
       }
 
@@ -343,10 +347,9 @@ Ext.application({
           } catch(e) {
             console.error('Application.initWhitelabelConfiguration: could not decode whitelabel configuration ' + e);
           }
-          callback();
+          Ext.Viewport.fireEvent('whitelabelmode');
         },
         failure: function(response) {
-          callback();
           if(response.status == 404) {
              console.error('Application.initWhitelabelConfiguration: no whitelabel configuration found');
           } else {

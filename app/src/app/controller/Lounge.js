@@ -107,8 +107,18 @@ Ext.define('EatSense.controller.Lounge', {
 
 		Ext.Viewport.on({
 			'showdashboard' : this.showDashboard,
+			'whitelabelmode' : this.processWhitelabelConfig,
 			scope: this
 		});
+  },
+  /**
+  * @private
+  * Process whitelabel configuration, if needed.
+  */
+  processWhitelabelConfig: function() {
+  	if(appConfig.getProp('demoButtonViewstate') == 'none') {
+  		this.getLoungeview().getItemByAction('demo-checkin').set('viewState', 'none');
+  	}
   },
   /**
   * Show event handler for navigation. 

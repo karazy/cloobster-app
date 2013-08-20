@@ -23,7 +23,7 @@ Ext.define('EatSense.util.Channel', {
 	//token used for this channel
 	channelToken : null,
 	//timeout used when attempting to reconnect the channel
-	channelReconnectTimeout : appConfig.channelReconnectTimeout ||  20000,
+	channelReconnectTimeout : null,
 	//a factor by which the intervall for requesting a new token increases over time to prevent mass channel creations
 	channelReconnectFactor : 1.3,
 	//the status for the connection
@@ -43,6 +43,7 @@ Ext.define('EatSense.util.Channel', {
 
 	constructor: function() {
 		this.self = this;
+		this.channelReconnectTimeout =  appConfig.channelReconnectTimeout ||  20000
 	},
 
 	onOpen: function() {
