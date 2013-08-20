@@ -61,6 +61,7 @@ Ext.application({
       this.mainLaunch();
 	},
 	mainLaunch : function() {
+    var me = this;
 		
     //Wait for phonegap to launch
 		if (cordovaInit == false || !this.launched) {
@@ -73,16 +74,18 @@ Ext.application({
       console.error = console.log;
     }
     
-    //check for whitelabel configurations
-    this.initWhitelabelConfiguration();
+    //check for whitelabel configurations and then proceed
+    this.initWhitelabelConfiguration(function() {
+      //check if a network state exists when cordova is runnning
+      //only proceed if a network connection is detected
+      if(navigator && navigator.network) {        
+        me.checkConnection(this.initCloobster);
+      } else {
+        me.initCloobster();
+      }
+    });
 
-    //check if a network state exists when cordova is runnning
-    //only proceed if a network connection is detected
-    if(navigator && navigator.network) {        
-      this.checkConnection(this.initCloobster);
-    } else {
-      this.initCloobster();
-    }
+
 	},
   /**
   * Checks the network connection state. 
@@ -319,11 +322,12 @@ Ext.application({
     * Check If a whitelabel configuration exists.
     * If this is the case, merge it with {@link EatSense.util.Configuration}.
     */
-    initWhitelabelConfiguration: function() {
+    initWhitelabelConfiguration: function(callback) {
       var whitelabelConfig = null,
           configName;
 
       if(!appConfig.whitelabelConfig || appConfig.whitelabelConfig.length == 0) {
+        callback();
         return;
       }
 
@@ -336,12 +340,14 @@ Ext.application({
           console.log('Application.initWhitelabelConfiguration: found whitelabel configuration for ' + whitelabelConfig);
           try {
             whitelabelConfig = Ext.JSON.decode(response.responseText);
-            Ext.merge(appConfig, appConfig, whitelabelConfig);
+            Ext.merge(appConfig, whitelabelConfig);
           } catch(e) {
             console.error('Application.initWhitelabelConfiguration: could not decode whitelabel configuration ' + e);
-          }          
+          }
+          callback();
         },
         failure: function(response) {
+          callback();
           if(response.status == 404) {
              console.error('Application.initWhitelabelConfiguration: no whitelabel configuration found');
           } else {
