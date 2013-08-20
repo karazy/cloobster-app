@@ -335,7 +335,6 @@ Ext.application({
 
       Ext.Ajax.request({
         url: 'whitelabel/' + configName + '/Configuration.json',
-        synchronous: true,
         success: function(response) {
           console.log('Application.initWhitelabelConfiguration: found whitelabel configuration for ' + whitelabelConfig);
           try {
