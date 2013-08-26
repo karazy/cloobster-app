@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.karazy.cloobster"
     android:versionCode="29"
-    android:versionName="2.5" android:installLocation="auto">
+    android:versionName="2.4.3" android:installLocation="auto">
 
     <supports-screens
         android:anyDensity="true"

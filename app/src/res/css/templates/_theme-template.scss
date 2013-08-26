@@ -17,7 +17,7 @@ $button-radius: .2em;
 
 /* Global variables */
 $general-border-radius: 3px;
-$general-list-item-height: 65px;
+$general-list-item-height: 45px;
 
 
 
@@ -166,20 +166,9 @@ $general-list-item-height: 65px;
 
 
 .menulist-item {
-  
-/*  h3 {
-    font-size: 1em;
-    white-space:nowrap;
-    overflow: hidden;
-  }
-  p {
-    font-size: 0.6em;
-    word-break: break-word;
-  }*/
 
   .x-list-item-body {
-    min-height: $general-list-item-height;
-    padding: 0;    
+    min-height: $general-list-item-height;  
   }
 
   @include thumbnail;
@@ -187,13 +176,13 @@ $general-list-item-height: 65px;
   .content {
     float: none;
     min-height: $general-list-item-height;
-    text-overflow: ellipsis;
+/*    text-overflow: ellipsis;
     overflow: hidden;
     padding-left: 10px;
     padding-right: 5px;
     padding-top: 10px;
     border-bottom: 10px solid transparent;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
 
     h3 {
       font-size: 1em;
