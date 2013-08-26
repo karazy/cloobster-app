@@ -178,7 +178,7 @@ $general-list-item-height: 65px;
   }*/
 
   .x-list-item-body {
-    height: $general-list-item-height;
+    min-height: $general-list-item-height;
     padding: 0;    
   }
 
@@ -186,7 +186,7 @@ $general-list-item-height: 65px;
 
   .content {
     float: none;
-    height: $general-list-item-height;
+    min-height: $general-list-item-height;
     text-overflow: ellipsis;
     overflow: hidden;
     padding-left: 10px;

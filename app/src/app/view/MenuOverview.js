@@ -40,7 +40,7 @@ Ext.define('EatSense.view.MenuOverview', {
 				'<tpl if="imageUrl">',
 					'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}\')"></div>',							
 				'</tpl>',
-				'<div>',
+				'<div class="content">',
 					'<h3>{title}</h3>',
 					'<tpl if="description">',
 						'<p>{description}</p>',
