@@ -25,9 +25,6 @@ Ext.define('EatSense.view.ContactInfo', {
 				},
 				scrollable: 'vertical',
 				padding: '10px 30px 8px 30px',
-				// defaults: {
-				// 	width: '100%'
-				// },
 				items: [
 					{
 						xtype: 'titlebar',
@@ -50,7 +47,6 @@ Ext.define('EatSense.view.ContactInfo', {
 					{
 						xtype: 'panel',
 						itemId: 'mainPhone',
-						margin: '6 0 0 0',
 						layout: {
 							type: 'hbox',
 							align: 'start'
@@ -79,7 +75,7 @@ Ext.define('EatSense.view.ContactInfo', {
 					},
 					{
 						xtype: 'panel',
-						margin: '6 0 0 0',
+						margin: '10 0 0 0',
 						layout: {
 							type: 'hbox',
 							align: 'start'
@@ -115,7 +111,7 @@ Ext.define('EatSense.view.ContactInfo', {
 						iconMask: true,
 						hidden: true,
 						ui: 'action',
-						margin: '6 0 0 0'
+						margin: '10 0 0 0'
 					},
 					{
 						xtype: 'fixedbutton',
@@ -125,7 +121,7 @@ Ext.define('EatSense.view.ContactInfo', {
 						iconMask: true,
 						hidden: true,
 						ui: 'action',
-						margin: '6 0 0 0'
+						margin: '10 0 0 0'
 					},
 					{
 						xtype: 'label',
@@ -134,7 +130,8 @@ Ext.define('EatSense.view.ContactInfo', {
 					},
 					{
 						xtype: 'panel',
-						itemId: 'profilePictures'
+						itemId: 'profilePictures',
+						margin: '20 0 0 0'
 					}
 					
 				]
@@ -256,13 +253,13 @@ Ext.define('EatSense.view.ContactInfo', {
 					openLocationUrlBt.setHidden(false);
 					openLocationUrlBt.on({
 						tap: function() {
-							window.open(encodeURI(appHelper.createValidUrl(newValue.get('url'))), '_blank');
+							window.open(encodeURI(appHelper.createValidUrl(newValue.get('url'))), appConfig.urlBrowserMode);
 						},
 						scope: this
 					});
 				} else {
 					openLocationUrlBt.setHidden(true);
-				}			
+				}
 			}
 
 			if(fbBt) {
@@ -270,7 +267,7 @@ Ext.define('EatSense.view.ContactInfo', {
 					fbBt.setHidden(false);
 					fbBt.on({
 						tap: function() {
-							window.open(encodeURI(appHelper.createValidUrl(newValue.get('fbUrl'))), '_system');
+							window.open(encodeURI(appHelper.createValidUrl(newValue.get('fbUrl'))), appConfig.urlBrowserMode);
 						},
 						scope: this
 					});

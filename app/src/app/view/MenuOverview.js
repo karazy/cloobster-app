@@ -28,7 +28,6 @@ Ext.define('EatSense.view.MenuOverview', {
 				xtype: 'label',
 				itemId: 'titleLabel',
 				docked: 'top',
-				margin: '0 0 15 0',
 				tpl: new Ext.XTemplate('<div class="productlist-header">{0}</div>')
 			},
 		   {
@@ -38,13 +37,11 @@ Ext.define('EatSense.view.MenuOverview', {
 			itemCls: 'menulist-item',
 			itemTpl : new Ext.XTemplate(
 				'<tpl if="imageUrl">',
-					'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}\')"></div>',							
+					'<div class="thumbnail scale-width" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
 				'</tpl>',
 				'<div class="content">',
-					'<h3>{title}</h3>',
-					'<tpl if="description">',
-						'<p>{description}</p>',
-					'</tpl>',
+					"<h3>{title}</h3>",
+					"<p>{description}</p>",
 				'</div>'
 			),
 			store: 'menuStore',

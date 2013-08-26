@@ -6,7 +6,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 		title: i10n.translate('passwordsetting.title'),
 		layout: {
 			type: 'fit'
-		},
+		},		
 		items: [
 			{
 				docked : 'top',
@@ -25,6 +25,7 @@ Ext.define('EatSense.view.PasswordSetting', {
 				align: 'stretch',
 				pack: 'center'
 			},
+			padding: '0 30 8 30',
 			items: [
 				{
 					xtype: 'label',

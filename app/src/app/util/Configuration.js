@@ -30,14 +30,14 @@ Ext.define('EatSense.util.Configuration', {
 		* @cfg {String}
 		* The name of a whitelabel configuration to load during startup.
 		*/
-		whitelabelConfig: null,
+		whitelabelConfig: 'darmstadt',
 		/**
 		* @cfg {String}
 		* Use '_blank' to open urls in ChildBrowser, use '_system' to open in
 		* system browser.
 		*/
 		urlBrowserMode: '_blank',
-		/** 
+		/**
 		* @cfg {Boolean}
 		* Set to true if profile pictures in infopage section should not be rendered.
 		*/
@@ -86,6 +86,5 @@ Ext.define('EatSense.util.Configuration', {
 
 			return _temp;
 		}
-
 	}
 });

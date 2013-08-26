@@ -11,28 +11,20 @@ Ext.define('EatSense.view.ZtixEvents',{
 		scollToTopOnRefresh: true,
 		emptyText: i10n.translate('de.ztix.events.empty'),
 		itemTpl: new Ext.XTemplate(
-			'<table style="width:100%;">',					
-				'<td align="left" style="vertical-align: top;">',
-					'<tpl if="infpic">',
-						'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',							
-					'</tpl>',
-					'<div>',
-						'<div class="location">',
-							'{title}',
-						'</div>',
-						'<tpl if="location">',
-							'<div class="location-city">',
-								'{location}',
-							'</div>',
-						'</tpl>',
+			'<tpl if="infpic">',
+				'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',
+			'</tpl>',
+			'{[this.formatDate(values.date)]}',
+			'<div class="content">',
+				'<div class="location">',
+					'{title}',
+				'</div>',
+				'<tpl if="location">',
+					'<div class="location-city">',
+						'{location}',
 					'</div>',
-				'</td>',
-				'<tpl if="date">',
-					'<td align="right">',
-						'{[this.formatDate(values.date)]}',
-					'</td>',
-				'</tpl>',					
-			'</table>'
+				'</tpl>',
+			'</div>'
 			,
 			{
 				formatPrice: function(price) {
@@ -46,10 +38,13 @@ Ext.define('EatSense.view.ZtixEvents',{
 					shortYear = date.getFullYear().toString().substring(2,4);
 
 					html =  '<div class="date">' +
-							'<div class="day">' + date.getDate() + '</div>'+
-							'<div class="mmyy">' + 
-								appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
-								shortYear +
+								'<div>'+
+									'<div class="day">' + date.getDate() + '</div>'+
+									'<div class="mmyy">' + 
+									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
+									shortYear +
+									'</div>'+
+								'</div>'+
 							'</div>';
 					return html;
 				}

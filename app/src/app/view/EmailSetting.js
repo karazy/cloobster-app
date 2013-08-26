@@ -6,7 +6,7 @@ Ext.define('EatSense.view.EmailSetting', {
 		title: i10n.translate('emailsetting.title'),
 		layout: {
 			type: 'fit'
-		},
+		},		
 		items: [
 			{
 				docked : 'top',
@@ -25,6 +25,7 @@ Ext.define('EatSense.view.EmailSetting', {
 				align: 'stretch',
 				pack: 'center'
 			},
+			padding: '0 30 8 30',
 			items: [
 				{
 					xtype: 'label',

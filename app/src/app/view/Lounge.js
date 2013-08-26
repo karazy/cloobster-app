@@ -70,7 +70,7 @@ Ext.define('EatSense.view.Lounge', {
 		        			floatingCls: 'dummy-cls',
 		        			bottom: 8,
 		        			left: 0,
-		        			tapMaskFactor: 3
+		        			tapMaskFactor: 5
 	        			}  
         			]
         		}        	        		
@@ -81,7 +81,7 @@ Ext.define('EatSense.view.Lounge', {
 				xtype: 'cloobsterarea',
 				title: i10n.translate('slidenav.button.dashboard'),
 				leaf: true,
-				iconCls: 'places-icon',
+				iconCls: 'favorite-icon',
 				action: 'show-dashboard',
 				viewState: 'cloobster'
 			},
@@ -163,7 +163,7 @@ Ext.define('EatSense.view.Lounge', {
 			{
 				title: i10n.translate('dashboard.button.tovisit'),
 				viewState: 'club',
-				iconCls: 'places-icon',
+				iconCls: 'favorite-icon',
 				leaf: true,
 				handler: function() {
 					Ext.Viewport.fireEvent('addactivebusinessastovisit');
@@ -195,13 +195,7 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				action: 'show-myorders',
 				viewState: 'club'
-			},
-			//a short helpful description description
-			{
-			 title: i10n.translate('slidenav.header.help'),
-			 header: true,
-			 viewState: 'cloobster'
-		  	}
+			}
 	
 		]
 	}

@@ -38,7 +38,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				xtype: 'label',
 				style: {
 					'background-color' : 'transparent',
-					'height' : '110px'
+					'height' : '115px'
 				}
 			},
 		{
@@ -50,7 +50,7 @@ Ext.define('EatSense.view.ClubDashboard', {
 				align: 'center',
 				pack: 'start'
 			},
-			padding: '7 8 12 8',
+			padding: '7 8 8 8',
 			items: [
 				
 				{

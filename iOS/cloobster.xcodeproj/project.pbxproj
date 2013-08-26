@@ -51,6 +51,63 @@
 		B63B192C16CD567400B6A7C5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63B192B16CD567400B6A7C5 /* AssetsLibrary.framework */; };
 		B63B192E16CD568000B6A7C5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63B192D16CD568000B6A7C5 /* CoreVideo.framework */; };
 		B63B193016CD568B00B6A7C5 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B63B192F16CD568B00B6A7C5 /* libiconv.dylib */; };
+		B681472917C224AC00CF1F52 /* FRIZZ_Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B681472817C224AC00CF1F52 /* FRIZZ_Default@2x.png */; };
+		B681472C17C2253800CF1F52 /* FRIZZ_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B681472A17C2253800CF1F52 /* FRIZZ_Icon.png */; };
+		B681472D17C2253800CF1F52 /* FRIZZ_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B681472B17C2253800CF1F52 /* FRIZZ_Icon@2x.png */; };
+		B68910DD17C21A4100112E5C /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = F840E1F0165FE0F500CFE078 /* config.xml */; };
+		B68910DE17C21A4100112E5C /* www in Resources */ = {isa = PBXBuildFile; fileRef = 301BF56E109A69640062928A /* www */; };
+		B68910DF17C21A4100112E5C /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D052E1370CCF300D202BF /* icon-72.png */; };
+		B68910E017C21A4100112E5C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D052F1370CCF300D202BF /* icon.png */; };
+		B68910E117C21A4100112E5C /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D05301370CCF300D202BF /* icon@2x.png */; };
+		B68910E217C21A4100112E5C /* Capture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3072F99613A8081B00425683 /* Capture.bundle */; };
+		B68910E317C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDC13BBADB100FB74C0 /* Localizable.strings */; };
+		B68910E417C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDF13BBADB100FB74C0 /* Localizable.strings */; };
+		B68910E517C21A4100112E5C /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
+		B68910E617C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
+		B68910E717C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434614DC770100060A13 /* Localizable.strings */; };
+		B68910E817C21A4100112E5C /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB7154F3926009F9C59 /* Default-Landscape@2x~ipad.png */; };
+		B68910E917C21A4100112E5C /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB8154F3926009F9C59 /* Default-Landscape~ipad.png */; };
+		B68910EA17C21A4100112E5C /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB9154F3926009F9C59 /* Default-Portrait@2x~ipad.png */; };
+		B68910EB17C21A4100112E5C /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBA154F3926009F9C59 /* Default-Portrait~ipad.png */; };
+		B68910EC17C21A4100112E5C /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBB154F3926009F9C59 /* Default@2x~iphone.png */; };
+		B68910ED17C21A4100112E5C /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBC154F3926009F9C59 /* Default~iphone.png */; };
+		B68910EE17C21A4100112E5C /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
+		B68910F317C21A4100112E5C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192516CD53E700B6A7C5 /* Default.png */; };
+		B68910F417C21A4100112E5C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192716CD53EA00B6A7C5 /* Default@2x.png */; };
+		B68910F517C21A4100112E5C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192916CD53ED00B6A7C5 /* Default-568h@2x.png */; };
+		B68910F617C21A4100112E5C /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B6E04A9317735886006850CF /* FacebookSDKResources.bundle */; };
+		B68910F817C21A4100112E5C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		B68910F917C21A4100112E5C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
+		B68910FA17C21A4100112E5C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
+		B68910FB17C21A4100112E5C /* CDVBarcodeScanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C316CD57AB0089DBD1 /* CDVBarcodeScanner.mm */; };
+		B68910FC17C21A4100112E5C /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C416CD57AB0089DBD1 /* zxing-all-in-one.cpp */; };
+		B68910FD17C21A4100112E5C /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C916CD58B30089DBD1 /* FacebookConnectPlugin.m */; };
+		B68910FF17C21A4100112E5C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E04A991773591A006850CF /* ImageIO.framework */; };
+		B689110017C21A4100112E5C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E04A9717735915006850CF /* OpenAL.framework */; };
+		B689110117C21A4100112E5C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E04A95177358DC006850CF /* Security.framework */; };
+		B689110217C21A4100112E5C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C935CF16CD58F40089DBD1 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B689110317C21A4100112E5C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C935CD16CD58EC0089DBD1 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B689110417C21A4100112E5C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C935CB16CD58E20089DBD1 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B689110517C21A4100112E5C /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B63B192F16CD568B00B6A7C5 /* libiconv.dylib */; };
+		B689110617C21A4100112E5C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63B192D16CD568000B6A7C5 /* CoreVideo.framework */; };
+		B689110717C21A4100112E5C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63B192B16CD567400B6A7C5 /* AssetsLibrary.framework */; };
+		B689110817C21A4100112E5C /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
+		B689110917C21A4100112E5C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		B689110A17C21A4100112E5C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B689110B17C21A4100112E5C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		B689110C17C21A4100112E5C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5B4109A6A2B0062928A /* AddressBook.framework */; };
+		B689110D17C21A4100112E5C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5B6109A6A2B0062928A /* AddressBookUI.framework */; };
+		B689110E17C21A4100112E5C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5B8109A6A2B0062928A /* AudioToolbox.framework */; };
+		B689110F17C21A4100112E5C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5BA109A6A2B0062928A /* AVFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B689111017C21A4100112E5C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5BC109A6A2B0062928A /* CFNetwork.framework */; };
+		B689111117C21A4100112E5C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5BE109A6A2B0062928A /* CoreLocation.framework */; };
+		B689111217C21A4100112E5C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5C0109A6A2B0062928A /* MediaPlayer.framework */; };
+		B689111317C21A4100112E5C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5C2109A6A2B0062928A /* QuartzCore.framework */; };
+		B689111417C21A4100112E5C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF5C4109A6A2B0062928A /* SystemConfiguration.framework */; };
+		B689111517C21A4100112E5C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */; };
+		B689111617C21A4100112E5C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E5649113A7FCAF007403D8 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B689111717C21A4100112E5C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E04A67177357B3006850CF /* FacebookSDK.framework */; };
+		B689111D17C21AAF00112E5C /* frizz-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B689111C17C21A4100112E5C /* frizz-Info.plist */; };
 		B6C935C616CD57AB0089DBD1 /* CDVBarcodeScanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C316CD57AB0089DBD1 /* CDVBarcodeScanner.mm */; };
 		B6C935C716CD57AB0089DBD1 /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C416CD57AB0089DBD1 /* zxing-all-in-one.cpp */; };
 		B6C935CA16CD58B30089DBD1 /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C916CD58B30089DBD1 /* FacebookConnectPlugin.m */; };
@@ -75,6 +132,13 @@
 			remoteInfo = CordovaLib;
 		};
 		301BF550109A68C00062928A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = CordovaLib;
+		};
+		B68910DA17C21A4100112E5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */;
 			proxyType = 1;
@@ -133,6 +197,11 @@
 		B63B192B16CD567400B6A7C5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		B63B192D16CD568000B6A7C5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		B63B192F16CD568B00B6A7C5 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		B681472817C224AC00CF1F52 /* FRIZZ_Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		B681472A17C2253800CF1F52 /* FRIZZ_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FRIZZ_Icon.png; sourceTree = "<group>"; };
+		B681472B17C2253800CF1F52 /* FRIZZ_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Icon@2x.png"; sourceTree = "<group>"; };
+		B689111B17C21A4100112E5C /* cloobster copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cloobster copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B689111C17C21A4100112E5C /* frizz-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "frizz-Info.plist"; path = "/Users/fred/karazy/cloobster_app/iOS/frizz-Info.plist"; sourceTree = "<absolute>"; };
 		B6C935C316CD57AB0089DBD1 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDVBarcodeScanner.mm; sourceTree = "<group>"; };
 		B6C935C416CD57AB0089DBD1 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "zxing-all-in-one.cpp"; sourceTree = "<group>"; };
 		B6C935C516CD57AB0089DBD1 /* zxing-all-in-one.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "zxing-all-in-one.h"; sourceTree = "<group>"; };
@@ -224,6 +293,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B68910FE17C21A4100112E5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B68910FF17C21A4100112E5C /* ImageIO.framework in Frameworks */,
+				B689110017C21A4100112E5C /* OpenAL.framework in Frameworks */,
+				B689110117C21A4100112E5C /* Security.framework in Frameworks */,
+				B689110217C21A4100112E5C /* AdSupport.framework in Frameworks */,
+				B689110317C21A4100112E5C /* Accounts.framework in Frameworks */,
+				B689110417C21A4100112E5C /* Social.framework in Frameworks */,
+				B689110517C21A4100112E5C /* libiconv.dylib in Frameworks */,
+				B689110617C21A4100112E5C /* CoreVideo.framework in Frameworks */,
+				B689110717C21A4100112E5C /* AssetsLibrary.framework in Frameworks */,
+				B689110817C21A4100112E5C /* libCordova.a in Frameworks */,
+				B689110917C21A4100112E5C /* Foundation.framework in Frameworks */,
+				B689110A17C21A4100112E5C /* UIKit.framework in Frameworks */,
+				B689110B17C21A4100112E5C /* CoreGraphics.framework in Frameworks */,
+				B689110C17C21A4100112E5C /* AddressBook.framework in Frameworks */,
+				B689110D17C21A4100112E5C /* AddressBookUI.framework in Frameworks */,
+				B689110E17C21A4100112E5C /* AudioToolbox.framework in Frameworks */,
+				B689110F17C21A4100112E5C /* AVFoundation.framework in Frameworks */,
+				B689111017C21A4100112E5C /* CFNetwork.framework in Frameworks */,
+				B689111117C21A4100112E5C /* CoreLocation.framework in Frameworks */,
+				B689111217C21A4100112E5C /* MediaPlayer.framework in Frameworks */,
+				B689111317C21A4100112E5C /* QuartzCore.framework in Frameworks */,
+				B689111417C21A4100112E5C /* SystemConfiguration.framework in Frameworks */,
+				B689111517C21A4100112E5C /* MobileCoreServices.framework in Frameworks */,
+				B689111617C21A4100112E5C /* CoreMedia.framework in Frameworks */,
+				B689111717C21A4100112E5C /* FacebookSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -244,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* cloobster.app */,
+				B689111B17C21A4100112E5C /* cloobster copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -309,6 +411,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B689111C17C21A4100112E5C /* frizz-Info.plist */,
 				30A0434214DC770100060A13 /* de.lproj */,
 				30A0434514DC770100060A13 /* se.lproj */,
 				1F766FDB13BBADB100FB74C0 /* en.lproj */,
@@ -371,6 +474,8 @@
 		308D052D1370CCF300D202BF /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				B681472A17C2253800CF1F52 /* FRIZZ_Icon.png */,
+				B681472B17C2253800CF1F52 /* FRIZZ_Icon@2x.png */,
 				308D052E1370CCF300D202BF /* icon-72.png */,
 				308D052F1370CCF300D202BF /* icon.png */,
 				308D05301370CCF300D202BF /* icon@2x.png */,
@@ -385,6 +490,7 @@
 				3088BBB7154F3926009F9C59 /* Default-Landscape@2x~ipad.png */,
 				3088BBB8154F3926009F9C59 /* Default-Landscape~ipad.png */,
 				3088BBB9154F3926009F9C59 /* Default-Portrait@2x~ipad.png */,
+				B681472817C224AC00CF1F52 /* FRIZZ_Default@2x.png */,
 				3088BBBA154F3926009F9C59 /* Default-Portrait~ipad.png */,
 				3088BBBB154F3926009F9C59 /* Default@2x~iphone.png */,
 				3088BBBC154F3926009F9C59 /* Default~iphone.png */,
@@ -486,6 +592,25 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* cloobster.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B68910D817C21A4100112E5C /* FRIZZ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B689111817C21A4100112E5C /* Build configuration list for PBXNativeTarget "FRIZZ" */;
+			buildPhases = (
+				B68910DB17C21A4100112E5C /* Touch www folder */,
+				B68910DC17C21A4100112E5C /* Resources */,
+				B68910F717C21A4100112E5C /* Sources */,
+				B68910FE17C21A4100112E5C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B68910D917C21A4100112E5C /* PBXTargetDependency */,
+			);
+			name = FRIZZ;
+			productName = cloobster;
+			productReference = B689111B17C21A4100112E5C /* cloobster copy.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -519,6 +644,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* cloobster */,
+				B68910D817C21A4100112E5C /* FRIZZ */,
 			);
 		};
 /* End PBXProject section */
@@ -567,10 +693,57 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B68910DC17C21A4100112E5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B68910DD17C21A4100112E5C /* config.xml in Resources */,
+				B68910DE17C21A4100112E5C /* www in Resources */,
+				B68910DF17C21A4100112E5C /* icon-72.png in Resources */,
+				B68910E017C21A4100112E5C /* icon.png in Resources */,
+				B68910E117C21A4100112E5C /* icon@2x.png in Resources */,
+				B68910E217C21A4100112E5C /* Capture.bundle in Resources */,
+				B68910E317C21A4100112E5C /* Localizable.strings in Resources */,
+				B68910E417C21A4100112E5C /* Localizable.strings in Resources */,
+				B68910E517C21A4100112E5C /* MainViewController.xib in Resources */,
+				B68910E617C21A4100112E5C /* Localizable.strings in Resources */,
+				B68910E717C21A4100112E5C /* Localizable.strings in Resources */,
+				B68910E817C21A4100112E5C /* Default-Landscape@2x~ipad.png in Resources */,
+				B68910E917C21A4100112E5C /* Default-Landscape~ipad.png in Resources */,
+				B68910EA17C21A4100112E5C /* Default-Portrait@2x~ipad.png in Resources */,
+				B68910EB17C21A4100112E5C /* Default-Portrait~ipad.png in Resources */,
+				B68910EC17C21A4100112E5C /* Default@2x~iphone.png in Resources */,
+				B68910ED17C21A4100112E5C /* Default~iphone.png in Resources */,
+				B68910EE17C21A4100112E5C /* Default-568h@2x~iphone.png in Resources */,
+				B68910F317C21A4100112E5C /* Default.png in Resources */,
+				B68910F417C21A4100112E5C /* Default@2x.png in Resources */,
+				B68910F517C21A4100112E5C /* Default-568h@2x.png in Resources */,
+				B68910F617C21A4100112E5C /* FacebookSDKResources.bundle in Resources */,
+				B689111D17C21AAF00112E5C /* frizz-Info.plist in Resources */,
+				B681472917C224AC00CF1F52 /* FRIZZ_Default@2x.png in Resources */,
+				B681472C17C2253800CF1F52 /* FRIZZ_Icon.png in Resources */,
+				B681472D17C2253800CF1F52 /* FRIZZ_Icon@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		304B58A110DAC018002A0835 /* Touch www folder */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Touch www folder";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "touch -cm ${PROJECT_DIR}/www";
+		};
+		B68910DB17C21A4100112E5C /* Touch www folder */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -600,6 +773,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B68910F717C21A4100112E5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B68910F817C21A4100112E5C /* main.m in Sources */,
+				B68910F917C21A4100112E5C /* AppDelegate.m in Sources */,
+				B68910FA17C21A4100112E5C /* MainViewController.m in Sources */,
+				B68910FB17C21A4100112E5C /* CDVBarcodeScanner.mm in Sources */,
+				B68910FC17C21A4100112E5C /* zxing-all-in-one.cpp in Sources */,
+				B68910FD17C21A4100112E5C /* FacebookConnectPlugin.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -607,6 +793,11 @@
 			isa = PBXTargetDependency;
 			name = CordovaLib;
 			targetProxy = 301BF550109A68C00062928A /* PBXContainerItemProxy */;
+		};
+		B68910D917C21A4100112E5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CordovaLib;
+			targetProxy = B68910DA17C21A4100112E5C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -750,6 +941,110 @@
 			};
 			name = Release;
 		};
+		B689111917C21A4100112E5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
+					"\"$(SRCROOT)/..\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "cloobster/cloobster-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "$(SRCROOT)/frizz-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					CoreFoundation,
+					"-weak_framework",
+					UIKit,
+					"-weak_framework",
+					AVFoundation,
+					"-weak_framework",
+					CoreMedia,
+					"-weak-lSystem",
+					"-all_load",
+					"-Obj-C",
+					"-lsqlite3.0",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-weak_framework",
+					CoreFoundation,
+					"-weak_framework",
+					UIKit,
+					"-weak_framework",
+					AVFoundation,
+					"-weak_framework",
+					CoreMedia,
+					"-weak-lSystem",
+					"-all_load",
+					"-Obj-C",
+					"-lsqlite3.0",
+				);
+				PRODUCT_NAME = "cloobster copy";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B689111A17C21A4100112E5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
+					"\"$(SRCROOT)/..\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "cloobster/cloobster-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "$(SRCROOT)/frizz-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					CoreFoundation,
+					"-weak_framework",
+					UIKit,
+					"-weak_framework",
+					AVFoundation,
+					"-weak_framework",
+					CoreMedia,
+					"-weak-lSystem",
+					"-all_load",
+					"-Obj-C",
+					"-lsqlite3.0",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-weak_framework",
+					CoreFoundation,
+					"-weak_framework",
+					UIKit,
+					"-weak_framework",
+					AVFoundation,
+					"-weak_framework",
+					CoreMedia,
+					"-weak-lSystem",
+					"-all_load",
+					"-Obj-C",
+					"-lsqlite3.0",
+				);
+				PRODUCT_NAME = "cloobster copy";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -828,6 +1123,15 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B689111817C21A4100112E5C /* Build configuration list for PBXNativeTarget "FRIZZ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B689111917C21A4100112E5C /* Debug */,
+				B689111A17C21A4100112E5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -14,7 +14,7 @@ Ext.define('EatSense.view.VisitNew', {
 		autoDestroy: true,
 		fullscreen: true,
 		scrollable: 'vertical',	
-		padding: '20 15 8 15',
+		padding: '20 30 8 30',
 		items: [
 			{
 				xtype: 'titlebar',
@@ -33,15 +33,15 @@ Ext.define('EatSense.view.VisitNew', {
 						hidden: true,
 						flex: 1
 					},		
-					// {
-					// 	xtype:'fixedbutton',
-					// 	action: 'capture-photo',
-					// 	iconCls: 'photo1',
-					// 	iconMask: true,
-					// 	align: 'right',
-					// 	ui: 'action',
-					// 	flex: 1
-					// },					
+					{
+						xtype:'fixedbutton',
+						action: 'capture-photo',
+						iconCls: 'photo1',
+						iconMask: true,
+						align: 'right',
+						ui: 'action',
+						flex: 1
+					},
 					{
 						xtype: 'fixedbutton',
 						ui: 'action',
@@ -94,6 +94,7 @@ Ext.define('EatSense.view.VisitNew', {
 							type: 'hbox',
 							align: 'center'
 					},
+					hidden: true,
 					items: [
 						{
 							xtype: 'datepickerfield',
@@ -120,28 +121,19 @@ Ext.define('EatSense.view.VisitNew', {
 				                            align   : 'right',
 				                            handler : function(btn) {
 				                                var picker = btn.up('datepicker');
-
 				                                picker.fireEvent('change', picker, null);
 
-				                                picker.hide();
-				                            }
-				                        }
-				                    ]
-				                }
-						    },
-						    cls: 'general-textfield',
-						    flex: 3,
-						    margin: '0 12 0 0'
-						},
-						{
-							xtype:'fixedbutton',
-							action: 'capture-photo',
-							iconCls: 'photo1',
-							iconMask: true,
-							ui: 'action',
-							flex: 1
-						}
-					]
+					                                picker.hide();
+					                            }
+					                        }
+					                    ]
+					                }
+							    },
+							    cls: 'general-textfield',
+							    flex: 3,
+							    margin: '0 12 0 0'
+							}							
+						]
 					},
 					{
 						xtype: 'textareafield',

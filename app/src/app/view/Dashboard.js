@@ -13,10 +13,11 @@ Ext.define('EatSense.view.Dashboard', {
 		padding: '25 8 30',		
 		items : [
 		{
-			xtype: 'titlebar',
+			xtype: 'toolbar',
 			docked: 'top',
 			cls: 'dashboard-header',
-			title: '<img src="res/images/dashboard/Logo_cloobster_weiss.png" height="30px" width="auto" style="margin-top: 8px;">'
+			html: '<img src="res/images/dashboard/logo_da.png"">'+
+					'<div>Wissenschaftsstadt Darmstadt</div>'
 		},
 		{
 			xtype: 'panel',
@@ -24,9 +25,9 @@ Ext.define('EatSense.view.Dashboard', {
 				type: 'hbox',
 				align: 'start'
 			},
-			docked: 'top',
-			padding: 5,
-			margin: '0 0 10 0',
+			docked: 'bottom',
+			// padding: 10,
+			margin: '0 0 8 0',
 			items: [
 				{
 					xtype : 'fixedbutton',
@@ -34,11 +35,11 @@ Ext.define('EatSense.view.Dashboard', {
 					text: i10n.translate('dashboard.button.tovisit'),
 					baseCls: 'dashboard-button',
 					cls: 'dashboard-button-history',
-					iconCls: 'dashboard-button-icon',
+					// iconCls: 'dashboard-button-icon',
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 3 0 4'
+					margin: '7 7 0 30'
 				},
 				{
 					xtype : 'fixedbutton',
@@ -46,11 +47,11 @@ Ext.define('EatSense.view.Dashboard', {
 					html: i10n.translate('dashboard.button.checkin'),
 					baseCls: 'dashboard-button',
 					cls: ['dashboard-button-checkin', 'right'],
-					iconCls: 'dashboard-button-icon',			
+					// iconCls: 'dashboard-button-icon',			
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
 					flex: 1,
-					margin: '10 4 0 3'
+					margin: '7 30 0 7'
 				}	
 			]
 		},
@@ -59,38 +60,29 @@ Ext.define('EatSense.view.Dashboard', {
 			store: 'visitStore',
 			emptyText: '<div class="welcome-text">' + i10n.translate('tovisit.list.emptytext') + '</div>',
 			deferEmptyText: false,
-			// grouped: true,
 			itemCls: 'tovisit-item',
 			itemTpl: new Ext.XTemplate(
-				"<table style='width:100%;'>",					
-					'<td align="left" style="vertical-align: top;">',
-						//Dummy
-						// '<div class="thumbnail" style="background-image: url(http://robohash.org/FRED); background-color: blue;"></div>',
-						'<tpl if="imageUrl">',
-							'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',							
-						'<tpl elseif="values.image && values.image.url">',
-							'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s128\')"></div>',
-						'</tpl>',
-						'<div>',
-							'<tpl if="locationId">',
-								'<div class="cloobster-location"></div>',
-							'</tpl>',
-							'<div class="location">',
-								'{locationName}',
-							'</div>',
-							'<tpl if="locationCity">',
-								'<div class="location-city">',
-									'{locationCity}',
-								'</div>',
-							'</tpl>',
+				'<tpl if="imageUrl">',
+					'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
+				'<tpl elseif="values.image && values.image.url">',
+					'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s256\')"></div>',
+				'</tpl>',
+				'<tpl if="visitDate">',
+					'{[this.formatDate(values.visitDate)]}',
+				'</tpl>',
+				'<div class="content">',
+					'<tpl if="locationId">',
+						'<div class="cloobster-location"></div>',
+					'</tpl>',
+					'<div class="location">',
+						'{locationName}',
+					'</div>',
+					'<tpl if="locationCity">',
+						'<div class="location-city">',
+							'{locationCity}',
 						'</div>',
-					'</td>',
-					'<tpl if="visitDate">',
-						'<td align="right">',
-							'{[this.formatDate(values.visitDate)]}',
-						'</td>',
-					'</tpl>',					
-				'</table>'				
+					'</tpl>',
+				'</div>'	
 				, {
 				formatDate: function(date) {
 					var format = appConstants.DateFormat[appConfig.language],
@@ -104,10 +96,13 @@ Ext.define('EatSense.view.Dashboard', {
 					shortYear = date.getFullYear().toString().substring(2,4);
 
 					html =  '<div class="date' + staleDate +'">' +
-							'<div class="day">' + date.getDate() + '</div>'+
-							'<div class="mmyy">' + 
-								appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
-								shortYear +
+								'<div>'+
+									'<div class="day">' + date.getDate() + '</div>'+
+									'<div class="mmyy">' + 
+									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
+									shortYear +
+									'</div>'+
+								'</div>'+
 							'</div>';
 					return html;
 				}
@@ -143,16 +138,17 @@ Ext.define('EatSense.view.Dashboard', {
 	initialize: function() {
 		var list = this.down('list');
 
-		if(list) {
-			//draw skyline on emptytext on first start
-			list.on({
-				'painted' : function() {
-					this.genSkylineBg();
-				},
-				single: true,
-				scope: this
-			});
-		}
+		//skyline disabled
+		// if(list) {
+		// 	//draw skyline on emptytext on first start
+		// 	list.on({
+		// 		'painted' : function() {
+		// 			this.genSkylineBg();
+		// 		},
+		// 		single: true,
+		// 		scope: this
+		// 	});
+		// }
 	},
 
 	/**

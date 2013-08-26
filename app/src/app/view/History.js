@@ -19,7 +19,6 @@ Ext.define('EatSense.view.History',{
 			xtype: 'panel',
 			itemId: 'historyListDescPanel',
 			docked: 'top',
-			cls: 'dashboard',
 			html: i10n.translate('history.list.description'),
 			style: 'text-align: center;',
 			styleHtmlContent: true,

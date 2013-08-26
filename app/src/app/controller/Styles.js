@@ -23,9 +23,9 @@ Ext.define('EatSense.controller.Styles', {
 	activateTheme: function(status) {
 		var checkInCtr = this.getApplication().getController('CheckIn'),
 			theme = 'default',
-            defaultTheme = 'blue-gold',
+            defaultTheme = 'default',
 			activeTheme = this.getActiveTheme();
-
+        
         if(checkInCtr.getActiveSpot()) {
             //if an active spot exists set theme, otherwise use default
             theme = checkInCtr.getActiveSpot().get('theme');

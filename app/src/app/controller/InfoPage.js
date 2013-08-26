@@ -743,7 +743,8 @@ Ext.define('EatSense.controller.InfoPage', {
     */
     setImageForInfoButtons: function(spot) {
     	var clubArea = this.getClubArea(),
-    		buttons;
+    		buttons,
+    		iconElement;
 
     	var button = this.getShowInfoPageButton();
 
@@ -765,6 +766,9 @@ Ext.define('EatSense.controller.InfoPage', {
 	    		//=s360 we load from google blob store and define a maximum logo size
 	    		button.setIcon(spot.get('logoUrl')+'=s360');
 	    		button.setExpandIcon(true);
+	    		iconElement = button.element.down('.x-tilebutton-icon');
+	    		iconElement.removeCls('info');
+				iconElement.addCls('noicon');	    		
 	    	} else {
 	    		console.log('InfoPage.setImageForInfoButtons: no logo in spot');
 	    		//reset image
@@ -772,6 +776,9 @@ Ext.define('EatSense.controller.InfoPage', {
 	    		button.setExpandIcon(false);
 	    		//private button method
 	    		button.showIconElement();
+	    		iconElement = button.element.down('.x-tilebutton-icon');
+	    		iconElement.addCls('info');
+	    		iconElement.removeCls('noicon');
 	    	}
     	});
 

@@ -1,3 +1,4 @@
 .x-teaser-pressed {
-  border-color: $base-color !important;
+  /*background-color: darken($tilebutton-color, 10%) !important;*/
+  border-color: $active-color !important;
 }

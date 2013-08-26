@@ -210,7 +210,8 @@ Ext.define('EatSense.util.Helper', {
 				modal: false,
 				centered: false,
 				style: {
-					'max-width' : 'none'
+					'max-width' : 'none',
+					'max-height' : 'none'
 				},
 				bottom: '10px',
 				right: '3%',

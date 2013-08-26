@@ -1,19 +1,19 @@
  /* Sencha Variables. */
  /* General base color for style. */
-$base-color: #6699cc;
+/*$base-color: #ECECEC;*/
+$base-color: #6F93C5;
 /* Used for action buttons and active items. */
-$active-color: #ff9933;
+$active-color: #EE7500;
 /* Disable gradients, shadows ... for tabs.*/
 $include-tab-highlights: false;
-/*'ComfortaaRegular',*/
-$font-family: 'Roboto_light',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
+
 $base-gradient: 'matte';
 $button-gradient: 'matte';
-$page-bg-color: #fffffb;
-$list-bg-color: #fffffb;
+
+$page-bg-color: #FFF;
+$list-bg-color: #FFF;
 $form-bg-color: $page-bg-color;
-/* Round tab buttons top left and lower right. */
-$tabs-bottom-radius: 0.5em;
+
 /* Forms */
 /*$form-slider-size: 0.4em;*/
 /*$form-thumb-size: 1.4em;*/
