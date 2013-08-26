@@ -164,6 +164,8 @@ $general-border-radius: 3px;
 
 
 .menulist-item {
+  @include thumbnail;
+  
   h3 {
     font-size: 1em;
     white-space:nowrap;
