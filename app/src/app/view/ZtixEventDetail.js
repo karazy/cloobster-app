@@ -20,11 +20,29 @@ Ext.define('EatSense.view.ZtixEventDetail', {
 			'</tpl>',
 			'<div class="text">',
 				'<h1>{title}</h1>',
-				'{info}',
-				'<p>{locationCommon} {location}</p>',
-				'<p>{locationStreet}, {locationZip} {locationCity}</p>',
-				'<p>{locationAppendix}</p>',
-			'</div>'
+				'<tpl if="subtitle">',
+					'<h3>{subtitle}</h3>',
+				'</tpl>',
+				'<tpl if="date">',
+					'<div>{[this.formatDate(values.date)]} <tpl if="this.checkTime(values.time)">{time}</tpl></div>',
+				'</tpl>',
+				'<div style="text-align: justify;">{info}</div>',
+				'<p style="margin-top:15px !important; font-family:Roboto_Italic;">{locationCommon} {location}</p>',
+				'<p style="font-family:Roboto_Italic;">{locationStreet}, {locationZip} {locationCity}</p>',
+				'<p style="font-family:Roboto_Italic;">{locationAppendix}</p>',
+			'</div>',
+			{
+				formatDate: function(date) {
+					var format = appConstants.DateFormat[appConfig.language];;
+					return Ext.util.Format.date(date, format);
+				},
+				checkTime: function(time) {
+					if(time == "00:00:00") {
+						return false;	
+					}
+					return true;
+				}
+			}
 		),
 		items: [		
 			{

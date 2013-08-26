@@ -3,7 +3,13 @@
     src: url('fonts/Roboto-Light.ttf');
     font-weight: normal;
     font-style: normal;
+}
 
+@font-face {
+    font-family: 'Roboto_Italic';
+    src: url('fonts/Roboto-LightItalic.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* Sencha variables */
@@ -701,6 +707,9 @@ $general-border-radius: 3px;
 
   .x-html {
     padding: 0;
+    p {
+      margin: 0 !important;  
+    }
   }
 
   .text {
