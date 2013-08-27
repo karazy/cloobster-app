@@ -65,13 +65,6 @@
 		B68910E517C21A4100112E5C /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
 		B68910E617C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
 		B68910E717C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434614DC770100060A13 /* Localizable.strings */; };
-		B68910E817C21A4100112E5C /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB7154F3926009F9C59 /* Default-Landscape@2x~ipad.png */; };
-		B68910E917C21A4100112E5C /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB8154F3926009F9C59 /* Default-Landscape~ipad.png */; };
-		B68910EA17C21A4100112E5C /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB9154F3926009F9C59 /* Default-Portrait@2x~ipad.png */; };
-		B68910EB17C21A4100112E5C /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBA154F3926009F9C59 /* Default-Portrait~ipad.png */; };
-		B68910EC17C21A4100112E5C /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBB154F3926009F9C59 /* Default@2x~iphone.png */; };
-		B68910ED17C21A4100112E5C /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBC154F3926009F9C59 /* Default~iphone.png */; };
-		B68910EE17C21A4100112E5C /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		B68910F317C21A4100112E5C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192516CD53E700B6A7C5 /* Default.png */; };
 		B68910F417C21A4100112E5C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192716CD53EA00B6A7C5 /* Default@2x.png */; };
 		B68910F517C21A4100112E5C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192916CD53ED00B6A7C5 /* Default-568h@2x.png */; };
@@ -119,21 +112,12 @@
 		B6A717BF17CC88FC007DEF00 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
 		B6A717C017CC88FC007DEF00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
 		B6A717C117CC88FC007DEF00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434614DC770100060A13 /* Localizable.strings */; };
-		B6A717C217CC88FC007DEF00 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB7154F3926009F9C59 /* Default-Landscape@2x~ipad.png */; };
-		B6A717C317CC88FC007DEF00 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB8154F3926009F9C59 /* Default-Landscape~ipad.png */; };
-		B6A717C417CC88FC007DEF00 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB9154F3926009F9C59 /* Default-Portrait@2x~ipad.png */; };
-		B6A717C517CC88FC007DEF00 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBA154F3926009F9C59 /* Default-Portrait~ipad.png */; };
-		B6A717C617CC88FC007DEF00 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBB154F3926009F9C59 /* Default@2x~iphone.png */; };
-		B6A717C717CC88FC007DEF00 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBC154F3926009F9C59 /* Default~iphone.png */; };
-		B6A717C817CC88FC007DEF00 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		B6A717C917CC88FC007DEF00 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192516CD53E700B6A7C5 /* Default.png */; };
 		B6A717CA17CC88FC007DEF00 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192716CD53EA00B6A7C5 /* Default@2x.png */; };
 		B6A717CB17CC88FC007DEF00 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192916CD53ED00B6A7C5 /* Default-568h@2x.png */; };
 		B6A717CC17CC88FC007DEF00 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B6E04A9317735886006850CF /* FacebookSDKResources.bundle */; };
 		B6A717CD17CC88FC007DEF00 /* frizz-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B689111C17C21A4100112E5C /* frizz-Info.plist */; };
 		B6A717CE17CC88FC007DEF00 /* FRIZZ_Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B681472817C224AC00CF1F52 /* FRIZZ_Default@2x.png */; };
-		B6A717CF17CC88FC007DEF00 /* FRIZZ_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B681472A17C2253800CF1F52 /* FRIZZ_Icon.png */; };
-		B6A717D017CC88FC007DEF00 /* FRIZZ_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B681472B17C2253800CF1F52 /* FRIZZ_Icon@2x.png */; };
 		B6A717D217CC88FC007DEF00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		B6A717D317CC88FC007DEF00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		B6A717D417CC88FC007DEF00 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
@@ -849,13 +833,6 @@
 				B68910E517C21A4100112E5C /* MainViewController.xib in Resources */,
 				B68910E617C21A4100112E5C /* Localizable.strings in Resources */,
 				B68910E717C21A4100112E5C /* Localizable.strings in Resources */,
-				B68910E817C21A4100112E5C /* Default-Landscape@2x~ipad.png in Resources */,
-				B68910E917C21A4100112E5C /* Default-Landscape~ipad.png in Resources */,
-				B68910EA17C21A4100112E5C /* Default-Portrait@2x~ipad.png in Resources */,
-				B68910EB17C21A4100112E5C /* Default-Portrait~ipad.png in Resources */,
-				B68910EC17C21A4100112E5C /* Default@2x~iphone.png in Resources */,
-				B68910ED17C21A4100112E5C /* Default~iphone.png in Resources */,
-				B68910EE17C21A4100112E5C /* Default-568h@2x~iphone.png in Resources */,
 				B68910F317C21A4100112E5C /* Default.png in Resources */,
 				B68910F417C21A4100112E5C /* Default@2x.png in Resources */,
 				B68910F517C21A4100112E5C /* Default-568h@2x.png in Resources */,
@@ -882,21 +859,12 @@
 				B6A717BF17CC88FC007DEF00 /* MainViewController.xib in Resources */,
 				B6A717C017CC88FC007DEF00 /* Localizable.strings in Resources */,
 				B6A717C117CC88FC007DEF00 /* Localizable.strings in Resources */,
-				B6A717C217CC88FC007DEF00 /* Default-Landscape@2x~ipad.png in Resources */,
-				B6A717C317CC88FC007DEF00 /* Default-Landscape~ipad.png in Resources */,
-				B6A717C417CC88FC007DEF00 /* Default-Portrait@2x~ipad.png in Resources */,
-				B6A717C517CC88FC007DEF00 /* Default-Portrait~ipad.png in Resources */,
-				B6A717C617CC88FC007DEF00 /* Default@2x~iphone.png in Resources */,
-				B6A717C717CC88FC007DEF00 /* Default~iphone.png in Resources */,
-				B6A717C817CC88FC007DEF00 /* Default-568h@2x~iphone.png in Resources */,
 				B6A717C917CC88FC007DEF00 /* Default.png in Resources */,
 				B6A717CA17CC88FC007DEF00 /* Default@2x.png in Resources */,
 				B6A717CB17CC88FC007DEF00 /* Default-568h@2x.png in Resources */,
 				B6A717CC17CC88FC007DEF00 /* FacebookSDKResources.bundle in Resources */,
 				B6A717CD17CC88FC007DEF00 /* frizz-Info.plist in Resources */,
 				B6A717CE17CC88FC007DEF00 /* FRIZZ_Default@2x.png in Resources */,
-				B6A717CF17CC88FC007DEF00 /* FRIZZ_Icon.png in Resources */,
-				B6A717D017CC88FC007DEF00 /* FRIZZ_Icon@2x.png in Resources */,
 				B6A717FC17CC8990007DEF00 /* DA_Icon-72.png in Resources */,
 				B6A717FD17CC8990007DEF00 /* DA_Icon-72@2x.png in Resources */,
 				B6A717FE17CC8990007DEF00 /* DA_Icon.png in Resources */,
@@ -1203,7 +1171,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "cloobster copy";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1254,7 +1222,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "cloobster copy";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
