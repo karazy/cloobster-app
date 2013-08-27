@@ -37,11 +37,11 @@ Ext.define('EatSense.view.ProductOverview', {
 			itemTpl : new Ext.XTemplate(
 					'<tpl if="imageUrl">',
 						'<div class="thumbnail scale-width" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
-					'</tpl>',
-					"<div class='price'>{[this.formatPrice(values.price)]}</div>",
+					'</tpl>',					
 					'<div class="content">',
 						"<tpl if='special'><div class='special'></div></tpl>",
 						"<h3 class='title'>{name}</h3>",
+						"<div class='price'>{[this.formatPrice(values.price)]}</div>",
 						"<p class='shortdesc'>{shortDesc}</p>",
 					'</div>',			
 					{

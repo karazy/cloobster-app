@@ -16,6 +16,12 @@ Ext.define('EatSense.model.ZtixEvent', {
 			dateFormat: 'Y-m-d'
 		},
 		{
+			name: 'time'
+		},
+		{
+			name: 'leting'
+		},
+		{
 			name: 'location'
 		},
 		{
