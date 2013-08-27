@@ -103,21 +103,14 @@
 		B689111D17C21AAF00112E5C /* frizz-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B689111C17C21A4100112E5C /* frizz-Info.plist */; };
 		B6A717B717CC88FC007DEF00 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = F840E1F0165FE0F500CFE078 /* config.xml */; };
 		B6A717B817CC88FC007DEF00 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 301BF56E109A69640062928A /* www */; };
-		B6A717B917CC88FC007DEF00 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D052E1370CCF300D202BF /* icon-72.png */; };
-		B6A717BA17CC88FC007DEF00 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D052F1370CCF300D202BF /* icon.png */; };
-		B6A717BB17CC88FC007DEF00 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D05301370CCF300D202BF /* icon@2x.png */; };
 		B6A717BC17CC88FC007DEF00 /* Capture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3072F99613A8081B00425683 /* Capture.bundle */; };
 		B6A717BD17CC88FC007DEF00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDC13BBADB100FB74C0 /* Localizable.strings */; };
 		B6A717BE17CC88FC007DEF00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDF13BBADB100FB74C0 /* Localizable.strings */; };
 		B6A717BF17CC88FC007DEF00 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
 		B6A717C017CC88FC007DEF00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
 		B6A717C117CC88FC007DEF00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434614DC770100060A13 /* Localizable.strings */; };
-		B6A717C917CC88FC007DEF00 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192516CD53E700B6A7C5 /* Default.png */; };
-		B6A717CA17CC88FC007DEF00 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192716CD53EA00B6A7C5 /* Default@2x.png */; };
-		B6A717CB17CC88FC007DEF00 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B63B192916CD53ED00B6A7C5 /* Default-568h@2x.png */; };
 		B6A717CC17CC88FC007DEF00 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B6E04A9317735886006850CF /* FacebookSDKResources.bundle */; };
 		B6A717CD17CC88FC007DEF00 /* frizz-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B689111C17C21A4100112E5C /* frizz-Info.plist */; };
-		B6A717CE17CC88FC007DEF00 /* FRIZZ_Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B681472817C224AC00CF1F52 /* FRIZZ_Default@2x.png */; };
 		B6A717D217CC88FC007DEF00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		B6A717D317CC88FC007DEF00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		B6A717D417CC88FC007DEF00 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
@@ -850,21 +843,14 @@
 			files = (
 				B6A717B717CC88FC007DEF00 /* config.xml in Resources */,
 				B6A717B817CC88FC007DEF00 /* www in Resources */,
-				B6A717B917CC88FC007DEF00 /* icon-72.png in Resources */,
-				B6A717BA17CC88FC007DEF00 /* icon.png in Resources */,
-				B6A717BB17CC88FC007DEF00 /* icon@2x.png in Resources */,
 				B6A717BC17CC88FC007DEF00 /* Capture.bundle in Resources */,
 				B6A717BD17CC88FC007DEF00 /* Localizable.strings in Resources */,
 				B6A717BE17CC88FC007DEF00 /* Localizable.strings in Resources */,
 				B6A717BF17CC88FC007DEF00 /* MainViewController.xib in Resources */,
 				B6A717C017CC88FC007DEF00 /* Localizable.strings in Resources */,
 				B6A717C117CC88FC007DEF00 /* Localizable.strings in Resources */,
-				B6A717C917CC88FC007DEF00 /* Default.png in Resources */,
-				B6A717CA17CC88FC007DEF00 /* Default@2x.png in Resources */,
-				B6A717CB17CC88FC007DEF00 /* Default-568h@2x.png in Resources */,
 				B6A717CC17CC88FC007DEF00 /* FacebookSDKResources.bundle in Resources */,
 				B6A717CD17CC88FC007DEF00 /* frizz-Info.plist in Resources */,
-				B6A717CE17CC88FC007DEF00 /* FRIZZ_Default@2x.png in Resources */,
 				B6A717FC17CC8990007DEF00 /* DA_Icon-72.png in Resources */,
 				B6A717FD17CC8990007DEF00 /* DA_Icon-72@2x.png in Resources */,
 				B6A717FE17CC8990007DEF00 /* DA_Icon.png in Resources */,
