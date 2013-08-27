@@ -2122,6 +2122,7 @@ h9 {
       left: 30px;
       padding: 5px;
       font-size: 1.2em;
+      z-index: 1;
 
       @media only screen and (max-width: 320px) { 
         font-size: 1em; 
@@ -2135,6 +2136,7 @@ h9 {
       text-align: right;
       padding: 5px;
       font-size: 1.2em;
+      z-index: 1;
 
       @media only screen and (max-width: 320px) { 
         font-size: 1em; 
@@ -2150,7 +2152,20 @@ h9 {
       font-size: .95em;
       z-index: 1;
     }
-  } 
+
+    .tovisit-empty-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-image: url("../images/dashboard/Hochzeitsturm_freigestellt.jpg");
+      background-position: center bottom;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      opacity: .3;
+    }
+  }
 }
 
 .nolocation {

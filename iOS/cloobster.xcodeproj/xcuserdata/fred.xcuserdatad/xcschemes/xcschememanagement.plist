@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>FRIZZ copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>FRIZZ.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>2</integer>
 		</dict>
 		<key>cloobster copy.xcscheme</key>
 		<dict>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>B68910D817C21A4100112E5C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B6A717B217CC88FC007DEF00</key>
 		<dict>
 			<key>primary</key>
 			<true/>
