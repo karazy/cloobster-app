@@ -2024,8 +2024,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"ztixevent.button.openlink" : {
-			"DE" :  "Buchen",
-			"EN" : "Book",
+			"DE" :  "Tickets",
+			"EN" : "Tickets",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -2037,6 +2037,13 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		// "de.ztix.events.letin" : {
+		// 	"DE" :  "Einlass",
+		// 	"EN" : "Entrance",
+		// 	"ES" : "",
+		// 	"IT" : "",
+		// 	"FR" : ""
+		// },
 		// "de.ztix.events.noeventsinmonth" : {
 		// 	"DE" :  "Keine Veranstaltungen in diesem Monat.",
 		// 	"EN" : "No events in this month.",
