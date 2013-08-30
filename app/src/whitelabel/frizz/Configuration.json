@@ -4,5 +4,6 @@
 	demoButtonViewstate: 'none',
 	'de-ztix' : {
 			vvk: 'frizz'
-	}
+	},
+	impressumUrl: 'whitelabel/frizz/Impressum.html'
 }
