@@ -12,12 +12,12 @@
    id="svg3153"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   width="144"
-   height="144"
-   sodipodi:docname="logo_da_backup.svg"
-   inkscape:export-filename="/Users/fred/karazy/cloobster_app/resources/darmstadt/ios/icons/Icon-@2x.png"
-   inkscape:export-xdpi="71.25"
-   inkscape:export-ydpi="71.25">
+   width="640"
+   height="960"
+   sodipodi:docname="splash_da.svg"
+   inkscape:export-filename="/Users/fred/karazy/cloobster_app/resources/darmstadt/ios/splash/DA_Default~iphone.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
   <metadata
      id="metadata3159">
     <rdf:RDF>
@@ -46,9 +46,9 @@
      id="namedview3155"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:zoom="4.8601806"
-     inkscape:cx="60.860815"
-     inkscape:cy="64.180407"
+     inkscape:zoom="0.85206612"
+     inkscape:cx="327.5"
+     inkscape:cy="565"
      inkscape:window-x="207"
      inkscape:window-y="128"
      inkscape:window-maximized="0"
@@ -68,18 +68,19 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="Background"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0,816)">
     <rect
-       style="fill:#ffffff;fill-opacity:1"
+       style="fill:#6f93c5;fill-opacity:1;stroke:none"
        id="rect4049"
-       width="145"
-       height="150"
-       x="0"
-       y="-1" />
+       width="745"
+       height="1210"
+       x="-45"
+       y="-1026" />
   </g>
   <path
      style="fill:#ee833f;fill-opacity:1"
-     d="m 68.998941,14.96792 0.03764,28 -2,0 0,-20 -5,0 0,20 -2,0 0,-12 -5,0 0,21 4,0 0,-3 4,0 0,3 3,0 0,-3 5,0 0,3 3,0 0,-3 4,0 0,3 3,0 0,-3 4,0 0,10 -23,0 0,26 c -2.327324,0 -4.672675,0 -7,0 l 0,33 9,0 0,-5 4,0 0,13 -4,0 0,-5 -12,0 -0.07316,8.06418 40.073158,-0.0642 0,-8 -12,0 0,5 -4,0 0,-13 4,0 0,5 9,0 0,-36 -23,0 0,-3 23,0 0,-14 -23,0 0,-3 23,0 0,-31 -5,0 0,12 -2,0 0,-20 -5,0 0,20 -2,0 0,-28 z m -6.562499,81.456056 c 6.400138,0 12.800275,0 19.200415,0 0,4.347744 0,8.695494 0,13.043234 -6.40014,0 -12.800277,0 -19.200415,0 0,-4.34774 0,-8.69549 0,-13.043234 z"
+     d="m 306.1633,217.04058 0.17337,129.10035 -9.22146,0 0,-92.21453 -23.05363,0 0,92.21453 -9.22145,0 0,-55.32872 -23.05364,0 0,96.82526 18.44291,0 0,-13.83218 18.44291,0 0,13.83218 13.83218,0 0,-13.83218 23.05363,0 0,13.83218 13.83218,0 0,-13.83218 18.44291,0 0,13.83218 13.83217,0 0,-13.83218 18.44291,0 0,46.10726 -106.04671,0 0,119.87889 c -10.73064,0 -21.5444,0 -32.27509,0 l 0,152.15398 41.49654,0 0,-23.05363 18.44291,0 0,59.93944 -18.44291,0 0,-23.05363 -55.32871,0 -0.33751,37.18182 184.76638,-0.29509 0,-36.88581 -55.32872,0 0,23.05363 -18.4429,0 0,-59.93944 18.4429,0 0,23.05363 41.49654,0 0,-165.98615 -106.04671,0 0,-13.83218 106.04671,0 0,-64.55018 -106.04671,0 0,-13.83217 106.04671,0 0,-142.93253 -23.05363,0 0,55.32872 -9.22145,0 0,-92.21453 -23.05364,0 0,92.21453 -9.22145,0 0,-129.10035 z m -30.25789,375.57181 c 29.5093,0 59.01859,0 88.52789,0 0,20.04605 0,40.09257 0,60.13863 -29.5093,0 -59.01859,0 -88.52789,0 0,-20.04606 0,-40.09258 0,-60.13863 z"
      id="path3252"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
