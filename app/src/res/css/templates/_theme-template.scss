@@ -36,8 +36,8 @@ $button-radius: .3em;
 $general-border-radius: 3px;
 $general-input-bg-color: #f3f3f3;
 $general-list-item-height: 96px;
-$thumbnail-height: 96px;
-$thumbnail-width: 120px;
+$thumbnail-height: 72px;
+$thumbnail-width: 96px;
 $tilebutton-color: #f5f5f5;
 $tilebutton-font-color: #000;
 $slidenav-bg-color: #2E2E2E;
@@ -97,13 +97,13 @@ $slidenav-bg-color: #2E2E2E;
 @mixin thumbnail {
   div.thumbnail {
     float: left;
-    background-position: left center;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: ($thumbnail-width + 10) auto;
     width: $thumbnail-width;
     height: $thumbnail-height;
     border-radius: $general-border-radius;
-    margin: 5px;
+    margin: 12px 0 0 12px;
 
     /* Scales the width automatically instead of height. */
     &.scale-width {
