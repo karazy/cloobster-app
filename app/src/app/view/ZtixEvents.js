@@ -13,12 +13,12 @@ Ext.define('EatSense.view.ZtixEvents',{
 		itemTpl: new Ext.XTemplate(
 			'<tpl if="infpic">',
 				'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',
-			'</tpl>',
-			'{[this.formatDate(values.date)]}',
+			'</tpl>',			
 			'<div class="content">',
 				'<div class="location">',
 					'{title}',
 				'</div>',
+				'{[this.formatDate(values.date)]}',
 				'<tpl if="location">',
 					'<div class="location-city">',
 						'{location}',
@@ -41,8 +41,7 @@ Ext.define('EatSense.view.ZtixEvents',{
 								'<div>'+
 									'<div class="day">' + date.getDate() + '</div>'+
 									'<div class="mmyy">' + 
-									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
-									shortYear +
+									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) +
 									'</div>'+
 								'</div>'+
 							'</div>';

@@ -217,12 +217,13 @@ Ext.define('EatSense.controller.Settings', {
     */
     showAbout: function() {
         var about = Ext.create('EatSense.view.About', {
-                zIndex: 100
+                zIndex: 100,                
             }),
             closeBt,
             androidCtr = this.getApplication().getController('Android');
         
         closeBt = about.down('button[action=close]');
+        about.down('htmlpanel').setUrl(appConfig.getProp('impressumUrl'));
 
         closeBt.on({
             tap: removeAbout,

@@ -209,15 +209,15 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"urlscheme.handle" : {
-			"DE" :  "Einchecken oder Ort merken?",
-			"EN" : "Check in or save place?",
+			"DE" :  "Einchecken oder Favorit speichern?",
+			"EN" : "Check in or save as favorit?",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"urlscheme.handle.visitonly" : {
-			"DE" :  "Ort merken?",
-			"EN" : "Save place?",
+			"DE" :  "Favorit speichern?",
+			"EN" : "Save as favorit?",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

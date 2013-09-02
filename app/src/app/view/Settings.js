@@ -129,6 +129,15 @@ Ext.define('EatSense.view.Settings', {
 				ui: 'action',
 				action: 'show-login',
 				margin: '13 0 0 0'
+			},
+			{
+				xtype: 'label',
+				html: 'Platform Version: ' + appConfig.version,
+				margin: '7 0 0 0',
+				style: {
+					'font-size' : '.6em',
+					'text-align' : 'left'
+				}
 			}
 		]
 	},

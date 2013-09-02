@@ -24,17 +24,21 @@ Ext.define('EatSense.view.ZtixEventDetail', {
 					'<h3>{subtitle}</h3>',
 				'</tpl>',
 				'<tpl if="date">',
-					'<div>{[this.formatDate(values.date)]} <tpl if="this.checkTime(values.time)">{time}</tpl></div>',
+					'<p class="date">{[this.formatDate(values.date)]} <tpl if="this.checkTime(values.time)">{[this.formatTime(values.time)]}</tpl></p>',
 				'</tpl>',
-				'<div style="text-align: justify;">{info}</div>',
-				'<p style="margin-top:15px !important; font-family:Roboto_Italic;">{locationCommon} {location}</p>',
-				'<p style="font-family:Roboto_Italic;">{locationStreet}, {locationZip} {locationCity}</p>',
-				'<p style="font-family:Roboto_Italic;">{locationAppendix}</p>',
+				'<p style="text-align: justify;">{info}</p>',
+				'<p style="margin-top:15px !important; font-family:Roboto_Italic;">{locationCommon} {location}<br/>',
+				'{locationStreet}, {locationZip} {locationCity}<br/>',
+				'{locationAppendix}</p>',
 			'</div>',
 			{
 				formatDate: function(date) {
 					var format = appConstants.DateFormat[appConfig.language];;
 					return Ext.util.Format.date(date, format);
+				},
+				formatTime: function(time) {
+					//cut of :XY at the end 
+					return appHelper.shorten(time, 5);
 				},
 				checkTime: function(time) {
 					if(time == "00:00:00") {

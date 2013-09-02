@@ -60,6 +60,11 @@ Ext.define('EatSense.util.Configuration', {
 			*/
 			vvk: null
 		},
+		/** 
+		* @cfg {String}
+		* Local Url to load legal notice.
+		*/
+		impressumUrl: 'static/Impressum.html',
 		/**
 		* Returns value of a property.
 		* @param {String} property

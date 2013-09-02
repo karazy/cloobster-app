@@ -118,8 +118,8 @@ $slidenav-bg-color: #2E2E2E;
 
  @mixin list-date {
     .date {
-      height: $general-list-item-height;
-      padding: 27px 0;
+      /*height: $general-list-item-height;*/
+      padding: 10px 0;
       width: 65px;
       float: right;
       text-align: center;
@@ -216,12 +216,12 @@ $slidenav-bg-color: #2E2E2E;
     padding-left: 10px;
     padding-right: 5px;
     padding-top: 10px;
-    border-bottom: 10px solid transparent;
+    border-bottom: 2px solid transparent;
     text-overflow: ellipsis;
     
     
     h3 {
-      font-size: 1em;
+      font-size: 16px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -230,7 +230,7 @@ $slidenav-bg-color: #2E2E2E;
     }
 
     p {
-      font-size: 0.8em;
+      font-size: 14px;
       word-break: break-word;
     }
   }
@@ -238,12 +238,14 @@ $slidenav-bg-color: #2E2E2E;
 
   div.price {
     float: right;
-    font-size: 1em;
+    font-size: 16px;
     line-height: 1em;    
-    padding-top: 10px;
     padding-right: 10px;
     word-break: break-word;
     max-width: 100px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
   }
 
   div.special {
@@ -580,7 +582,7 @@ $slidenav-bg-color: #2E2E2E;
   }
 
   .name h2.title {
-    font-size: 1em;
+    font-size: 16px;
     word-break: break-word;
   }
 
@@ -589,14 +591,7 @@ $slidenav-bg-color: #2E2E2E;
   }
 
   .name h2.price {
-    font-size: 1em;
-    white-space: nowrap;
-    text-align: right;
-    padding-right: 5px;
-  }
-
-  .name h2.price {
-    font-size: 1em;
+    font-size: 16px;
     white-space: nowrap;
     text-align: right;
     padding-right: 5px;
@@ -668,11 +663,11 @@ $slidenav-bg-color: #2E2E2E;
     padding-left: 10px;
     padding-right: 5px;
     padding-top: 10px;
-    border-bottom: 10px solid transparent;
+    border-bottom: 2px solid transparent;
     text-overflow: ellipsis;
 
     h3 {
-      font-size: 1em;
+      font-size: 16px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -681,7 +676,7 @@ $slidenav-bg-color: #2E2E2E;
     }
 
     p {
-      font-size: 0.8em;
+      font-size: 14px;
     }
   }
 }
@@ -818,7 +813,7 @@ $slidenav-bg-color: #2E2E2E;
   }
 
   .text {
-    padding: 10px 25px 5px 25px;
+    padding: 15px 25px 5px 25px;
   }
 
   * {
@@ -828,20 +823,19 @@ $slidenav-bg-color: #2E2E2E;
   h1 {
     font-size: 1.2em;
     font-weight: bold;
-    margin: 7px 0px;
-    margin-right: 25px;
+    margin: 10px 0px;
   }
 
   h2 {
     font-size: 1.1em;
     font-weight: bold;
-    margin: 4px 0px;
+    margin: 7px 0px;
   }
 
   h3, h4, h5, h6 {
     font-size: 1em;
     font-weight: bold;
-    margin: 4px 0px;
+    margin: 7px 0px;
   }
 
   .image {
@@ -854,10 +848,8 @@ $slidenav-bg-color: #2E2E2E;
   }
 
   .image img {
-    /*max-width: 50%;*/
     margin: 0px 5px 5px 0px;
     height: auto;
-    /*float: left;*/
   }
 
   p {
@@ -883,6 +875,12 @@ $slidenav-bg-color: #2E2E2E;
   }
 
   strong {
+    font-weight: bold;
+  }
+
+  .date {
+    margin: 15px 0px;
+    text-align: right;
     font-weight: bold;
   }
 }
@@ -1602,11 +1600,12 @@ h9 {
     padding-left: 10px;
     padding-right: 5px;
     padding-top: 10px;
+    height: $general-list-item-height;
   } 
 
   
   .location {
-    font-size: 1em;
+    font-size: 16px;
     vertical-align: top;
     /*line-height: 1.2em;*/
     font-weight: bold;
@@ -1618,13 +1617,14 @@ h9 {
   }
 
   .location-city {
-    font-size: .8em;
+    font-size: 14px;
     /*line-height: 1.2em;*/
     font-style: italic;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     padding-right: 5px;
+    color: gray;
   }
 
   .cloobster-location {
