@@ -41,8 +41,7 @@ Ext.define('EatSense.view.ZtixEvents',{
 								'<div>'+
 									'<div class="day">' + date.getDate() + '</div>'+
 									'<div class="mmyy">' + 
-									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
-									shortYear +
+									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) +
 									'</div>'+
 								'</div>'+
 							'</div>';
