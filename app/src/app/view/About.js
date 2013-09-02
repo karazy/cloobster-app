@@ -18,7 +18,8 @@ Ext.define('EatSense.view.About', {
 		},
 		{
 			xtype: 'htmlpanel',
-			url: appConfig.getProp('impressumUrl'),
+			//Set during creation
+			// url: appConfig.getProp('impressumUrl'),
 			cls: 'about-text'
 		},
 		{
