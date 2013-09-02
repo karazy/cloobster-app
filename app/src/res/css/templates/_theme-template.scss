@@ -730,13 +730,10 @@ $general-list-item-height: 45px;
 
   .x-html {
     padding: 0;
-    p {
-      margin: 0 !important;  
-    }
   }
 
   .text {
-    padding: 10px 25px 5px 25px;
+    padding: 15px 25px 5px 25px;
   }
 
   * {
@@ -746,20 +743,19 @@ $general-list-item-height: 45px;
   h1 {
     font-size: 1.2em;
     font-weight: bold;
-    margin: 7px 0px;
-    margin-right: 25px;
+    margin: 10px 0px;
   }
 
   h2 {
     font-size: 1.1em;
     font-weight: bold;
-    margin: 4px 0px;
+    margin: 7px 0px;
   }
 
   h3, h4, h5, h6 {
     font-size: 1em;
     font-weight: bold;
-    margin: 4px 0px;
+    margin: 7px 0px;
   }
 
   .image {
@@ -772,10 +768,8 @@ $general-list-item-height: 45px;
   }
 
   .image img {
-    /*max-width: 50%;*/
     margin: 0px 5px 5px 0px;
     height: auto;
-    /*float: left;*/
   }
 
   p {
@@ -801,6 +795,12 @@ $general-list-item-height: 45px;
   }
 
   strong {
+    font-weight: bold;
+  }
+
+  .date {
+    margin: 15px 0px;
+    text-align: right;
     font-weight: bold;
   }
 }
