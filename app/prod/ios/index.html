@@ -91,7 +91,7 @@ Cloobster.asyncJsapiLoad = function() {
      {
       console.log('index.html handleOpenURL: ' + url);
       if(Ext && Ext.Viewport) {        
-        if(url && url != "" && url.match('cloobster://.*')) {        
+        if(url && url != "" && url.match('cloobsterfrz://.*')) {        
           Ext.Viewport.fireEvent('launchwithqrcode', url);
         }        
       }

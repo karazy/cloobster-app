@@ -128,13 +128,11 @@ Ext.define('EatSense.view.Settings', {
 				text: i10n.translate('settings.button.login'),
 				ui: 'action',
 				action: 'show-login',
-				margin: '13 0 0 0',
-				width: '90%'
+				margin: '13 0 0 0'
 			},
 			{
 				xtype: 'label',
 				html: 'Platform Version: ' + appConfig.version,
-				width: '90%',
 				margin: '7 0 0 0',
 				style: {
 					'font-size' : '.6em',
