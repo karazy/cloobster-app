@@ -15,7 +15,7 @@ Ext.define('EatSense.ux.HTMLPanel', {
         url: null
     },
 
-    onActivate: function(me, container) {
+    onActivate: function(me, container) {            
         Ext.Ajax.request({
             // we should use the getter for our new `url` config
             url: this.getUrl(),
