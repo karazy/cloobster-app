@@ -807,6 +807,9 @@ $slidenav-bg-color: #2E2E2E;
 
   .x-html {
     padding: 0;
+    * {
+      line-height: normal;  
+    }    
   }
 
   .text {
