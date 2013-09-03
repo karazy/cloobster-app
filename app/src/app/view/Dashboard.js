@@ -16,7 +16,7 @@ Ext.define('EatSense.view.Dashboard', {
 			xtype: 'toolbar',
 			docked: 'top',
 			cls: 'dashboard-header',
-			html: '<img src="res/images/dashboard/logo_frizz.png"">'+
+			html: '<img src="res/images/dashboard/logo_frizz.png">'+
 					'<div>Darmstadt</div>'
 		},
 		{

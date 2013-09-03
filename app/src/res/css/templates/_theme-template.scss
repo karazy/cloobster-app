@@ -962,18 +962,19 @@ $slidenav-bg-color: #2E2E2E;
     img {
       height: 30px;
       width: auto;
-      margin: 8px 6px 0 10px;
+      margin: 8px 6px 0 5px;
       float: left;
       border: 1px solid white;
     }
 
     div {
-      font-size: 1.2em;
+      font-family: 'RobotoLight';
+      font-size: 19px;
       color: white;
-      margin: 18px 0 0 0;
+      margin: 15px 0 0 0;
       overflow: hidden;
       white-space: nowrap;
-      text-overflow: ellipsis;
+      text-overflow: ellipsis;      
     }
   }
 }
