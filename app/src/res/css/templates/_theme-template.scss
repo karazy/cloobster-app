@@ -883,6 +883,10 @@ $slidenav-bg-color: #2E2E2E;
     text-align: right;
     font-weight: bold;
   }
+
+  .subheadline {
+    color: gray !important;
+  }
 }
 
   .infopage-detail-header-image {
@@ -960,12 +964,13 @@ $slidenav-bg-color: #2E2E2E;
       width: auto;
       margin: 8px 6px 0 10px;
       float: left;
+      border: 1px solid white;
     }
 
     div {
-      font-size: 1em;
+      font-size: 1.2em;
       color: white;
-      margin: 17px 0 0 0;
+      margin: 18px 0 0 0;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

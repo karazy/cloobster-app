@@ -17,7 +17,7 @@ Ext.define('EatSense.view.Dashboard', {
 			docked: 'top',
 			cls: 'dashboard-header',
 			html: '<img src="res/images/dashboard/logo_frizz.png"">'+
-					'<div>Stadt- & Kulturmagazin</div>'
+					'<div>Darmstadt</div>'
 		},
 		{
 			xtype: 'panel',

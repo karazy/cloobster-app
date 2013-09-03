@@ -3,7 +3,7 @@
   color: $dashboard-color;
   position: relative;
   background-color: $tilebutton-color;
-  max-height: 200px;
+  /*max-height: 200px;*/
   -webkit-box-orient: vertical;
   box-orient: vertical;
   border-bottom-width: 2px;
@@ -55,7 +55,13 @@
   }
 
   &.noicon {
-    background-color: $tilebutton-color !important;
+    background-color: $tilebutton-color !important;  
+    height: auto !important;  
+  }
+
+  img {
+    width: 100%;
+    height: auto;
   }
 }
 

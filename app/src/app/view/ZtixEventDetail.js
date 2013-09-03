@@ -21,7 +21,7 @@ Ext.define('EatSense.view.ZtixEventDetail', {
 			'<div class="text">',
 				'<h1>{title}</h1>',
 				'<tpl if="subtitle">',
-					'<h3>{subtitle}</h3>',
+					'<h3 class="subheadline">{subtitle}</h3>',
 				'</tpl>',
 				'<tpl if="date">',
 					'<p class="date">{[this.formatDate(values.date)]} <tpl if="this.checkTime(values.time)">{[this.formatTime(values.time)]}</tpl></p>',

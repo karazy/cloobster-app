@@ -144,12 +144,15 @@ Ext.define('EatSense.view.components.TileButton', {
 
         if (icon) {
             me.showIconElement();
-            element.setStyle('background-image', 'url(' + icon + ')');
+            //load 360px wide
+            element.setHtml('<img src="' + icon + '"/>');
+            // element.setStyle('background-image', 'url(' + icon + ')');
             me.refreshIconAlign();
             me.refreshIconMask();
         }
         else {
             element.setStyle('background-image', '');
+            element.setHtml('');            
             me.hideIconElement();
             me.setIconAlign(false);
         }

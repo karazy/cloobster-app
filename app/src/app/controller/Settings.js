@@ -217,7 +217,7 @@ Ext.define('EatSense.controller.Settings', {
     */
     showAbout: function() {
         var about = Ext.create('EatSense.view.About', {
-                zIndex: 100,                
+                zIndex: 100                
             }),
             closeBt,
             androidCtr = this.getApplication().getController('Android');
