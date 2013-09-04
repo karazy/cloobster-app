@@ -85,15 +85,15 @@ Ext.define('EatSense.view.Lounge', {
 				action: 'show-dashboard',
 				viewState: 'cloobster'
 			},
-			{
-				xtype: 'placesoverview',
-				title: i10n.translate('dashboard.button.history'),
-				leaf: true,
-				action: 'show-places',
-				iconCls: 'time-icon',
-				viewState: 'cloobster',
-				accountRequired: true
-			},
+			// {
+			// 	xtype: 'placesoverview',
+			// 	title: i10n.translate('dashboard.button.history'),
+			// 	leaf: true,
+			// 	action: 'show-places',
+			// 	iconCls: 'time-icon',
+			// 	viewState: 'cloobster',
+			// 	accountRequired: true
+			// },
 			{
 				xtype: 'clubarea',
 				title: i10n.translate('slidenav.button.home'),
@@ -104,14 +104,6 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'club'
 			},
 			{
-				iconCls: 'offer-icon',
-				xtype: 'menutab',
-				title: i10n.translate('menuTab'),
-				leaf: true,
-				action: 'show-menu',
-				viewState: 'club'
-			},			
-			{
 				xtype: 'infopageoverview',
 				title: i10n.translate('infopage.overview.title'),
 				leaf: true,
@@ -119,6 +111,14 @@ Ext.define('EatSense.view.Lounge', {
 				iconCls: 'slidenav-info-icon',
 				viewState: 'club'
 			},
+			{
+				iconCls: 'offer-icon',
+				xtype: 'menutab',
+				title: i10n.translate('menuTab'),
+				leaf: true,
+				action: 'show-menu',
+				viewState: 'club'
+			},						
 			{
 				xtype: 'slidenavcontainer',
 				title: i10n.translate('de.ztix.events.title'),

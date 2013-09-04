@@ -68,7 +68,7 @@ Ext.define('EatSense.view.Settings', {
 					{
 						xtype: 'label',
 						cls: 'general-label',
-						margin: '5 0 0 0',
+						margin: '5 0 5 0',
 						itemId: 'changeSectionLabel',
 						html: i10n.translate('settings.account.label.edit')
 					},

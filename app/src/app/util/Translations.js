@@ -406,15 +406,15 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Dashboard
 		"dashboard.button.checkin" : {
-			"DE" :  "Einchecken",
-			"EN" :  "Check in",
+			"DE" :  "Scan",
+			"EN" :  "Scan",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
 		},
 		"dashboard.button.tovisit" : {
-			"DE" :  "Neuer Favorit",
-			"EN" : "Add favorit",
+			"DE" :  "Favorit +",
+			"EN" : "Favorit +",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -936,7 +936,7 @@ Ext.define('EatSense.util.Translations',{
 		},
 		//Info Pages
 		"infopage.overview.title" : {
-			"DE" :  "Information",
+			"DE" :  "Infos",
 			"EN" : "Information",
 			"ES" : "Información útil",
 			"IT" : "Informazioni utili",
@@ -1114,10 +1114,10 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "déconnexion"
 		},
 		"settings.account.label.edit" : {
-			"DE" :  "Ändern Sie:",
-			"EN" :  "Change:",
-			"ES" : "Cambiar:",
-			"IT" : "Modifica:",
+			"DE" :  "Ändern",
+			"EN" :  "Change",
+			"ES" : "Cambiar",
+			"IT" : "Modifica",
 			"FR" : "Modifiez"
 		},
 		"settings.account.label.email" : {
