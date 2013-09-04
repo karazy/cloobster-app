@@ -80,7 +80,7 @@ Ext.define('EatSense.view.Privacy', {
 		'<br><br>'+
 		'(6) Ihre Rechte - Sollten Sie mit der Speicherung Ihrer personenbezogenen Daten nicht mehr einverstanden oder diese unrichtig geworden sein, werden wir auf eine entsprechende Weisung hin im Rahmen der gesetzlichen Bestimmungen die Löschung, Korrektur oder Sperrung Ihrer Daten ver anlassen. Hierfür wenden Sie sich bitte an:'+
 		'<br><br>'+
-		'FRIZZ Media & Marketing Darmstadt<br/>'
+		'FRIZZ Media & Marketing Darmstadt<br/>'+
 		'Wilhelminenstr. 7a<br> '+
 		'D-64283 Darmstadt<br> '+
 		'E-Mail: kontakt@frizz-darmstadt.de<br> '+
