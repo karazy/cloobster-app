@@ -2119,32 +2119,33 @@ h9 {
 
 
   .x-innerhtml .welcome-text {
-    $welcome-border-color: $active-color;
-    $welcome-border: 1px solid  $welcome-border-color;
+    font-family: 'RobotoLight';
+/*    $welcome-border-color: $active-color;
+    $welcome-border: 1px solid  $welcome-border-color;   */ 
 
     div:nth-child(1) {
       position: absolute;
-      top: 60%;
+      bottom: 40px;
       left: 30px;
       padding: 5px;
-      font-size: 1.2em;
+      font-size: 1em;
 
-      @media only screen and (max-width: 320px) { 
+ /*     @media only screen and (max-width: 320px) { 
         font-size: 1em; 
-      }
+      }*/
     }
 
     div:nth-child(2) {
       position: absolute;
-      top: 60%;
+      bottom: 40px;
       right: 30px;
       text-align: right;
       padding: 5px;
-      font-size: 1.2em;
+      font-size: 1em;
 
-      @media only screen and (max-width: 320px) { 
+   /*   @media only screen and (max-width: 320px) { 
         font-size: 1em; 
-      }
+      }*/
     }
  
     div.menu-help {      

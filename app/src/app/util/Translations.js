@@ -48,11 +48,11 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Fermer"
 		},
 		"loadingMsg" : {
-			"DE" :  "Laden",
-			"EN" :  "Loading",
-			"ES" : "Cargando...",
-			"IT" : "Caricamento...",
-			"FR" : "Chargement"
+			"DE" :  "lade...",
+			"EN" :  "loading...",
+			"ES" : "cargando...",
+			"IT" : "caricamento...",
+			"FR" : "chargement"
 		},
 		"general.processing" : {
 			"DE" :  "In Bearbeitung",
@@ -1467,8 +1467,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Compte"
 		},
 		"login.description" : {
-			"DE" : "<h1>Gleich geht es weiter</h1><h5>registriere Dich um alle Features nutzen zu können</h5>",
-			"EN" : "<h1>Just a moment</h1><h5>please signup to use all features</h5>",
+			"DE" : "<h1>Anmelden</h1><h5>Um diese Funktion zu nutzen für FRIZZ+ registrieren oder mit Facebook einloggen.</h5>",
+			"EN" : "<h1>Sign in</h1><h5>Please sign-up for FRIZZ+ Account or login with facebook to use this feature.</h5>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1488,8 +1488,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Mot de passe"
 		},
 		"login.button.login" : {
-			"DE" :  "Login",
-			"EN" :  "Login",
+			"DE" :  "Anmelden",
+			"EN" :  "Sign in",
 			"ES" : "Iniciar sesión",
 			"IT" : "Log in",
 			"FR" : "Se connecter"
@@ -1643,11 +1643,16 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Facture"
 		},
 		"history.detail.list.paging" : {
-			"DE" :  "Mehr laden...",
-			"EN" :  "Show more...",
-			"ES" : "Mostrar más...",
-			"IT" : "Mostrami di più...",
-			"FR" : "En savoir plus..."
+			"DE" :  "",
+			"EN" :  "",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+			// "DE" :  "Mehr laden...",
+			// "EN" :  "Show more...",
+			// "ES" : "Mostrar más...",
+			// "IT" : "Mostrami di più...",
+			// "FR" : "En savoir plus..."
 		},
 		"history.noaccount" : {
 			"DE" :  "Erinnere dich, wo Du warst! Dieses Feature benötigt einen cloobster Account.",
@@ -1876,8 +1881,8 @@ Ext.define('EatSense.util.Translations',{
 		//tovisit
 		"tovisit.list.emptytext" : {
 			// "DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
-			"DE" : "<div><h1>Favoriten</h1><p>deine Lieblingsorte<br/>immer dabei</p></div><div><h1>FRIZZ QR</h1><p>scannen.<br/>Angebote & Infos<br/>zum Ort.</p></div>",
-			"EN" : "<div><h1>Favorites</h1><p>and never forget an<br/> exiting location<br/>again</p></div><div><h1>All in my hand</h1><p>frizz QR code<br/>scan, enter<br/>and discover</p></div>",// <div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
+			"DE" : "<div><h1>FAVORITEN</h1><p>Hinzufügen <br/>und merken!</p></div><div><h1>FRIZZ+ CODE</h1><p>Scannen<br/>und informieren!</p></div>",
+			"EN" : "<div><h1>FAVORITES</h1><p>Add<br/>and remember!</p></div><div><h1>FRIZZ+ CODE</h1><p>Scan<br/> and inform!</p></div>",// <div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1960,8 +1965,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.detail.sneakinbutton" : {
-			"DE" :  "Eintreten",
-			"EN" : "Enter",
+			"DE" :  "Check-In",
+			"EN" : "Check-In",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -1995,8 +2000,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"tovisit.nolocation.title" : {
-			"DE" :  "Dies ist leider keine<br/> frizz Location",
-			"EN" : "We're sorry<br/> this is no frizz location",
+			"DE" :  "Dies ist leider keine<br/> FRIZZ+ Location",
+			"EN" : "We're sorry<br/> this is no FRIZZ+ location",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

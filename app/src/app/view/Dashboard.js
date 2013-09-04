@@ -60,6 +60,7 @@ Ext.define('EatSense.view.Dashboard', {
 			store: 'visitStore',
 			emptyText: '<div class="welcome-text">' + i10n.translate('tovisit.list.emptytext') + '</div>',
 			deferEmptyText: false,
+			loadingText: i10n.translate('loadingMsg'),			
 			itemCls: 'tovisit-item',
 			itemTpl: new Ext.XTemplate(
 				'<tpl if="imageUrl">',
@@ -117,8 +118,11 @@ Ext.define('EatSense.view.Dashboard', {
 			plugins: [
 		        {
 		            xclass: 'Ext.plugin.ListPaging',
-		            loadMoreText: i10n.translate('history.detail.list.paging'),
-		            autoPaging: false
+		            // loadMoreText: i10n.translate('history.detail.list.paging'),
+		            loadMoreText: '',
+		            // noMoreRecordsText : 'Alles geladen',
+		            // bottom: 0,
+		            autoPaging: true
 		        }
 		    ]
 		}

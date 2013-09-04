@@ -10,6 +10,7 @@ Ext.define('EatSense.view.ZtixEvents',{
 		cls: 'event-item',
 		scollToTopOnRefresh: true,
 		emptyText: i10n.translate('de.ztix.events.empty'),
+		loadingText: i10n.translate('loadingMsg'),
 		itemTpl: new Ext.XTemplate(
 			'<tpl if="infpic">',
 				'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',
