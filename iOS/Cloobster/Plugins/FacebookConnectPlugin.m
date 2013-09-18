@@ -266,12 +266,13 @@
     [super writeJavascript:nil];
 }
 
+//Attempts a Facebook Login by using configured AppId and UrlSchemeSuffix in plist
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI {
     BOOL result = NO;
     FBSession *session =
-    [[FBSession alloc] initWithAppID:@"359215437471990"
+    [[FBSession alloc] initWithAppID:nil
                          permissions:nil
-                     urlSchemeSuffix:@"frizz"
+                     urlSchemeSuffix:nil
                   tokenCacheStrategy:nil];
     
     if (allowLoginUI ||
