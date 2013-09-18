@@ -27,10 +27,10 @@ Ext.define('EatSense.controller.Facebook', {
 		if(FB) {
 			if(typeof CDV != 'undefined') {
 				//phonegap version
-				FB.init({ appId: "359215437471990", nativeInterface: CDV.FB, useCachedDialogs: false });
+				FB.init({ appId: "359215437471990frizz", nativeInterface: CDV.FB, useCachedDialogs: false });
 			} else {
 				//desktop version
-				FB.init({ appId: "359215437471990", useCachedDialogs: false });
+				FB.init({ appId: "359215437471990frizz", useCachedDialogs: false });
 			}			
 		} else {
 			console.log('Facebook.launch: no FB found');
