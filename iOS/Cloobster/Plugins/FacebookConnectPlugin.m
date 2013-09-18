@@ -142,6 +142,14 @@
 {
     self.userid = @"";
     
+    FBSession *session =
+    [[FBSession alloc] initWithAppID:@"359215437471990"
+                         permissions:nil
+                     urlSchemeSuffix:@"frizz"
+                  tokenCacheStrategy:nil];
+    
+    [FBSession setActiveSession:session];
+    
     [FBSession openActiveSessionWithReadPermissions:nil
                                        allowLoginUI:NO
                                   completionHandler:^(FBSession *session,
@@ -228,35 +236,56 @@
         // type permissions if one wants to use the
         // non-deprecated open session methods and
         // take advantage of iOS6 integration
-        if ([self areAllPermissionsReadPermissions:permissions]) {
-            [FBSession
-             openActiveSessionWithReadPermissions:permissions
-             allowLoginUI:YES
-             completionHandler:^(FBSession *session,
-                                 FBSessionState state,
-                                 NSError *error) {
-                 [self sessionStateChanged:session
-                                     state:state
-                                     error:error];
-             }];
-        } else {
-            // Use deprecated methods for backward compatibility
-            [FBSession
-             openActiveSessionWithPermissions:permissions
-             allowLoginUI:YES completionHandler:^(FBSession *session,
-                                                  FBSessionState state,
-                                                  NSError *error) {
-                 [self sessionStateChanged:session
-                                     state:state
-                                     error:error];
-             }];
-        }
+//        if ([self areAllPermissionsReadPermissions:permissions]) {
+//            [FBSession
+//             openActiveSessionWithReadPermissions:permissions
+//             allowLoginUI:YES
+//             completionHandler:^(FBSession *session,
+//                                 FBSessionState state,
+//                                 NSError *error) {
+//                 [self sessionStateChanged:session
+//                                     state:state
+//                                     error:error];
+//             }];
+//        } else {
+//            // Use deprecated methods for backward compatibility
+//            [FBSession
+//             openActiveSessionWithPermissions:permissions
+//             allowLoginUI:YES completionHandler:^(FBSession *session,
+//                                                  FBSessionState state,
+//                                                  NSError *error) {
+//                 [self sessionStateChanged:session
+//                                     state:state
+//                                     error:error];
+//             }];
+//        }
         
-        
-        
+        [self openSessionWithAllowLoginUI:true];
     }
     
     [super writeJavascript:nil];
+}
+
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI {
+    BOOL result = NO;
+    FBSession *session =
+    [[FBSession alloc] initWithAppID:@"359215437471990"
+                         permissions:nil
+                     urlSchemeSuffix:@"frizz"
+                  tokenCacheStrategy:nil];
+    
+    if (allowLoginUI ||
+        (session.state == FBSessionStateCreatedTokenLoaded)) {
+        [FBSession setActiveSession:session];
+        [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
+                completionHandler:
+         ^(FBSession *session, FBSessionState state, NSError *error) {
+             [self sessionStateChanged:session state:state error:error];
+         }];
+        result = session.isOpen;
+    }
+    
+    return result;
 }
 
 - (void) logout:(CDVInvokedUrlCommand*)command

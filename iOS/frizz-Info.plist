@@ -16,6 +16,7 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>120x120</string>
 				<string>FRIZZ_Icon-60</string>
 				<string>FRIZZ_Icon.png</string>
 				<string>FRIZZ_Icon@2x.png</string>
@@ -50,7 +51,7 @@
 		</dict>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>net.karazy.cloobster.facebook</string>
+			<string>net.karazy.cloobster.frizz.facebook</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb359215437471990frizz</string>
