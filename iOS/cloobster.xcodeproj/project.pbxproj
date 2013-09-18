@@ -110,6 +110,7 @@
 		B69F054017D4851400E2F5D3 /* FRIZZ_Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = B69F053D17D4851400E2F5D3 /* FRIZZ_Default-568h@2x~iphone.png */; };
 		B69F054117D4851400E2F5D3 /* FRIZZ_Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = B69F053E17D4851400E2F5D3 /* FRIZZ_Default@2x~iphone.png */; };
 		B69F054217D4851400E2F5D3 /* FRIZZ_Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = B69F053F17D4851400E2F5D3 /* FRIZZ_Default~iphone.png */; };
+		B6B08BC417D7DDA800A05513 /* FRIZZ_Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B08BC317D7DDA800A05513 /* FRIZZ_Icon-60@2x.png */; };
 		B6C935C616CD57AB0089DBD1 /* CDVBarcodeScanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C316CD57AB0089DBD1 /* CDVBarcodeScanner.mm */; };
 		B6C935C716CD57AB0089DBD1 /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C416CD57AB0089DBD1 /* zxing-all-in-one.cpp */; };
 		B6C935CA16CD58B30089DBD1 /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C935C916CD58B30089DBD1 /* FacebookConnectPlugin.m */; };
@@ -206,6 +207,7 @@
 		B69F053D17D4851400E2F5D3 /* FRIZZ_Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		B69F053E17D4851400E2F5D3 /* FRIZZ_Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Default@2x~iphone.png"; sourceTree = "<group>"; };
 		B69F053F17D4851400E2F5D3 /* FRIZZ_Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Default~iphone.png"; sourceTree = "<group>"; };
+		B6B08BC317D7DDA800A05513 /* FRIZZ_Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Icon-60@2x.png"; sourceTree = "<group>"; };
 		B6C935C316CD57AB0089DBD1 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDVBarcodeScanner.mm; sourceTree = "<group>"; };
 		B6C935C416CD57AB0089DBD1 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "zxing-all-in-one.cpp"; sourceTree = "<group>"; };
 		B6C935C516CD57AB0089DBD1 /* zxing-all-in-one.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "zxing-all-in-one.h"; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 		308D052D1370CCF300D202BF /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				B6B08BC317D7DDA800A05513 /* FRIZZ_Icon-60@2x.png */,
 				B681472A17C2253800CF1F52 /* FRIZZ_Icon.png */,
 				B681472B17C2253800CF1F52 /* FRIZZ_Icon@2x.png */,
 				308D052E1370CCF300D202BF /* icon-72.png */,
@@ -704,6 +707,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B68910DD17C21A4100112E5C /* config.xml in Resources */,
+				B6B08BC417D7DDA800A05513 /* FRIZZ_Icon-60@2x.png in Resources */,
 				B68910DE17C21A4100112E5C /* www in Resources */,
 				B68910DF17C21A4100112E5C /* icon-72.png in Resources */,
 				B68910E017C21A4100112E5C /* icon.png in Resources */,
@@ -969,6 +973,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "$(SRCROOT)/frizz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -1020,6 +1025,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "$(SRCROOT)/frizz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,

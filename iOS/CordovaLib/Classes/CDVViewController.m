@@ -218,10 +218,25 @@
     self.pluginObjects = [[NSMutableDictionary alloc] initWithCapacity:20];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+    {
+        [self prefersStatusBarHidden];
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    }
+    else
+    {
+        // iOS 6
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+    }
 
     NSURL* appURL = nil;
     NSString* loadErr = nil;
