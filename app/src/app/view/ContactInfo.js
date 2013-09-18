@@ -58,13 +58,13 @@ Ext.define('EatSense.view.ContactInfo', {
 							{
 								xtype: 'label',
 								cls: 'general-text',
-								flex: 2,
+								flex: 3,
 								margin: '0'
 							},
 							{
 								xtype: 'fixedbutton',
 								action: 'call-location',
-								text: i10n.translate('contactinfo.location.phone'),
+								// text: i10n.translate('contactinfo.location.phone'),
 								iconCls: 'phone1',
 								iconMask: true,
 								hidden: true,
@@ -88,13 +88,13 @@ Ext.define('EatSense.view.ContactInfo', {
 								xtype: 'label',
 								itemId: 'address',
 								cls: 'general-text',
-								flex: 2,
+								flex: 3,
 								margin: '0'
 							},
 							{
 								xtype: 'fixedbutton',
 								action: 'show-maps',
-								text: i10n.translate('contactinfo.map.title'),
+								// text: i10n.translate('contactinfo.map.title'),
 								iconCls: 'globe2',
 								iconMask: true,
 								hidden: true,
