@@ -46,7 +46,7 @@
 			<string>net.karazy.cloobster.frizz</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>cloobsterfrz</string>
+				<string>cloobsterfrizz</string>
 			</array>
 		</dict>
 		<dict>
