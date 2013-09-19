@@ -16,12 +16,9 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>120x120</string>
 				<string>FRIZZ_Icon-60</string>
 				<string>FRIZZ_Icon.png</string>
 				<string>FRIZZ_Icon@2x.png</string>
-				<string>72.png</string>
-				<string>144.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>

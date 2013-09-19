@@ -50,14 +50,15 @@
                     [FBRequestConnection startForMeWithCompletionHandler:
                      ^(FBRequestConnection *connection, id <FBGraphUser>user, NSError *error) {
                          if (!error) {
-                             self.userid = user.id;
+//                             self.userid = user.id;
+                             //http://stackoverflow.com/questions/14448056/the-app-references-non-public-selector-in-id-facebook-sdk-ios
+                             self.userid = [user objectForKey:@"id"];
                              // Send the plugin result. Wait for a successful fetch of user info.
                              CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                                            messageAsDictionary:[self responseObject]];
                              [self.commandDelegate sendPluginResult:pluginResult callbackId:self.loginCallbackId];
                          } else {
                              self.userid = @"";
-                             
                          }
                      }];
                 }else {
