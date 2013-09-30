@@ -67,7 +67,7 @@ Ext.application({
       this.mainLaunch();
 	},
 	mainLaunch : function() {
-		
+		var me = this;
     //Wait for phonegap to launch
 		if (cordovaInit == false || !this.launched) {
      	return;
@@ -80,17 +80,23 @@ Ext.application({
     }
     
     //check for whitelabel configurations and then proceed
-    this.initWhitelabelConfiguration();
-
-    //check if a network state exists when cordova is runnning
-    //only proceed if a network connection is detected
-    if(navigator && navigator.network) {        
-      this.checkConnection(this.initCloobster);
-    } else {
-      this.initCloobster();
+    try {
+      this.initConfiguration(proceedWithLaunch);
+    } catch(e) {
+      proceedWithLaunch();
+      console.error('Application.mainLaunch: error initializing configuration, proceed with launch ' + e);
     }
+    
 
-
+    function proceedWithLaunch() {
+      //check if a network state exists when cordova is runnning
+    //only proceed if a network connection is detected
+      if(navigator && navigator.network) {        
+        me.checkConnection(me.initCloobster);
+      } else {
+        me.initCloobster();
+      }
+    }
 	},
   /**
   * Checks the network connection state. 
@@ -324,14 +330,18 @@ Ext.application({
         }
     },
     /**
-    * Check If a whitelabel configuration exists.
+    * Initializes the global app configuration.
+    * This includes the check if a whitelabel configuration exists.
     * If this is the case, merge it with {@link EatSense.util.Configuration}.
+    * @param {Function} callback
+    *
     */
-    initWhitelabelConfiguration: function() {
+    initConfiguration: function(callback) {
       var whitelabelConfig = null,
           configName;
 
       if(!appConfig.whitelabelConfig || appConfig.whitelabelConfig.length == 0) {
+        callback();
         return;
       }
 
@@ -340,20 +350,22 @@ Ext.application({
       Ext.Ajax.request({
         url: 'whitelabel/' + configName + '/Configuration.json',
         success: function(response) {
-          console.log('Application.initWhitelabelConfiguration: found whitelabel configuration for ' + whitelabelConfig);
+          console.log('Application.initConfiguration: found whitelabel configuration for ' + whitelabelConfig);
           try {
             whitelabelConfig = Ext.JSON.decode(response.responseText);
             Ext.merge(appConfig, whitelabelConfig);
           } catch(e) {
-            console.error('Application.initWhitelabelConfiguration: could not decode whitelabel configuration ' + e);
+            console.error('Application.initConfiguration: could not decode whitelabel configuration ' + e);
           }
+          callback();
           Ext.Viewport.fireEvent('whitelabelmode');
         },
         failure: function(response) {
+          callback();
           if(response.status == 404) {
-             console.error('Application.initWhitelabelConfiguration: no whitelabel configuration found');
+             console.error('Application.initConfiguration: no whitelabel configuration found');
           } else {
-             console.error('Application.initWhitelabelConfiguration: error ' + response.status);
+             console.error('Application.initConfiguration: error ' + response.status);
           }
         }
       });

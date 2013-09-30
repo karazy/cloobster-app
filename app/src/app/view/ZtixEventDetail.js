@@ -26,7 +26,7 @@ Ext.define('EatSense.view.ZtixEventDetail', {
 				'<tpl if="date">',
 					'<p class="date">{[this.formatDate(values.date)]} <tpl if="this.checkTime(values.time)">{[this.formatTime(values.time)]}</tpl></p>',
 				'</tpl>',
-				'<p style="text-align: justify;">{info}</p>',
+				'<p style="text-align: justify;">{[this.removeIframes(values.info)]}</p>',
 				'<p style="margin-top:15px !important; font-family:Roboto_Italic;">{locationCommon} {location}<br/>',
 				'{locationStreet}, {locationZip} {locationCity}<br/>',
 				'{locationAppendix}</p>',
@@ -45,6 +45,18 @@ Ext.define('EatSense.view.ZtixEventDetail', {
 						return false;	
 					}
 					return true;
+				},
+				removeIframes: function(data) {
+					if(!data) {
+						return
+					}
+
+					try {
+						return data.replace(/(<iframe.*?>.*?<\/iframe>)/g, '');
+					} catch(e) {
+						console.error('EatSense.view.ZtixEventDetail: failed to remove iframe');
+						return data;
+					}									
 				}
 			}
 		),
