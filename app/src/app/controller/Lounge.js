@@ -107,7 +107,6 @@ Ext.define('EatSense.controller.Lounge', {
 
 		Ext.Viewport.on({
 			'showdashboard' : this.showDashboard,
-			'whitelabelmode' : this.processWhitelabelConfig,
 			scope: this
 		});
   },
@@ -119,10 +118,14 @@ Ext.define('EatSense.controller.Lounge', {
   	var demoCheckInItem;
 
   	if(appConfig.getProp('demoButtonViewstate') == 'none') {
-  		demoCheckInItem = this.getLoungeview().getItemByAction('demo-checkin');
-  		if(demoCheckInItem) {
-  			demoCheckInItem.set('viewState', 'none');
-  		}  		
+  		if(this.getLoungeview()) {  		  		
+	  		demoCheckInItem = this.getLoungeview().getItemByAction('demo-checkin');
+	  		if(demoCheckInItem) {
+	  			demoCheckInItem.set('viewState', 'none');
+	  		}
+  		} else {
+
+  		}
   	}
   },
   /**
@@ -132,7 +135,7 @@ Ext.define('EatSense.controller.Lounge', {
   	console.log('Lounge.navigationShow');
 	this.manageViewState('cloobster');
 	this.registerSlideBezelTap();
-
+	this.processWhitelabelConfig();
   },
   /**
   * Show/hide the slidenavigation menu.
