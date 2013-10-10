@@ -30,7 +30,8 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.ClubArea',
 		'EatSense.ux.slidenavigation.collapsible.View',
 		'EatSense.view.FeedbackContainer',
-		'EatSense.view.ContactInfo'
+		'EatSense.view.ContactInfo',
+		'EatSense.view.components.MenuContainer'
 	],
 	xtype : 'lounge',
 	config : {
@@ -83,6 +84,14 @@ Ext.define('EatSense.view.Lounge', {
 				leaf: true,
 				iconCls: 'places-icon',
 				action: 'show-dashboard',
+				viewState: 'cloobster'
+			},
+			{
+				xtype: 'menucontainer',
+				title: i10n.translate('geosearch.title'),
+				leaf: true,
+				action: 'show-geosearch',
+				iconCls: 'places-icon',
 				viewState: 'cloobster'
 			},
 			{

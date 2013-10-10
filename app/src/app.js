@@ -19,13 +19,14 @@ Ext.application({
    */
 
 	controllers : [ 'CheckIn', 'Lounge', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
-  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix'],
+  'Android', 'Feedback', 'Styles', 'Account', 'History', 
+  'Facebook', 'InfoPage', 'ContactInfo', 'Ztix', 'GeoSearch'],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
   'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
 	views : ['Dashboard', 'Checkinconfirmation', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
     'EatSense.view.BackButton', 'About', 'Privacy'], 
-	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 
+	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 'Business',
           'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',

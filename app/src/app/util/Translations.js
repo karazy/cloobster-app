@@ -2016,6 +2016,11 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		//geosearch
+		"geosearch.title" : {
+			"DE" :  "Umkreissuche",
+			"EN" : "Umkreissuche"
+		},
 		//ztix events
 		"de.ztix.events.title" : {
 			"DE" :  "Veranstaltungen",

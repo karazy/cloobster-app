@@ -1,6 +1,8 @@
 $border-radius: 3px;
+$dashboard-button-color: #31689c;
 
 .dashboard-button {
+  background-color: $dashboard-button-color;
   margin-bottom: 8px;
   background-repeat: no-repeat;
   background-position: 2% center;
@@ -13,14 +15,16 @@ $border-radius: 3px;
   -webkit-box-shadow: 0 4px 2px -2px #eee;
   box-shadow: 0 4px 2px -2px #eee;
   border: 1px solid #FFF;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
+  
+
+  &.left {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
 
   &.right {
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-    border-top-left-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
   }
 }
 
@@ -34,10 +38,15 @@ $border-radius: 3px;
     height: $dashboard-button-icon-size;
     position: absolute;
     bottom: 8px;
-    left: 8px;
+    
     border-radius: $dashboard-button-icon-radius;
     background-repeat: no-repeat;
     background-color: white;
+
+    .left & {
+      left: 8px;
+      right: auto !important;
+    }
 
     .right & {
       right: 8px;
@@ -63,15 +72,18 @@ $border-radius: 3px;
 
 .dashboard-button-label {
   position: absolute;
-  right: 14px;  
-  /*bottom: 10px;*/
   bottom: 10%;
   font-size: 1em; 
 
+  .left & {
+    right: 14px; 
+    left: auto !important;
+  }
+
   .right & {
-      left: 13px;
-      right: auto !important;
-    }
+    left: 13px;
+    right: auto !important;
+  }
 
 
    @media only screen and (min-width: 768px) {
@@ -85,10 +97,9 @@ $border-radius: 3px;
 }
 
 .dashboard-button-checkin {
-  background-color: #31689c;
 
   &.dashboard-button-pressed {
-    background-color: lighten(#31689c , 20%);
+    background-color: lighten($dashboard-button-color , 20%);
   }   
 
   .x-button-icon {
@@ -98,27 +109,26 @@ $border-radius: 3px;
 }
 
 .dashboard-button-history {
-  background-color: #31689c;
-  /*background-color: lighten(#659bce , 10%);*/
 
   &.dashboard-button-pressed {
-    background-color: lighten(#31689c , 20%);
+    background-color: lighten($dashboard-button-color , 20%);
   }
 
   .x-button-icon {
     background-image: url('../images/dashboard/places_3d.png');  
   }
 
-/*  .dashboard-button-label {
-    font-size: 2em;
+.dashboard-button-geosearch { 
 
-     @media only screen and (min-width: 768px) {
-      font-size: 2.5em; 
-    }
-      @media only screen and (max-width: 320px) { 
-        font-size: 1.5em; 
-      }
-  }*/
+  &.dashboard-button-pressed {
+    background-color: lighten($dashboard-button-color , 20%);
+  }
+
+  .x-button-icon {
+    background-image: url('../images/club/aroundme.png');  
+  }
+
+}
   
 }
 
@@ -128,34 +138,10 @@ $border-radius: 3px;
   &.dashboard-button-pressed {
      background-color: darken(#659bce , 10%);
   }
-
-/*  .dashboard-button-label {
-    font-size: 2em;
-     @media only screen and (min-width: 768px) {
-      font-size: 2.5em; 
-      }
-    @media only screen and (max-width: 320px) { 
-        font-size: 1.5em; 
-    }
-  }*/
-
   .x-button-icon {
     background-image: url('../images/dashboard/scan_handy_3d.png');  
   }
 }
-
-/*.dashboard-button-pressed {
-  color: #FFF;
-  background-color: #DDD;
-}*/
-
-/*.dashboard-button-login {
-  background-image: url('../images/dashboard/login.png');
-}
-
-.dashboard-button-facebook {
-  background-image: url('../images/dashboard/facebook.png');
-}*/
 
 .dashboard-button-badge {
   margin-left: 34px;

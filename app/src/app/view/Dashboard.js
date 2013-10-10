@@ -33,12 +33,23 @@ Ext.define('EatSense.view.Dashboard', {
 					action: 'tovisit',
 					text: i10n.translate('dashboard.button.tovisit'),
 					baseCls: 'dashboard-button',
-					cls: 'dashboard-button-history',
+					cls: ['dashboard-button-history', 'left'],
 					iconCls: 'dashboard-button-icon',
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
-					flex: 1,
+					flex: 3,
 					margin: '10 3 0 4'
+				},
+				{
+					xtype: 'fixedbutton',
+					baseCls: 'dashboard-button',
+					cls: 'dashboard-button-geosearch',
+					iconCls: 'dashboard-button-icon',
+					pressedCls: 'dashboard-button-pressed',
+					labelCls: 'dashboard-button-label',
+					margin: '10 3 0 3',										
+					action: 'geosearch',
+					flex: 1
 				},
 				{
 					xtype : 'fixedbutton',
@@ -49,7 +60,7 @@ Ext.define('EatSense.view.Dashboard', {
 					iconCls: 'dashboard-button-icon',			
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
-					flex: 1,
+					flex: 3,
 					margin: '10 4 0 3'
 				}	
 			]
