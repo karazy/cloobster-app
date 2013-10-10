@@ -1832,6 +1832,30 @@ h9 {
 }
 
 /*
+* GeoSearch
+*/
+.geosearch-list {
+  .x-list-emptytext {
+    .x-innerhtml {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+      height: 100%;
+
+      .empty-image {
+        background-image: url('../images/club/aroundme.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 110px;
+        height: 110px;
+      }
+    }
+  }  
+}
+
+
+/*
 * Overrides of core css!
 */
 

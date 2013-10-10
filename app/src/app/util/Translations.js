@@ -2021,6 +2021,13 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Umkreissuche",
 			"EN" : "Umkreissuche"
 		},
+		"geosearch.list.nolocations" : {
+			"DE" : "<div class='empty-image'></div><div>Es wurden keine Cloobster Locations in der Nähe gefunden.</div>",
+			"EN" : "<div class='empty-image'></div><div>There are no cloobster locations near you.</div>",
+			"ES" : "",
+			"IT" : "",
+			"FR" : ""
+		},
 		//ztix events
 		"de.ztix.events.title" : {
 			"DE" :  "Veranstaltungen",

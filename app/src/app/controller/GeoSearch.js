@@ -24,7 +24,12 @@ Ext.define('EatSense.controller.GeoSearch', {
 		* Last time user performed a geosearch. Used to avoid multiple queries
 		* in a short time.
 		*/
-		lastGeoSearchQueryTime: null
+		lastGeoSearchQueryTime: null,
+		/**
+		* @accessor
+		* Selected distance from user.
+		*/
+		selectedDistance: null
 	},
 
 	dashboardGeoSearchBtTapHandler: function(button) {
@@ -42,11 +47,15 @@ Ext.define('EatSense.controller.GeoSearch', {
 		geoSearchList = Ext.create('EatSense.view.geosearch.List');
 
 		container.add(geoSearchList);
-		geoSearchList.show();		
+		geoSearchList.show();
 
 		backButton = geoSearchList.down('homebutton');
 		distanceSelect = geoSearchList.down('selectfield');
 
+		if(this.getSelectedDistance()) {
+			distanceSelect.setValue(this.getSelectedDistance());
+		}
+		//load locations after distance was evaluated
 		this.loadLocationsByDistance(distanceSelect.getValue());
 
 		container.on({
@@ -73,7 +82,8 @@ Ext.define('EatSense.controller.GeoSearch', {
 
 		function distanceSelectChangeHandler(select, newVal, oldVal) {
 			if(newVal != oldVal) {
-				this.loadLocationsByDistance(newVal);
+				this.loadLocationsByDistance(newVal);				
+				this.setSelectedDistance(newVal);
 			}
 		}
 

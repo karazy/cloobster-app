@@ -7,14 +7,15 @@ Ext.define('EatSense.view.geosearch.List', {
 	xtype: 'geosearchlist',
 	requires: [],
 	config: {
+		store: 'businessStore',
+		emptyText: i10n.translate('geosearch.list.nolocations'),
 		itemTpl: new Ext.XTemplate('{name}'),
+		cls: 'geosearch-list',
 		items: [
 			{
 				xtype: 'titlebar',
 				docked: 'top',
-				title: i10n.translate('geosearch.title'),
-				store: 'businessStore',
-				emptyText: i10n.translate('geosearch.list.nolocations'),
+				title: i10n.translate('geosearch.title'),				
 				items: [
 					{
 						xtype: 'homebutton'
@@ -30,8 +31,15 @@ Ext.define('EatSense.view.geosearch.List', {
 				            {text: '10km',  value: '10000'}
 				        ]
 				    }
-				]
+				]				
 			}
-		]
+		],
+		listeners: {
+			select: function(dv, ix, item, e) {
+				Ext.defer((function() {
+					dv.deselect(ix);
+    			}), 100, this);					
+			}
+		}
 	}
 });
