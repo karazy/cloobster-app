@@ -91,7 +91,7 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('geosearch.title'),
 				leaf: true,
 				action: 'show-geosearch',
-				iconCls: 'places-icon',
+				iconCls: 'aroundme-icon',
 				viewState: 'cloobster'
 			},
 			{

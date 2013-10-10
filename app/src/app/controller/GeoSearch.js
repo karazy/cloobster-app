@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.GeoSearch', {
 	extend: 'Ext.app.Controller',
-	requires: [],
+	requires: ['EatSense.view.geosearch.LocationDetail'],
 	config: {
 		refs: {
 			main: 'lounge',
@@ -64,7 +64,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		});
 
 		geoSearchList.on({
-			select: this.showLocationDetail,
+			select: listSelectHandler,
 			scope: this
 		});
 
@@ -80,6 +80,10 @@ Ext.define('EatSense.controller.GeoSearch', {
 			});
 		}
 
+		function listSelectHandler(dataview, record) {
+			this.showLocationDetail(container, record);
+		}
+		
 		function distanceSelectChangeHandler(select, newVal, oldVal) {
 			if(newVal != oldVal) {
 				this.loadLocationsByDistance(newVal);				
@@ -95,7 +99,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 			});
 
 			geoSearchList.un({
-				select: this.showLocationDetail,
+				select: listSelectHandler,
 				scope: this
 			});
 
@@ -170,15 +174,77 @@ Ext.define('EatSense.controller.GeoSearch', {
 			});
         }
 
-
-
 	},
 
-	showLocationDetail: function(dataview, record) {
-		var me = this;
+	/**
+	* Display location details.
+	*
+	*/
+	showLocationDetail: function(container, record) {
+		var me = this,
+			detailView,
+			backBt,
+			checkInBt;
 
+		detailView = Ext.create('EatSense.view.geosearch.LocationDetail');
+
+		container.add(detailView);
+		container.setActiveItem(1);
+		detailView.show();
+
+		backBt = detailView.down('backbutton');
+		checkInBt = detailView.down('button[action=checkin]');
+
+		container.on({
+			hide: cleanup,
+			scope: this
+		});
+
+		if(backBt) {
+			backBt.on({
+				tap: backBtHandler,
+				scope: this
+			});
+		}
+
+		if(checkInBt) {
+			checkInBt.on({
+				tap: checkInBtHandler,
+				scope: this
+			});
+		}
+
+		function backBtHandler() {
+			container.setActiveItem(0);
+			cleanup();
+		}
+
+		function checkInBtHandler() {
+
+		}
 
 		function cleanup() {
+
+			container.un({
+				hide: cleanup,
+				scope: this
+			});
+
+			if(backBt) {
+				backBt.un({
+					hide: backBtHandler,
+					scope: this
+				});
+			}
+
+			if(checkInBt) {
+				checkInBt.un({
+					tap: checkInBtHandler,
+					scope: this
+				});
+			}
+
+			detailView.destroy();
 
 		}
 	}

@@ -22,7 +22,6 @@ Ext.define('EatSense.view.geosearch.List', {
 					},
 					{
 				        xtype: 'selectfield',
-				        // label: 'Choose one',
 				        align: 'right',
 				        width: 100,
 				        options: [
