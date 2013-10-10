@@ -106,9 +106,17 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 	},
 
+	/**
+	* Load locations based on users gps coords and a distance.
+	* @param {Number} distance
+	*	In meters.
+	* @param {Function} callback (optional)
+	*	Executed with params success and loaded records
+	*/
 	loadLocationsByDistance: function(distance, callback) {
 		var locationsStore,
-			distance = distance || 2000;
+			distance = distance || 2000,
+			currentPosition;
 
 		locationsStore = Ext.StoreManager.lookup('businessStore');
 
@@ -117,24 +125,42 @@ Ext.define('EatSense.controller.GeoSearch', {
 			return;
 		}
 
-		locationsStore.load({
-			params: {
-				'distance': distance
-			},
-			callback: function(records, operation, success) {				
-				// if(success) { The bug in ST 2.1 when empty array is submitted
-				if(!operation.error) {
-					if(appHelper.isFunction(callback)) {
-						callback(true, records);
+		//dont use a mask, otherwise rendering errors can occur
+        appHelper.getCurrentPosition(function(success, position) {
+          if(success) {
+          	currentPosition = position;
+          	doLoadLocations();
+          } else {
+          	if(appHelper.isFunction(callback)) {
+				callback(false);
+			}
+          }                  
+       });
+
+        function doLoadLocations() {
+			locationsStore.load({
+				params: {
+					'distance': distance,
+					'lat': currentPosition.coords.latitude,
+	                'long' : currentPosition.coords.longitude
+				},
+				callback: function(records, operation, success) {				
+					// if(success) { The bug in ST 2.1 when empty array is submitted
+					if(!operation.error) {
+						if(appHelper.isFunction(callback)) {
+							callback(true, records);
+						}
+					} else {
+						if(appHelper.isFunction(callback)) {
+							callback(false);
+						}
 					}
-				} else {
-					if(appHelper.isFunction(callback)) {
-						callback(false);
-					}
-				}
-		    },
-			scope: this
-		});
+			    },
+				scope: this
+			});
+        }
+
+
 
 	},
 
