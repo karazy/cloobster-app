@@ -1838,6 +1838,7 @@ h9 {
 /*
 * GeoSearch
 */
+
 .geosearch-list {
   .x-list-emptytext {
     .x-innerhtml {
@@ -1856,6 +1857,46 @@ h9 {
       }
     }
   }  
+}
+
+.geosearch-list-item {
+
+  table {
+    table-layout: fixed;
+  }
+
+  td:nth-child(1) {
+    width: 80%;
+  }
+
+  div.thumbnail {
+    float: left;
+    -webkit-border-radius: $general-border-radius;
+    border-radius: $general-border-radius;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65px auto;
+    width: 45px;
+    height: 45px;
+  }
+
+  div.thumbnail + * {
+    margin-left: 55px;
+  }
+
+  .location {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .address {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 

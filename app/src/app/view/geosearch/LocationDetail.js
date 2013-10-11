@@ -7,7 +7,6 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 	xtype: 'locationdetail',
 	requires: [],
 	config: {
-		items: [
 		layout: {
 			type: 'vbox',
 			align: 'stretch',
@@ -86,7 +85,6 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 				margin: '5 0 0 0'
 			}
 
-		]
 		]
 	}
 });

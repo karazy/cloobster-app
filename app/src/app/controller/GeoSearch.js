@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.GeoSearch', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.view.geosearch.LocationDetail'],
+	requires: ['EatSense.view.geosearch.List', 'EatSense.view.geosearch.LocationDetail'],
 	config: {
 		refs: {
 			main: 'lounge',
