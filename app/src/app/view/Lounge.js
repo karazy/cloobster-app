@@ -162,7 +162,7 @@ Ext.define('EatSense.view.Lounge', {
 				}
 			},
 			{
-				xtype: 'contactinfo',
+				xtype: 'menucontainer',
 				title: i10n.translate('contactinfo.title'),
 				iconCls: 'contactinfo-icon',
 				leaf: true,

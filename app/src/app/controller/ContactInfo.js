@@ -6,22 +6,26 @@ Ext.define('EatSense.controller.ContactInfo', {
 	extend: 'Ext.app.Controller',
 	requires: [],
 	config: {
-			refs: {
+		refs: {
+			contactInfoViewContainer: 'menucontainer[action=show-contactinfo]',
 			contactInfoView : 'contactinfo',
-			contactInfoShowMapsBt: 'contactinfo button[action=show-maps]',
-			contactInfoMapsBackBt: 'contactinfo button[action=back]'
+			// contactInfoShowMapsBt: 'contactinfo button[action=show-maps]',
+			// contactInfoMapsBackBt: 'contactinfo button[action=back]'
 		},
 		control: {
+			contactInfoViewContainer: {
+				show: 'showContactInfoViewContainer'
+			},
 			contactInfoView: {
 				show: 'showContactInfo',
-				hide: 'hideContactInfo'
+				// hide: 'hideContactInfo'
 			},
-			contactInfoShowMapsBt: {
-				tap: 'showMaps'
-			},
-			contactInfoMapsBackBt: {
-				tap: 'backToContactInfo'
-			}
+			// contactInfoShowMapsBt: {
+			// 	tap: 'showMaps'
+			// },
+			// contactInfoMapsBackBt: {
+			// 	tap: 'backToContactInfo'
+			// }
 		},
 		//the location to display
 		location: null,
@@ -29,21 +33,70 @@ Ext.define('EatSense.controller.ContactInfo', {
 		mapMarker: null,
 		coords: null
 	},
+
+	/**
+	*
+	*
+	*/
+	showContactInfoViewContainer: function(container) {
+		var contactInfoView;
+
+		contactInfoView = Ext.create('EatSense.view.ContactInfo');
+
+		container.add(contactInfoView);
+		container.setActiveItem(0);
+		contactInfoView.show();
+
+		// container.on({
+		// 	hide: cleanup,
+		// 	scope: this
+		// });
+
+		// function cleanup() {
+		// 	container.un({
+		// 		hide: cleanup,
+		// 		scope: this
+		// 	});
+
+		// 	contactInfoView.destroy();
+		// }
+	},
 	
 	/**
-	* Show event handler for {@link EatSense.view.ContactInfo}.
-	* @param {Ext.Component} panel
+	* Show event handler for ContactInfo
+	* @param {EatSense.view.ContactInfo} panel
 	*/
 	showContactInfo: function(panel) {
-		var location = this.getApplication().getController('CheckIn').getActiveBusiness();
-		console.log('ContactInfo.showContactInfo');
+		var me = this,
+			location = panel.getLocation() || this.getApplication().getController('CheckIn').getActiveBusiness(),
+			showMapsBt,
+			backBt;
 
 		panel.setActiveItem(0);
+
+		showMapsBt = panel.down('button[action=show-maps]');
+		backBt = panel.down('backbutton');
+
+		panel.on({
+			hide: cleanup,
+			scope: this
+		});
+
+		showMapsBt.on({
+			tap: doShowMaps,
+			scope: this
+		});
+
+		// backBt.on({
+		// 	tap: backBtHandler,
+		// 	scope: this
+		// });
 
 		//delay data setup
 		Ext.create('Ext.util.DelayedTask', function () {
 			//only refresh when this is a new location
-			if(location && location != this.getLocation()) {
+			//20131008 since we delete the view on hide we have to refresh
+			if(location) {
 				this.setCoords(null);
 				this.setMapCreated(false);
 				this.setMapMarker(null);
@@ -54,35 +107,65 @@ Ext.define('EatSense.controller.ContactInfo', {
 					this.setCoords(new google.maps.LatLng(this.getLocation().get('geoLat'), this.getLocation().get('geoLong')));					
 				}
 			}
-		}, this).delay(300);	
+		}, this).delay(300);
+
+		function backBtHandler(button) {
+			panel.setActiveItem(0);
+		}
+
+		function doShowMaps(button) {
+			me.showMaps(panel);
+		}
+
+		function cleanup() {
+			showMapsBt.un({
+				tap: doShowMaps,
+				scope: this
+			});
+
+			// backBt.un({
+			// 	tap: backBtHandler,
+			// 	scope: this
+			// });
+
+			panel.un({
+				hide: cleanup,
+				scope: this
+			});
+
+			panel.destroy();
+
+		}
 	},
 
-	hideContactInfo: function(panel) {
-		var mapPanel = panel.down('#mapsPanel');
+	// hideContactInfo: function(panel) {
+	// 	var mapPanel = panel.down('#mapsPanel');
 
-		if(mapPanel) {
-			panel.remove(mapPanel, true);	
-		}		
-	},
+	// 	if(mapPanel) {
+	// 		panel.remove(mapPanel, true);	
+	// 	}		
+	// },
 	/**
 	* Back button tap event. Return to contact view from map view.
 	*/
-	backToContactInfo: function() {
-		var contactInfoView = this.getContactInfoView();
+	// backToContactInfo: function() {
+	// 	var contactInfoView = this.getContactInfoView();
 
-
-		if(contactInfoView) {
-			contactInfoView.setActiveItem(0);
-		}
-	},
+	// 	if(contactInfoView) {
+	// 		contactInfoView.setActiveItem(0);
+	// 	}
+	// },
 	/**
 	* Display the map based on the address of current location.
+	* @param {EatSense.view.ContactInfo} contactInfoView
+	* View where to add the map as panel.
 	*/
-	showMaps: function() {
+	showMaps: function(contactInfoView) {
 		var me = this,
-			contactInfoView = this.getContactInfoView(),
+			contactInfoView = contactInfoView,
 			location = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			openMapsBt,
+			backBt,
 			gmap,
 			mapsAddress;
 
@@ -91,9 +174,16 @@ Ext.define('EatSense.controller.ContactInfo', {
 				contactInfoView.add(contactInfoView.getMapsViewTemplate());					
 			}
 			
-			contactInfoView.setActiveItem(1);			
+			contactInfoView.setActiveItem(1);
+
+			backBt = contactInfoView.down('#mapsPanel backbutton');
 			
-			
+			if(backBt) {
+				backBt.on({
+					tap: backBtHandler,
+					scope: this
+				});
+			}
 
 			console.log('ContactInfo.showMaps: create map');
 
@@ -102,6 +192,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			if(google && google.maps) {
 				
 				openMapsBt = contactInfoView.down('button[action=open-maps]');
+
 				gmap = contactInfoView.down('map');
 				
 				contactInfoView.getAt(1).on({
@@ -217,10 +308,21 @@ Ext.define('EatSense.controller.ContactInfo', {
 				// window.location.href = encodeURI('geo:' + myLatlng.lat() + ',' + myLatlng.lng());
 			}
 
+			function backBtHandler() {
+				contactInfoView.setActiveItem(0);
+			}
+
 			function cleanup() {
 				if(openMapsBt) {
 					openMapsBt.un({
 						tap: openNativeMaps,
+						scope: this
+					});
+				}
+
+				if(backBt) {
+					backBt.un({
+						tap: backBtHandler,
 						scope: this
 					});
 				}

@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.GeoSearch', {
 	extend: 'Ext.app.Controller',
-	requires: ['EatSense.view.geosearch.List', 'EatSense.view.geosearch.LocationDetail'],
+	requires: ['EatSense.view.geosearch.List', 'EatSense.view.geosearch.LocationDetail', 'EatSense.view.ContactInfo'],
 	config: {
 		refs: {
 			main: 'lounge',
@@ -184,28 +184,39 @@ Ext.define('EatSense.controller.GeoSearch', {
 		var me = this,
 			detailView,
 			backBt,
-			checkInBt;
+			checkInBt,
+			content;
 
-		detailView = Ext.create('EatSense.view.geosearch.LocationDetail');
+		// detailView = Ext.create('EatSense.view.geosearch.LocationDetail');
+		detailView = Ext.create('EatSense.view.ContactInfo', {
+			location: record,
+			backButton: true
+			// items: [
+			// 	{
+			// 		backButton: true
+			// 	}
+			// ]
+		});
+
+		//add backbutton and logic 
+		//add checkin and favorit buttons
 
 		container.add(detailView);
 		container.setActiveItem(1);
 		detailView.show();
+		
 
-		backBt = detailView.down('backbutton');
+		// backBt = detailView.down('backbutton');
+		detailView.down('#actions').setHidden(false);
 		checkInBt = detailView.down('button[action=checkin]');
+		favoritBt = detailView.down('button[action=save-favorit]');
+		// content = detailView.down('#content');
+      	// imageLabel = detailView.down('#image');
 
 		container.on({
 			hide: cleanup,
 			scope: this
 		});
-
-		if(backBt) {
-			backBt.on({
-				tap: backBtHandler,
-				scope: this
-			});
-		}
 
 		if(checkInBt) {
 			checkInBt.on({
@@ -214,13 +225,29 @@ Ext.define('EatSense.controller.GeoSearch', {
 			});
 		}
 
-		function backBtHandler() {
-			container.setActiveItem(0);
-			cleanup();
+		if(favoritBt) {
+			favoritBt.on({
+				tap: favoritBtHandler,
+				scope: this
+			});
 		}
 
 		function checkInBtHandler() {
+			 appHelper.toggleMask('loadingMsg' ,detailView);
+             this.loadWelcomeSpotOfBusiness(record.get('id'), function(success, spot) {
+               appHelper.toggleMask(false, detailView);
+               if(success && spot) {
+                  cleanup();
+                  //TODO find a better way to jump to dashboard
+                  //Or show the nickname view on demand!
+                  Ext.Viewport.fireEvent('showdashboard');
+                  Ext.Viewport.fireEvent('checkinwithspot', spot);
+               }
+             });
+		}
 
+		function favoritBtHandler() {
+			Ext.Viewport.fireEvent('addlocationastovisit', record);
 		}
 
 		function cleanup() {
@@ -230,13 +257,6 @@ Ext.define('EatSense.controller.GeoSearch', {
 				scope: this
 			});
 
-			if(backBt) {
-				backBt.un({
-					hide: backBtHandler,
-					scope: this
-				});
-			}
-
 			if(checkInBt) {
 				checkInBt.un({
 					tap: checkInBtHandler,
@@ -244,8 +264,62 @@ Ext.define('EatSense.controller.GeoSearch', {
 				});
 			}
 
+			if(favoritBt) {
+				favoritBt.un({
+					tap: favoritBtHandler,
+					scope: this
+				});
+			}
+
 			detailView.destroy();
 
 		}
-	}
+	},
+
+ /**
+  * Load welcome spot of given business.
+  * @param {String} businessId
+  *   id of business
+  * @param {Function} callback
+  *   Passed true|false depending on success and spot.
+  *
+  */
+  loadWelcomeSpotOfBusiness: function(businessId, callback) {
+    var me = this,
+        spot,
+        spotModel;
+
+      if(!businessId || businessId.length == 0) {
+        console.error('GeoSearch.loadWelcomeSpotOfBusiness: no businessId given');
+        callback(false);
+        return;
+      } 
+
+      Ext.Ajax.request({
+        url: appConfig.serviceUrl + '/spots/welcome/',
+        method: 'GET',
+        params: {
+          'locationId' : businessId
+        },
+        success: function(response) {
+         //array
+         spot = Ext.JSON.decode(response.responseText);
+         if(Ext.isArray(spot)) {
+            spot = spot[0];
+         }
+
+         spotModel = Ext.create('EatSense.model.Spot', spot);
+
+         callback(true, spotModel);  
+
+        },
+        failure: function(response) {
+         callback(false);
+          me.getApplication().handleServerError({
+            'error': response
+          });
+        },
+        scope: me
+      });
+  }
 });

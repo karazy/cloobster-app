@@ -8,13 +8,18 @@ Ext.define('EatSense.view.ContactInfo', {
 	xtype: 'contactinfo',
 	config: {		
 		/**
-		* @cfg location
-		* The record displayed on this page. Must be of type @see{EatSense.model.Business}
+		* @cfg {EatSense.model.Business} location
+		* The record displayed on this page.
 		*/
 		location: null,
 		layout: 'card',
-		activeItem: 0,
-		items: [			
+		activeItem: 0,	
+		/**
+		* @cfg {Boolean} backButton
+		* True, to render a BackButton instead of HomeButton on first panel.
+		*/	
+		backButton: false,
+		items: [
 			{
 				xtype: 'backbuttonpanel',
 				homeButton: true,
@@ -47,6 +52,38 @@ Ext.define('EatSense.view.ContactInfo', {
 							'</div>'
 						)
 					},
+					{
+						xtype: 'panel',
+						layout: {
+							type: 'hbox',
+							align: 'center'
+						},
+						margin: '5 0 0 0',
+						hidden: true,
+						itemId: 'actions',
+						items: [					
+							{
+								xtype: 'fixedbutton',
+								action: 'checkin',
+								align: 'right',
+							    text: i10n.translate('tovisit.detail.sneakinbutton'),
+							    ui: 'action',
+							    margin: '0 5 0 0',
+							    flex: 1
+							},
+							{
+								xtype: 'fixedbutton',
+								// iconCls: 'tovisit-icon',
+								// iconMask: true,
+								ui: 'action',
+								action: 'save-favorit',
+								align: 'right',
+								margin: '0 0 0 5',
+								flex: 1,
+								text: i10n.translate('dashboard.button.tovisit'),
+							}
+						]
+					},	
 					{
 						xtype: 'panel',
 						itemId: 'mainPhone',
@@ -168,6 +205,16 @@ Ext.define('EatSense.view.ContactInfo', {
 				}
 			]
 		}
+	},
+
+	constructor: function(config) {		
+
+		// if(this.config.backButton) {
+		// 	this.config.items[0].backButton = true;
+		// 	this.config.items[0].homeButton = false;
+		// }
+		this.initConfig(config);
+		// this.callParent(arguments);
 	},
 
 	updateLocation: function(newValue, oldValue) {

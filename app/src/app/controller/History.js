@@ -18,6 +18,13 @@ Ext.define('EatSense.controller.History', {
      * Use active CheckIn to create a ToVisit.
      * Fires on Ext.Viewport.
      */
+
+     /**
+     * @event addlocationastovisit
+     * Adds a location as to visit. Fires on Ext.Viewport.
+     * @param {@link EatSense.model.Business} location
+     * Location to add as to visit.
+     */     
      
 
 	requires: ['EatSense.view.History', 'EatSense.view.VisitNew', 'EatSense.view.VisitDetail', 'EatSense.view.NoLocation'],
@@ -34,11 +41,11 @@ Ext.define('EatSense.controller.History', {
          toVisitList: 'dashboard list',
 			historyDetailView: 'lounge historydetail',
 			historyDetailOrderList : 'historydetail #historyOrders',
-         toVisitNewView: {
-            selector: 'visitnew',
-            xtype: 'visitnew',
-            autoCreate: true
-         }
+       toVisitNewView: {
+          selector: 'visitnew',
+          xtype: 'visitnew',
+          autoCreate: true
+       }
 		},
 		control: {
          toVisitButton: {
@@ -87,6 +94,13 @@ Ext.define('EatSense.controller.History', {
             //TODO would be cleaner without controller call
             var _activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness();
             this.checkForToVisitAction(null, _activeBusiness);
+         },
+         'addlocationastovisit': function(location) {
+            if(!location) {
+              console.error('Event addlocationastovisit: no location given');
+              return;
+            }
+            this.checkForToVisitAction(null, location);
          },
          scope: this
       });
@@ -1330,7 +1344,8 @@ Ext.define('EatSense.controller.History', {
         spotModel;
 
       if(!businessId || businessId.length == 0) {
-         console.error('History.deleteToVisit: no toVisit given');
+         console.error('History.loadWelcomeSpotOfBusiness: no businessId given');
+         callback(false);
         return;
       } 
 

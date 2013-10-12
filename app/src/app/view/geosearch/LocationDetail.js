@@ -35,12 +35,12 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 								'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s128\')"></div>',
 							'</tpl>',
 							'<div class="location content-box">',
-								'{locationName}',							
+								'{name}',							
 							'</div>',
 						'</div>',						
-						'<tpl if="locationCity">',
+						'<tpl if="city">',
 							'<div class="content-box">',
-								'<div class="address">{locationCity}</div>',
+								'<div class="address">{city}</div>',
 							'</div>',
 						'</tpl>',
 						'<tpl if="comment">',
@@ -66,16 +66,18 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 					    ui: 'action',
 					    margin: '0 5 0 0',
 					    flex: 1
+					},
+					{
+						xtype: 'fixedbutton',
+						// iconCls: 'tovisit-icon',
+						// iconMask: true,
+						ui: 'action',
+						action: 'save-favorit',
+						align: 'right',
+						margin: '0 0 0 5',
+						flex: 1,
+						text: i10n.translate('dashboard.button.tovisit'),
 					}
-					// {
-					// 	xtype: 'fixedbutton',
-					// 	iconCls: 'qrcode-icon',
-					// 	iconMask: true,
-					// 	ui: 'action',
-					// 	action: 'scan',
-					// 	align: 'right',
-					// 	margin: '0 0 0 5'
-					// }
 				]
 			},			
 			{
