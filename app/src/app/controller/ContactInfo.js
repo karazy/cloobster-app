@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.ContactInfo', {
 	extend: 'Ext.app.Controller',
-	requires: [],
+	requires: ['EatSense.view.contactinfo.Info', 'EatSense.view.contactinfo.Map'],
 	config: {
 		refs: {
 			contactInfoViewContainer: 'menucontainer[action=show-contactinfo]',
@@ -17,7 +17,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 				show: 'showContactInfoViewContainer'
 			},
 			contactInfoView: {
-				show: 'showContactInfo',
+				// show: 'showContactInfo',
 				// hide: 'hideContactInfo'
 			},
 			// contactInfoShowMapsBt: {
@@ -41,11 +41,13 @@ Ext.define('EatSense.controller.ContactInfo', {
 	showContactInfoViewContainer: function(container) {
 		var contactInfoView;
 
-		contactInfoView = Ext.create('EatSense.view.ContactInfo');
+		contactInfoView = Ext.create('EatSense.view.contactinfo.Info');
 
 		container.add(contactInfoView);
 		container.setActiveItem(0);
 		contactInfoView.show();
+
+		this.showContactInfo(contactInfoView, container);
 
 		// container.on({
 		// 	hide: cleanup,
@@ -66,18 +68,20 @@ Ext.define('EatSense.controller.ContactInfo', {
 	* Show event handler for ContactInfo
 	* @param {EatSense.view.ContactInfo} panel
 	*/
-	showContactInfo: function(panel) {
+	showContactInfo: function(panel, container, cardIndex) {
 		var me = this,
 			location = panel.getLocation() || this.getApplication().getController('CheckIn').getActiveBusiness(),
 			showMapsBt,
+			activeItemIndex = cardIndex || 0,
 			backBt;
 
-		panel.setActiveItem(0);
+		container.setActiveItem(cardIndex);
 
 		showMapsBt = panel.down('button[action=show-maps]');
 		backBt = panel.down('backbutton');
 
-		panel.on({
+
+		container.on({
 			hide: cleanup,
 			scope: this
 		});
@@ -87,10 +91,12 @@ Ext.define('EatSense.controller.ContactInfo', {
 			scope: this
 		});
 
-		// backBt.on({
-		// 	tap: backBtHandler,
-		// 	scope: this
-		// });
+		if(backBt) {
+			backBt.on({
+				tap: backBtHandler,
+				scope: this
+			});
+		}
 
 		//delay data setup
 		Ext.create('Ext.util.DelayedTask', function () {
@@ -102,7 +108,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 				this.setMapMarker(null);
 				this.setLocation(location);
 				panel.setLocation(location);
-				this.showLocationProfilePictures(location);
+				this.showLocationProfilePictures(location, panel);
 				if(this.getLocation().get('geoLat') && this.getLocation().get('geoLong')) {
 					this.setCoords(new google.maps.LatLng(this.getLocation().get('geoLat'), this.getLocation().get('geoLong')));					
 				}
@@ -110,11 +116,11 @@ Ext.define('EatSense.controller.ContactInfo', {
 		}, this).delay(300);
 
 		function backBtHandler(button) {
-			panel.setActiveItem(0);
+			container.setActiveItem(cardIndex);
 		}
 
 		function doShowMaps(button) {
-			me.showMaps(panel);
+			me.showMaps(container);
 		}
 
 		function cleanup() {
@@ -123,12 +129,14 @@ Ext.define('EatSense.controller.ContactInfo', {
 				scope: this
 			});
 
-			// backBt.un({
-			// 	tap: backBtHandler,
-			// 	scope: this
-			// });
+			if(backBt) {
+				backBt.un({
+					tap: backBtHandler,
+					scope: this
+				});
+			}
 
-			panel.un({
+			container.un({
 				hide: cleanup,
 				scope: this
 			});
@@ -155,28 +163,37 @@ Ext.define('EatSense.controller.ContactInfo', {
 	// 		contactInfoView.setActiveItem(0);
 	// 	}
 	// },
+
 	/**
 	* Display the map based on the address of current location.
-	* @param {EatSense.view.ContactInfo} contactInfoView
+	* @param {Ext.Panel} container
 	* View where to add the map as panel.
 	*/
-	showMaps: function(contactInfoView) {
+	showMaps: function(container) {
 		var me = this,
-			contactInfoView = contactInfoView,
+			mapView,
 			location = this.getApplication().getController('CheckIn').getActiveBusiness(),
 			openMapsBt,
 			backBt,
 			gmap,
-			mapsAddress;
+			mapsAddress,
+			activeItemIndex;
 
-		if(contactInfoView) {
-			if(!contactInfoView.down('#mapsPanel')) {
-				contactInfoView.add(contactInfoView.getMapsViewTemplate());					
-			}
+		if(container) {
+			activeItemIndex = container.getInnerItems().indexOf(container.getActiveItem()) + 1;
 			
-			contactInfoView.setActiveItem(1);
+			if(container.down('contactinfomap')) {
+				container.setActiveItem(activeItemIndex);
+				return;				
+			}
+			// if(!container.down('contactinfomap')) {
+			mapView = Ext.create('EatSense.view.contactinfo.Map');
+			container.add(mapView);					
+			// }			
+			
+			container.setActiveItem(activeItemIndex);
 
-			backBt = contactInfoView.down('#mapsPanel backbutton');
+			backBt = mapView.down('backbutton');
 			
 			if(backBt) {
 				backBt.on({
@@ -191,11 +208,11 @@ Ext.define('EatSense.controller.ContactInfo', {
 			//only proceed if google maps is included
 			if(google && google.maps) {
 				
-				openMapsBt = contactInfoView.down('button[action=open-maps]');
+				openMapsBt = mapView.down('button[action=open-maps]');
 
-				gmap = contactInfoView.down('map');
+				gmap = mapView.down('map');
 				
-				contactInfoView.getAt(1).on({
+				container.on({
 					hide: cleanup,
 					scope: this
 				});				
@@ -208,7 +225,8 @@ Ext.define('EatSense.controller.ContactInfo', {
 							disableDefaultUI: true
 						}
 					});
-					contactInfoView.getActiveItem().add(gmap);
+
+					container.getActiveItem().add(gmap);
 
 					gmap.on({
 						'painted': function(panel) {
@@ -309,7 +327,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			}
 
 			function backBtHandler() {
-				contactInfoView.setActiveItem(0);
+				container.setActiveItem(activeItemIndex - 1);
 			}
 
 			function cleanup() {
@@ -326,6 +344,13 @@ Ext.define('EatSense.controller.ContactInfo', {
 						scope: this
 					});
 				}
+
+				container.un({
+					hide: cleanup,
+					scope: this
+				});	
+
+				mapView.destroy();
 			}
 
 		}
@@ -334,10 +359,11 @@ Ext.define('EatSense.controller.ContactInfo', {
 	* Show location profile pictures in contact details.
 	* @param {EatSense.model.Business} business
 	*	Contains the profile information.
+	* @param {EatSense.view.components.Info} contactInfoView
+	* 	ContactInfo view where pictures get rendered.
 	*/
-	showLocationProfilePictures: function(business) {
-		var contactInfoView = this.getContactInfoView(),
-			infoHeader,
+	showLocationProfilePictures: function(business, contactInfoView) {
+		var infoHeader,
 			tpl,
 			html,
 			imagePanel,
@@ -347,7 +373,12 @@ Ext.define('EatSense.controller.ContactInfo', {
 			if(!business) {
 				console.error('InfoPage.showLocationProfilePictures: no business given');
 				return;	
-			}			
+			}	
+
+			if(!contactInfoView) {
+				console.error('InfoPage.showLocationProfilePictures: no contactInfoView given');
+				return;	
+			}				
 
 			renderProfilePics(contactInfoView);
 		

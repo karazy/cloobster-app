@@ -188,14 +188,9 @@ Ext.define('EatSense.controller.GeoSearch', {
 			content;
 
 		// detailView = Ext.create('EatSense.view.geosearch.LocationDetail');
-		detailView = Ext.create('EatSense.view.ContactInfo', {
+		detailView = Ext.create('EatSense.view.contactinfo.Info', {
 			location: record,
 			backButton: true
-			// items: [
-			// 	{
-			// 		backButton: true
-			// 	}
-			// ]
 		});
 
 		//add backbutton and logic 
@@ -206,7 +201,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		detailView.show();
 		
 
-		// backBt = detailView.down('backbutton');
+		backBt = detailView.down('backbutton');
 		detailView.down('#actions').setHidden(false);
 		checkInBt = detailView.down('button[action=checkin]');
 		favoritBt = detailView.down('button[action=save-favorit]');
@@ -232,6 +227,13 @@ Ext.define('EatSense.controller.GeoSearch', {
 			});
 		}
 
+		if(backBt) {
+			backBt.on({
+				tap: backBtHandler,
+				scope: this
+			});
+		}
+
 		function checkInBtHandler() {
 			 appHelper.toggleMask('loadingMsg' ,detailView);
              this.loadWelcomeSpotOfBusiness(record.get('id'), function(success, spot) {
@@ -248,6 +250,11 @@ Ext.define('EatSense.controller.GeoSearch', {
 
 		function favoritBtHandler() {
 			Ext.Viewport.fireEvent('addlocationastovisit', record);
+		}
+
+		function backBtHandler() {
+			container.setActiveItem(0);
+			cleanup();
 		}
 
 		function cleanup() {
@@ -267,6 +274,13 @@ Ext.define('EatSense.controller.GeoSearch', {
 			if(favoritBt) {
 				favoritBt.un({
 					tap: favoritBtHandler,
+					scope: this
+				});
+			}
+
+			if(backBt) {
+				backBt.un({
+					tap: backBtHandler,
 					scope: this
 				});
 			}

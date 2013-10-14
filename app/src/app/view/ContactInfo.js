@@ -207,15 +207,15 @@ Ext.define('EatSense.view.ContactInfo', {
 		}
 	},
 
-	constructor: function(config) {		
+	// constructor: function(config) {		
 
 		// if(this.config.backButton) {
 		// 	this.config.items[0].backButton = true;
 		// 	this.config.items[0].homeButton = false;
 		// }
-		this.initConfig(config);
+		// this.initConfig(config);
 		// this.callParent(arguments);
-	},
+	// },
 
 	updateLocation: function(newValue, oldValue) {
 		var content,
