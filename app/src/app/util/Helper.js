@@ -559,5 +559,22 @@ Ext.define('EatSense.util.Helper', {
   			console.error('EatSense.util.Helper.debugObject: failed to debug object ' + e);
   		}
 
+  	},
+
+  	/**
+	* Return value of a query parameter.
+	* http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
+	* @param {String} name
+	* Name of parameter.
+	* @return value
+	*/
+  	getQueryParameter: function(name) {
+  		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+  			results;
+
+  		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        results = regex.exec(location.search);
+
+    	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   	}
 });
