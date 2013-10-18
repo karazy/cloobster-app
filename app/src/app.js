@@ -16,6 +16,7 @@ Ext.application({
   /**
    * @event whitelabelmode
    * Fires when a whitelabel configuration was found.
+   * @param {String} Name of the whitelabel
    */
 
 	controllers : [ 'CheckIn', 'Lounge', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
@@ -191,9 +192,6 @@ Ext.application({
 
         //end set some app defaults
 
-        //set Default headers object
-        Ext.Ajax.setDefaultHeaders(defaultHeaders);
-
         headerUtil.addHeader('cloobster-api', appConfig.cloobsterApi);
 
       //try to restore application state
@@ -357,8 +355,10 @@ Ext.application({
           } catch(e) {
             console.error('Application.initConfiguration: could not decode whitelabel configuration ' + e);
           }
+          //Submit the whitelabel with each request, so that the server side can react accordingly
+          headerUtil.addHeader('cloobster-whitelabel', configName);
           callback();
-          Ext.Viewport.fireEvent('whitelabelmode');
+          Ext.Viewport.fireEvent('whitelabelmode', configName);
         },
         failure: function(response) {
           callback();
