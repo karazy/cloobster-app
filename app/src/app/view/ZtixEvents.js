@@ -89,8 +89,8 @@ Ext.define('EatSense.view.ZtixEvents',{
 						ui: 'action',
 						iconCls: 'arrow_left',
 						iconMask: true,
-						align: 'right'
-						// hidden: true
+						align: 'right',
+						hidden: true
 					},
 					{
 						xtype: 'fixedbutton',

@@ -72,6 +72,7 @@ Ext.define('EatSense.controller.Ztix', {
 			nextMonthBt,
 			prevMonthBt,
 			tmpDate,
+			today,
 			list;		
 
 		//Create the events view
@@ -79,9 +80,20 @@ Ext.define('EatSense.controller.Ztix', {
 		area.add(eventsView);
 		area.setActiveItem(0);
 
-		if(!this.getCurrentPaginationDate()) {
-			tmpDate = new Date();
-			this.setCurrentPaginationDate(new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 1));
+		nextMonthBt = eventsView.down('button[action=next-month]');
+		prevMonthBt = eventsView.down('button[action=prev-month]');
+
+		tmpDate = new Date();
+		today = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate());
+
+		if(!this.getCurrentPaginationDate()) {			
+			this.setCurrentPaginationDate(new Date(today.getTime()));
+		} else if(this.getCurrentPaginationDate() < today) {
+			//if date lies in the past, hide the button and set today as date
+			this.setCurrentPaginationDate(new Date(today.getTime()));				
+			prevMonthBt.setHidden(true);
+		} else {
+			prevMonthBt.setHidden(false);
 		}
 
 		setViewTitle();
@@ -89,9 +101,7 @@ Ext.define('EatSense.controller.Ztix', {
 		Ext.create('Ext.util.DelayedTask', function () {
 			this.loadEvents(this.getCurrentPaginationDate());                  
 		}, this).delay(200); 
-
-		nextMonthBt = eventsView.down('button[action=next-month]');
-		prevMonthBt = eventsView.down('button[action=prev-month]');
+		
 		
 		nextMonthBt.on({
 			tap: nextMonthBtHandler,
@@ -113,19 +123,29 @@ Ext.define('EatSense.controller.Ztix', {
 			scope: this
 		});
 
-		function prevMonthBtHandler() {
-			//check if not in the past
+		function prevMonthBtHandler() {			
 			//decrease date
 			this.getCurrentPaginationDate().setMonth(this.getCurrentPaginationDate().getMonth() - 1);
+
+			if(this.getCurrentPaginationDate() < today) {
+				//if date lies in the past, hide the button and set today as date
+				this.setCurrentPaginationDate(new Date(today.getTime()));				
+				prevMonthBt.setHidden(true);
+			}
+
 			this.loadEvents(this.getCurrentPaginationDate());
 			setViewTitle();
 		}
 
 		function nextMonthBtHandler() {
+			//if last date was today set day of month to 1 to see all events of coming month
+			if(this.getCurrentPaginationDate().getTime() == today.getTime()) {
+				this.getCurrentPaginationDate().setDate(1);	
+			}
 			//increase date
 			this.getCurrentPaginationDate().setMonth(this.getCurrentPaginationDate().getMonth() + 1);
 			this.loadEvents(this.getCurrentPaginationDate());
-			// prevMonthBt.setHidden(false);
+			prevMonthBt.setHidden(false);
 			setViewTitle();
 		}
 
