@@ -2045,6 +2045,14 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"de.ztix.coupons.title" : {
+			"DE" :  "Gutscheine",
+			"EN" : "Coupons"
+		},
+		"de.ztix.coupons.title.subtitle" : {
+			"DE" :  "Exklusive Angebote",
+			"EN" : "Exclusiv offers"
+		},
 		// "de.ztix.events.letin" : {
 		// 	"DE" :  "Einlass",
 		// 	"EN" : "Entrance",

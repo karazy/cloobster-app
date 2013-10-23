@@ -10,17 +10,27 @@ Ext.define('EatSense.controller.Ztix', {
 	],
 	config: {
 		refs: {
-			eventsArea : 'slidenavcontainer[action=show-ztix-events]'
+			eventsArea : 'slidenavcontainer[action=show-ztix-events]',
+			couponsArea : 'slidenavcontainer[action=show-ztix-coupons]'
 		},
 		control: {
 			eventsArea: {
 				show: 'showEventsArea'
+			},
+			couponsArea: {
+				show: 'showCouponsArea'
 			}
 		},
 		/**
-		* The host Id for which to load events.
+		* @accessor
+		* The host Id(s) for which to load events.
 		*/
 		hostId: null,
+		/**
+		* @accessor
+		* The coupons issuer id(s).
+		*/
+		couponIds: null,
 		/**
 		* @accessor
 		* The active displayed month
@@ -56,27 +66,62 @@ Ext.define('EatSense.controller.Ztix', {
 		if(business.raw.configuration) {
 			if(business.raw.configuration.hasOwnProperty('de.ztix')) {
 				this.setHostId(business.raw.configuration['de.ztix'].hosts);
+				this.setCouponIds(business.raw.configuration['de.ztix'].coupons);
 			}
 		}
 	},
 
 	/**
 	* @private
-	* Show Event handler for ztix container.
-	* Creates {@link EatSense.view.ZtixEvents} during runtime and destroys it on hide.
+	* Show Event handler for eventsArea.
+	* @param {EatSense.view.components.SlideNavContainer} area
 	*/
 	showEventsArea: function(area) {
+		this.showZtixData(area, "events");
+	},
+
+	/**
+	* @private
+	* Show Event handler for couponsArea.
+	* @param {EatSense.view.components.SlideNavContainer} area
+	*/
+	showCouponsArea: function(area) {
+		this.showZtixData(area, "coupons");
+	},
+
+	/**
+	* @private
+	* Display ztix data.
+	* Creates {@link EatSense.view.ZtixEvents} during runtime and destroys it on hide.
+	* @param {EatSense.view.components.SlideNavContainer} area
+	* @param {String} dataType
+	*  Type of data to show. Can be coupons or events.
+	*/
+	showZtixData: function(area, dataType) {
 		var me = this,
-			store = Ext.StoreManager.lookup('ztixEventsStore'),
 			eventsView,
 			nextMonthBt,
 			prevMonthBt,
 			tmpDate,
+			storeId,
+			store,
 			today,
-			list;		
+			list,
+			dataType = dataType || "events";
 
 		//Create the events view
-		eventsView = Ext.create('EatSense.view.ZtixEvents');
+		if(dataType == "events" || !dataType) {
+			storeId = 'ztixEventsStore';
+		} else if(dataType == "coupons") {
+			storeId ='ztixCouponsStore';
+		}
+
+		store = Ext.StoreManager.lookup(storeId);
+
+		eventsView = Ext.create('EatSense.view.ZtixEvents', {
+			store: storeId
+		});
+
 		area.add(eventsView);
 		area.setActiveItem(0);
 
@@ -86,11 +131,11 @@ Ext.define('EatSense.controller.Ztix', {
 		tmpDate = new Date();
 		today = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate());
 
-		if(!this.getCurrentPaginationDate()) {			
-			this.setCurrentPaginationDate(new Date(today.getTime()));
-		} else if(this.getCurrentPaginationDate() < today) {
+		if(!store.getCurrentPaginationDate()) {			
+			store.setCurrentPaginationDate(new Date(today.getTime()));
+		} else if(store.getCurrentPaginationDate() < today) {
 			//if date lies in the past, hide the button and set today as date
-			this.setCurrentPaginationDate(new Date(today.getTime()));				
+			store.setCurrentPaginationDate(new Date(today.getTime()));				
 			prevMonthBt.setHidden(true);
 		} else {
 			prevMonthBt.setHidden(false);
@@ -99,7 +144,7 @@ Ext.define('EatSense.controller.Ztix', {
 		setViewTitle();
 
 		Ext.create('Ext.util.DelayedTask', function () {
-			this.loadEvents(this.getCurrentPaginationDate());                  
+			this.loadEvents(store.getCurrentPaginationDate(), dataType);                  
 		}, this).delay(200); 
 		
 		
@@ -119,43 +164,47 @@ Ext.define('EatSense.controller.Ztix', {
 		});
 
 		eventsView.on({
-			select: this.showEventDetail,
+			select: showEventDetailHandler,
 			scope: this
 		});
 
 		function prevMonthBtHandler() {			
 			//decrease date
-			this.getCurrentPaginationDate().setMonth(this.getCurrentPaginationDate().getMonth() - 1);
+			store.getCurrentPaginationDate().setMonth(store.getCurrentPaginationDate().getMonth() - 1);
 
-			if(this.getCurrentPaginationDate() < today) {
+			if(store.getCurrentPaginationDate() < today) {
 				//if date lies in the past, hide the button and set today as date
-				this.setCurrentPaginationDate(new Date(today.getTime()));				
+				store.setCurrentPaginationDate(new Date(today.getTime()));				
 				prevMonthBt.setHidden(true);
 			}
 
-			this.loadEvents(this.getCurrentPaginationDate());
+			me.loadEvents(store.getCurrentPaginationDate(), dataType);
 			setViewTitle();
 		}
 
 		function nextMonthBtHandler() {
 			//if last date was today set day of month to 1 to see all events of coming month
-			if(this.getCurrentPaginationDate().getTime() == today.getTime()) {
-				this.getCurrentPaginationDate().setDate(1);	
+			if(store.getCurrentPaginationDate().getTime() == today.getTime()) {
+				store.getCurrentPaginationDate().setDate(1);	
 			}
 			//increase date
-			this.getCurrentPaginationDate().setMonth(this.getCurrentPaginationDate().getMonth() + 1);
-			this.loadEvents(this.getCurrentPaginationDate());
+			store.getCurrentPaginationDate().setMonth(store.getCurrentPaginationDate().getMonth() + 1);
+			me.loadEvents(store.getCurrentPaginationDate(), dataType);
 			prevMonthBt.setHidden(false);
 			setViewTitle();
 		}
 
 		function setViewTitle() {
-			if(me.getCurrentPaginationDate()) {
-				var shortYear = me.getCurrentPaginationDate().getFullYear().toString().substring(2,4),
-					shortMonth = i10n.translate('month.' + me.getCurrentPaginationDate().getMonth());
+			if(store.getCurrentPaginationDate()) {
+				var shortYear = store.getCurrentPaginationDate().getFullYear().toString().substring(2,4),
+					shortMonth = i10n.translate('month.' + store.getCurrentPaginationDate().getMonth());
 
 				eventsView.down('titlebar').setTitle(shortMonth + ' ' + shortYear);
 			}
+		}
+
+		function showEventDetailHandler(dataview, eventData) {
+			this.showEventDetail(area, dataview, eventData);
 		}
 
 		function cleanup() {
@@ -165,7 +214,7 @@ Ext.define('EatSense.controller.Ztix', {
 			});
 
 			eventsView.un({
-				select: this.showEventDetail,
+				select: showEventDetailHandler,
 				scope: this
 			});
 
@@ -189,15 +238,25 @@ Ext.define('EatSense.controller.Ztix', {
 	* Loads {@link EatSense.model.ZtixEvent} from ztix server.
 	* @param {String} startDate
 	*	The date from which to start.
+	* @param {String} dataType
 	*/
-	loadEvents: function(startDate) {
+	loadEvents: function(startDate, dataType) {
 		var me = this,
-			store = Ext.StoreManager.lookup('ztixEventsStore'),
+			store,
 			baseUrl = appConfig.getProp('de-ztix.baseUrl'),
 			_startDate,
 			_endDate,
 			paginationSuffix,
+			dataType = dataType || "events",
+			newUrl,
 			oldUrl;
+
+		if(dataType == "events" || !dataType) {
+			store = Ext.StoreManager.lookup('ztixEventsStore');
+		} else if(dataType == "coupons") {
+			store = Ext.StoreManager.lookup('ztixCouponsStore');
+		}
+		
 
 		if(!store) {
 			console.error('Ztix.loadEvents: no ztixEventsStore exists');
@@ -227,7 +286,13 @@ Ext.define('EatSense.controller.Ztix', {
 			paginationSuffix += Ext.util.Format.date(_endDate, appConstants.ISODate) + '/';
 		}
 
-		store.getProxy().setUrl(baseUrl + paginationSuffix + this.getHostId());
+		if(dataType == "events" || !dataType) {
+			newUrl = baseUrl + paginationSuffix + this.getHostId();
+		} else if(dataType == "coupons") {
+			newUrl = baseUrl + paginationSuffix + this.getCouponIds();
+		}
+
+		store.getProxy().setUrl(newUrl);
 
 		//reload, if url is old or store never has been loaded
 		if(!store.isLoaded() || oldUrl != store.getProxy().getUrl()) {
@@ -255,11 +320,10 @@ Ext.define('EatSense.controller.Ztix', {
 	* @param {EatSense.model.ZtixEvent} eventData
 	*	record to display
 	*/
-	showEventDetail: function(dataview, eventData) {
+	showEventDetail: function(container, dataview, eventData) {
 		var me = this,
 			backBt,
 			openLinkBt,
-			container = this.getEventsArea(),
 			vvk = appConfig.getProp('de-ztix.vvk') || '',
 			view;
 
@@ -274,6 +338,11 @@ Ext.define('EatSense.controller.Ztix', {
 
 		backBt = view.down('button[action=back]');
 		openLinkBt = view.down('button[action=open-link]');
+
+		container.on({
+			'hide': cleanup,
+			scope: this
+		});
 
 		if(backBt) {
 			backBt.on({
@@ -303,6 +372,11 @@ Ext.define('EatSense.controller.Ztix', {
 		}
 
 		function cleanup() {
+			container.un({
+				'hide': cleanup,
+				scope: this
+			});
+
 			if(backBt) {
 				backBt.un({
 					tap: cleanup,

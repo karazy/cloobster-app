@@ -27,7 +27,7 @@ Ext.application({
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
     'EatSense.view.BackButton', 'About', 'Privacy'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 
-          'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
+          'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent', 'ZtixCoupon'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [
