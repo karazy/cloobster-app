@@ -620,7 +620,19 @@ Ext.define('EatSense.controller.CheckIn', {
          
 
         //check retrieved checkin
-        function processCheckIn(checkIn, success) {           
+        function processCheckIn(checkIn, success) { 
+
+          //occurs on reload of application before hitting leave button
+          if(success &&  checkIn && (checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE || checkIn.get('status') == appConstants.WAS_INACTIVE)) {
+              console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
+              // me.handleStatusChange(appConstants.COMPLETE);
+              if(checkIn.get('status') == appConstants.WAS_INACTIVE) {
+                // Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkin.restore.inactive'));  
+                appHelper.showNotificationBox(i10n.translate('checkin.restore.inactive', checkIn.get('businessName')), 3000);
+              }                    
+              //omit restore
+              success = false;
+          }
           
           if(success) {
             Ext.fly('appLoadingWrapper').destroy();
@@ -637,26 +649,15 @@ Ext.define('EatSense.controller.CheckIn', {
             //mask gets removed after clubdashboard has been build or on error
             appHelper.toggleMask('restoreStateLoading', dashboard);
 
-              me.setActiveCheckIn(checkIn);
-              //occurs on reload of application before hitting leave button
-              if(checkIn.get('status') == appConstants.PAYMENT_REQUEST || checkIn.get('status') == appConstants.COMPLETE || checkIn.get('status') == appConstants.WAS_INACTIVE) {
-                    console.log('CheckIn.restoreState: processCheckIn failed: status '+checkIn.get('status')+'. Don\'t restore state!');
-                    appHelper.toggleMask(false, dashboard);
-                    main.selectByAction('show-dashboard');
-                    me.handleStatusChange(appConstants.COMPLETE);
-                    if(checkIn.get('status') == appConstants.WAS_INACTIVE) {
-                      Ext.Msg.alert(i10n.translate('hint'), i10n.translate('checkin.restore.inactive'));  
-                    }                    
-                    return;
-                }
+            me.setActiveCheckIn(checkIn);
             
-              //Set default headers so that always checkInId is send
-              headerUtil.addHeaders({
-                'checkInId' : checkIn.get('userId'),
-                'pathId' : checkIn.get('businessId')
-              });
-              //TODO 20130406 use loadSpot method
-              // me.loadSpot(encodeURIComponent(checkIn.get('spotId'), doRestore)
+            //Set default headers so that always checkInId is send
+            headerUtil.addHeaders({
+              'checkInId' : checkIn.get('userId'),
+              'pathId' : checkIn.get('businessId')
+            });
+            //TODO 20130406 use loadSpot method
+            // me.loadSpot(encodeURIComponent(checkIn.get('spotId'), doRestore)
 
             //load active spot
             EatSense.model.Spot.load(encodeURIComponent(checkIn.get('spotId')), {
@@ -736,7 +737,7 @@ Ext.define('EatSense.controller.CheckIn', {
       },
       failure: function(record, operation) {
 
-        callback(null, false)
+        callback(null, false);
 
         me.getApplication().handleServerError({
           'error': operation.error,
@@ -818,7 +819,7 @@ Ext.define('EatSense.controller.CheckIn', {
   		} else if (status == appConstants.COMPLETE || status == appConstants.CANCEL_ALL || status == appConstants.FORCE_LOGOUT || status == appConstants.WAS_INACTIVE) {
         // Ext.Viewport.fireEvent('showdashboard');
 
-        this.setActiveCheckIn(null);		     
+        this.setActiveCheckIn(null);
 
         //clear checkInId
         this.getAppState().set('checkInId', null);

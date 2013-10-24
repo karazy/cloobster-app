@@ -72,6 +72,14 @@ Ext.define('EatSense.view.ZtixEventDetail', {
 						text: i10n.translate('ztixevent.button.openlink'),
 						hidden: true,
 						align: 'right'
+					},
+					{
+						xtype: 'fixedbutton',
+						action: 'free',
+						ui: 'confirm',
+						text: i10n.translate('ztixevent.button.free'),
+						hidden: true,
+						align: 'right'
 					}
 				]
 			}
@@ -89,17 +97,7 @@ Ext.define('EatSense.view.ZtixEventDetail', {
 	updateEventData: function(newRecord, oldRecord) {
 		var panel = this,
 			html,
-			imagePanel,
-			linkButton;
-
-		linkButton = panel.down('fixedbutton[action=open-link]');
-
-		// show/hide link button if an url is present or not
-		if(newRecord.get('link')) {
-			linkButton.setHidden(false);
-		} else {
-			linkButton.setHidden(true);
-		}
+			imagePanel;
 
 		//set html 
 		html = panel.getTpl().apply(newRecord.getData());

@@ -14,7 +14,9 @@ Ext.define('EatSense.view.ZtixEvents',{
 		itemTpl: new Ext.XTemplate(
 			'<tpl if="infpic">',
 				'<div class="thumbnail" style="background-image: url(\'{[values.infpic]}\')"></div>',
-			'</tpl>',			
+			'<tpl else>',
+				'<div class="thumbnail" style="background-image: url(\'res/images/empty_list_image.png\')"></div>',
+			'</tpl>',		
 			'<div class="content">',
 				'<div class="location">',
 					'{title}',
@@ -84,8 +86,8 @@ Ext.define('EatSense.view.ZtixEvents',{
 						ui: 'action',
 						iconCls: 'arrow_left',
 						iconMask: true,
-						align: 'right'
-						// hidden: true
+						align: 'right',
+						hidden: true
 					},
 					{
 						xtype: 'fixedbutton',

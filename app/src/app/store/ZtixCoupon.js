@@ -1,8 +1,8 @@
-Ext.define('EatSense.store.ZtixEvent', {
+Ext.define('EatSense.store.ZtixCoupon', {
 	extend: 'Ext.data.Store',
 	requires: ['EatSense.model.ZtixEvent'],
 	config: {
-		storeId: 'ztixEventsStore',
+		storeId: 'ztixCouponsStore',
 		model: 'EatSense.model.ZtixEvent',
 		syncRemovedRecords: false,
 		currentPaginationDate: null

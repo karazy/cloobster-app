@@ -593,8 +593,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "La session n’est plus valide"
 		},
 		"checkin.restore.inactive" : {
-			"DE" :  "Check-in abgelaufen. <br/>Bitte neu einchecken.",
-			"EN" : "Check-in expired.<br/>Please check in again.",
+			"DE" :  "Vorheriger Check-in bei <br/>{0} abgelaufen.",
+			"EN" : "Previous Check-in at <br/>{0} expired.",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -2028,12 +2028,20 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"de.ztix.coupons.empty" : {
+			"DE" :  "Derzeit gibt es keine Gutscheine.",
+			"EN" : "Currently their are no coupons."
+		},
 		"ztixevent.button.openlink" : {
-			"DE" :  "Tickets",
-			"EN" : "Tickets",
+			"DE" :  "Kaufen",
+			"EN" : "Kaufen",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
+		},
+		"ztixevent.button.free" : {
+			"DE" :  "Kostenlos",
+			"EN" : "Free"
 		},
 		"de.ztix.events.title.subtitle" : {
 			"DE" :  "Das sollten Sie nicht verpassen",
@@ -2041,6 +2049,14 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
+		},
+		"de.ztix.coupons.title" : {
+			"DE" :  "Gutscheine",
+			"EN" : "Coupons"
+		},
+		"de.ztix.coupons.title.subtitle" : {
+			"DE" :  "Exklusive Angebote",
+			"EN" : "Exclusiv offers"
 		},
 		// "de.ztix.events.letin" : {
 		// 	"DE" :  "Einlass",

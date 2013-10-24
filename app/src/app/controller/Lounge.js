@@ -307,6 +307,11 @@ Ext.define('EatSense.controller.Lounge', {
 			listItem.set('viewState', location.isFeatureEnabled('de-ztix', true) ? 'club' : 'club-disabled');	
 		}
 
+		listItem = lounge.getItemByAction('show-ztix-coupons');
+		if(listItem) {
+			listItem.set('viewState', location.isFeatureEnabled('de-ztix-coupons', true) ? 'club' : 'club-disabled');	
+		}
+
 
   	//products, infopages, feedback, requests-call, facebook-post, contact
   },

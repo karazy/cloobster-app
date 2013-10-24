@@ -844,7 +844,7 @@ $slidenav-bg-color: #2E2E2E;
     overflow: hidden;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center;    
   }
 
   .image img {
@@ -1183,6 +1183,10 @@ $slidenav-bg-color: #2E2E2E;
   -webkit-mask-image: url('../images/club/calendar_transparent.png');
 }
 
+.x-tilebutton-icon.gift {
+  -webkit-mask-image: url('../images/club/gift.png');
+}
+
 
 /* Facebook wallpost button */
 .fb-wimpel-button {
@@ -1330,7 +1334,11 @@ $slidenav-bg-color: #2E2E2E;
 }
 
 .favorite-icon {
-  -webkit-mask-image: inline-image('../images/heart.png');  
+  -webkit-mask-image: inline-image('../images/heart.png'); 
+} 
+
+.gift-icon {
+  -webkit-mask-image: inline-image('../images/nav/nav_gift.png');
 }
 
 .newsletter-floating {
