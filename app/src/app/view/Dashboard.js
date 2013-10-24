@@ -118,14 +118,14 @@ Ext.define('EatSense.view.Dashboard', {
 						dv.deselect(ix);
 	    			}), 100, this);					
 				}
-			},
-			plugins: [
-		        {
-		            xclass: 'Ext.plugin.ListPaging',
-		            loadMoreText: i10n.translate('history.detail.list.paging'),
-		            autoPaging: false
-		        }
-		    ]
+			}
+			// plugins: [
+		 //        {
+		 //            xclass: 'Ext.plugin.ListPaging',
+		 //            loadMoreText: i10n.translate('history.detail.list.paging'),
+		 //            autoPaging: false
+		 //        }
+		 //    ]
 		}
 		]
 	},
