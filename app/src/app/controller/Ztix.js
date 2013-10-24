@@ -403,19 +403,33 @@ Ext.define('EatSense.controller.Ztix', {
 	*/
 	cleanup: function() {
 		var me = this,
-			store = Ext.StoreManager.lookup('ztixEventsStore'),
+			events = Ext.StoreManager.lookup('ztixEventsStore'),
+			coupons = Ext.StoreManager.lookup('ztixCouponsStore'),
 			eventsArea = this.getEventsArea();
+			couponsArea = this.getCouponsArea();
 
-		if(store) {
-			store.removeAll();
+		if(events) {
+			events.removeAll();
+			events.setCurrentPaginationDate(null);
+		}
+
+		if(coupons) {
+			coupons.removeAll();
+			coupons.setCurrentPaginationDate(null);
 		}
 
 		this.setHostId(null);
+		this.setCouponIds(null);
 
 		if(eventsArea) {
 			eventsArea.removeAll(true);
 		}
 
-		this.setCurrentPaginationDate(null);
+		if(couponsArea) {
+			couponsArea.removeAll(true);
+		}
+
+		
+		
 	}
 });

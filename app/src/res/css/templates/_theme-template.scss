@@ -1243,6 +1243,10 @@ $general-list-item-height: 45px;
   -webkit-mask-image: inline-image('../images/calendar2.png');
 }
 
+.gift-icon {
+  -webkit-mask-image: inline-image('../images/nav/nav_gift.png');
+}
+
 .newsletter-floating {
   border-radius: 0.3em !important;
   padding: 3px !important;

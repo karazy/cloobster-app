@@ -132,7 +132,7 @@ Ext.define('EatSense.view.Lounge', {
 				title: i10n.translate('de.ztix.coupons.title'),
 				leaf: true,
 				action: 'show-ztix-coupons',
-				iconCls: 'calendar-icon',
+				iconCls: 'gift-icon',
 				viewState: 'club'
 			},
 			{
