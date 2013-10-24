@@ -50,6 +50,10 @@ Ext.define('EatSense.model.ZtixEvent', {
 		},
 		{
 			name: 'info'
+		},
+		{
+			name: 'isFree',
+			type: 'boolean'
 		}
 		],
 		proxy : {

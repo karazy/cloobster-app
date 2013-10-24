@@ -352,7 +352,7 @@ Ext.define('EatSense.controller.Ztix', {
 		}		
 
 		if(openLinkBt) {
-			if(!eventData.get('link')) {
+			if(eventData.get('isFree')) {
 				openLinkBt.setHidden(true);
 			}
 
@@ -366,8 +366,12 @@ Ext.define('EatSense.controller.Ztix', {
 			if(eventData.get('link')) {
 				if(vvk) {
 					vvk = '/' + vvk;
+				}				
+				if(!eventData.get('isFree')) {
+					//direct buy link
+					//http://www.ztix.de/buyTicket.php/<event id>/<provisionsid>
+					window.open(encodeURI('http://www.ztix.de/buyTicket.php/' + eventData.get('evid') + vvk), '_system');	
 				}
-				window.open(encodeURI(eventData.get('link')) + vvk, '_system');
 			}				
 		}
 
