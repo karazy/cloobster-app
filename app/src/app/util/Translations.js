@@ -2031,6 +2031,10 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"de.ztix.coupons.empty" : {
+			"DE" :  "Derzeit gibt es keine Gutscheine.",
+			"EN" : "Currently their are no coupons."
+		},
 		"ztixevent.button.openlink" : {
 			"DE" :  "Kaufen",
 			"EN" : "Kaufen",

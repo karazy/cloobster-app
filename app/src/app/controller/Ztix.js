@@ -1,6 +1,8 @@
 /**
 * Loads and handles events data from ztix API and displays it.
 * All relevant information from {@link EatSense.model.ZtixEvent} is displayed her.
+* Ztix events can be used as intentioned to display events or in a special mode for coupons.
+* Coupons don't have monthly pagination.
 */
 Ext.define('EatSense.controller.Ztix', {
 	extend: 'Ext.app.Controller',
@@ -107,19 +109,29 @@ Ext.define('EatSense.controller.Ztix', {
 			store,
 			today,
 			list,
-			dataType = dataType || "events";
+			dataType = dataType || "events",
+			//true to disable pagination feature and load all data from today to + two years
+			noMonthlyPagination = false,
+			listEmptyText;
+
+		//TODO some hacks into original logic to make the "coupons" view. Don't like it. But
+		//didn't want to invest lots of time
 
 		//Create the events view
 		if(dataType == "events" || !dataType) {
-			storeId = 'ztixEventsStore';
+			storeId = 'ztixEventsStore';	
+			listEmptyText = i10n.translate('de.ztix.events.empty');
 		} else if(dataType == "coupons") {
 			storeId ='ztixCouponsStore';
+			noMonthlyPagination = true;
+			listEmptyText = i10n.translate('de.ztix.coupons.empty');
 		}
 
 		store = Ext.StoreManager.lookup(storeId);
 
 		eventsView = Ext.create('EatSense.view.ZtixEvents', {
-			store: storeId
+			store: storeId,
+			emptyText: listEmptyText
 		});
 
 		area.add(eventsView);
@@ -141,10 +153,14 @@ Ext.define('EatSense.controller.Ztix', {
 			prevMonthBt.setHidden(false);
 		}
 
+		//hide when monthly pagination is inactive
+		nextMonthBt.setHidden(noMonthlyPagination);
+		prevMonthBt.setHidden(noMonthlyPagination);
+
 		setViewTitle();
 
 		Ext.create('Ext.util.DelayedTask', function () {
-			this.loadEvents(store.getCurrentPaginationDate(), dataType);                  
+			this.loadEvents(store.getCurrentPaginationDate(), dataType, noMonthlyPagination);
 		}, this).delay(200); 
 		
 		
@@ -178,7 +194,7 @@ Ext.define('EatSense.controller.Ztix', {
 				prevMonthBt.setHidden(true);
 			}
 
-			me.loadEvents(store.getCurrentPaginationDate(), dataType);
+			me.loadEvents(store.getCurrentPaginationDate(), dataType, noMonthlyPagination);
 			setViewTitle();
 		}
 
@@ -189,13 +205,15 @@ Ext.define('EatSense.controller.Ztix', {
 			}
 			//increase date
 			store.getCurrentPaginationDate().setMonth(store.getCurrentPaginationDate().getMonth() + 1);
-			me.loadEvents(store.getCurrentPaginationDate(), dataType);
+			me.loadEvents(store.getCurrentPaginationDate(), dataType, noMonthlyPagination);
 			prevMonthBt.setHidden(false);
 			setViewTitle();
 		}
 
 		function setViewTitle() {
-			if(store.getCurrentPaginationDate()) {
+			if(dataType == "coupons") {
+				eventsView.down('titlebar').setTitle(i10n.translate('de.ztix.coupons.title'));
+			} else if(store.getCurrentPaginationDate()) {
 				var shortYear = store.getCurrentPaginationDate().getFullYear().toString().substring(2,4),
 					shortMonth = i10n.translate('month.' + store.getCurrentPaginationDate().getMonth());
 
@@ -239,8 +257,10 @@ Ext.define('EatSense.controller.Ztix', {
 	* @param {String} startDate
 	*	The date from which to start.
 	* @param {String} dataType
+	* @param {Boolean} noMonthlyPagination
+	*  True to disable monthly pagination and show all data for beginning at start date 2 years.
 	*/
-	loadEvents: function(startDate, dataType) {
+	loadEvents: function(startDate, dataType, noMonthlyPagination) {
 		var me = this,
 			store,
 			baseUrl = appConfig.getProp('de-ztix.baseUrl'),
@@ -278,6 +298,12 @@ Ext.define('EatSense.controller.Ztix', {
 		//Pagination logic
 		if(!startDate) {
 			paginationSuffix = Ext.util.Format.date(new Date(), appConstants.ISODate) + '/2014-12-31/';
+		} else if(noMonthlyPagination) {
+			//two years from start date
+			_endDate = new Date(startDate);
+			_endDate.setFullYear(startDate.getFullYear() + 2);
+			paginationSuffix = Ext.util.Format.date(startDate, appConstants.ISODate) + '/'; 
+			paginationSuffix += Ext.util.Format.date(_endDate, appConstants.ISODate) + '/';
 		} else {
 			_endDate = new Date(startDate);
 			//get last day of current month, setting 0 as day results in last day of prev month
@@ -304,7 +330,6 @@ Ext.define('EatSense.controller.Ztix', {
 		                });
 					} else if(records.length === 0) {
 						store.removeAll();
-						// appHelper.showNotificationBox(i10n.translate('de.ztix.events.noeventsinmonth'), 2500);
 					}
 				}
 			});	
