@@ -154,8 +154,11 @@ Ext.define('EatSense.controller.Ztix', {
 		}
 
 		//hide when monthly pagination is inactive
-		nextMonthBt.setHidden(noMonthlyPagination);
-		prevMonthBt.setHidden(noMonthlyPagination);
+		if(noMonthlyPagination) {
+			nextMonthBt.setHidden(true);
+			prevMonthBt.setHidden(true);	
+		}
+		
 
 		setViewTitle();
 
