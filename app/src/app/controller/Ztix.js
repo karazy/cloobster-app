@@ -338,6 +338,7 @@ Ext.define('EatSense.controller.Ztix', {
 
 		backBt = view.down('button[action=back]');
 		openLinkBt = view.down('button[action=open-link]');
+		freeBt = view.down('button[action=free]');
 
 		container.on({
 			'hide': cleanup,
@@ -352,8 +353,8 @@ Ext.define('EatSense.controller.Ztix', {
 		}		
 
 		if(openLinkBt) {
-			if(eventData.get('isFree')) {
-				openLinkBt.setHidden(true);
+			if(!eventData.get('isFree')) {
+				openLinkBt.setHidden(false);
 			}
 
 			openLinkBt.on({
@@ -362,8 +363,14 @@ Ext.define('EatSense.controller.Ztix', {
 			});
 		}
 
+		if(freeBt) {
+			if(eventData.get('isFree')) {
+				freeBt.setHidden(false);
+			}
+		}
+
 		function openLink() {
-			if(eventData.get('link')) {
+			if(eventData.get('evid')) {
 				if(vvk) {
 					vvk = '/' + vvk;
 				}				

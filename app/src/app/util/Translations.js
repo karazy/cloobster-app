@@ -2032,11 +2032,15 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : ""
 		},
 		"ztixevent.button.openlink" : {
-			"DE" :  "Tickets",
-			"EN" : "Tickets",
+			"DE" :  "Kaufen",
+			"EN" : "Kaufen",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
+		},
+		"ztixevent.button.free" : {
+			"DE" :  "Kostenlos",
+			"EN" : "Free"
 		},
 		"de.ztix.events.title.subtitle" : {
 			"DE" :  "Das sollten Sie nicht verpassen",
