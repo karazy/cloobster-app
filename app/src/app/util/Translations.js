@@ -593,8 +593,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "La session n’est plus valide"
 		},
 		"checkin.restore.inactive" : {
-			"DE" :  "Check-in abgelaufen. <br/>Bitte neu einchecken.",
-			"EN" : "Check-in expired.<br/>Please check in again.",
+			"DE" :  "Vorheriger Check-in bei <br/>{0} abgelaufen.",
+			"EN" : "Previous Check-in at <br/>{0} expired.",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
