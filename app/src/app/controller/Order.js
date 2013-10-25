@@ -20,7 +20,6 @@
 			paymentButton: 'myorderstab button[action="pay"]',
 			leaveButton: 'lounge button[action="exit"]',
 			clubarea: 'clubarea',
-			checkoutDescription: 'myorderstab #description',
 			myordersShowCartButton: 'myorderstab button[action=show-cart]',
 			myordersCartBackButton: 'myorderstab carttab button[action=back]',
 			homeButton: 'myorderstab homebutton'
@@ -48,7 +47,9 @@
              	tap: 'myordersCartBackButtonHandler'
              },
              loungeview: {
-             	activeitemchange: 'toggleQuickLeaveMode'
+             	'activeitemchange.show-myorders': 'leave',
+             	order: 'before',
+             	scope: this
              },
              'clubarea clubdashboard' : {
              	'tilesrendered' : 'updateDashboardMenuTiles'
@@ -114,7 +115,6 @@
 			'spotswitched': function(newSpot, newCheckIn) {
 				this.cleanup();
 				this.refreshCart();
-				// this.doDumpCart(newCheckIn);
 			},
 			'basicmode': this.toggleQuickLeaveMode,
 			scope: this
@@ -143,7 +143,7 @@
 			if(basicMode) {
 				listItem.raw.basicFn = function() {
 					me.leave();
-					return;
+					return false;
 				}
 			} else {
 				listItem.raw.basicFn = null;
@@ -543,29 +543,18 @@
 							if(loungeview.getContainer() && loungeview.getContainer().getActiveItem() == myordersview) {								
 								me.refreshMyOrdersList();	
 							}
-							
 
 							//initial view and no backhandlers left
 							androidCtr.removeAllBackHandlers();
-							//show my orders view
-							me.showMyorders();	
+
+							//reload orders fresh from server
+							me.loadMyOrders(function() {
+								me.refreshMyOrdersBadgeText();
+							});
+
 							
 							//switch back to menu and remove previous backhandler
 							menuCtr.backToMenu();
-
-
-							//show success message
-							// Ext.Msg.show({
-							// 	title : i10n.translate('success'),
-							// 	message : i10n.translate('orderSubmit'),
-							// 	buttons : []
-							// });
-							
-							// Ext.defer((function() {
-							// 	if(!appHelper.getAlertActive()) {
-							// 		Ext.Msg.hide();
-							// 	}
-							// }), appConfig.msgboxHideTimeout, this);
 						},
 						failure: function(response) {
 							appHelper.toggleMask(false);
@@ -964,14 +953,6 @@
 			}), appConfig.msgboxHideTimeout, this);
 	},
 	/**
-	* Tap event handler for close button in order detail.
-	* @DEPRECATED
-	*/
-	// closeOrderDetailButtonHandler: function(button) {
-	// 	this.getApplication().getController('Android').removeLastBackHandler();
-	// 	this.closeOrderDetail();
-	// },
-	/**
 	* Close order detail and restore state of order.
 	*/
 	closeOrderDetail: function(order, prodPriceLabel) {
@@ -1113,8 +1094,7 @@
 		var loungeview = this.getLoungeview(),
 			button,
 			orderStore = Ext.StoreManager.lookup('orderStore'),
-			badgeText,
-			description = this.getCheckoutDescription();
+			badgeText;
 
 		
 		button = loungeview.getItemByAction('show-myorders');
@@ -1126,24 +1106,12 @@
 
 		if(clear) {
 			button.set('badgeText', badgeText);		
-			if(orderStore && orderStore.getCount() > 0) {
-				this.getCheckoutDescription().setHidden(true);
-			}
 		} else {
 
 			if(orderStore && orderStore.getCount() > 0) {
 				badgeText = orderStore.getCount();
-				//hide description when checkout is empty
-				if(description) {
-					description.setHidden(true);	
-				}
-				
 			} else {
 				badgeText = '';
-				//show description when checkout is empty
-				if(description) {
-					description.setHidden(false);	
-				}
 			}
 			// button.setBadgeText(badgeText);
 			button.set('badgeText', badgeText);
@@ -1155,7 +1123,7 @@
 	refreshMyOrdersList: function() {
 		var 	me = this,
 				myorderlist = this.getMyorderlist(),
-				myordersStore = Ext.data.StoreManager.lookup('orderStore'),
+				myordersStore = Ext.StoreManager.lookup('orderStore'),
 				activeCheckIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 				payButton = this.getPaymentButton(),
 				myordersview = this.getMyordersview(),
@@ -1163,57 +1131,65 @@
 		
 		if(myordersview) {
 			leaveButton = myordersview.down('button[action=exit]');
-			// myordersview.showLoadScreen(true);
 		} else {
-			console.log('Order.refreshMyOrdersList > myordersview not found');
+			console.log('Order.refreshMyOrdersList: myordersview not found');
 		}
 
-		this.loadMyOrders(callback);
+		if(!myordersStore.isLoading()) {
+			doRefresh();
+		} else {
+			myordersStore.on({
+				'refresh': doRefresh,
+				scope: this,
+				single: true
+			});		
+		}
 
-		function callback(records, operation, success) {
+		function doRefresh() {
 			try {
-				if(!operation.error) {
-					payButton.enable();
-					me.toggleMyordersButtons();
+			// if(!operation.error) {
+				payButton.enable();
+				me.toggleMyordersButtons();
 
-					//WORKAROUND to make sure all data is available in data property
-					//otherwise nested choices won't be shown
-					Ext.each(records, function(order) {
-						order.getData(true);
-					});
-					
-					//refresh the order list
-					total = me.calculateOrdersTotal(myordersStore);
-					myorderlist.refresh();
-					me.getMyordersTotal().getTpl().overwrite(me.getMyordersTotal().element, {'price': total});
-					me.refreshMyOrdersBadgeText();
+				//WORKAROUND to make sure all data is available in data property
+				//otherwise nested choices won't be shown
+				// Ext.each(records, function(order) {
+				// 	order.getData(true);
+				// });
 
-					if(leaveButton) {
-						if(records && records.length > 0) {
-							leaveButton.setDisabled(true);
-							leaveButton.setHidden(true);
-						} else {
-							leaveButton.setDisabled(false);
-							leaveButton.setHidden(false);
-						}
-					}
-					
+				myordersStore.each(function(order) {
+					order.getData(true);
+				});
+				
+				//refresh the order list
+				total = me.calculateOrdersTotal(myordersStore);
+				myorderlist.refresh();
+				me.getMyordersTotal().getTpl().overwrite(me.getMyordersTotal().element, {'price': total});
+				me.refreshMyOrdersBadgeText();
 
+				if(leaveButton) {
+					if(myordersStore && myordersStore.getCount() > 0) {
+						leaveButton.setDisabled(true);
+						leaveButton.setHidden(true);
 					} else {
-						payButton.disable();			
-						me.getApplication().handleServerError({
-							'error': operation.error,
-							'forceLogout': {403: true}
-						});
-					}	
-				} catch(e) {
-					console.log('Order.refreshMyOrdersList > error ' + e);
+						leaveButton.setDisabled(false);
+						leaveButton.setHidden(false);
+					}
 				}
+				
 
-			// if(myordersview) {
-			// 	myordersview.showLoadScreen(false);
-			// }
-		}
+				// } else {
+				// 	payButton.disable();			
+				// 	me.getApplication().handleServerError({
+				// 		'error': operation.error,
+				// 		'forceLogout': {403: true}
+				// 	});
+				// }	
+			} catch(e) {
+				console.log('Order.refreshMyOrdersList > error ' + e);
+			}
+		}		
+
 	},
 	loadMyOrders: function(callback) {
 		var 	me = this,
@@ -1454,36 +1430,32 @@
 
 
 		appHelper.toggleMask('paymentRequestSend', myordersView);
-
-		// Ext.Msg.show({
-		// 	title : "",
-		// 	message : i10n.translate('paymentRequestSend'),
-		// 	buttons : []
-		// });
 	},
 	/**
 	 * Called when user checks in and wants to leave without issuing an order.
+	 * @return {boolean}
+	 * false to indicate user can leave, true otherwise
 	 */
 	leave: function() {
 		var	me = this,
 			checkIn = this.getApplication().getController('CheckIn').getActiveCheckIn(),
 			myordersStore = Ext.data.StoreManager.lookup('orderStore');
 
-		if(checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) {
-			checkIn.erase({
-				failure: function(response, operation) {
-					//fail silent 
-					me.getApplication().handleServerError({
-						'error': operation.error,
-						'hideMessage': true
-					});
-				}
-			});
-			me.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
-			
-		} else {
-			this.getLoungeview().setActiveItem(this.getMyordersview());
-		}			
+			if(!myordersStore.isLoading() && checkIn.get('status') != appConstants.PAYMENT_REQUEST && myordersStore.getCount() ==  0) {
+				checkIn.erase({
+					failure: function(response, operation) {
+						//fail silent 
+						me.getApplication().handleServerError({
+							'error': operation.error,
+							'hideMessage': true
+						});
+					}
+				});
+				me.getApplication().getController('CheckIn').fireEvent('statusChanged', appConstants.COMPLETE);
+				return false;
+			} else {
+				return true;
+			}			
 	},
 	/**
 	 * Marks the process as complete and returns to home menu
@@ -1560,6 +1532,8 @@
 	handleOrderMessage: function(action, updatedOrder) {
 		var me = this,
 			orderStore = Ext.StoreManager.lookup('orderStore'),
+			loungeview = this.getLoungeview(),
+			myordersview = this.getMyordersview(),
 			oldOrder,
 			total;
 
@@ -1579,10 +1553,14 @@
 			oldOrder = orderStore.getById(updatedOrder.id);
 			if(oldOrder) {
 				orderStore.remove(oldOrder);
-				total = me.calculateOrdersTotal(orderStore);
-				me.getMyordersTotal().getTpl().overwrite(me.getMyordersTotal().element, {'price': total});
-				me.refreshMyOrdersBadgeText();
-				me.toggleMyordersButtons();
+				if(loungeview.getContainer() && loungeview.getContainer().getActiveItem() == myordersview) {								
+					me.refreshMyOrdersList();	
+				} else {
+					total = me.calculateOrdersTotal(orderStore);
+					me.getMyordersTotal().getTpl().overwrite(me.getMyordersTotal().element, {'price': total});
+					me.refreshMyOrdersBadgeText();
+					me.toggleMyordersButtons();
+				}
 
 				Ext.Msg.show({
 					message : i10n.translate('orderCanceled', oldOrder.get('productName')),

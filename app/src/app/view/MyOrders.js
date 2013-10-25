@@ -60,18 +60,14 @@ Ext.define('EatSense.view.MyOrders', {
 					]							
 					},
 					{
-						xtype: 'label',
-						itemId: 'description',
-						html: i10n.translate('myorders.description'),
-						cls: 'myorders-description',
-						hidden: true,
-						docked: 'top'
-					},
-					{
 						xtype: 'list',
 						store: 'orderStore',
+						cls: 'myorders-list',
 						allowDeselect: true,
 						onItemDisclosure: this.removeItem,
+						emptyText: i10n.translate('myorders.description'),
+						deferEmptyText: false,
+						loadingText: i10n.translate('loadingMsg'),
 						itemCls: 'orderListItem',
 						itemTpl:  new Ext.XTemplate(
 							"<table style='width:100%;'>"+				
@@ -189,25 +185,6 @@ Ext.define('EatSense.view.MyOrders', {
 			}
 		]
 	},
-
-	// initialize: function() {
-	// 	var list = this.down('list'),
-	// 		description = this.down('#description');
-
-	// 	if(list) {
-	// 		list.on({
-	// 			refresh: function() {
-	// 				if(list.getStore().getCount() > 0) {
-	// 					description.setHidden(true);
-	// 				} else {
-	// 					description.setHidden(false);
-	// 				}
-	// 				return true;
-	// 			},
-	// 			scope: this
-	// 		});
-	// 	}
-	// },
 
 	/**
 	 * Show a loading screen

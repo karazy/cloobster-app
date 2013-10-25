@@ -549,18 +549,18 @@ $general-list-item-height: 45px;
 }
 
 /* MyOders View */
-.myorders-description {
-  text-align: center;
-  color: $label-color; 
+.myorders-list {
 
-  h2 {
-    font-size: 1.6em;
-    font-style: bold;
-  }
-
-  p {
-    font-size: 0.8em;
-    padding: 0 0.5em 0 0.5em;
+  .x-list-emptytext {
+    .x-innerhtml {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+      height: 100%;
+      color: #000;
+      text-align: center;
+    }
   }
 }
 
