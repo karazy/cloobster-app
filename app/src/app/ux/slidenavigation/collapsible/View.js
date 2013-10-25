@@ -12,9 +12,9 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     extend: 'Ext.Container',
 
     /**
-     * @event activeitemchange
-     * Fires whenever an item gets selected in the list
-     * @param {Ext.Component} the activated item
+     * @event activeitemchange.{list-item-action}
+     * Fires whenever an item is about to be selected
+     * @param {Ext.Component} the activated item, null if not already existent
      */ 
     
     requires: [
@@ -380,6 +380,10 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
     overrideClose: false,
     prevsel: null,
 
+    /**
+    * List select handler.
+    *
+    */
     onSelect: function(list, item, eOpts) {
         var me = this,
             store = list.getStore(),
@@ -401,77 +405,81 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
 
         //handle menu entries that require a login
         if(item.get('accountRequired') === true) {
-            Ext.Viewport.fireEvent('accountrequired', select);
+            Ext.Viewport.fireEvent('accountrequired', checkPreconditions);
         } else {
-            select(true);
+            checkPreconditions(true);
         }
 
-        //do selection if doSelect = true
-        function select(doSelect) {
+        //Checks for 
+        function checkPreconditions(authorizedRequest) {
 
-            if(!doSelect) {
+            if(!authorizedRequest) {
                 deselectItem();
                 me.closeContainer(me.config.selectSlideDuration);
                 return false;
             } else {
 
+                //if basic mode is active look for a basic fn, otherwise proceed as normal
+                if(me.getBasicMode() === true && Ext.isFunction(item.raw.basicFn)) {
+                    //don't select item!
+                    deselectItem();
+                    item.raw.basicFn();
+                    return false;
+                }
 
+                //welcome mode is active look for a welcome fn, otherwise proceed as normal
+                if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
+                    deselectItem();
+                    item.raw.welcomeFn();
+                    return false;
+                }
 
-        //if basic mode is active look for a basic fn, otherwise proceed as normal
-        if(me.getBasicMode() === true && Ext.isFunction(item.raw.basicFn)) {
-            //don't select item!
-            deselectItem();
-            item.raw.basicFn();
-            return false;
+                me.fireAction('activeitemchange.'+ item.raw.action, [me._cache[item.raw.index]], select, me);
+
+            }            
         }
-
-        //welcome mode is active look for a welcome fn, otherwise proceed as normal
-        if(me.getWelcomeMode() === true && Ext.isFunction(item.raw.welcomeFn)) {
-            deselectItem();
-            item.raw.welcomeFn();
-            return false;
-        }       
         
 
-        if (me._cache[index] == undefined) {
-            //container = this.down('container[cls="x-slidenavigation-container"]');
+        function select() {
             
-            // If the object has a handler defined, then we don't need to
-            // create an Ext object
-            if (Ext.isFunction(item.raw.handler)) {
-                me._cache[index] = item.raw.handler;
-            }
-            else {
-                me._cache[index] = container.add(Ext.merge(me.config.defaults, item.raw));
+            if (me._cache[index] == undefined) {
+                //initial creation of items
+                
+                // If the object has a handler defined, then we don't need to
+                // create an Ext object
+                if (Ext.isFunction(item.raw.handler)) {
+                    me._cache[index] = item.raw.handler;
+                }
+                else {
+                    me._cache[index] = container.add(Ext.merge(me.config.defaults, item.raw));
 
-                // Add a button for controlling the slide, if desired
-                if ((item.raw.slideButton || false)) {
-                    me.createSlideButton(me._cache[index], item.raw.slideButton);
+                    // Add a button for controlling the slide, if desired
+                    if ((item.raw.slideButton || false)) {
+                        me.createSlideButton(me._cache[index], item.raw.slideButton);
+                    }
+                }
+            }            
+
+            if (Ext.isFunction(me._cache[index])) {
+                deselectItem();
+                me._cache[index]();
+            } else {
+                 //set new selection as previous
+                me.prevsel = item;
+                container.setActiveItem(me._cache[index]);
+                // me.fireEvent('activeitemchange', me._cache[index]);                
+            }
+            //close navigation
+            if (me.config.closeOnSelect) {
+                if (me.overrideClose) {
+                    me.overrideClose = false;
+                } else {
+                    me.closeContainer(me.config.selectSlideDuration);
                 }
             }
-        }
-
-        if (Ext.isFunction(me._cache[index])) {
-            deselectItem();
-            me._cache[index]();
-        } else {
-             //set new selection as previous
-            me.prevsel = item;
-            container.setActiveItem(me._cache[index]);
-            me.fireEvent('activeitemchange', me._cache[index]);
-        }
-        
-        if (me.config.closeOnSelect) {
-            if (me.overrideClose) {
-                me.overrideClose = false;
-            } else {
-                me.closeContainer(me.config.selectSlideDuration);
-            }
-        }
-
-             }
-        }
-    },
+        // }
+    }
+},
 
     /**
     * CUSTOM EXTENSION!
@@ -740,7 +748,6 @@ Ext.define('EatSense.ux.slidenavigation.collapsible.View', {
             }
         }, this.config.list));
 
-        // list.on('itemtap', this.onItemTap, this);
         list.setStore( this.store );
         list.setScrollable (true);
 
