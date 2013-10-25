@@ -89,6 +89,10 @@
 	                    single: true,
 	                    scope: this
 	                });
+
+	                //TODO Timeout for refreshMyOrdersList causes the reset in handleBillMessage to be overridden
+	                //this a workaround.
+	                me.refreshMyOrdersBadgeText(true);
 					
 					
 				} else if(status == appConstants.PAYMENT_REQUEST) {
@@ -1094,7 +1098,7 @@
 		var loungeview = this.getLoungeview(),
 			button,
 			orderStore = Ext.StoreManager.lookup('orderStore'),
-			badgeText;
+			badgeText = '';
 
 		
 		button = loungeview.getItemByAction('show-myorders');
@@ -1113,7 +1117,6 @@
 			} else {
 				badgeText = '';
 			}
-			// button.setBadgeText(badgeText);
 			button.set('badgeText', badgeText);
 		}
 	},
@@ -1583,22 +1586,28 @@
 	handleBillMessage: function(action, billdata) {
 		var bill = Ext.create('EatSense.model.Bill'),
 			checkInCtr =  this.getApplication().getController('CheckIn'),
-			myordersComplete = this.getMyordersComplete(),
-			payButton = this.getPaymentButton(),
+			myordersComplete,
+			payButton,
 			lounge = this.getLoungeview();			
 
 		if(action == "new") {
 			//this occurs when business manually completes a checkin
 			console.log("Order.handleBillMessage: Bill was created. Businesses completed checkin.");
-			bill.set('id', bill.id);
-			bill.set('checkInId', bill.checkInId);
+			bill.set('id', billdata.id);
+			bill.set('checkInId', billdata.checkInId);
 			bill.set('paymentMethod', billdata.paymentMethod.name);
 			this.setActiveBill(bill);			
 			this.showMyorders();
-			myordersComplete.show();
+			//access myorders, paybutton here, maybe it was just created
+			myordersComplete = this.getMyordersComplete();
+			if(myordersComplete) {
+				myordersComplete.show();	
+			}			
 			this.refreshMyOrdersBadgeText(true);
-			payButton.hide();
-
+			payButton = this.getPaymentButton();
+			if(payButton) {
+				payButton.hide();	
+			}			
 			checkInCtr.fireEvent('statusChanged', appConstants.PAYMENT_REQUEST);
 
 			//show a message 
