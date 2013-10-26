@@ -111,17 +111,17 @@ Ext.define('EatSense.view.Dashboard', {
 						dv.deselect(ix);
 	    			}), 100, this);					
 				}
-			},
-			plugins: [
-		        {
-		            xclass: 'Ext.plugin.ListPaging',
-		            // loadMoreText: i10n.translate('history.detail.list.paging'),
-		            loadMoreText: '',
-		            // noMoreRecordsText : 'Alles geladen',
-		            // bottom: 0,
-		            autoPaging: true
-		        }
-		    ]
+			}
+			// plugins: [
+		 //        {
+		 //            xclass: 'Ext.plugin.ListPaging',
+		 //            // loadMoreText: i10n.translate('history.detail.list.paging'),
+		 //            loadMoreText: '',
+		 //            // noMoreRecordsText : 'Alles geladen',
+		 //            // bottom: 0,
+		 //            autoPaging: true
+		 //        }
+		 //    ]
 		}
 		]
 	},

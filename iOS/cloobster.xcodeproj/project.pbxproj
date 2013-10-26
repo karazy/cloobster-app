@@ -65,13 +65,6 @@
 		B68910E517C21A4100112E5C /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
 		B68910E617C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
 		B68910E717C21A4100112E5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434614DC770100060A13 /* Localizable.strings */; };
-		B68910E817C21A4100112E5C /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB7154F3926009F9C59 /* Default-Landscape@2x~ipad.png */; };
-		B68910E917C21A4100112E5C /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB8154F3926009F9C59 /* Default-Landscape~ipad.png */; };
-		B68910EA17C21A4100112E5C /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB9154F3926009F9C59 /* Default-Portrait@2x~ipad.png */; };
-		B68910EB17C21A4100112E5C /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBA154F3926009F9C59 /* Default-Portrait~ipad.png */; };
-		B68910EC17C21A4100112E5C /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBB154F3926009F9C59 /* Default@2x~iphone.png */; };
-		B68910ED17C21A4100112E5C /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBC154F3926009F9C59 /* Default~iphone.png */; };
-		B68910EE17C21A4100112E5C /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		B68910F817C21A4100112E5C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		B68910F917C21A4100112E5C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		B68910FA17C21A4100112E5C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
@@ -199,7 +192,7 @@
 		B681472B17C2253800CF1F52 /* FRIZZ_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Icon@2x.png"; sourceTree = "<group>"; };
 		B689111B17C21A4100112E5C /* cloobster copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cloobster copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B689111C17C21A4100112E5C /* frizz-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "frizz-Info.plist"; path = "/Users/fred/karazy/cloobster_app/iOS/frizz-Info.plist"; sourceTree = "<absolute>"; };
-		B69F053D17D4851400E2F5D3 /* FRIZZ_Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		B69F053D17D4851400E2F5D3 /* FRIZZ_Default-568h@2x~iphone.png */ = {isa = PBXFileReference; explicitFileType = image.png; path = "FRIZZ_Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		B69F053E17D4851400E2F5D3 /* FRIZZ_Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Default@2x~iphone.png"; sourceTree = "<group>"; };
 		B69F053F17D4851400E2F5D3 /* FRIZZ_Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRIZZ_Default~iphone.png"; sourceTree = "<group>"; };
 		B6C935C316CD57AB0089DBD1 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDVBarcodeScanner.mm; sourceTree = "<group>"; };
@@ -709,13 +702,6 @@
 				B68910E517C21A4100112E5C /* MainViewController.xib in Resources */,
 				B68910E617C21A4100112E5C /* Localizable.strings in Resources */,
 				B68910E717C21A4100112E5C /* Localizable.strings in Resources */,
-				B68910E817C21A4100112E5C /* Default-Landscape@2x~ipad.png in Resources */,
-				B68910E917C21A4100112E5C /* Default-Landscape~ipad.png in Resources */,
-				B68910EA17C21A4100112E5C /* Default-Portrait@2x~ipad.png in Resources */,
-				B68910EB17C21A4100112E5C /* Default-Portrait~ipad.png in Resources */,
-				B68910EC17C21A4100112E5C /* Default@2x~iphone.png in Resources */,
-				B68910ED17C21A4100112E5C /* Default~iphone.png in Resources */,
-				B68910EE17C21A4100112E5C /* Default-568h@2x~iphone.png in Resources */,
 				B681472C17C2253800CF1F52 /* FRIZZ_Icon.png in Resources */,
 				B681472D17C2253800CF1F52 /* FRIZZ_Icon@2x.png in Resources */,
 				B69F054017D4851400E2F5D3 /* FRIZZ_Default-568h@2x~iphone.png in Resources */,
