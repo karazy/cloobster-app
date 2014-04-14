@@ -2061,6 +2061,27 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Exklusiv bei uns",
 			"EN" : "Exclusiv for you"
 		},
+		//storecard
+		"storecard.title" : {
+			"DE" :  "Kundenkarte",
+			"EN" : "Storecard"
+		},
+		"storecard.description" : {
+			"DE" :  "Kundenkarte immer dabei. Geben Sie hier die Nummer ihrer Kundekarte ein.",
+			"EN" : "Storecard always at hands. Just enter your numer."
+		},
+		"storecard.customernumber" : {
+			"DE" :  "Kartennummer",
+			"EN" : "Card number"
+		},
+		"storecard.qrtype.barcode" : {
+			"DE" :  "Strichcode",
+			"EN" : "Barcode"
+		},
+		"storecard.qrtype.qr" : {
+			"DE" :  "QR-Code",
+			"EN" : "QR-Code"
+		},
 		// "de.ztix.events.letin" : {
 		// 	"DE" :  "Einlass",
 		// 	"EN" : "Entrance",

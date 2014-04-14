@@ -20,7 +20,7 @@ Ext.application({
    */
 
 	controllers : [ 'CheckIn', 'Lounge', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
-  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix'],
+  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix', 'StoreCard'],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
   'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
 	views : ['Dashboard', 'Checkinconfirmation', 'MenuOverview', 'ProductOverview', 

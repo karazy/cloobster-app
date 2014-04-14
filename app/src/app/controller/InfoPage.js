@@ -1,4 +1,4 @@
-	/**
+/**
 * Controller for infopages.
 * Manages loading, showing and navigation for infopages.
 */

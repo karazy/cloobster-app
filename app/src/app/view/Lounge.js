@@ -30,7 +30,8 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.ClubArea',
 		'EatSense.ux.slidenavigation.collapsible.View',
 		'EatSense.view.FeedbackContainer',
-		'EatSense.view.ContactInfo'
+		'EatSense.view.ContactInfo',
+		'EatSense.view.storecard.StoreCard'
 	],
 	xtype : 'lounge',
 	config : {
@@ -159,6 +160,16 @@ Ext.define('EatSense.view.Lounge', {
 				welcomeFn: function() {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
+			},
+			{	
+				title: i10n.translate('storecard.title'),
+				xtype: 'slidenavcontainer',				
+				iconCls: 'storecard-icon',
+				leaf: true,
+				// hideOnBasic: true,
+				action: 'show-storecard',
+				viewState: 'club',
+				accountRequired: true
 			},
 			{
 				xtype: 'contactinfo',
