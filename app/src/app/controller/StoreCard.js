@@ -23,7 +23,7 @@ Ext.define('EatSense.controller.StoreCard', {
             // checkInCtr = this.getApplication().getController('CheckIn'),
             accountCtr = this.getApplication().getController('Account');
 
-        accountCtr.on('userlogin', loadStoreCards, this);
+        Ext.Viewport.on('userlogin', loadStoreCards, this);
 
         //refresh settings upon login
         function loadStoreCards(account) {
@@ -38,7 +38,7 @@ Ext.define('EatSense.controller.StoreCard', {
 
 	storeCardHideHandler: function(panel) {
 
-	}
+	},
 
 	loadStoreCards: function(account) {
 		var store;
