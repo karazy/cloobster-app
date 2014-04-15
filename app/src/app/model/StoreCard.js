@@ -6,6 +6,9 @@ Ext.define('EatSense.model.StoreCard', {
 	extend: 'Ext.data.Model',
 	config: {
 		idProperty: 'id',
+		identifier: {
+			type: 'none'
+		},
 		fields: [
 		{
 			name: 'id',
@@ -17,9 +20,6 @@ Ext.define('EatSense.model.StoreCard', {
 		{
 			name: 'locationId',
 			type: 'number'
-		},
-		{
-			name: 'html'
 		},
 		{
 			name: 'codeType'

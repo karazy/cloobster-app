@@ -44,7 +44,8 @@ Ext.define('EatSense.view.storecard.StoreCard', {
 						cls: 'general-textfield',
 						labelCls: 'general-field-label-vertical',
 						margin: '7 0 5 0',
-						width: '95%'
+						width: '95%',
+						name: 'customerNumber'
 					},
 					{
 						xtype: 'label',

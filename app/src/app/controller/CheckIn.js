@@ -771,6 +771,7 @@ Ext.define('EatSense.controller.CheckIn', {
         me.setActiveBusiness(record);
         me.activateBasicMode(record.get('basic'));
         me.fireEvent('businessloaded',record);
+        Ext.Viewport.fireEvent('businessloaded',record);
         //notify listeners about the basic mode
         me.fireEvent('basicmode',record.get('basic'));
 
