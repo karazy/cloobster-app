@@ -64,6 +64,31 @@ Ext.define('EatSense.util.Helper', {
       }
    },
 
+   /** 
+   * Encodes a barcode. In development (desktop) does nothing.
+   * 
+   * @param {Function} callback
+   *  Called after completion/cancelation of scanning.
+   *  Gets passed true|false depending on success and the image as parameter.
+   */
+    encodeBarcode: function(code, type, callback) {
+      var me = this,
+      	  os = Ext.os.deviceType.toLowerCase(),
+          barcode;
+
+      if(os == 'desktop' || !window.plugins || !window.plugins.barcodeScanner) {
+      	//Do nothing
+      	console.log('Helper.encodeBarcode: cannot encode in desktop mode');
+      } else if(os == 'phone' || os == 'tablet') {
+      	window.plugins.barcodeScanner.encode("TEXT_TYPE", code, function(image) {
+           callback(true, image);
+        }, function(fail) {
+        	callback(false);    
+        }
+        );
+      }
+   },
+
   /**
    * @private
    * Expects a url with a barcode at the end. Separated by a # or given seperator.

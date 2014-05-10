@@ -55,14 +55,14 @@ Ext.define('EatSense.view.storecard.StoreCard', {
 					{
 			            xtype: 'radiofield',
 			            name : 'qrtype',
-			            value: 'qr',
+			            value: 'QRCODE',
 			            label: i10n.translate('storecard.qrtype.qr'),
 			            width: '95%'
 			        },
 			        {
 			            xtype: 'radiofield',
 			            name : 'qrtype',
-			            value: 'barcode',
+			            value: 'BARCODE',
 			            label: i10n.translate('storecard.qrtype.barcode'),
 			            width: '95%'
 			        }

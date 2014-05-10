@@ -2074,6 +2074,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Kartennummer",
 			"EN" : "Card number"
 		},
+		"storecard.customernumber.ph" : {
+			"DE" :  "Nummer eingeben",
+			"EN" : "Enter number"
+		},
 		"storecard.qrtype.barcode" : {
 			"DE" :  "Strichcode",
 			"EN" : "Barcode"
@@ -2081,6 +2085,10 @@ Ext.define('EatSense.util.Translations',{
 		"storecard.qrtype.qr" : {
 			"DE" :  "QR-Code",
 			"EN" : "QR-Code"
+		},
+		"storecard.error.encoding" : {
+			"DE" :  "Barcode Generierung fehlgeschlagen!",
+			"EN" : "Barcode generation failed!"
 		},
 		// "de.ztix.events.letin" : {
 		// 	"DE" :  "Einlass",
