@@ -38,7 +38,7 @@ Ext.define('EatSense.controller.StoreCard', {
 			checkInCtr = this.getApplication().getController('CheckIn'),
 			store,
 			custNumberField,
-			qrTypeRadiofields;
+			qrCodeImageElement;
 
 		view = Ext.create('EatSense.view.storecard.StoreCard');		
 
@@ -47,6 +47,8 @@ Ext.define('EatSense.controller.StoreCard', {
 
 		//get elements
 		custNumberField = view.down('textfield[name=customerNumber]');
+
+		qrCodeImageElement = view.down('#generatedQr');
 
 		//set up store card object
 		store = Ext.StoreManager.lookup('storeCardStore');
@@ -62,11 +64,14 @@ Ext.define('EatSense.controller.StoreCard', {
 			me.setCurrentStoreCard(Ext.create('EatSense.model.StoreCard'));
 		}
 
+		var barcodeType = checkInCtr.getActiveBusiness().raw.configuration.storecard.barcodeType;
+
 		me.getCurrentStoreCard().set('locationId', checkInCtr.getActiveBusiness().get('id'));
 
 		//encode barcode if this is an existing store card
-		if(me.getCurrentStoreCard().get('cardNumber') && me.getCurrentStoreCard().get('codeType')) {
-			me.encodeCustomerNumberAsBarcode(me.getCurrentStoreCard().get('cardNumber'), me.getCurrentStoreCard().get('codeType'));
+		// && me.getCurrentStoreCard().get('codeType')
+		if(me.getCurrentStoreCard().get('cardNumber')) {
+			me.encodeCustomerNumberAsBarcode(me.getCurrentStoreCard().get('cardNumber'), barcodeType, qrCodeImageElement);
 		}
 
 		//set data before registering events
@@ -84,30 +89,31 @@ Ext.define('EatSense.controller.StoreCard', {
 			scope: this
 		});
 
-		view.on({
-			'delegate' : 'radiofield[name=qrtype]',
-			'check': qrTypeRadiofieldsHandler,
-			scope: this
-		});
+		// view.on({
+		// 	'delegate' : 'radiofield[name=qrtype]',
+		// 	'check': qrTypeRadiofieldsHandler,
+		// 	scope: this
+		// });
 		
 		//event handler functions
 		function custNumberFieldHandler(field, newVal, oldVal) {
 			me.getCurrentStoreCard().set('cardNumber', newVal);
 			me.saveStoreCard(me.getCurrentStoreCard());
+			me.encodeCustomerNumberAsBarcode(newVal, barcodeType, qrCodeImageElement);
 		}
 
-		function qrTypeRadiofieldsHandler(chkBox) {
-			var cN = me.getCurrentStoreCard().get('cardNumber'),
-				type = chkBox.getValue();
+		// function qrTypeRadiofieldsHandler(chkBox) {
+		// 	var cN = me.getCurrentStoreCard().get('cardNumber'),
+		// 		type = chkBox.getValue();
 
-			me.getCurrentStoreCard().set('codeType', type);
+		// 	me.getCurrentStoreCard().set('codeType', type);
 
-			//only save if a cardNumber has been issued
-			if(cN && cN.length > 0) {
-				me.saveStoreCard(me.getCurrentStoreCard());
-				me.encodeCustomerNumberAsBarcode(cN, type);
-			}
-		}
+		// 	//only save if a cardNumber has been issued
+		// 	if(cN && cN.length > 0) {
+		// 		me.saveStoreCard(me.getCurrentStoreCard());
+		// 		me.encodeCustomerNumberAsBarcode(cN, type, qrCodeImageElement);
+		// 	}
+		// }
 
 		function cleanup() {
 
@@ -121,11 +127,11 @@ Ext.define('EatSense.controller.StoreCard', {
 				scope: this
 			});
 
-			view.un({
-				'delegate' : 'radiofield[name=qrtype]',
-				'check': qrTypeRadiofieldsHandler,
-				scope: this
-			});
+			// view.un({
+			// 	'delegate' : 'radiofield[name=qrtype]',
+			// 	'check': qrTypeRadiofieldsHandler,
+			// 	scope: this
+			// });
 
 			me.setCurrentStoreCard(null);
 
@@ -189,27 +195,62 @@ Ext.define('EatSense.controller.StoreCard', {
 		});
 	},
 
+
 	/**
-	*
-	*
+	* Encode and display barcode. 
+	* @param {String} code
+	* 	Data to encode
+	* @param {String} type
+	*	Barcode type
+	* @param {Ext.Element} element
+	*	Element where to display barcode.
 	*
 	*/
-	encodeCustomerNumberAsBarcode: function(code, type) {
+	encodeCustomerNumberAsBarcode: function(code, type, element) {
+
+		var tmpl,
+			url;
 
 		if(!code) {
 			console.log('StoreCard.encodeCustomerNumber: no code given');
 			return;
 		}
 
-		appHelper.encodeBarcode(code, type, function(success, image) {
-			if(success) {
-				console.log('StoreCard.encodeCustomerNumberAsBarcode: success');
-				appHelper.debugObject(success);
-				appHelper.debugObject(image);
-				
-			} else {
-				appHelper.showNotificationBox(i10n.translate('storecard.error.encoding'));
-			}
+		if(!type) {
+			console.log('StoreCard.encodeCustomerNumber: no type given');
+			return;
+		}
+
+		if(!element) {
+			console.log('StoreCard.encodeCustomerNumber: no element given');
+			return;
+		}
+
+		switch(type) {
+			case "code39":
+			//access BarcodeService on AWS
+			tmpl = new Ext.XTemplate(
+				'<img width="100%" height="auto" src="http://54.72.245.119:8080/BarcodeService/rest/barcodes/code39/{content}">'
+			);
+
+			break;
+			
+			case "qr":
+			//Use 3rd party zxing server
+			tmpl = new Ext.XTemplate(
+				'<img width="100%" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
+			);
+			break;
+
+			default:
+				tmpl = new Ext.XTemplate(
+					'<img width="100%" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
+				);
+			break;
+		}		
+
+		tmpl.overwrite(element.element, {
+			'content' : code
 		});
 	}
 

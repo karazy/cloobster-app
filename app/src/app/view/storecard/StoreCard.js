@@ -3,9 +3,10 @@
 *
 */
 Ext.define('EatSense.view.storecard.StoreCard', {
-	extend: 'Ext.Panel',
+	extend: 'Ext.form.Panel',
 	requires: [
 		'Ext.field.Radio',
+		'Ext.form.FieldSet',
 		'EatSense.view.components.BackButtonPanel'
 	],
 	xtype: 'storecard',
@@ -19,7 +20,7 @@ Ext.define('EatSense.view.storecard.StoreCard', {
 				layout: {
 						type: 'vbox',
 						pack: 'center',
-						align: 'center'
+						align: 'stretch'
 				},
 				// scrollable: 'vertical',
 				// padding: '10px 30px 8px 30px',
@@ -31,41 +32,47 @@ Ext.define('EatSense.view.storecard.StoreCard', {
 						items: [
 						]
 					},
-					{
-						xtype: 'label',
-						html: i10n.translate('storecard.description'),
-						width: '95%'
-					},
-					{
-						xtype: 'textfield',
-						label: i10n.translate('storecard.customernumber'),
-						labelAlign: 'top',
-						placeHolder: i10n.translate('storecard.customernumber.ph'),
-						cls: 'general-textfield',
-						labelCls: 'general-field-label-vertical',
-						margin: '7 0 5 0',
-						width: '95%',
-						name: 'customerNumber'
-					},
+					// {
+					// 	xtype: 'label',
+					// 	html: i10n.translate('storecard.description'),
+					// 	width: '95%'
+					// },
 					{
 						xtype: 'label',
 						itemId: 'generatedQr',
 						width: '95%'
 					},
 					{
-			            xtype: 'radiofield',
-			            name : 'qrtype',
-			            value: 'QRCODE',
-			            label: i10n.translate('storecard.qrtype.qr'),
-			            width: '95%'
-			        },
-			        {
-			            xtype: 'radiofield',
-			            name : 'qrtype',
-			            value: 'BARCODE',
-			            label: i10n.translate('storecard.qrtype.barcode'),
-			            width: '95%'
-			        }
+						xtype: 'fieldset',
+						title: i10n.translate('storecard.form.title'),
+						items: [
+							{
+								xtype: 'textfield',
+								label: i10n.translate('storecard.customernumber'),
+								labelAlign: 'top',
+								placeHolder: i10n.translate('storecard.customernumber.ph'),
+								cls: 'general-textfield',
+								labelCls: 'general-field-label-vertical',
+								margin: '7 0 5 0',
+								width: '95%',
+								name: 'customerNumber'
+							}					
+							// {
+					  //           xtype: 'radiofield',
+					  //           name : 'qrtype',
+					  //           value: 'QRCODE',
+					  //           label: i10n.translate('storecard.qrtype.qr'),
+					  //           width: '95%'
+					  //       },
+					  //       {
+					  //           xtype: 'radiofield',
+					  //           name : 'qrtype',
+					  //           value: 'BARCODE',
+					  //           label: i10n.translate('storecard.qrtype.barcode'),
+					  //           width: '95%'
+					  //       }
+						]
+					}					
 				]
 			}		
 		]

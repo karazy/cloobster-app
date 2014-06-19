@@ -20,9 +20,6 @@ Ext.define('EatSense.model.StoreCard', {
 		{
 			name: 'locationId',
 			type: 'number'
-		},
-		{
-			name: 'codeType'
 		}
 		],
 		proxy: {
