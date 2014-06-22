@@ -257,6 +257,17 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 				}
 				return tpl;
 			},
+			storecard: function() {
+				var tpl = {
+					xtype : 'tilebutton',
+					action: 'show-storecard',
+					type: 'storecard',
+					text: i10n.translate('clubdashboard.button.storecard.text'),
+					title: i10n.translate('clubdashboard.button.storecard'),
+					iconCls: 'storecard'
+				}
+				return tpl;
+			},
 
 	/**
 	* Get template assigned to given config.

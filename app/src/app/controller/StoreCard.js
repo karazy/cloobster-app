@@ -38,7 +38,8 @@ Ext.define('EatSense.controller.StoreCard', {
 			checkInCtr = this.getApplication().getController('CheckIn'),
 			store,
 			custNumberField,
-			qrCodeImageElement;
+			qrCodeImageElement,
+			scanBt;
 
 		view = Ext.create('EatSense.view.storecard.StoreCard');		
 
@@ -49,6 +50,7 @@ Ext.define('EatSense.controller.StoreCard', {
 		custNumberField = view.down('textfield[name=customerNumber]');
 
 		qrCodeImageElement = view.down('#generatedQr');
+		scanBt = view.down('button[action=scan-barcode]');
 
 		//set up store card object
 		store = Ext.StoreManager.lookup('storeCardStore');
@@ -89,6 +91,11 @@ Ext.define('EatSense.controller.StoreCard', {
 			scope: this
 		});
 
+		scanBt.on({
+			'tap': scanBtHandler,
+			scope: this
+		});
+
 		// view.on({
 		// 	'delegate' : 'radiofield[name=qrtype]',
 		// 	'check': qrTypeRadiofieldsHandler,
@@ -100,6 +107,15 @@ Ext.define('EatSense.controller.StoreCard', {
 			me.getCurrentStoreCard().set('cardNumber', newVal);
 			me.saveStoreCard(me.getCurrentStoreCard());
 			me.encodeCustomerNumberAsBarcode(newVal, barcodeType, qrCodeImageElement);
+		}
+
+		function scanBtHandler(button) {
+			//scan code and set customer number
+			appHelper.scanBarcode(function(code) {
+				if(code) {
+					custNumberField.setValue(code);
+				}
+			});
 		}
 
 		// function qrTypeRadiofieldsHandler(chkBox) {
@@ -124,6 +140,11 @@ Ext.define('EatSense.controller.StoreCard', {
 
 			custNumberField.un({
 				'change': custNumberFieldHandler,
+				scope: this
+			});
+
+			scanBt.un({
+				'tap': scanBtHandler,
 				scope: this
 			});
 
@@ -227,31 +248,37 @@ Ext.define('EatSense.controller.StoreCard', {
 		}
 
 		switch(type) {
-			case "code39":
-			//access BarcodeService on AWS
-			tmpl = new Ext.XTemplate(
-				'<img width="100%" height="auto" src="http://54.72.245.119:8080/BarcodeService/rest/barcodes/code39/{content}">'
-			);
-
-			break;
-			
 			case "qr":
 			//Use 3rd party zxing server
 			tmpl = new Ext.XTemplate(
-				'<img width="100%" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
+				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
 			);
 			break;
 
+			case "code39":
+			//access BarcodeService on AWS
+			tmpl = new Ext.XTemplate(
+				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://54.72.245.119:8080/BarcodeService/rest/barcodes/{type}/{content}">'
+			);
+
+			break;			
+
 			default:
 				tmpl = new Ext.XTemplate(
-					'<img width="100%" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
+					'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
 				);
 			break;
 		}		
 
+		// tmpl = new Ext.XTemplate(
+		// 	'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="res/images/kundenkarte_code39.png">'
+		// );			
+
 		tmpl.overwrite(element.element, {
-			'content' : code
+			'content' : code,
+			'type' : type
 		});
+
 	}
 
 });

@@ -1097,6 +1097,11 @@ $general-list-item-height: 45px;
   margin-right: 0.6em;
 }
 
+.x-tilebutton-icon.storecard {
+  background-image: url('../images/club/storecard.png');
+  margin-right: 0.6em;
+}
+
 
 /* Facebook wallpost button */
 .fb-wimpel-button {
@@ -1246,6 +1251,11 @@ $general-list-item-height: 45px;
 .gift-icon {
   -webkit-mask-image: inline-image('../images/nav/nav_gift.png');
 }
+
+.storecard-icon {
+  -webkit-mask-image: inline-image('../images/nav/nav_storecard.png');
+}
+
 
 .newsletter-floating {
   border-radius: 0.3em !important;

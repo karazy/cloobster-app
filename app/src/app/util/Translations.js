@@ -933,6 +933,14 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "Le nostre offerte",
 			"FR" : "Notre offre"
 		},
+		"clubdashboard.button.storecard" : {
+			"DE" :  "Kundenkarte",
+			"EN" : "Storecard"
+		},
+		"clubdashboard.button.storecard.text" : {
+			"DE" :  "Ihre Kundenkarte immer dabei",
+			"EN" : "Your storecard always at hands"
+		},
 		//Info Pages
 		"infopage.overview.title" : {
 			"DE" :  "Information",
@@ -2067,8 +2075,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Storecard"
 		},
 		"storecard.description" : {
-			"DE" :  "Kundenkarte immer dabei. Geben Sie hier die Nummer ihrer Kundekarte ein.",
-			"EN" : "Storecard always at hands. Just enter your numer."
+			"DE" :  "Ihre Kundenkarte immer dabei. Einfach die Nummer eingeben oder abscannen.",
+			"EN" : "Storecard always at hands. Just enter your number or scan your card."
 		},
 		"storecard.customernumber" : {
 			"DE" :  "Kartennummer",
@@ -2090,20 +2098,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Barcode Generierung fehlgeschlagen!",
 			"EN" : "Barcode generation failed!"
 		},
-		// "de.ztix.events.letin" : {
-		// 	"DE" :  "Einlass",
-		// 	"EN" : "Entrance",
-		// 	"ES" : "",
-		// 	"IT" : "",
-		// 	"FR" : ""
-		// },
-		// "de.ztix.events.noeventsinmonth" : {
-		// 	"DE" :  "Keine Veranstaltungen in diesem Monat.",
-		// 	"EN" : "No events in this month.",
-		// 	"ES" : "",
-		// 	"IT" : "",
-		// 	"FR" : ""
-		// },
+		"storecard.scan" : {
+			"DE" :  "Scannen",
+			"EN" : "Scan"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
