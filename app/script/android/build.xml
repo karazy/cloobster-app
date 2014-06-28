@@ -116,7 +116,7 @@
 	<!-- Build configurations -->
 	<target name="buildLocal">
 		<antcall target="copyProduction">
-		    <param name="serviceUrl" value="http://192.168.0.105:8888"></param>
+		    <param name="serviceUrl" value="http://192.168.2.137:8888"></param>
 		</antcall>
 	</target>
 	

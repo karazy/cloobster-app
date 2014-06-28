@@ -44,12 +44,12 @@
 		{
             "path": "touch/sencha-touch.js",
         },
-        {
-            "path": "lib/cordova.js",
-        },
-        {
-            "path": "lib/barcodescanner.js",
-        },
+        // {
+        //     "path": "lib/cordova.js",
+        // },
+        // {
+        //     "path": "lib/barcodescanner.js",
+        // },
         {
             "path": "lib/cdv-plugin-fb-connect.js",
         },

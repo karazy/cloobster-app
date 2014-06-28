@@ -258,7 +258,7 @@ Ext.define('EatSense.controller.StoreCard', {
 			case "code39":
 			//access BarcodeService on AWS
 			tmpl = new Ext.XTemplate(
-				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://54.72.245.119:8080/BarcodeService/rest/barcodes/{type}/{content}">'
+				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://54.76.228.227:8080/BarcodeService/rest/barcodes/{type}/{content}">'
 			);
 
 			break;			
