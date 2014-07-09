@@ -19,7 +19,19 @@ Ext.define('EatSense.controller.StoreCard', {
 		* @accessor
 		* 	The current store card, that belongs to active location.
 		*/
-		currentStoreCard: null
+		currentStoreCard: null,
+
+		// validTokens: //,
+		/**
+		* @accessor
+		* 	Url to 3rd party service from zxing. Includes qr code size.
+		*/
+		zxingBarcodeServiceUrl: 'http://zxing.org/w/chart?cht=qr&chs=150x150&chl=',
+		/**
+		* @accessor
+		* 	Url to custom barcode service hosted on aws.
+		*/
+		awsBarcodeServiceUrl: 'http://54.76.228.227:8080/BarcodeService/rest/barcodes'
 	},
 
 	launch: function() {
@@ -229,7 +241,8 @@ Ext.define('EatSense.controller.StoreCard', {
 	*/
 	encodeCustomerNumberAsBarcode: function(code, type, element) {
 
-		var tmpl,
+		var me = this,
+			tmpl,
 			url;
 
 		if(!code) {
@@ -250,24 +263,26 @@ Ext.define('EatSense.controller.StoreCard', {
 		switch(type) {
 			case "qr":
 			//Use 3rd party zxing server
+			url = me.getZxingBarcodeServiceUrl();
 			tmpl = new Ext.XTemplate(
-				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
+				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}{content}">'
 			);
 			break;
 
-			case "code39":
-			//access BarcodeService on AWS
+			default:
+			url = me.getAwsBarcodeServiceUrl();		
+			//otherwise always use BarcodeService on AWS e.g. code39
 			tmpl = new Ext.XTemplate(
-				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://54.76.228.227:8080/BarcodeService/rest/barcodes/{type}/{content}">'
+				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}/{type}/{content}">'
 			);
 
 			break;			
 
-			default:
-				tmpl = new Ext.XTemplate(
-					'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
-				);
-			break;
+			// default:
+			// 	tmpl = new Ext.XTemplate(
+			// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
+			// 	);
+			// break;
 		}		
 
 		// tmpl = new Ext.XTemplate(
@@ -275,6 +290,7 @@ Ext.define('EatSense.controller.StoreCard', {
 		// );			
 
 		tmpl.overwrite(element.element, {
+			'url': url,
 			'content' : code,
 			'type' : type
 		});
