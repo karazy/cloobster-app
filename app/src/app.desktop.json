@@ -48,8 +48,7 @@
 //            "remote" : true
 //        },
         {
-            "path" : "lib/facebook_js_sdk.js",
-            "remote" : true
+            "path" : "lib/facebookConnectPlugin.js"
         },
         {
             "path": "app.js",

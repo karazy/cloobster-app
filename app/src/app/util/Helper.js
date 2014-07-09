@@ -16,16 +16,18 @@ Ext.define('EatSense.util.Helper', {
    *  Called after completion/cancelation of scanning. Gets passed the barcode as parameter.
    *  barcode is false when user cancelled
    */
-   scanBarcode: function(callback) {
-      var me = this,
-      	  os = Ext.os.deviceType.toLowerCase(),
-          barcode;
-      console.log('#####');
-      console.log('OS: ' + os);
-      console.log('Cordova: ' + cordova);
-      console.log('cordova.plugins: ' + cordova.plugins);
-      console.log('cordova.plugins.barcodeScanner: ' + cordova.plugins.barcodeScanner);
-      console.log('#####');
+   	scanBarcode: function(callback) {
+		var me = this,
+      	  	os = Ext.os.deviceType.toLowerCase(),
+          	barcode;
+
+    	//debug output
+		// console.log('#####');
+		// console.log('OS: ' + os);
+		// console.log('Cordova: ' + cordova);
+		// console.log('cordova.plugins: ' + cordova.plugins);
+		// console.log('cordova.plugins.barcodeScanner: ' + cordova.plugins.barcodeScanner);
+		// console.log('#####');
 
       if(os == 'desktop' || !cordova.plugins || !cordova.plugins.barcodeScanner || (device && device.platform == "iPhone Simulator")) {
       	console.log('appHelper.scanBarcode desktop');

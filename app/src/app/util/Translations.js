@@ -2201,6 +2201,10 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "Questo account di Facebook è già connesso a un altro account cloobster.",
 			"FR" : "Ce compte Facebook est associé à un autre compte Cloobster"
 		},
+		"error.facebook" : {
+			"DE" :  "Fehler beim Zugriff auf Facebook.",
+			"EN" : "Error accessing Facebook."
+		},
 		"error.account.inactive" : {
 			"DE" :  "Ihr Account ist inaktiv. Kontaktieren Sie bitte support@cloobster.com",
 			"EN" : "Your account is inactive. Please contact support@cloobster.com",

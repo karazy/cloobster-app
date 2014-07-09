@@ -50,12 +50,12 @@
         // {
         //     "path": "lib/barcodescanner.js",
         // },
-        {
-            "path": "lib/cdv-plugin-fb-connect.js",
-        },
-        {
-            "path": "lib/facebook_js_sdk.js",
-        },
+        // {
+        //     "path": "lib/cdv-plugin-fb-connect.js",
+        // },
+        // {
+        //     "path": "lib/facebook_js_sdk.js",
+        // },
 //        {
 //            "path": "https://karazy-cloobster.appspot.com/_ah/channel/jsapi",
 //            "remote" : true
