@@ -17,21 +17,23 @@ module.exports = function(grunt) {
 			},
 
 			directory: {
-				src: 'src',
-				server: '.tmp'
-				prod: 'prod'
+				src: 'src/',
+				server: '.tmp/',
+				production: 'prod'
 			}
 		},		
 		copy: {
-			dev: {					
-				src: '<%= settings.directory.src %>',
+			dev: {
+				src: '**/*',
+				cwd: '<%= settings.directory.src %>',
     			dest: '<%= settings.directory.server %>',
-    			nonull: true
+    			nonull: true,
+    			expand: true
 			},
-			prod-src: {
+			prodSrc: {
 
 			},
-			prod-dest: {
+			prodDest: {
 
 			}
 		},
@@ -40,25 +42,10 @@ module.exports = function(grunt) {
 			dev: '<%= settings.directory.server %>'
 		},
 
-		 src: ['text/*.txt'],             // source files array (supports minimatch)
-    dest: 'build/text/',             // destination directory or file
-    replacements: [{
-      from: 'Red',                   // string replacement
-      to: 'Blue'
-    }, {
-      from: /(f|F)(o{2,100})/g,      // regex replacement ('Fooo' to 'Mooo')
-      to: 'M$2'
-    }, {
-      from: 'Foo',
-      to: function (matchedWord) {   // callback replacement
-        return matchedWord + ' Bar';
-      }
-    }]
-  }
-
 		replace: {
 			dev: {
 				src: '<%= settings.directory.server %>/app/util/Configuration.js',
+				overwrite: true,
 				replacements: [
 				{
 					from: /(serviceUrl) : .*/,
@@ -67,7 +54,67 @@ module.exports = function(grunt) {
 				]
 				
 			}
-		}
+		},
+
+		connect: {
+	      options: {
+	        port: 9000,
+	        // Change this to '0.0.0.0' to access the server from outside.
+	        hostname: '0.0.0.0',
+	        livereload: 35729
+	      },
+	      livereload: {
+	        options: {
+	        	open: true,
+	        	base: [
+	        	'<%= settings.directory.server %>'
+	        	]
+	        }
+	      }
+	      // test: {
+	      //   options: {
+	      //     port: 9001,
+	      //     base: [
+	      //       '.tmp',
+	      //       'test',
+	      //       '<%= yeoman.app %>'
+	      //     ]
+	      //   }
+	      // },
+	      // dist: {
+	      //   options: {
+	      //     base: '<%= yeoman.dist %>'
+	      //   }
+	      // }
+	    },
+
+	    // Watches files for changes and runs tasks based on the changed files
+    	watch: {
+		    js: {
+		        files: ['<%= settings.directory.src %>/**'],
+		        tasks: ['copy:dev'],
+		        options: {
+		          livereload: true
+		        }
+		      },
+		      // compass: {
+		      //   files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+		      //   tasks: ['compass:server', 'autoprefixer']
+		      // },
+		      gruntfile: {
+		        files: ['Gruntfile.js']
+		      },
+		      // livereload: {
+		      //   options: {
+		      //     livereload: '<%= connect.options.livereload %>'
+		      //   },
+		      //   files: [
+		      //     '<%= yeoman.app %>/{,*/}*.html',
+		      //     '.tmp/styles/{,*/}*.css',
+		      //     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+		      //   ]
+		      // }
+		    },
 
 	});
 
@@ -78,6 +125,7 @@ module.exports = function(grunt) {
 		'clean:dev',
 		'copy:dev',
 		'replace:dev',
+		'connect:livereload:keepalive'
 		'watch'
 	]);
 
