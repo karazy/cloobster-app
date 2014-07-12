@@ -20,14 +20,17 @@ Ext.application({
    */
 
 	controllers : [ 'CheckIn', 'Lounge', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
-  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix'],
-	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 'Spot', 'Business', 'Bill', 
-  'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 'Profile', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent'],
+  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix', 'StoreCard'],
+	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 
+  'Spot', 'Business', 'Bill', 
+  'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 
+  'Profile', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent', 'StoreCard'],
 	views : ['Dashboard', 'Checkinconfirmation', 'MenuOverview', 'ProductOverview', 
     'ProductDetail', 'OrderDetail', 'OptionDetail', 'Cart', 'Menu', 'Lounge', 'FeedbackForm', 'Login', 'History', 'HistoryDetail',
     'EatSense.view.BackButton', 'About', 'Privacy'], 
 	stores : [ 'CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 
-          'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 'DashboardItem', 'Visit', 'ZtixEvent', 'ZtixCoupon'],
+          'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 
+          'DashboardItem', 'Visit', 'ZtixEvent', 'ZtixCoupon', 'StoreCard'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [

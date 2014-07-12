@@ -43,6 +43,18 @@ Ext.define('EatSense.override.CustomRestProxy', {
 	        		url = url.replace(/(.*){businessId}(.*)/, replacer);
 	        	}	
 	        }
+
+	        if(params.accountId) {
+	        	if(url.match(/(.*){accountId}(.*)/)) {
+	        		var replacer = '$1'+params.accountId+'$2';
+	        		url = url.replace(/(.*){accountId}(.*)/, replacer);
+	        	}	        	
+	        } else if(defaultHeaders.accountId) {
+	        	if(url.match(/(.*){accountId}(.*)/)) {
+	        		var replacer = '$1'+defaultHeaders.accountId+'$2';
+	        		url = url.replace(/(.*){accountId}(.*)/, replacer);
+	        	}	
+	        }
 	        	
 	        request.setUrl(_serviceUrl + url);
 

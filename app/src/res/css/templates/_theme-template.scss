@@ -1187,6 +1187,11 @@ $slidenav-bg-color: #2E2E2E;
   -webkit-mask-image: url('../images/club/gift.png');
 }
 
+.x-tilebutton-icon.storecard {
+  background-image: url('../images/club/storecard.png');
+  margin-right: 0.6em;
+}
+
 
 /* Facebook wallpost button */
 .fb-wimpel-button {
@@ -1340,6 +1345,11 @@ $slidenav-bg-color: #2E2E2E;
 .gift-icon {
   -webkit-mask-image: inline-image('../images/nav/nav_gift.png');
 }
+
+.storecard-icon {
+  -webkit-mask-image: inline-image('../images/nav/nav_storecard.png');
+}
+
 
 .newsletter-floating {
   border-radius: 0.3em !important;

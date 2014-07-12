@@ -33,7 +33,7 @@ Ext.define('EatSense.util.AjaxHeaderHelper', {
 					delete defaultHeaders[prop];
 				});			
 			} catch(e) {
-				console.log("AjaxHeaderHelper -> resetHeaders: " + e);
+				console.log("AjaxHeaderHelper.resetHeaders: " + e);
 			}
 		};
 	},

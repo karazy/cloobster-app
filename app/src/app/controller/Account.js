@@ -105,6 +105,10 @@ Ext.define('EatSense.controller.Account', {
 				me.setAccount(record);
 				me.loadProfile(record.get('profileId'));
 
+				headerUtil.addHeaders({
+                  'accountId' : record.get('id')
+                });
+
 				Ext.Viewport.fireEvent('userlogin', record);
 			},
 			failure: function(record, operation) {
@@ -770,6 +774,8 @@ Ext.define('EatSense.controller.Account', {
 
 		this.setAccount(null);
 		this.setProfile(null);
+
+		headerUtil.resetHeaders(['accountId']);
 
 		Ext.Viewport.fireEvent('userlogout');
 	},

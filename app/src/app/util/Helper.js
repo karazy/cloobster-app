@@ -16,12 +16,21 @@ Ext.define('EatSense.util.Helper', {
    *  Called after completion/cancelation of scanning. Gets passed the barcode as parameter.
    *  barcode is false when user cancelled
    */
-   scanBarcode: function(callback) {
-      var me = this,
-      	  os = Ext.os.deviceType.toLowerCase(),
-          barcode;
+   	scanBarcode: function(callback) {
+		var me = this,
+      	  	os = Ext.os.deviceType.toLowerCase(),
+          	barcode;
 
-      if(os == 'desktop' || !window.plugins || !window.plugins.barcodeScanner || (device && device.platform == "iPhone Simulator")) {
+    	//debug output
+		// console.log('#####');
+		// console.log('OS: ' + os);
+		// console.log('Cordova: ' + cordova);
+		// console.log('cordova.plugins: ' + cordova.plugins);
+		// console.log('cordova.plugins.barcodeScanner: ' + cordova.plugins.barcodeScanner);
+		// console.log('#####');
+
+      if(os == 'desktop' || !cordova.plugins || !cordova.plugins.barcodeScanner || (device && device.platform == "iPhone Simulator")) {
+      	console.log('appHelper.scanBarcode desktop');
             Ext.Msg.show({
                 // title: i10n.translate('barcodePromptTitle'),
                 message: i10n.translate('barcodePromptText'),
@@ -49,7 +58,8 @@ Ext.define('EatSense.util.Helper', {
                 }
             }); 
       } else if(os == 'phone' || os == 'tablet') {
-          window.plugins.barcodeScanner.scan(function(result) {
+      	console.log('appHelper.scanBarcode device');
+          cordova.plugins.barcodeScanner.scan(function(result) {
             if(!result.cancelled) {
               barcode =  encodeURIComponent(Ext.String.trim(me.extractBarcode(result.text)));
             } else {
@@ -61,6 +71,31 @@ Ext.define('EatSense.util.Helper', {
         }, function(error) {
           Ext.Msg.alert("Scanning failed: " + error, Ext.emptyFn);
         });
+      }
+   },
+
+   /** 
+   * Encodes a barcode. In development (desktop) does nothing.
+   * 
+   * @param {Function} callback
+   *  Called after completion/cancelation of scanning.
+   *  Gets passed true|false depending on success and the image as parameter.
+   */
+    encodeBarcode: function(code, type, callback) {
+      var me = this,
+      	  os = Ext.os.deviceType.toLowerCase(),
+          barcode;
+
+      if(os == 'desktop' || !cordova.plugins || !cordova.plugins.barcodeScanner) {
+      	//Do nothing
+      	console.log('Helper.encodeBarcode: cannot encode in desktop mode');
+      } else if(os == 'phone' || os == 'tablet') {
+      	cordova.plugins.barcodeScanner.encode("TEXT_TYPE", code, function(image) {
+           callback(true, image);
+        }, function(fail) {
+        	callback(false);    
+        }
+        );
       }
    },
 

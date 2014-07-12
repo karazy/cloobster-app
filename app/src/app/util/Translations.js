@@ -934,6 +934,14 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "Le nostre offerte",
 			"FR" : "Notre offre"
 		},
+		"clubdashboard.button.storecard" : {
+			"DE" :  "Kundenkarte",
+			"EN" : "Storecard"
+		},
+		"clubdashboard.button.storecard.text" : {
+			"DE" :  "Ihre Kundenkarte immer dabei",
+			"EN" : "Your storecard always at hands"
+		},
 		//Info Pages
 		"infopage.overview.title" : {
 			"DE" :  "Infos",
@@ -2058,20 +2066,39 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Exklusiv bei uns",
 			"EN" : "Exclusiv for you"
 		},
-		// "de.ztix.events.letin" : {
-		// 	"DE" :  "Einlass",
-		// 	"EN" : "Entrance",
-		// 	"ES" : "",
-		// 	"IT" : "",
-		// 	"FR" : ""
-		// },
-		// "de.ztix.events.noeventsinmonth" : {
-		// 	"DE" :  "Keine Veranstaltungen in diesem Monat.",
-		// 	"EN" : "No events in this month.",
-		// 	"ES" : "",
-		// 	"IT" : "",
-		// 	"FR" : ""
-		// },
+		//storecard
+		"storecard.title" : {
+			"DE" :  "Kundenkarte",
+			"EN" : "Storecard"
+		},
+		"storecard.description" : {
+			"DE" :  "Ihre Kundenkarte immer dabei. Einfach die Nummer eingeben oder abscannen.",
+			"EN" : "Storecard always at hands. Just enter your number or scan your card."
+		},
+		"storecard.customernumber" : {
+			"DE" :  "Kartennummer",
+			"EN" : "Card number"
+		},
+		"storecard.customernumber.ph" : {
+			"DE" :  "Nummer eingeben",
+			"EN" : "Enter number"
+		},
+		"storecard.qrtype.barcode" : {
+			"DE" :  "Strichcode",
+			"EN" : "Barcode"
+		},
+		"storecard.qrtype.qr" : {
+			"DE" :  "QR-Code",
+			"EN" : "QR-Code"
+		},
+		"storecard.error.encoding" : {
+			"DE" :  "Barcode Generierung fehlgeschlagen!",
+			"EN" : "Barcode generation failed!"
+		},
+		"storecard.scan" : {
+			"DE" :  "Scannen",
+			"EN" : "Scan"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
@@ -2170,6 +2197,10 @@ Ext.define('EatSense.util.Translations',{
 			"ES" : "Esta cuenta de Facebook está asociada a otra cuenta",
 			"IT" : "Questo account di Facebook è già connesso a un altro account.",
 			"FR" : "Ce compte Facebook est associé à un autre compte"
+		},
+		"error.facebook" : {
+			"DE" :  "Fehler beim Zugriff auf Facebook.",
+			"EN" : "Error accessing Facebook."
 		},
 		"error.account.inactive" : {
 			"DE" :  "Ihr Account ist inaktiv. Kontaktieren Sie bitte support@cloobster.com",

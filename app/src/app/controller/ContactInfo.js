@@ -62,7 +62,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 
 		if(mapPanel) {
 			panel.remove(mapPanel, true);	
-		}		
+		}
 	},
 	/**
 	* Back button tap event. Return to contact view from map view.
