@@ -51,25 +51,53 @@ module.exports = function(grunt) {
 
 		replace: {
 			localhost: {
-				src: '<%= settings.directory.server %>/app/util/Configuration.js',
-				overwrite: true,
-				replacements: [
-				{
-					from: /serviceUrl : .*/,
-					to: 'serviceUrl : \'<%= settings.dev.serviceUrl %>\','
-				}
-				]				
-			},
-			production: {
-				src: '<%= settings.directory.server %>/app/util/Configuration.js',
-				overwrite: true,
-				replacements: [
-				{
-					from: /serviceUrl : .*/,
-					to: 'serviceUrl : \'<%= settings.prod.serviceUrl %>\','
-				}
+				src: '<%= settings.directory.server %>/app/util/Configuration.js'
+				,overwrite: true
+				,replacements: [
+					{
+						from: /serviceUrl : .*/,
+						to: 'serviceUrl : \'<%= settings.dev.serviceUrl %>\','
+					}
+					,{
+						from: /whitelabelConfig.*/,
+						to: 'whitelabelConfig : \'<%= grunt.option("whitelabel") %>\','
+					}
 				]				
 			}
+			,production: {
+				src: '<%= settings.directory.server %>/app/util/Configuration.js'
+				,overwrite: true
+				,replacements: [
+					{
+						from: /serviceUrl : .*/,
+						to: 'serviceUrl : \'<%= settings.prod.serviceUrl %>\','
+					}
+					,{
+						from: /whitelabelConfig.*/,
+						to: 'whitelabelConfig : \'<%= grunt.option("whitelabel") %>\','
+					}
+				]				
+			}
+			// cloobster: {
+			// 	src: '<%= settings.directory.server %>/app/util/Configuration.js',
+			// 	overwrite: true,
+			// 	replacements: [
+			// 		{
+			// 			from: /whitelabelConfig.*/,
+			// 			to: 'whitelabelConfig : null,'
+			// 		}
+			// 	]				
+			// },
+			// frizz: {
+			// 	src: '<%= settings.directory.server %>/app/util/Configuration.js',
+			// 	overwrite: true,
+			// 	replacements: [
+			// 		{
+			// 			from: /whitelabelConfig.*/,
+			// 			to: 'whitelabelConfig : frizz,'
+			// 		}
+			// 	]				
+			// }
 		},
 
 		connect: {
@@ -239,8 +267,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', [
 		'clean:prod',
 		'copy:prodSrc',
+		'replace:'+_server,
 		'compass:'+_whitelabel,
-		'string-replace:prod',
+		'copy:resources',
 		'setversion',
 		'compile',
 		'copy:prodDest'
@@ -248,7 +277,7 @@ module.exports = function(grunt) {
 }
 
 // - source kopieren ok
-// - CSS kopieren je nach Theme
+// - CSS kopieren je nach Theme ok
 //   - z.B. in verschiedenen Ordnern vorhalten und mittels Parameter auslesen
 // - URL basierend auf environment setzen (Prod, QA etc) ok
 // - Für build korrekte index kopieren 

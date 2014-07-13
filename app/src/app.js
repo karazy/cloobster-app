@@ -341,7 +341,9 @@ Ext.application({
       var whitelabelConfig = null,
           configName;
 
-      if(!appConfig.whitelabelConfig || appConfig.whitelabelConfig.length == 0) {
+      if(!appConfig.whitelabelConfig || 
+          appConfig.whitelabelConfig.length == 0 ||
+          appConfig.whitelabelConfig != 'cloobster') {
         callback();
         return;
       }
