@@ -343,7 +343,7 @@ Ext.application({
 
       if(!appConfig.whitelabelConfig || 
           appConfig.whitelabelConfig.length == 0 ||
-          appConfig.whitelabelConfig != 'cloobster') {
+          appConfig.whitelabelConfig == 'cloobster') {
         callback();
         return;
       }
@@ -352,10 +352,10 @@ Ext.application({
 
       Ext.Ajax.request({
         url: 'whitelabel/' + configName + '/Configuration.json',
-        success: function(response) {
-          console.log('Application.initConfiguration: found whitelabel configuration for ' + whitelabelConfig);
+        success: function(response) {          
           try {
             whitelabelConfig = Ext.JSON.decode(response.responseText);
+            console.log('Application.initConfiguration: load whitelabel configuration for ' + whitelabelConfig);
             Ext.merge(appConfig, whitelabelConfig);
           } catch(e) {
             console.error('Application.initConfiguration: could not decode whitelabel configuration ' + e);

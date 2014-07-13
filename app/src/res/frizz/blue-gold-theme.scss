@@ -5,8 +5,7 @@ $base-color: #406291;
 $active-color: #D4AF37; 
 /* Disable gradients, shadows ... for tabs.*/
 $include-tab-highlights: false;
-/*'ComfortaaRegular',*/
-$font-family: 'Roboto_light',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
+
 $base-gradient: 'glossy';
 $button-gradient: 'matte';
 $page-bg-color: #fffffb;
@@ -34,7 +33,6 @@ $dashboard-color: #1E4776;
 /* Background color for message boxes. */
 $sheet-bg-color: #cdcdcd;
 /*$sheet-bg-gradient: #a47772;*/
-$button-radius: .3em;
 
 
 @import 'templates/_theme-template.scss';

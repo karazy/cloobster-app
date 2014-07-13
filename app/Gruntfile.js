@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 			directory: {
 				src: 'src/',
 				server: '.tmp/',
-				production: 'prod'
+				production: 'production'
 			}
 		},		
 		copy: {
@@ -38,7 +38,18 @@ module.exports = function(grunt) {
     			expand: true	
 			},
 			prodSrc: {
-
+				src: ['**/*', '!res/**/*'],
+				cwd: '<%= settings.directory.src %>',
+    			dest: '<%= settings.directory.production %>',
+    			nonull: true,
+    			expand: true
+			},
+			resourcesProd: {
+				src: ['**/*', '!*.scss', '!config.rb'],
+				cwd: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/',
+    			dest: '<%= settings.directory.production %>/res/',
+    			nonull: true,
+    			expand: true	
 			},
 			prodDest: {
 
@@ -46,17 +57,18 @@ module.exports = function(grunt) {
 		},
 
 		clean: {
-			dev: '<%= settings.directory.server %>'
+			dev: '<%= settings.directory.server %>',
+			prod: '<%= settings.directory.production %>'
 		},
 
 		replace: {
-			localhost: {
+			development: {
 				src: '<%= settings.directory.server %>/app/util/Configuration.js'
 				,overwrite: true
 				,replacements: [
 					{
 						from: /serviceUrl : .*/,
-						to: 'serviceUrl : \'<%= settings.dev.serviceUrl %>\','
+						to: 'serviceUrl : \'<%= grunt.option("server") %>\','
 					}
 					,{
 						from: /whitelabelConfig.*/,
@@ -65,12 +77,12 @@ module.exports = function(grunt) {
 				]				
 			}
 			,production: {
-				src: '<%= settings.directory.server %>/app/util/Configuration.js'
+				src: '<%= settings.directory.production %>/app/util/Configuration.js'
 				,overwrite: true
 				,replacements: [
 					{
 						from: /serviceUrl : .*/,
-						to: 'serviceUrl : \'<%= settings.prod.serviceUrl %>\','
+						to: 'serviceUrl : \'<%= grunt.option("server") %>\','
 					}
 					,{
 						from: /whitelabelConfig.*/,
@@ -186,7 +198,7 @@ module.exports = function(grunt) {
 					sassDir: '<%= settings.directory.src %>/res/cloobster',
 					basePath: '<%= settings.directory.src %>/res/cloobster',
 					debugInfo: true,
-					environment: 'development',
+					environment: '<%= grunt.option("buildMode") %>',
 					outputStyle: 'expanded'
 				}
 			},
@@ -196,12 +208,28 @@ module.exports = function(grunt) {
 					sassDir: '<%= settings.directory.src %>/res/frizz',
 					basePath: '<%= settings.directory.src %>/res/frizz',
 					debugInfo: true,
-					environment: 'development',
+					environment: '<%= grunt.option("buildMode") %>',
 					outputStyle: 'expanded'
 				}
 			}
 		}
+		,bgShell: {
+			_defaults: {
+				bg: true
+			},
 
+			senchaBuild: {
+				cmd: 'sencha app build package',
+				bg: false				
+			}
+			// watchCoffee: {
+			// 	cmd: 'coffee --watch --output lib/ src/'
+			// },
+			// runNode: {
+			// 	cmd: 'node server.js',
+			// 	bg: false
+			// }
+		}
 	});
 
 	/**
@@ -230,7 +258,12 @@ module.exports = function(grunt) {
 				_server = 'localhost';			
 		}
 
-		grunt.option('server', _server);
+		if(_server == 'localhost') {
+			grunt.option('server', '<%= settings.dev.serviceUrl %>');	
+		} else if(server == 'production') {
+			grunt.option('server', '<%= settings.prod.serviceUrl %>');
+		} 
+		
 
 		switch(whitelabel) {
 			case 'cloobster':
@@ -253,7 +286,7 @@ module.exports = function(grunt) {
 		grunt.task.run([
 			'clean:dev',
 			'copy:dev',
-			'replace:'+_server,
+			'replace:development',
 			'compass:'+_whitelabel,
 			'copy:resources',
 			'connect:livereload',
@@ -264,23 +297,69 @@ module.exports = function(grunt) {
 	/**
 	* Used for production build.
 	*/
-	grunt.registerTask('build', [
-		'clean:prod',
-		'copy:prodSrc',
-		'replace:'+_server,
-		'compass:'+_whitelabel,
-		'copy:resources',
-		'setversion',
-		'compile',
-		'copy:prodDest'
-	]);
+	grunt.registerTask('build', function(server, whitelabel) {
+
+		var _server,
+			_whitelabel,
+			_mode;
+
+		if(!grunt.option('buildMode') || grunt.option('buildMode') != 'development' || grunt.option('buildMode') != 'production') {
+			grunt.option('buildMode', 'development');
+		}
+
+		switch(server) {
+			case 'localhost':
+				_server = 'localhost';
+				break;
+			case 'production':
+				_server = 'production';
+			break;
+			default:
+				_server = 'localhost';			
+		}
+
+		if(_server == 'localhost') {
+			grunt.option('server', '<%= settings.dev.serviceUrl %>');	
+		} else if(server == 'production') {
+			grunt.option('server', '<%= settings.prod.serviceUrl %>');
+		} 
+		
+
+		switch(whitelabel) {
+			case 'cloobster':
+				_whitelabel = 'cloobster';
+				break;
+			case 'frizz':
+				_whitelabel = 'frizz';
+			break;
+			default:
+				_whitelabel = 'cloobster';			
+		}
+
+		grunt.option('whitelabel', _whitelabel);
+
+
+		console.log('Using server ' + _server);
+		console.log('Using whitelabel ' + _whitelabel);
+
+		grunt.task.run([
+			'clean:prod',
+			'copy:prodSrc',
+			'replace:production',
+			'compass:'+_whitelabel,
+			'copy:resourcesProd'
+			// 'setversion',
+			// 'bgShell:senchaBuild'
+			// 'copy:prodDest'
+		]);
+	});
 }
 
 // - source kopieren ok
 // - CSS kopieren je nach Theme ok
 //   - z.B. in verschiedenen Ordnern vorhalten und mittels Parameter auslesen
 // - URL basierend auf environment setzen (Prod, QA etc) ok
-// - Für build korrekte index kopieren 
+// - Für build korrekte index kopieren desktop oder phone
 // - set version via git oder wie in preports
 // - compile mit sencha (grunt-run oder grunt-contrib-commands)
 // - copy to cordova or desktop
