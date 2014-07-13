@@ -1,0 +1,99 @@
+.x-tilebutton {
+  font-size: 0.9em;
+  color: $dashboard-color;
+  position: relative;
+  background-color: #f5f5f5;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  max-height: 200px;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  border-bottom-width: 2px;
+}
+
+.x-tilebutton-title {
+  font-size: 1.1em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0px 8px;
+  color: $dashboard-color;
+}
+
+.x-tilebutton-label {
+  font-size: 0.8em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0px 8px 5px 8px;
+  color: $dashboard-color;
+}
+
+.x-tilebutton-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+
+  @media only screen and (min-width: 768px) {
+    background-size: 88px;
+    height: 88px;
+  }
+
+  /* Landscape phone to portrait tablet */
+  @media only screen and (max-width: 767px) { 
+    background-size: 88px;
+    height: 88px;
+  }
+
+  /* Landscape phones and down */
+  @media only screen and (max-width: 320px) { 
+    background-size: 64px;
+    height: 64px;
+  }
+
+}
+
+.x-tilebutton-icon-expand {
+  background-size: auto !important;
+}
+
+.x-tilebutton-icon-fit {
+  background-size: 100% auto !important;
+}
+
+.x-tilebutton-pressed {
+  border-color: $base-color;
+}
+
+ /*Badges*/
+$badge-size: 2em !default;
+$badge-radius: .2em !default;
+$badge-bg-color: darken($alert-color, 10%) !default;
+$badge-bg-gradient: $base-gradient !default;
+
+.x-hasbadge {
+  overflow: visible;
+  .x-tilebutton-badge {
+    @extend .x-button-label;
+    @include background-clip(padding-box);
+    @if $include-border-radius { @include border-radius($badge-radius); }
+    padding: .1em .3em;
+    z-index: 2;
+    @if $include-button-highlights {
+      @include bevel-by-background($badge-bg-color);
+      @include box-shadow(rgba(#000, .5) 0 .1em .1em);
+    }
+    overflow: hidden;
+    @include color-by-background($badge-bg-color, $contrast: 50%);
+    border: 1px solid darken($badge-bg-color, 10%);
+    position: absolute;
+    width: auto;
+    min-width: $badge-size;
+    line-height: 1.2em;
+    font-size: 1em;
+    right: 0px;
+    top: -.2em;
+    max-width: 95%;
+    @include background-gradient($badge-bg-color, $badge-bg-gradient);
+    display: inline-block;
+    /*border-radius: 1em;*/
+  }
+}

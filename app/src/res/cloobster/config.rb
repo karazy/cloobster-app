@@ -6,8 +6,8 @@ load File.join(dir, '../../touch/resources', 'themes')
 
 # Compass configurations
 sass_path    = dir
-css_path     = File.join(dir, "..", "css")
+css_path     = File.join(dir, "css")
 environment  = :development
 #compressed or expanded
-output_style = :compressed
-images_dir = "../images"
+output_style = :expanded
+images_dir = "images"

@@ -1,0 +1,34 @@
+ /* Sencha Variables. */
+ /* General base color for style. */
+$base-color: #cccc00;
+/* Used for action buttons and active items. */
+$active-color: #6699cc;
+/* Disable gradients, shadows ... for tabs.*/
+$include-tab-highlights: false;
+$font-family: 'Roboto_light',  "Helvetica Neue" , HelveticaNeue , "Helvetica-Neue" , Helvetica , "BBAlpha Sans" , sans-serif;
+$base-gradient: 'matte';
+$button-gradient: 'matte';
+$page-bg-color: #fffffb;
+$list-bg-color: #fffffb;
+$form-bg-color: $page-bg-color;
+/* Round tab buttons top left and lower right. */
+$tabs-bottom-radius: 0.5em;
+/* Forms */
+/*$form-slider-size: 0.4em;
+$form-thumb-size: 1.4em;*/
+$form-label-color: #4C321A;
+
+/* Custom variables */
+/* Font color for most of the buttons. Also used as border color. */
+$font-color: #FFFFFF;
+/* Used for text directly displayed on the background. */
+$label-color: #000;
+/* Text color for list rows. */
+$list-color: #000;
+/* Background for product detail description. */
+$product-sub-bg: #D3D3D3;
+/* Color for dashboard fonts. */
+$dashboard-color: #1E4776;
+
+
+@import 'templates/_theme-template.scss';
