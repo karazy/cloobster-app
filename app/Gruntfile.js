@@ -19,7 +19,8 @@ module.exports = function(grunt) {
 			directory: {
 				src: 'src/',
 				server: '.tmp/',
-				production: 'production'
+				production: 'production',
+				cordova: '../cordova'
 			}
 		},		
 		copy: {
@@ -28,7 +29,8 @@ module.exports = function(grunt) {
 				cwd: '<%= settings.directory.src %>',
     			dest: '<%= settings.directory.server %>',
     			nonull: true,
-    			expand: true
+    			expand: true,
+    			dot: true
 			},
 			resources: {
 				src: ['**/*', '!*.scss', '!config.rb'],
@@ -41,8 +43,9 @@ module.exports = function(grunt) {
 				src: ['**/*', '!res/**/*'],
 				cwd: '<%= settings.directory.src %>',
     			dest: '<%= settings.directory.production %>',
-    			nonull: true,
-    			expand: true
+    			// nonull: true,
+    			expand: true,
+    			dot: true
 			},
 			resourcesProd: {
 				src: ['**/*', '!*.scss', '!config.rb'],
@@ -52,7 +55,11 @@ module.exports = function(grunt) {
     			expand: true	
 			},
 			prodDest: {
-
+				src: ['**/*'],
+				cwd: '<%= settings.directory.production %>',
+    			dest: '<%= settings.directory.cordova %>/www',
+    			nonull: true,
+    			expand: true	
 			}
 		},
 
@@ -219,8 +226,11 @@ module.exports = function(grunt) {
 			},
 
 			senchaBuild: {
-				cmd: 'sencha app build package',
-				bg: false				
+				cmd: 'sencha-3.0.0.250 app build package',
+				bg: false,
+				execOpts: {
+			      cwd: '<%= settings.directory.production %>'
+			    },				
 			}
 			// watchCoffee: {
 			// 	cmd: 'coffee --watch --output lib/ src/'
@@ -237,50 +247,50 @@ module.exports = function(grunt) {
 	*/
 	grunt.registerTask('serve', function(server, whitelabel) {
 
-		//TODO actions depending on whitelabel
-		//TODO actions depending on system localhost, prod
-		var _server,
-			_whitelabel,
-			_mode;
+		initParams(server, whitelabel);
 
-		if(!grunt.option('buildMode') || grunt.option('buildMode') != 'development' || grunt.option('buildMode') != 'production') {
-			grunt.option('buildMode', 'development');
-		}
+		// var _server,
+		// 	_whitelabel,
+		// 	_mode;
 
-		switch(server) {
-			case 'localhost':
-				_server = 'localhost';
-				break;
-			case 'production':
-				_server = 'production';
-			break;
-			default:
-				_server = 'localhost';			
-		}
+		// if(!grunt.option('buildMode') || grunt.option('buildMode') != 'development' || grunt.option('buildMode') != 'production') {
+		// 	grunt.option('buildMode', 'development');
+		// }
 
-		if(_server == 'localhost') {
-			grunt.option('server', '<%= settings.dev.serviceUrl %>');	
-		} else if(server == 'production') {
-			grunt.option('server', '<%= settings.prod.serviceUrl %>');
-		} 
+		// switch(server) {
+		// 	case 'localhost':
+		// 		_server = 'localhost';
+		// 		break;
+		// 	case 'production':
+		// 		_server = 'production';
+		// 	break;
+		// 	default:
+		// 		_server = 'localhost';			
+		// }
+
+		// if(_server == 'localhost') {
+		// 	grunt.option('server', '<%= settings.dev.serviceUrl %>');	
+		// } else if(server == 'production') {
+		// 	grunt.option('server', '<%= settings.prod.serviceUrl %>');
+		// } 
 		
 
-		switch(whitelabel) {
-			case 'cloobster':
-				_whitelabel = 'cloobster';
-				break;
-			case 'frizz':
-				_whitelabel = 'frizz';
-			break;
-			default:
-				_whitelabel = 'cloobster';			
-		}
+		// switch(whitelabel) {
+		// 	case 'cloobster':
+		// 		_whitelabel = 'cloobster';
+		// 		break;
+		// 	case 'frizz':
+		// 		_whitelabel = 'frizz';
+		// 	break;
+		// 	default:
+		// 		_whitelabel = 'cloobster';			
+		// }
 
-		grunt.option('whitelabel', _whitelabel);
+		// grunt.option('whitelabel', _whitelabel);
 
 
-		console.log('Using server ' + _server);
-		console.log('Using whitelabel ' + _whitelabel);
+		// console.log('Using server ' + _server);
+		// console.log('Using whitelabel ' + _whitelabel);
 
 
 		grunt.task.run([
@@ -299,9 +309,25 @@ module.exports = function(grunt) {
 	*/
 	grunt.registerTask('build', function(server, whitelabel) {
 
+		initParams(server, whitelabel);
+
+		grunt.task.run([
+			'clean:prod',
+			'copy:prodSrc',
+			'replace:production',
+			'compass:'+grunt.option('whitelabel'),
+			'copy:resourcesProd',
+			// 'setversion',
+			'bgShell:senchaBuild'
+			// 'copy:prodDest'
+		]);
+	});
+
+	function initParams(server, whitelabel) {
 		var _server,
 			_whitelabel,
-			_mode;
+			_mode,
+			_options = {};
 
 		if(!grunt.option('buildMode') || grunt.option('buildMode') != 'development' || grunt.option('buildMode') != 'production') {
 			grunt.option('buildMode', 'development');
@@ -335,25 +361,16 @@ module.exports = function(grunt) {
 			default:
 				_whitelabel = 'cloobster';			
 		}
-
+		
 		grunt.option('whitelabel', _whitelabel);
 
 
 		console.log('Using server ' + _server);
 		console.log('Using whitelabel ' + _whitelabel);
-
-		grunt.task.run([
-			'clean:prod',
-			'copy:prodSrc',
-			'replace:production',
-			'compass:'+_whitelabel,
-			'copy:resourcesProd'
-			// 'setversion',
-			// 'bgShell:senchaBuild'
-			// 'copy:prodDest'
-		]);
-	});
+	}
 }
+
+
 
 // - source kopieren ok
 // - CSS kopieren je nach Theme ok

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="CloobsterAppDesktop" default="buildDesktop" basedir=".">    
+    
+    <!-- Path to src dir -->
+	<property name="appDir" value="../../src/" />
+	<!-- 	Apllication file -->
+	<property name="appFile" value="app.js" />
+	<!-- 	Configuration file -->
+	<property name="configFile" value="app/util/Configuration.js" />
+	
+	<import file=".sencha/app/build-impl.xml"/>
+	
+	<taskdef resource="com/sencha/ant/antlib.xml" 
+         classpath="${sencha.cmd}/sencha.jar"/>
+
+</project>

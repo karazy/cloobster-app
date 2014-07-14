@@ -47,9 +47,9 @@
 //            "path" : "/_ah/channel/jsapi",
 //            "remote" : true
 //        },
-        {
-            "path" : "lib/facebookConnectPlugin.js"
-        },
+        // {
+        //     "path" : "lib/facebookConnectPlugin.js"
+        // },
         {
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
