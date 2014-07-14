@@ -81,6 +81,11 @@ module.exports = function(grunt) {
 						from: /whitelabelConfig.*/,
 						to: 'whitelabelConfig : \'<%= grunt.option("whitelabel") %>\','
 					}
+					,{
+						from: /version:.*/,
+						to: 'version: \'<%= grunt.option("appVersion").trim() %>\','
+					}
+
 				]				
 			}
 			,production: {
@@ -94,6 +99,10 @@ module.exports = function(grunt) {
 					,{
 						from: /whitelabelConfig.*/,
 						to: 'whitelabelConfig : \'<%= grunt.option("whitelabel") %>\','
+					}
+					,{
+						from: /version:.*,/,
+						to: 'version: \'<%= grunt.option("appVersion").trim() %>\','
 					}
 				]				
 			}
@@ -231,6 +240,16 @@ module.exports = function(grunt) {
 				execOpts: {
 			      cwd: '<%= settings.directory.production %>'
 			    },				
+			},
+
+			getVersion: {
+				cmd: 'git describe --always',
+				bg: false,
+				stdout: function(out) {
+					console.log('Set version ' + out);
+					grunt.option('appVersion', out);
+				},
+				stderr: true
 			}
 			// watchCoffee: {
 			// 	cmd: 'coffee --watch --output lib/ src/'
@@ -249,53 +268,10 @@ module.exports = function(grunt) {
 
 		initParams(server, whitelabel);
 
-		// var _server,
-		// 	_whitelabel,
-		// 	_mode;
-
-		// if(!grunt.option('buildMode') || grunt.option('buildMode') != 'development' || grunt.option('buildMode') != 'production') {
-		// 	grunt.option('buildMode', 'development');
-		// }
-
-		// switch(server) {
-		// 	case 'localhost':
-		// 		_server = 'localhost';
-		// 		break;
-		// 	case 'production':
-		// 		_server = 'production';
-		// 	break;
-		// 	default:
-		// 		_server = 'localhost';			
-		// }
-
-		// if(_server == 'localhost') {
-		// 	grunt.option('server', '<%= settings.dev.serviceUrl %>');	
-		// } else if(server == 'production') {
-		// 	grunt.option('server', '<%= settings.prod.serviceUrl %>');
-		// } 
-		
-
-		// switch(whitelabel) {
-		// 	case 'cloobster':
-		// 		_whitelabel = 'cloobster';
-		// 		break;
-		// 	case 'frizz':
-		// 		_whitelabel = 'frizz';
-		// 	break;
-		// 	default:
-		// 		_whitelabel = 'cloobster';			
-		// }
-
-		// grunt.option('whitelabel', _whitelabel);
-
-
-		// console.log('Using server ' + _server);
-		// console.log('Using whitelabel ' + _whitelabel);
-
-
 		grunt.task.run([
 			'clean:dev',
 			'copy:dev',
+			'bgShell:getVersion',
 			'replace:development',
 			'compass:'+_whitelabel,
 			'copy:resources',
@@ -314,10 +290,10 @@ module.exports = function(grunt) {
 		grunt.task.run([
 			'clean:prod',
 			'copy:prodSrc',
+			'bgShell:getVersion',
 			'replace:production',
 			'compass:'+grunt.option('whitelabel'),
 			'copy:resourcesProd',
-			// 'setversion',
 			'bgShell:senchaBuild'
 			// 'copy:prodDest'
 		]);
@@ -361,7 +337,7 @@ module.exports = function(grunt) {
 			default:
 				_whitelabel = 'cloobster';			
 		}
-		
+
 		grunt.option('whitelabel', _whitelabel);
 
 
