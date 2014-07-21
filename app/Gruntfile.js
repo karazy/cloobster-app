@@ -15,7 +15,6 @@ module.exports = function(grunt) {
 			prod: {
 				serviceUrl: 'https://karazy-cloobster.appspot.com'
 			},
-
 			directory: {
 				src: 'src/',
 				server: '.tmp/',
@@ -24,8 +23,16 @@ module.exports = function(grunt) {
 			}
 		},		
 		copy: {
+			source: {
+				src: ['**/*', '!res/**/*', '!whitelabel/**/src/**/*'],
+				cwd: '<%= settings.directory.src %>',
+    			dest: '<%= grunt.option("copyDestination") %>',
+    			nonull: true,
+    			expand: true,
+    			dot: true
+			},
 			dev: {
-				src: ['**/*', '!res/**/*'],
+				src: ['**/*', '!res/**/*', '!whitelabel/**/src/**/*'],
 				cwd: '<%= settings.directory.src %>',
     			dest: '<%= settings.directory.server %>',
     			nonull: true,
@@ -40,7 +47,7 @@ module.exports = function(grunt) {
     			expand: true	
 			},
 			prodSrc: {
-				src: ['**/*', '!res/**/*'],
+				src: ['**/*', '!res/**/*', '!whitelabel/**/src/**/*'],
 				cwd: '<%= settings.directory.src %>',
     			dest: '<%= settings.directory.production %>',
     			// nonull: true,
@@ -52,14 +59,23 @@ module.exports = function(grunt) {
 				cwd: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/',
     			dest: '<%= settings.directory.production %>/res/',
     			nonull: true,
-    			expand: true	
+    			expand: true
 			},
 			prodDest: {
 				src: ['**/*'],
 				cwd: '<%= settings.directory.production %>',
     			dest: '<%= settings.directory.cordova %>/www',
     			nonull: true,
-    			expand: true	
+    			expand: true
+			},
+			//Copy whitelabel sources that differ from base cloobster
+			whitelabelSrc: {
+				src: ['**/*'],
+				cwd: '<%= settings.directory.src %>/whitelabel/<%= grunt.option("whitelabel") %>/src/',
+    			dest: '<%= grunt.option("copyDestination") %>',
+    			nonull: true,
+    			expand: true,
+    			dot: true
 			}
 		},
 
@@ -137,7 +153,7 @@ module.exports = function(grunt) {
 	      },
 	      livereload: {
 	        options: {
-	        	open: true,
+	        	open: false,
 	        	base: [
 	        	'<%= settings.directory.server %>',
 	        	'<%= settings.directory.src %>'
@@ -162,10 +178,16 @@ module.exports = function(grunt) {
 	    },
 
 	    // Watches files for changes and runs tasks based on the changed files
+
     	watch: {
 		    js: {
-		        files: ['<%= settings.directory.src %>/app/**/*.js'],
-		        tasks: ['copy:dev'],
+		        files: ['<%= settings.directory.src %>/app/**/*.js', '<%= settings.directory.src %>/whitelabel/**/*.js'],
+		        tasks: ['copy:dev', 
+		        	'bgShell:getVersion', 
+		        	'replace:development',
+		        	'copy:resources',
+		        	'copy:whitelabelSrc'
+		        ],
 		        options: {
 		          livereload: true
 		        }
@@ -202,32 +224,38 @@ module.exports = function(grunt) {
 			// relativeAssets: false,
 			// assetCacheBuster: false,
 			// raw: 'Sass::Script::Number.precision = 10\n'
+			cssDir: '<%= settings.directory.server %>/res/<%= grunt.option("whitelabel") %>',
+			sassDir: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>',
+			basePath: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>',
+			debugInfo: true,
+			environment: '<%= grunt.option("buildMode") %>',
+			outputStyle: 'expanded'
 		},
 		// dist: {
 		//   options: {
 		//     generatedImagesDir: '<%= yeoman.dist %>/images/generated'
 		//   }
 		// },
-			cloobster: {
-				options: {
-					cssDir: '<%= settings.directory.server %>/res/cloobster',
-					sassDir: '<%= settings.directory.src %>/res/cloobster',
-					basePath: '<%= settings.directory.src %>/res/cloobster',
-					debugInfo: true,
-					environment: '<%= grunt.option("buildMode") %>',
-					outputStyle: 'expanded'
-				}
-			},
-			frizz: {
-				options: {
-					cssDir: '<%= settings.directory.server %>/res/frizz',
-					sassDir: '<%= settings.directory.src %>/res/frizz',
-					basePath: '<%= settings.directory.src %>/res/frizz',
-					debugInfo: true,
-					environment: '<%= grunt.option("buildMode") %>',
-					outputStyle: 'expanded'
-				}
-			}
+			// cloobster: {
+			// 	options: {
+			// 		cssDir: '<%= settings.directory.server %>/res/cloobster',
+			// 		sassDir: '<%= settings.directory.src %>/res/cloobster',
+			// 		basePath: '<%= settings.directory.src %>/res/cloobster',
+			// 		debugInfo: true,
+			// 		environment: '<%= grunt.option("buildMode") %>',
+			// 		outputStyle: 'expanded'
+			// 	}
+			// },
+			// frizz: {
+			// 	options: {
+			// 		cssDir: '<%= settings.directory.server %>/res/frizz',
+			// 		sassDir: '<%= settings.directory.src %>/res/frizz',
+			// 		basePath: '<%= settings.directory.src %>/res/frizz',
+			// 		debugInfo: true,
+			// 		environment: '<%= grunt.option("buildMode") %>',
+			// 		outputStyle: 'expanded'
+			// 	}
+			// }
 		}
 		,bgShell: {
 			_defaults: {
@@ -268,13 +296,17 @@ module.exports = function(grunt) {
 
 		initParams(server, whitelabel);
 
+		//set destination for copy task
+		grunt.option('copyDestination', '<%= settings.directory.server %>');
+
 		grunt.task.run([
 			'clean:dev',
 			'copy:dev',
 			'bgShell:getVersion',
 			'replace:development',
-			'compass:'+_whitelabel,
+			'compass',
 			'copy:resources',
+			'copy:whitelabelSrc',
 			'connect:livereload',
 			'watch'
 		]);
@@ -287,18 +319,25 @@ module.exports = function(grunt) {
 
 		initParams(server, whitelabel);
 
+		//set destination for copy task
+		grunt.option('copyDestination', '<%= settings.directory.production %>');
+
 		grunt.task.run([
 			'clean:prod',
-			'copy:prodSrc',
+			'copy:production',
 			'bgShell:getVersion',
 			'replace:production',
-			'compass:'+grunt.option('whitelabel'),
+			'compass',
 			'copy:resourcesProd',
+			'copy:whitelabelSrc',
 			'bgShell:senchaBuild'
 			// 'copy:prodDest'
 		]);
 	});
 
+	/**
+	* Initialize params and 
+	*/
 	function initParams(server, whitelabel) {
 		var _server,
 			_whitelabel,
@@ -353,10 +392,11 @@ module.exports = function(grunt) {
 //   - z.B. in verschiedenen Ordnern vorhalten und mittels Parameter auslesen
 // - URL basierend auf environment setzen (Prod, QA etc) ok
 // - Für build korrekte index kopieren desktop oder phone
-// - set version via git oder wie in preports
-// - compile mit sencha (grunt-run oder grunt-contrib-commands)
+// - set version via git oder wie in preports ok
+// - compile mit sencha (grunt-run oder grunt-contrib-commands) ok
 // - copy to cordova or desktop
 // - (optional) run cordova
-// - (optional) add web server
+// - (optional) add web server ok
+// - unterschiedliche whitelabel dateien berücksichtigen
 
 

@@ -27,8 +27,10 @@ Ext.define('EatSense.controller.Facebook', {
 		if (!window.cordova) {
 
 		 window.fbAsyncInit = function() {
-		 	console.log('Facebook.launch: init facebook');
-	        window.facebookConnectPlugin.browserInit("359215437471990");	        
+			if(window.facebookConnectPlugin) {
+		 		console.log('Facebook.launch: init facebook');
+		 		window.facebookConnectPlugin.browserInit("359215437471990");
+		 	}
 	      };
 	      //load facebook sdk async
 		 (function(d, s, id){
@@ -343,8 +345,10 @@ Ext.define('EatSense.controller.Facebook', {
 	* Reanable fb connect buttons.
 	*/
 	fbLogout: function() {
-		console.log('Facebook.fbLogout');
-		window.facebookConnectPlugin.logout();
+		if(window.facebookConnectPlugin) {
+			console.log('Facebook.fbLogout');
+			window.facebookConnectPlugin.logout();
+		}		
 	},
 	/**
 	* FB error handlercallback

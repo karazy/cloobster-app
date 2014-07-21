@@ -73,7 +73,7 @@ Ext.application({
 	mainLaunch : function() {
 		var me = this;
     //Wait for phonegap to launch
-		if (cordovaInit == false || !this.launched) {
+		if (Ext.os.deviceType.toLowerCase() != "desktop" && (cordovaInit == false || !this.launched)) {
      	return;
     }
 		

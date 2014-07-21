@@ -545,7 +545,11 @@ Ext.define('EatSense.controller.Account', {
 	    	//set account to make it accesible for the application
 	    	me.setAccount(account);
 			//Set default headers so that always credentials are send
-			headerUtil.addHeader('X-Auth', account.get('accessToken'));
+			// headerUtil.addHeader('X-Auth', account.get('accessToken'));
+			headerUtil.addHeaders({
+				'X-Auth' : account.get('accessToken'),
+                'accountId' : account.get('id')
+            });
 			//TODO checkInCtr should take data from fired userlogin event
 			checkInCtr.getAppState().set('accessToken', account.get('accessToken'));
 			checkInCtr.getAppState().set('accountId', account.get('id'));
