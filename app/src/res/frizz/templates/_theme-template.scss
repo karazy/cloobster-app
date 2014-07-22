@@ -1188,7 +1188,7 @@ $slidenav-bg-color: #2E2E2E;
 }
 
 .x-tilebutton-icon.storecard {
-  background-image: url('../images/club/storecard.png');
+  -webkit-mask-image: url('../images/club/storecard.png');
   margin-right: 0.6em;
 }
 

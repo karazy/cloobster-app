@@ -193,7 +193,7 @@ module.exports = function(grunt) {
 		        }
 		      },
 		    compass: {
-		        files: ['<%= settings.directory.src %>/res/css/{,*/}*.{scss,sass}'],
+		        files: ['<%= settings.directory.src %>/res/**/css/{,*/}*.{scss,sass}'],
 		        tasks: ['compass:server', 'copy:dev']
 		    },
 		    gruntfile: {
