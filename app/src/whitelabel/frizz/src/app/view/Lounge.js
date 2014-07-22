@@ -160,6 +160,16 @@ Ext.define('EatSense.view.Lounge', {
 					Ext.Msg.alert(i10n.translate('clubdashboard.welcomespot.title'), i10n.translate('clubdashboard.welcomespot.text'));
 				}
 			},
+			{	
+				title: i10n.translate('storecard.title'),
+				xtype: 'slidenavcontainer',				
+				iconCls: 'storecard-icon',
+				leaf: true,
+				// hideOnBasic: true,
+				action: 'show-storecard',
+				viewState: 'club',
+				accountRequired: true
+			},
 			{
 				xtype: 'contactinfo',
 				title: i10n.translate('contactinfo.title'),

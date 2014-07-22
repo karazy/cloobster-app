@@ -182,14 +182,18 @@ module.exports = function(grunt) {
     	watch: {
 		    js: {
 		        files: ['<%= settings.directory.src %>/app/**/*.js', '<%= settings.directory.src %>/whitelabel/**/*.js'],
-		        tasks: ['copy:dev', 
+		        tasks: [
+		        	'debug',
+		        	'copy:dev', 
 		        	'bgShell:getVersion', 
 		        	'replace:development',
 		        	'copy:resources',
 		        	'copy:whitelabelSrc'
 		        ],
 		        options: {
-		          livereload: true
+		          livereload: true,
+		          //spawn no child processes, needed to access options
+		          spawn: false
 		        }
 		      },
 		    compass: {
@@ -319,6 +323,17 @@ module.exports = function(grunt) {
 			'bgShell:senchaBuild'
 			// 'copy:prodDest'
 		]);
+	});
+
+	/**
+	* Debug logic
+	*/
+	grunt.registerTask('debug', function() {
+
+		console.log('DEBUG: runtime parameters:');
+		console.log('Using server ' + grunt.option('server'));
+		console.log('Using whitelabel ' + grunt.option('whitelabel'));
+		console.log('Build mode ' + grunt.option('buildMode'));
 	});
 
 	/**
