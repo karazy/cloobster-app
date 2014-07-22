@@ -193,8 +193,8 @@ module.exports = function(grunt) {
 		        }
 		      },
 		    compass: {
-		        files: ['<%= settings.directory.src %>/res/**/css/{,*/}*.{scss,sass}'],
-		        tasks: ['compass:server', 'copy:dev']
+		        files: ['<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/*.{scss,sass}'],
+		        tasks: ['compass:compile', 'copy:resources']
 		    },
 		    gruntfile: {
 		        files: ['Gruntfile.js']
@@ -224,38 +224,24 @@ module.exports = function(grunt) {
 			// relativeAssets: false,
 			// assetCacheBuster: false,
 			// raw: 'Sass::Script::Number.precision = 10\n'
-			cssDir: '<%= settings.directory.server %>/res/<%= grunt.option("whitelabel") %>',
-			sassDir: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>',
-			basePath: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>',
-			debugInfo: true,
-			environment: '<%= grunt.option("buildMode") %>',
-			outputStyle: 'expanded'
+			
 		},
 		// dist: {
 		//   options: {
 		//     generatedImagesDir: '<%= yeoman.dist %>/images/generated'
 		//   }
 		// },
-			// cloobster: {
-			// 	options: {
-			// 		cssDir: '<%= settings.directory.server %>/res/cloobster',
-			// 		sassDir: '<%= settings.directory.src %>/res/cloobster',
-			// 		basePath: '<%= settings.directory.src %>/res/cloobster',
-			// 		debugInfo: true,
-			// 		environment: '<%= grunt.option("buildMode") %>',
-			// 		outputStyle: 'expanded'
-			// 	}
-			// },
-			// frizz: {
-			// 	options: {
-			// 		cssDir: '<%= settings.directory.server %>/res/frizz',
-			// 		sassDir: '<%= settings.directory.src %>/res/frizz',
-			// 		basePath: '<%= settings.directory.src %>/res/frizz',
-			// 		debugInfo: true,
-			// 		environment: '<%= grunt.option("buildMode") %>',
-			// 		outputStyle: 'expanded'
-			// 	}
-			// }
+			compile: {
+				options: {
+					cssDir: '<%= settings.directory.server %>/res/<%= grunt.option("whitelabel") %>',
+					sassDir: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>',
+					basePath: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>',
+					debugInfo: true,
+					//TODO env not working
+					// environment: '<%= grunt.option("buildMode") %>',
+					outputStyle: 'expanded'
+				}
+			}
 		}
 		,bgShell: {
 			_defaults: {
@@ -304,7 +290,7 @@ module.exports = function(grunt) {
 			'copy:dev',
 			'bgShell:getVersion',
 			'replace:development',
-			'compass',
+			'compass:compile',
 			'copy:resources',
 			'copy:whitelabelSrc',
 			'connect:livereload',
@@ -327,7 +313,7 @@ module.exports = function(grunt) {
 			'copy:production',
 			'bgShell:getVersion',
 			'replace:production',
-			'compass',
+			'compass:compile',
 			'copy:resourcesProd',
 			'copy:whitelabelSrc',
 			'bgShell:senchaBuild'
@@ -382,6 +368,7 @@ module.exports = function(grunt) {
 
 		console.log('Using server ' + _server);
 		console.log('Using whitelabel ' + _whitelabel);
+		console.log('Build mode ' + grunt.option('buildMode'));
 	}
 }
 
