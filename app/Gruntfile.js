@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
 		settings: {
 			dev: {					
-				serviceUrl: 'localhost'
+				serviceUrl: 'http://localhost:8888'
 			},
 			prod: {
 				serviceUrl: 'https://karazy-cloobster.appspot.com'

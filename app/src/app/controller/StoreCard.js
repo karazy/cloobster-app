@@ -78,14 +78,14 @@ Ext.define('EatSense.controller.StoreCard', {
 			me.setCurrentStoreCard(Ext.create('EatSense.model.StoreCard'));
 		}
 
-		var barcodeType = checkInCtr.getActiveBusiness().raw.configuration.storecard.barcodeType;
+		var scConfig = checkInCtr.getActiveBusiness().raw.configuration.storecard;
 
 		me.getCurrentStoreCard().set('locationId', checkInCtr.getActiveBusiness().get('id'));
 
 		//encode barcode if this is an existing store card
 		// && me.getCurrentStoreCard().get('codeType')
 		if(me.getCurrentStoreCard().get('cardNumber')) {
-			me.encodeCustomerNumberAsBarcode(me.getCurrentStoreCard().get('cardNumber'), barcodeType, qrCodeImageElement);
+			me.encodeCustomerNumberAsBarcode(me.getCurrentStoreCard().get('cardNumber'), scConfig, qrCodeImageElement);
 		}
 
 		//set data before registering events
@@ -107,18 +107,28 @@ Ext.define('EatSense.controller.StoreCard', {
 			'tap': scanBtHandler,
 			scope: this
 		});
-
-		// view.on({
-		// 	'delegate' : 'radiofield[name=qrtype]',
-		// 	'check': qrTypeRadiofieldsHandler,
-		// 	scope: this
-		// });
 		
 		//event handler functions
 		function custNumberFieldHandler(field, newVal, oldVal) {
-			me.getCurrentStoreCard().set('cardNumber', newVal);
-			me.saveStoreCard(me.getCurrentStoreCard());
-			me.encodeCustomerNumberAsBarcode(newVal, barcodeType, qrCodeImageElement);
+			if(newVal && newVal.trim().length && newVal != oldVal) {
+				if(me.validateStoreCard(newVal, scConfig.validationPattern)) {
+					me.getCurrentStoreCard().set('cardNumber', newVal);
+					me.saveStoreCard(me.getCurrentStoreCard());
+					me.encodeCustomerNumberAsBarcode(newVal, scConfig, qrCodeImageElement);	
+				} else {
+					field.setValue(oldVal);
+					Ext.Msg.alert(i10n.translate(i10n.translate('storecard.error.invalid')));
+						//TODO set old value
+				}
+				
+			} else if(me.getCurrentStoreCard()){
+				//if user removed his storecard number, delete it
+				me.deleteStoreCard(me.getCurrentStoreCard(), function() {
+					me.setCurrentStoreCard(null);
+					qrCodeImageElement.element.setHtml("");
+				});
+			}
+			
 		}
 
 		function scanBtHandler(button) {
@@ -130,18 +140,6 @@ Ext.define('EatSense.controller.StoreCard', {
 			});
 		}
 
-		// function qrTypeRadiofieldsHandler(chkBox) {
-		// 	var cN = me.getCurrentStoreCard().get('cardNumber'),
-		// 		type = chkBox.getValue();
-
-		// 	me.getCurrentStoreCard().set('codeType', type);
-
-		// 	//only save if a cardNumber has been issued
-		// 	if(cN && cN.length > 0) {
-		// 		me.saveStoreCard(me.getCurrentStoreCard());
-		// 		me.encodeCustomerNumberAsBarcode(cN, type, qrCodeImageElement);
-		// 	}
-		// }
 
 		function cleanup() {
 
@@ -159,12 +157,6 @@ Ext.define('EatSense.controller.StoreCard', {
 				'tap': scanBtHandler,
 				scope: this
 			});
-
-			// view.un({
-			// 	'delegate' : 'radiofield[name=qrtype]',
-			// 	'check': qrTypeRadiofieldsHandler,
-			// 	scope: this
-			// });
 
 			me.setCurrentStoreCard(null);
 
@@ -188,6 +180,32 @@ Ext.define('EatSense.controller.StoreCard', {
 		}
 
 		storeCard.save({
+	        failure: function(response, operation) {
+	            me.getApplication().handleServerError({
+	              'error': operation.error,
+	              'forceLogout':{403 : true}
+	    	    }); 
+	        }
+	    });
+	},
+
+	/**
+	* Delete store card.
+	* @param {EatSense.model.StoreCard} storeCard
+	*	Store card to save.
+	*/
+	deleteStoreCard: function(storeCard, callback) {
+		var me = this;
+
+		if(!storeCard) {
+			console.log('StoreCard.deleteStoreCard: no storeCard given');
+			return;
+		}
+
+		storeCard.erase({
+			success: function() {
+				callback();				
+			},
 	        failure: function(response, operation) {
 	            me.getApplication().handleServerError({
 	              'error': operation.error,
@@ -228,22 +246,44 @@ Ext.define('EatSense.controller.StoreCard', {
 		});
 	},
 
+	/**
+	* Check if user entered card number is valid
+	*
+	*/
+	validateStoreCard: function(code, validationPattern) {
+		var regexp;
+
+		if(!code) {
+			return false;
+		}
+
+		if(!validationPattern) {
+			return false;
+		}
+
+		regexp = new RegExp(validationPattern);
+
+		return code.match(regexp);
+	},
+
 
 	/**
 	* Encode and display barcode. 
 	* @param {String} code
 	* 	Data to encode
-	* @param {String} type
-	*	Barcode type
+	* @param {Object} config
+	*	StoreCard configuration
 	* @param {Ext.Element} element
 	*	Element where to display barcode.
 	*
 	*/
-	encodeCustomerNumberAsBarcode: function(code, type, element) {
+	encodeCustomerNumberAsBarcode: function(code, config, element) {
 
 		var me = this,
 			tmpl,
-			url;
+			type = config.barcodeType,
+			validationPattern = config.validationPattern,
+			url = config.urlTemplate;
 
 		if(!code) {
 			console.log('StoreCard.encodeCustomerNumber: no code given');
@@ -253,41 +293,42 @@ Ext.define('EatSense.controller.StoreCard', {
 		if(!type) {
 			console.log('StoreCard.encodeCustomerNumber: no type given');
 			return;
-		}
+		} 
 
 		if(!element) {
 			console.log('StoreCard.encodeCustomerNumber: no element given');
 			return;
 		}
 
-		switch(type) {
-			case "qr":
-			//Use 3rd party zxing server
-			url = me.getZxingBarcodeServiceUrl();
-			tmpl = new Ext.XTemplate(
-				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}{content}">'
-			);
-			break;
+		// switch(type) {
+		// 	case "qr":
+		// 	//Use 3rd party zxing server
+		// 	url = me.getZxingBarcodeServiceUrl();
+		// 	tmpl = new Ext.XTemplate(
+		// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}{content}">'
+		// 	);
+		// 	break;
 
-			default:
-			url = me.getAwsBarcodeServiceUrl();		
-			//otherwise always use BarcodeService on AWS e.g. code39
-			tmpl = new Ext.XTemplate(
-				'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}/{type}/{content}">'
-			);
+		// 	default:
+		// 	url = me.getAwsBarcodeServiceUrl();		
+		// 	//otherwise always use BarcodeService on AWS e.g. code39
+		// 	tmpl = new Ext.XTemplate(
+		// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}/{type}/{content}">'
+		// 	);
 
-			break;			
+		// 	break;			
 
-			// default:
-			// 	tmpl = new Ext.XTemplate(
-			// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
-			// 	);
-			// break;
-		}		
+		// 	// default:
+		// 	// 	tmpl = new Ext.XTemplate(
+		// 	// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
+		// 	// 	);
+		// 	// break;
+		// }		
+	
 
-		// tmpl = new Ext.XTemplate(
-		// 	'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="res/images/kundenkarte_code39.png">'
-		// );			
+		tmpl = new Ext.XTemplate(
+			'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="' + url + '">'
+		);		
 
 		tmpl.overwrite(element.element, {
 			'url': url,
