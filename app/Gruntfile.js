@@ -19,7 +19,11 @@ module.exports = function(grunt) {
 				src: 'src/',
 				server: '.tmp/',
 				production: 'production',
-				cordova: '../cordova'
+				cordova: '../../cordova',
+				androidProd: {
+					frizz: '../../android/FrizzDarmstadt',
+					cloobster: '../../android/CloobsterAppAndroid'
+				} 
 			}
 		},		
 		copy: {
@@ -62,11 +66,24 @@ module.exports = function(grunt) {
     			expand: true
 			},
 			prodDest: {
-				src: ['**/*'],
-				cwd: '<%= settings.directory.production %>',
-    			dest: '<%= settings.directory.cordova %>/www',
-    			nonull: true,
-    			expand: true
+				files: [
+					//cordova general
+					{
+						src: ['**/*'],
+						cwd: '<%= settings.directory.production %>',
+		    			dest: '<%= settings.directory.cordova %>/www',
+		    			nonull: true,
+		    			expand: true
+					},
+					//android (old)
+					{
+						src: ['**/*'],
+						cwd: '<%= settings.directory.production %>',
+		    			dest: '<%= settings.directory.androidProd[grunt.option("whitelabel")] %>/assets/www',
+		    			nonull: true,
+		    			expand: true
+					}
+				]
 			},
 			//Copy whitelabel sources that differ from base cloobster
 			whitelabelSrc: {

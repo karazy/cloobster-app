@@ -7,7 +7,6 @@ Ext.define('EatSense.controller.StoreCard', {
 	requires: ['EatSense.view.storecard.StoreCard'],
 	config: {
 		refs: {
-			// eventsArea : 'slidenavcontainer[action=show-ztix-events]',
 			storecardContainer: 'slidenavcontainer[action=show-storecard]'
 		},
 		control: {
@@ -19,19 +18,7 @@ Ext.define('EatSense.controller.StoreCard', {
 		* @accessor
 		* 	The current store card, that belongs to active location.
 		*/
-		currentStoreCard: null,
-
-		// validTokens: //,
-		/**
-		* @accessor
-		* 	Url to 3rd party service from zxing. Includes qr code size.
-		*/
-		zxingBarcodeServiceUrl: 'http://zxing.org/w/chart?cht=qr&chs=150x150&chl=',
-		/**
-		* @accessor
-		* 	Url to custom barcode service hosted on aws.
-		*/
-		awsBarcodeServiceUrl: 'http://54.76.228.227:8080/BarcodeService/rest/barcodes'
+		currentStoreCard: null
 	},
 
 	launch: function() {
@@ -74,13 +61,9 @@ Ext.define('EatSense.controller.StoreCard', {
 			}
 		});
 
-		if(!me.getCurrentStoreCard()) {
-			me.setCurrentStoreCard(Ext.create('EatSense.model.StoreCard'));
-		}
+		me.setupStoreCard();
 
 		var scConfig = checkInCtr.getActiveBusiness().raw.configuration.storecard;
-
-		me.getCurrentStoreCard().set('locationId', checkInCtr.getActiveBusiness().get('id'));
 
 		//encode barcode if this is an existing store card
 		// && me.getCurrentStoreCard().get('codeType')
@@ -116,15 +99,16 @@ Ext.define('EatSense.controller.StoreCard', {
 					me.saveStoreCard(me.getCurrentStoreCard());
 					me.encodeCustomerNumberAsBarcode(newVal, scConfig, qrCodeImageElement);	
 				} else {
-					field.setValue(oldVal);
-					Ext.Msg.alert(i10n.translate(i10n.translate('storecard.error.invalid')));
-						//TODO set old value
+					// field.setValue(oldVal);
+					Ext.Msg.alert('',i10n.translate(i10n.translate('storecard.error.invalidpattern')));
 				}
 				
 			} else if(me.getCurrentStoreCard()){
 				//if user removed his storecard number, delete it
 				me.deleteStoreCard(me.getCurrentStoreCard(), function() {
-					me.setCurrentStoreCard(null);
+					appHelper.clearStore('storeCardStore');
+					me.setupStoreCard(null);
+					me.setupStoreCard();
 					qrCodeImageElement.element.setHtml("");
 				});
 			}
@@ -216,6 +200,20 @@ Ext.define('EatSense.controller.StoreCard', {
 	},
 
 	/**
+	* Creates a new storeCard if not exists and sets currentLocation Id.
+	*
+	*/
+	setupStoreCard: function() {
+		var checkInCtr = this.getApplication().getController('CheckIn');
+
+		if(!this.getCurrentStoreCard()) {
+			this.setCurrentStoreCard(Ext.create('EatSense.model.StoreCard'));
+		}
+
+		this.getCurrentStoreCard().set('locationId', checkInCtr.getActiveBusiness().get('id'));
+	},
+
+	/**
 	* Load account's store cards.
 	* @param {EatSense.model.Account} account
 	*	Account to load store cards for.
@@ -244,10 +242,16 @@ Ext.define('EatSense.controller.StoreCard', {
 	        	}
 	        }
 		});
-	},
+	},	
 
 	/**
-	* Check if user entered card number is valid
+	* Check if user entered card number is valid.
+	* @param{String} code
+	*	Code to check
+	* @param{String} validationPattern
+	*	Regex used to check code.
+	* @return
+	*	True if valid, false otherwise. Also returns true when no pattern is provided.
 	*
 	*/
 	validateStoreCard: function(code, validationPattern) {
@@ -258,7 +262,7 @@ Ext.define('EatSense.controller.StoreCard', {
 		}
 
 		if(!validationPattern) {
-			return false;
+			return true;
 		}
 
 		regexp = new RegExp(validationPattern);
@@ -300,39 +304,13 @@ Ext.define('EatSense.controller.StoreCard', {
 			return;
 		}
 
-		// switch(type) {
-		// 	case "qr":
-		// 	//Use 3rd party zxing server
-		// 	url = me.getZxingBarcodeServiceUrl();
-		// 	tmpl = new Ext.XTemplate(
-		// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}{content}">'
-		// 	);
-		// 	break;
-
-		// 	default:
-		// 	url = me.getAwsBarcodeServiceUrl();		
-		// 	//otherwise always use BarcodeService on AWS e.g. code39
-		// 	tmpl = new Ext.XTemplate(
-		// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="{url}/{type}/{content}">'
-		// 	);
-
-		// 	break;			
-
-		// 	// default:
-		// 	// 	tmpl = new Ext.XTemplate(
-		// 	// 		'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="http://zxing.org/w/chart?cht=qr&chs=150x150&chl={content}">'
-		// 	// 	);
-		// 	// break;
-		// }		
-	
-
 		tmpl = new Ext.XTemplate(
-			'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="auto" src="' + url + '">'
+			'<img style="margin-left: auto; margin-right: auto; display: block; width: auto; max-width: 100%;" height="100%" src="' + url + '">'
 		);		
 
 		tmpl.overwrite(element.element, {
 			'url': url,
-			'content' : code,
+			'content' : encodeURIComponent(code),
 			'type' : type
 		});
 

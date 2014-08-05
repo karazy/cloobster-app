@@ -2099,6 +2099,10 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Scannen",
 			"EN" : "Scan"
 		},
+		"storecard.error.invalidpattern" : {
+			"DE" :  "Ungültige Zeichen. Bitte Eingabe prüfen.",
+			"EN" : "Invalid symbols. Please validate number."
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

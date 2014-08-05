@@ -561,5 +561,27 @@ Ext.define('EatSense.util.Helper', {
   			console.error('EatSense.util.Helper.debugObject: failed to debug object ' + e);
   		}
 
+  	},
+  	/**
+  	* Remove all records from store.
+  	* @param{String} storeId
+  	*	Id of store
+  	*
+  	* @param{Boolean} fireEvent
+  	*	True to let store fire a clear event
+  	*
+  	*/
+  	clearStore: function(storeId, fireEvent) {
+  		var store;
+
+  		if(!store) {
+  			return;
+  		}
+
+  		store = Ext.StoreManager.lookup(storeId);
+
+  		if(store) {
+  			store.removeAll(!fireEvent);
+  		}
   	}
 });

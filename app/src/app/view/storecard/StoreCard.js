@@ -42,7 +42,7 @@ Ext.define('EatSense.view.storecard.StoreCard', {
 					{
 						xtype: 'label',
 						itemId: 'generatedQr',
-						width: '95%',
+						// width: '95%',
 						height: 200,
 						margin: '0 0 20 0'
 					},
