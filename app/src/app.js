@@ -75,12 +75,21 @@ Ext.application({
     //Wait for phonegap to launch
 		if (Ext.os.deviceType.toLowerCase() != "desktop" && (cordovaInit == false || !this.launched)) {
      	return;
-    }
+    }        
 		
 	  console.log('App.mainLaunch');
     if(!console.error) {
       console.log('Console.error not available. Redirecting to console.log');
       console.error = console.log;
+    }
+
+    //Toolbar iOS 7 Workaround https://druckit.wordpress.com/category/javascript/sencha-touch-2/
+    if (Ext.os.is.iOS) {
+      if (Ext.os.version.major >= 7) {
+         // if (EatSense.app.isNative) // manual flag to denote "native" mode
+          Ext.Viewport.setHeight(Ext.Viewport.getWindowHeight() - 20);
+         // }
+      }
     }
     
     //check for whitelabel configurations and then proceed
