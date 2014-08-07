@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 					{
 						src: ['**/*'],
 						cwd: '<%= settings.directory.production %>/build/EatSense/package',
-		    			dest: '<%= settings.directory.cordova %>/grunt.option("whitelabel")/www',
+		    			dest: '<%= settings.directory.cordova %>/<%=grunt.option("whitelabel")%>/www',
 		    			nonull: true,
 		    			expand: true
 					}

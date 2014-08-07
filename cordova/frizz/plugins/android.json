@@ -37,6 +37,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"FacebookConnectPlugin\"><param name=\"android-package\" value=\"org.apache.cordova.facebook.ConnectPlugin\" /></feature>",
                             "count": 1
                         },
@@ -58,10 +62,6 @@
                         },
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -653,12 +653,12 @@
         "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
+        "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
+        },
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "359215437471990",
             "APP_NAME": "Cloobster",
-            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
-        },
-        "org.apache.cordova.splashscreen": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         }
     },
