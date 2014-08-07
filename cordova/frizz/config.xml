@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="net.karazy.cloobster.frizz" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>FRIZZ+</name>
+    <description>
+        FRIZZ+ Darmstadt
+    </description>
+    <author email="reifschneider@karazy.net" href="http://www.cloobster.com">
+        Frederik Reifschneider
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+
+    <preference name="Orientation" value="portrait" />
+    <!-- Splashscreen settings -->
+    <preference name="SplashScreen" value="splash" />
+    <preference name="SplashScreenDelay" value="10000" />
+</widget>

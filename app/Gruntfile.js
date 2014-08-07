@@ -19,14 +19,15 @@ module.exports = function(grunt) {
 				src: 'src/',
 				server: '.tmp/',
 				production: 'production',
-				cordova: '../../cordova',
+				cordova: '../cordova',
 				androidProd: {
-					frizz: '../../android/FrizzDarmstadt',
-					cloobster: '../../android/CloobsterAppAndroid'
+					frizz: '../android/FrizzDarmstadt',
+					cloobster: '../android/CloobsterAppAndroid'
 				} 
 			}
 		},		
 		copy: {
+			//copy task for sources
 			source: {
 				src: ['**/*', '!res/**/*', '!whitelabel/**/src/**/*'],
 				cwd: '<%= settings.directory.src %>',
@@ -43,6 +44,7 @@ module.exports = function(grunt) {
     			expand: true,
     			dot: true
 			},
+			//copy resources for dev
 			resources: {
 				src: ['**/*', '!*.scss', '!config.rb'],
 				cwd: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/',
@@ -50,14 +52,15 @@ module.exports = function(grunt) {
     			nonull: true,
     			expand: true	
 			},
-			prodSrc: {
-				src: ['**/*', '!res/**/*', '!whitelabel/**/src/**/*'],
-				cwd: '<%= settings.directory.src %>',
-    			dest: '<%= settings.directory.production %>',
-    			// nonull: true,
-    			expand: true,
-    			dot: true
-			},
+			// prodSrc: {
+			// 	src: ['**/*', '!res/**/*', '!whitelabel/**/src/**/*'],
+			// 	cwd: '<%= settings.directory.src %>',
+   //  			dest: '<%= settings.directory.production %>',
+   //  			// nonull: true,
+   //  			expand: true,
+   //  			dot: true
+			// },
+			//copy resources for production
 			resourcesProd: {
 				src: ['**/*', '!*.scss', '!config.rb'],
 				cwd: '<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/',
@@ -70,19 +73,19 @@ module.exports = function(grunt) {
 					//cordova general
 					{
 						src: ['**/*'],
-						cwd: '<%= settings.directory.production %>',
-		    			dest: '<%= settings.directory.cordova %>/www',
-		    			nonull: true,
-		    			expand: true
-					},
-					//android (old)
-					{
-						src: ['**/*'],
-						cwd: '<%= settings.directory.production %>',
-		    			dest: '<%= settings.directory.androidProd[grunt.option("whitelabel")] %>/assets/www',
+						cwd: '<%= settings.directory.production %>/build/EatSense/package',
+		    			dest: '<%= settings.directory.cordova %>/grunt.option("whitelabel")/www',
 		    			nonull: true,
 		    			expand: true
 					}
+					//android (old)
+					// {
+					// 	src: ['**/*'],
+					// 	cwd: '<%= settings.directory.production %>/build/EatSense/package',
+		   //  			dest: '<%= settings.directory.androidProd[grunt.option("whitelabel")] %>/assets/www',
+		   //  			nonull: true,
+		   //  			expand: true
+					// }
 				]
 			},
 			//Copy whitelabel sources that differ from base cloobster
@@ -308,7 +311,7 @@ module.exports = function(grunt) {
 
 		grunt.task.run([
 			'clean:dev',
-			'copy:dev',
+			'copy:source',
 			'bgShell:getVersion',
 			'replace:development',
 			'compass:compile',
@@ -331,14 +334,14 @@ module.exports = function(grunt) {
 
 		grunt.task.run([
 			'clean:prod',
-			'copy:production',
+			'copy:source',
 			'bgShell:getVersion',
 			'replace:production',
 			'compass:compile',
 			'copy:resourcesProd',
 			'copy:whitelabelSrc',
-			'bgShell:senchaBuild'
-			// 'copy:prodDest'
+			'bgShell:senchaBuild',
+			'copy:prodDest'
 		]);
 	});
 

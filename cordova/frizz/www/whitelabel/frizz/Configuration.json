@@ -1,0 +1,9 @@
+{	
+	urlBrowserMode: '_system',
+	disableInfopageProfilePics: true,
+	demoButtonViewstate: 'none',
+	'de-ztix' : {
+			vvk: 'frizz'
+	},
+	impressumUrl: 'whitelabel/frizz/Impressum.html'
+}
