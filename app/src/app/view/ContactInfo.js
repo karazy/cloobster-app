@@ -25,9 +25,6 @@ Ext.define('EatSense.view.ContactInfo', {
 				},
 				scrollable: 'vertical',
 				padding: '10px 30px 8px 30px',
-				// defaults: {
-				// 	width: '100%'
-				// },
 				items: [
 					{
 						xtype: 'titlebar',

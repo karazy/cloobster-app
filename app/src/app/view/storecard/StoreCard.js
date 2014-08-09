@@ -22,8 +22,8 @@ Ext.define('EatSense.view.storecard.StoreCard', {
 						pack: 'center',
 						align: 'center'
 				},
-				// scrollable: 'vertical',
-				// padding: '10px 30px 8px 30px',
+				scrollable: 'vertical',
+				padding: '10px 30px 8px 30px',
 				items: [
 					{
 						xtype: 'titlebar',

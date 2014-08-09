@@ -294,8 +294,9 @@ Ext.define('EatSense.controller.StoreCard', {
 			return;
 		}
 
-		if(!type) {
+		if(!type || type == 'none') {
 			console.log('StoreCard.encodeCustomerNumber: no type given');
+			element.element.setHtml("");
 			return;
 		} 
 
