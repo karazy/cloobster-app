@@ -107,7 +107,7 @@ Ext.define('EatSense.controller.StoreCard', {
 				//if user removed his storecard number, delete it
 				me.deleteStoreCard(me.getCurrentStoreCard(), function() {
 					appHelper.clearStore('storeCardStore');
-					me.setupStoreCard(null);
+					me.setCurrentStoreCard(null);
 					me.setupStoreCard();
 					qrCodeImageElement.element.setHtml("");
 				});
