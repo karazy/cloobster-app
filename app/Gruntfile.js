@@ -52,14 +52,6 @@ module.exports = function(grunt) {
     			nonull: true,
     			expand: true	
 			},
-			// prodSrc: {
-			// 	src: ['**/*', '!res/**/*', '!whitelabel/**/src/**/*'],
-			// 	cwd: '<%= settings.directory.src %>',
-   //  			dest: '<%= settings.directory.production %>',
-   //  			// nonull: true,
-   //  			expand: true,
-   //  			dot: true
-			// },
 			//copy resources for production
 			resourcesProd: {
 				src: ['**/*', '!*.scss', '!config.rb'],
@@ -78,14 +70,6 @@ module.exports = function(grunt) {
 		    			nonull: true,
 		    			expand: true
 					}
-					//android (old)
-					// {
-					// 	src: ['**/*'],
-					// 	cwd: '<%= settings.directory.production %>/build/EatSense/package',
-		   //  			dest: '<%= settings.directory.androidProd[grunt.option("whitelabel")] %>/assets/www',
-		   //  			nonull: true,
-		   //  			expand: true
-					// }
 				]
 			},
 			//Copy whitelabel sources that differ from base cloobster
@@ -142,26 +126,6 @@ module.exports = function(grunt) {
 					}
 				]				
 			}
-			// cloobster: {
-			// 	src: '<%= settings.directory.server %>/app/util/Configuration.js',
-			// 	overwrite: true,
-			// 	replacements: [
-			// 		{
-			// 			from: /whitelabelConfig.*/,
-			// 			to: 'whitelabelConfig : null,'
-			// 		}
-			// 	]				
-			// },
-			// frizz: {
-			// 	src: '<%= settings.directory.server %>/app/util/Configuration.js',
-			// 	overwrite: true,
-			// 	replacements: [
-			// 		{
-			// 			from: /whitelabelConfig.*/,
-			// 			to: 'whitelabelConfig : frizz,'
-			// 		}
-			// 	]				
-			// }
 		},
 
 		connect: {
@@ -406,19 +370,4 @@ module.exports = function(grunt) {
 		console.log('Build mode ' + grunt.option('buildMode'));
 	}
 }
-
-
-
-// - source kopieren ok
-// - CSS kopieren je nach Theme ok
-//   - z.B. in verschiedenen Ordnern vorhalten und mittels Parameter auslesen
-// - URL basierend auf environment setzen (Prod, QA etc) ok
-// - Für build korrekte index kopieren desktop oder phone
-// - set version via git oder wie in preports ok
-// - compile mit sencha (grunt-run oder grunt-contrib-commands) ok
-// - copy to cordova or desktop
-// - (optional) run cordova
-// - (optional) add web server ok
-// - unterschiedliche whitelabel dateien berücksichtigen
-
 

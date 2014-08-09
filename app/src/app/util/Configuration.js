@@ -66,6 +66,11 @@ Ext.define('EatSense.util.Configuration', {
 		*/
 		impressumUrl: 'static/Impressum.html',
 		/**
+		* @cfg {String}
+		*	default theme used inside the app
+		*/
+		defaultTheme: 'blue-gold',
+		/**
 		* Returns value of a property.
 		* @param {String} property
 		* @return 
