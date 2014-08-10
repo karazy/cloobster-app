@@ -237,6 +237,13 @@ module.exports = [
         "clobbers": [
             "window.facebookConnectPlugin"
         ]
+    },
+    {
+        "file": "plugins/com.borismus.webintent/www/webintent.js",
+        "id": "com.borismus.webintent.WebIntent",
+        "clobbers": [
+            "WebIntent"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -252,7 +259,8 @@ module.exports.metadata =
     "org.apache.cordova.inappbrowser": "0.5.0",
     "org.apache.cordova.network-information": "0.2.10",
     "org.apache.cordova.splashscreen": "0.3.1",
-    "com.phonegap.plugins.facebookconnect": "0.7.0"
+    "com.phonegap.plugins.facebookconnect": "0.7.0",
+    "com.borismus.webintent": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

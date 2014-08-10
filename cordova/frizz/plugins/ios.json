@@ -232,6 +232,9 @@
             "APP_ID": "359215437471990",
             "APP_NAME": "Cloobster",
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
+        },
+        "com.borismus.webintent": {
+            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         }
     },
     "dependent_plugins": {}

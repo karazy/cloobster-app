@@ -14,4 +14,6 @@
     <!-- Splashscreen settings -->
     <preference name="SplashScreen" value="splash" />
     <preference name="SplashScreenDelay" value="10000" />
+
+    <plugin name="WebIntent" value="com.borismus.webintent.WebIntent" />
 </widget>

@@ -63,6 +63,10 @@
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"WebIntent\"><param name=\"android-package\" value=\"com.borismus.webintent.WebIntent\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -659,6 +663,9 @@
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "359215437471990",
             "APP_NAME": "Cloobster",
+            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
+        },
+        "com.borismus.webintent": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         }
     },
