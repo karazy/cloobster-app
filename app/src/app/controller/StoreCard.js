@@ -1,6 +1,7 @@
 /**
-* StoreCard related logic.
-*
+* StoreCard related logic. Mainly CRUD
+* This controller omits Sencha REST logic and uses pure Ext.Ajax functionality.
+* Purpose of this approach is to test whether this is easier and stable compared to Sencha functionality.
 */
 Ext.define('EatSense.controller.StoreCard', {
 	extend: 'Ext.app.Controller',
@@ -24,11 +25,12 @@ Ext.define('EatSense.controller.StoreCard', {
 	launch: function() {
 		var me = this;
 
-        Ext.Viewport.on('userlogin', loadStoreCards, this);
+		//deprecated
+        // Ext.Viewport.on('userlogin', loadStoreCards, this);        
 
-        function loadStoreCards(account) {
-            me.loadStoreCards(account);
-        } 
+        // function loadStoreCards(account) {
+        //     me.loadStoreCards(account);
+        // } 
 	},
 
 	storeCardShowHandler: function(area) {
@@ -37,7 +39,9 @@ Ext.define('EatSense.controller.StoreCard', {
 			checkInCtr = this.getApplication().getController('CheckIn'),
 			store,
 			custNumberField,
+			scConfig,
 			qrCodeImageElement,
+			activeLocationId,
 			scanBt;
 
 		view = Ext.create('EatSense.view.storecard.StoreCard');		
@@ -52,27 +56,31 @@ Ext.define('EatSense.controller.StoreCard', {
 		scanBt = view.down('button[action=scan-barcode]');
 
 		//set up store card object
-		store = Ext.StoreManager.lookup('storeCardStore');
+		// store = Ext.StoreManager.lookup('storeCardStore');
 		
-		store.each(function(sc) {
-			if(sc.get('locationId') == checkInCtr.getActiveBusiness().get('id')) {
+		// store.each(function(sc) {
+		// 	if(sc.get('locationId') == checkInCtr.getActiveBusiness().get('id')) {
+		// 		me.setCurrentStoreCard(sc);
+		// 		return false;
+		// 	}
+		// });
+	
+		scConfig = checkInCtr.getActiveBusiness().raw.configuration.storecard;	
+		activeLocationId = checkInCtr.getActiveBusiness().get('id');
+
+		me.loadStoreCardByLocationId(activeLocationId, function(success, sc) {
+			if(success) {
 				me.setCurrentStoreCard(sc);
-				return false;
-			}
-		});
-
-		me.setupStoreCard();
-
-		var scConfig = checkInCtr.getActiveBusiness().raw.configuration.storecard;
-
-		//encode barcode if this is an existing store card
-		// && me.getCurrentStoreCard().get('codeType')
-		if(me.getCurrentStoreCard().get('cardNumber')) {
-			me.encodeCustomerNumberAsBarcode(me.getCurrentStoreCard().get('cardNumber'), scConfig, qrCodeImageElement);
-		}
-
-		//set data before registering events
-		custNumberField.setValue(me.getCurrentStoreCard().get('cardNumber'));
+				//encode barcode if this is an existing store card
+				if(me.getCurrentStoreCard().cardNumber) {
+					me.encodeCustomerNumberAsBarcode(me.getCurrentStoreCard().cardNumber, scConfig, qrCodeImageElement);
+					//set data before registering events
+					custNumberField.setValue(me.getCurrentStoreCard().cardNumber);
+				}
+			} else if(!success) {
+				me.setupStoreCard(activeLocationId);
+			}			
+		}); 				
 
 
 		//register events
@@ -80,6 +88,8 @@ Ext.define('EatSense.controller.StoreCard', {
 			'hide': cleanup,
 			scope: this
 		});
+
+		//call after field set
 
 		custNumberField.on({
 			'change': custNumberFieldHandler,
@@ -90,14 +100,20 @@ Ext.define('EatSense.controller.StoreCard', {
 			'tap': scanBtHandler,
 			scope: this
 		});
+
+		me.on('storecardchanged', storeCardChangedHandler, me);
 		
 		//event handler functions
 		function custNumberFieldHandler(field, newVal, oldVal) {
 			if(newVal && newVal.trim().length && newVal != oldVal) {
 				if(me.validateStoreCard(newVal, scConfig.validationPattern)) {
-					me.getCurrentStoreCard().set('cardNumber', newVal);
-					me.saveStoreCard(me.getCurrentStoreCard());
-					me.encodeCustomerNumberAsBarcode(newVal, scConfig, qrCodeImageElement);	
+					me.getCurrentStoreCard().cardNumber = newVal;
+					me.saveStoreCard(me.getCurrentStoreCard(), function(success, storeCard) {
+						me.setCurrentStoreCard(storeCard);
+						// store.add(me.getCurrentStoreCard());
+						// me.fireEvent('storecardchanged', me.getCurrentStoreCard());
+						me.encodeCustomerNumberAsBarcode(newVal, scConfig, qrCodeImageElement);	
+					});					
 				} else {
 					// field.setValue(oldVal);
 					Ext.Msg.alert('',i10n.translate(i10n.translate('storecard.error.invalidpattern')));
@@ -106,9 +122,9 @@ Ext.define('EatSense.controller.StoreCard', {
 			} else if(me.getCurrentStoreCard()){
 				//if user removed his storecard number, delete it
 				me.deleteStoreCard(me.getCurrentStoreCard(), function() {
-					appHelper.clearStore('storeCardStore');
+					// store.remove(me.getCurrentStoreCard());
 					me.setCurrentStoreCard(null);
-					me.setupStoreCard();
+					me.setupStoreCard(activeLocationId);
 					qrCodeImageElement.element.setHtml("");
 				});
 			}
@@ -122,6 +138,10 @@ Ext.define('EatSense.controller.StoreCard', {
 					custNumberField.setValue(code);
 				}
 			});
+		}
+
+		function storeCardChangedHandler(code) {
+			encodeCustomerNumberAsBarcode(code, scConfig, qrCodeImageElement);
 		}
 
 
@@ -142,6 +162,8 @@ Ext.define('EatSense.controller.StoreCard', {
 				scope: this
 			});
 
+			me.un('storecardchanged', storeCardChangedHandler, me);
+
 			me.setCurrentStoreCard(null);
 
 			area.remove(view);
@@ -155,22 +177,93 @@ Ext.define('EatSense.controller.StoreCard', {
 	* @param {EatSense.model.StoreCard} storeCard
 	*	Store card to save.
 	*/
-	saveStoreCard: function(storeCard) {
-		var me = this;
+	saveStoreCard: function(storeCard, callback) {
+		var me = this,
+			saveUrl,
+			httpMethod,
+			accountCtr = this.getApplication().getController('Account');
 
 		if(!storeCard) {
 			console.log('StoreCard.saveStoreCard: no storeCard given');
 			return;
 		}
 
-		storeCard.save({
-	        failure: function(response, operation) {
-	            me.getApplication().handleServerError({
-	              'error': operation.error,
-	              'forceLogout':{403 : true}
-	    	    }); 
-	        }
-	    });
+		if(storeCard.id) {
+			//existing storecard
+			httpMethod = 'PUT';
+			saveUrl = appConfig.serviceUrl + '/c/accounts/' + accountCtr.getAccount().get('id') + '/storecards/' + storeCard.id;
+		} else {
+			//new storecard
+			httpMethod = 'POST';
+			saveUrl = appConfig.serviceUrl + '/c/accounts/' + accountCtr.getAccount().get('id') + '/storecards';
+		}
+
+		Ext.Ajax.request({
+			url: saveUrl,
+			method: httpMethod,
+			jsonData: storeCard,
+			success: function(response) {
+				var sc = Ext.JSON.decode(response.responseText);
+				if(appHelper.isFunction(callback)) {
+					callback(true, sc);	
+				}	
+			},
+			failure: function(response) {
+				callback(false);
+				me.getApplication().handleServerError({
+					'error': response
+				});
+			}
+		});
+
+		// storeCard.save({
+		// 	success: function(response, operation) {
+		// 		if(appHelper.isFunction(callback)) {
+		// 			callback();	
+		// 		}				
+		// 	},
+	 //        failure: function(response, operation) {
+	 //            me.getApplication().handleServerError({
+	 //              'error': operation.error,
+	 //              'forceLogout':{403 : true}
+	 //    	    }); 
+	 //        }
+	 //    });
+	},
+
+	loadStoreCardByLocationId: function(locationId, callback) {
+		var accountCtr = this.getApplication().getController('Account');
+
+		//TODO add possibility to load by ID
+		if(!appHelper.isFunction(callback)) {
+			console.error('StoreCard.loadStoreCardByLocationId: no callback');
+			return;
+		}
+
+		Ext.Ajax.request({
+			url: appConfig.serviceUrl + '/c/accounts/' + accountCtr.getAccount().get('id') + '/storecards',
+			method: 'GET',
+			params: {
+				'locationId' : locationId
+			},
+			success: function(response) {
+				var sc = Ext.JSON.decode(response.responseText);
+				if(Ext.isArray(sc)) {
+					//service returns an array because we query the whole collection
+					sc = sc[0];
+				}				
+				callback(true, sc);
+			},
+			failure: function(response) {
+				if(response.status != 404) {
+					me.getApplication().handleServerError({
+    					'error': response
+    				});
+				} else {
+					callback(false);
+				}				
+			}
+		});
 	},
 
 	/**
@@ -179,38 +272,66 @@ Ext.define('EatSense.controller.StoreCard', {
 	*	Store card to save.
 	*/
 	deleteStoreCard: function(storeCard, callback) {
-		var me = this;
+		var me = this,
+			accountCtr = this.getApplication().getController('Account');
 
 		if(!storeCard) {
 			console.log('StoreCard.deleteStoreCard: no storeCard given');
 			return;
 		}
 
-		storeCard.erase({
-			success: function() {
-				callback();				
+		Ext.Ajax.request({
+			url: appConfig.serviceUrl + '/c/accounts/' + accountCtr.getAccount().get('id') + '/storecards/'+storeCard.id,
+			method: 'DELETE',
+			success: function(response) {
+				if(appHelper.isFunction(callback)) {
+					callback();	
+				}
 			},
-	        failure: function(response, operation) {
-	            me.getApplication().handleServerError({
-	              'error': operation.error,
-	              'forceLogout':{403 : true}
-	    	    }); 
-	        }
-	    });
+			failure: function(response) {
+				if(response.status != 404) {
+					me.getApplication().handleServerError({
+    					'error': response
+    				});
+				} else {
+					callback(false);
+				}
+			}
+		});
+
+		// storeCard.erase({
+		// 	success: function() {
+		// 		if(appHelper.isFunction(callback)) {
+		// 			callback();	
+		// 		}
+		// 	},
+	 //        failure: function(response, operation) {
+	 //            me.getApplication().handleServerError({
+	 //              'error': operation.error,
+	 //              'forceLogout':{403 : true}
+	 //    	    }); 
+	 //        }
+	 //    });
 	},
 
 	/**
 	* Creates a new storeCard if not exists and sets currentLocation Id.
 	*
 	*/
-	setupStoreCard: function() {
-		var checkInCtr = this.getApplication().getController('CheckIn');
+	setupStoreCard: function(activeLocationId) {
+		// var checkInCtr = this.getApplication().getController('CheckIn');
 
-		if(!this.getCurrentStoreCard()) {
-			this.setCurrentStoreCard(Ext.create('EatSense.model.StoreCard'));
-		}
+		// if(!this.getCurrentStoreCard()) {
+		// 	this.setCurrentStoreCard(Ext.create('EatSense.model.StoreCard'));
+		// }
 
-		this.getCurrentStoreCard().set('locationId', checkInCtr.getActiveBusiness().get('id'));
+		this.setCurrentStoreCard({
+			'id': '',
+			'locationId': activeLocationId,
+			'cardNumber' : ''
+		});
+
+		// this.getCurrentStoreCard().set('locationId', checkInCtr.getActiveBusiness().get('id'));
 	},
 
 	/**
@@ -268,6 +389,14 @@ Ext.define('EatSense.controller.StoreCard', {
 		regexp = new RegExp(validationPattern);
 
 		return code.match(regexp);
+	},
+
+
+
+	storeCardChangedHandler: function(code) {
+		var scConfig = checkInCtr.getActiveBusiness().raw.configuration.storecard;
+
+		encodeCustomerNumberAsBarcode(code, scConfig, element);
 	},
 
 
