@@ -1,13 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
-        "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
-        "clobbers": [
-            "cordova.plugins.barcodeScanner"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
         "id": "org.apache.cordova.camera.Camera",
         "clobbers": [
@@ -274,6 +267,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/com.borismus.webintent/www/webintent.js",
+        "id": "com.borismus.webintent.WebIntent",
+        "clobbers": [
+            "WebIntent"
+        ]
+    },
+    {
         "file": "plugins/com.phonegap.plugins.facebookconnect/www/phonegap/plugin/facebookConnectPlugin/facebookConnectPlugin.js",
         "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
         "clobbers": [
@@ -281,17 +281,16 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/com.borismus.webintent/www/webintent.js",
-        "id": "com.borismus.webintent.WebIntent",
+        "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
+        "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
         "clobbers": [
-            "WebIntent"
+            "cordova.plugins.barcodeScanner"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.phonegap.plugins.barcodescanner": "1.0.1",
     "org.apache.cordova.camera": "0.3.0",
     "org.apache.cordova.console": "0.2.9",
     "org.apache.cordova.device": "0.2.10",
@@ -301,8 +300,9 @@ module.exports.metadata =
     "org.apache.cordova.inappbrowser": "0.5.0",
     "org.apache.cordova.network-information": "0.2.10",
     "org.apache.cordova.splashscreen": "0.3.1",
+    "com.borismus.webintent": "1.0.0",
     "com.phonegap.plugins.facebookconnect": "0.7.0",
-    "com.borismus.webintent": "1.0.0"
+    "com.phonegap.plugins.barcodescanner": "2.0.0"
 }
 // BOTTOM OF METADATA
 });

@@ -103,10 +103,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
                             "count": 1
                         },
@@ -169,6 +165,10 @@
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -198,9 +198,6 @@
         }
     },
     "installed_plugins": {
-        "com.phonegap.plugins.barcodescanner": {
-            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
-        },
         "org.apache.cordova.camera": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
@@ -228,12 +225,15 @@
         "org.apache.cordova.splashscreen": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
+        "com.borismus.webintent": {
+            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
+        },
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "359215437471990",
             "APP_NAME": "Cloobster",
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
-        "com.borismus.webintent": {
+        "com.phonegap.plugins.barcodescanner": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         }
     },

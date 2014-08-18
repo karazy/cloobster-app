@@ -69,6 +69,7 @@
 				<exclude name="**/*.phone.*" />
 				<exclude name="**/*.iphone.*" />
 				<exclude name="**/*.ignore.*" />
+				<exclude name="build.xml" />
 				<exclude name="**/.sass-cache/**" />
 			</fileset>
 		</copy>

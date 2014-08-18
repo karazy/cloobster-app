@@ -227,7 +227,8 @@ module.exports = function(grunt) {
 					debugInfo: true,
 					//TODO env not working
 					// environment: '<%= grunt.option("buildMode") %>',
-					outputStyle: 'expanded'
+					//compressed or expanded
+					outputStyle: 'compressed'
 				}
 			}
 		}
@@ -273,17 +274,24 @@ module.exports = function(grunt) {
 		//set destination for copy task
 		grunt.option('copyDestination', '<%= settings.directory.server %>');
 
-		grunt.task.run([
+		var tasks = [
 			'clean:dev',
 			'copy:source',
 			'bgShell:getVersion',
 			'replace:development',
 			'compass:compile',
-			'copy:resources',
-			'copy:whitelabelSrc',
-			'connect:livereload',
-			'watch'
-		]);
+			'copy:resources',			
+		];
+
+		if(grunt.option('whitelabel').toLowerCase() != 'cloobster') {
+			tasks.push('copy:whitelabelSrc');
+		}
+
+		tasks.push('connect:livereload');
+		tasks.push('watch');
+
+		grunt.task.run(tasks);
+
 	});
 
 	/**
@@ -296,17 +304,27 @@ module.exports = function(grunt) {
 		//set destination for copy task
 		grunt.option('copyDestination', '<%= settings.directory.production %>');
 
-		grunt.task.run([
+		var tasks = [
 			'clean:prod',
 			'copy:source',
 			'bgShell:getVersion',
 			'replace:production',
 			'compass:compile',
-			'copy:resourcesProd',
-			'copy:whitelabelSrc',
-			'bgShell:senchaBuild',
-			'copy:prodDest'
-		]);
+			'copy:resourcesProd'			
+		];
+
+		if(grunt.option('whitelabel').toLowerCase() != 'cloobster') {
+			tasks.push('copy:whitelabelSrc');
+		}
+
+		tasks.push('bgShell:senchaBuild');
+
+		if(!grunt.option('skipCopy')) {
+			tasks.push('copy:prodDest');			
+		}
+
+		grunt.task.run(tasks);
+		
 	});
 
 	/**
@@ -331,6 +349,11 @@ module.exports = function(grunt) {
 
 		if(!grunt.option('buildMode') || grunt.option('buildMode') != 'development' || grunt.option('buildMode') != 'production') {
 			grunt.option('buildMode', 'development');
+		}
+
+		//skip copy for prod, can be used to build for desktop
+		if(grunt.option('skipCopy') && !grunt.option('skipCopy') == true) {
+			grunt.option('skipCopy', true);
 		}
 
 		switch(server) {

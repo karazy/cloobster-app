@@ -117,9 +117,9 @@ Cloobster.asyncJsapiLoad = function() {
     function onDeviceReady()
     {
         console.log('onDeviceReady start');
-
+        
         //Toolbar iOS 7 Workaround https://druckit.wordpress.com/category/javascript/sencha-touch-2/
-        if (parseFloat(window.device.version) >= 7.0 && window.device.platform == "iOS") {
+        if (window.device && parseFloat(window.device.version) >= 7.0 && window.device.platform == "iOS") {
           document.body.style.marginTop = "20px";
         }
 
@@ -131,8 +131,6 @@ Cloobster.asyncJsapiLoad = function() {
         catch(e) {
             console.log('error ' + e);
         }
-
-        // console.log('onDeviceReady end');
     }
     
     </script>
