@@ -1,6 +1,6 @@
 /**
 * This class represents an StoreCard.
-*
+* @Decprecated
 */
 Ext.define('EatSense.model.StoreCard', {
 	extend: 'Ext.data.Model',

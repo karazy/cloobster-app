@@ -1,3 +1,6 @@
+/**
+* @Decprecated
+*/
 Ext.define('EatSense.store.StoreCard', {
     extend  : 'Ext.data.Store',    
     requires: ['EatSense.model.StoreCard'],
