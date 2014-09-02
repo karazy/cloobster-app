@@ -22,7 +22,21 @@ org.apache.cordova.splashscreen 0.3.1 "Splashscreen"
 cordova plugins add com.phonegap.plugins.barcodescanner org.apache.cordova.camera org.apache.cordova.console org.apache.cordova.device org.apache.cordova.file org.apache.cordova.file-transfer org.apache.cordova.geolocation org.apache.cordova.inappbrowser org.apache.cordova.network-information org.apache.cordova.splashscreen https://github.com/Initsogar/cordova-webintent
 
 
-###Facebook Plugin 
+###Install Facebook Plugin - special treatment
+Source: https://github.com/Wizcorp/phonegap-facebook-plugin
+
 cordova -d plugin add /Users/frederikreifschneider/karazy/tool/phonegap-facebook-plugin --variable APP_ID="359215437471990" --variable APP_NAME="Cloobster"
 
 cordova -d plugin add /Users/fred/karazy/tools/phonegap-facebook-plugin --variable APP_ID="359215437471990" --variable APP_NAME="Cloobster"
+
+##Copy additional resource files
+Under {project_root}/resources/{whitelabel}/{os} are resources that need to be copied to specific folders.
+Those resources contain icons, or changed configurations.
+Q: Why do we keep them there.
+A: Often enough a recreation of cordova project is necessary and you easily loose custom adjustements.
+
+##Specific project requirements
+###FRIZZ 
+Project name is set to FRIZZ and not FRIZZ+ due to errors in project setup.
+Adjust name manually where necessary.
+
