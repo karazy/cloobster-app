@@ -91,8 +91,16 @@ Cloobster.asyncJsapiLoad = function() {
     function handleOpenURL(url)
      {
       console.log('index.html handleOpenURL: ' + url);
-      if(Ext && Ext.Viewport) {        
-        if(url && url != "" && url.match('cloobster://.*')) {        
+      if(Ext && Ext.Viewport) { 
+        var scheme = appConfig.iOSUrlScheme;
+
+        if(!scheme) {
+          scheme = 'cloobster://.*';
+        } else {
+          scheme = scheme + '://.*';
+        }
+
+        if(url && url != "" && url.match(scheme)) {        
           Ext.Viewport.fireEvent('launchwithqrcode', url);
         }        
       }
@@ -117,7 +125,7 @@ Cloobster.asyncJsapiLoad = function() {
     function onDeviceReady()
     {
         console.log('onDeviceReady start');
-        
+
         //Toolbar iOS 7 Workaround https://druckit.wordpress.com/category/javascript/sencha-touch-2/
         if (window.device && parseFloat(window.device.version) >= 7.0 && window.device.platform == "iOS") {
           document.body.style.marginTop = "20px";

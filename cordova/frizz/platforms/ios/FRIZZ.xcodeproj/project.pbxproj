@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		05CCD7E2E21E4251969EB6D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA69D264287F41099464AA3F /* AVFoundation.framework */; };
 		0A04ADFFCF3D4800B7685024 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED0CD38C74B4882B787A513 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };

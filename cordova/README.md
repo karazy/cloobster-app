@@ -1,6 +1,5 @@
 #Summary
-Each subfolder contains one cordova project
-that represents a whitelabel.
+Each subfolder contains one cordova project that represents a whitelabel.
 
 #Cordova Whitelabel Setup
 
@@ -34,6 +33,10 @@ Under {project_root}/resources/{whitelabel}/{os} are resources that need to be c
 Those resources contain icons, or changed configurations.
 Q: Why do we keep them there.
 A: Often enough a recreation of cordova project is necessary and you easily loose custom adjustements.
+
+##Misc setup
+Add correct url scheme for ios.
+Make sure AndroidManifest has setup the intent filters.
 
 ##Specific project requirements
 ###FRIZZ 

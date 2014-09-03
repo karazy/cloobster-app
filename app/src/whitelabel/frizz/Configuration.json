@@ -2,6 +2,7 @@
 	urlBrowserMode: '_system',
 	disableInfopageProfilePics: true,
 	demoButtonViewstate: 'none',
+	iOSUrlScheme: 'cloobsterfrizz',
 	'de-ztix' : {
 			vvk: 'frizz'
 	},

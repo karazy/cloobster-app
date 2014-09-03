@@ -92,8 +92,16 @@ Cloobster.asyncJsapiLoad = function() {
     function handleOpenURL(url)
      {
       console.log('index.html handleOpenURL: ' + url);
-      if(Ext && Ext.Viewport) {        
-        if(url && url != "" && url.match('cloobsterfrizz://.*')) {        
+      if(Ext && Ext.Viewport) { 
+        var scheme = appConfig.iOSUrlScheme;
+
+        if(!scheme) {
+          scheme = 'cloobster://.*';
+        } else {
+          scheme = scheme + '://.*';
+        }
+
+        if(url && url != "" && url.match(scheme)) {        
           Ext.Viewport.fireEvent('launchwithqrcode', url);
         }        
       }
