@@ -7,13 +7,9 @@
 	objects = {
 /* Begin PBXBuildFile section */
 		05CCD7E2E21E4251969EB6D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA69D264287F41099464AA3F /* AVFoundation.framework */; };
-		0A04ADFFCF3D4800B7685024 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED0CD38C74B4882B787A513 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		10E7A68BC28B4F6A872CBBF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F70211942A24393884578BB /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		143681EE25574B17BBAC6814 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E080BE7CAB744A2B762FAB6 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1F766FE113BBADB100FB74C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDC13BBADB100FB74C0 /* Localizable.strings */; };
-		1FBBF8BD0F7D49918DE8F6EE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A1FB6A5D1643E3ADACCD1B /* libsqlite3.dylib */; };
 		205C2136AC434899ACA100AB /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = F56CD8C26DBC415DBFB82ECA /* CDVInAppBrowser.m */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		2DBBD7071B5E40829D55885A /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BC7594B9C44E4968F31A5 /* CDVLocation.m */; };
@@ -51,15 +47,12 @@
 		857728508BA548C1B0EE3F6B /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 816713939B5C41D9ACCCC750 /* CDVFile.m */; };
 		8B825D2FCAD1478DA4EF78F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C30DFDCD4447B3BD214031 /* QuartzCore.framework */; };
 		94F3C2FF0F0C4A69B309D22E /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 082EB539F0474D95967E5664 /* CDVAssetLibraryFilesystem.m */; };
-		A23F4E3DFA404E31982187B6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2C85814FC0749538A6D422B /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		B29F4A1B2A894CB2BB7BB4BF /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C9A16D2C34378AEFEA393 /* FacebookConnectPlugin.m */; };
 		B9160055B65F4A148E06A718 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DA7B5F547D424B9A03455F /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BD5AE4851ABA40FDAC90D556 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8185A8EF45A94F88B03109BE /* CDVJpegHeaderWriter.m */; };
 		BD5FA96F6BB646A7B704BB56 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 39F85C9F633B4FF68F67F2DC /* CDVSplashScreen.m */; };
 		C1C17D1A1D5E46EA9653F9D8 /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92AD7B17878B4B7FA6672CED /* scannerOverlay.xib */; };
 		C2A94AA56B0143B3AEDD8277 /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF09860C890548B094457DB5 /* zxing-all-in-one.cpp */; };
 		C9F62EA501CD493C9ABE6E9E /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B8CD998A5F4389A94CD8B5 /* CDVReachability.m */; };
-		CE743AEFF569448683E1F39F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023AB3BD6D7F4FB1882F8D02 /* FacebookSDK.framework */; };
 		CF28C2C0E89E4031AD0200DD /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = CC90B6609933499F93EA6E3B /* CDVLocalFilesystem.m */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		D6DAF864B86B4CF085847638 /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E142DAC204919AAB8E223 /* CDVConnection.m */; };
@@ -194,12 +187,6 @@
 				8B825D2FCAD1478DA4EF78F5 /* QuartzCore.framework in Frameworks */,
 				4750AD13FD8946A08C9100FF /* ImageIO.framework in Frameworks */,
 				B9160055B65F4A148E06A718 /* SystemConfiguration.framework in Frameworks */,
-				CE743AEFF569448683E1F39F /* FacebookSDK.framework in Frameworks */,
-				1FBBF8BD0F7D49918DE8F6EE /* libsqlite3.dylib in Frameworks */,
-				10E7A68BC28B4F6A872CBBF9 /* Social.framework in Frameworks */,
-				0A04ADFFCF3D4800B7685024 /* Accounts.framework in Frameworks */,
-				143681EE25574B17BBAC6814 /* AdSupport.framework in Frameworks */,
-				A23F4E3DFA404E31982187B6 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,7 +550,6 @@
 				D6DAF864B86B4CF085847638 /* CDVConnection.m in Sources */,
 				C9F62EA501CD493C9ABE6E9E /* CDVReachability.m in Sources */,
 				BD5FA96F6BB646A7B704BB56 /* CDVSplashScreen.m in Sources */,
-				B29F4A1B2A894CB2BB7BB4BF /* FacebookConnectPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -260,7 +260,7 @@ module.exports.metadata =
     "org.apache.cordova.network-information": "0.2.11",
     "org.apache.cordova.splashscreen": "0.3.2",
     "com.borismus.webintent": "1.0.0",
-    "com.phonegap.plugins.facebookconnect": "0.7.0"
+    "com.phonegap.plugins.facebookconnect": "0.8.0"
 }
 // BOTTOM OF METADATA
 });

@@ -123,6 +123,24 @@
           <string>fb359215437471990</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb359215437471990</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb359215437471990</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb359215437471990</string>
+        </array>
+      </dict>
     </array>
   </dict>
 </plist>
