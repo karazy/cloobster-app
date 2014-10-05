@@ -42,4 +42,5 @@ Make sure AndroidManifest has setup the intent filters.
 ###FRIZZ 
 Project name is set to FRIZZ and not FRIZZ+ due to errors in project setup.
 Adjust name manually where necessary.
+Android: AndroidManifest.xml
 
