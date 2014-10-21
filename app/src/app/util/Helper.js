@@ -583,5 +583,56 @@ Ext.define('EatSense.util.Helper', {
   		if(store) {
   			store.removeAll(!fireEvent);
   		}
-  	}
+  	},
+
+  /**
+   * Get current coords. Async function.
+   * @see http://docs.phonegap.com/en/2.7.0/cordova_geolocation_geolocation.md.html#Geolocation
+   * @param {Function} callback
+   *  Called with true and position on success, false and error otherwise.
+   */
+   getCurrentPosition: function(callback) {
+      if(!appHelper.isFunction(callback)) {
+         console.error('EatSense.util.Helper.getCurrentPosition: no callback provided');
+         return;
+      }
+
+      // onSuccess Callback
+      //   This method accepts a `Position` object, which contains
+      //   the current GPS coordinates
+      //
+      function onSuccess(position) {
+         callback(true, position);
+      }
+
+      // onError Callback receives a PositionError object
+      function onError(error) {     
+         callback(false, error);
+      }
+
+      if(navigator && navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(onSuccess, onError,
+            {maximumAge: Infinity, timeout: 20000, enableHighAccuracy:true});   
+      } else {
+         callback(false);
+         console.error('EatSense.util.Helper.getCurrentPosition: no navigator.geolocation exists');
+      }      
+   },
+
+    /**
+    * Return value of a query parameter.
+    * http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
+    * @param {String} name
+    * Name of parameter.
+    * @return value
+    */
+      getQueryParameter: function(name) {
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+              results;
+
+          name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        results = regex.exec(location.search);
+
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
 });

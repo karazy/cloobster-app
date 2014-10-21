@@ -31,7 +31,9 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.ux.slidenavigation.collapsible.View',
 		'EatSense.view.FeedbackContainer',
 		'EatSense.view.ContactInfo',
-		'EatSense.view.storecard.StoreCard'
+		'EatSense.view.storecard.StoreCard',
+		'EatSense.view.locationsearch.Search',
+		'EatSense.view.components.MenuContainer'
 	],
 	xtype : 'lounge',
 	config : {

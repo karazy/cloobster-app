@@ -30,7 +30,10 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.ClubArea',
 		'EatSense.ux.slidenavigation.collapsible.View',
 		'EatSense.view.FeedbackContainer',
-		'EatSense.view.ContactInfo'
+		'EatSense.view.ContactInfo',
+		'EatSense.view.storecard.StoreCard',
+		'EatSense.view.locationsearch.Search',
+		'EatSense.view.components.MenuContainer'
 	],
 	xtype : 'lounge',
 	config : {
@@ -94,6 +97,22 @@ Ext.define('EatSense.view.Lounge', {
 			// 	viewState: 'cloobster',
 			// 	accountRequired: true
 			// },
+			// {
+			// 	xtype: 'locationsearch',
+			// 	title: i10n.translate('locationsearch.slidenav.button'),
+			// 	leaf: true,
+			// 	action: 'show-locationsearch',
+			// 	iconCls: 'places-icon',
+			// 	viewState: 'cloobster'
+			// },
+			{
+                xtype: 'menucontainer',
+                title: i10n.translate('geosearch.title'),
+                leaf: true,
+                action: 'show-locationsearch',
+                iconCls: 'places-icon',
+                viewState: 'cloobster'
+            },
 			{
 				xtype: 'clubarea',
 				title: i10n.translate('slidenav.button.home'),

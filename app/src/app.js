@@ -20,7 +20,9 @@ Ext.application({
    */
 
 	controllers : [ 'CheckIn', 'Lounge', 'Menu', 'Order', 'Settings', 'Request', 'Message', 
-  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix', 'StoreCard'],
+  'Android', 'Feedback', 'Styles', 'Account', 'History', 'Facebook', 'InfoPage', 'ContactInfo', 'Ztix', 
+  'StoreCard',
+  'GeoSearch'],
 	models : [ 'CheckIn', 'User', 'Menu', 'Product', 'Choice', 'Option', 'Order', 'Cart', 
   'Spot', 'Business', 'Bill', 
   'PaymentMethod', 'Request', 'FeedbackForm', 'Feedback', 'Account', 'History', 
@@ -30,7 +32,8 @@ Ext.application({
     'EatSense.view.BackButton', 'About', 'Privacy'], 
 	stores : ['CheckIn', 'User', 'Spot', 'AppState', 'Menu', 'Product', 'Order', 
           'Bill', 'Request', 'Feedback', 'Styles', 'History', 'InfoPage', 'Area', 
-          'DashboardItem', 'Visit', 'ZtixEvent', 'ZtixCoupon'],
+          'DashboardItem', 'Visit', 'ZtixEvent', 'ZtixCoupon',
+          'LocationSearch'],
 	phoneStartupScreen: 'res/images/startup.png',
 	tabletStartupScreen: 'res/images/startup.png',
 	requires: [
