@@ -71,6 +71,11 @@ Ext.define('EatSense.util.Configuration', {
 		*/
 		defaultTheme: 'blue-gold',
 		/**
+		* @cfg {String}
+		*	used to launch cloobster from action urls
+		*/
+		iOSUrlScheme: 'cloobster',
+		/**
 		* Returns value of a property.
 		* @param {String} property
 		* @return 

@@ -2,8 +2,10 @@
 	urlBrowserMode: '_system',
 	disableInfopageProfilePics: true,
 	demoButtonViewstate: 'none',
+	iOSUrlScheme: 'cloobsterfrizz',
 	'de-ztix' : {
 			vvk: 'frizz'
 	},
-	impressumUrl: 'whitelabel/frizz/Impressum.html'
+	impressumUrl: 'whitelabel/frizz/Impressum.html',
+	defaultTheme: 'default'
 }
