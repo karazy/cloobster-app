@@ -148,6 +148,7 @@ Ext.define('EatSense.controller.GeoSearch', {
           	currentPosition = position;
           	doLoadLocations();
           } else {
+          	console.error('GeoSearch.loadLocationsByDistance: failed to get current position');
           	if(appHelper.isFunction(callback)) {
 				callback(false);
 			}

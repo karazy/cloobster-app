@@ -43,8 +43,8 @@ $tilebutton-font-color: #000;
 $slidenav-bg-color: #2E2E2E;
 /*$form-field-bg-color: $general-input-bg-color;*/
 
-
-
+/* After upgrade to OS X Yosemite, Ruby 2.0 and latest compass release, this is required. */
+@import "compass/css3/box";
 
 @import 'sencha-touch/default/all';
 
@@ -1318,6 +1318,10 @@ $slidenav-bg-color: #2E2E2E;
   -webkit-mask-image: inline-image('../images/locate.png');  
 }
 
+/*.aroundme-icon {
+    -webkit-mask-image: inline-image('../images/club/aroundme_small_sw.png');  
+}*/
+
 .demo-icon {
   -webkit-mask-image: inline-image('/buttons/demo.png');  
 }
@@ -1785,6 +1789,69 @@ h9 {
   .description {
     font-size: .8em;
     text-align: justify;
+  }
+}
+
+/*
+* GeoSearch
+*/
+.geosearch-list {
+  .x-list-emptytext {
+    .x-innerhtml {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+      height: 100%;
+
+      .empty-image {
+        background-image: url('../images/club/aroundme.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 110px;
+        height: 110px;
+      }
+    }
+  }  
+}
+
+.geosearch-list-item {
+
+  table {
+    table-layout: fixed;
+  }
+
+  td:nth-child(1) {
+    width: 80%;
+  }
+
+  div.thumbnail {
+    float: left;
+    -webkit-border-radius: $general-border-radius;
+    border-radius: $general-border-radius;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65px auto;
+    width: 45px;
+    height: 45px;
+  }
+
+  div.thumbnail + * {
+    margin-left: 55px;
+  }
+
+  .location {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .address {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

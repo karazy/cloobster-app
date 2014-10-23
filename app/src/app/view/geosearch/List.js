@@ -9,7 +9,7 @@ Ext.define('EatSense.view.geosearch.List', {
 	config: {
 		store: 'locationSearchStore',
 		variableHeights: false,
-		itemHeight: 65,
+		itemHeight: 75,
 		emptyText: i10n.translate('geosearch.list.nolocations'),
 		itemTpl: new Ext.XTemplate(
 		'<tpl if="imageUrl">',
@@ -24,16 +24,14 @@ Ext.define('EatSense.view.geosearch.List', {
 			'<div class="location">',
 				'{name}',
 			'</div>',			
-			'<tpl if="city">',
-				'<div class="address">',
-					'{postcode} {city}',
-				'</div>',
-			'</tpl>',
-			'<tpl if="address">',
-				'<div class="address">',
-					'{address}',
-				'</div>',
-			'</tpl>',
+			'<div class="address">',
+				'<tpl if="city">',				
+					'{postcode} {city} ',
+				'</tpl>',
+				'<tpl if="address">',
+					' {address}',				
+				'</tpl>',
+			'</div>',
 		'</div>'	
 
 		),
@@ -56,6 +54,7 @@ Ext.define('EatSense.view.geosearch.List', {
 				            {text: '5km', value: '5000'},
 				            {text: '10km',  value: '10000'},
 				            {text: '20km',  value: '20000'},
+				            {text: '100km',  value: '1000000'},
 				        ]
 				    }
 				]				

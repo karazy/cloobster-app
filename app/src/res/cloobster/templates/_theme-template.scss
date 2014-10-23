@@ -19,7 +19,8 @@ $button-radius: .2em;
 $general-border-radius: 3px;
 $general-list-item-height: 45px;
 
-
+/* After upgrade to OS X Yosemite, Ruby 2.0 and latest compass release, this is required. */
+@import "compass/css3/box";
 
 @import 'sencha-touch/default/all';
 

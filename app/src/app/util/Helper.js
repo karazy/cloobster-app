@@ -612,7 +612,7 @@ Ext.define('EatSense.util.Helper', {
 
       if(navigator && navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(onSuccess, onError,
-            {maximumAge: Infinity, timeout: 20000, enableHighAccuracy:true});   
+            {maximumAge: Infinity, timeout: 30000, enableHighAccuracy:true});   
       } else {
          callback(false);
          console.error('EatSense.util.Helper.getCurrentPosition: no navigator.geolocation exists');
