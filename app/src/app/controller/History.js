@@ -18,6 +18,16 @@ Ext.define('EatSense.controller.History', {
      * Use active CheckIn to create a ToVisit.
      * Fires on Ext.Viewport.
      */
+
+    /**
+     * @event addlocationastovisit
+     * Save given location as ToVisit.
+     * Fires on Ext.Viewport.
+     * @param {EatSense.model.Business} location
+     *  Location to save as ToVisit.
+     * @param {Function} callback
+     *  Called with true|false depending on success
+     */
      
 
 	requires: ['EatSense.view.History', 'EatSense.view.VisitNew', 'EatSense.view.VisitDetail', 'EatSense.view.NoLocation'],
@@ -30,8 +40,8 @@ Ext.define('EatSense.controller.History', {
 			historyView : 'lounge history',
 			historyList : 'lounge history list',
 			backDetailButton : 'historydetail button[action=back]',
-         toVisitButton: 'dashboard button[action=tovisit]',
-         toVisitList: 'dashboard list',
+      toVisitButton: 'dashboard button[action=tovisit]',
+      toVisitList: 'dashboard list',
 			historyDetailView: 'lounge historydetail',
 			historyDetailOrderList : 'historydetail #historyOrders',
          toVisitNewView: {
@@ -87,6 +97,9 @@ Ext.define('EatSense.controller.History', {
             //TODO would be cleaner without controller call
             var _activeBusiness = this.getApplication().getController('CheckIn').getActiveBusiness();
             this.checkForToVisitAction(null, _activeBusiness);
+         },
+         'addlocationastovisit' : function(location, callback) {
+            this.checkForToVisitAction(null, location, callback);
          },
          scope: this
       });
@@ -290,7 +303,7 @@ Ext.define('EatSense.controller.History', {
    *  If given gets passed to {@see EatSense.controller.History#showToVisitNewView} and directly loads a cloobster location.
    * @param {EatSense.model.Business} business (optional)
    */
-   checkForToVisitAction: function(qrCode, business) {
+   checkForToVisitAction: function(qrCode, business, callback) {
       var me = this;
       
       Ext.Viewport.fireEvent('accountrequired', loginCallback);
@@ -300,7 +313,8 @@ Ext.define('EatSense.controller.History', {
          if(success) {
             me.showToVisitNewView({
                'qrCode' : qrCode,
-               'business' : business
+               'business' : business,
+               'callback' : callback
             });
          }
       }    
@@ -573,18 +587,21 @@ Ext.define('EatSense.controller.History', {
          if(success) {
             business = record;
             //scanned cloobster location, prefill fields
-            toVisit = Ext.create('EatSense.model.Visit');
-            toVisit.set('locationName', business.name);
-            if(business.images && business.images.logo) {
-               toVisit.set('imageUrl', business.images.logo);
-            }
-            toVisit.set('locationId', business.id);
+            toVisit = Ext.create('EatSense.model.Visit'); 
+            toVisit.fillByLocation(business);
 
-            formattedAddress = appHelper.formatBusinessAddress(business);
+            //deprecated, now handled by ToVisit class.
+            // toVisit.set('locationName', business.name);
+            // if(business.images && business.images.logo) {
+            //    toVisit.set('imageUrl', business.images.logo);
+            // }
+            // toVisit.set('locationId', business.id);
 
-            toVisit.set('locationCity', formattedAddress);
-            toVisit.set('geoLat', business.geoLat);
-            toVisit.set('geoLong', business.geoLong);
+            // formattedAddress = appHelper.formatBusinessAddress(business);
+
+            // toVisit.set('locationCity', formattedAddress);
+            // toVisit.set('geoLat', business.geoLat);
+            // toVisit.set('geoLong', business.geoLong);
 
             setFormFields(toVisit);            
          } else {

@@ -84,6 +84,30 @@ Ext.define('EatSense.model.Visit', {
             	syncRemovedRecords: false
         	}
 	    }]
+	},
+	
+	/**
+	* Fill data from location.
+	* @param {EatSense.model.Business} location
+	*	Location to use data from
+	*/
+	fillByLocation: function(location) {
+		var toVisit = this;
+
+		if(!location) {
+			console.error('EatSense.model.Visit: no location given');
+			return;
+		}
+
+        toVisit.set('locationName', location.name);
+        if(location.images && location.images.logo) {
+           toVisit.set('imageUrl', location.images.logo);
+        }
+        toVisit.set('locationId', location.id);
+        formattedAddress = appHelper.formatBusinessAddress(location);
+        toVisit.set('locationCity', formattedAddress);
+        toVisit.set('geoLat', location.geoLat);
+        toVisit.set('geoLong', location.geoLong);  
 	}
 
 

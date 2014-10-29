@@ -34,11 +34,14 @@ Ext.define('EatSense.controller.GeoSearch', {
 		*/
 		selectedDistance: null
 	},
-
+	
+	/**
+	* Dashboard button tap handler. Shows location search.
+	*/
 	dashboardGeoSearchBtTapHandler: function(button) {
 		var main = this.getMain();
 
-		main.selectByAction('show-geosearch');
+		main.selectByAction('show-locationsearch');
 	},
 
 	showGeosearch: function(container) {
@@ -156,7 +159,9 @@ Ext.define('EatSense.controller.GeoSearch', {
        });
 
         function doLoadLocations() {
-        	///c/businesses?geolat=49.877823&geolong=8.654780&distance=50000
+        	//empty store before reloading
+        	appHelper.clearStore('locationSearchStore', true);
+        	///c/businesses?geolat=49.877823&geolong=8.654780&distance=50000        
 			locationsStore.load({
 				params: {
 					'distance': distance,
@@ -254,7 +259,14 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 
 		function favoritBtHandler() {
-			Ext.Viewport.fireEvent('addlocationastovisit', record);
+			Ext.Viewport.fireEvent('addlocationastovisit', record, function(success) {
+				if(success) {
+					backBtHandler();
+					appHelper.showNotificationBox(i10n.translate('geosearch.tovisit.saved'), 2000);
+				}
+			});
+
+			//TODO on success return to list and display a notification
 		}
 
 		function backBtHandler() {

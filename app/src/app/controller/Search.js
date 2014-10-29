@@ -1,3 +1,4 @@
+//DEPRECATED
 Ext.define('EatSense.controller.Search', {
 	extend: 'Ext.app.Controller',
 	requires: ['EatSense.view.locationsearch.Search'],

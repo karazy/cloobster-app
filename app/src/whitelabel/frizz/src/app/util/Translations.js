@@ -2103,6 +2103,19 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Ungültige Zeichen. Bitte Eingabe prüfen.",
 			"EN" : "Invalid symbols. Please validate number."
 		},
+		//geosearch
+		"geosearch.title" : {
+			"DE" :  "Suche",
+			"EN" : "Search"
+		},
+		"geosearch.list.nolocations" : {
+			"DE" :  "Keine Locations in der Nähe gefunden.",
+			"EN" : "No locations near you found."
+		},
+		"dashboard.button.geosearch" : {
+			"DE" :  "Suche",
+			"EN" : "Search"
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",

@@ -56,7 +56,7 @@ Ext.define('EatSense.view.Dashboard', {
 				{
 					xtype : 'fixedbutton',
 					action: 'show-locationsearch',
-					html: i10n.translate('dashboard.button.searchlocations'),
+					html: i10n.translate('dashboard.button.geosearch'),
 					baseCls: 'dashboard-button',
 					cls: ['dashboard-button-checkin', 'right'],
 					// iconCls: 'dashboard-button-icon',			
