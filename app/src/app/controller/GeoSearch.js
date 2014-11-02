@@ -47,7 +47,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 	showGeosearch: function(container) {
 		var me = this,
 			geoSearchList,
-			backButton,
+			homeButton,
 			distanceSelect;
 
 		geoSearchList = Ext.create('EatSense.view.geosearch.List');
@@ -55,7 +55,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		container.add(geoSearchList);
 		geoSearchList.show();
 
-		backButton = geoSearchList.down('homebutton');
+		homeButton = geoSearchList.down('homebutton');
 		distanceSelect = geoSearchList.down('selectfield');
 
 		if(this.getSelectedDistance()) {
@@ -79,8 +79,8 @@ Ext.define('EatSense.controller.GeoSearch', {
 			scope: this
 		});
 
-		if(backButton) {
-			backButton.on({
+		if(homeButton) {
+			homeButton.on({
 				tap: cleanup,
 				scope: this
 			});
@@ -114,8 +114,8 @@ Ext.define('EatSense.controller.GeoSearch', {
 				scope: this
 			});
 
-			if(backButton) {
-				backButton.un({
+			if(homeButton) {
+				homeButton.un({
 					tap: cleanup,
 					scope: this
 				});
@@ -193,15 +193,16 @@ Ext.define('EatSense.controller.GeoSearch', {
 	showLocationDetail: function(container, record) {
 		var me = this,
 			detailView,
+			showMapsBt,
 			backBt,
 			checkInBt,
 			content;
 
 		// detailView = Ext.create('EatSense.view.geosearch.LocationDetail');
-		detailView = Ext.create('EatSense.view.contactinfo.Info', {
+		detailView = Ext.create('EatSense.view.geosearch.LocationDetail', {
 			location: record,
 			backButton: true
-		});
+		});		
 
 		//add backbutton and logic 
 		//add checkin and favorit buttons
@@ -210,9 +211,9 @@ Ext.define('EatSense.controller.GeoSearch', {
 		container.setActiveItem(1);
 		detailView.show();
 		
-
+		showMapsBt = detailView.down('button[action=show-maps]');
 		backBt = detailView.down('backbutton');
-		detailView.down('#actions').setHidden(false);
+		// detailView.down('#actions').setHidden(false);
 		checkInBt = detailView.down('button[action=checkin]');
 		favoritBt = detailView.down('button[action=save-favorit]');
 		// content = detailView.down('#content');
@@ -232,7 +233,14 @@ Ext.define('EatSense.controller.GeoSearch', {
 
 		if(favoritBt) {
 			favoritBt.on({
-				tap: favoritBtHandler,
+				tap: favoriteBtHandler,
+				scope: this
+			});
+		}
+
+		if(showMapsBt) {
+			showMapsBt.on({
+				tap: showMapsBtHandler,
 				scope: this
 			});
 		}
@@ -258,7 +266,7 @@ Ext.define('EatSense.controller.GeoSearch', {
              });
 		}
 
-		function favoritBtHandler() {
+		function favoriteBtHandler() {
 			Ext.Viewport.fireEvent('addlocationastovisit', record, function(success) {
 				if(success) {
 					backBtHandler();
@@ -267,6 +275,10 @@ Ext.define('EatSense.controller.GeoSearch', {
 			});
 
 			//TODO on success return to list and display a notification
+		}
+
+		function showMapsBtHandler() {
+			Ext.Viewport.fireEvent('showmapforlocation', container, 2, record);
 		}
 
 		function backBtHandler() {
@@ -290,7 +302,14 @@ Ext.define('EatSense.controller.GeoSearch', {
 
 			if(favoritBt) {
 				favoritBt.un({
-					tap: favoritBtHandler,
+					tap: favoriteBtHandler,
+					scope: this
+				});
+			}
+
+			if(showMapsBt) {
+				showMapsBt.un({
+					tap: showMapsBtHandler,
 					scope: this
 				});
 			}

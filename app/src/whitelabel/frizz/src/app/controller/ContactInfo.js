@@ -4,7 +4,7 @@
 */
 Ext.define('EatSense.controller.ContactInfo', {
 	extend: 'Ext.app.Controller',
-	requires: [],
+	requires: ['EatSense.view.contactinfo.Map'],
 	config: {
 			refs: {
 			contactInfoView : 'contactinfo',
@@ -15,9 +15,9 @@ Ext.define('EatSense.controller.ContactInfo', {
 			contactInfoView: {
 				show: 'showContactInfo',
 				hide: 'hideContactInfo'
-			},
+			}, 
 			contactInfoShowMapsBt: {
-				tap: 'showMaps'
+				tap: 'showMapsBtTapHandler'
 			},
 			contactInfoMapsBackBt: {
 				tap: 'backToContactInfo'
@@ -28,6 +28,13 @@ Ext.define('EatSense.controller.ContactInfo', {
 		mapCreated: false,
 		mapMarker: null,
 		coords: null
+	},
+
+	launch: function() {
+		Ext.Viewport.on({
+			'showmapforlocation' : this.showMaps,
+			scope: this
+		});
 	},
 	
 	/**
@@ -62,7 +69,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 
 		if(mapPanel) {
 			panel.remove(mapPanel, true);	
-		}		
+		}
 	},
 	/**
 	* Back button tap event. Return to contact view from map view.
@@ -75,36 +82,67 @@ Ext.define('EatSense.controller.ContactInfo', {
 			contactInfoView.setActiveItem(0);
 		}
 	},
+
+	/**
+	* Tap event handler for contactInfoShowMapsBt.
+	*/
+	showMapsBtTapHandler: function(button) {
+		var contactInfoView = this.getContactInfoView(),
+			location = this.getApplication().getController('CheckIn').getActiveBusiness();
+
+		this.showMaps(contactInfoView, 1, location);
+	},
 	/**
 	* Display the map based on the address of current location.
 	*/
-	showMaps: function() {
+	showMaps: function(container, indexToAdd, location) {
 		var me = this,
-			contactInfoView = this.getContactInfoView(),
-			location = this.getApplication().getController('CheckIn').getActiveBusiness(),
+			// contactInfoView = this.getContactInfoView(),
+			// location = this.getApplication().getController('CheckIn').getActiveBusiness(),
+			coords,
 			openMapsBt,
 			gmap,
 			mapsAddress;
 
-		if(contactInfoView) {
-			if(!contactInfoView.down('#mapsPanel')) {
-				contactInfoView.add(contactInfoView.getMapsViewTemplate());					
-			}
+		if(!container) {
+			console.error('ContactInfo.showMaps: no container');
+			return;
+		}
+
+		if(!indexToAdd) {
+			console.error('ContactInfo.showMaps: no indexToAdd');
+			return;
+		}
+
+		if(!location) {
+			console.error('ContactInfo.showMaps: no location');
+			return;
+		}
+
+		if(location.get('geoLat') && location.get('geoLong')) {
+			coords = new google.maps.LatLng(location.get('geoLat'), location.get('geoLong'));
+		}
+
+			// if(!container.down('#mapsPanel')) {
+			// 	container.add(container.getMapsViewTemplate());					
+			// }
+			container.add(Ext.create('EatSense.view.contactinfo.Map', {
+				backButton: true
+			}));
 			
-			contactInfoView.setActiveItem(1);			
+			container.setActiveItem(indexToAdd);			
 			
-			
+			//container, index, location, coords
 
 			console.log('ContactInfo.showMaps: create map');
 
 
 			//only proceed if google maps is included
 			if(google && google.maps) {
+				openMapsBt = container.down('button[action=open-maps]');
+				gmap = container.down('map');
 				
-				openMapsBt = contactInfoView.down('button[action=open-maps]');
-				gmap = contactInfoView.down('map');
-				
-				contactInfoView.getAt(1).on({
+				container.getAt(indexToAdd).on({
 					hide: cleanup,
 					scope: this
 				});				
@@ -117,7 +155,8 @@ Ext.define('EatSense.controller.ContactInfo', {
 							disableDefaultUI: true
 						}
 					});
-					contactInfoView.getActiveItem().add(gmap);
+
+					container.getActiveItem().add(gmap);
 
 					gmap.on({
 						'painted': function(panel) {
@@ -131,7 +170,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 				}
 
 				//currently not working on ios
-				if(!Ext.os.is.iOS) {
+				if(!Ext.os.is.iOS) {					
 					openMapsBt.setHidden(false);
 					openMapsBt.on({
 						tap: openNativeMaps,
@@ -140,12 +179,12 @@ Ext.define('EatSense.controller.ContactInfo', {
 				}
 
 				//map already rendered, reset center and return
-				if(this.getCoords()) {
+				if(coords) {
 					Ext.create('Ext.util.DelayedTask', function () {
 						var marker = 
 						appHelper.setMapMarker({
-		                	latitude : this.getCoords().lat(),
-		                	longitude : this.getCoords().lng()
+		                	latitude : coords.lat(),
+		                	longitude : coords.lng()
 		            	}, gmap, this.getMapMarker());
 
 		            	this.setMapMarker(marker);  	
@@ -170,7 +209,8 @@ Ext.define('EatSense.controller.ContactInfo', {
 			    if (status == google.maps.GeocoderStatus.OK) {
 			    	// myLatlng = results[0].geometry.location;
 			    	// myLatlng = new google.maps.LatLng(50.935420, 6.965394);
-			    	me.setCoords(results[0].geometry.location);
+			    	coords = results[0].geometry.location;
+			    	// me.setCoords(results[0].geometry.location);
 
 			    	gmap.setHidden(false);
 			    	// gmap.getMap().setZoom(16);
@@ -225,8 +265,6 @@ Ext.define('EatSense.controller.ContactInfo', {
 					});
 				}
 			}
-
-		}
 	},
 	/**
 	* Show location profile pictures in contact details.

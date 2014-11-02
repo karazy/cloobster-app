@@ -1,6 +1,6 @@
 Ext.define('EatSense.view.contactinfo.Map', {
 	extend: 'EatSense.view.components.BackButtonPanel',
-	xtype: 'contactinfomap',
+	xtype: 'locationmap',
 	requires: [],
 	config: {
 		itemId: 'mapsPanel',
