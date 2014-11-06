@@ -10,6 +10,7 @@ Ext.define('EatSense.view.geosearch.List', {
 		store: 'locationSearchStore',
 		variableHeights: false,
 		itemHeight: 75,
+		scollToTopOnRefresh: true,
 		emptyText: i10n.translate('geosearch.list.nolocations'),
 		itemTpl: new Ext.XTemplate(
 		'<tpl if="imageUrl">',

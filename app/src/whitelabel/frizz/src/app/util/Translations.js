@@ -2109,8 +2109,8 @@ Ext.define('EatSense.util.Translations',{
 			"EN" : "Search"
 		},
 		"geosearch.list.nolocations" : {
-			"DE" :  "Keine Locations in der Nähe gefunden.",
-			"EN" : "No locations near you found."
+			"DE" : "<div class='empty-image'></div><div>Keine Locations in der Nähe gefunden.</div>",
+			"EN" : "<div class='empty-image'></div><div>No locations near you found.</div>"
 		},
 		"dashboard.button.geosearch" : {
 			"DE" :  "Suche",
