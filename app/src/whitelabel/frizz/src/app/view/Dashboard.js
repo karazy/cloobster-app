@@ -29,18 +29,18 @@ Ext.define('EatSense.view.Dashboard', {
 			// padding: 10,
 			margin: '0 0 8 0',
 			items: [
-				{
-					xtype : 'fixedbutton',
-					action: 'tovisit',
-					text: i10n.translate('dashboard.button.tovisit'),
-					baseCls: 'dashboard-button',
-					cls: 'dashboard-button-history',
-					// iconCls: 'dashboard-button-icon',
-					pressedCls: 'dashboard-button-pressed',
-					labelCls: 'dashboard-button-label',
-					flex: 2,
-					margin: '7 7 0 30'
-				},
+				// {
+				// 	xtype : 'fixedbutton',
+				// 	action: 'tovisit',
+				// 	text: i10n.translate('dashboard.button.tovisit'),
+				// 	baseCls: 'dashboard-button',
+				// 	cls: 'dashboard-button-history',
+				// 	// iconCls: 'dashboard-button-icon',
+				// 	pressedCls: 'dashboard-button-pressed',
+				// 	labelCls: 'dashboard-button-label',
+				// 	flex: 1,
+				// 	margin: '7 7 0 30'
+				// },
 				{
 					xtype : 'fixedbutton',
 					action: 'checkin',
@@ -50,8 +50,9 @@ Ext.define('EatSense.view.Dashboard', {
 					// iconCls: 'dashboard-button-icon',			
 					pressedCls: 'dashboard-button-pressed',
 					labelCls: 'dashboard-button-label',
-					flex: 2,
-					margin: '7 7 0 7'
+					flex: 1,
+					margin: '7 7 0 30'
+					// margin: '7 7 0 7'
 				},
 				{
 					xtype : 'fixedbutton',
