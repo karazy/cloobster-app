@@ -56,6 +56,9 @@ Ext.define('EatSense.model.Business', {
 			},
 			{
 				name: 'geoLong'
+			},
+			{
+				name: 'distance'
 			}
 			//contains raw.features which list all avail features for this business		
 		],

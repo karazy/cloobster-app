@@ -13,7 +13,8 @@ module.exports = function(grunt) {
 				serviceUrl: 'http://localhost:8888'
 			},
 			prod: {
-				serviceUrl: 'https://karazy-cloobster.appspot.com'
+				serviceUrl: 'https://nemo-next-dot-karazy-cloobster.appspot.com'				
+				// serviceUrl: 'https://karazy-cloobster.appspot.com'
 			},
 			directory: {
 				src: 'src/',
@@ -181,7 +182,7 @@ module.exports = function(grunt) {
 		        }
 		      },
 		    compass: {
-		        files: ['<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/*.{scss,sass}'],
+		        files: ['<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/**/*.{scss,sass}'],
 		        tasks: ['compass:compile', 'copy:resources']
 		    },
 		    gruntfile: {

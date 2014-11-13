@@ -6,8 +6,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 	extend: 'Ext.app.Controller',
 	requires: [
 		'EatSense.view.geosearch.List',
-		'EatSense.view.geosearch.LocationDetail', 
-		'EatSense.view.ContactInfo'],
+		'EatSense.view.geosearch.LocationDetail'],
 	config: {
 		refs: {
 			main: 'lounge',
@@ -215,7 +214,8 @@ Ext.define('EatSense.controller.GeoSearch', {
 		backBt = detailView.down('backbutton');
 		// detailView.down('#actions').setHidden(false);
 		checkInBt = detailView.down('button[action=checkin]');
-		favoritBt = detailView.down('button[action=save-favorit]');
+		favoritBt = detailView.down('button[action=save-favorit]');	
+		this.showLocationProfilePictures(record, detailView);	
 		// content = detailView.down('#content');
       	// imageLabel = detailView.down('#image');
 
@@ -371,5 +371,61 @@ Ext.define('EatSense.controller.GeoSearch', {
         },
         scope: me
       });
-  }
+  },
+
+  	/**
+	* Show location profile pictures in location details.
+	* @param {EatSense.model.Business} business
+	*	Contains the profile information.
+	*/
+	showLocationProfilePictures: function(business, panel) {
+		var infoHeader,
+			tpl,
+			html='<div></div>',
+			imagePanel,
+			scaleFactor = '=s720',
+			profilePicturesExist;	
+
+			if(!business) {
+				console.error('GeoSearch.showLocationProfilePictures: no business given');
+				return;	
+			}			
+
+			renderProfilePics(panel);
+		
+
+			function renderProfilePics(panel) {
+				console.log('InfoPage.showLocationProfilePictures: renderProfilePics');
+
+				profilePictures = panel.down('#profilePictures');
+
+				//show profile pictures in infopageoverview
+				if(business && business.raw && business.raw.images) {
+					//check for pictures
+					profilePicturesExist = business.raw.images.picture1 || business.raw.images.picture2 || business.raw.images.picture3;
+				}
+
+				if(profilePicturesExist) {
+					profilePictures.setHidden(false);									
+
+					if(business.raw.images.picture3) {
+						html += '<img src="' + business.raw.images.picture3.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
+					}
+
+					if(business.raw.images.picture2) {
+						html += '<img src="' + business.raw.images.picture2.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
+					}
+
+					if(business.raw.images.picture1) {				
+						html += '<img src="' + business.raw.images.picture1.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
+					}
+					if(html) {
+						profilePictures.setHtml(html);	
+					}
+				} else {
+					profilePictures.setHtml('');
+					profilePictures.setHidden(true);
+				}
+			}
+	}
 });

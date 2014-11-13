@@ -1610,7 +1610,7 @@ h9 {
   }
 }
 
-.tovisit-item, .event-item {
+.tovisit-item, .event-item, .default-list-item {
 
   .x-list-item-body {
     height: $general-list-item-height;
@@ -1632,7 +1632,7 @@ h9 {
   } 
 
   
-  .location {
+  .location, .item-title {
     font-size: 16px;
     vertical-align: top;
     /*line-height: 1.2em;*/
@@ -1644,7 +1644,7 @@ h9 {
     padding-right: 5px;    
   }
 
-  .location-city {
+  .location-city, .item-sub-title {
     font-size: 14px;
     /*line-height: 1.2em;*/
     font-style: italic;
@@ -1668,6 +1668,14 @@ h9 {
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     -webkit-mask-image: inline-image('../images/locate.png');
+  }
+
+  .distance {
+    padding: 10px 0;
+    max-width: 75px;
+    float: right;
+    text-align: right;
+    overflow: hidden;
   }
 
   .x-list-emptytext {
@@ -1817,7 +1825,14 @@ h9 {
 
 .geosearch-list-item {
 
-  table {
+  .x-list-item-body {
+    height: $general-list-item-height;
+    padding: 0;    
+  }
+
+  @include thumbnail;
+
+/*  table {
     table-layout: fixed;
   }
 
@@ -1839,7 +1854,7 @@ h9 {
   div.thumbnail + * {
     margin-left: 55px;
   }
-
+*/
   .location {
     font-size: 16px;
     white-space: nowrap;
@@ -1852,6 +1867,12 @@ h9 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .distance {
+    float: right;
+    max-width: 100px;
+    overflow: hidden;
   }
 }
 

@@ -32,7 +32,6 @@ Ext.define('EatSense.view.Lounge', {
 		'EatSense.view.FeedbackContainer',
 		'EatSense.view.ContactInfo',
 		'EatSense.view.storecard.StoreCard',
-		'EatSense.view.locationsearch.Search',
 		'EatSense.view.components.MenuContainer'
 	],
 	xtype : 'lounge',
@@ -96,14 +95,6 @@ Ext.define('EatSense.view.Lounge', {
 			// 	iconCls: 'time-icon',
 			// 	viewState: 'cloobster',
 			// 	accountRequired: true
-			// },
-			// {
-			// 	xtype: 'locationsearch',
-			// 	title: i10n.translate('locationsearch.slidenav.button'),
-			// 	leaf: true,
-			// 	action: 'show-locationsearch',
-			// 	iconCls: 'places-icon',
-			// 	viewState: 'cloobster'
 			// },
 			{
                 xtype: 'menucontainer',

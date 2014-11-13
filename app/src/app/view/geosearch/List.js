@@ -8,24 +8,22 @@ Ext.define('EatSense.view.geosearch.List', {
 	requires: ['Ext.field.Select'],
 	config: {
 		store: 'locationSearchStore',
-		variableHeights: false,
-		itemHeight: 75,
+		// variableHeights: false,
 		scollToTopOnRefresh: true,
 		emptyText: i10n.translate('geosearch.list.nolocations'),
+		itemCls: 'default-list-item',
 		itemTpl: new Ext.XTemplate(
-		'<tpl if="imageUrl">',
-			'<div class="thumbnail" style="background-image: url(\'{[values.imageUrl]}=s256\')"></div>',
-		'<tpl elseif="values.image && values.image.url">',
-			'<div class="thumbnail" style="background-image: url(\'{[values.image.url]}=s256\')"></div>',
-		'</tpl>',				
+		// '<tpl if="values.raw.images && values.raw.images.logo && values.raw.images.logo.url">',
+			'<div class="thumbnail" style="background-image: url(\'{[this.getLogoUrl(values)]}=s256\')"></div>',
+		// '</tpl>',
 		'<div class="content">',
 			'<div class="distance">',
 				'{distance}m',
 			'</div>',
-			'<div class="location">',
+			'<div class="item-title">',
 				'{name}',
 			'</div>',			
-			'<div class="address">',
+			'<div class="item-sub-title">',
 				'<tpl if="city">',				
 					'{postcode} {city} ',
 				'</tpl>',
@@ -33,11 +31,25 @@ Ext.define('EatSense.view.geosearch.List', {
 					' {address}',				
 				'</tpl>',
 			'</div>',
-		'</div>'	
+		'</div>',
+		{
+			getLogoUrl: function(location) {
+				//TODO kinda ugly to query the store here
+				var store = Ext.StoreManager.lookup('locationSearchStore'),
+					complete;
+				if(store) {
+					complete = store.getById(location.id);
+				}
 
-		),
-		itemCls: 'geosearch-list-item',
-		cls: 'geosearch-list',
+				if(complete.raw.images && complete.raw.images.logo && complete.raw.images.logo.url) {
+					return complete.raw.images.logo.url;
+				}
+				
+				return "";
+			}
+		}
+
+		),		
 		items: [
 			{
 				xtype: 'titlebar',
