@@ -1889,8 +1889,8 @@ Ext.define('EatSense.util.Translations',{
 		//tovisit
 		"tovisit.list.emptytext" : {
 			// "DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
-			"DE" : "<div><h1>FAVORITEN</h1><p>Hinzufügen <br/>und merken!</p></div><div><h1>FRIZZ+ CODE</h1><p>Scannen<br/>und informieren!</p></div>",
-			"EN" : "<div><h1>FAVORITES</h1><p>Add<br/>and remember!</p></div><div><h1>FRIZZ+ CODE</h1><p>Scan<br/> and inform!</p></div>",// <div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
+			"DE" : "<div><h1>FRIZZ+ CODE</h1><p>Scannen<br/>und informieren!</p></div><div><h1>SUCHE</h1><p>FRIZZ Locations<br/>in deiner Nähe!</p></div>",
+			"EN" : "<div><h1>FRIZZ+ CODE</h1><p>Scan<br/> and inform!</p></div><div><h1>SEARCH</h1><p>FRIZZ+ locations<br/>near you!</p></div>",// <div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

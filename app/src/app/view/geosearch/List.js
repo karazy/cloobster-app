@@ -8,9 +8,10 @@ Ext.define('EatSense.view.geosearch.List', {
 	requires: ['Ext.field.Select'],
 	config: {
 		store: 'locationSearchStore',
-		// variableHeights: false,
+		cls: 'geosearch-list',
 		scollToTopOnRefresh: true,
 		emptyText: i10n.translate('geosearch.list.nolocations'),
+		loadingText: i10n.translate('loadingMsg'),
 		itemCls: 'default-list-item',
 		itemTpl: new Ext.XTemplate(
 		// '<tpl if="values.raw.images && values.raw.images.logo && values.raw.images.logo.url">',
@@ -66,8 +67,8 @@ Ext.define('EatSense.view.geosearch.List', {
 				        options: [
 				            {text: '5km', value: '5000'},
 				            {text: '10km',  value: '10000'},
-				            {text: '20km',  value: '20000'},
-				            {text: '100km',  value: '1000000'},
+				            {text: '20km',  value: '20000'}
+				            // {text: '100km',  value: '1000000'},
 				        ]
 				    }
 				]				

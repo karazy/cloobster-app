@@ -362,37 +362,8 @@ module.exports = function(grunt) {
 			grunt.option('skipCopy', true);
 		}
 
-		// switch(server) {
-		// 	case 'localhost':
-		// 		_server = 'localhost';
-		// 		break;
-		// 	case 'production':
-		// 		_server = 'production';
-		// 	break;
-		// 	default:
-		// 		_server = 'localhost';			
-		// }
-
 		_server = checkEnvironments(server);
 		grunt.option('server', grunt.config(['settings', _server, 'serviceUrl']));
-		// grunt.option('server', '<%= settings.'+_server+'.serviceUrl %>');
-		// if(_server == 'localhost') {
-		// 	grunt.option('server', '<%= settings.dev.serviceUrl %>');	
-		// } else if(server == 'production') {
-		// 	grunt.option('server', '<%= settings.prod.serviceUrl %>');
-		// } 
-		
-
-		// switch(whitelabel) {
-		// 	case 'cloobster':
-		// 		_whitelabel = 'cloobster';
-		// 		break;
-		// 	case 'frizz':
-		// 		_whitelabel = 'frizz';
-		// 	break;
-		// 	default:
-		// 		_whitelabel = 'cloobster';			
-		// }
 
 		_whitelabel = checkWhitelabel(whitelabel); 
 		grunt.option('whitelabel', _whitelabel);

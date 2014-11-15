@@ -142,7 +142,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		if(!locationsStore) {
 			console.error('GeoSearch.loadLocationsByDistance: no store found');
 			return;
-		}
+		}		
 
 		//dont use a mask, otherwise rendering errors can occur
         appHelper.getCurrentPosition(function(success, position) {
