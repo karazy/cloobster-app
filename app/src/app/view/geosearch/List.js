@@ -18,9 +18,11 @@ Ext.define('EatSense.view.geosearch.List', {
 			'<div class="thumbnail" style="background-image: url(\'{[this.getLogoUrl(values)]}=s256\')"></div>',
 		// '</tpl>',
 		'<div class="content">',
-			'<div class="distance">',
-				'{distance}m',
-			'</div>',
+			'<tpl if="distance">',
+				'<div class="distance">',
+					'{[this.convertMeterToKM(values.distance)]}',
+				'</div>',
+			'</tpl>',
 			'<div class="item-title">',
 				'{name}',
 			'</div>',			
@@ -47,6 +49,17 @@ Ext.define('EatSense.view.geosearch.List', {
 				}
 				
 				return "";
+			},
+			convertMeterToKM: function(distance) {
+				var formatted;
+
+				if(!distance || (typeof distance).toLowerCase() != 'number' || distance <= 0) {
+					return '';
+				}
+
+				//get km
+				formatted = (distance/1000).toPrecision(2) + 'km';
+				return formatted;
 			}
 		}
 
@@ -67,8 +80,8 @@ Ext.define('EatSense.view.geosearch.List', {
 				        options: [
 				            {text: '5km', value: '5000'},
 				            {text: '10km',  value: '10000'},
-				            {text: '20km',  value: '20000'}
-				            // {text: '100km',  value: '1000000'},
+				            {text: '20km',  value: '20000'},
+				            {text: '10km',  value: '100000'}
 				        ]
 				    }
 				]				

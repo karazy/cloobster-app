@@ -246,17 +246,18 @@ Ext.define('EatSense.util.DashboardItemTemplates', {
 				}
 				return tpl;
 			},
-			deztixcoupons: function() {
-				var tpl = {
-					xtype : 'tilebutton',
-					action: 'show-ztix-coupons',
-					type: 'deztixcoupons',
-					text: i10n.translate('de.ztix.coupons.title.subtitle'),
-					title: i10n.translate('de.ztix.coupons.title'),
-					iconCls: 'gift'
-				}
-				return tpl;
-			},
+			//2014-11-15 deactivated due to lack of intereset from ztix
+			// deztixcoupons: function() {
+			// 	var tpl = {
+			// 		xtype : 'tilebutton',
+			// 		action: 'show-ztix-coupons',
+			// 		type: 'deztixcoupons',
+			// 		text: i10n.translate('de.ztix.coupons.title.subtitle'),
+			// 		title: i10n.translate('de.ztix.coupons.title'),
+			// 		iconCls: 'gift'
+			// 	}
+			// 	return tpl;
+			// },
 			storecard: function() {
 				var tpl = {
 					xtype : 'tilebutton',

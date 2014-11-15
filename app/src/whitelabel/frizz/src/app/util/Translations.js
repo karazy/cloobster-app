@@ -1890,7 +1890,7 @@ Ext.define('EatSense.util.Translations',{
 		"tovisit.list.emptytext" : {
 			// "DE" : "<div><h1>ToVisit Liste</h1><p>nie wieder einen<br/> spannenden Ort<br/> vergessen</p></div><div><h1>In meiner Hand</h1><p>cloobster QR Code<br/>scannen, eintreten<br/>und entdecken</p></div><div class='menu-help'>Tippen oder <br/>von links Wischen</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
 			"DE" : "<div><h1>FRIZZ+ CODE</h1><p>Scannen<br/>und informieren!</p></div><div><h1>SUCHE</h1><p>FRIZZ Locations<br/>in deiner Nähe!</p></div>",
-			"EN" : "<div><h1>FRIZZ+ CODE</h1><p>Scan<br/> and inform!</p></div><div><h1>SEARCH</h1><p>FRIZZ+ locations<br/>near you!</p></div>",// <div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
+			"EN" : "<div><h1>FRIZZ+ CODE</h1><p>Scan<br/> and inform!</p></div><div><h1>SEARCH</h1><p>FRIZZ+ locations<br/>near!</p></div>",// <div class='menu-help'>Tap or <br/> swipe from left</div><canvas id='skylinecanvas' style='position: absolute; bottom: 0; left:0; right:0;'></canvas>",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""
@@ -2021,6 +2021,10 @@ Ext.define('EatSense.util.Translations',{
 			"IT" : "",
 			"FR" : ""
 		},
+		"tovisit.saved.success" : {
+			"DE" :  "Favorit gespeichert.",
+			"EN" : "Favorit saved."
+		},
 		//ztix events
 		"de.ztix.events.title" : {
 			"DE" :  "Veranstaltungen",
@@ -2115,6 +2119,11 @@ Ext.define('EatSense.util.Translations',{
 		"dashboard.button.geosearch" : {
 			"DE" :  "Suche",
 			"EN" : "Search"
+		},
+		//gps
+		"gps.locate" : {
+			"DE" :  "lokalisiere...",
+			"EN" : "locating..."
 		},
 		//errors
 		"error" : {
@@ -2262,8 +2271,8 @@ Ext.define('EatSense.util.Translations',{
 			"FR" : "Il s’agit d’une erreur de serveur. Nous cherchons une solution."
 		},
 		"error.gps.position" : {
-			"DE" :  "Position kann nicht bestimmt werden.",
-			"EN" : "Can't locate your position.",
+			"DE" :  "Position kann nicht bestimmt werden. Bitte Einstellungen prüfen.",
+			"EN" : "Can't locate your position. Please check your settings.",
 			"ES" : "",
 			"IT" : "",
 			"FR" : ""

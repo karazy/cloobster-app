@@ -137,14 +137,15 @@ Ext.define('EatSense.view.Lounge', {
 				iconCls: 'calendar-icon',
 				viewState: 'club'
 			},
-			{
-				xtype: 'slidenavcontainer',
-				title: i10n.translate('de.ztix.coupons.title'),
-				leaf: true,
-				action: 'show-ztix-coupons',
-				iconCls: 'gift-icon',
-				viewState: 'club'
-			},
+			//2014-11-15 deactivated due to lack of intereset from ztix
+			// {
+			// 	xtype: 'slidenavcontainer',
+			// 	title: i10n.translate('de.ztix.coupons.title'),
+			// 	leaf: true,
+			// 	action: 'show-ztix-coupons',
+			// 	iconCls: 'gift-icon',
+			// 	viewState: 'club'
+			// },
 			{
 				xtype: 'feedbackcontainer',
 				iconCls: 'feedback-icon',
