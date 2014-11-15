@@ -80,8 +80,7 @@ Ext.define('EatSense.view.geosearch.List', {
 				        options: [
 				            {text: '5km', value: '5000'},
 				            {text: '10km',  value: '10000'},
-				            {text: '20km',  value: '20000'},
-				            {text: '10km',  value: '100000'}
+				            {text: '20km',  value: '20000'}
 				        ]
 				    }
 				]				
