@@ -13,8 +13,13 @@ module.exports = function(grunt) {
 				serviceUrl: 'http://localhost:8888'
 			},
 			prod: {
-				serviceUrl: 'https://nemo-next-dot-karazy-cloobster.appspot.com'				
-				// serviceUrl: 'https://karazy-cloobster.appspot.com'
+				serviceUrl: 'https://nemo-next-dot-karazy-cloobster.appspot.com'								
+			},
+			qa: {
+				serviceUrl: 'https://cloobster-quality.appspot.com'
+			},
+			test: {
+				serviceUrl: 'https://cloobster-test.appspot.com'
 			},
 			directory: {
 				src: 'src/',
@@ -357,41 +362,69 @@ module.exports = function(grunt) {
 			grunt.option('skipCopy', true);
 		}
 
-		switch(server) {
-			case 'localhost':
-				_server = 'localhost';
-				break;
-			case 'production':
-				_server = 'production';
-			break;
-			default:
-				_server = 'localhost';			
-		}
+		// switch(server) {
+		// 	case 'localhost':
+		// 		_server = 'localhost';
+		// 		break;
+		// 	case 'production':
+		// 		_server = 'production';
+		// 	break;
+		// 	default:
+		// 		_server = 'localhost';			
+		// }
 
-		if(_server == 'localhost') {
-			grunt.option('server', '<%= settings.dev.serviceUrl %>');	
-		} else if(server == 'production') {
-			grunt.option('server', '<%= settings.prod.serviceUrl %>');
-		} 
+		_server = checkEnvironments(server);
+		grunt.option('server', grunt.config(['settings', _server, 'serviceUrl']));
+		// grunt.option('server', '<%= settings.'+_server+'.serviceUrl %>');
+		// if(_server == 'localhost') {
+		// 	grunt.option('server', '<%= settings.dev.serviceUrl %>');	
+		// } else if(server == 'production') {
+		// 	grunt.option('server', '<%= settings.prod.serviceUrl %>');
+		// } 
 		
 
-		switch(whitelabel) {
-			case 'cloobster':
-				_whitelabel = 'cloobster';
-				break;
-			case 'frizz':
-				_whitelabel = 'frizz';
-			break;
-			default:
-				_whitelabel = 'cloobster';			
-		}
+		// switch(whitelabel) {
+		// 	case 'cloobster':
+		// 		_whitelabel = 'cloobster';
+		// 		break;
+		// 	case 'frizz':
+		// 		_whitelabel = 'frizz';
+		// 	break;
+		// 	default:
+		// 		_whitelabel = 'cloobster';			
+		// }
 
+		_whitelabel = checkWhitelabel(whitelabel); 
 		grunt.option('whitelabel', _whitelabel);
 
 
-		console.log('Using server ' + _server);
-		console.log('Using whitelabel ' + _whitelabel);
+		console.log('Using server ' + grunt.option('server'));
+		console.log('Using whitelabel ' + grunt.option('whitelabel'));
 		console.log('Build mode ' + grunt.option('buildMode'));
+	}
+
+	function checkEnvironments(env) {
+		var avail = ['prod', 'dev', 'qa', 'test'],
+			index = avail.indexOf(env);
+
+		if(index > -1) {
+			return avail[index];
+		}
+
+		return 'dev';
+	}
+
+	function checkWhitelabel(whitelabel) {
+		var wl = ['cloobster', 'frizz'],
+			index;
+
+		index = wl.indexOf(whitelabel);
+
+		if(index > -1) {
+			return wl[index];
+		}
+
+		return 'cloobster';
 	}
 }
 

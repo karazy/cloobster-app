@@ -386,6 +386,8 @@ Ext.define('EatSense.controller.GeoSearch', {
 			scaleFactor = '=s720',
 			profilePicturesExist;	
 
+			//TODO move Logic to Panel
+
 			if(!business) {
 				console.error('GeoSearch.showLocationProfilePictures: no business given');
 				return;	
