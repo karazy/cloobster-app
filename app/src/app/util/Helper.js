@@ -633,8 +633,9 @@ Ext.define('EatSense.util.Helper', {
       }
 
       // onError Callback receives a PositionError object
-      function onError(error) {     
-         callback(false, error);
+      function onError(error) { 
+      	console.error('EatSense.util.Helper.getCurrentPosition: ERROR CODE ' + error.code + ' MESSAGE ' + error.message);    
+        callback(false, error);
       }
 
       if(navigator && navigator.geolocation) {
