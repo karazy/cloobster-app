@@ -85,39 +85,13 @@ Ext.define('EatSense.view.Dashboard', {
 					'<div class="location">',
 						'{locationName}',
 					'</div>',
-					'<tpl if="visitDate">',
-						'{[this.formatDate(values.visitDate)]}',
-					'</tpl>',
 					'<tpl if="locationCity">',
 						'<div class="location-city">',
 							'{locationCity}',
 						'</div>',
 					'</tpl>',
-				'</div>'	
-				, {
-				formatDate: function(date) {
-					var format = appConstants.DateFormat[appConfig.language],
-						compareDate = new Date(),
-						staleDate,
-						shortYear,
-						html;
-
-					compareDate.setHours(0,0,0,0);
-					staleDate = (date < compareDate) ? ' stale' : '';
-					shortYear = date.getFullYear().toString().substring(2,4);
-
-					html =  '<div class="date' + staleDate +'">' +
-								'<div>'+
-									'<div class="day">' + date.getDate() + '</div>'+
-									'<div class="mmyy">' + 
-									appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
-									shortYear +
-									'</div>'+
-								'</div>'+
-							'</div>';
-					return html;
-				}
-			}),			
+				'</div>'
+				),			
 			listeners: {
 				select: function(dv, ix, item, e) {
 					Ext.defer((function() {

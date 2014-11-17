@@ -59,6 +59,9 @@ Ext.define('EatSense.util.Helper', {
             }); 
       } else if(os == 'phone' || os == 'tablet') {
       	console.log('appHelper.scanBarcode device');
+      	//Add and remove android back handler. Otherwise it gets executed when leaving 
+      	//the scan view.
+      	Ext.Viewport.fireEvent('addbackhandler', function() {});
           cordova.plugins.barcodeScanner.scan(function(result) {
             if(!result.cancelled) {
               barcode =  encodeURIComponent(Ext.String.trim(me.extractBarcode(result.text)));
@@ -204,6 +207,30 @@ Ext.define('EatSense.util.Helper', {
 
 		return (formattedPrice != "") ? formattedPrice : price;
 	},
+
+
+	// formatDate: function(date) {
+	// 	var format = appConstants.DateFormat[appConfig.language],
+	// 		compareDate = new Date(),
+	// 		staleDate,
+	// 		shortYear,
+	// 		html;
+
+	// 	compareDate.setHours(0,0,0,0);
+	// 	staleDate = (date < compareDate) ? ' stale' : '';
+	// 	shortYear = date.getFullYear().toString().substring(2,4);
+
+	// 	html =  '<div class="date' + staleDate +'">' +
+	// 				'<div>'+
+	// 					'<div class="day">' + date.getDate() + '</div>'+
+	// 					'<div class="mmyy">' + 
+	// 					appHelper.shorten(i10n.translate('month.' + date.getMonth()), 3) + ' ' + 
+	// 					shortYear +
+	// 					'</div>'+
+	// 				'</div>'+
+	// 			'</div>';
+	// 	return html;
+	// },
 
 	/**
 	* True to indicate that an alert message is active.

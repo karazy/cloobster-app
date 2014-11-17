@@ -3,7 +3,7 @@ Ext.define('EatSense.store.LocationSearch', {
 	requires: ['EatSense.model.Business'],
 	config: {
 		storeId: 'locationSearchStore',
-		model: 'EatSense.model.Business',
+		model: 'EatSense.model.Business'
 		// pageSize: 15,
 		// syncRemovedRecords: false
 	}
