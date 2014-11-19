@@ -1,5 +1,5 @@
 /**
-* Handles the geosearch for locations.
+* Controller for location search based on users coordinates.
 *
 */
 Ext.define('EatSense.controller.GeoSearch', {
@@ -33,7 +33,10 @@ Ext.define('EatSense.controller.GeoSearch', {
 		* Selected distance from user.
 		*/
 		selectedDistance: 5000,
-
+		/**
+		* @accessor
+		* Distances available for search.
+		*/
 		distanceOptions: [
             {text: '5 km', value: 5000},
             {text: '10 km', value: 10000},
@@ -62,11 +65,9 @@ Ext.define('EatSense.controller.GeoSearch', {
 		geoSearchList.show();
 
 		homeButton = geoSearchList.down('homebutton');
-		// distanceSelect = geoSearchList.down('selectfield');
 		distanceSelect = geoSearchList.down('button[action=select-radius]');
 
 		 if(this.getSelectedDistance()) {
-		// 	distanceSelect.setValue(this.getSelectedDistance());
 			this.setRadiusButtonText(distanceSelect, this.getSelectedDistance());
 		}
 
@@ -87,11 +88,6 @@ Ext.define('EatSense.controller.GeoSearch', {
 			scope: this
 		});
 
-		// distanceSelect.on({
-		// 	change: distanceSelectChangeHandler,
-		// 	scope: this
-		// });
-
 		distanceSelect.on({
 			tap: distanceSelectTapHandler,
 			scope: this
@@ -108,16 +104,17 @@ Ext.define('EatSense.controller.GeoSearch', {
 			this.showLocationDetail(container, record);
 		}
 		
-		function distanceSelectChangeHandler(select, newVal, oldVal) {
-			if(newVal != me.getSelectedDistance()) {
+		function changeRadius(newRadius) {
+			if(newRadius != me.getSelectedDistance()) {
 				appHelper.toggleMask('gps.locate', geoSearchList);
-				me.loadLocationsByDistance(newVal, function(success, records) {
+				me.loadLocationsByDistance(newRadius, function(success, records) {
 					appHelper.toggleMask(false, geoSearchList);
 				});	
-				me.setSelectedDistance(newVal);
+				me.setSelectedDistance(newRadius);
 			}
 		}
 
+		//Show a picker where user can select the radius
 		function distanceSelectTapHandler(button) {
 			var me = this,
 				slots, 
@@ -152,7 +149,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 	        function change(picker, value) {
 	        	me.setRadiusButtonText(button, value.radius);
 
-	        	distanceSelectChangeHandler(null, value.radius, null);
+	        	changeRadius(value.radius);
 
 	        	picker.hide();
 	        	picker.destroy();
@@ -170,11 +167,6 @@ Ext.define('EatSense.controller.GeoSearch', {
 				select: listSelectHandler,
 				scope: this
 			});
-
-			// distanceSelect.un({
-			// 	change: distanceSelectChangeHandler,
-			// 	scope: this
-			// });
 
 			distanceSelect.un({
 				tap: distanceSelectTapHandler,
@@ -284,12 +276,9 @@ Ext.define('EatSense.controller.GeoSearch', {
 		
 		showMapsBt = detailView.down('button[action=show-maps]');
 		backBt = detailView.down('backbutton');
-		// detailView.down('#actions').setHidden(false);
 		checkInBt = detailView.down('button[action=checkin]');
 		favoritBt = detailView.down('button[action=save-favorit]');	
-		this.showLocationProfilePictures(record, detailView);	
-		// content = detailView.down('#content');
-      	// imageLabel = detailView.down('#image');
+		// this.showLocationProfilePictures(record, detailView);	
 
 		container.on({
 			hide: cleanup,
@@ -345,8 +334,6 @@ Ext.define('EatSense.controller.GeoSearch', {
 					appHelper.showNotificationBox(i10n.translate('tovisit.saved.success'), 2000);
 				}
 			});
-
-			//TODO on success return to list and display a notification
 		}
 
 		function showMapsBtHandler() {
@@ -446,63 +433,9 @@ Ext.define('EatSense.controller.GeoSearch', {
   },
 
   	/**
-	* Show location profile pictures in location details.
-	* @param {EatSense.model.Business} business
-	*	Contains the profile information.
-	*/
-	showLocationProfilePictures: function(business, panel) {
-		var infoHeader,
-			tpl,
-			html='<div></div>',
-			imagePanel,
-			scaleFactor = '=s720',
-			profilePicturesExist;	
-
-			//TODO move Logic to Panel
-
-			if(!business) {
-				console.error('GeoSearch.showLocationProfilePictures: no business given');
-				return;	
-			}			
-
-			renderProfilePics(panel);
-		
-
-			function renderProfilePics(panel) {
-				console.log('InfoPage.showLocationProfilePictures: renderProfilePics');
-
-				profilePictures = panel.down('#profilePictures');
-
-				//show profile pictures in infopageoverview
-				if(business && business.raw && business.raw.images) {
-					//check for pictures
-					profilePicturesExist = business.raw.images.picture1 || business.raw.images.picture2 || business.raw.images.picture3;
-				}
-
-				if(profilePicturesExist) {
-					profilePictures.setHidden(false);									
-
-					if(business.raw.images.picture3) {
-						html += '<img src="' + business.raw.images.picture3.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
-					}
-
-					if(business.raw.images.picture2) {
-						html += '<img src="' + business.raw.images.picture2.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
-					}
-
-					if(business.raw.images.picture1) {				
-						html += '<img src="' + business.raw.images.picture1.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
-					}
-					if(html) {
-						profilePictures.setHtml(html);	
-					}
-				} else {
-					profilePictures.setHtml('');
-					profilePictures.setHidden(true);
-				}
-			}
-	},
-
+  	* Set radius on button in geosearch list.
+  	*
+  	*/
 	setRadiusButtonText: function(button, radius) {
 		Ext.Array.each(this.getDistanceOptions(), function(distance, index) {
 			if(distance.value == radius) {

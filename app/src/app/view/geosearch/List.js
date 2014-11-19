@@ -14,9 +14,10 @@ Ext.define('EatSense.view.geosearch.List', {
 		loadingText: i10n.translate('loadingMsg'),
 		itemCls: 'default-list-item',
 		itemTpl: new Ext.XTemplate(
+		'<tpl if="this.getLogoUrl(values)">',
 		// '<tpl if="values.raw.images && values.raw.images.logo && values.raw.images.logo.url">',
 			'<div class="thumbnail" style="background-image: url(\'{[this.getLogoUrl(values)]}=s256\')"></div>',
-		// '</tpl>',
+		'</tpl>',
 		'<div class="content">',
 			'<tpl if="distance">',
 				'<div class="distance">',
@@ -37,7 +38,7 @@ Ext.define('EatSense.view.geosearch.List', {
 		'</div>',
 		{
 			getLogoUrl: function(location) {
-				//TODO kinda ugly to query the store here
+				//TODO ugly to query the store here
 				var store = Ext.StoreManager.lookup('locationSearchStore'),
 					complete;
 				if(store) {

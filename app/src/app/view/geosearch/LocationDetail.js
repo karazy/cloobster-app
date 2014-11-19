@@ -310,11 +310,70 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 				} else {
 					fbBt.setHidden(true);
 				}
-			}	
+			}
+
+		this.showLocationProfilePictures(newValue);
 
 		} else {
 			//no location given
 			tpl.overwrite(content.element, '');
 		}
-	}
+	},
+
+	  	/**
+	* Show location profile pictures in location details.
+	* @param {EatSense.model.Business} business
+	*	Contains the profile information.
+	*/
+	showLocationProfilePictures: function(business) {
+		var panel = this,
+			infoHeader,
+			tpl,
+			html='<div></div>',
+			imagePanel,
+			scaleFactor = '=s720',
+			profilePicturesExist;	
+
+
+			if(!business) {
+				console.error('EatSense.view.geosearch.LocationDetail.showLocationProfilePictures: no business given');
+				return;	
+			}			
+
+			renderProfilePics(panel);
+		
+
+			function renderProfilePics(panel) {
+
+				profilePictures = panel.down('#profilePictures');
+
+				//show profile pictures in infopageoverview
+				if(business && business.raw && business.raw.images) {
+					//check for pictures
+					profilePicturesExist = business.raw.images.picture1 || business.raw.images.picture2 || business.raw.images.picture3;
+				}
+
+				if(profilePicturesExist) {
+					profilePictures.setHidden(false);									
+
+					if(business.raw.images.picture3) {
+						html += '<img src="' + business.raw.images.picture3.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
+					}
+
+					if(business.raw.images.picture2) {
+						html += '<img src="' + business.raw.images.picture2.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
+					}
+
+					if(business.raw.images.picture1) {				
+						html += '<img src="' + business.raw.images.picture1.url + scaleFactor + '" width="100%" height="auto" style="margin-top:5px;">';
+					}
+					if(html) {
+						profilePictures.setHtml(html);	
+					}
+				} else {
+					profilePictures.setHtml('');
+					profilePictures.setHidden(true);
+				}
+			}
+	},
 });
