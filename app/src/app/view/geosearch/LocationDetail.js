@@ -61,7 +61,7 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 								action: 'save-favorit',
 								margin: '7 30 0 7',
 								flex: 1,
-								text: i10n.translate('dashboard.button.tovisit'),
+								text: i10n.translate('save'),
 								baseCls: 'dashboard-button',
 								cls: ['dashboard-button-checkin', 'right'],								
 								pressedCls: 'dashboard-button-pressed',

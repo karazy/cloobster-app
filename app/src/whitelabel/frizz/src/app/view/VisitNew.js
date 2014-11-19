@@ -46,10 +46,11 @@ Ext.define('EatSense.view.VisitNew', {
 						xtype: 'fixedbutton',
 						ui: 'action',
 						action: 'create',
+						text: i10n.translate('save'),
 						align: 'right',
 						iconCls: 'check2',
 						iconMask: true,
-						flex: 1
+						//flex: 1
 					}					
 				]
 			},	
