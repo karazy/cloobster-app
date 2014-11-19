@@ -76,6 +76,11 @@ Ext.define('EatSense.util.Configuration', {
 		*/
 		iOSUrlScheme: 'cloobster',
 		/**
+		* @cfg {Number}
+		*	Timeout before a new gps positioning is issued.
+		*/
+		geoSearchTimeout: 30,
+		/**
 		* Returns value of a property.
 		* @param {String} property
 		* @return 

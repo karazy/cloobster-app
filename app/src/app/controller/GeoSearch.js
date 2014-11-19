@@ -17,7 +17,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		control: {
 			dashboardGeoSearchBt: {
 				tap: 'dashboardGeoSearchBtTapHandler'
-			},			
+			},
 			geoSearchViewContainer: {
 				show: 'showGeosearch'
 			}
@@ -33,6 +33,11 @@ Ext.define('EatSense.controller.GeoSearch', {
 		* Selected distance from user.
 		*/
 		selectedDistance: 5000,
+		/**
+		* @accessor
+		* Users last known position.
+		*/
+		lastPosition: null,
 		/**
 		* @accessor
 		* Distances available for search.
@@ -72,11 +77,13 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 
 		//load locations after distance was evaluated
-		appHelper.toggleMask('gps.locate', geoSearchList);
-		// distanceSelect.getValue()
-		this.loadLocationsByDistance(me.getSelectedDistance(), function(success, records) {
-			appHelper.toggleMask(false, geoSearchList);
-		});
+		if(me.isSearchAllowed(me.getSelectedDistance())) {
+			appHelper.toggleMask('gps.locate', geoSearchList);
+			this.loadLocationsByDistance(me.getSelectedDistance(), function(success, records) {
+				appHelper.toggleMask(false, geoSearchList);
+			});	
+		}
+		
 
 		container.on({
 			hide: cleanup,
@@ -105,7 +112,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 		
 		function changeRadius(newRadius) {
-			if(newRadius != me.getSelectedDistance()) {
+			if(me.isSearchAllowed(newRadius)) {
 				appHelper.toggleMask('gps.locate', geoSearchList);
 				me.loadLocationsByDistance(newRadius, function(success, records) {
 					appHelper.toggleMask(false, geoSearchList);
@@ -185,6 +192,40 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 	},
 
+	isSearchAllowed: function(distance) {
+		var me = this;
+
+		//check if a search is needed
+		if(distance != me.getSelectedDistance()) {
+			//proceed
+			return true;
+		} else if(me.getLastPosition() && me.getLastGeoSearchQueryTime()) {
+			var timeDiff = getTimeDiffInSec(me.getLastGeoSearchQueryTime());
+
+			if(timeDiff !== false && timeDiff <= appConfig.getProp('geoSearchTimeout')) {
+				//do nothing to prevent search to often	
+				return false;
+			}
+			
+		}
+
+		return true;
+
+		function getTimeDiffInSec(time) {
+			var d = (new Date()).getTime(),
+				diff;
+
+			try {
+				diff =	Math.round((d-time)/1000);
+			} catch(e) {
+				diff = false;
+				console.error('GeoSearch: failed to calculate time diff. ' + e);
+			}
+			
+			return diff;
+		}
+	},
+
 	/**
 	* Load locations based on users gps coords and a distance.
 	* @param {Number} distance
@@ -193,7 +234,8 @@ Ext.define('EatSense.controller.GeoSearch', {
 	*	Executed with params success and loaded records
 	*/
 	loadLocationsByDistance: function(distance, callback) {
-		var locationsStore,
+		var me = this,
+			locationsStore,
 			distance = distance || 2000,
 			currentPosition;
 
@@ -202,7 +244,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		if(!locationsStore) {
 			console.error('GeoSearch.loadLocationsByDistance: no store found');
 			return;
-		}		
+		}
 
 		//dont use a mask, otherwise rendering errors can occur
 		console.log('GeoSearch.loadLocationsByDistance: get position');
@@ -210,6 +252,8 @@ Ext.define('EatSense.controller.GeoSearch', {
           if(success) {
           	console.log('GeoSearch.loadLocationsByDistance: found position');
           	currentPosition = position;
+          	me.setLastPosition(currentPosition);
+          	me.setLastGeoSearchQueryTime((new Date()).getTime());
           	doLoadLocations();
           } else {
           	console.error('GeoSearch.loadLocationsByDistance: failed to get current position');
