@@ -1319,12 +1319,12 @@
 				},
 			    slots: [
 			        {
-
 			        	align: 'center',
 			        	valueField: 'name',
 			            displayField: 'name',
 			            title: i10n.translate('paymentPickerTitle'),
-			            store: availableMethods
+			            store: availableMethods,
+			            itemCls: 'slot-item-cls'
 			        }
 			    ]
 			});
