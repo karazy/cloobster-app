@@ -73,15 +73,22 @@ Ext.define('EatSense.view.geosearch.List', {
 					{
 						xtype: 'homebutton'
 					},
-					{
-				        xtype: 'selectfield',
-				        align: 'right',
-				        width: 100,
-				        options: [
-				            {text: '5km', value: '5000'},
-				            {text: '10km',  value: '10000'},
-				            {text: '20km',  value: '20000'}
-				        ]
+					// {
+				 //        xtype: 'selectfield',
+				 //        align: 'right',
+				 //        width: 100,
+				 //        itemCls: 'slot-item-cls',
+				 //        options: [
+				 //            {text: '5km', value: '5000'},
+				 //            {text: '10km',  value: '10000'},
+				 //            {text: '15km',  value: '15000'}
+				 //        ]
+				 //    },
+				    {
+				    	xtype: 'fixedbutton',
+				    	align: 'right',
+				    	text: 'Radius',
+				    	action: 'select-radius'
 				    }
 				]				
 			}

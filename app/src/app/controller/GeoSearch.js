@@ -31,7 +31,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		* @accessor
 		* Selected distance from user.
 		*/
-		selectedDistance: null
+		selectedDistance: 5000
 	},
 	
 	/**
@@ -55,15 +55,17 @@ Ext.define('EatSense.controller.GeoSearch', {
 		geoSearchList.show();
 
 		homeButton = geoSearchList.down('homebutton');
-		distanceSelect = geoSearchList.down('selectfield');
+		// distanceSelect = geoSearchList.down('selectfield');
+		distanceSelect = geoSearchList.down('button[action=select-radius]');
 
-		if(this.getSelectedDistance()) {
-			distanceSelect.setValue(this.getSelectedDistance());
-		}
+		// if(this.getSelectedDistance()) {
+		// 	distanceSelect.setValue(this.getSelectedDistance());
+		// }
 
 		//load locations after distance was evaluated
 		appHelper.toggleMask('gps.locate', geoSearchList);
-		this.loadLocationsByDistance(distanceSelect.getValue(), function(success, records) {
+		// distanceSelect.getValue()
+		this.loadLocationsByDistance(me.getSelectedDistance(), function(success, records) {
 			appHelper.toggleMask(false, geoSearchList);
 		});
 
@@ -77,8 +79,13 @@ Ext.define('EatSense.controller.GeoSearch', {
 			scope: this
 		});
 
+		// distanceSelect.on({
+		// 	change: distanceSelectChangeHandler,
+		// 	scope: this
+		// });
+
 		distanceSelect.on({
-			change: distanceSelectChangeHandler,
+			tap: distanceSelectTapHandler,
 			scope: this
 		});
 
@@ -94,13 +101,57 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 		
 		function distanceSelectChangeHandler(select, newVal, oldVal) {
-			if(newVal != oldVal) {
+			if(newVal != me.getSelectedDistance()) {
 				appHelper.toggleMask('gps.locate', geoSearchList);
-				this.loadLocationsByDistance(newVal, function(success, records) {
+				me.loadLocationsByDistance(newVal, function(success, records) {
 					appHelper.toggleMask(false, geoSearchList);
 				});	
-				this.setSelectedDistance(newVal);
+				me.setSelectedDistance(newVal);
 			}
+		}
+
+		function distanceSelectTapHandler(button) {
+			var slots = [{
+	            name: 'slotname',
+	            align: 'center',
+	            data: [
+	                {text: '5km', value: 5000},
+	                {text: '10km', value: 10000},
+	                {text: '15km', value: 15000}
+	            ],
+	            itemCls: 'slot-item-cls'
+	        }]; 
+			var picker = Ext.create('Ext.Picker', {
+	            action: 'set-radius',
+	            doneButton: i10n.translate('geosearch.radiuspicker.done'),
+	            cancelButton: i10n.translate('geosearch.radiuspicker.cancel'),
+	            // useTitles: !!title,
+	            'slots': slots,
+	            height: '13em',
+	            // data : [
+	            //     {text: '5km', value: 5000},
+	            //     {text: '10km', value: 10000},
+	            //     {text: '15km', value: 15000}
+	            // ]
+	            listeners: {
+	                change: change,
+	                // pick: callback.pick,
+	                cancel: function() {
+	                	picker.hide();
+	                	picker.destroy();
+	                }
+	            }
+	        });
+			Ext.Viewport.add(picker);
+	        picker.show();
+
+	        function change(picker, value) {
+
+	        	distanceSelectChangeHandler(null, value, null);
+
+	        	picker.hide();
+	        	picker.destroy();
+	        }
 		}
 
 		function cleanup() {
@@ -115,8 +166,13 @@ Ext.define('EatSense.controller.GeoSearch', {
 				scope: this
 			});
 
+			// distanceSelect.un({
+			// 	change: distanceSelectChangeHandler,
+			// 	scope: this
+			// });
+
 			distanceSelect.un({
-				change: distanceSelectChangeHandler,
+				tap: distanceSelectTapHandler,
 				scope: this
 			});
 

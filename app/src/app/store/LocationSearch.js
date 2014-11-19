@@ -7,4 +7,4 @@ Ext.define('EatSense.store.LocationSearch', {
 		// pageSize: 15,
 		// syncRemovedRecords: false
 	}
-});
+});	

@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 				serviceUrl: 'http://localhost:8888'
 			},
 			prod: {
-				serviceUrl: 'https://orion-dot-karazy-cloobster.appspot.com'								
+				serviceUrl: 'https://karazy-cloobster.appspot.com'								
 			},
 			qa: {
 				serviceUrl: 'https://cloobster-quality.appspot.com'

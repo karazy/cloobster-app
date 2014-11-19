@@ -46,24 +46,26 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 							{
 								xtype: 'fixedbutton',
 								action: 'checkin',
-								align: 'right',
 							    text: i10n.translate('tovisit.detail.sneakinbutton'),
 							    ui: 'action',
-							    // margin: '0 5 0 0',
 							    margin: '7 7 0 30',
-							    flex: 1
+							    flex: 1,
+							    baseCls: 'dashboard-button',
+							    cls: ['dashboard-button-checkin', 'right'],								
+								pressedCls: 'dashboard-button-pressed',
+								labelCls: 'dashboard-button-label'
 							},
 							{
 								xtype: 'fixedbutton',
-								// iconCls: 'tovisit-icon',
-								// iconMask: true,
 								ui: 'action',
 								action: 'save-favorit',
-								align: 'right',
-								// margin: '0 0 0 5',
 								margin: '7 30 0 7',
 								flex: 1,
 								text: i10n.translate('dashboard.button.tovisit'),
+								baseCls: 'dashboard-button',
+								cls: ['dashboard-button-checkin', 'right'],								
+								pressedCls: 'dashboard-button-pressed',
+								labelCls: 'dashboard-button-label'
 							}
 						]
 					},	
