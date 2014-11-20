@@ -68,7 +68,7 @@ Ext.define('EatSense.view.contactinfo.Info', {
 						align: 'right',
 						margin: '0 0 0 5',
 						flex: 1,
-						text: i10n.translate('dashboard.button.tovisit'),
+						text: i10n.translate('dashboard.button.tovisit')
 					}
 				]
 			},	

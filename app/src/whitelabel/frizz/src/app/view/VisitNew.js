@@ -49,8 +49,7 @@ Ext.define('EatSense.view.VisitNew', {
 						text: i10n.translate('save'),
 						align: 'right',
 						iconCls: 'check2',
-						iconMask: true,
-						//flex: 1
+						iconMask: true
 					}					
 				]
 			},	

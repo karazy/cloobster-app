@@ -30,10 +30,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			}, 
 			contactInfoShowMapsBt: {
 				tap: 'showMapsBtTapHandler'
-			},
-			// contactInfoMapsBackBt: {
-			// 	tap: 'backToContactInfo'
-			// }
+			}
 		},
 		//the location to display
 		location: null,
