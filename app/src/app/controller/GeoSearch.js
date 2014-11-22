@@ -40,6 +40,11 @@ Ext.define('EatSense.controller.GeoSearch', {
 		lastPosition: null,
 		/**
 		* @accessor
+		* Locations near user.
+		*/
+		locations: null,
+		/**
+		* @accessor
 		* Distances available for search.
 		*/
 		distanceOptions: [
@@ -77,11 +82,22 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 
 		//load locations after distance was evaluated
-		if(me.isSearchAllowed(me.getSelectedDistance())) {
+		if(me.isNewSearchAllowed(me.getSelectedDistance())) {
 			appHelper.toggleMask('gps.locate', geoSearchList);
-			this.loadLocationsByDistance(me.getSelectedDistance(), function(success, records) {
-				appHelper.toggleMask(false, geoSearchList);
-			});	
+			me.locateUser(function(success, position) {
+				if(success) {					
+					// appHelper.toggleMask('loadingMsg', geoSearchList);
+					me.loadLocationsByDistance(me.getSelectedDistance(), position, function(success, records) {
+						// geoSearchList.setData(records);
+						appHelper.toggleMask(false, geoSearchList);
+					});		
+				} else {
+					appHelper.toggleMask(false, geoSearchList);
+				}
+			});			
+		} else if(me.getLocations()) {
+			// a search has been performed and a new search is not possible
+			// geoSearchList.setData(me.getLocations());
 		}
 		
 
@@ -112,11 +128,20 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 		
 		function changeRadius(newRadius) {
-			if(me.isSearchAllowed(newRadius)) {
+			if(me.isNewSearchAllowed(newRadius)) {
 				appHelper.toggleMask('gps.locate', geoSearchList);
-				me.loadLocationsByDistance(newRadius, function(success, records) {
-					appHelper.toggleMask(false, geoSearchList);
-				});	
+				me.locateUser(function(success, position) {
+					if(success) {
+						// appHelper.toggleMask('loadingMsg', geoSearchList);	
+						me.loadLocationsByDistance(newRadius, position, function(success, records) {
+							// geoSearchList.setData(records);
+							appHelper.toggleMask(false, geoSearchList);
+						});	
+					} else {
+						appHelper.toggleMask(false, geoSearchList);
+					}									
+				});
+				
 				me.setSelectedDistance(newRadius);
 			}
 		}
@@ -163,7 +188,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 	        }
 		}
 
-		function cleanup() {
+		function cleanup() {			
 
 			container.un({
 				hide: cleanup,
@@ -192,7 +217,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 		}
 	},
 
-	isSearchAllowed: function(distance) {
+	isNewSearchAllowed: function(distance) {
 		var me = this;
 
 		//check if a search is needed
@@ -227,53 +252,111 @@ Ext.define('EatSense.controller.GeoSearch', {
 	},
 
 	/**
-	* Load locations based on users gps coords and a distance.
-	* @param {Number} distance
-	*	In meters.
-	* @param {Function} callback (optional)
-	*	Executed with params success and loaded records
+	* Get users position.
+	* @param {Function} callback
 	*/
-	loadLocationsByDistance: function(distance, callback) {
-		var me = this,
-			locationsStore,
-			distance = distance || 2000,
-			currentPosition;
+	locateUser: function(callback) {
+		var me = this;
 
-		locationsStore = Ext.StoreManager.lookup('locationSearchStore');
-
-		if(!locationsStore) {
-			console.error('GeoSearch.loadLocationsByDistance: no store found');
-			return;
-		}
-
-		//dont use a mask, otherwise rendering errors can occur
-		console.log('GeoSearch.loadLocationsByDistance: get position');
+		console.log('GeoSearch.locateUser: get position');
         appHelper.getCurrentPosition(function(success, position) {        	
           if(success) {
-          	console.log('GeoSearch.loadLocationsByDistance: found position');
+          	console.log('GeoSearch.locateUser: found position');
           	currentPosition = position;
           	me.setLastPosition(currentPosition);
           	me.setLastGeoSearchQueryTime((new Date()).getTime());
-          	doLoadLocations();
+          	if(appHelper.isFunction(callback)) {
+				callback(true, currentPosition);
+			}
           } else {
-          	console.error('GeoSearch.loadLocationsByDistance: failed to get current position');
+          	console.error('GeoSearch.locateUser: failed to get current position');
           	appHelper.showNotificationBox(i10n.translate('error.gps.position'), 2000);
           	if(appHelper.isFunction(callback)) {
 				callback(false);
 			}
           }                  
        });
+	},
 
-        function doLoadLocations() {        	
-        	//empty store before reloading
-        	appHelper.clearStore('locationSearchStore', true);
+	/**
+	* Load locations based on users gps coords and a distance.
+	* @param {Number} distance (default=5000)
+	*	In meters.
+	* @param {GeoPos} position
+	*	The geo position
+	* @param {Function} callback (optional)
+	*	Executed with params success and loaded records
+	*/
+	loadLocationsByDistance: function(distance, position, callback) {
+		var me = this,
+			distance = distance || 5000,
+			locationsStore = Ext.StoreManager.lookup('locationSearchStore'),
+			currentPosition = position;
+
+		if(!position) {
+			console.error('GeoSearch.loadLocationsByDistance: no position given');
+			return;
+		}
+
+		if(!locationsStore) {
+			console.error('GeoSearch.loadLocationsByDistance: no store exists');
+			return;
+		}
+
+		//dont use a mask, otherwise rendering errors can occur
+		// console.log('GeoSearch.loadLocationsByDistance: get position');
+  //       appHelper.getposition(function(success, position) {        	
+  //         if(success) {
+  //         	console.log('GeoSearch.loadLocationsByDistance: found position');
+  //         	currentPosition = position;
+  //         	me.setLastPosition(currentPosition);
+  //         	me.setLastGeoSearchQueryTime((new Date()).getTime());
+  //         	doLoadLocations();
+  //         } else {
+  //         	console.error('GeoSearch.loadLocationsByDistance: failed to get current position');
+  //         	appHelper.showNotificationBox(i10n.translate('error.gps.position'), 2000);
+  //         	if(appHelper.isFunction(callback)) {
+		// 		callback(false);
+		// 	}
+  //         }                  
+  //      });
+       	
+        	
         	///c/businesses?geolat=49.877823&geolong=8.654780&distance=50000        
         	console.log('GeoSearch.loadLocationsByDistance: load location');
+        	
+    //     	Ext.Ajax.request({
+    //     		url: appConfig.getProp('serviceUrl') + '/c/businesses',
+    //     		method: 'GET',
+    //     		scope: this,
+    //     		params: {
+				// 	'distance': distance,
+				// 	'geolat': position.coords.latitude,
+	   //              'geolong' : position.coords.longitude
+				// },
+    //     		success: function(response) {
+    //     			var results = Ext.JSON.decode(response.responseText);
+
+    //     			me.setLocations(results);
+
+    //     			if(appHelper.isFunction(callback)) {
+				// 		callback(true, results);
+				// 	}
+    //     		},
+    //     		failure: function(response) {
+    //     			if(appHelper.isFunction(callback)) {
+				// 		callback(false);
+				// 	}
+    //     		}
+    //     	});
+			
+			//empty store before reloading
+        	appHelper.clearStore('locationSearchStore', true);
 			locationsStore.load({
 				params: {
 					'distance': distance,
-					'geolat': currentPosition.coords.latitude,
-	                'geolong' : currentPosition.coords.longitude
+					'geolat': position.coords.latitude,
+	                'geolong' : position.coords.longitude
 				},
 				callback: function(records, operation, success) {
 					// if(success) { The bug in ST 2.1 when empty array is submitted
@@ -289,7 +372,7 @@ Ext.define('EatSense.controller.GeoSearch', {
 			    },
 				scope: this
 			});
-        }
+        
 
 	},
 

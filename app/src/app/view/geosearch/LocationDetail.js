@@ -147,7 +147,8 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 						iconMask: true,
 						hidden: true,
 						ui: 'action',
-						margin: '10 0 0 0'
+						margin: '10 0 0 0',
+						cls: 'roboto-light'
 					},
 					{
 						xtype: 'fixedbutton',
@@ -157,7 +158,8 @@ Ext.define('EatSense.view.geosearch.LocationDetail', {
 						iconMask: true,
 						hidden: true,
 						ui: 'action',
-						margin: '10 0 0 0'
+						margin: '10 0 0 0',
+						cls: 'roboto-light'
 					},
 					{
 						xtype: 'label',

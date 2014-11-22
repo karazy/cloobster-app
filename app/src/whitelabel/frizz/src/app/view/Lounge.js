@@ -190,7 +190,7 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'club'
 			},
 			{
-				title: i10n.translate('dashboard.button.tovisit'),
+				title: i10n.translate('save'),
 				viewState: 'club',
 				iconCls: 'favorite-icon',
 				leaf: true,

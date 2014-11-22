@@ -188,7 +188,7 @@ module.exports = function(grunt) {
 		      },
 		    compass: {
 		        files: ['<%= settings.directory.src %>/res/<%= grunt.option("whitelabel") %>/**/*.{scss,sass}'],
-		        tasks: ['compass:compile', 'copy:resources']
+		        tasks: ['copy:resources', 'compass:compile']
 		    },
 		    gruntfile: {
 		        files: ['Gruntfile.js']

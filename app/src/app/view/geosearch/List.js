@@ -5,18 +5,17 @@
 Ext.define('EatSense.view.geosearch.List', {
 	extend: 'Ext.List',
 	xtype: 'geosearchlist',
-	requires: ['Ext.field.Select'],
+	requires: ['Ext.picker.Picker'],
 	config: {
 		store: 'locationSearchStore',
 		cls: 'geosearch-list',
-		scollToTopOnRefresh: true,
+		// scollToTopOnRefresh: true,
 		emptyText: i10n.translate('geosearch.list.nolocations'),
 		loadingText: i10n.translate('loadingMsg'),
 		itemCls: 'default-list-item',
 		itemTpl: new Ext.XTemplate(
-		'<tpl if="this.getLogoUrl(values)">',
-		// '<tpl if="values.raw.images && values.raw.images.logo && values.raw.images.logo.url">',
-			'<div class="thumbnail" style="background-image: url(\'{[this.getLogoUrl(values)]}=s256\')"></div>',
+		'<tpl if="values.images && values.images.logo && values.images.logo.url">',
+			'<div class="thumbnail" style="background-image: url(\'{[values.images.logo.url]}=s256\')"></div>',
 		'</tpl>',
 		'<div class="content">',
 			'<tpl if="distance">',
@@ -37,20 +36,6 @@ Ext.define('EatSense.view.geosearch.List', {
 			'</div>',
 		'</div>',
 		{
-			getLogoUrl: function(location) {
-				//TODO ugly to query the store here
-				var store = Ext.StoreManager.lookup('locationSearchStore'),
-					complete;
-				if(store) {
-					complete = store.getById(location.id);
-				}
-
-				if(complete.raw.images && complete.raw.images.logo && complete.raw.images.logo.url) {
-					return complete.raw.images.logo.url;
-				}
-				
-				return "";
-			},
 			convertMeterToKM: function(distance) {
 				var formatted;
 
