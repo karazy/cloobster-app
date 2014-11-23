@@ -5,17 +5,16 @@ Each subfolder contains one cordova project that represents a whitelabel.
 
 ##List of used cordova plugins for project setup:
 com.borismus.webintent 1.0.0 "WebIntent"
-com.phonegap.plugins.barcodescanner 2.0.0 "BarcodeScanner"
-com.phonegap.plugins.facebookconnect 0.7.0 "Facebook Connect"
-org.apache.cordova.camera 0.3.0 "Camera"
-org.apache.cordova.console 0.2.9 "Console"
-org.apache.cordova.device 0.2.10 "Device"
-org.apache.cordova.file 1.2.0 "File"
-org.apache.cordova.file-transfer 0.4.4 "File Transfer"
-org.apache.cordova.geolocation 0.3.8 "Geolocation"
-org.apache.cordova.inappbrowser 0.5.0 "InAppBrowser"
-org.apache.cordova.network-information 0.2.10 "Network Information"
-org.apache.cordova.splashscreen 0.3.1 "Splashscreen"
+com.phonegap.plugins.barcodescanner 2.0.1 "BarcodeScanner"
+org.apache.cordova.camera 0.3.3 "Camera"
+org.apache.cordova.console 0.2.11 "Console"
+org.apache.cordova.device 0.2.12 "Device"
+org.apache.cordova.file 1.3.1 "File"
+org.apache.cordova.file-transfer 0.4.7 "File Transfer"
+org.apache.cordova.geolocation 0.3.10 "Geolocation"
+org.apache.cordova.inappbrowser 0.5.3 "InAppBrowser"
+org.apache.cordova.network-information 0.2.13 "Network Information"
+org.apache.cordova.splashscreen 0.3.4 "Splashscreen"
 
 ###Install Plugins
 cordova plugins add com.phonegap.plugins.barcodescanner org.apache.cordova.camera org.apache.cordova.console org.apache.cordova.device org.apache.cordova.file org.apache.cordova.file-transfer org.apache.cordova.geolocation org.apache.cordova.inappbrowser org.apache.cordova.network-information org.apache.cordova.splashscreen https://github.com/Initsogar/cordova-webintent

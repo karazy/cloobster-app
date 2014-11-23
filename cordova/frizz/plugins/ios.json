@@ -85,12 +85,6 @@
                             "count": 1
                         }
                     ],
-                    "AdSupport.framework": [
-                        {
-                            "xml": "true",
-                            "count": 1
-                        }
-                    ],
                     "Security.framework": [
                         {
                             "xml": "true",
@@ -107,6 +101,14 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         },
@@ -120,6 +122,10 @@
                         },
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
                         },
                         {
@@ -161,24 +167,18 @@
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
             },
             "*-Info.plist": {
                 "parents": {
+                    "NSLocationWhenInUseUsageDescription": [
+                        {
+                            "xml": "<string />",
+                            "count": 2
+                        }
+                    ],
                     "FacebookAppID": [
                         {
                             "xml": "<string>359215437471990</string>",
@@ -196,19 +196,19 @@
                             "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb359215437471990</string></array></dict></array>",
                             "count": 1
                         }
-                    ],
-                    "NSLocationWhenInUseUsageDescription": [
-                        {
-                            "xml": "<string />",
-                            "count": 2
-                        }
                     ]
                 }
             }
         }
     },
     "installed_plugins": {
+        "com.borismus.webintent": {
+            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
+        },
         "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
+        },
+        "org.apache.cordova.camera": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
         "org.apache.cordova.console": {
@@ -223,6 +223,9 @@
         "org.apache.cordova.file-transfer": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
+        "org.apache.cordova.geolocation": {
+            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
+        },
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
@@ -232,18 +235,9 @@
         "org.apache.cordova.splashscreen": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         },
-        "com.borismus.webintent": {
-            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
-        },
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "359215437471990",
             "APP_NAME": "Cloobster",
-            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
-        },
-        "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "net.karazy.cloobster.frizz"
-        },
-        "org.apache.cordova.geolocation": {
             "PACKAGE_NAME": "net.karazy.cloobster.frizz"
         }
     },

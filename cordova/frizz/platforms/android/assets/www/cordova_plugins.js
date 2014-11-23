@@ -1,10 +1,45 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/com.borismus.webintent/www/webintent.js",
+        "id": "com.borismus.webintent.WebIntent",
+        "clobbers": [
+            "WebIntent"
+        ]
+    },
+    {
         "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
         "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
         "clobbers": [
             "cordova.plugins.barcodeScanner"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
+        "id": "org.apache.cordova.camera.Camera",
+        "clobbers": [
+            "Camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js",
+        "id": "org.apache.cordova.camera.CameraPopoverOptions",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/Camera.js",
+        "id": "org.apache.cordova.camera.camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js",
+        "id": "org.apache.cordova.camera.CameraPopoverHandle",
+        "clobbers": [
+            "CameraPopoverHandle"
         ]
     },
     {
@@ -204,63 +239,28 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/com.borismus.webintent/www/webintent.js",
-        "id": "com.borismus.webintent.WebIntent",
-        "clobbers": [
-            "WebIntent"
-        ]
-    },
-    {
         "file": "plugins/com.phonegap.plugins.facebookconnect/www/phonegap/plugin/facebookConnectPlugin/facebookConnectPlugin.js",
         "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
         "clobbers": [
-            "window.facebookConnectPlugin"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
-        "id": "org.apache.cordova.camera.Camera",
-        "clobbers": [
-            "Camera"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js",
-        "id": "org.apache.cordova.camera.CameraPopoverOptions",
-        "clobbers": [
-            "CameraPopoverOptions"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.camera/www/Camera.js",
-        "id": "org.apache.cordova.camera.camera",
-        "clobbers": [
-            "navigator.camera"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js",
-        "id": "org.apache.cordova.camera.CameraPopoverHandle",
-        "clobbers": [
-            "CameraPopoverHandle"
+            "facebookConnectPlugin"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.phonegap.plugins.barcodescanner": "2.0.0",
-    "org.apache.cordova.console": "0.2.10",
-    "org.apache.cordova.device": "0.2.11",
-    "org.apache.cordova.file": "1.3.0",
-    "org.apache.cordova.file-transfer": "0.4.5",
-    "org.apache.cordova.inappbrowser": "0.5.1",
-    "org.apache.cordova.network-information": "0.2.11",
-    "org.apache.cordova.splashscreen": "0.3.2",
     "com.borismus.webintent": "1.0.0",
-    "com.phonegap.plugins.facebookconnect": "0.8.0",
+    "com.phonegap.plugins.barcodescanner": "2.0.1",
     "org.apache.cordova.camera": "0.3.3",
-    "org.apache.cordova.geolocation": "0.3.10"
+    "org.apache.cordova.console": "0.2.11",
+    "org.apache.cordova.device": "0.2.12",
+    "org.apache.cordova.file": "1.3.1",
+    "org.apache.cordova.file-transfer": "0.4.7",
+    "org.apache.cordova.geolocation": "0.3.10",
+    "org.apache.cordova.inappbrowser": "0.5.3",
+    "org.apache.cordova.network-information": "0.2.13",
+    "org.apache.cordova.splashscreen": "0.3.4",
+    "com.phonegap.plugins.facebookconnect": "0.9.0"
 }
 // BOTTOM OF METADATA
 });

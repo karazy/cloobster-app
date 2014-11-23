@@ -67,7 +67,8 @@ Ext.define('EatSense.controller.StoreCard', {
 	
 		scConfig = checkInCtr.getActiveBusiness().raw.configuration.storecard;	
 		activeLocationId = checkInCtr.getActiveBusiness().get('id');
-
+		//TODO improve loading and caching for faster response times
+		//also mask during loading?!
 		me.loadStoreCardByLocationId(activeLocationId, function(success, sc) {
 			if(success) {
 				me.setCurrentStoreCard(sc);
