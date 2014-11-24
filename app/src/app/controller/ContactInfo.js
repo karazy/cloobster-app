@@ -35,7 +35,7 @@ Ext.define('EatSense.controller.ContactInfo', {
 			'showmapforlocation' : this.showMaps,
 			scope: this
 		});
-	}
+	},
 	
 	/**
 	* Show event handler for {@link EatSense.view.ContactInfo}.

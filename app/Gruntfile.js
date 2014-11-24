@@ -358,8 +358,9 @@ module.exports = function(grunt) {
 		}
 
 		//skip copy for prod, can be used to build for desktop
-		if(grunt.option('skipCopy') && !grunt.option('skipCopy') == true) {
+		if(grunt.option('skipCopy') && grunt.option('skipCopy') == true) {
 			grunt.option('skipCopy', true);
+			console.log('Skip copy');
 		}
 
 		_server = checkEnvironments(server);
@@ -371,7 +372,7 @@ module.exports = function(grunt) {
 
 		console.log('Using server ' + grunt.option('server'));
 		console.log('Using whitelabel ' + grunt.option('whitelabel'));
-		console.log('Build mode ' + grunt.option('buildMode'));
+		console.log('Build mode ' + grunt.option('buildMode'));		
 	}
 
 	function checkEnvironments(env) {

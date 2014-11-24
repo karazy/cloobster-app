@@ -2106,6 +2106,32 @@ Ext.define('EatSense.util.Translations',{
 			"DE" :  "Ungültige Zeichen in Kundennummer.",
 			"EN" : "Invalid symbols in customer number."
 		},
+		//geosearch
+		"geosearch.title" : {
+			"DE" :  "Suche",
+			"EN" : "Search"
+		},
+		"geosearch.radius" : {
+			"DE" : "Radius",
+			"EN" : "Radius"
+		},
+		"geosearch.list.nolocations" : {
+			"DE" : "<div class='empty-image'></div><div>Keine Locations in der Nähe gefunden.</div>",
+			"EN" : "<div class='empty-image'></div><div>No locations near you found.</div>"
+		},
+		"geosearch.radiuspicker.done" : {
+			"DE" :  "Suchen",
+			"EN" : "Search"
+		},
+		"dashboard.button.geosearch" : {
+			"DE" :  "Suche",
+			"EN" : "Search"
+		},
+		//gps
+		"gps.locate" : {
+			"DE" :  "lokalisiere...",
+			"EN" : "locating..."
+		},
 		//errors
 		"error" : {
 			"DE" :  "Fehler",
