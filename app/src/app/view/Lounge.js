@@ -88,13 +88,22 @@ Ext.define('EatSense.view.Lounge', {
 				viewState: 'cloobster'
 			},
 			{
-                xtype: 'menucontainer',
-                title: i10n.translate('geosearch.title'),
-                leaf: true,
-                action: 'show-locationsearch',
-                iconCls: 'places-icon',
-                viewState: 'cloobster'
+                    xtype: 'placesoverview',
+                    title: i10n.translate('dashboard.button.history'),
+                    leaf: true,
+                    action: 'show-places',
+                    iconCls: 'time-icon',
+                    viewState: 'cloobster',
+                    accountRequired: true
             },
+			// {
+   //              xtype: 'menucontainer',
+   //              title: i10n.translate('geosearch.title'),
+   //              leaf: true,
+   //              action: 'show-locationsearch',
+   //              iconCls: 'places-icon',
+   //              viewState: 'cloobster'
+   //          },
 			{
 				xtype: 'clubarea',
 				title: i10n.translate('slidenav.button.home'),

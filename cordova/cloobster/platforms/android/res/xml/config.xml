@@ -1,10 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="net.karazy.cloobster" version="2.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="net.karazy.cloobster" version="2.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
-    <preference name="AndroidLaunchMode" value="singleTop" />
-    <feature name="App">
-        <param name="android-package" value="org.apache.cordova.App" />
-    </feature>
     <name>Cloobster</name>
     <description>
         Cloobster the hotel app
@@ -14,7 +10,4 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="BarcodeScanner">
-        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
-    </feature>
 </widget>

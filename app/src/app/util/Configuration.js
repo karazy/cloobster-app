@@ -41,7 +41,7 @@ Ext.define('EatSense.util.Configuration', {
 		* @cfg {Boolean}
 		* Set to true if profile pictures in infopage section should not be rendered.
 		*/
-		disableInfopageProfilePics: false,
+		disableInfopageProfilePics: true,
 		/** 
 		* @cfg {String}
 		* Set to 'cloobster' too show Demo Button, 'none' to hide the demo button in slidenavigation.
